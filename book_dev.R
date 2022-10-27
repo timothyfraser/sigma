@@ -6,6 +6,14 @@
 # Load packages.
 library(bookdown)
 library(tidyverse)
+library(usethis)
+library(credentials)
+library(gert)
+
+
+# Login to Github with Personal Access Token (PAT)
+library(credentials)
+set_github_pat(force_new = TRUE)
 
 
 # Set directory to the boodata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAWElEQVR42mNgGPTAxsZmJsVqQApgmGw1yApwKcQiT7phRBuCzzCSDSHGMKINIeDNmWQlA2IigKJwIssQkHdINgxfmBBtGDEBS3KCxBc7pMQgMYE5c/AXPwAwSX4lV3pTWwAAAABJRU5ErkJggg==k itself;
@@ -18,9 +26,7 @@ unlink("_main.Rmd")
 bookdown::render_book(input = "index.Rmd", output_dir = "docs")
 
 
-# Push to github
-library(credentials)
-set_github_pat(force_new = TRUE)
+
 
 
 

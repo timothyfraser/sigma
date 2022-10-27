@@ -13,8 +13,20 @@ biblio-style: apalike
 link-citations: yes
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
+```{r setup, include=FALSE, message=FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(bookdown)
+library(htmltools)
+source("f/images.R")
+```
+
+
+
+```{r img_cover, out.width = "100%", echo=FALSE, fig.cap=i$img_cover$caption}
+i[["img_cover"]]$file %>%
+  knitr::include_graphics()
 ```
 
 # Hello World
