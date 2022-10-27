@@ -15,9 +15,14 @@ getwd()
 # Delete any existing copy of the book
 unlink("_main.Rmd")
 # Render the book!
-bookdown::render_book(input = "index.Rmd")
+bookdown::render_book(input = "index.Rmd", output_dir = "docs")
 
 
 # Push to github
 library(credentials)
 set_github_pat(force_new = TRUE)
+
+
+
+
+
