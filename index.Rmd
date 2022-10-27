@@ -4,9 +4,26 @@ author: "Timothy Fraser"
 date: "`r Sys.Date()`"
 site: "bookdown::bookdown_site"
 output:
-  bookdown::gitbook: default
-  #bookdown::pdf_book: default
+  bookdown::gitbook:
+    fig_caption: TRUE
+    number_sections: TRUE
+    self_contained: FALSE
+    split_by: "chapter"
+    config:
+      toc:
+        collapse: subsection
+        scroll_highlight: true
+      toolbar:
+        position: fixed
+      fontsettings:
+        theme: "black"
+        family: sans
+        size: 3
+      info: true
+      sharing: false
 documentclass: book
+# Only needed for other document classes:
+# pandoc_args: --top-level-division=chapter
 # Add bibliography bibtex files
 bibliography: ["book.bib", "packages.bib"]
 biblio-style: apalike
@@ -15,13 +32,25 @@ link-citations: yes
 
 
 ```{r setup, include=FALSE, message=FALSE, warning = FALSE}
+# Set options
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+# Load packages
 library(tidyverse)
 library(bookdown)
 library(htmltools)
-source("f/images.R")
-```
 
+# Clear environment
+rm(list = ls())
+
+# Load all functions in the f directory
+funs = dir("f", full.names = TRUE)
+funs %>% map(~source(.))
+
+# Update any static data for us.
+update(images = FALSE)
+i = images() # Load images metadata list
+```
 
 
 ```{r img_cover, out.width = "100%", echo=FALSE, fig.cap=i$img_cover$caption}
@@ -29,7 +58,7 @@ i[["img_cover"]]$file %>%
   knitr::include_graphics()
 ```
 
-# Hello World
+# Introduction {#introduction}
 
 Hi.
 

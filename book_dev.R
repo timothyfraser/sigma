@@ -26,9 +26,8 @@ unlink("_main.Rmd")
 bookdown::render_book(input = "index.Rmd", output_dir = "docs")
 
 
-
-
-
-
+# Assuming we're happy, commit it!
+git_commit_all(message = "OK!")
+git_push() # Push to Github!
 
 
