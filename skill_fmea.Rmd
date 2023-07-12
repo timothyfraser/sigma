@@ -1,0 +1,341 @@
+---
+title: "Skill: Failure Modes and Effects Analysis in R"
+subtitle: "R Companion Code"
+author: "Timothy Fraser"
+date: "`r Sys.Date()`"
+output:
+  rmdformats::downcute:
+    self_contained: true
+    default_style: "light"
+    downcute_theme: "default"
+---
+
+```{r setup, include=FALSE}
+## Global options
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+library(knitr)
+library(kableExtra)
+library(magick)
+library(tidyverse)
+library(DiagrammeR)
+
+```
+
+This tutorial will introduce you to **Failure Modes and Effects Analysis (FMEA)** in R!
+
+# 0. Getting Started
+
+Please open up your project on RStudio.Cloud, for our [Github class repository](https://github.com/timothyfraser/sysen). Start a new R script (File \>\> New \>\> R Script). Save the R script as `lesson_3.R`. And let's get started!
+
+## 0.1 Load Packages
+
+```{r}
+# Load tidyverse, which contains dplyr and most data wrangling functions
+library(tidyverse)
+# Load DiagrammeR, which we'll use to make diagrams today!
+library(DiagrammeR) 
+
+```
+
+# 1. Example: Ben and Jerry's Ice Cream
+
+Ben and Jerry's main headquarters is in Waterbury, VT, just outside of Burlington, where it makes *a lot* of ice cream. (It's also fun to visit.) Their staff likely has to take considerable care to make sure that all that ice cream stays refrigerated! Suppose Ben and Jerry's has decided to build a new ice cream production plant in Ithaca, NY.
+
+For the sake of Ben and Jerry's (nay, the world!) let's use Failure Modes and Effects Analysis (FMEA) to identify any hypothetical vulnerability that might occur at this new ice cream business!
+
+```{r, echo = FALSE, fig.height=0.5, fig.align='center'}
+# Ben & Jerry's Ice Cream Image
+knitr::include_graphics("https://www.benjerry.com/files/live/sites/systemsite/files/flavors/category-refresh/header_mobile_0019_our_flavors_US.jpg")
+```
+
+## Scope & Resolution
+
+As our scope, we're going to just focus on **melting**. What are all the possible ways that ice cream could melt during this process? Melting would have several negative impacts, such as getting exposed to heat, bacteria, and, worst of all, melting the ice cream! This example is primarily people-centric, because it's important to remember that *people* are part of our technological systems!
+
+Before proceeding, please check out our tutorial on making `mermaid` charts! (Estimated time: 10 minutes.) You'll learn how to make the chart used `below`!
+
+<br>
+<br>
+
+# 2. Measuring Criticality
+
+FMEA includes uses 3 measures to calculate a **criticality** index, meaning the *overall risk of each combination of severity and underlying conditions.*
+
+\$ severity \times occurence \times detection = criticality \$
+
+Each gets classified on a scale from 1-10:
+
+-   `severity`: 1 = none, 10 = hazardous/catastrophic
+
+-   `occurrence`: 1 = almost impossible, 10 = almost certain
+
+-   `detection`: 1 = almost certain, 10 = almost impossible
+
+These will produce a `criticality` index from 1 to 1000. Suppose we want to be 99% sure that our technology won't fail and negatively impact society. We would need a `criticality` index (also known as RPN) of `990` points or less! (Because `1000 - 10 = 990)`.)
+
+So, let's analyze them!
+
+# 3. Ben & Jerry's
+
+## Block Diagram
+
+Below, we've visualized what the process of shipping out ice cream looks like once it has been made, using `mermaid`. This involves the following several steps:
+
+- Worker 1 puts ice cream in Freezer
+
+- Worker 2 loads ice cream into Truck
+
+- Worker 3 transports ice cream to Store
+
+- Also, Worker 2 takes the ice cream from the Freezer for loading
+
+- And Worker 3 drives the ice cream from loading dock to Store
+
+Plus, several possible failure modes are involved, as discussed below.
+
+```{r, fig.cap = "Ben & Jerry's Ice Cream Block Diagram", echo = FALSE, fig.height = 4, out.width="100%"}
+# Borrowed from our mermaid tutorial...
+
+# Get the basic graph, going left-to-right
+intro <- "graph LR"
+
+subgraph_people <- c(
+  # Make a subgraph
+  "subgraph People",
+    # Draw people in circles with ()
+    "w1(Worker 1)",
+    "w2(Worker 2)",
+    "w3(Worker 3)",
+  # Conclude the subgraph
+  "end") %>%
+  # remember to bind it together
+  paste(collapse = "\n")
+
+subgraph_events <- paste(
+  # Make another subgraph
+  "subgraph Events",
+    # Draw events as boxes with []
+    "freezer[Freeze<br>Ice Cream]",
+    "loading[Load<br>onto Truck]",
+    "transport[Transport<br>to Store]",
+  # Conclude the subgraph
+  "end",
+  sep = "\n ")
+
+# Draw main ties
+ties  <- paste(
+  # Worker 1 puts ice cream in Freezer
+  "w1 --> freezer",
+  # Worker 2 loads ice cream into Truck
+  "w2 --> loading",
+  # Worker 3 transports ice cream to Store
+  "w3 --> transport",
+  # Also, Worker 2 takes the ice cream from the Freezer for loading
+  "freezer --> w2",
+  # And Worker 3 drives the ice cream from loading dock to Store
+  "loading --> w3",
+  sep = "\n ")
+
+subgraph_fail <- c(
+  # Make another subgraph
+  "subgraph Failures",
+    "fail_break[freezer breaks]",
+    "fail_time[left out too long]",
+    "fail_eat[worker eats it]",
+  # Conclude subgraph
+  "end") %>%
+  # Bind it!
+  paste(collapse = "\n ")
+
+failures <- c(
+  # Worker 1 could leave ice cream out before freezing
+  #"w1 --> fail_time",
+  # Worker 1 could eat the ice cream before freezing
+  #"w1 --> fail_eat",
+  # Frezzer could break
+  "freezer --> fail_break",
+  # Worker 2 could leave ice cream out while loading
+  "loading --> fail_time",
+  # Worker 2 could eat the ice cream while loading
+  "loading --> fail_eat",
+  # Worker 3 could leave the ice cream out in transit
+  "transport --> fail_time",
+  # Worker 3 could eat the ice cream in transit
+  "transport --> fail_eat") %>%
+  # bind it!
+  paste(collapse = "\n ")
+
+
+c("graph LR", 
+    # Add subgraphs of nodes
+    subgraph_people,
+    subgraph_events,
+    # Add ties
+  ties,
+    # Add subgraph of failure nodes  
+      subgraph_fail,
+    # Add ways possible failures
+      failures
+  ) %>%
+  # Paste them together
+  paste(collapse = "\n ") %>%
+  # And visualize it!
+  mermaid()
+
+```
+
+## Failure Modes
+
+We'll make a tidy `data.frame()` of each of the ways our `block diagram` above could fail, which were contained above in `failures`. We'll call this data.frame `f`.
+
+```{r}
+f <- tibble(
+  # Make a vector of routes to failure
+  failure_mode = c(
+    "freezer --> fail_break",
+    "loading --> fail_time",
+    "loading --> fail_eat",
+    "transport --> fail_time",
+    "transport --> fail_eat")
+)
+
+  # Worker 2 could leave ice cream out while loading
+  # Worker 2 could eat the ice cream while loading
+  # Worker 3 could leave the ice cream out in transit
+  # Worker 3 could eat the ice cream in transit
+
+```
+
+# 4. Calculating Criticality
+
+Next, we're going to make a few judgement calls, to calculate the overall risk for this FMEA.
+
+<br>
+
+### Estimate Severity
+
+What's the `severity` of the effects of these failures, on a scale from 1 (low) to 10 (high)? We'll `mutate()` the `data.frame` to include a new column `severity`, and save it as a new data.frame `f1`.
+
+-   `fail_break`: It's pretty bad it the freezer breaks; that could ruin days worth of product. Let's call that an `8`. Not catastrophic, but not good for the company!
+
+-   `fail_time`: It's not great it a single shipment gets left out and melts while waiting for pickup. But it's just one shipment. Let's call that a `5`.
+
+-   `fail_eat`: How much ice cream could one worker really eat? That's probably a `1`.
+
+```{r}
+f1 <- f %>%
+  mutate(severity = c(8, 5, 1, 5, 1))
+# Check out the contents!
+f1
+
+```
+
+### Estimate Occurrence
+
+How often does this occur, from 1 (almost never) to 10 (almost always)? Let's rank `occurrence` as follows:
+
+-   `fail_break`: It's pretty rare that the freezer would break (eg. `2`).
+
+-   `fail_time`: It's probably somewhat rare that shipments melt (eg. `5`).
+
+-   `fail_eat`: If I were a worker, I would eat that all the time (eg. `8`).
+
+```{r}
+f2 <- f1 %>%
+  mutate(occurrence = c(2, 5, 8, 5, 8))
+
+```
+
+### Estimate Detection
+
+Finally, how likely is it that we would detect the occurrence? If very likely, that's a `1`. If very unlikely, that's a `10`.
+
+-   `fail_break`: Workers would very quickly detect if the freezer were broken. (eg. `1`).
+
+-   `fail_time`: You might not know it had melted until the product gets to the store. (eg. `8`)
+
+-   `fail_eat`: Might get caught. Low chance. (eg. `3`).
+
+```{r}
+f3 <- f2 %>%
+  mutate(detection = c(1, 8, 3, 8, 3))
+```
+
+<br>
+
+### Estimate Criticality (RPN)
+
+Using our data in `f3`, let's estimate `criticality` (aka RPN, the risk priority number).
+
+```{r}
+f4 <- f3 %>%
+  mutate(criticality = severity * occurrence * detection)
+```
+
+We can add up the `criticality/RPN` to estimate the total risk priority, out of `1000`, which is the `max_criticality` possible. We can divide these two to get the `probability` of system failure. Is that risk greater than `0.010`, aka `0.1%`? If so, bad news!
+
+```{r}
+f4 %>%
+  summarize(
+    total_criticality = sum(criticality),
+    max_criticality = 10*10*10,
+    probability = total_criticality / max_criticality)
+```
+
+Well, that's not good! Looks like the new factory will need to figure out a way to keep their product from melting! (In reality, I'm sure Ben and Jerry's has strict quality control!)
+
+<br>
+
+<br>
+
+# LC #1 {.tabset .tabset-pills}
+
+## Question
+
+What *other* ways could failure occur here? Add three more kinds of failure to your `tibble` `f`, then estimate their `severity`, `occurence`, `detection`, and `criticality`, and recalculate the total probability of `failure` at this ice cream plant.
+
+## Answer
+
+```{r}
+fprime <- tibble(
+  # Make a vector of routes to failure
+  failure_mode = c(
+    "freezer --> fail_break",
+    "loading --> fail_time",
+    "loading --> fail_eat",
+    "transport --> fail_time",
+    "transport --> fail_eat",
+    # Technically, worker 1 could eat it before taking it to freezer
+    "w1 --> fail_eat",
+    # A fourth worker at the store could eat it before delivering it
+    "w4 --> fail_eat",
+    # The fourth worker could also leave it out!
+    "w4 --> fail_time")
+) %>%
+  # Estimate quantities of interest
+    mutate(severity = c(8, 5, 1, 5, 1, 1, 1, 5),
+           occurrence = c(2, 5, 8, 5, 8, 8, 8, 5),
+           detection = c(1, 8, 3, 8, 3, 3, 3, 8)) %>%
+  # Calculate criticality
+  mutate(criticality = severity * occurrence * detection)
+
+# Let's check it out!
+fprime
+```
+
+```{r}
+# Let's calculate the total risk!
+fprime %>%
+  summarize(
+    total_criticality = sum(criticality),
+    max_criticality = 10*10*10,
+    probability = total_criticality / max_criticality)
+```
+
+Ooph! Not good!
+
+<br>
+
+<br>
+
+Great work! All done! See you in class!

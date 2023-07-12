@@ -2,39 +2,19 @@
 title: "System Reliability and Six Sigma in R"
 author: "Timothy Fraser"
 date: "`r Sys.Date()`"
-site: "bookdown::bookdown_site"
-output:
-  bookdown::gitbook:
-    fig_caption: TRUE
-    number_sections: TRUE
-    self_contained: FALSE
-    split_by: "chapter"
-    config:
-      toc:
-        collapse: subsection
-        scroll_highlight: true
-      toolbar:
-        position: fixed
-      fontsettings:
-        theme: "black"
-        family: sans
-        size: 3
-      info: true
-      sharing: false
+site: bookdown::bookdown_site
 documentclass: book
-# Only needed for other document classes:
-# pandoc_args: --top-level-division=chapter
-# Add bibliography bibtex files
-bibliography: ["book.bib", "packages.bib"]
+bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
+description: "This is a minimal example of using
+  the bookdown package to write a book."
 ---
-
 
 ```{r setup, include=FALSE, message=FALSE, warning = FALSE}
 # Set options
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
-
+options(knitr.graphics.auto_pdf = TRUE)
 # Load packages
 library(tidyverse)
 library(bookdown)
@@ -48,17 +28,34 @@ funs = dir("f", full.names = TRUE)
 funs %>% map(~source(.))
 
 # Update any static data for us.
-update(images = FALSE)
+update(images = TRUE)
 i = images() # Load images metadata list
 ```
 
+# Introduction {.unnumbered #introduction}
 
-```{r img_cover, out.width = "100%", echo=FALSE, fig.cap=i$img_cover$caption}
-i[["img_cover"]]$file %>%
-  knitr::include_graphics()
+```{r img-cover, out.width = "100%", echo=FALSE, results='asis', fig.cap=paste(i$img_cover$caption)}
+knitr::include_graphics(i[["img_cover"]]$file)
 ```
 
-# Introduction {#introduction}
+# (PART) Part I {-} 
+
+```{r child='workshop_1.Rmd'}
+```
+
+```{r child='skill_ggplot.Rmd'}
+```
+
+```{r child='skill_fmea.Rmd'}
+```
+
+# (PART) Part II {-} 
+
+
+# References
+
+# (APPENDIX) Appendix {-} 
+
 
 Hi.
 

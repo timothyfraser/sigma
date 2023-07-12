@@ -1,0 +1,448 @@
+# Skill: Visualization with `ggplot` in `R`
+
+Visualization is a key part of statistical analyses, especially in systems engineering! Visuals themselves are often the analysis themselves! In this tutorial, we're going to learn how to visualize data in the ```ggplot2``` package.
+
+**Please follow along using the code below!**
+
+<br>
+<br>
+
+## Getting Started {.unnumbered}
+
+### Loading Packages {.unnumbered}
+
+Let's load our packages with ```library()```.
+
+```{r}
+# Data viz and data manipulation packages
+library(ggplot2)
+library(dplyr)
+# Data sources
+library(gapminder)
+```
+
+Notes:
+  
+  1. SAVE YOUR SCRIPT.
+
+2. Always comment your code (what I'm doing now),
+
+3. use lots of spaces, and keep it clean.
+
+
+## 1. Gapminder data
+
+Economist Hans Rosling made a dataset that examines change in life expectancy over time for most countries in the world. It is contained in the `gapminder` package!
+
+```{r}
+# Let's view it. (see console below)
+                             gapminder
+                             ```
+                             
+                             Each row is a country-year, marking the life expectancy, population, and gross domestic product (GDP) per capita.
+                             On your end, you can only can see some of it, right?
+                               
+                               Let's check out what vectors are in this dataframe, using the `glimpse` function from the `dplyr` package.
+
+```{r}
+# (Remember, a vector is a column in a spreadsheet;
+# a data.frame is a spreadsheet.)
+glimpse(gapminder)
+# Nice, we can see things more concisely.
+```
+
+Our data has six variables. Great!
+
+<br>
+<br>
+
+## 2. Your first scatterplot
+
+Using the `gapminder` data, let's map a series of vectors to become aesthetic features in the visualization (point, colors, fills, etc.).
+                             
+                             ```{r}
+                             ggplot(data = gapminder, mapping = aes(
+                               # Let's make the x-axis gross-domestic product per capita (wealth per person)
+                               x = year, 
+                               # Let's make the y-axis country life expectancy
+                               y = lifeExp))
+                             ```
+                             
+                             Huh! We made an empty graph. Cool.
+                             
+                             That's because ggplot needs helper functions to add aesthetic features to the graph.
+
+For example, adding `+ geom_point()` will *overlay* a scatterplot.
+
+```{r}
+# Make a scatterplot
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + # same as above, except "+"
+  geom_point()
+```
+
+## LC 1 {.tabset .tabset-pills .unnumbered}
+
+### Question {.unnumbered}
+
+What kind of relationship does this graph show? Why might it matter to policymakers?
+
+### Answer {.unnumbered}
+
+The graph above shows that as average wealth (GDP per capita) in a country increases, those countries' life expectancy increases swiftly, but then tapers off. This highlights that there is a strong relationship between wealth and health globally.
+                             
+<br>
+<br>
+                               
+## LC 2 {.tabset .tabset-pills .unnumbered}
+                               
+### Question {.unnumbered}
+                               
+What happens when you add the `alpha`, changing its values in the 3 visuals below?
+
+```{r}
+# Run the following code:
+                             
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
+  geom_point(alpha = 0.2)
+
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
+  geom_point(alpha = 0.5)
+
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
+                               geom_point(alpha = 1)
+```
+                          
+<br>
+<br>
+
+### Answer {.unnumbered}
+                             
+Alpha ranges from 0 to 1 and describes feature transparency. Increasing alpha to `1` makes points **fully opaque!** Decreasing alpha to `0` makes points **fully transparent!**
+
+<br>
+<br>
+                               
+## LC 3 {.tabset .tabset-pills .unnumbered}
+
+### Question {.unnumbered}
+
+We can make it more visually appealing. What happens when we do each of the following?
+
+a. If you want to make it **a single color**, where do you need to write `color = ...`?
+
+b. If you want to make it **multiple colors** according to a vector, where do you need to write `color = `?
+
+```{r, eval = FALSE}
+# Run the following code:
+
+# Version 1
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
+geom_point(alpha = 0.5, color = "steelblue")
+
+# Version 2
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, 
+color = continent)) +
+geom_point(alpha = 0.5)
+```
+
+### Answer {.unnumbered}
+
+To assign a single color, you need to put `color` *outside* the `aes()` phrase, and write the name of the color.
+
+To assign multiple colors, you need to put the `color` *inside* the `aes(...)` phrase, and write the name of the vector in the `data` that it corresponds to (eg. `continent`).
+
+<br>
+<br>
+
+## 4. Improving our Visualizations
+
+We can (and should!) make our visualizations much more readable by adding appropriate labels.
+
+```{r}
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, 
+color = continent)) +
+geom_point(alpha = 0.5) +
+# Add labels!
+labs(x = "GDP per capita (USD)", # label for x-values
+y = "Life Expectancy (years)", # label for y-values
+color = "Continent", # label for colors
+title = "Does Wealth affect Health?", # overall title
+subtitle = "Global Health Trends by Continent", # subtitle!
+caption = "Points display individual country-year observations.") # caption
+```
+
+We can actually save visualizations as objects too, which can make things faster.
+
+Let's save our visual as `myviz`
+
+```{r}
+myviz <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, 
+                                                color = continent)) + 
+  geom_point(alpha = 0.5) +
+  labs(x = "GDP per capita (USD)", 
+       y = "Life Expectancy (years)",
+       color = "Continent", 
+       title = "Does Wealth affect Health?", # overall title
+       subtitle = "Global Health Trends by Continent", # subtitle!
+       caption = "Points display individual country-year observations.") # caption
+```
+
+Next, let's try a few more learning check that will ask you to try our ways to improve the quality and readability of your visuals!
+
+<br>
+<br>
+
+## LC 4 {.tabset .tabset-pills .unnumbered}
+
+### Question {.unnumbered}
+
+Now run `myviz` - what happens?
+```{r}
+myviz
+```
+
+<br>
+<br>
+<br>
+
+### Answer {.unnumbered}
+
+When you save a ggplot to an `object`, eg. naming it `myviz`, you can call up the visual again as many times as you want by just running the `myviz` object, just like any other object.
+
+<br>
+<br>
+
+
+## LC 5 {.tabset .tabset-pills .unnumbered}
+
+### Question {.unnumbered}
+
+We can do better, adding things onto our myviz object! Try changing themes. What happens below?
+
+```{r}
+# Version theme_bw
+myviz +
+# How about this theme?
+theme_bw()
+
+# Version theme_dark
+myviz +
+# How about this theme?
+theme_dark()
+
+# Version theme_classic
+myviz +
+# How about this theme?
+theme_classic()
+```
+
+### Answer
+
+`theme_bw()` makes a nice black-and-white graph; `theme_dark()` makes a funky graph with a dark grey background; `theme_classic()` makes a very simple graph, with fewer distractions.
+
+I personally really like the default theme or `theme_bw()`. Sometimes `theme_classic()` can be really helpful if you have a particularly busy visual.
+
+<br>
+<br>
+<br>
+<br>
+
+# 5: Visualize diamonds data
+
+Next, let's use the `diamonds` dataset, which comes with the `ggplot2` package
+This is a dataset of over 50,000 diamond sales. 
+
+```{r}
+# Check out first 3 rows...
+diamonds %>% head(3)
+```
+
+We can use this visualization to check whether the `cut` of diamonds really has any relationship with `price`.
+
+```{r}
+glimpse(diamonds)
+```
+
+Looks like `cut` is an ordinal variable (fair, good, ideal, etc.), while `price` is numeric (eg. dollars).
+A boxplot might be helpful!
+
+```{r}
+ggplot(data = diamonds, mapping = aes(x = cut, y = price, group = cut)) +
+  # notice how we added group = cut, to tell it to use 5 different boxes, one per cut?
+  geom_boxplot()
+```
+
+Huh. How odd. 
+Looks like the `cut` of diamonds has very little impact on what `price` they are sold at! 
+
+We can see lots of outliers at the top - really expensive diamonds for that cut.
+
+<br>
+<br>
+
+# LC 6 {.tabset .tabset-pills .unnumbered}
+
+## Question {.unnumbered}
+
+Let's make this visualization more visually appealing.
+
+What changed in the code to make these two different visual effects? Why? (*Hint: fill.*)
+
+```{r}
+ggplot(data = diamonds, mapping = aes(x = cut, y = price, 
+group = cut)) +
+geom_boxplot(fill = "steelblue")
+
+ggplot(data = diamonds, mapping = aes(x = cut, y = price, 
+group = cut, fill = cut)) +
+geom_boxplot()
+```
+
+## Answer {.unnumbered}
+
+In the first visual, we assigned all the boxplots to have the same fill (`fill = "steelblue"`), but in the second visual, we assigned the boxplot `fill` to be shaded based on the `cut` of diamond. This adds a cool color range!
+
+#
+<br>
+<br>
+
+# LC 7 {.tabset .tabset-pills .unnumbered}
+
+## Question {.unnumbered}
+
+Sometimes, the names of categories won't fit well. We can try the following. What did we do?
+
+```{r, eval = FALSE}
+ggplot(data = diamonds, mapping = aes(x = cut, y = price, 
+                                      group = cut, fill = cut)) +
+  geom_boxplot() + 
+  coord_flip()
+```
+
+## Answer {.unnumbered}
+
+We used `coord_flip()` to **flip** the coordinates of the `x` and `y` axis, which gives our `cut` labels more room!
+
+<br>
+<br>
+<br>
+
+# LC 8 {.tabset .tabset-pills .unnumbered}
+
+## Question {.unnumbered}
+
+Sometimes, the legend doesn't fit well. We can try this:
+
+What happens when you change `legend.position` from `"right"` to `"bottom"` to `"left"` to `"top"`?
+
+```{r, eval = FALSE}
+ggplot(data = diamonds, mapping = aes(x = cut, y = price,
+group = cut, fill = cut)) +
+geom_boxplot() + coord_flip() +
+theme(legend.position = "bottom")
+
+ggplot(data = diamonds, mapping = aes(x = cut, y = price,
+group = cut, fill = cut)) +
+geom_boxplot() + coord_flip() +
+theme(legend.position = "right")
+
+ggplot(data = diamonds, mapping = aes(x = cut, y = price, 
+group = cut, fill = cut)) +
+geom_boxplot() + coord_flip() +
+theme(legend.position = "left")
+
+ggplot(data = diamonds, mapping = aes(x = cut, y = price, 
+group = cut, fill = cut)) +
+geom_boxplot() + coord_flip() +
+theme(legend.position = "top")
+```
+
+## Answer
+
+These four values for `legend.position` will relocate the `fill` legend (and any other legends) to be at the top, bottom, left, or right of the visual!
+
+# 
+
+<br>
+<br>
+
+# 6. Visualizing Distributions
+
+Different `geom_` functions use colors in different ways, but this is a good example.
+
+For example, below is a **histogram.**  It visualizes the approximate distribution of a set of values.
+
+We can see how frequently `diamonds` are sold for certain prices versus others.
+
+```{r}
+ggplot(data = diamonds, mapping = aes(x = price, group = cut, fill = cut)) +
+geom_histogram(color = "white") + # notice new function here
+labs(x = "Price (USD)",
+y = "Frequency of Price (Count)",
+title = "US Diamond Sales")
+```
+
+<br>
+
+# LC 9 {.tabset .tabset-pills}
+
+## Question
+
+Are most diamonds cheap or expensive? What type of distribution would you call this? 
+
+a. Normal?
+
+b. Uniform?
+
+c. Left Skewed?
+
+d. Right Skewed?
+
+## Answer
+
+This is strongly *right-skewed* distribution, because the majority of the distribution leans to the left (the clump of the data), while it has a long tail that *skews* to the right. The median is less than the mean in a right skewed distribution.
+
+#
+
+<br>
+<br>
+
+
+# 6: Breaking up a visual
+
+Finally, we might want to break up our visual into multiple parts. We can use `facet_wrap` to do this, but how exactly does it work? Let's test it out.
+
+# LC 10 {.tabset .tabset-pills}
+
+## Question
+
+What changed in the code below, and what did it result in?
+
+```{r, eval = FALSE}
+ggplot(data = diamonds, mapping = aes(x = price, fill = cut)) +
+  geom_histogram(color = "white") + 
+  facet_wrap(~cut) + # must be categorical variable
+  labs(x = "Price (USD)",
+       y = "Frequency of Price (Count)",
+       title = "US Diamond Sales")
+```
+<br>
+<br>
+<br>
+
+## Answer
+
+This visual split up our histograms into separate panels (making it much more readable), and easier to compare distributions. We write `facet_wrap(~` before the variable name (eg. `cut`) to specify that we want to split up the data by the values of `cut`. This sorts our rows of data into 5 different piles (since there are 5 different categories in `cut`) and makes a panel out of each.
+
+
+<br>
+<br>
+<br>
+<br>
+
+You made it! You have now tried out a series of visuals in ggplot. We will use `ggplot` a *lot* in this course, so please be sure to reach out when you have questions, talk with others in your group, and work together to build great visualization skills! (Plus, it's super applicable professionally!)
+
+```{r, include = FALSE}
+rm(list = ls())
+
+```

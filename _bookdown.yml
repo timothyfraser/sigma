@@ -1,0 +1,2 @@
+rmd_files: ["index.Rmd", "workshop_1.Rmd", "skill_ggplot.Rmd"]
+delete_merged_file: TRUE

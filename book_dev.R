@@ -16,18 +16,20 @@ library(credentials)
 set_github_pat(force_new = TRUE)
 
 
-# Set directory to the boodata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAWElEQVR42mNgGPTAxsZmJsVqQApgmGw1yApwKcQiT7phRBuCzzCSDSHGMKINIeDNmWQlA2IigKJwIssQkHdINgxfmBBtGDEBS3KCxBc7pMQgMYE5c/AXPwAwSX4lV3pTWwAAAABJRU5ErkJggg==k itself;
 # your working directory MUST be the one containing the file 'index.Rmd'
 getwd()
 
 # Delete any existing copy of the book
 unlink("_main.Rmd")
+unlink("_book", recursive = TRUE)
 # Render the book!
-bookdown::render_book(input = "index.Rmd", output_dir = "docs")
+bookdown::render_book(output_dir = "docs")
+
 
 
 # Assuming we're happy, commit it!
 git_commit_all(message = "OK!")
 git_push() # Push to Github!
 
-
+# Clear environment
+rm(list = ls())

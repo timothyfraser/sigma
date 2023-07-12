@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Skill: Visualization with ggplot in R | System Reliability and Six Sigma in R</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book." />
+  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Skill: Visualization with ggplot in R | System Reliability and Six Sigma in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Skill: Visualization with ggplot in R | System Reliability and Six Sigma in R" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book." />
+  
+
+<meta name="author" content="Timothy Fraser" />
+
+
+<meta name="date" content="2022-10-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="lesson-1-coding-in-r.html"/>
+<link rel="next" href="visualize-diamonds-data.html"/>
+<script src="assets/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="assets/kePrint-0.0.1/kePrint.js"></script>
+<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="part"><span><b>I Part I</b></span></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html"><i class="fa fa-check"></i>Lesson 1: Coding in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#getting-started"><i class="fa fa-check"></i>0. Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#making-an-rstudio.cloud-account"><i class="fa fa-check"></i>0.1 Making an RStudio.Cloud account</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#accessing-your-first-rstudio.cloud-tutorial"><i class="fa fa-check"></i>0.2 Accessing your First RStudio.Cloud Tutorial</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#introduction-1"><i class="fa fa-check"></i>1. Introduction</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#basic-calculations-in-r"><i class="fa fa-check"></i>2. Basic Calculations in R</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#lc-1"><i class="fa fa-check"></i>LC 1</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#question"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#answer"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#types-of-values-in-r"><i class="fa fa-check"></i>3. Types of Values in R</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#types-of-data-in-r"><i class="fa fa-check"></i>4. Types of Data in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#values"><i class="fa fa-check"></i>Values</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#vectors"><i class="fa fa-check"></i>Vectors</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#dataframes"><i class="fa fa-check"></i>Dataframes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#lc-2"><i class="fa fa-check"></i>LC 2</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#question-1"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#answer-1"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#common-functions-in-r"><i class="fa fa-check"></i>5. Common Functions in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#measures-of-central-tendency"><i class="fa fa-check"></i>Measures of Central Tendency</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#measures-of-dispersion"><i class="fa fa-check"></i>Measures of Dispersion</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#other-good-functions"><i class="fa fa-check"></i>Other Good Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#missing-data"><i class="fa fa-check"></i>6. Missing Data</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#lc-3"><i class="fa fa-check"></i>LC 3</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#question-2"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#answer-2"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#packages"><i class="fa fa-check"></i>7. Packages</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#using-packages"><i class="fa fa-check"></i>7.1 Using Packages</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#installing-packages"><i class="fa fa-check"></i>7.2 Installing Packages</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#loading-packages"><i class="fa fa-check"></i>7.3 Loading Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#visualizing-data-with-histograms"><i class="fa fa-check"></i>8. Visualizing Data with Histograms</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#hist"><i class="fa fa-check"></i>8.1 <code>hist()</code></a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#geom_histogram-in-ggplot2"><i class="fa fa-check"></i>8.2 <code>geom_histogram()</code> in <code>ggplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#lc-4"><i class="fa fa-check"></i>LC 4</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#question-3"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#answer-3"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#wrap-up"><i class="fa fa-check"></i>9. Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#next-steps"><i class="fa fa-check"></i>9.1 Next Steps</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#advice"><i class="fa fa-check"></i>9.2 Advice</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r.html"><a href="lesson-1-coding-in-r.html#troubleshooting"><i class="fa fa-check"></i>9.3 Troubleshooting:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html"><i class="fa fa-check"></i>Skill: Visualization with <code>ggplot</code> in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#loading-packages-1"><i class="fa fa-check"></i>0. Loading Packages</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#gapminder-data"><i class="fa fa-check"></i>1. Gapminder data</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#your-first-scatterplot"><i class="fa fa-check"></i>2. Your first scatterplot</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#lc-1-1"><i class="fa fa-check"></i>LC 1</a>
+<ul>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#question-4"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#answer-4"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#lc-2-1"><i class="fa fa-check"></i>LC 2</a>
+<ul>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#question-5"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#answer-5"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#lc-3-1"><i class="fa fa-check"></i>LC 3</a>
+<ul>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#question-6"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#answer-6"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#improving-our-visualizations"><i class="fa fa-check"></i>4. Improving our Visualizations</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#lc-4-1"><i class="fa fa-check"></i>LC 4</a>
+<ul>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#question-7"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#answer-7"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#lc-5"><i class="fa fa-check"></i>LC 5</a>
+<ul>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#question-8"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#answer-8"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="visualize-diamonds-data.html"><a href="visualize-diamonds-data.html"><i class="fa fa-check"></i>5: Visualize diamonds data</a></li>
+<li class="chapter" data-level="" data-path="lc-6.html"><a href="lc-6.html"><i class="fa fa-check"></i>LC 6</a>
+<ul>
+<li class="chapter" data-level="" data-path="lc-6.html"><a href="lc-6.html#question-9"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="lc-6.html"><a href="lc-6.html#answer-9"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li><a href="section.html#section" id="toc-section"></a></li>
+<li class="chapter" data-level="" data-path="lc-7.html"><a href="lc-7.html"><i class="fa fa-check"></i>LC 7</a>
+<ul>
+<li class="chapter" data-level="" data-path="lc-7.html"><a href="lc-7.html#question-10"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="lc-7.html"><a href="lc-7.html#answer-10"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lc-8.html"><a href="lc-8.html"><i class="fa fa-check"></i>LC 8</a>
+<ul>
+<li class="chapter" data-level="" data-path="lc-8.html"><a href="lc-8.html#question-11"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="lc-8.html"><a href="lc-8.html#answer-11"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li><a href="section-1.html#section-1" id="toc-section-1"></a></li>
+<li class="chapter" data-level="" data-path="visualizing-distributions.html"><a href="visualizing-distributions.html"><i class="fa fa-check"></i>6. Visualizing Distributions</a></li>
+<li class="chapter" data-level="" data-path="lc-9.html"><a href="lc-9.html"><i class="fa fa-check"></i>LC 9</a>
+<ul>
+<li class="chapter" data-level="" data-path="lc-9.html"><a href="lc-9.html#question-12"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="lc-9.html"><a href="lc-9.html#answer-12"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li><a href="section-2.html#section-2" id="toc-section-2"></a></li>
+<li class="chapter" data-level="" data-path="breaking-up-a-visual.html"><a href="breaking-up-a-visual.html"><i class="fa fa-check"></i>6: Breaking up a visual</a></li>
+<li class="chapter" data-level="" data-path="lc-10.html"><a href="lc-10.html"><i class="fa fa-check"></i>LC 10</a>
+<ul>
+<li class="chapter" data-level="" data-path="lc-10.html"><a href="lc-10.html#question-13"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="lc-10.html"><a href="lc-10.html#answer-13"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li class="part"><span><b>II Part II</b></span></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html"><i class="fa fa-check"></i>Lesson 1: Coding in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#getting-started-1"><i class="fa fa-check"></i>0. Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#making-an-rstudio.cloud-account-1"><i class="fa fa-check"></i>0.1 Making an RStudio.Cloud account</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#accessing-your-first-rstudio.cloud-tutorial-1"><i class="fa fa-check"></i>0.2 Accessing your First RStudio.Cloud Tutorial</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#introduction-2"><i class="fa fa-check"></i>1. Introduction</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#basic-calculations-in-r-1"><i class="fa fa-check"></i>2. Basic Calculations in R</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#lc-1-2"><i class="fa fa-check"></i>LC 1</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#question-14"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#answer-14"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#types-of-values-in-r-1"><i class="fa fa-check"></i>3. Types of Values in R</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#types-of-data-in-r-1"><i class="fa fa-check"></i>4. Types of Data in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#values-1"><i class="fa fa-check"></i>Values</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#vectors-1"><i class="fa fa-check"></i>Vectors</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#dataframes-1"><i class="fa fa-check"></i>Dataframes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#lc-2-2"><i class="fa fa-check"></i>LC 2</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#question-15"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#answer-15"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#common-functions-in-r-1"><i class="fa fa-check"></i>5. Common Functions in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#measures-of-central-tendency-1"><i class="fa fa-check"></i>Measures of Central Tendency</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#measures-of-dispersion-1"><i class="fa fa-check"></i>Measures of Dispersion</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#other-good-functions-1"><i class="fa fa-check"></i>Other Good Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#missing-data-1"><i class="fa fa-check"></i>6. Missing Data</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#lc-3-2"><i class="fa fa-check"></i>LC 3</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#question-16"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#answer-16"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#packages-1"><i class="fa fa-check"></i>7. Packages</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#using-packages-1"><i class="fa fa-check"></i>7.1 Using Packages</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#installing-packages-1"><i class="fa fa-check"></i>7.2 Installing Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#lc-4-2"><i class="fa fa-check"></i>LC 4</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#question-17"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#answer-17"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#wrap-up-1"><i class="fa fa-check"></i>9. Wrap-up</a>
+<ul>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#next-steps-1"><i class="fa fa-check"></i>9.1 Next Steps</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#advice-1"><i class="fa fa-check"></i>9.2 Advice</a></li>
+<li class="chapter" data-level="" data-path="lesson-1-coding-in-r-1.html"><a href="lesson-1-coding-in-r-1.html#troubleshooting-1"><i class="fa fa-check"></i>9.3 Troubleshooting:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html"><i class="fa fa-check"></i>Skill: Visualization with <code>ggplot</code> in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#loading-packages-2"><i class="fa fa-check"></i>0. Loading Packages</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#gapminder-data-1"><i class="fa fa-check"></i>1. Gapminder data</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#your-first-scatterplot-1"><i class="fa fa-check"></i>2. Your first scatterplot</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#lc-1-3"><i class="fa fa-check"></i>LC 1</a>
+<ul>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#question-18"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#answer-18"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#lc-2-3"><i class="fa fa-check"></i>LC 2</a>
+<ul>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#question-19"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#answer-19"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#lc-3-3"><i class="fa fa-check"></i>LC 3</a>
+<ul>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#question-20"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#answer-20"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#improving-our-visualizations-1"><i class="fa fa-check"></i>4. Improving our Visualizations</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#lc-4-3"><i class="fa fa-check"></i>LC 4</a>
+<ul>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#question-21"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#answer-21"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#lc-5-1"><i class="fa fa-check"></i>LC 5</a>
+<ul>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#question-22"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#answer-22"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#question-23"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#answer-23"><i class="fa fa-check"></i>Answer</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#question-24"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#answer-24"><i class="fa fa-check"></i>Answer</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#question-25"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#answer-25"><i class="fa fa-check"></i>Answer</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#question-26"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#answer-26"><i class="fa fa-check"></i>Answer</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#question-27"><i class="fa fa-check"></i>Question</a></li>
+<li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r-1.html"><a href="skill-visualization-with-ggplot-in-r-1.html#answer-27"><i class="fa fa-check"></i>Answer</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">System Reliability and Six Sigma in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="skill-visualization-with-ggplot-in-r" class="section level1 hasAnchor">
+<h1>Skill: Visualization with <code>ggplot</code> in <code>R</code><a href="skill-visualization-with-ggplot-in-r.html#skill-visualization-with-ggplot-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Visualization is a key part of statistical analyses, especially in systems engineering! Visuals themselves are often the analysis themselves! In this tutorial, we’re going to learn how to visualize data in the <code>ggplot2</code> package.</p>
+<p><strong>Please follow along using the code below!</strong></p>
+<p><br>
+<br></p>
+<div id="loading-packages-1" class="section level2 unnumbered hasAnchor">
+<h2>0. Loading Packages<a href="skill-visualization-with-ggplot-in-r.html#loading-packages-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Finally, let’s load our packages with <code>library()</code>.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="skill-visualization-with-ggplot-in-r.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data viz and data manipulation packages</span></span>
+<span id="cb130-2"><a href="skill-visualization-with-ggplot-in-r.html#cb130-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb130-3"><a href="skill-visualization-with-ggplot-in-r.html#cb130-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb130-4"><a href="skill-visualization-with-ggplot-in-r.html#cb130-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Data sources</span></span>
+<span id="cb130-5"><a href="skill-visualization-with-ggplot-in-r.html#cb130-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span></code></pre></div>
+<p>Notes:</p>
+<ol style="list-style-type: decimal">
+<li><p>SAVE YOUR SCRIPT.</p></li>
+<li><p>Always comment your code (what I’m doing now),</p></li>
+<li><p>use lots of spaces, and keep it clean.</p></li>
+</ol>
+</div>
+<div id="gapminder-data" class="section level2 hasAnchor">
+<h2>1. Gapminder data<a href="skill-visualization-with-ggplot-in-r.html#gapminder-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Economist Hans Rosling made a dataset that examines change in life expectancy over time for most countries in the world. It is contained in the <code>gapminder</code> package!</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="skill-visualization-with-ggplot-in-r.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let&#39;s view it. (see console below)</span></span>
+<span id="cb131-2"><a href="skill-visualization-with-ggplot-in-r.html#cb131-2" aria-hidden="true" tabindex="-1"></a>                             gapminder</span></code></pre></div>
+<pre><code>## # A tibble: 1,704 × 6
+##    country     continent  year lifeExp      pop gdpPercap
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+##  1 Afghanistan Asia       1952    28.8  8425333      779.
+##  2 Afghanistan Asia       1957    30.3  9240934      821.
+##  3 Afghanistan Asia       1962    32.0 10267083      853.
+##  4 Afghanistan Asia       1967    34.0 11537966      836.
+##  5 Afghanistan Asia       1972    36.1 13079460      740.
+##  6 Afghanistan Asia       1977    38.4 14880372      786.
+##  7 Afghanistan Asia       1982    39.9 12881816      978.
+##  8 Afghanistan Asia       1987    40.8 13867957      852.
+##  9 Afghanistan Asia       1992    41.7 16317921      649.
+## 10 Afghanistan Asia       1997    41.8 22227415      635.
+## # … with 1,694 more rows</code></pre>
+<pre><code>                         Each row is a country-year, marking the life expectancy, population, and gross domestic product (GDP) per capita.
+                         On your end, you can only can see some of it, right?
+                           
+                           Let&#39;s check out what vectors are in this dataframe, using the `glimpse` function from the `dplyr` package.</code></pre>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="skill-visualization-with-ggplot-in-r.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (Remember, a vector is a column in a spreadsheet;</span></span>
+<span id="cb134-2"><a href="skill-visualization-with-ggplot-in-r.html#cb134-2" aria-hidden="true" tabindex="-1"></a><span class="co"># a data.frame is a spreadsheet.)</span></span>
+<span id="cb134-3"><a href="skill-visualization-with-ggplot-in-r.html#cb134-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(gapminder)</span></code></pre></div>
+<pre><code>## Rows: 1,704
+## Columns: 6
+## $ country   &lt;fct&gt; &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, …
+## $ continent &lt;fct&gt; Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, …
+## $ year      &lt;int&gt; 1952, 1957, 1962, 1967, 1972, 1977, 1982, 1987, 1992, 1997, …
+## $ lifeExp   &lt;dbl&gt; 28.801, 30.332, 31.997, 34.020, 36.088, 38.438, 39.854, 40.8…
+## $ pop       &lt;int&gt; 8425333, 9240934, 10267083, 11537966, 13079460, 14880372, 12…
+## $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.1134, …</code></pre>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="skill-visualization-with-ggplot-in-r.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nice, we can see things more concisely.</span></span></code></pre></div>
+<p>Our data has six variables. Great!</p>
+<p><br>
+<br></p>
+</div>
+<div id="your-first-scatterplot" class="section level2 hasAnchor">
+<h2>2. Your first scatterplot<a href="skill-visualization-with-ggplot-in-r.html#your-first-scatterplot" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Using the <code>gapminder</code> data, let’s map a series of vectors to become aesthetic features in the visualization (point, colors, fills, etc.).</p>
+<pre><code>                         ```r
+                         ggplot(data = gapminder, mapping = aes(
+                           # Let&#39;s make the x-axis gross-domestic product per capita (wealth per person)
+                           x = year, 
+                           # Let&#39;s make the y-axis country life expectancy
+                           y = lifeExp))
+                         ```
+                         
+                         &lt;img src=&quot;_main_files/figure-html/unnamed-chunk-67-1.png&quot; width=&quot;672&quot; /&gt;
+                         
+                         Huh! We made an empty graph. Cool.
+                         
+                         That&#39;s because ggplot needs helper functions to add aesthetic features to the graph.</code></pre>
+<p>For example, adding <code>+ geom_point()</code> will <em>overlay</em> a scatterplot.</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="skill-visualization-with-ggplot-in-r.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a scatterplot</span></span>
+<span id="cb138-2"><a href="skill-visualization-with-ggplot-in-r.html#cb138-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span> <span class="co"># same as above, except &quot;+&quot;</span></span>
+<span id="cb138-3"><a href="skill-visualization-with-ggplot-in-r.html#cb138-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+</div>
+<div id="lc-1-1" class="section level2 tabset tabset-pills unnumbered hasAnchor">
+<h2>LC 1<a href="skill-visualization-with-ggplot-in-r.html#lc-1-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-4" class="section level3 unnumbered hasAnchor">
+<h3>Question<a href="skill-visualization-with-ggplot-in-r.html#question-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>What kind of relationship does this graph show? Why might it matter to policymakers?</p>
+</div>
+<div id="answer-4" class="section level3 unnumbered hasAnchor">
+<h3>Answer<a href="skill-visualization-with-ggplot-in-r.html#answer-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The graph above shows that as average wealth (GDP per capita) in a country increases, those countries’ life expectancy increases swiftly, but then tapers off. This highlights that there is a strong relationship between wealth and health globally.</p>
+<p><br>
+<br></p>
+</div>
+</div>
+<div id="lc-2-1" class="section level2 tabset tabset-pills unnumbered hasAnchor">
+<h2>LC 2<a href="skill-visualization-with-ggplot-in-r.html#lc-2-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-5" class="section level3 unnumbered hasAnchor">
+<h3>Question<a href="skill-visualization-with-ggplot-in-r.html#question-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>What happens when you add the <code>alpha</code>, changing its values in the 3 visuals below?</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="skill-visualization-with-ggplot-in-r.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the following code:</span></span>
+<span id="cb139-2"><a href="skill-visualization-with-ggplot-in-r.html#cb139-2" aria-hidden="true" tabindex="-1"></a>                             </span>
+<span id="cb139-3"><a href="skill-visualization-with-ggplot-in-r.html#cb139-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
+<span id="cb139-4"><a href="skill-visualization-with-ggplot-in-r.html#cb139-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="skill-visualization-with-ggplot-in-r.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
+<span id="cb140-2"><a href="skill-visualization-with-ggplot-in-r.html#cb140-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-69-2.png" width="672" /></p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="skill-visualization-with-ggplot-in-r.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span> </span>
+<span id="cb141-2"><a href="skill-visualization-with-ggplot-in-r.html#cb141-2" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-69-3.png" width="672" /></p>
+<p><br>
+<br></p>
+</div>
+<div id="answer-5" class="section level3 unnumbered hasAnchor">
+<h3>Answer<a href="skill-visualization-with-ggplot-in-r.html#answer-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Alpha ranges from 0 to 1 and describes feature transparency. Increasing alpha to <code>1</code> makes points <strong>fully opaque!</strong> Decreasing alpha to <code>0</code> makes points <strong>fully transparent!</strong></p>
+<p><br>
+<br></p>
+</div>
+</div>
+<div id="lc-3-1" class="section level2 tabset tabset-pills unnumbered hasAnchor">
+<h2>LC 3<a href="skill-visualization-with-ggplot-in-r.html#lc-3-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-6" class="section level3 unnumbered hasAnchor">
+<h3>Question<a href="skill-visualization-with-ggplot-in-r.html#question-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can make it more visually appealing. What happens when we do each of the following?</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>If you want to make it <strong>a single color</strong>, where do you need to write <code>color = ...</code>?</p></li>
+<li><p>If you want to make it <strong>multiple colors</strong> according to a vector, where do you need to write <code>color =</code>?</p></li>
+</ol>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="skill-visualization-with-ggplot-in-r.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the following code:</span></span>
+<span id="cb142-2"><a href="skill-visualization-with-ggplot-in-r.html#cb142-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb142-3"><a href="skill-visualization-with-ggplot-in-r.html#cb142-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Version 1</span></span>
+<span id="cb142-4"><a href="skill-visualization-with-ggplot-in-r.html#cb142-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span> </span>
+<span id="cb142-5"><a href="skill-visualization-with-ggplot-in-r.html#cb142-5" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>)</span>
+<span id="cb142-6"><a href="skill-visualization-with-ggplot-in-r.html#cb142-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb142-7"><a href="skill-visualization-with-ggplot-in-r.html#cb142-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Version 2</span></span>
+<span id="cb142-8"><a href="skill-visualization-with-ggplot-in-r.html#cb142-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp, </span>
+<span id="cb142-9"><a href="skill-visualization-with-ggplot-in-r.html#cb142-9" aria-hidden="true" tabindex="-1"></a><span class="at">color =</span> continent)) <span class="sc">+</span></span>
+<span id="cb142-10"><a href="skill-visualization-with-ggplot-in-r.html#cb142-10" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+</div>
+<div id="answer-6" class="section level3 unnumbered hasAnchor">
+<h3>Answer<a href="skill-visualization-with-ggplot-in-r.html#answer-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To assign a single color, you need to put <code>color</code> <em>outside</em> the <code>aes()</code> phrase, and write the name of the color.</p>
+<p>To assign multiple colors, you need to put the <code>color</code> <em>inside</em> the <code>aes(...)</code> phrase, and write the name of the vector in the <code>data</code> that it corresponds to (eg. <code>continent</code>).</p>
+<p><br>
+<br></p>
+</div>
+</div>
+<div id="improving-our-visualizations" class="section level2 hasAnchor">
+<h2>4. Improving our Visualizations<a href="skill-visualization-with-ggplot-in-r.html#improving-our-visualizations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can (and should!) make our visualizations much more readable by adding appropriate labels.</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="skill-visualization-with-ggplot-in-r.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp, </span>
+<span id="cb143-2"><a href="skill-visualization-with-ggplot-in-r.html#cb143-2" aria-hidden="true" tabindex="-1"></a><span class="at">color =</span> continent)) <span class="sc">+</span></span>
+<span id="cb143-3"><a href="skill-visualization-with-ggplot-in-r.html#cb143-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb143-4"><a href="skill-visualization-with-ggplot-in-r.html#cb143-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels!</span></span>
+<span id="cb143-5"><a href="skill-visualization-with-ggplot-in-r.html#cb143-5" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;GDP per capita (USD)&quot;</span>, <span class="co"># label for x-values</span></span>
+<span id="cb143-6"><a href="skill-visualization-with-ggplot-in-r.html#cb143-6" aria-hidden="true" tabindex="-1"></a><span class="at">y =</span> <span class="st">&quot;Life Expectancy (years)&quot;</span>, <span class="co"># label for y-values</span></span>
+<span id="cb143-7"><a href="skill-visualization-with-ggplot-in-r.html#cb143-7" aria-hidden="true" tabindex="-1"></a><span class="at">color =</span> <span class="st">&quot;Continent&quot;</span>, <span class="co"># label for colors</span></span>
+<span id="cb143-8"><a href="skill-visualization-with-ggplot-in-r.html#cb143-8" aria-hidden="true" tabindex="-1"></a><span class="at">title =</span> <span class="st">&quot;Does Wealth affect Health?&quot;</span>, <span class="co"># overall title</span></span>
+<span id="cb143-9"><a href="skill-visualization-with-ggplot-in-r.html#cb143-9" aria-hidden="true" tabindex="-1"></a><span class="at">subtitle =</span> <span class="st">&quot;Global Health Trends by Continent&quot;</span>, <span class="co"># subtitle!</span></span>
+<span id="cb143-10"><a href="skill-visualization-with-ggplot-in-r.html#cb143-10" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">&quot;Points display individual country-year observations.&quot;</span>) <span class="co"># caption</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
+<p>We can actually save visualizations as objects too, which can make things faster.</p>
+<p>Let’s save our visual as <code>myviz</code></p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="skill-visualization-with-ggplot-in-r.html#cb144-1" aria-hidden="true" tabindex="-1"></a>myviz <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp, </span>
+<span id="cb144-2"><a href="skill-visualization-with-ggplot-in-r.html#cb144-2" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">color =</span> continent)) <span class="sc">+</span> </span>
+<span id="cb144-3"><a href="skill-visualization-with-ggplot-in-r.html#cb144-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb144-4"><a href="skill-visualization-with-ggplot-in-r.html#cb144-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;GDP per capita (USD)&quot;</span>, </span>
+<span id="cb144-5"><a href="skill-visualization-with-ggplot-in-r.html#cb144-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Life Expectancy (years)&quot;</span>,</span>
+<span id="cb144-6"><a href="skill-visualization-with-ggplot-in-r.html#cb144-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Continent&quot;</span>, </span>
+<span id="cb144-7"><a href="skill-visualization-with-ggplot-in-r.html#cb144-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Does Wealth affect Health?&quot;</span>, <span class="co"># overall title</span></span>
+<span id="cb144-8"><a href="skill-visualization-with-ggplot-in-r.html#cb144-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Global Health Trends by Continent&quot;</span>, <span class="co"># subtitle!</span></span>
+<span id="cb144-9"><a href="skill-visualization-with-ggplot-in-r.html#cb144-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Points display individual country-year observations.&quot;</span>) <span class="co"># caption</span></span></code></pre></div>
+<p>Next, let’s try a few more learning check that will ask you to try our ways to improve the quality and readability of your visuals!</p>
+<p><br>
+<br></p>
+</div>
+<div id="lc-4-1" class="section level2 tabset tabset-pills unnumbered hasAnchor">
+<h2>LC 4<a href="skill-visualization-with-ggplot-in-r.html#lc-4-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-7" class="section level3 unnumbered hasAnchor">
+<h3>Question<a href="skill-visualization-with-ggplot-in-r.html#question-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now run <code>myviz</code> - what happens?</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="skill-visualization-with-ggplot-in-r.html#cb145-1" aria-hidden="true" tabindex="-1"></a>myviz</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<p><br>
+<br>
+<br></p>
+</div>
+<div id="answer-7" class="section level3 unnumbered hasAnchor">
+<h3>Answer<a href="skill-visualization-with-ggplot-in-r.html#answer-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When you save a ggplot to an <code>object</code>, eg. naming it <code>myviz</code>, you can call up the visual again as many times as you want by just running the <code>myviz</code> object, just like any other object.</p>
+<p><br>
+<br></p>
+</div>
+</div>
+<div id="lc-5" class="section level2 tabset tabset-pills unnumbered hasAnchor">
+<h2>LC 5<a href="skill-visualization-with-ggplot-in-r.html#lc-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="question-8" class="section level3 unnumbered hasAnchor">
+<h3>Question<a href="skill-visualization-with-ggplot-in-r.html#question-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can do better, adding things onto our myviz object! Try changing themes. What happens below?</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="skill-visualization-with-ggplot-in-r.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Version theme_bw</span></span>
+<span id="cb146-2"><a href="skill-visualization-with-ggplot-in-r.html#cb146-2" aria-hidden="true" tabindex="-1"></a>myviz <span class="sc">+</span></span>
+<span id="cb146-3"><a href="skill-visualization-with-ggplot-in-r.html#cb146-3" aria-hidden="true" tabindex="-1"></a><span class="co"># How about this theme?</span></span>
+<span id="cb146-4"><a href="skill-visualization-with-ggplot-in-r.html#cb146-4" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="skill-visualization-with-ggplot-in-r.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Version theme_dark</span></span>
+<span id="cb147-2"><a href="skill-visualization-with-ggplot-in-r.html#cb147-2" aria-hidden="true" tabindex="-1"></a>myviz <span class="sc">+</span></span>
+<span id="cb147-3"><a href="skill-visualization-with-ggplot-in-r.html#cb147-3" aria-hidden="true" tabindex="-1"></a><span class="co"># How about this theme?</span></span>
+<span id="cb147-4"><a href="skill-visualization-with-ggplot-in-r.html#cb147-4" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_dark</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-74-2.png" width="672" /></p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="skill-visualization-with-ggplot-in-r.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Version theme_classic</span></span>
+<span id="cb148-2"><a href="skill-visualization-with-ggplot-in-r.html#cb148-2" aria-hidden="true" tabindex="-1"></a>myviz <span class="sc">+</span></span>
+<span id="cb148-3"><a href="skill-visualization-with-ggplot-in-r.html#cb148-3" aria-hidden="true" tabindex="-1"></a><span class="co"># How about this theme?</span></span>
+<span id="cb148-4"><a href="skill-visualization-with-ggplot-in-r.html#cb148-4" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-74-3.png" width="672" /></p>
+</div>
+<div id="answer-8" class="section level3 hasAnchor">
+<h3>Answer<a href="skill-visualization-with-ggplot-in-r.html#answer-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>theme_bw()</code> makes a nice black-and-white graph; <code>theme_dark()</code> makes a funky graph with a dark grey background; <code>theme_classic()</code> makes a very simple graph, with fewer distractions.</p>
+<p>I personally really like the default theme or <code>theme_bw()</code>. Sometimes <code>theme_classic()</code> can be really helpful if you have a particularly busy visual.</p>
+<p><br>
+<br>
+<br>
+<br></p>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="lesson-1-coding-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="visualize-diamonds-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="assets/gitbook-2.6.7/js/app.min.js"></script>
+<script src="assets/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="assets/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+},
+"toolbar": {
+"position": "static"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
