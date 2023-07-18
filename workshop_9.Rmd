@@ -1,21 +1,10 @@
----
-title: "Workshop 9: Statistical Process Control in `R`"
-subtitle: "R Companion Code"
-author: "Timothy Fraser"
-date: "`r Sys.Date()`"
-output:
- rmdformats::downcute:
-    self_contained: true
-    default_style: "light"
-    downcute_theme: "default"
-    fig_caption: true
----
+# Workshop: Statistical Process Control in `R`
 
-```{r setup, include = FALSE, echo = FALSE}
+```{r setup_workshop_9, include = FALSE, echo = FALSE}
 library(tidyverse)
 library(knitr)
 library(kableExtra)
-knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
 ```
 
 ```{r, out.width = "100%", echo = FALSE, fig.cap="Statistical Process Control!"}
@@ -27,9 +16,9 @@ In this workshop, we will learn how to perform statistical process control in `R
 <br>
 <br>
 
-# 0. Getting Started 
+## Getting Started  {-}
 
-## 0.1 Packages
+### Packages {-}
 
 We'll be using the `tidyverse` package for visualization, `viridis` for color palletes, `moments` for descriptive statistics, plus `ggpubr` for some add-on functions in `ggplot`.
 
@@ -45,7 +34,7 @@ library(moments)
 <br>
 <br>
 
-## 0.2 Our Case
+### Our Case {-}
 
 ```{r, out.width="100%", echo = FALSE, fig.cap="Obanazawa City, Yamagata Prefecture - A Hot Springs Economy. [**Photo credit and more here.**](https://www.thehiddenjapan.com/ginzanonsen)"}
 knitr::include_graphics("https://static.wixstatic.com/media/e8dc42_9cf1b5c0e5664ebd96581ffa8891eae2~mv2_d_1960_1200_s_2.jpg/v1/fill/w_1225,h_819,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/DSC00255-1-3_JPG.jpg")
@@ -72,7 +61,7 @@ knitr::include_graphics("images/9_monkeys.png")
 ```
 
 
-## 0.3 Our Data
+### Our Data {-}
 
 You've been hired to evaluate quality control at a local *onsen* in sunny Kagoshima prefecture! Every month, for 15 months, you systematically took 20 random samples of hot spring water and recorded its **temperature**, **pH**, and **sulfur** levels. How might you determine if this *onsen* is at risk of slipping out of one sector of the market (eg. Extra Hot!) and into another (just normal Hot Springs?). 
 
@@ -102,14 +91,14 @@ tibble(time = 1:8,
          time = time * 2 - 1,
          id = 1:n()) %>%
   select(id, time, temp, ph, sulfur) %>%
-  write_csv("/cloud/project/workshops/onsen.csv")
+  write_csv("workshops/onsen.csv")
 ```
 
 Let's read in our data from `workshops/onsen.csv`!
 
 ```{r}
 # Let's import our samples of bathwater over time!
-water = read_csv("/cloud/project/workshops/onsen.csv")
+water = read_csv("workshops/onsen.csv")
 # Take a peek!
 water %>% glimpse()
 ```
@@ -129,13 +118,13 @@ Our dataset contains:
 <br>
 <br>
 
-# 1. Visualizing Quality Control
+## Visualizing Quality Control
 
 Let's learn some key techniques for visualizing quality control!
 
 <br>
 
-## 1.1 `theme_set()`
+### `theme_set()`
 
 First, when you're about to make a bunch of `ggplot` visuals, it can help to set a common theme across them all with `theme_set()`.
 
@@ -168,7 +157,7 @@ theme_set(
 <br>
 
 
-## 1.2 Process Descriptive Statistics
+### Process Descriptive Statistics
 
 First, let's describe our process, using favorite description statistics. We're going to want to do this a bunch, so why don't we just write a `function` for it? Let's write `describe()`, which will take a vector `x` and calculate the `mean()`, `sd()`, `skewness()`, and `kurtosis()`, and then `paste()` together a nice caption describing them. 
 
@@ -207,7 +196,7 @@ tab
 <br>
 <br>
 
-## 1.3 Process Overview Visual 
+### Process Overview Visual 
 
 Your first step should always be to look at the data overall! `geom_jitter()`, `geom_boxplot()`, and `ggMarginal()` can help you do this.
 
@@ -273,13 +262,13 @@ We can tell from this visual several things!
 <br>
 <br>
 
-# LC 1 {.tabset .tabset-pills}
+## LC 1 {.tabset .tabset-pills .unnumbered}
 
-## Question
+### Question {-}
 
 We analyzed temperature variation above, but our hot springs owner wants to know about variation in `pH` too! Write a `function` to produce a process overview plot given any 2 vectors (`water$time` and `water$pH`, in this case), and visualize the process overview for `pH`! (*You can do it!*)
 
-## Answer
+### Answer {-}
 
 ```{r}
 ggprocess = function(x, y, xlab = "Subgroup", ylab = "Metric"){
@@ -319,15 +308,14 @@ In comparison to `temp`, `pH` is a much more controlled process.
 
 I encourage you to use this `ggprocess()` function you just created!
 
-##
-
+s
 <br>
 <br>
 
 
-# 2. Average and Standard Deviation Graphs
+## Average and Standard Deviation Graphs
 
-## 2.1 Key Statistics
+### Key Statistics
 
 Next, to analyze these processes more in depth, we need to assemble statistics at 2 levels: 
 
@@ -338,7 +326,7 @@ Next, to analyze these processes more in depth, we need to assemble statistics a
 <br>
 <br>
 
-## 2.2 Subgroup (Within-Group) Statistics
+### Subgroup (Within-Group) Statistics
 
 Let's apply these to our *onsen* data to get statistics describing each subgroup's distribution, a.k.a. short-term or within-group statistics.
 
@@ -381,7 +369,7 @@ stat_s %>% head(3)
 <br>
 <br>
 
-## 2.3 Total Statistics (Between Groups)
+### Total Statistics (Between Groups)
 
 ```{r}
 # To get between-group estimates....
@@ -405,7 +393,7 @@ So, now that we have estimated within-group, common cause variation via $\sigma_
 <br>
 <br>
 
-## 2.4 Average and Standard Deviation Charts
+### Average and Standard Deviation Charts
 
 The preferred method for measuring within-group variability is the standard deviation, rather than the range, so we generally recommend (a) Average ($\bar{X}$) and Standard Deviation ($S$) charts over (b) Average ($\bar{X}$) and Range ($R$) charts.
 
@@ -436,13 +424,13 @@ This tells us that excitingly, our *onsen* temperatures are quite firmly within 
 <br>
 <br>
 
-# LC 2 {.tabset .tabset-pills}
+## LC 2 {.tabset .tabset-pills .unnumbered}
 
-## Question
+### Question {-}
 
 Well, that was nifty, but can we do it all over again for `pH`? Make some rad upper and lower confidence intervals for $\bar{X}$ for `pH`!
 
-## Answer
+### Answer {-}
 
 ```{r}
 # Get the within-group stats for ph!
@@ -482,15 +470,15 @@ ph_s %>%
   labs(x = "Time (Subgroups)", y = "Average pH",
        subtitle = "Average and Standard Deviation Chart")
 ```
-##
+
 
 <br>
 <br>
 
-# 3. Moving Range Charts
+## Moving Range Charts
 
 
-## 3.2 Individual and Moving Range Charts
+### Individual and Moving Range Charts
 
 Suppose we only had 1 observation per subgroup! There's no way to calculate standard deviation for that - after all, there's no variation within each subgroup! Instead, we can generate an individual and moving range chart.
 
@@ -519,7 +507,7 @@ $$\sigma_{short} \approx \frac{m\bar{R}}{d_{2}} $$
 <br>
 <br>
 
-## 3.3 Factors $d_{2}$ and Friends
+### Factors $d_{2}$ and Friends
 
 As discussed above, *any statistics* has a latent distribution of other values you might have gotten for your statistic had your sample been just slightly different due to random error. Fun fact: we can actually *see* those distributions pretty easily thanks to simulation!
 
@@ -568,7 +556,7 @@ mrsim %>%
 <br>
 <br>
 
-## 3.4 Estimating $\sigma_{short}$ for Moving Range Statistics
+### Estimating $\sigma_{short}$ for Moving Range Statistics
 
 Let's apply our new knowledge about $d_{2}$ to calculate some upper bounds ($+3 \sigma$) for our average moving range estimates!
 
@@ -630,9 +618,9 @@ Again, this process looks pretty sound, firmly within range.
 <br>
 
 
-# 4. Constants
+## Constants
 
-## 4.1 Find *any* $d_x$ Factor
+### Find *any* $d_x$ Factor
 
 While our book writes extensively about $d_{2}$ and other $d_{whatever}$ factors, it's not strictly necessary to calculate them unless you *need* them. Usually, we do this when we *can't* calculate the standard deviation normally (eg. when we have *only* moving range statistics or *only* a subgroup sample size of `n=1`). If you're working with full data from your process though, you can easily calculate $\sigma_{short}$ right from the empirical data, without ever needing to use $d_x$ factors.
 
@@ -679,7 +667,7 @@ d
 <br>
 <br>
 
-## 4.2 Using $d_x$ factors
+### Using $d_x$ factors
 
 Using `d_n()`, we can make a quick approximation for the upper and lower control limits for the *range* $\bar{R}$ as well (as opposed to $m\bar{R}$)!
 
@@ -721,7 +709,7 @@ remove(stat, stat_w)
 <br>
 <br>
 
-## 4.2. Finding *any* $b_x$ Factor.
+### Finding *any* $b_x$ Factor.
 
 We might also want to know how much the standard deviation could possible vary due to sampling error. To figure this out, we'll simulate many many standard deviations from a normal distribution, like in `dn()`, for a given subgroup size `n`. 
 
@@ -802,13 +790,13 @@ Now you're all ready to make a control chart showing variation in the standard d
 <br>
 <br>
 
-# LC 3 {.tabset .tabset-pills}
+## LC 3 {.tabset .tabset-pills .unnumbered}
 
-## Question
+### Question {-}
 
 Using our `dn()` function above, compile for yourself a short table of the $d_{2}$ and $d_{3}$ factors for subgroups sized `2` to `10`.
 
-## Answer
+### Answer {-}
 
 ```{r}
 # Let's bind them together!
@@ -822,21 +810,18 @@ dx = bind_rows(
 dx
 ```
 
-##
 
 
 
 <br>
 <br>
 
-
-
-
-<br>
-<br>
 
 All done! Great work!
 
+```{r, include = FALSE}
+rm(list = ls())
+```
 
 
 

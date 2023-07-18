@@ -1,8 +1,9 @@
 bookdown::gitbook:
   lib_dir: assets
   split_by: chapter
-  number_sections: FALSE
+  number_sections: TRUE
   toc_depth: 3
+  collapsed: true
   config:
     toolbar:
       position: static

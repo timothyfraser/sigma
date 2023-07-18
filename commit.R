@@ -1,0 +1,1 @@
+gert::git_add(dir(all.files = TRUE))

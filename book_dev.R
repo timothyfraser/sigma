@@ -22,10 +22,11 @@ getwd()
 # Delete any existing copy of the book
 unlink("_main.Rmd")
 unlink("_book", recursive = TRUE)
+unlink("docs", recursive = TRUE)
 # Render the book!
-bookdown::render_book(output_dir = "docs")
+bookdown::render_book(input = "index.Rmd",  output_format = "bookdown::gitbook")
 
-
+browseURL("docs/index.html")
 
 # Assuming we're happy, commit it!
 git_commit_all(message = "OK!")

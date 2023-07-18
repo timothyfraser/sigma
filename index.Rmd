@@ -1,19 +1,18 @@
 ---
 title: "System Reliability and Six Sigma in R"
-author: "Timothy Fraser"
+author: "Timothy Fraser, PhD"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-description: "This is a minimal example of using
-  the bookdown package to write a book."
+description: "Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300."
 ---
 
 ```{r setup, include=FALSE, message=FALSE, warning = FALSE}
 # Set options
-knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, cache = TRUE)
 options(knitr.graphics.auto_pdf = TRUE)
 # Load packages
 library(tidyverse)
@@ -25,7 +24,7 @@ rm(list = ls())
 
 # Load all functions in the f directory
 funs = dir("f", full.names = TRUE)
-funs %>% map(~source(.))
+funs %>% purrr::map(~source(.))
 
 # Update any static data for us.
 update(images = TRUE)
@@ -34,11 +33,13 @@ i = images() # Load images metadata list
 
 # Introduction {.unnumbered #introduction}
 
+Your online textbook for learning reliability and six sigma techniques in R! These coding workshops were made for Cornell University Course SYSEN 5300. Follow along with RStudio.Cloud to learn to apply six sigma techniques in R!
+
 ```{r img-cover, out.width = "100%", echo=FALSE, results='asis', fig.cap=paste(i$img_cover$caption)}
-knitr::include_graphics(i[["img_cover"]]$file)
+knitr::include_graphics(path = i$img_cover$file)
 ```
 
-# (PART) Part I {-} 
+# (PART) Part I: Coding for Six Sigma {-} 
 
 ```{r child='workshop_1.Rmd'}
 ```
@@ -49,14 +50,38 @@ knitr::include_graphics(i[["img_cover"]]$file)
 ```{r child='skill_fmea.Rmd'}
 ```
 
-# (PART) Part II {-} 
+# (PART) Part II: Statistics & Probability {-} 
+
+```{r child='workshop_2.Rmd'}
+```
+
+```{r child='workshop_3.Rmd'}
+```
+
+```{r child='workshop_4.Rmd'}
+```
+
+```{r child='workshop_5.Rmd'}
+```
+
+```{r child='workshop_6.Rmd'}
+```
+
+```{r child='workshop_7.Rmd'}
+```
+
+```{r child='workshop_9.Rmd'}
+```
+
+```{r child='workshop_10.Rmd'}
+```
+
+# (PART) Part III {-} 
+
+
+
 
 
 # References
 
 # (APPENDIX) Appendix {-} 
-
-
-Hi.
-
-Bye.

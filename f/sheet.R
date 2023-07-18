@@ -19,14 +19,14 @@ sheet = function(sharelink = NULL, key = NULL, format = "csv", gid = NULL, base 
 
     # Extract the base, which is everything before the 'd'
     base = sharelink %>%
-      str_extract(".*[/]d[/]")
+      stringr::str_extract(".*[/]d[/]")
     
     # Extract the key, which is everything after the 'd', but before the next backslash
     key = sharelink %>% 
       # by removing the base
-      str_remove(base) %>%
+      stringr::str_remove(base) %>%
       # and everything after the next backlash
-      str_remove("[/].*")
+      stringr::str_remove("[/].*")
 
   }
   

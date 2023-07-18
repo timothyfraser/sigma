@@ -1,16 +1,6 @@
----
-title: "Skill: Failure Modes and Effects Analysis in R"
-subtitle: "R Companion Code"
-author: "Timothy Fraser"
-date: "`r Sys.Date()`"
-output:
-  rmdformats::downcute:
-    self_contained: true
-    default_style: "light"
-    downcute_theme: "default"
----
+# Skill: Failure Modes and Effects Analysis in R {-}
 
-```{r setup, include=FALSE}
+```{r setup_skill_fmea, include=FALSE}
 ## Global options
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 library(knitr)
@@ -23,11 +13,11 @@ library(DiagrammeR)
 
 This tutorial will introduce you to **Failure Modes and Effects Analysis (FMEA)** in R!
 
-# 0. Getting Started
+## Getting Started {-}
 
 Please open up your project on RStudio.Cloud, for our [Github class repository](https://github.com/timothyfraser/sysen). Start a new R script (File \>\> New \>\> R Script). Save the R script as `lesson_3.R`. And let's get started!
 
-## 0.1 Load Packages
+### Load Packages  {-}
 
 ```{r}
 # Load tidyverse, which contains dplyr and most data wrangling functions
@@ -37,7 +27,7 @@ library(DiagrammeR)
 
 ```
 
-# 1. Example: Ben and Jerry's Ice Cream
+## Example: Ben and Jerry's Ice Cream {-}
 
 Ben and Jerry's main headquarters is in Waterbury, VT, just outside of Burlington, where it makes *a lot* of ice cream. (It's also fun to visit.) Their staff likely has to take considerable care to make sure that all that ice cream stays refrigerated! Suppose Ben and Jerry's has decided to build a new ice cream production plant in Ithaca, NY.
 
@@ -48,16 +38,16 @@ For the sake of Ben and Jerry's (nay, the world!) let's use Failure Modes and Ef
 knitr::include_graphics("https://www.benjerry.com/files/live/sites/systemsite/files/flavors/category-refresh/header_mobile_0019_our_flavors_US.jpg")
 ```
 
-## Scope & Resolution
+### Scope & Resolution {-}
 
 As our scope, we're going to just focus on **melting**. What are all the possible ways that ice cream could melt during this process? Melting would have several negative impacts, such as getting exposed to heat, bacteria, and, worst of all, melting the ice cream! This example is primarily people-centric, because it's important to remember that *people* are part of our technological systems!
 
-Before proceeding, please check out our tutorial on making `mermaid` charts! (Estimated time: 10 minutes.) You'll learn how to make the chart used `below`!
+Before proceeding, you can optionally check out our tutorial on making `mermaid` charts! (Estimated time: 10 minutes.) You'll learn how to make the chart used `below`!
 
 <br>
 <br>
 
-# 2. Measuring Criticality
+### Measuring Criticality {-}
 
 FMEA includes uses 3 measures to calculate a **criticality** index, meaning the *overall risk of each combination of severity and underlying conditions.*
 
@@ -75,9 +65,10 @@ These will produce a `criticality` index from 1 to 1000. Suppose we want to be 9
 
 So, let's analyze them!
 
-# 3. Ben & Jerry's
+<br>
+<br>
 
-## Block Diagram
+### Block Diagram {-}
 
 Below, we've visualized what the process of shipping out ice cream looks like once it has been made, using `mermaid`. This involves the following several steps:
 
@@ -184,7 +175,10 @@ c("graph LR",
 
 ```
 
-## Failure Modes
+<br>
+<br>
+
+### Failure Modes {-}
 
 We'll make a tidy `data.frame()` of each of the ways our `block diagram` above could fail, which were contained above in `failures`. We'll call this data.frame `f`.
 
@@ -206,13 +200,14 @@ f <- tibble(
 
 ```
 
-# 4. Calculating Criticality
+## Calculating Criticality {-}
 
 Next, we're going to make a few judgement calls, to calculate the overall risk for this FMEA.
 
 <br>
+<br>
 
-### Estimate Severity
+### Estimate Severity {-}
 
 What's the `severity` of the effects of these failures, on a scale from 1 (low) to 10 (high)? We'll `mutate()` the `data.frame` to include a new column `severity`, and save it as a new data.frame `f1`.
 
@@ -230,7 +225,10 @@ f1
 
 ```
 
-### Estimate Occurrence
+<br>
+<br>
+
+### Estimate Occurrence {-}
 
 How often does this occur, from 1 (almost never) to 10 (almost always)? Let's rank `occurrence` as follows:
 
@@ -246,7 +244,10 @@ f2 <- f1 %>%
 
 ```
 
-### Estimate Detection
+<br>
+<br>
+
+### Estimate Detection {-}
 
 Finally, how likely is it that we would detect the occurrence? If very likely, that's a `1`. If very unlikely, that's a `10`.
 
@@ -262,8 +263,9 @@ f3 <- f2 %>%
 ```
 
 <br>
+<br>
 
-### Estimate Criticality (RPN)
+### Estimate Criticality (RPN) {-}
 
 Using our data in `f3`, let's estimate `criticality` (aka RPN, the risk priority number).
 
@@ -285,16 +287,15 @@ f4 %>%
 Well, that's not good! Looks like the new factory will need to figure out a way to keep their product from melting! (In reality, I'm sure Ben and Jerry's has strict quality control!)
 
 <br>
-
 <br>
 
-# LC #1 {.tabset .tabset-pills}
+## LC 1 {.tabset .tabset-pills .unnumbered}
 
-## Question
+### Question {.unnumbered}
 
 What *other* ways could failure occur here? Add three more kinds of failure to your `tibble` `f`, then estimate their `severity`, `occurence`, `detection`, and `criticality`, and recalculate the total probability of `failure` at this ice cream plant.
 
-## Answer
+### Answer {.unnumbered}
 
 ```{r}
 fprime <- tibble(
@@ -339,3 +340,9 @@ Ooph! Not good!
 <br>
 
 Great work! All done! See you in class!
+
+
+```{r, include = FALSE}
+# Clear environment!
+rm(list = ls())
+```

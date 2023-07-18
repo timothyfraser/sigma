@@ -1,2 +1,3 @@
-rmd_files: ["index.Rmd", "workshop_1.Rmd", "skill_ggplot.Rmd"]
+rmd_files: ["index.Rmd"]
+output_dir: "docs"
 delete_merged_file: TRUE

@@ -1,0 +1,14 @@
+id,event,type,label
+1,T,top,Explosion
+2,G1,and,Conditions for Explosion
+3,G2,or,Ignition Source
+4,A,not,Open Flame
+5,G5,or,Electrostatic Discharge (ESD)
+6,B,not,Dry Air
+7,C,not,Decrease in Temperature
+8,G3,or,Fuel Leak
+9,G4,and,Valve Malfunction
+10,D,not,Debris in Valve
+11,E,not,Sensor Failure
+12,F,not,Exposure to Air
+13,G,not,Damaged Fuel Pump

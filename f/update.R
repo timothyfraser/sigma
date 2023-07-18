@@ -9,6 +9,10 @@
 
 
 update = function(images = FALSE){
+  
+  require(dplyr)
+  require(utils)
+
   # I wrote a function called sheets() saved in my folder "f/"; converts share links to download links
   # Load in sheets() function
   source("f/sheet.R")

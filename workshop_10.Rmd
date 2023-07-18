@@ -1,17 +1,6 @@
----
-title: "Workshop 10: Indices and Confidence Intervals for Statistical Process Control in `R`"
-subtitle: "R Companion Code"
-author: "Timothy Fraser"
-date: "`r Sys.Date()`"
-output:
- rmdformats::downcute:
-    self_contained: true
-    default_style: "light"
-    downcute_theme: "default"
-    fig_caption: true
----
+# Workshop: Indices and Confidence Intervals for Statistical Process Control in `R`
 
-```{r setup, include = FALSE, echo = FALSE}
+```{r setup_workshop_10, include = FALSE, echo = FALSE}
 library(tidyverse)
 library(knitr)
 library(kableExtra)
@@ -24,9 +13,9 @@ knitr::include_graphics("images/10_cover.png")
 
 This workshop extends our toolkit developed in Workshop 9, discussing Process Capability and Stability Indices, and introducing means to calculate confidence intervals for these indices.
 
-# 0. Getting Started 
+## Getting Started  {-}
 
-## 0.1 Packages
+### Packages {-}
 
 We'll be using the `tidyverse` package for visualization, `viridis` for color palletes, `moments` for descriptive statistics, plus `ggpubr` for some add-on functions in `ggplot`.
 
@@ -37,7 +26,7 @@ library(viridis)
 # install.packages(c("ggpubr", "moments")) 
 ```
 
-## 0.3 Our Data
+### Our Data {-}
 
 We'll be continuing to analyze our quality control data from a local hot springs inn (*onsen*) in sunny Kagoshima Prefecture, Japan. Every month, for 15 months, you systematically took 20 random samples of hot spring water and recorded its **temperature**, **pH**, and **sulfur** levels. How might you determine if this *onsen* is at risk of slipping out of one sector of the market (eg. Extra Hot!) and into another (just normal Hot Springs?). 
 
@@ -45,7 +34,7 @@ Let's read in our data from `workshops/onsen.csv`!
 
 ```{r}
 # Let's import our samples of bathwater over time!
-water = read_csv("/cloud/project/workshops/onsen.csv")
+water = read_csv("workshops/onsen.csv")
 # Take a peek!
 water %>% glimpse()
 ```
@@ -65,9 +54,9 @@ Our dataset contains:
 <br>
 <br>
 
-# 1. Process Capability vs. Stability
+## Process Capability vs. Stability
 
-## 1.1 Definitions
+###  Definitions
 
 Production processes can be categorized in terms of **Capability** (does it meet required specifications?) and **Stability** (is production consistent and predictable?) Both are vital. 
 
@@ -80,7 +69,7 @@ We need to maximize *both* process **capability** and **stability** to make an e
 <br>
 <br>
 
-## 1.2 Table of Indices
+###  Table of Indices
 
 These statistics rely on some combination of (1) the mean $\mu$, (2) the standard deviation $\sigma$, and (3) the upper and lower **"specification limits"**; the specification limits are our **expected values** $E_{upper}$ and $E_{lower}$, as compared to our actual **observed values**, summarized by $\mu$ and $\sigma$.
 
@@ -101,7 +90,7 @@ tribble(
 
 
 
-# 2. Index Functions
+## Index Functions
 
 Let's do ourselves a favor and write up some simple functions for these.
 
@@ -181,7 +170,7 @@ stat = water %>%
 stat
 ```
 
-## 2.1 Capacity Index $C_{p}$
+###  Capacity Index $C_{p}$
 
 Our $C_{p}$ Capacity index says, assuming that the distribution is centered and stable, how many times wider are our limits than our approximate observed distribution ($6 \sigma_{short}$)?
 
@@ -195,7 +184,7 @@ Great! This says, our observed variation is many times (`r mycp` times) narrower
 
 <br>
 
-## 2.2 Process Performance Index $P_{p}$
+###  Process Performance Index $P_{p}$
 
 Our $P_{p}$ Process Performance Index asks, even if the distribution is not stable (meaning it varies not just due to common causes), how many times wider are our specification limits than our approximate observed distribution ($6 \sigma_{total}$)?
 
@@ -207,7 +196,7 @@ Much like before, the specification limit range remains quite bigger than the ob
 
 <br>
 
-## 2.3 Capacity Index $C_{pk}$
+###  Capacity Index $C_{pk}$
 
 Our $C_{pk}$ Capacity index says, assuming the distribution is pretty stable across subgroups, how many times wider is (a) the distance from the tail of interest to the mean than (b) our approximate observed tail (3 sigma)? This always looks at the *shorter tail*.
 
@@ -227,7 +216,7 @@ This says, our observed variation is much wider than the lower specification lim
 <br>
 <br>
 
-## 2.4 Process Performance Index $P_{pk}$
+###  Process Performance Index $P_{pk}$
 
 Our $P_{pk}$ process performance index says, even if the distribution is neither stable nor centered, how much wider is the observed variation $3 \sigma_{total}$ than the distance from the tail of interest to the mean? We use $\sigma_{total}$ here to account for instability (considerable variation between subgroups) and one-tailed testing to account for the uncentered distribution.
 
@@ -236,7 +225,7 @@ myppk = ppk(sigma_t = stat$sigma_t, mu = stat$xbbar, lower = 42, upper = 80)
 myppk
 ```
 
-## 2.5 Equality
+###  Equality
 
 A final reason why these quantities are neat is that these 4 indices are related; if you know 3 of them, we can always calculate the 4th! See the identity below:
 
@@ -252,13 +241,13 @@ mypp * mycpk == myppk * mycp
 
 
 
-# LC1 {.tabset .tabset-pills}
+## LC1 {.tabset .tabset-pills .unnumbered}
 
-## Question
+### Question {-}
 
 Let's apply this to some tasty examples! A manufacturer of granola bars is aiming for a weight of `2 ounces (oz)`, plus or minus `0.5 oz`. Suppose the standard deviation of our granola bar machine is `0.02 oz`, and the mean weight is `2.01 oz`. What's the process capability index? (How many times greater is the expected variation than the observed variation?)
 
-## Answer
+### Answer {-}
 
 ```{r}
 lower = 2 + 0.05
@@ -272,20 +261,19 @@ cp(sigma = 0.02, upper = 2.05, lower = 1.95)
 cpk(mu = 2.01, sigma = 0.02, lower = 1.95, upper = 2.05)
 ```
 
-## 
 
 <br>
 <br>
 
 
-# 3. Confidence Intervals
+## Confidence Intervals
 
 Any statistic is really just 1 of the many possible values of statistics you could have gotten from your sample, had you taken just a slightly different random sample. So, when we calculate our indices, we should be prepared that our indices might *vary due to chance (sampling error)*, so we should build in confidence intervals. This helps us benchmark how trustworthy any given index is.
 
 <br>
 <br>
 
-## 3.1 Confidence Intervals show us Sampling Distributions 
+###  Confidence Intervals show us Sampling Distributions 
 
 Let's quickly go over what confidence intervals are trying to show us!
 
@@ -329,7 +317,7 @@ We can see above the *latent distribution of 1000 statistics we could have gotte
 <br>
 <br>
 
-## 3.2 Bootstrapped or Theoretical Sampling Distributions?
+###  Bootstrapped or Theoretical Sampling Distributions?
 
 The question is, are you relying on a *bootstrapped* sampling distribution or a *theoretical* sampling distribution? 
 
@@ -342,7 +330,7 @@ Let's learn how to make confidence intervals for our indices from (1) a theoreti
 <br>
 <br>
 
-## 3.3 Confidence Intervals with Theoretical Sampling Distributions
+###  Confidence Intervals with Theoretical Sampling Distributions
 
 Suppose our lower and upper specification limits - the expectations of the market and/or regulators - are that our *onsen*'s temperature should be between 42 and 50 degrees Celsius if we advertise ourselves as an Extra Hot Onsen.
 
@@ -419,7 +407,7 @@ bands
 <br>
 <br>
 
-## 3.4 Visualizing Confidence Intervals
+###  Visualizing Confidence Intervals
 
 Were we to visualize this, it might look like...
 
@@ -443,7 +431,7 @@ It's not the most exciting plot, but it does show very clearly that the value of
 <br>
 <br>
 
-## 3.5 Bootstrapping $C_{p}$
+###  Bootstrapping $C_{p}$
 
 How might we estimate this using the bootstrap?
 
@@ -546,14 +534,14 @@ remove(myboot, mybootstat)
 <br>
 <br>
 
-# 4. CIs for any Index!
+## CIs for any Index!
 
 Let's practice calculating confidence intervals (CIs) for each of these indices.
 
 <br>
 <br>
 
-## 4.1 CIs for $P_p$
+###  CIs for $P_p$
 
 Now that we have our ingredients, let's get our index and its confidence intervals!
 
@@ -577,7 +565,7 @@ stat %>%
     upper = estimate + z * se)
 ```
 
-## 4.2 CIs for $C_{pk}$
+###  CIs for $C_{pk}$
 
 Write the function and generate the confidence interval for $P_{pk}$!
 
@@ -620,7 +608,7 @@ stat %>%
 ```
 
 
-## 4.3 CIs for $P_p$
+###  CIs for $P_p$
 
 Now that we have our ingredients, let's get our index and its confidence intervals!
 
@@ -649,7 +637,7 @@ stat %>%
 <br>
 <br>
 
-## 4.4 CIs for $P_{pk}$
+###  CIs for $P_{pk}$
 
 Write the function and generate the confidence interval for $P_{pk}$!
 
@@ -698,4 +686,6 @@ Alright! You are now a confidence interval wizard!
 
 Go forth and make confidence intervals!
 
-
+```{r, include = FALSE}
+rm(list = ls())
+```

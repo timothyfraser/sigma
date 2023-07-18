@@ -1,4 +1,4 @@
-# Lesson 1: Coding in R
+# Workshop: Coding in R
 
 ```{r, echo = FALSE, results='hide'}
 source("f/images.R") # Get images function
@@ -32,15 +32,15 @@ Today's tutorial is at the following link: https://timothyfraser.github.io/sysen
 
 3. Read and follow along with the instructions on the webpage! Read the tutorial code (below), and then type it in and run it in your R session!
 
-```{r img-1_0, echo = FALSE, out.width = "100%", fig.align='center', fig.cap= "Visual Intro to Using RStudio.Cloud"}
-knitr::include_graphics(i[["img_1_0"]]$file)
+```{r, echo = FALSE, out.width = "100%", fig.align='center', fig.cap= "Visual Intro to Using RStudio.Cloud"}
+knitr::include_graphics(path = i$img_1_0$file)
 ```
 
 <br>
 <br>
 
 
-## 1. Introduction
+## Introduction to `R`
 
 The document in your RStudio Cloud project document is an 'R script.' (its name ends in .R).
 
@@ -73,14 +73,16 @@ A few tips:
 
 To make a script, go to **File >> New File >> R Script,** then save it and name it.
 
-```{r echo = FALSE, out.width = "49%", fig.align = 'center', fig.cap="Figure 2: Open New Script, and Save it!"}
-knitr::include_graphics(i[["img_1_1"]]$file)
-knitr::include_graphics(i[["img_1_2"]]$file)
+```{r, echo = FALSE, out.width = "49%", fig.align = 'center', fig.cap="Open New Script"}
+knitr::include_graphics(path = i$img_1_1$file)
+```
+```{r, echo = FALSE, out.width = "49%", fig.align='center', fig.cap="Save New Script!"}
+knitr::include_graphics(path = i$img_1_2$file)
 ```
 
 Let's learn to use R!
 
-## 2. Basic Calculations in R
+## Basic Calculations in R
 
 Try highlighting the following with your cursor,  and then press **CTRL** and **ENTER** simultaneously, or the **'Run'** button above.
 
@@ -187,7 +189,7 @@ sqrt( ((2 - 5) / 5)^4 )
 <br>
 <br>
 
-## 3. Types of Values in R
+## Types of Values in R
 
 R accepts 2 type of data:
 
@@ -212,7 +214,7 @@ and
 <br>
 <br>
 
-## 4. Types of Data in R
+## Types of Data in R
 
 ### Values
 
@@ -423,7 +425,7 @@ mayhem
 <br>
 <br>
 
-## 5. Common Functions in R
+## Common Functions in R
 
 We can also run ```functions``` that come pre-installed to analyze vectors.
 
@@ -589,13 +591,13 @@ That means wave height varied by `r round(sd(jp$wave_m) - sd(jp$seawall_m), 2)` 
 <br>
 <br>
 
-## 7. Packages
+## Packages
 
-### 7.1 Using Packages
+### Using Packages
 
 Some functions come pre-built into R, but lots of people have come together to build 'packages' of functions that help R users all over the world do more, cool things, so we don't each have to 'reinvent the wheel.' ```ggplot2```, which we use below, is one of these!
 
-### 7.2 Installing Packages
+### Installing Packages
 
 We can use the ```library()``` function to load a package (like fipping an 'on' switch for the package). After loading it, R will recognize that package's functions when you run them!
 
@@ -628,7 +630,7 @@ The downloaded source packages are in
 	‘/tmp/RtmpefCnYe/downloaded_packages’
 ```
 
-### 7.3 Loading Packages
+### Loading Packages
 
 Finally, we can load our packages with ```library()```.
 
@@ -643,12 +645,12 @@ Tada! You have turned on your packages!
 <br>
 <br>
 
-## 8. Visualizing Data with Histograms
+## Visualizing Data with Histograms
 
 
 The power of R is that you can process data, calculate statistics, and visualize it all together, very quickly. We can do this using ```hist()``` and `geom_histogram()`, among other functions.
 
-### 8.1 `hist()`
+### `hist()`
 
 For example, let's imagine that we had seawall height data from cities in several states. 
 We might want to compare those states.
@@ -673,7 +675,7 @@ Every vector is a distribution - a range of low to high values. We can use the `
 hist(allsw$height)
 ```
 
-### 8.2 ```geom_histogram()``` in ```ggplot2```
+### ```geom_histogram()``` in ```ggplot2```
 
 ```hist()``` is great for a quick check, but for anything more complex, we're going to use ```ggplot2```, the most popular visualization package in R. 
 
@@ -759,9 +761,9 @@ Looks pretty weird, huh? `hist()` automatically chooses the binwidth, but `ggplo
 <br>
 <br>
 
-## 9. Wrap-up
+## Wrap-up
 
-### 9.1 Next Steps
+### Next Steps
 
 Throughout the rest of the course, 
 we're going to advance each of these skills:
@@ -774,7 +776,7 @@ we're going to advance each of these skills:
 
 
 
-### 9.2 Advice
+### Advice
 
 Be sure to clear your environment often.
 
@@ -795,7 +797,7 @@ You'll be a rockstar at using R in no time! Stay tuned for our next Workshop!
 
 
 
-### 9.3 Troubleshooting:
+### Troubleshooting:
 
 
 - If your session freezes, go to 'Session' >> 'Restart R.' 

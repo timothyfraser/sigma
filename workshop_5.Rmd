@@ -1,0 +1,1159 @@
+# Workshop: Useful Life Distributions (Exponential)
+
+```{r setup_workshop_5, include = FALSE}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+knitr::opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
+```
+
+In this workshop, we're going to learn some `R` functions for working with common life distributions, namely the **Exponential** distributions.
+
+## Getting Started
+
+### Load Packages
+
+Let's start by loading the `tidyverse` package, which will let us `mutate()`, `filter()`, and `summarize()` data quickly. We'll also load `mosaicCalc`, for taking derivatives and integrals (eg. `D()` and `antiD()`).
+
+```{r}
+# Load packages
+library(tidyverse)
+library(mosaicCalc)
+```
+
+<br>
+<br>
+
+###  Key Concepts
+
+In this lesson, we'll be building on several key concepts from prior lessons. I've defined them below as a helpful review.
+
+- **life distribution**: the distribution of a vector of $n$ products, whose values recording the amount of time it took for each product to fail. In other words, its **lifespan**.
+
+- **probability density function (PDF)**: the function describing the probability (relative frequency) of any value in a distribution.
+
+- **cumulative distribution function (CDF)**: the function describing the *cumulative* probability of each successive value in a distribution. Spans from 0 to 1.
+
+- Have questions? I *strongly* recommend you review Workshops 2, 3, and 4 before this one! It will help it all fit together!
+
+<br>
+<br>
+
+###  Our Data
+
+In this workshop, we're going to work with a data.frame called `masks`. An extremely annoying moment in the COVID-era is when a part of your mask snaps, requiring you to get a fresh mask. Let's examine a (hypothetical) sample of `n = 50` masks produced by Company X to explore how often this happens!
+
+Please import the `masks.csv` data.frame below. Each row is a mask, with its own unique `id`. Columns describe how many hours it took for the `left_earloop` to snap, the `right_earloop` to snap, the nose `wire` to snap, and the `fabric` of the mask to tear.
+
+```{r, eval = FALSE, echo = FALSE}
+data.frame(
+  id = 1:50,
+  left_earloop = rexp(n = 50, rate = .10) %>% round(0),
+  right_earloop = rexp(n = 50, rate = .10) %>% round(0),
+  wire = rexp(n = 50, rate = .05) %>% round(0),
+  fabric = rexp(n = 50, rate = .001) %>% round(0)
+) %>%
+  write_csv("workshops/masks.csv")
+```
+
+```{r, message=FALSE, warning = FALSE}
+masks <- read_csv("workshops/masks.csv")
+
+# Let's glimpse() its contents!
+masks %>% glimpse()
+```
+
+<br>
+<br>
+
+## Quantities of Interest
+
+When we work with life distributions, we often want to find several useful quantities of interest (a.k.a. parameters) about them. Let's find out how to do that with an **exponential distribution**!
+
+### Lack of Memory 
+
+**Exponential distributions** are famous for a key trait. The failure rate $ \lambda $ remains **constant** in an exponential distribution. The probability that a product fails in the next hour of use is the same at `t = 0`, `t = 100`, or `t = infinity!` It doesn't worsen with time. (It's the literal meaning of the saying, "if it is not broke, don't fix it!")
+
+### Mean Time to Fail
+
+The Mean Time to Fail describes the **mean** of a lifespan distribution. For example, let's calculate the mean time to fail (in hours) for a mask's `left_earloop` in our sample.
+
+```{r}
+stat <- masks %>%
+  summarize(
+    # We can take the mean of this vector of time to fail in hours
+    mttf = mean(left_earloop),
+    # Lambda is the reciprocal of the MTTF
+    lambda = 1 / mttf)
+
+# Check out the contents!
+stat
+```
+
+In an exponential distribution, the MTTF *always* has a cumulative probability of `1 - 1 / e = 0.632`. (This can be coded in R like so:)
+
+```{r}
+1 - 1 / exp(1)
+```
+
+Let's assume our sample's left earloops have an exponential lifespan distribution, and use `pexp()` to calculate the cumulative probability of getting an MTTF of `r stat$mttf`. We'll need to supply `pexp()` the benchmark in the distribution in question (`mttf`), plus the the `rate` parameter $\lambda$, which we always need when simulating an exponential distribution.
+
+```{r}
+prob <- pexp(stat$mttf, rate = stat$lambda)
+```
+
+Indeed, the figure below compares the observed PDF function (made using `density()`) to the assumed exponential PDF (made using `dexp()`), and we can see that that 63% of the distribution has failed by the Mean Time to Fail.
+
+```{r, echo = FALSE}
+ggplot() +
+  geom_area(
+    data = data.frame(x = seq(0, 50, by = 0.1)) %>%
+      mutate(y = dexp(x, rate = stat$lambda),
+             fill = stat$mttf > x),
+    mapping = aes(x = x, y = y, fill = fill)) +
+  geom_density(
+    data = masks, mapping = aes(x = left_earloop)) +
+  geom_vline(data = stat, mapping = aes(xintercept = mttf), linetype = "dashed") +
+  geom_text(data = stat, mapping = aes(x = mttf, y = 0.04, label = paste(" MTTF = ", mttf, sep = "")), hjust = 0) +
+  geom_text(
+    mapping = aes(x = 7, y = 0.03, 
+                  label = paste(round(pexp(stat$mttf, rate = stat$lambda) * 100, 1), "%", sep = ""))) +
+  theme_classic(base_size = 14) +
+  theme(axis.line = element_blank(),
+        panel.border = element_rect(color = "#373737", fill = NA),
+        legend.position = "none") +
+  labs(x = "Lifespan (hours)\nLeft Earloop of Sampled Masks (n = 50)",
+       y = "Probability",
+       subtitle = "(Observed PDF vs. Assumed Exponential PDF)\n63.2% of Products fail before MTTF in Exp. Distribution",
+       title = "Lifespan Distribution of Left Earloops")
+```
+
+<br>
+<br>
+
+### Mean Time to Fail via *Integration*
+
+**Mean Time to Fail (MTTF)** can be number-crunched empirically as the *mean of observed lifespans*, assuming an exponential distribution. But it is also equal to the **integral of the reliability** function: $MTTF = \int_{0}^{\infty}{R(t)dx} $.
+
+So, let's make ourselves a nice reliability function to help us calculate the MTTF.
+
+- We know the reliability function can be stated as $R(t) = 1 - F(t)$. 
+
+- Assuming an exponential distribution, the failure rate $F(t) = 1 - e^{-\lambda t}$.
+
+- We know $\lambda = \frac{1}{MTTF}$, and above, we found that `r paste("lambda =", stat$lambda)` for a left-earloop.
+
+```{r}
+# Reliability Function for exponential distribution
+r = function(t, lambda){ exp(-1*t*lambda)}
+```
+
+We can calculate it below...
+
+```{r}
+# Use mosaicCalc's antiD function
+# To get integral of r(t, lambda) as x goes from 0 to infinity
+mttf = antiD(tilde = r(t, lambda) ~ t)
+```
+
+Great! We have developed our own `mttf` function for an exponential distribution! If we feed `t` a suitably large value, like 1000 (approaching infinity), we will reach the original observed/estimated `mttf`.
+
+```{r}
+mttf(t = 1000, lambda = stat$lambda)
+mttf(t = Inf, lambda = stat$lambda)
+```
+This only helps you if you *know* **lambda**, the inverse of the MTTF, or have the reliability function but not the MTTF.
+
+<br>
+<br>
+
+### Median Time to Fail $T_{50}$
+
+We might also want to know the **median** time to failure ($T_{50}$), the value on the x axis that splits the area under the curve in half at 50% and 50%. We can calculate this as...
+
+$F(T_{50}) = 50\% = 0.5 = 1 - e^{-\lambda T_{50}}$
+
+where:
+
+$T_{50} = \frac{log(2)}{ \lambda } = \frac{0.693}{\lambda}$
+
+```{r}
+# Let's update stat to include the observed 'median' 
+# and 't50', the median assuming an exponential distribution 
+
+stat <- masks %>%
+  summarize(
+    # The literal mean time to fail 
+    # in our observed distribution is this
+    mttf = mean(left_earloop),
+    # And lambda is this...
+    lambda = 1 / mttf,
+    # The observed median is this....
+    median = median(left_earloop),
+    # But if we assume it's an exponential distribution
+    # and calculate the median from lambda,
+    # we get t50, which is very close.
+    t50 = log(2) / lambda)
+
+# Check it out!
+stat
+```
+
+### Modal Time to Fail
+
+Finally, the modal time to fail is pretty easy to calculate. Its the most common time to fail, also known as the **max** probability in a PDF.
+
+```{r}
+masks %>%
+  summarize(
+    # Let's get lambda, the reciprocal of the MTTF
+    lambda = 1 / mean(left_earloop),
+    # And let's estimate the PDF...
+    t = 1:max(left_earloop),
+    prob = dexp(t, rate = lambda)) %>%
+  # And let's sort the data.frame from highest to lowest
+  arrange(desc(prob)) %>%
+  # Grab first 3 rows, for brevity
+  head(3)
+
+# This reveals that t = 1 is our mode
+```
+
+<br>
+<br>
+
+## LC 1 {.tabset .tabs-pills  .unnumbered}
+
+### Question {-}
+
+A competing mask manufacturer made a mask whose earloops fail at a constant failure rate of `0.08`.
+
+1. What is the probability that 1 fails *before* 20 hours of use?
+
+2. What is the probability that 2 fail *before* 20 hours of use?
+
+3. After how long should we expect 1% failures?
+
+### Answer {-}
+
+1. What is the probability that 1 fails *before* 20 hours of use?
+
+```{r}
+# Let's generate an expondential failure function,
+# because **constant** rate of failure
+f = function(t, lambda){1 - exp(-1*t*lambda)}
+
+# Use failure function (CDF) to get area under curve BEFORE 20 hours.
+f(t = 20, lambda = 0.08)
+# There's a 79% chance 1 fails within 20 hours
+```
+
+2. What is the probability that 2 fail *before* 20 hours of use?
+
+```{r}
+# For n failures, take F(t) to the nth power
+f(t = 20, lambda = 0.08)^2
+# There's a 63% chance 2 fail within 20 hours.
+```
+3. After how long should we expect 1% failures?
+
+```{r}
+# We can solve this using the failure function
+# f(t) = 1 - e^{-t*lambda}
+
+# But we need to invert it,
+# to solve for t
+# f(t) = 1 - e^{-t*lambda}
+# e^{-t*lambda} = 1 - f(t) 
+# log(1 - f(t)) = -t*lambda
+# -log(1 - f(t)) / lambda = t
+
+# So if we set f(t) = 1%, and lambda = 0.08,
+# this will tell us at what time F(t) will equal 1%
+-log(1 - 0.01) / 0.08
+# Looks like that time of interest is t = 0.1256 hours.
+```
+
+## LC 2 {.tabset .tabs-pills  .unnumbered}
+
+### Question {-}
+
+Above, we examined a sample of surgical masks, checking how often their `left_earloop` snapped. How does that compare with the `right_earloop`?
+
+Calculate the mean time to fail for the right earloop, and $\lamba$, the mean failure rate. Is the right earloop more or less reliable than the left earloop?
+
+### Answer {-}
+
+1. MTTF and Lambda
+
+```{r}
+compare <- masks %>%
+  summarize(mttf_right = mean(right_earloop),
+            mttf_left = mean(left_earloop),
+            lambda_right = 1 / mttf_right,
+            lambda_left = 1 / mttf_left)
+# Check it
+compare
+# Looks like the left earloop fails less often.
+```
+
+
+
+<br>
+<br>
+
+## Quantities of Interest (continued)
+
+### Conditional Reliability (Survival) Function
+
+We may also want to know, after age `t`, what's the probability that a product survives an additional `x` years to age `t + x`? We can restate this in terms of $T_{Fail}$, the time at which the product finally fails. 
+
+We want to know, what's the probability that $T_{Fail}$ is greater than $t + x$, given that we *already know* $T_{Fail}$ must be greater than $t$ (since it hasn't failed yet as of time $t$)? Fortunately, this can be simplified in terms of the reliability functions. As long as we can calculate $R(x + t)$ and $R(t)$, we can find $R(x|t)$, the conditional survival function.
+
+$$ R(x | t) = \frac{ R(x + t) }{ R(t) } = \frac{ P(T_{Fail} > x + t) }{P(T_{Fail} > t)} $$
+So, let's use our nice reliability function from before to help us calculate the conditional reliability function. 
+
+```{r}
+# Reliability Function for exponential distribution
+r = function(t, lambda){ exp(-1*t*lambda)}
+```
+
+So, what's the probability that a left-earloop that has lasted 10 hours will last another 5 hours?
+
+```{r}
+r(t = 10 + 5, lambda = stat$lambda) / 
+  r(t = 10, lambda = stat$lambda)
+```
+
+Looks like there's a 69% chance it will last another 5 hours, given that it has already lasted 10 hours. 
+
+Let's finish up by building ourselves a nice Conditional Reliability function `cr`, which which calculates the conditional probability of any item surviving `x` more hours given that it survived `t` hours and a mean failure rate of `lambda`.
+
+```{r}
+cr = function(t, x, lambda){
+  # We can actually nest functions inside each other, 
+  # to make them easier to write
+  r = function(t, lambda){ exp(-1*t*lambda)}
+  
+  # Calculate R(x + t) / R(t) 
+  output <- r(t = t + x, lambda) / r(t = t, lambda)
+  
+  # and return the result!
+  return(output)
+}
+```
+
+```{r}
+# Let's compare our result to above! It's the same!
+cr(t = 10, x = 5, lambda = stat$lambda)
+```
+If we were to visualize our conditional reliability function `cr` below as x ranges from 1 to 50, it would produce the following curve.
+
+```{r, echo = FALSE}
+data.frame(
+  x = 1:50,
+  lambda = stat$lambda) %>%
+  mutate(prob = cr(t = 10, x = x, lambda = stat$lambda)) %>%
+  ggplot(mapping = aes(x = x, y = prob, fill = "Conditional Reliability\nFunction")) +
+  geom_area() +
+  labs(y = "Probability",
+       x = "Lifespan = 10 + x more hours of use",
+       subtitle = "Conditional Reliability of 50 Sampled Masks' Left-Earloops") +
+  guides(fill = "none") +
+  theme_classic(base_size = 14) +
+  theme(panel.border = element_rect(fill = NA, color = "#373737"),
+        axis.line = element_blank())
+```
+
+<br>
+<br>
+
+### $\mu(t)$: Mean Residual Life
+
+The Conditional Reliability Function $R(x|t)$ also allows us to calculate the Mean Residual Life (MRL, a.k.a. $\mu$) at time $t$, in this case referring to the average $x$ more years the product is expected to survive *after* time $t$. We can calculate it using the distribution below.
+
+$$MRL(t) = \mu(t) = \int_{0}^{\infty}{ R(x|t)dx} = \frac{1}{R(t)} \int_{0}^{\infty}{ R(x) dx} $$
+Technically, the Mean Residual Life at time $t$ represents **how many times greater** is the MTTF expected than the probability of survival at time t (proportion of cases not yet failed). It shows the mean expected remaining life years, for however $x$ many more time steps come after $t$.
+
+```{r}
+# Calculate the probability of survival R(t = 10)
+prob_survival_t = r(t = 10, lambda = stat$lambda)
+# Calculate the MTTF for +x more years
+mttf_inf = mttf(t = Inf, lambda = stat$lambda)
+
+# calculate the Mean Residual Life for t=10
+mttf_inf / prob_survival_t
+```
+
+We can formalize this as function `mu(t, lambda)`. (Since the Greek letter $\mu$ is pronounced `mu`.)
+
+```{r}
+# Calculate Mean Residual Life
+mu = function(t, lambda){
+  
+  # Get the Reliability Function for exponential distribution
+  r = function(t, lambda){ exp(-1*t*lambda)}
+  
+  # Get the MTTF (integral of reliability function)
+  mttf = antiD(tilde = r(t = t, lambda = lambda) ~ t)
+
+  # Now calculate mu(), the Mean Residual Life function at time t
+  output <- mttf(t = Inf, lambda = lambda) / r(t = t, lambda = lambda)
+  
+  return(output)
+}
+```
+
+Let's test it out and compare to our previous version.
+
+```{r}
+mu(t = 10, lambda = stat$lambda)
+```
+Works perfectly!
+
+
+<br>
+<br>
+
+### $g(t)$: MRL as % of MTTF
+
+We can also estimate $g(t)$, which describes, how *large* is the MRL $\mu(t)$, relative to the MTTF?
+
+When $t = 0$, $\mu(t) = \mu = MTTF$, so we can write $g(t)$ as follows:
+
+$$g(t) = \frac{MRL(t)}{MTTF} = \frac{\mu(t)}{\mu(t = 0)}$$
+So, for the mask component we've been working with, `left_earloop`, we can calculate the MRL-to-MTTF ratio `g(t)` after `t = 10` hours as follows:
+
+```{r}
+mu(t = 10, lambda = stat$lambda) / mu(t = 0, lambda = stat$lambda)
+```
+
+<br>
+<br>
+
+## LC 3 {.tabset .tabs-pills .unnumbered}
+
+### Question {-}
+
+A competing firm produced a mask with a wire that fails at a constant rate of 1 failure per 240 hours. 
+
+1. The probability that the wire survives 1 week (`t = 168` hours) in continuous use is... (
+
+2. You buy the mask, and it works without failure for 2 weeks (`t = 336` hours) The probability the wire will snap during the next week (`t = 504` hours) is...
+
+
+### Answer {-}
+
+
+1. The probability that the wire survives 1 week (`t = 168` hours) in continuous use is... (
+
+```{r}
+# Write the reliability function
+r = function(t, lambda){ exp(-1*t*lambda)}
+
+# Probability it survives 1 month (760 hours) is...
+r(t = 168, lambda = 1 / 240)
+
+# ~ 50%
+```
+
+2. You buy the mask, and it works without failure for 2 weeks (`t = 336` hours) The probability the wire will snap during the next week (`t = 504` hours) is...
+
+```{r}
+# We can calculate it 2 ways.
+
+# First, we can take
+# R(t + x) / R(t)
+r(t = 504, lambda = 1 / 240) / 
+  r(t = 336, lambda = 1 / 240)
+
+# Or, we can calculate the failure function
+f = function(t, lambda){1 - exp(-1*t*lambda)}
+# And just calculate the rate of F(t = x)
+# Because lambda is a constant failure rate
+f(t = 168, lambda = 1 / 240)
+```
+
+
+<br>
+<br>
+
+## System Failure with Independent Failure Rates
+
+Consider a mask with a left and right earloop, which have independent failure rates $\lambda_{left}$ and $\lambda_{right}$. What's the probability that the left loop fails before the right loop?
+
+We can express this as:
+
+$$ P(j \ fails \ first) = \frac{ \lambda_{j}}{  \sum_{i=1}^{n}{ \lambda{i}} }$$
+
+In other words, the probability that component $j$ fails first reflects how **big** $\lambda_{j}$ is relative to all the other failure rates in total.
+
+Let's test this out with our `masks` dataset.
+
+```{r}
+masks %>%
+  summarize(
+    # Calculate failure rates of left and right loops
+    lambda_left = 1 / mean(left_earloop),
+    lambda_right = 1 / mean(right_earloop),
+    # Calculate the total probability of either loop failing
+    lambda_sum = lambda_left + lambda_right,
+    # Calculate probability the left loop fails first
+    prob_left_first = lambda_left / lambda_sum)
+
+# Looks like a probability of about 44% that left loop fails first.
+```
+
+<br>
+<br>
+
+### Reliability Functions with Multiple Inputs
+
+Suppose a fraction of our masks are shipped in from manufacturer 1, while some are shipped from manufacturer 2. A fraction $p$ is coming from manufacturer 1, while $1-p$ is coming from manufacturer 2. We can use the rules of total probability to calculate the reliability function and other quantities for this mask:
+
+$$R(t) = \sum_{i=1}^{n}{ ( \ p_{i} \times R_i(t) \ ) } = \sum_{i=1}^{n}{ ( \ p_{i} \times e^{-\lambda_{i} t} ) }$$
+
+$$MTTF = \sum_{i=1}^{n}{ \frac{p_i}{\lambda_{i}}}$$
+
+$$f(t) = \frac{-d}{dt}R(t) = \sum_{i=1}^{n}{p\lambda_{i}e^{-\lambda_{i}t}}$$
+
+$$z(t) = \frac{ f(t) }{ R(t)} = \frac{  \sum_{i=1}^{n}{p\lambda_{i}e^{-\lambda_{i}t}} }{ \sum_{i=1}^{n}{ ( \ p_{i} \times R_i(t) \ ) } }  $$
+
+It's pretty messy, but powerful!
+
+Suppose we order 75% of our stock from a manufacturer with a failure rate of 1 fabric tear per 50 hours, but 25% from our stock from a manufacturer with a failure rate of 1 tear per 100 hours. What is the (1) overall mean time to failure and (2) overall failure rate at 100 hours for any random mask in your supply?
+
+We can tally this up in a `stock` data.frame.
+
+```{r}
+stock <- data.frame(
+  prob = c(0.75, 0.25),
+  lambda = c(1 / 50, 1 / 100))
+```
+
+To calculate the MTTF, we just take the sum of the fraction of each proportion and each failure rate lambda.
+
+```{r}
+stock %>%
+  summarize(mttf = sum(prob / lambda))
+```
+
+To calculate the overall failure rate, we will generate the reliability function, take its derivative to get the PDF.
+
+```{r}
+# Let's write an exponential reliability function
+r = function(t, lambda){ exp(-1*t*lambda) }
+
+# Let's derive an exponential PDF f(t), using mosaicCalc's D()
+f = D(-1*r(t, lambda) ~ t)
+```
+
+Then, we use the PDFs $f_i(t)$ and the Reliability functions $R_i(t)$ to get calculate the overall failure rate $z(t)$.
+
+```{r}
+stock %>%
+  summarize(
+    total_f = sum(prob * f(t = 100, lambda = lambda)),
+    total_r = sum(prob * r(t = 100, lambda = lambda)),
+    z = total_f / total_r)
+```
+
+We could even write it as a function, where `p` and `lambda` are equal length vectors for plant 1, plant 2, plant 3, ... plant $n$.
+
+```{r}
+z = function(t){
+  # Set the input percentages of products from plants 1 and 2
+  p = c(0.75, 0.25)
+  # Set the failure rates for each
+  lambda = c(0.02, 0.01)
+  
+  
+  # Let's write an exponential reliability function
+  r = function(t, lambda){ exp(-1*t*lambda) }
+  # Let's derive an exponential PDF f(t),
+  f = D(-1*r(t, lambda) ~ t)
+
+  # Calculate total probability
+  total_f = sum( p * f(t, lambda) )
+  # Calculate total reliability
+  total_r = sum( p * r(t, lambda) )
+  
+  # Calculate overall failure rate
+  z = total_f / total_r
+  
+  return(z)
+}
+# Try it out!
+z(t = 1)
+z(t = 10)
+z(t = 100)
+```
+
+<br>
+<br>
+
+### Phase-Type Distributions
+
+One way to more accurately model the lifespan of a product is to accept that its failure rate may remain constant, but it might change between failure rates as it passes through **phases**. Let's model that!
+
+We can write the time $T$ to critical failure (via either overstress OR degraded failure) as $T = min(T_c, T_d+T_{dc})$.
+
+```{r, echo = FALSE}
+library(DiagrammeR)
+
+c("graph LR",
+  'O(("Overstress"))',
+  'C(("Critical<br>Failure"))',
+  'D(("Degraded<br>Failure"))',
+  'DC(("Critical<br>Degraded"))',
+  "O-->|&lambda;<sub>C</sub>|C",
+  "O-->|&lambda;<sub>D</sub>|D",
+  "D-->|&lambda;<sub>C</sub>|C",
+  "D-->|&lambda;<sub>DC</sub>|DC") %>%
+  paste(collapse = "\n ") %>%
+  mermaid()
+```
+
+The total probability of a product being in any phase $a_{i \to n}$ equals 1.
+
+- $a_c = 25\%$
+
+- $a_d = 40\%$
+
+- $a_dc = 10\%$
+
+We can represent it in a dataframe, like so:
+
+```{r}
+myphase <- data.frame(
+  id = 1:4,
+  phase = c("c", "d", "c", "dc"),
+  alpha = c(0.25, 0.40, 0.25, 0.10),
+  lambda = c(0.50, 1, 0.50, 3)
+)
+```
+
+And, using the same tricks from the preceding section, we can calculate `z(t)`, the overall hazard rate of a phase-type exponential distribution, by taking the sum of the weighted probabilities.
+
+```{r}
+r = function(t, lambda){ exp(-1*t*lambda) }
+# Let's derive an exponential PDF f(t),
+f = D(-1*r(t, lambda) ~ t)
+
+z = function(t, data){
+  output <- data %>%
+    summarize(
+      prob_f = sum(alpha * f(t = t, lambda)),
+      prob_r = sum(alpha * r(t = t, lambda)),
+      ratio_z = prob_f / prob_r)
+  output$ratio_z %>% return()
+}
+
+# Take a peek!
+z(t = 1, data = myphase)
+z(t = 2, data = myphase)
+z(t = 5, data = myphase)
+z(t = 10, data = myphase)
+```
+
+
+<br>
+<br>
+
+## Statistical Techniques for Exponential Distributions 
+
+Finally, we're going to examine several key tools that will help you (1) cross-tabulate failure data over time, (2) use statistics to determine whether an archetypal distribution (eg. exponential) fits your data sufficiently, (3) how to estimate the failure rate $\lambda$ from tabulated data, and (4) how to plan experiments for product testing. Here we go!
+
+<br>
+<br>
+
+### Factors in R
+
+For the next section, you'll need to understand `factors`.
+
+- Factors are ordered vectors. They are helpful in `ggplot` and elsewhere for telling `R` what order to interpret things in.
+
+- You can make your own vector into a `factor` using `factor(vector, levels = c("first", "second", "etc"))`.
+
+```{r}
+# Make character vector
+myvector <- c("surgical", "KN-95", "KN-95", "N-95", "surgical")
+# Turn it into a factor
+myfactor <- factor(myvector, levels = c("N-95", "KN-95", "surgical"))
+# check it
+myfactor
+```
+
+`factor`s can be reduced to `numeric` vectors using `as.numeric()`. This returns the level for each value in the factor.
+
+```{r}
+# Turn the factor numeric
+mynum <- myfactor %>% as.numeric()
+# Compare
+data.frame(myfactor, mynum)
+# for example, N-95, which was ranked first in the factor, receives a 1 anytime the value N-95 appears
+```
+
+<br>
+<br>
+
+### Crosstabulation
+
+Sometimes, we might want to tabulate failures in terms of meaningful units of time, counting the total failures every 5 hours, every 24 hours, etc. Let's learn how!
+
+```{r}
+d1 <- data.frame(t = masks$left_earloop) %>%
+  # classify each value into 5-point width bins (0 to 5, 6-10, 11-15, etc.)
+  # then convert it to a numeric ranking of categories from 1  to n bins
+  mutate(label = cut_interval(t, length = 5))
+
+# Let's take a peek
+d1 %>% glimpse()
+```
+
+**Step 2**: Tabulate Observations per Bin.
+
+```{r}
+d2 <- d1 %>%
+  # For each bin label
+  group_by(label, .drop = FALSE) %>%
+  # Get total observed rows in each bin
+  # .drop = FALSE records factor levels in label that have 0 cases
+  summarize(count = n())
+
+d2 %>% glimpse()
+```
+
+**Step 3**: Get bounds and midpoint of Bins
+
+Last, we might need the bounds (upper and lower value), or the midpoint. Here's how!
+
+```{r}
+d3 <- d2 %>%
+  # Get bin ranking, lower and upper bounds, and midpoint
+  mutate(
+    bin = as.numeric(label),
+    lower = (bin - 1) * 5, 
+    upper = bin * 5,
+    midpoint = (lower + upper) / 2) 
+# Check it!
+d3
+```
+
+<br>
+<br>
+
+### Chi-squared
+
+**Chi-squared** ($\chi^{2}$) is a special statistic used frequently to evaluate the relationship between two categorical variables. In this case, the first variable is the `type` of data (`observed` vs. `model`), while the second variable is `bin`.
+
+Back in Workshop 2, we *visually* compared several distributions to an observed distribution, to determine which fits best. But can we do that statistically? One way to do this is to chop our observed data into bins of `length` equal width using `cut_interval()` from `ggplot2`. We must specify:
+
+**Step 1** Crosstabulate Observed Values into Bins.
+
+```{r}
+# Let's repeat our process from before!
+c1 <- data.frame(t = masks$left_earloop) %>%
+  # Part 1: Split into bins
+  mutate(label = cut_interval(t, length = 5)) %>%
+  # Part 2: Tally up by bin
+  group_by(label, .drop = FALSE) %>%
+  summarize(count = n()) %>%
+  mutate(
+    bin = as.numeric(label),
+    lower = (bin - 1) * 5, 
+    upper = bin * 5,
+    midpoint = (lower + upper) / 2)
+```
+
+**Step 3**: Calculate Observed and Expected Values per Bin.
+
+Sometimes you might only receive **tabulated data**, meaning a table of bins, not the original vector. In that case, start from **Step 3**!
+
+```{r}
+# Get any parameters you need (might need to be provided if only tabulated data)
+mystat = masks %>% summarize(lambda = 1 / mean(left_earloop))
+# Get your 'model' function
+f = function(t, lambda){ 1 - exp(-1*lambda*t) }
+
+# Now calculate cumulatives
+c2 <- c1 %>% 
+  mutate(
+    # Get total units in table
+    total = sum(count),
+    # Get cumulative OBSERVED in that bin
+    o = cumsum(count),
+    # Get cumulative EXPECTED in that bin due to model
+    e = f(t = midpoint, lambda = mystat$lambda) * total)
+    # Note: pexp(t) is equivalent to f(t) for exponential distribution
+    # e = pexp(midpoint, rate = mystat$lambda) * total
+# Check it!
+c2
+```
+
+**Step 4**: Calculate Chi-squared Statistic
+
+- **Chi-squared** here represents the sum of ratios for each bin. Each ratio is the (1) squared difference between the observed and expected value over (2) the expected value. Ranges from 0 to infinity. The bigger (more positive) the statistic, the greater difference between the observed and expected data.
+
+- **Degrees of Freedom (df)** is used as the standard deviation in the chi-squared distribution, to help evaluate *how extreme is our chi-squared statistic?*
+
+- **Chi-squared Distribution** is a distribution of squared deviations from a normal distribution centered at 0. This means it only has positive values.
+
+```{r}
+c3 <- c2 %>%
+  summarize(
+      # Calculate Chi-squared statistic
+    chisq = sum((o - e)^2 / e),
+    # Calculate number of bins (rows)
+    nbin = n(),
+    # Record number of parameters used (jjust lambda)
+    np = 1,
+    # Calculate degree of freedom
+    df = nbin - np - 1)
+# Check it!
+c3
+```
+
+**Step 5**: Calculate p-values and confidence intervals
+
+Last, let's use the `pchisq()` function to evaluate the CDF of the Chi-squared distribution. We'll find out:
+
+- `p_value`: what's the probability of getting a value **greater than or equal to** (more extreme than) our observed chi-squared statistic?
+
+- **"statistically significant"**: if our observed statistic is more extreme than most possible chi-squared statistics (eg. >95% of the distribution), it's probably not due to chance! We call it 'statistically significant.'
+
+```{r}
+# Calculate area remaining under the curve
+c4 <- c3 %>%
+  mutate(p_value = 1 - pchisq(q = chisq, df = df))
+# Check
+c4
+```
+
+For a visual representation:
+
+```{r, echo = FALSE}
+c4 %>%
+  summarize(
+    obs = chisq,
+    null = rchisq(n = 1000, df = df),
+    dnull = dchisq(null, df = df),
+    pnull = pchisq(null, df = df),
+    type = obs > null) %>%
+  ggplot(mapping = aes(x = null, y = dnull, fill = type)) +
+  geom_area(position = "identity") +
+  geom_vline(xintercept = c4$chisq, linetype = "dashed", size = 2)  +
+  annotate(geom = "text", x = 15, y = 0.075, label = paste("Chi-squared = ", round(c4$chisq, 2), 
+                                                           "\n", "p-value = ", round(c4$p_value, 3), sep = ""), 
+           size = 5, fontface = "bold", hjust = 0) +
+  annotate(geom = "text", x = 16, y = 0.015, label = paste(round(c4$p_value, 3)*100, "%", sep = ""), size = 5, fontface = "bold") +
+  labs(y = "Probability Density Function\ndchisq(x, df)",
+       x = "x = 1000 possible Chi-squared values\nrchisq(n = 1000, x, df)",
+       fill = "> Observed\nstatistic",
+       subtitle = "Visual Interpretation of Chi-squared Test p-value") +
+  theme_classic(base_size = 14) +
+  theme(panel.border = element_rect(fill = NA, color = "#373737"),
+        axis.line = element_blank())
+```
+
+**Step 6**: Do it all in one step!
+
+Let's try this one more time, all in one code chunk:
+
+```{r}
+# Get any parameters you need
+# Right now, we'll sub in our observed lambda value,
+mystat = masks %>% summarize(lambda = 1 / mean(left_earloop))
+# Note: if your data is crosstabulated and you DON'T have the observed lambda value,
+# you might need to use the methods described below in 'Estimating Lambda'
+
+# Get your 'model' function
+f = function(t, lambda){ 1 - exp(-1*lambda*t) }
+
+data.frame(t = masks$left_earloop) %>%
+  # Step 1: Split into bins
+  mutate(label = cut_interval(t, length = 5)) %>%
+  # Step 2: Tally up by bin
+  group_by(label, .drop = FALSE) %>%
+  summarize(count = n()) %>%
+  mutate(
+    bin = as.numeric(label),
+    lower = (bin - 1) * 5, 
+    upper = bin * 5,
+    midpoint = (lower + upper) / 2)  %>%
+  # Step 3: Calculate Observed vs. Expected
+  mutate(
+    total = sum(count),
+    o = cumsum(count),
+    e = f(t = midpoint, lambda = mystat$lambda) * total) %>%
+ # Calculate Chi-squared statistic and p-value
+ summarize(
+    chisq = sum((o - e)^2 / e),
+    nbin = n(),
+    np = 1,
+    df = nbin - np - 1,
+    p_value = 1 - pchisq(q = chisq, df = df))
+
+# And if that's a lot to type every time, you could always code a function for it :)
+```
+
+
+
+
+### Estimating Lambda
+
+Depending on whether we have *complete* data or not, we may need to estimate $\lambda$, rather than compute it directly.
+
+1. If we have a complete sample of data (eg. not censored), then we can just calculate: $\hat{\lambda} = \frac{no. \ of \ failures}{total \ unit \ test \ hours} $
+
+```{r}
+# Eg. 
+1 / mean(masks$left_earloop)
+```
+
+2. If our data is censored or pre-tabulated into groups, we may need to use the `midpoint` and `count` of failures in each `bin` to calculate $\lambda$.
+
+- Tabulated: tallied up in equally sized bins.
+
+- Tabulated, Type I Censoring: experiment stops when time $t$ reaches $limit$.
+
+- Tabulated, Type II Censoring: experiment stops when number of units failed $n_{failed}$ reaches $limit$.
+
+For example, if we receive just the `d3` data.frame we made above, how do we estimate $\lambda$ from it? We will need:
+
+- $r$: total failures (`sum(count > 0)`)
+
+- $n$: total observations (failed or not) (provided; otherwise, $n = r$)
+
+- $\sum_{i=1}^{r}{t_i}$: total unit-hours (`sum(midpoint*count)`)
+
+- $T$: timestep of (1) last failure observed (sometimes written $t_r$)  or (2) last timestep recorded; usually obtained by `max(midpoint)`.
+
+- Unless some cases do not fail, $(n - r)t_z$ will cancel out as `0`.
+
+$$ \hat{\lambda} = \frac{ r  }{ \sum_{i=1}^{r}{t_i}  +  (n - r)t_z} $$
+```{r}
+# Let's calculate it!
+d4 <- d3 %>%
+  summarize(
+    r = sum(count > 0), # total failures
+    hours = sum(midpoint*count), # total failure-hours
+    n = r, # in this case, total failures = total obs
+    tz = max(midpoint), # end of study period
+    # Calculate lambda hat!
+    lambda_hat = r / (hours + (n - r)*tz))
+```
+
+```{r}
+1 / mean(masks$left_earloop)
+```
+Also, our estimate of lambda might be slightly off due to random sampling error. (Every time you take a random sample, there's a little change, right?) So, let's build a **confidence interval** around our estimate.
+
+- We can do so by **weighting** $\hat{\lambda}$ by a factor $k$. 
+
+- This factor $k$ may be greater depending on (1) the total number of failures $r$ and (2) our level of acceptable error ($alpha$). 
+
+- Like any statistic, our estimate $\hat{\lambda}$ has a full *sampling distribution* of $\hat{\lambda}$ values we could get due to random sampling error, with some of them occurring more frequently than others. 
+
+- We want to find the upper and lower bounds around the 90%, 95%, or perhaps 99% *most common* (middle-most) values in that sampling distribution. So, if $alpha = 0.10$, we're going to get a 90% confidence interval (dubbed $interval$) spanning from the 5%~95% of that sampling distribution.
+
+```{r}
+# To calculate a 'one-tailed' 90% CI (eg. we only care if above 90%)
+alpha = 0.10
+ci = 1 - alpha
+```
+
+```{r}
+# To adjust this to be 'two-tailed' 90% CI (eg. we care if below 5% or above 95%)...
+0.5 + (ci / 2)
+0.5 - ci / 2
+```
+
+- No Censoring: If we have complete data (all observations failed!), using this formula to calculate factor $k$:
+
+```{r, eval = FALSE}
+# For example, let's say r = 50
+r = 50
+k = qchisq(ci, df = 2*r) / (2*r)
+```
+
+- Time-Censoring: If we only record up to a specific time (eg. planning an experiment), use **this** formula to calculate factor $k$, setting as the degrees of freedom $df = 2(r+1)$. 
+
+```{r, eval = FALSE}
+# For example, let's say r = 50
+r = 50
+k = qchisq(ci, df = 2*(r+1)) / (2*r)
+```
+
+```{r}
+# Clear these
+remove(r, k)
+```
+
+So, since we do not have time censoring in our `d4` dataset, we can go ahead an calculate the `df = 2*r` and compute the 90% `lower` and `upper` confidence intervals.
+
+```{r}
+d4 %>%
+  summarize(
+    lambda_hat = lambda_hat,
+    r = r,
+    k_upper = qchisq(0.95, df = 2*r) / (2*r),
+    k_lower = qchisq(0.05, df = 2*r) / (2*r),
+    lower = lambda_hat * k_lower,
+    upper = lambda_hat * k_upper)
+```
+
+### Planning Experiments
+
+When planning an experiment, we can use the following formula to determine the necessary values of $r$, $t$, $lambda$, $k$, or $n$ for our experiment to function:
+
+$$ \frac{r}{n \ t} \times k_{r, 1 - \alpha} = \hat{\lambda} $$ 
+
+*Note*: Experiment planning by definition makes time-censored datasets, so you'll need your adjusted $k$ formula so that $df = 2(r+1)$.
+
+Let's try an example. Imagine a company wants to test a new line of masks. Your company can budget `500` hours to test these masks' elastic bands, and they accept that up to `10` of these masks may break in the process. Company policy anticipates a failure rate of just `0.00002` masks per hour, and we want to be `90`% confidence that the failure rate will not *exceed* this level. (But it's fine if it goes below that level.) 
+
+If we aim to fit within these constraints, how many masks need to be tested in this product trial?
+
+```{r}
+# Max failures
+r = 10
+# Number of hours
+t = 500
+# Max acceptable failure rate
+lambda = 0.00002
+
+# Calcuate a one-tailed confidence interval
+alpha = 0.10
+ci = 1 - alpha
+
+# Use these ingredients to calculate the factor k, using time-censored rule df = 2*(r+1)
+k = qchisq(ci, df = 2*(r+1)) / (2*r)
+
+# Reformat 
+# r / (t*n) * k = lambda
+n = k * r  / (lambda * t)
+
+# Check it!
+n
+```
+
+Looks like you'll need a sample of about `r round(n,0)` masks to be able to fit those constraints.
+
+
+
+<br>
+<br>
+
+
+
+## LC 4 {.tabset .tabs-pills  .unnumbered}
+
+### Question {-}
+
+A small start-up is product testing a new super-effective mask. They product tested 25 masks over 60 days. They contract you to analyze the masks' lifespan data, recorded below as the number of days to failure. 
+
+```{r}
+# Lifespan in days
+supermasks <- c(1, 2, 2, 2, 3, 3, 4, 4, 5, 9, 13, 15, 17, 19, 
+            20, 21, 23, 24, 24, 24, 32, 33, 33, 34, 54)
+```
+
+1. Cross-tabulate the lifespan distribution in intervals of 7 days.
+
+2. Estimate $\hat{\lambda}$ from the cross-tabulated data.
+
+3. Estimate a 95% confidence interval for $\hat{\lambda}$.
+
+4. *Using the cross-tabulated data*, do these masks' lifespan distribution fit an exponential distribution, or does their distribution differ to a statistically significant degree from the exponential? How much? (eg. statistic and p-value).
+
+### Answer {-}
+
+1. Cross-tabulate the lifespan distribution in intervals of 7 days.
+
+```{r, echo = FALSE}
+# Days to failure
+a <- data.frame(t = supermasks) %>%
+  # Step 1: Split into bins
+  mutate(label = cut_interval(t, length = 7)) %>%
+  # Step 2: Tally up by bin
+  group_by(label, .drop = FALSE) %>%
+  summarize(count = n()) %>%
+  mutate(
+    bin = as.numeric(label),
+    lower = (bin - 1) * 7, 
+    upper = bin * 7,
+    midpoint = (lower + upper) / 2)
+# Check it
+a
+```
+
+2. Estimate $\hat{\lambda}$ from the cross-tabulated data.
+
+```{r}
+# Let's estimate lambda!
+b <- a %>%
+  summarize(
+    r = sum(count > 0), # total failures
+    days = sum(midpoint*count), # total failure-days
+    n = r, # in this case, total failures = total obs
+    tz = max(midpoint), # end of study period
+    # Calculate lambda hat!
+    lambda_hat = r / (days + (n - r)*tz)) 
+# Check it
+b
+```
+
+3. Estimate a 95% confidence interval for $\hat{\lambda}$.
+
+```{r}
+c <- b %>%
+  summarize(
+    lambda_hat = lambda_hat,
+    r = r,
+    k_upper = qchisq(0.975, df = 2*r) / (2*r),
+    k_lower = qchisq(0.025, df = 2*r) / (2*r),
+    lower = lambda_hat * k_lower,
+    upper = lambda_hat * k_upper)
+# Check it
+c
+```
+
+4. *Using the cross-tabulated data*, do these masks' lifespan distribution fit an exponential distribution, or does their distribution differ to a statistically significant degree from the exponential? How much? (eg. statistic and p-value).
+
+```{r}
+# Get your 'model' function
+f = function(t, lambda){ 1 - exp(-1*lambda*t) }
+# Get lambda-hat from b$lambda_hat
+
+# Step 3: Calculate Observed vs. Expected
+d <- a %>%
+  mutate(
+    total = sum(count),
+    o = cumsum(count),
+    e = f(t = midpoint, lambda = b$lambda_hat) * total) %>%
+ # Calculate Chi-squared statistic and p-value
+ summarize(
+    chisq = sum((o - e)^2 / e),
+    nbin = n(),
+    np = 1,
+    df = nbin - np - 1,
+    p_value = 1 - pchisq(q = chisq, df = df))
+
+# Check it!
+d
+```
+
+<br>
+<br>
+
+## Conclusion
+
+Congrats! You made it! You've just picked up some of the key techniques for evaluating product lifespans in `R`!
+
+```{r, include = FALSE}
+rm(list = ls())
+```
+
+
+

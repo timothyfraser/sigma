@@ -1,33 +1,22 @@
----
-title: "Workshop 8: Fault Tree Analysis in R"
-subtitle: "R Companion Code"
-author: "Timothy Fraser"
-date: "`r Sys.Date()`"
-output:
- rmdformats::downcute:
-    self_contained: true
-    default_style: "light"
-    downcute_theme: "default"
-    fig_caption: true
----
+# Workshop: Fault Tree Analysis in R
 
-```{r setup, include = FALSE}
+```{r setup_workshop_8, include = FALSE}
 library(tidyverse)
 library(knitr)
 library(kableExtra)
-knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
 ```
 
 Fault trees are visual representation of boolean probability equations, typically depicting the *minimal cut sets* of necessary events leading to system failure. We're going to learn how to make calculations about fault trees in `R`!
 
-# 0. Getting Started 
+## Getting Started {-}
 
-## 0.1 Prerequisites
+### Prerequisites {-}
 
 As a prerequisite for this workshop, be sure to have read our class reading on Fault Trees! 
 You'll need to install a few packages real quick below. Here they are.
 
-```{r}
+```{r, eval = FALSE}
 install.packages(c("devtools", "admisc", "tidygraph", "ggraph", "QCA"))
 # Install the tidyfault package!
 devtools::install_github("timothyfraser/tidyfault")
@@ -36,7 +25,7 @@ devtools::install_github("timothyfraser/tidyfault")
 ```
 
 
-## 0.2 Load Packages
+### Load Packages {-}
 
 ```{r}
 library(tidyverse)
@@ -47,14 +36,14 @@ library(tidyfault)
 <br>
 <br>
 
-# 1. Fault Trees in R
+## Fault Trees in R
 
 We can *draw* fault trees easily enough by hand, but how do we record their data in a machine readable format? We can use conventions from *network science* to record these data in two lists: (1) an 'edgelist' of edges connecting nodes, and (2) a 'nodelist' of nodes, connected by edges. 
 
 <br>
 <br>
 
-## 1.1 Making a Nodelist
+### Making a Nodelist
 
 We can use the `tribble()` function available when loading the `tidyverse` package to write out small data.frames row by row. In `nodes`, our nodelist:
 
@@ -86,7 +75,7 @@ tribble(
 <br>
 <br>
 
-## 1.2 Making an Edgelist
+### Making an Edgelist
 
 Next, we can use `tribble()` to make an edgelist of our fault tree (or use `read_csv()` to read in an edgelist). Edgelists should follow these conventions:
 
@@ -101,7 +90,8 @@ tribble(
   "G2", "B1",
   "G2", "G5") 
 ```
-## 1.3 Our Data
+
+### Our Data
 
 In this example, we're going to use the default data in `tidyfault`, called `fakenodes` and `fakeedges`. You can download it like this:
 
@@ -122,7 +112,7 @@ fakeedges
 <br>
 <br>
 
-## 1.4 Getting a Fault Tree Layout
+### Getting a Fault Tree Layout
 
 Using `tidyfault`'s `illustrate()` function, we can quickly assign `x` and `y` coordinates for a 'tree' layout to to our `fakenodes` and `fakeedges`. We say `type = "both"` because we want to receive coordinates for *both* the nodes and edges.
 
@@ -143,7 +133,7 @@ gg$edges %>% head(3)
 ```
 
 
-## 1.5 Visualize a Fault Tree
+### Visualize a Fault Tree
 
 ```{r}
 
@@ -168,7 +158,7 @@ ggplot() +
 <br>
 <br>
 
-# 2. Cutsets
+## Cutsets
 
 Fault Trees are *big* - and some `events` are more critical than others. We want to identify two kinds of information.
 
@@ -178,7 +168,7 @@ Fault Trees are *big* - and some `events` are more critical than others. We want
 
 To do this, we're going to use an algorithm, called the MOCUS top-down algorithm. I wrote it in `R` for you! Yay!
 
-## 2.1 Gates
+### Gates
 
 ```{r}
 # To get a data.frame of gates, use curate()!
@@ -187,7 +177,7 @@ g = curate(fakenodes, fakeedges)
 g
 ```
 
-## 2.2 Equations
+### Equations
 
 To get the full boolean equation of the fault tree, use `equate()`!
 
@@ -204,7 +194,7 @@ f = g %>% equate() %>% formulate()
 f(A = 0.3, B = 0.5, C = 0.1, D = 0.5)
 ```
 
-## 2.3 Minimal Cutsets
+### Minimal Cutsets
 
 To simplify down to the minimal cutsets, use `concentrate()`! It's pretty quick for small graphs, but gets exponentially longer the more nodes you add. (Especially with `OR` statements.) That's MOCUS's value as well as its tradeoff.
 
@@ -215,7 +205,7 @@ m = g %>%
 m
 ```
 
-## 2.4 Coverage
+### Coverage
 
 We might want to know, *how important* are each of my minimal cutsets? We can compute the total number of cutsets that include the minimal cutset, the total cutsets leading to failure in general, and the percentage (`coverage`) of cutsets containing your minimal cutset out of all total cutsets leading to failure. It's basically a measure of the explanatory power of your cutsets!
 
@@ -225,7 +215,7 @@ m %>%
 ```
 
 
-# 3. Simulate
+## Simulate
 
 Fortunately, fault trees are extremely flexible. You can apply all of our past simulation approaches, probability rules, lifespan distribution concepts, and reliability analysis tools to them. 
 
@@ -242,4 +232,6 @@ f(A = rnorm(n = 100, mean = 0.3, sd = 0.1),
 
 The sky is the limit! Happy fault tree mapping!
 
-
+```{r, include = FALSE}
+rm(list = ls())
+```
