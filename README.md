@@ -5,3 +5,7 @@ The key is the `site` setting in `index.Rmd`. If you want to build the book in R
 ```r
 bookdown::render_book('index.Rmd', 'all')
 ```
+
+# Issue Log:
+
+- 13_workshop.Rmd, lines 634 ish --> oneway.test() doesn't work.

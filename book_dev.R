@@ -24,9 +24,10 @@ unlink("_main.Rmd")
 unlink("_book", recursive = TRUE)
 unlink("docs", recursive = TRUE)
 # Render the book!
-bookdown::render_book(input = "index.Rmd",  output_format = "bookdown::gitbook")
+bookdown::render_book(input = "00_index.Rmd",  output_format = "bookdown::gitbook")
 
-browseURL("docs/index.html")
+browseURL("docs/introduction.html")
+
 
 # Assuming we're happy, commit it!
 git_commit_all(message = "OK!")

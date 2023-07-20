@@ -1,0 +1,12 @@
+```{r setup_references, include = FALSE}
+knitr::opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
+```
+
+# References
+
+```{r add_bib, include = FALSE}
+# Write packages citation file
+#knitr::write_bib(x = unique(c(.packages(), "bookdown")), file = "packages.bib")
+```
+
+# (APPENDIX) Appendix {-}

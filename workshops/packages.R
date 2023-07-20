@@ -2,6 +2,7 @@
 install.packages(
   c("tidyverse",
     "broom",
+    "gtools",
     "devtools",
     
     # Visualization packages
@@ -31,8 +32,10 @@ install.packages(
     "knitr",
     "kableExtra",
     "rmdformats",
-    "fidelius",
-    "credentials")
+    "credentials",
+    "gganimate",
+    "gifski",
+    "plot3D",
+    "metR",
+    "rsm")
 )
-
-# Install more packages

@@ -1,0 +1,33 @@
+---
+title: "System Reliability and Six Sigma in R"
+author: "Timothy Fraser, PhD"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300."
+---
+
+```{r setup, include=FALSE, message=FALSE, warning = FALSE}
+# Set options
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, cache = TRUE)
+options(knitr.graphics.auto_pdf = TRUE)
+# Load packages
+library(tidyverse)
+library(bookdown)
+library(htmltools)
+
+# Clear environment
+rm(list = ls())
+```
+
+# Introduction {.unnumbered #introduction}
+
+Your online textbook for learning reliability and six sigma techniques in R! These coding workshops were made for Cornell University Course SYSEN 5300. Follow along with RStudio.Cloud to learn to apply six sigma techniques in R!
+
+```{r img-cover, out.width = "100%", echo=FALSE, results='asis', fig.cap=paste("Photo by <a href='https://unsplash.com/ja/@tamiminaser?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Naser Tamimi</a> on <a href='https://unsplash.com/s/photos/statistics?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a>")}
+knitr::include_graphics(path = "images/dice.jpg")
+```
+

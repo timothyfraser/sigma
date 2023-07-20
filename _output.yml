@@ -1,4 +1,5 @@
 bookdown::gitbook:
+  css: styles.css
   lib_dir: assets
   split_by: chapter
   number_sections: TRUE

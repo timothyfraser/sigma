@@ -1,3 +1,48 @@
-rmd_files: ["index.Rmd"]
+rmd_files: 
+  [ 
+    ###################################
+    "00_index.Rmd", 
+    ###################################
+    "00_part1.Rmd",
+    
+    "01_workshop.Rmd",
+    "01_skill_fmea.Rmd",
+    "01_skill_ggplot.Rmd",
+    
+    ##################################
+    # Stats & Reliability
+    "00_part2.Rmd",
+    
+    "02_workshop.Rmd",
+    "02_skill_functions.Rmd",
+    "03_workshop.Rmd",
+    "04_workshop.Rmd",
+    
+    # Statistical Process Control
+    "09_workshop.Rmd",
+    "10_workshop.Rmd",
+
+    # Life Distributions
+    "05_workshop.Rmd",
+    "06_workshop.Rmd",
+    
+    # Fault Trees
+    "08_workshop.Rmd",
+    
+    # Regression
+    "07_workshop.Rmd",
+    "11_workshop.Rmd",
+    "12_workshop.Rmd",
+    
+    ##################################
+    # Design of Experiments / RSM
+    "00_part3.Rmd",
+    "13_workshop.Rmd",
+    "14_workshop.Rmd",
+    "15_workshop.Rmd"
+    
+    ##################################
+    #"99_references.Rmd"
+  ]
 output_dir: "docs"
 delete_merged_file: TRUE
