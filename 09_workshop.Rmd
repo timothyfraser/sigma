@@ -262,13 +262,15 @@ We can tell from this visual several things!
 <br>
 <br>
 
-## LC 1 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question {-}
+## Learning Check 1 {.unnumbered #LC1}
+
+**Question**
 
 We analyzed temperature variation above, but our hot springs owner wants to know about variation in `pH` too! Write a `function` to produce a process overview plot given any 2 vectors (`water$time` and `water$pH`, in this case), and visualize the process overview for `pH`! (*You can do it!*)
 
-### Answer {-}
+<details><summary>**[View Answer!]**</summary>
 
 ```{r}
 ggprocess = function(x, y, xlab = "Subgroup", ylab = "Metric"){
@@ -308,7 +310,11 @@ In comparison to `temp`, `pH` is a much more controlled process.
 
 I encourage you to use this `ggprocess()` function you just created!
 
-s
+
+</details>
+  
+---
+
 <br>
 <br>
 
@@ -424,13 +430,16 @@ This tells us that excitingly, our *onsen* temperatures are quite firmly within 
 <br>
 <br>
 
-## LC 2 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question {-}
+## Learning Check 2 {.unnumbered #LC2}
 
+**Question**
+  
 Well, that was nifty, but can we do it all over again for `pH`? Make some rad upper and lower confidence intervals for $\bar{X}$ for `pH`!
 
-### Answer {-}
+
+<details><summary>**[View Answer!]**</summary>
 
 ```{r}
 # Get the within-group stats for ph!
@@ -471,6 +480,9 @@ ph_s %>%
        subtitle = "Average and Standard Deviation Chart")
 ```
 
+</details>
+  
+---
 
 <br>
 <br>
@@ -523,6 +535,7 @@ As discussed above, *any statistics* has a latent distribution of other values y
 mrsim = rnorm(n = 10000, mean = 0, sd = 1) %>% diff() %>% abs()
 mrsim %>% hist()
 ```
+
 Much like $k$ factors in the exponential distribution, we can use this distribution of $mR$ stats to produce a series of *factors* that can help us estimate any upper or lower confidence interval in a moving range distribution.
 
 For example, we can calculate:
@@ -790,13 +803,15 @@ Now you're all ready to make a control chart showing variation in the standard d
 <br>
 <br>
 
-## LC 3 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question {-}
+## Learning Check 3 {.unnumbered #LC3}
+
+**Question**
 
 Using our `dn()` function above, compile for yourself a short table of the $d_{2}$ and $d_{3}$ factors for subgroups sized `2` to `10`.
 
-### Answer {-}
+<details><summary>**[View Answer!]**</summary>
 
 ```{r}
 # Let's bind them together!
@@ -810,8 +825,9 @@ dx = bind_rows(
 dx
 ```
 
-
-
+</details>
+  
+---
 
 <br>
 <br>

@@ -289,14 +289,17 @@ Well, that's not good! Looks like the new factory will need to figure out a way 
 <br>
 <br>
 
-## LC 1 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question {.unnumbered}
+## Learning Check 1 {.unnumbered #LC1}
+
+**Question**
 
 What *other* ways could failure occur here? Add three more kinds of failure to your `tibble` `f`, then estimate their `severity`, `occurence`, `detection`, and `criticality`, and recalculate the total probability of `failure` at this ice cream plant.
 
-### Answer {.unnumbered}
 
+<details><summary>**[View Answer!]**</summary>
+  
 ```{r}
 fprime <- tibble(
   # Make a vector of routes to failure
@@ -337,7 +340,16 @@ Ooph! Not good!
 
 <br>
 
+</details>
+  
+---
+
 <br>
+<br>
+
+<br>
+
+## Conclusion {-}
 
 Great work! All done! See you in class!
 

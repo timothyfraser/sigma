@@ -239,15 +239,17 @@ mypp * mycpk == myppk * mycp
 <br>
 
 
+---
 
+## Learning Check 1 {.unnumbered #LC1}
 
-## LC1 {.tabset .tabset-pills .unnumbered}
+**Question**
 
-### Question {-}
+Let's apply this to some tasty examples! A manufacturer of granola bars is aiming for a weight of `2 ounces (oz)`, plus or minus `0.5 oz`. Suppose the standard deviation of our granola bar machine is `0.02 oz`, and the mean weight is `2.01 oz`. 
 
-Let's apply this to some tasty examples! A manufacturer of granola bars is aiming for a weight of `2 ounces (oz)`, plus or minus `0.5 oz`. Suppose the standard deviation of our granola bar machine is `0.02 oz`, and the mean weight is `2.01 oz`. What's the process capability index? (How many times greater is the expected variation than the observed variation?)
+What's the process capability index? (I.e. How many times greater is the expected variation than the observed variation?)
 
-### Answer {-}
+<details><summary>**[View Answer!]**</summary>
 
 ```{r}
 lower = 2 + 0.05
@@ -261,6 +263,10 @@ cp(sigma = 0.02, upper = 2.05, lower = 1.95)
 cpk(mu = 2.01, sigma = 0.02, lower = 1.95, upper = 2.05)
 ```
 
+  
+</details>
+  
+---
 
 <br>
 <br>

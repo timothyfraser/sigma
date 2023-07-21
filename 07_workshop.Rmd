@@ -167,16 +167,18 @@ remove(af, median_s, median_u, q, d)
 <br>
 <br>
 
-## LC1 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question {-}
+## Learning Check 1 {.unnumbered #LC1}
 
+**Question**
+  
 A kitchen mixer has an exponential distributed lifespan. Labs stress tested the mixer at `125` degrees Celsius, yielding a *mean time to fail* of `4500` hours. But, it is usually heats to 32 degrees Celsius, and has an acceleration factor of `35`.
 
 What proportion of mixers do we expect will fail by 40,000 hours under normal use?
 
-### Answer {-}
-
+<details><summary>**[View Answer!]**</summary>
+  
 ```{r}
 # Given an acceleration factor of 35
 af <- 35
@@ -201,16 +203,22 @@ We expect ~22% of mixers will fail after 40,000 hours when running at 32 degrees
 remove(af, f)
 ```
 
+</details>
+  
+---
+
 <br>
 <br>
 
-## LC2 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question {-}
+## Learning Check 2 {.unnumbered #LC2}
 
+**Question**
+  
 Suppose we want no more than 10% of components to fail after 40,000 hours at normal usage conditions. So, we redesign the mixer to operate at a lower temperature. What (linear) acceleration factor is needed to project from our 125 degree conditions in lab to the normal use temperature of 32 degrees?
 
-### Answer {-}
+<details><summary>**[View Answer!]**</summary>
 
 ```{r}
 # Write failure function
@@ -233,22 +241,24 @@ af = lambda_s / lambda_u
 # Check acceleration factor!
 af
 ```
+
 We would need an acceleration factor `af` of ~`84.4`.
 
 ```{r}
 remove(lambda_u, lambda_s, af, f)
 ```
+  
+</details>
+  
+---
 
 <br>
 <br>
 
 
+## Modeling Normal Use Lifespan
 
-
-
-##  Modeling Normal Use Lifespan
-
-###  Models and Prediction
+### Models and Prediction
 
 A model is an equation approximating the relationship between two or more vectors of data. It's not the real thing - it's an approximation! Why use models? Usually we know quite a lot about the *conditions* under which a product was tested in lab, but we can't actually observe the characteristic lifespan of that product under *normal use conditions.* But if we can make a really good model of the relationship between the outcome and those conditions, then we can predict for *any* set of conditions what the outcome - the characteristic lifespan of a product - would be under those conditions.
 
@@ -787,7 +797,6 @@ tibble(
 ###  Visualizing Probabilities
 
 We can even then make some rad graphs!
-
 
 For example, we can vary time but hold constant temperature to calculate the probability of failure over time at a specific temperature.
 

@@ -88,14 +88,17 @@ ggplot() +
 Any distribution can be described with 4 traits, shown above in part **C**. These include: **Size** (how many values are in it), **Location** (eg. where is it clumped), **Spread** (how much do values vary?), and **Shape** (eg. bell curve).
 
 
-## LC 1 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question {.unnumbered}
+## Learning Check 1 {.unnumbered #LC1}
 
+**Question**
+  
 Using the ```hist()``` function we learned before, draw the histogram of this vector of seawalls, naming the vector ```sw```!
 
-### Answer {.unnumbered}
 
+<details><summary>**[View Answer!]**</summary>
+  
 Using the ```hist()``` function we learned before, draw the histogram of this vector of seawalls, naming the vector ```sw```!
 
 ```{r}
@@ -108,6 +111,12 @@ sw %>% hist()
 # hist(sw)
 ```
 
+</details>
+  
+---
+
+<br>
+<br>
 
 ## 2. Descriptive Statistics {.tabset .tabset-pills}
 
@@ -245,10 +254,12 @@ se <- sqrt( var(sw) / length(sw))
 se
 ```
 
-## LC 2 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question  {.unnumbered}
+## Learning Check 2 {.unnumbered #LC2}
 
+**Question**
+  
 Suppose we collected data on 10 randomly selected chunks of cheese from a production line! We measured their **moisture in grams (g) in each product** We want to make sure we're making some quality cheesy goodness, so let's find out how much those moisture (cheesiness) levels vary! 
 
 The moisture in our cheese weighed 5.52 g, 5.71 g, 5.06 g, 5.10 g, 4.98 g, 5.50 g, 4.81 g, 5.55 g, 4.74 g, & 5.39 g.
@@ -259,8 +270,9 @@ The moisture in our cheese weighed 5.52 g, 5.71 g, 5.06 g, 5.10 g, 4.98 g, 5.50 
 
 3. We need to compare these levels with cheese produced in Vermont, France, and elsewhere. What's the coefficient of variance and standard error for these moisture levels?
 
-### Answer {.unnumbered}
 
+<details><summary>**[View Answer!]**</summary>
+  
 1. Please convert the following values into a vector named ```cheese```! 
 
 ```{r}
@@ -289,6 +301,10 @@ se
 # When you're finished, remove extra data.
 remove(cheese, se, cv)
 ```
+
+</details>
+  
+---
 
 <br>
 <br>
@@ -586,9 +602,9 @@ Finally, just a heads up: As mentioned above, there are a few different formulas
 <br>
 
 
-## LC 3 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question  {.unnumbered}
+## Learning Check 3 {.unnumbered #LC3}
 
 A contractor is concerned that the majority of seawalls in her region might skew lower than their region's vulnerability to storms requires. Assume (hypothetically) that our sample's seawalls are the appropriate height for our level of vulnerability, and that both regions share the same level of vulnerability. 
 
@@ -596,9 +612,11 @@ A contractor is concerned that the majority of seawalls in her region might skew
 
 - Her region has 12 seawalls! Their height (in meters) are 4.15, 4.35, 4.47, 4.74, 4.92, 5.19, 5.23, 5.35, 5.55, 5.70, 5.78, & 7.16. 
 
-- Calculate these statistics and interpret your results in a sentence or two.
+**Question**
 
-### Answer {.unnumbered}
+Calculate these statistics and interpret your results in a sentence or two.
+
+<details><summary>**[View Answer!]**</summary>
 
 ```{r}
 # Make a vector of these 12 seawalls
@@ -623,6 +641,10 @@ c(skewness, kurtosis)
 ```{r,echo = FALSE}
 remove(skewness, kurtosis, x)
 ```
+
+</details>
+  
+---
 
 <br>
 <br>
@@ -909,16 +931,19 @@ Beautiful! Wow! It looks like the **Normal**, **Gamma**, and **Weibull** distrib
 <br.
 
 
-## LC 4 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question {.unnumbered}
+## Learning Check 4 {.unnumbered #LC4}
 
+**Question**
+  
 You've been recruited to evaluate the frequency of Corgi sightings in the Ithaca Downtown. A sample of 10 students each reported the number of corgis they saw last Tuesday in town. Using the method of moments (or ```fitdistr()``` for Weibull) and ```ggplot()```, find out which type of distribution best matches the observed corgi distribution!
 
 Beth saw 5, Javier saw 1, June saw 10(!), Tim saw 3, Melanie saw 4, Mohammad saw 3, Jenny say 6, Yosuke saw 4, Jimena saw 5, and David saw 2.
 
-### Answer {.unnumbered}
 
+<details><summary>**[View Answer!]**</summary>
+  
 First, let's get the stats.
 
 ```{r}
@@ -975,6 +1000,10 @@ ggplot(data = corgisim, mapping = aes(x = x, fill = type)) +
 ```
 
 Neat - looks like the Poisson, Gamma, and Weibull function match well, although the Poisson looks pretty odd!
+
+</details>
+  
+---
 
 <br>
 <br>

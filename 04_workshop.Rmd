@@ -245,26 +245,24 @@ n*fplane(t = 3*365.25)
 
 Pretty powerful!
 
-<br> <br> <br>
+<br>
+<br>
+<br>
 
-## LC 1 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question {-}
+## Learning Check 1 {.unnumbered #LC1}
+
+**Question**
 
 ```{r img_phone, echo = FALSE, fig.cap=figcap("Exploding Phones! (True Story)"), fig.height=0.5}
 knitr::include_graphics("https://i.pcmag.com/imagery/articles/03PEOnUZJcx7DfkAg6r21C8-1..v1630090989.jpg")
 ```
 
-Hypothetical: Samsung is releasing a new Galaxy phone. But after the
-[2016 debacle of exploding
-phones](https://www.businessinsider.com/samsung-infographic-explains-why-galaxy-note-7-phones-exploded-2017-1),
-they want to estimate how likely it is a phone will explode (versus stay
-intact). Their pre-sale trials suggest that every 500 days, 5 phones are
-expected to explode. What percentage of phones are expected to work
-after more than 6 months? 1 year?
+Hypothetical: Samsung is releasing a new Galaxy phone. But after the [2016 debacle of exploding phones](https://www.businessinsider.com/samsung-infographic-explains-why-galaxy-note-7-phones-exploded-2017-1), they want to estimate how likely it is a phone will explode (versus stay intact). Their pre-sale trials suggest that every 500 days, 5 phones are expected to explode. What percentage of phones are expected to work after more than 6 months? 1 year?
 
-### Answer {-}
-
+<details><summary>**[View Answer!]**</summary>
+  
 Using the information above, we can calculate the mean time to fail `m`,
 the rate of how many days it takes for an average unit to fail.
 
@@ -303,7 +301,12 @@ What percentage of phone are expected to survive 1 year?
 1 - fexplode(365.25)
 ```
 
-<br> <br>
+</details>
+  
+---
+
+<br>
+<br>
 
 ## Joint Probabilities
 
@@ -574,10 +577,12 @@ afr(1000, 10000) %>% ppmk()
 
 <br> <br> <br>
 
-## LC 2 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question {-}
+## Learning Check 2 {.unnumbered #LC2}
 
+**Question**
+  
 ```{r img_ramen, echo = FALSE, out.width="100%", fig.height=0.5, fig.cap=figcap("Does Instant Ramen *ever* go bad?")}
 knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Mama_instant_noodle_block.jpg/800px-Mama_instant_noodle_block.jpg")
 ```
@@ -612,7 +617,7 @@ Using this data, please calculate...
 
 <br>
 
-### Answer {-}
+<details><summary>**[View Answer!]**</summary>
 
 First, we take her ramen lifespan data, estimate the PDF with
 `density()`, and make the failure function (CDF), which I've called
@@ -686,6 +691,11 @@ post-expiration, this data suggests 1 package will go bad every `39`
 days.
 
 <br>
+  
+</details>
+  
+---
+
 
 <br> <br> <br>
 

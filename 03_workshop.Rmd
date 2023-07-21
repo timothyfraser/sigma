@@ -538,10 +538,12 @@ orders %>%
 <br>
 
 
-## LC 1 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question {-}
+## Learning Check 1 {.unnumbered #LC1}
 
+**Question**
+  
 ```{r img_bank, echo = FALSE, fig.height = 0.5, fig.cap=figcap("Bank of Evil, from Despicable Me"), out.width="100%", fig.height = 0.5}
 knitr::include_graphics("https://external-preview.redd.it/6FJDW5OvgqXpUjFutYDMX18UZH6oGLlu_LY8Qlf-1Rs.jpg", dpi = 100)
 ```
@@ -561,9 +563,8 @@ A local business is trying to open a new branch and needs a short-term loan. The
 2. Assume that a bankruptcy rate above 10% indicates bad lending practices. Should you stay away from that bank?
 
 <br>
-<br>
 
-### Answer {-}
+<details><summary>**[View Answer!]**</summary>
 
 We know the following:
 
@@ -626,6 +627,10 @@ remove(firms, p_loan_bankrupt, p_bankrupt, p_no_bankrupt, p_loan, p_loan_no_bank
 # Clear excess data
 remove(orders, p_coffee, p_scone, p_coffee_no_scone, p_coffee_scone, p_scone_coffee)
 ```
+  
+</details>
+  
+---
 
 
 <br>
@@ -1008,10 +1013,12 @@ remove(mypd, pdf, pdf2, cdf, obs)
 <br>
 <br>
 
-## LC 2 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question {-}
+## Learning Check 2 {.unnumbered #LC2}
 
+**Question**
+  
 A month has gone by, and our hospital has now billed 30 patients. You've heard that hospital bills at or above `$3000` a day may *somewhat* deter people from seeking future medical care, while bills at or above `$4000` may *greatly* deter people from seeking future care. (These numbers are hypothetical.) 
 
 Using the vectors below, please calculate the following, using a PDF or CDF. 
@@ -1033,8 +1040,8 @@ somewhat <- 3000
 greatly <- 4000
 ```
 
-### Answer {-}
-
+<details><summary>**[View Answer!]**</summary>
+  
 ```{r}
 # Get the probability density function for our new data
 dobs2 <- patients %>% density() %>% tidy() %>% approxfun()
@@ -1099,6 +1106,10 @@ ggplot() +
        fill = "Deter Future Visits")
 ```
 
+
+</details>
+  
+---
 
 <br>
 <br>
@@ -1286,13 +1297,15 @@ rm(visits, pd5, cd5, q5, dsim, psim, qsim)
 <br>
 <br>
 
-## LC 3 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question  {-}
+## Learning Check 3 {.unnumbered #LC3}
 
+**Question**
+  
 What if we are not certain whether our unobserved vector of visits has a Poisson distribution or not? To give you more practice, please calculate the probability that customers will stop *at more than 5 stalls*, using appropriate functions for the (1) Normal, (2) Gamma, and (3) Exponential distribution! (See our table above for the list of function names.)
 
-### Answer
+<details><summary>**[View Answer!]**</summary>
 
 We know there were `n = 500` customers, with a mean of `5.5` visits, a median of `5` visits, and a standard deviation of `2.5` visits.
 
@@ -1338,11 +1351,14 @@ rate <- 1 / 5.5
 1 - pexp(5, rate = rate)
 ```
 
-##
+</details>
+  
+---
 
 <br>
 <br>
 
+## Conclusion {-}
 
 And that's a wrap! Nice work! You can now figure out *a lot* of things about the world if you (a) can guess their distribution and (b) have one or two statistics about that distribution. Here we go! 
 

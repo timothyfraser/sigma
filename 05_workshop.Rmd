@@ -222,10 +222,12 @@ masks %>%
 <br>
 <br>
 
-## LC 1 {.tabset .tabs-pills  .unnumbered}
+---
 
-### Question {-}
+## Learning Check 1 {.unnumbered #LC1}
 
+**Question**
+  
 A competing mask manufacturer made a mask whose earloops fail at a constant failure rate of `0.08`.
 
 1. What is the probability that 1 fails *before* 20 hours of use?
@@ -234,8 +236,8 @@ A competing mask manufacturer made a mask whose earloops fail at a constant fail
 
 3. After how long should we expect 1% failures?
 
-### Answer {-}
-
+<details><summary>**[View Answer!]**</summary>
+  
 1. What is the probability that 1 fails *before* 20 hours of use?
 
 ```{r}
@@ -255,6 +257,7 @@ f(t = 20, lambda = 0.08)
 f(t = 20, lambda = 0.08)^2
 # There's a 63% chance 2 fail within 20 hours.
 ```
+
 3. After how long should we expect 1% failures?
 
 ```{r}
@@ -274,15 +277,20 @@ f(t = 20, lambda = 0.08)^2
 # Looks like that time of interest is t = 0.1256 hours.
 ```
 
-## LC 2 {.tabset .tabs-pills  .unnumbered}
+</details>
+  
+---
 
-### Question {-}
 
+## Learning Check 2 {.unnumbered #LC2}
+
+**Question**
+  
 Above, we examined a sample of surgical masks, checking how often their `left_earloop` snapped. How does that compare with the `right_earloop`?
 
 Calculate the mean time to fail for the right earloop, and $\lamba$, the mean failure rate. Is the right earloop more or less reliable than the left earloop?
 
-### Answer {-}
+<details><summary>**[View Answer!]**</summary>
 
 1. MTTF and Lambda
 
@@ -297,6 +305,10 @@ compare
 # Looks like the left earloop fails less often.
 ```
 
+  
+</details>
+  
+---
 
 
 <br>
@@ -431,20 +443,20 @@ mu(t = 10, lambda = stat$lambda) / mu(t = 0, lambda = stat$lambda)
 <br>
 <br>
 
-## LC 3 {.tabset .tabs-pills .unnumbered}
+---
 
-### Question {-}
+## Learning Check 3 {.unnumbered #LC3}
 
+**Question**
+  
 A competing firm produced a mask with a wire that fails at a constant rate of 1 failure per 240 hours. 
 
 1. The probability that the wire survives 1 week (`t = 168` hours) in continuous use is... (
 
 2. You buy the mask, and it works without failure for 2 weeks (`t = 336` hours) The probability the wire will snap during the next week (`t = 504` hours) is...
 
-
-### Answer {-}
-
-
+<details><summary>**[View Answer!]**</summary>
+  
 1. The probability that the wire survives 1 week (`t = 168` hours) in continuous use is... (
 
 ```{r}
@@ -474,6 +486,9 @@ f = function(t, lambda){1 - exp(-1*t*lambda)}
 f(t = 168, lambda = 1 / 240)
 ```
 
+</details>
+  
+---
 
 <br>
 <br>
@@ -1046,11 +1061,12 @@ Looks like you'll need a sample of about `r round(n,0)` masks to be able to fit 
 <br>
 
 
+---
 
-## LC 4 {.tabset .tabs-pills  .unnumbered}
+## Learning Check 4 {.unnumbered #LC4}
 
-### Question {-}
-
+**Question**
+  
 A small start-up is product testing a new super-effective mask. They product tested 25 masks over 60 days. They contract you to analyze the masks' lifespan data, recorded below as the number of days to failure. 
 
 ```{r}
@@ -1067,8 +1083,9 @@ supermasks <- c(1, 2, 2, 2, 3, 3, 4, 4, 5, 9, 13, 15, 17, 19,
 
 4. *Using the cross-tabulated data*, do these masks' lifespan distribution fit an exponential distribution, or does their distribution differ to a statistically significant degree from the exponential? How much? (eg. statistic and p-value).
 
-### Answer {-}
 
+<details><summary>**[View Answer!]**</summary>
+  
 1. Cross-tabulate the lifespan distribution in intervals of 7 days.
 
 ```{r, echo = FALSE}
@@ -1143,6 +1160,11 @@ d <- a %>%
 # Check it!
 d
 ```
+
+
+</details>
+  
+---
 
 <br>
 <br>

@@ -330,13 +330,15 @@ The estimate provided is a little different than the one above, but it's still i
 <br>
 <br>
 
-## LC 1 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question {-}
+## Learning Check 1 {.unnumbered #LC1}
+
+**Question**
 
 We've learned several probability density functions for different distributions, including `dexp()`, `dgamma()`, `dpois()`, and `dweibull()`. Use `optim()` to maximize the likelihood of each of these PDFs' likelihood, using our `crops` data.
 
-### Answer {-}
+<details><summary>**[View Answer!]**</summary>
 
 For the exponential distribution...
 
@@ -383,6 +385,10 @@ optim(par = c(1,1), data = crops$days, fn = ll, control = list(fnscale = -1))
 ```{r}
 remove(ll, d, output, mylambda, manyll)
 ```
+
+</details>
+  
+---
 
 <br>
 <br>
@@ -579,13 +585,15 @@ variance(k = 1, lambda = 0.1)
 <br>
 <br>
 
-## LC 2 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question {-}
+## Learning Check 2 {.unnumbered #LC2}
+
+**Question**
 
 A car bumper has demonstrated a gamma distribution with a failure rate of $\lambda = 0.005$ per day given $k = 3$ potential shocks. Determine the reliability of this bumper over a 30, 300, and 600 day period.
 
-### Answer {-}
+<details><summary>**[View Answer!]**</summary>
 
 ```{r}
 # Compute a reliability function using pgamma()
@@ -595,6 +603,10 @@ r = function(t,k,lambda){ 1 - pgamma(t,shape = k, rate = lambda) }
 r(t = c(30, 300, 600), k = 3, lambda = 0.005)
 ```
 
+
+</details>
+  
+---
 
 <br>
 <br>
@@ -721,13 +733,15 @@ variance = function(c, m){  c^2 * gamma( 1 + 2/m ) - ( c * gamma( 1 + 1/m) )^2  
 <br>
 <br>
 
-## LC 3 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question {-}
+## Learning Check 3 {.unnumbered #LC3}
 
+**Question**
+  
 You've done this a bunch now - for this learning check, write your own function to find $t$, $m$, and $c$ in a Weibull distribution.
 
-### Answer {-}
+<details><summary>**[View Answer!]**</summary>
 
 ```{r}
 # Write a function to get t
@@ -751,19 +765,25 @@ get_c = function(t,f,m){
 }
 ```
 
+</details>
+  
+---
 
 <br>
 <br>
 
-## LC 4 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question {-}
+## Learning Check 4 {.unnumbered #LC4}
+
+**Question**
 
 - Find the characteristic life necessary for 10% of failures to occur by 168 hours, if the shape parameter $m = 2$.
 
 - Then, using that characteristic life, plot the probability of failure when $m = 1$, $m = 2$, and $m = 3$.
 
-### Answer {-}
+  
+<details><summary>**[View Answer!]**</summary>
 
 ```{r}
 # Write our function to find c
@@ -798,7 +818,9 @@ bind_rows(m1,m2,m3) %>%
   geom_line()
 ```
 
-
+</details>
+  
+---
 
 <br>
 <br>
@@ -936,14 +958,16 @@ variance = function(mu, sigma){  mu * exp(sigma^2) * (exp(sigma^2) - 1)  }
 <br>
 <br>
 
-## LC 5 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question {-}
+## Learning Check 5 {.unnumbered #LC5}
+
+**Question**
 
 A crop tends to grow to a median height of 2 feet tall. We know from past data that this crop has a lognormal distribution, with a shape parameter $\sigma$ of about 0.2 feet. Market standards prefer crops between 1.5 and 8 feet tall. Given these standards, what percentage of crops are not eligible for market?
 
-### Answer {-}
-
+<details><summary>**[View Answer!]**</summary>
+  
 ```{r}
 # Get percent under 1.5 feet
 below <- f(1.5, t50 = 2, sigma = 0.2)
@@ -955,18 +979,24 @@ above <- 1 - f(8, t50 = 2, sigma = 0.2)
 below + above
 ```
 
+</details>
+  
+---
 <br>
 <br>
 
 
 
-## LC 6 {.tabset .tabset-pills .unnumbered}
+---
 
-### Question {-}
+## Learning Check 6 {.unnumbered #LC6}
 
+**Question**
+  
 A log normal distribution has a median time to failure equal to `50,000` hours and shape parameter $\sigma$ equal to `0.8`. What is the mean time to failure and true standard deviation in this distribution?
 
-### Answer {-}
+
+<details><summary>**[View Answer!]**</summary>
 
 ```{r}
 # Let's write a mean time to failure function
@@ -987,6 +1017,9 @@ variance(median = 50000, sigma = 0.8) %>% sqrt()
 # with a very wide standard deviation
 ```
 
+</details>
+  
+---
 
 <br>
 <br>
