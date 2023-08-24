@@ -1,334 +1,243 @@
-# Workshop: Useful Life Distributions (Weibull, Gamma, & Lognormal)
+# Workshop: Indices and Confidence Intervals for Statistical Process Control in `R` {#workshop_6}
 
-```{r setup_workshop_6, include = FALSE}
+```{r setup_workshop_10, include = FALSE, echo = FALSE}
 library(tidyverse)
 library(knitr)
 library(kableExtra)
-knitr::opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 ```
 
-In this workshop, we're going to continue learning some `R` functions for working with common life distributions, specifically the **Weibull, Gamma, and Log-Normal** distributions.
+```{r, out.width = "100%", echo = FALSE, fig.cap="Bootstrapping Sampling Distributions for Statistics!!"}
+knitr::include_graphics("images/10_cover.png")
+```
 
-## Getting Started {-}
+This workshop extends our toolkit developed in Workshop 9, discussing Process Capability and Stability Indices, and introducing means to calculate confidence intervals for these indices.
 
-### Load Packages {-}
+## Getting Started  {-}
 
-Let's start by loading the `tidyverse` package. We'll also load `mosaicCalc`, for taking derivatives and integrals (eg. `D()` and `antiD()`).
+### Packages {-}
+
+We'll be using the `tidyverse` package for visualization, `viridis` for color palletes, `moments` for descriptive statistics, plus `ggpubr` for some add-on functions in `ggplot`.
 
 ```{r}
-# Load packages
 library(tidyverse)
-library(mosaicCalc)
+library(viridis)
+# you'll probably need to install these packages!
+# install.packages(c("ggpubr", "moments")) 
 ```
 
+### Our Data {-}
 
-### Load Data {-}
+We'll be continuing to analyze our quality control data from a local hot springs inn (*onsen*) in sunny Kagoshima Prefecture, Japan. Every month, for 15 months, you systematically took 20 random samples of hot spring water and recorded its **temperature**, **pH**, and **sulfur** levels. How might you determine if this *onsen* is at risk of slipping out of one sector of the market (eg. Extra Hot!) and into another (just normal Hot Springs?). 
 
-In this workshop, we're going to use a dataset of crop lifetimes! (Agriculture needs statistics too!) For each crop (`id`), we measured its lifespan in `days` from the day its seed is planted to the time it is ripe (usually about 90 days).
-
-```{r, eval = FALSE, include = FALSE}
-tibble(id = 1:50, days = rweibull(n = 50, shape = 1.5, scale = 80) %>% round(0)) %>%
-  write_csv("workshops/crops.csv")
-```
+Let's read in our data from `workshops/onsen.csv`!
 
 ```{r}
-# Import crop lifespan data!
-crops <- read_csv("workshops/crops.csv")
+# Let's import our samples of bathwater over time!
+water = read_csv("workshops/onsen.csv")
+# Take a peek!
+water %>% glimpse()
+```
+
+Our dataset contains:
+
+- `id`: unique identifer for each sample of *onsen* water.
+
+- `time`: categorical variable describing date of sample (month `1`, month `3`, ... month `15`).
+
+- `temp`: temperature in celsius.
+
+- `ph`: pH (0 to 14)
+
+- `sulfur`: milligrams of sulfur ions.
+
+<br>
+<br>
+
+## Process Capability vs. Stability
+
+###  Definitions
+
+Production processes can be categorized in terms of **Capability** (does it meet required specifications?) and **Stability** (is production consistent and predictable?) Both are vital. 
+
+- A **capable** process delivers goods that can actually perform their function, like a 20-foot ladder that is *actually* 20 feet! 
+
+- A **stable** process delivers products with *consistent* and predictable traits (regardless of whether those traits are *good*). 
+
+We need to maximize *both* process **capability** and **stability** to make an effective process, be it in manufacturing, health care, local businesses, or social life! Depending on the *shape* and *stability* of our data, we should choose one of the 4 statistics to evaluate our data. 
+
+<br>
+<br>
+
+###  Table of Indices
+
+These statistics rely on some combination of (1) the mean $\mu$, (2) the standard deviation $\sigma$, and (3) the upper and lower **"specification limits"**; the specification limits are our **expected values** $E_{upper}$ and $E_{lower}$, as compared to our actual **observed values**, summarized by $\mu$ and $\sigma$.
+
+```{r table1, echo = FALSE}
+tribble(
+  ~Index,  ~Shape, ~Sided,   ~Stability,   ~Formula, ~Meaning,
+  "$C_{p}$", "Centered", "2-sided",   "Stable",  "$\\frac{E_{upper} - E_{lower}}{6 \\sigma_{short}}$", "How many times wider is the expected range than the observed range, assuming it is stable?",
+  "$C_{pk}$", "Uncentered", "1-sided", "Stable", "$\\frac{\\mid E_{limit} - \\mu \\mid}{3 \\sigma_{short}}$", "How many times wider is the expected vs. observed range for the left/right side, assuming it is stable?",
+
+  "$P_{p}$", "Centered",  "2-sided", "Unstable",   "$\\frac{E_{upper} - E_{lower}}{6 \\sigma_{total}}$", "How many times wider is the expected vs. observed range, stable or not?",
+  "$P_{pk}$", "Uncentered",  "1-sided", "Unstable", "$\\frac{\\mid E_{limit} - \\mu \\mid}{3 \\sigma_{total}}$", "How many times wider is the expected vs. observed range for the left/right side, stable or not?") %>%
+  
+  kable(label = "Table 1: Key Indices in Statistical Process Control") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
+  group_rows(group_label = "Capability Indices (How $\\textit{could}$ it perform, if stable?)", 1, 2, bold = TRUE) %>%
+  group_rows(group_label = "Process Performance Indices (How is it performing, stable or not?)", 3, 4, bold = TRUE)
+```
+
+
+
+## Index Functions
+
+Let's do ourselves a favor and write up some simple functions for these.
+
+```{r}
+# Capability Index (for centered, normal data)
+cp = function(sigma_s, upper, lower){  abs(upper - lower) / (6*sigma_s)   }
+
+# Process Performance Index (for centered, normal data)
+pp = function(sigma_t, upper, lower){  abs(upper - lower) / (6*sigma_t)   }
+
+# Capability Index (for skewed, uncentered data)
+cpk = function(mu, sigma_s, lower = NULL, upper = NULL){
+  if(!is.null(lower)){
+    a = abs(mu - lower) / (3 * sigma_s)
+  }
+  if(!is.null(upper)){
+    b = abs(upper - mu) /  (3 * sigma_s)
+  }
+  # We can also write if else statements like this
+  # If we got both stats, return the min!
+  if(!is.null(lower) & !is.null(upper)){
+    min(a,b) %>% return()
+    
+    # If we got just the upper stat, return b (for upper)
+  }else if(is.null(lower)){ return(b) 
+    
+    # If we got just the lower stat, return a (for lower)
+    }else if(is.null(upper)){ return(a) }
+}
+
+
+# Process Performance Index (for skewed, uncentered data)
+ppk = function(mu, sigma_t, lower = NULL, upper = NULL){
+  if(!is.null(lower)){
+    a = abs(mu - lower) / (3 * sigma_t)
+  }
+  if(!is.null(upper)){
+    b = abs(upper - mu) /  (3 * sigma_t)
+  }
+  # We can also write if else statements like this
+  # If we got both stats, return the min!
+  if(!is.null(lower) & !is.null(upper)){
+    min(a,b) %>% return()
+    
+    # If we got just the upper stat, return b (for upper)
+  }else if(is.null(lower)){ return(b) 
+    
+    # If we got just the lower stat, return a (for lower)
+  }else if(is.null(upper)){ return(a) }
+}
+
 ```
 
 <br>
 <br>
 
+How might we use these indices to describe our process data? For example, recall that our *onsen* operator needs to be sure that their hot springs water is consistently falling into the temperature bins for *Extra Hot Springs*, which start at 42 degrees Celsius (and go as high as `80`). Let's use those as our specification limits (pretty easy-going limits, I might add).
 
-##  Maximum Likelihood Estimation (MLE)
-
-In our last few workshops, we learned that the exponential distribution does a pretty good job of approximating many life distributions, and that we can evaluate the fit of a distribution using a chi-squared test. In this workshop, we'll learn several alternative, related distributions that might fit your data even *better* depending on the scenario. But modeling any data using a distribution requires *that we know the parameters that best match the observed data*. This can be really hard, as we found out with $\hat{\lambda}$ in the exponential distribution.
-
-Below, we'll learn a computational approach called Maximum Likelihood Estimation (MLE), that will help us find the true (most likely) values for any parameter in any dataset. It's pretty robust if the number of failures is 'large' enough, where 'large' counts as >10 (which is really small!). 
-
-<br>
-<br>
-
-### Likelihood Function
-
-MLE involves 3 ingredients:
-
-1. `sample`: a vector of raw empirical data
-
-2. `probability density function (PDF)`: tells us probability (relative frequency) of each value in a sample occurring.
-
-3. `likelihood function`: tells us probability of getting this EXACT sample, given the PDF values for each observed data point.
-
-We can get the **"probability"** of any sample by multiplying the density function `f(t)` at each data point $t_{i}$, for `r` data points. Multiplication indicates *joint* probability, so this product really means how likely is is to get **this specific sample**. We call it the **likelihood** of that sample.
-
-$$ LIK = \prod_{i = 1}^{r}{ f(t_i) } = f(t_1) \times f(t_2) \times ... f(t_n) $$
+Let's start by calculating our quantities of interest.
 
 ```{r}
-# Let's write a basic pdf function
-d = function(t, lambda){lambda * exp(-t*lambda) }
-
-# Let's imagine we already knew lambda...
-mylambda = 0.01
-
-crops %>%
-  # Calculate probability density function for observed data
-  mutate(prob = d(days, lambda = mylambda)) %>%
+stat = water %>%
+  group_by(time) %>%
   summarize(
-    # Let's calculate the likelihood
-    likelihood = prob %>% prod(),
-    # Since that's a really tiny number,
-    # let's take its log to get log-Likelihood
-    loglik = prob %>% prod() %>% log())
-```
-Technically, our `likelihood` above shows the joint probability of each of these observed values occurring together supposing that: 
-
-1. *they have an exponential probability density function (PDF)*, and... 
-
-2. that the parameter `lambda` in that PDF equals `0.01`. 
-
-So we can get *different* (higher/lower) likelihoods of these values occuring together if we supply (1) different parameter values and therefore (2) a different hypothesized PDF. The most accurate parameters will be the ones that *maximize the likelihood*.
-
-In practice though, the likelihood is teeny-tiny, and multiplying tiny numbers is hard! Fortunately...
-
-1. the log of a tiny value makes it bigger and easier to read and compute.
-
-2. the `log` of a product of values actually equals the *sum* of the `log` of those values (see equation below!).
-
-$$ log ( \ L(t) \ ) = \log\prod_{i=1}^{n}{ f(t_i) = \sum_{i=1}^{n}\log( \ f(t_i) \ ) } $$ 
-
-```{r}
-ll = function(data, lambda){
-  # Calculate Log-Likelihood,
-  # by summing the log
-  d(t = data, lambda) %>% log() %>% sum()
-}
-```
-
-<br>
-<br>
-
-### Maximizing with `optim()`
-
-We can use the `optim()` function from base `R` to:
-
-- run our function (`fn` = ...) many times, varying the value of `lambda` (or any parameter).
-
-- supply any other parameters like `data = crops$days` to each run.
-
-- identify the log-likelihood that is *greatest* (if `control = list(fnscale = -1)`); by default, `optim()` actually *minimizes* otherwise.
-
-- return the corresponding value for `lambda` (or any other parameter). 
-
-- `optim()` will output a `$par` (our parameter estimate(s)) and `$value` (the maximum log-likelihood).
-
-```{r}
-# Maximize the log-likelihood!
-optim(par = c(0.01), data = crops$days, fn = ll, control = list(fnscale = -1))
-```
-
-<br>
-<br>
-
-### Under the Hood
-
-Wondering what's happening inside `optim()`? Good news: it's not too tough. We can actually code and visualize it ourselves!
-
-First, let's *get* all the log-likelihoods in that interval.
-
-```{r}
-# Let's 
-manyll <- data.frame(parameter = seq(from = 0.00001, to = 1, by = 0.001)) %>%
-  # For each parameter, get the loglikelihood
-  group_by(parameter) %>%
-  summarize(loglik = ll(data = crops$days, lambda = parameter))
-
-# Check a few
-manyll %>% head(3)
-```
-
-Let's maximize the log-likelihood manually...
-
-```{r}
-# Now find the parameter that has the greatest log-likelihood
-output <- manyll %>%
-  filter(loglik == max(loglik))
-
-#check it
-output
-```
-Now, let's visualize it!
-
-```{r}
-ggplot() +
-  geom_line(data = manyll, mapping = aes(x = parameter, y = loglik), color = "steelblue") +
-  geom_vline(xintercept = output$parameter, linetype = "dashed")  +
-  theme_classic(base_size = 14) +
-  labs(x = "parameter (lambda)", y = "loglik (Log-Likelihood)",
-       subtitle = "Maximizing the Log-Likelihood (Visually)") +
-  # We can actually adust the x-axis to work better with log-scales here
-  scale_x_log10() +
-  # We can also annnotate our visuals like so.
-  annotate("text", x = 0.1, y = -2000, label = output$parameter)
-```
-
-### Multi-parameter optimization
-
-Multi-parameter optimization works pretty similarly. We can use `optim()` for this too! 
-
-- The key here is that `optim()` only varies whatever values we supply to `optim(par = ...)`. 
-
-- So if we have multiple parameters, like the `mean` and `sd` for the normal distribution, we need to put both parameters into one vector in our input `par`, like so:
-
-```{r}
-# Let's write a new function
-ll = function(data, par){
-  # Our parameters input is now going to be vector of 2 values
-  # par[1] gives the first value, the mean
-  # par[2] gives the second value, the standard deviation
-  dnorm(data, mean = par[1], sd = par[2]) %>% 
-    log() %>% sum()
-}
-
-```
-
-Now, let's maximize!
-
-```{r, warning = FALSE, message = FALSE}
-# Let's optimize it!
-# put in some reasonable starting values for 'par' and it optim() will do the rest. 
-optim(par = c(90, 15), data = crops$days, fn = ll, control = list(fnscale = -1))
-```
-
-That was ridiculously easy! Let's compare to their known values:
-
-```{r}
-crops %>%
-  summarize(mu = mean(days), 
-            sigma = sd(days))
-```
-
-
-Almost spot on! Pretty good for an estimation technique!
-
-<br>
-<br>
-
-
-### MLE with Censored Data
-
-But what do we do if we need to estimate parameters with MLE, but our data is censored (eg. time censored, or cross-tabulated?) Well, fortunately, same general rules apply!
-
-$$ LIK = k \times ( \Pi_{i = 1}^{r}{f(t_i) \ }  \times [1 - F(T_{max})]^{n-r} )  \approx \prod_{i=1}^{r}{ f(t_i) } \times R(T_{max})^{n-r} $$
-
-We can re-write the likelihood function as the joint probability of each time to failure $f(t_i)$ for $r$ total failures that *did* occur, times the cumulative probability that they *did not fail* by the end of the study period $T_{max}$ for $n - r$ potential failures that did *not* occur. 
-
-Just like when estimating lambda though, we know that there's room for error, so we can calculate a $k$ factor like before to upweight or downweight our likelihood statistic, giving us upper and lower confidence intervals. Most often, we are looking for the precise estimate of parameters, not upper and lower confidence intervals for them, so in those cases, $k$ can be omitted, simplifying down to the right-side equation above.
-
-Let's try a few applications of this formula below.
-
-<br>
-
-#### Time Censored Data
-
-Suppose we actually had $n = 75$ crops, but we only ever saw $r = 50$ of them fail, and we stopped recording after `200` days. How would we estimate the maximum likelihood to get our parameter of interest $\lambda$?
-
-First, let's write our functions.
-
-```{r}
-# Let's write a basic pdf function 'd' and cdf function 'f'
-d = function(t, lambda){ lambda * exp(-t*lambda) }
-f = function(t, lambda){ 1 - exp(-t*lambda)}
-```
-
-Now, using our observed (but incomplete data in `crops`), let's calculate the log-likelihood if $\lambda = 0.01$.
-
-```{r}
-crops %>%
+    xbar = mean(temp),  # Get within group mean
+    sd = sd(temp),  # Get within group sigma
+    n_w = n()             # Get within subgroup size
+  ) %>%
   summarize(
-    # Get total failures observed
-    r = n(),
-    # Get total sample size,
-    n = 75,
-    # Get last timestep
-    tmax = 200,
-    # Take the product of the PDF at each timestep
-    prob_d = d(t = days, lambda = 0.01) %>% prod(),
-    # Get probability of survival by the last time step,
-    # for as many observations as did not fail
-    prob_r = (1 - f(t = tmax, lambda = 0.01))^(n - r),
-    # Get likelihood
-    lik = prob_d * prob_r,
-    # Get loglikelihood
-    loglik = log(lik))
+    xbbar = mean(xbar),               # Get grand mean
+    sigma_s = sqrt(mean(sd^2)), # Get sigma_short
+    sigma_t = sd(water$temp), # get sigma_total
+    n = sum(n_w), # Get total observations
+    n_w = unique(n_w), # get size of subgroups
+    k = n())   # Get number of subgroups k
+# Check it!
+stat
 ```
 
-Great! Let's formalize that in a function, for any value of $\lambda$.
+###  Capacity Index $C_{p}$
 
-```{r, message=FALSE, warning = FALSE}
-# We'll write a log-likelihood function 'll'
-# that takes a data input and a single numeric parameter par
-ll = function(data, par){
-  output <- data %>%
-    summarize(
-      r = n(),
-      n = 75,
-      tmax = 200,
-      prob_d = d(t = days, lambda = par) %>% prod(),
-      prob_r = (1 - f(t = tmax, lambda = par))^(n - r),
-      loglik = log(prob_d * prob_r))
-  # Return the output
-  output$loglik
-}
-
-# Last, we can run 'optim' to get the MLE, with a starter guess of lambda at 0.05
-optim(par = c(0.01), data = crops, fn = ll, control = list(fnscale = -1))
-```
-
-<br>
-<br>
-
-#### Cross-Tabulated, Time-Censored Data
-
-Alternatively, what if our data were not only time-censored, but had been cross-tabulated!? The `crosstab` data.frame below encodes days to failure for our `crops`, tallied up in 40 day intervals, supposing a total sample of `75` sampled crops evaluated for `200 days`. We can still estimate parameters with MLE using the formula above!
+Our $C_{p}$ Capacity index says, assuming that the distribution is centered and stable, how many times wider are our limits than our approximate observed distribution ($6 \sigma_{short}$)?
 
 ```{r}
-crosstab <- data.frame(
-  label = c("[0,40]", "(40,80]", "(80,120]", "(120,160]", "(160,200]"),
-  t = c(20, 60, 100, 140, 180),
-  count = c(18, 14, 10, 5, 3))
+mycp = cp(sigma_s = stat$sigma_s, lower = 42, upper = 80)
+
+# Check it!
+mycp
+```
+Great! This says, our observed variation is many times (`r mycp` times) narrower than the expected specification limits. 
+
+<br>
+
+###  Process Performance Index $P_{p}$
+
+Our $P_{p}$ Process Performance Index asks, even if the distribution is not stable (meaning it varies not just due to common causes), how many times wider are our specification limits than our approximate observed distribution ($6 \sigma_{total}$)?
+
+```{r}
+mypp = pp(sigma_t = stat$sigma_t, lower = 42, upper = 80)
+mypp
+```
+Much like before, the specification limit range remains quite bigger than the observed distribution.
+
+<br>
+
+###  Capacity Index $C_{pk}$
+
+Our $C_{pk}$ Capacity index says, assuming the distribution is pretty stable across subgroups, how many times wider is (a) the distance from the tail of interest to the mean than (b) our approximate observed tail (3 sigma)? This always looks at the *shorter tail*.
+
+```{r}
+mycpk = cpk(sigma_s = stat$sigma_s, mu = stat$xbbar, lower = 42, upper = 80)
+mycpk
 ```
 
-We can write our log-likelihood function *very* similarly to above. The main change is that we add up the `count`s  to get `r`, the total observed failures. To estimate our probabilities, we just use the interval midpoints as our days to failure `t`.
+If we only care about one of the tails, eg. the lower specification limit of 42, which is much closer than the upper limit of 80, we can just write the lower limit only.
 
-```{r, message=FALSE, warning = FALSE}
-ll = function(data, par){
-  output <- data %>%
-    summarize(
-      # Get total failures observed (sum of all tallies)
-      r = sum(count),
-      # Get total sample size,
-      n = 75,
-      # Get last timestep
-      tmax = 200,
-      # Get PDF at each timestep; take product for each failure observed
-      prob_d = d(t = t, lambda = par)^count %>% prod(),
-      # Get probability of survival by the last time step,
-      # for as many n-r observations that did not fail
-      prob_r = (1 - f(t = tmax, lambda = par))^(n - r),
-      # Get log-likelihood
-      loglik = log(prob_d * prob_r))
-  # Return the output
-  output$loglik
-}
-
-# Last, we can run 'optim' to get the MLE, with a starter guess of lambda at 0.05
-optim(par = c(0.01), data = crosstab, fn = ll, control = list(fnscale = -1))
+```{r}
+cpk(sigma_s = stat$sigma_s, mu = stat$xbbar, lower = 42)
 ```
 
-The estimate provided is a little different than the one above, but it's still in a very similar ballpark. When working with cross-tabulations but estimating complex parameters, this estimation strategy can be a life-saver (literally).
+This says, our observed variation is much wider than the lower specification limit, since $C_{pk}$ is far from `1`, which which show equality.
 
 <br>
 <br>
+
+###  Process Performance Index $P_{pk}$
+
+Our $P_{pk}$ process performance index says, even if the distribution is neither stable nor centered, how much wider is the observed variation $3 \sigma_{total}$ than the distance from the tail of interest to the mean? We use $\sigma_{total}$ here to account for instability (considerable variation between subgroups) and one-tailed testing to account for the uncentered distribution.
+
+```{r}
+myppk = ppk(sigma_t = stat$sigma_t, mu = stat$xbbar, lower = 42, upper = 80)
+myppk
+```
+
+###  Equality
+
+A final reason why these quantities are neat is that these 4 indices are related; if you know 3 of them, we can always calculate the 4th! See the identity below:
+
+$$P_{p} \times C_{pk} = P_{pk} \times C_{p}$$
+
+```{r}
+# whaaaaaat? They're equal!!!! 
+mypp * mycpk == myppk * mycp
+```
+<br>
+<br>
+
 
 ---
 
@@ -336,56 +245,25 @@ The estimate provided is a little different than the one above, but it's still i
 
 **Question**
 
-We've learned several probability density functions for different distributions, including `dexp()`, `dgamma()`, `dpois()`, and `dweibull()`. Use `optim()` to maximize the likelihood of each of these PDFs' likelihood, using our `crops` data.
+Let's apply this to some tasty examples! A manufacturer of granola bars is aiming for a weight of `2 ounces (oz)`, plus or minus `0.5 oz`. Suppose the standard deviation of our granola bar machine is `0.02 oz`, and the mean weight is `2.01 oz`. 
+
+What's the process capability index? (I.e. How many times greater is the expected variation than the observed variation?)
 
 <details><summary>**[View Answer!]**</summary>
 
-For the exponential distribution...
-
 ```{r}
-ll = function(data, par){
-  dexp(data, rate = par) %>% log() %>% sum()
-}
-optim(par = c(0.01), data = crops$days, fn = ll, control = list(fnscale = -1))
+lower = 2 + 0.05
+upper = 2 - 0.05
+sigma = 0.02
+mu = 2.01
+
+
+cp(sigma = 0.02, upper = 2.05, lower = 1.95)
+
+cpk(mu = 2.01, sigma = 0.02, lower = 1.95, upper = 2.05)
 ```
 
-For the gamma distribution...
-
-```{r}
-ll = function(data, par){
-  dgamma(data, shape = par[1], scale = par[2]) %>% log() %>% sum()
-}
-optim(par = c(1, 1), data = crops$days, fn = ll, control = list(fnscale = -1))
-```
-
-For the Poisson distribution...
-
-```{r}
-ll = function(data, lambda){
-  dpois(data, lambda) %>% log() %>% sum()
-}
-# Optimize!
-optim(par = 90, data = crops$days, fn = ll, control = list(fnscale = -1))
-```
-
-
-For the Weibull distribution...
-
-```{r}
-ll = function(data, par){
-  dweibull(data, shape = par[1], scale = par[2]) %>% log() %>% sum()
-}
-# Optimize!
-optim(par = c(1,1), data = crops$days, fn = ll, control = list(fnscale = -1))
-```
-
-<br>
-<br>
-
-```{r}
-remove(ll, d, output, mylambda, manyll)
-```
-
+  
 </details>
   
 ---
@@ -393,641 +271,428 @@ remove(ll, d, output, mylambda, manyll)
 <br>
 <br>
 
-##  Gamma Distribution
 
-Alternatively, the Gamma distribution is well suited to modeling products exposed to a series of shocks over time at a given rate over time.
+## Confidence Intervals
+
+Any statistic is really just 1 of the many possible values of statistics you could have gotten from your sample, had you taken just a slightly different random sample. So, when we calculate our indices, we should be prepared that our indices might *vary due to chance (sampling error)*, so we should build in confidence intervals. This helps us benchmark how trustworthy any given index is.
 
 <br>
 <br>
 
-### $\Gamma$ function `gamma()`
+###  Confidence Intervals show us Sampling Distributions 
 
-In the gamma distribution, events are exposed to $k$ shocks. We often will use something called a **gamma** function $\Gamma$ of $k$ to show the total ways a series of shocks could have occurred. 
+Let's quickly go over what confidence intervals are trying to show us!
 
-- Gamma functions are written $(k - 1)!$, where $!$ means *"factorial"*, or taking the product of k by every prior integer. 
-
-- Since, $(k - 1)! = \Gamma(k)$, then if $k = 4$, then $\Gamma(k = 4) = (4 - 1) \times (3 - 1) \times (2 - 1) = 3 \ \times 2 \times 1 = 6$.
-
-- We can quickly code in this in `r` using the `gamma()` function. For example, in the prior example, `gamma(4)` renders `r gamma(4)`. Pretty quick, right?
-
-- We can also code this directly using the `factorial()` function. For example, if `k = 4`, we can write `factorial(4 - 1)`.
-
+Suppose we take a statistic like the mean $\mu$ to describe our vector `temp`.
 
 ```{r}
-# Let's try out the gamma function.
-gamma(4)
-# Produces same output as factorial(k - 1)
-factorial(4 - 1)
+water %>%
+  summarize(mean = mean(temp))
 ```
 
-<br>
-<br>
-
-### $f(t)$ or `d(t)`(**Probability Density Function, aka PDF**)
-
-Excitingly, we can reapply most of the same rules we learned for exponential distributions; we just have to update our functions.
-
-In the gamma distribution, events are exposed to $k$ shocks that occur at rate $\lambda$ over time $t_1, t_2, ... t_n$. We can model the time to failure for such a function like so!
-
-$$f(t) = \frac{\lambda}{(k - 1)!}(\lambda t)^{k-1}e^{-\lambda t}$$
-We can also write $(k - 1)!$ above as $\Gamma(k)$. As mentioned above, this is called a `"Gamma function of k"`, which is where the distribution's name comes from. $k$ effectively controls the `shape` of the function.
+We might have gotten a *slightly* different statistic had we had a *slightly* different sample. We can approximate what *slightly* different sample might look like by using *bootstrapped resamples*. This means, randomly sampling a bunch of observations from our dataframe `water`,  sometimes taking the same observation multiple times, sometimes leaving out some observations by chance. We can use the `sample(x, size = ..., replace = TRUE)` function to take a **bootstrapped sample**.
 
 ```{r}
-# Let's write our new PDF function, d(t); written as f(t) above
-d = function(t, k, lambda){
-  lambda / factorial(k - 1) * (lambda*t)^(k-1) * exp(-t*lambda)
-}
-
-# Try it out!
-d(t = 1, k = 1, lambda = 1)
-# Compare with our dgamma() function!
-dgamma(x = 1, shape = 1, rate = 1)
-# They're the same!
+water %>%
+  # Grab n() randomly sampled temperatures, with replacement,
+  # we'll call those 'boot', since they were 'bootstrapped'
+  summarize(boot = sample(temp, size = n(), replace = TRUE)) %>%
+  # and take the mean!
+  summarize(mean = mean(boot))
 ```
 
-<br>
-<br>
+Our bootstrapped `mean` is *very*, *very* close to the original mean - just slightly off due to sampling error! Bootstrapping is a very powerful tool, as it lets us circumvent many long formulas, as long as you take enough samples. Let's take 1000 resamples below:
 
-### $F(t)$ **Failure Function** and $R(t)$ **Reliability Function**
-
-The failure and reliability function are always closely related, no matter the distribution, where $R(t) = 1 - F(t)$. 
-
-We can write the failure function $F(t)$ (a.k.a. the CDF) as:
-
-$$ F(t) = 1 - \sum_{n = 0}^{k - 1}{\frac{(\lambda t)^n }{n!}e^{-\lambda t}}$$
-Therefore, we can also write the reliability function $R(t)$ as:
-
-$$ R(t) = \sum_{n = 0}^{k - 1}{\frac{(\lambda t)^n }{n!}e^{-\lambda t}}$$
 ```{r}
-# Write the failure function for Gamma distribution
-f = function(t, k, lambda){
-  # Make a vector of values from 0 to k-1
-  n = seq(from = 0, to = k - 1)
-  # Now compute the failure function
-  1 - sum( (lambda*t)^n / factorial(n)  * exp(-lambda*t) )
-}
+# Get a vector of ids from 1 to 1000
+myboot = tibble(rep = 1:1000) %>%
+  # For each repetition,
+  group_by(rep) %>%
+  # Get a random bootstrapped sample of temperatures
+  summarize(boot = water$temp %>% sample(size = n(), replace = TRUE)) %>%
+  # For that repetition,
+  group_by(rep) %>%
+  # Calculate the mean of the bootstrapped samples!
+  summarize(mean = mean(boot))
 
-# We can also integrate the PDF to get the CDF, alternatively, using mosaicCalc
-fc = antiD(tilde = d(t, k, lambda) ~ t)
-
-# Let's compare!
-# Using pgamma()
-pgamma(q = 10,shape = 3,rate = 1)
-# Using our calculate-based fc()
-fc(t = 10, k = 3, lambda = 1)
-# Using our direct function f()
-f(t = 10, k = 3, lambda = 1)
-# All the same!
+# Let's view them!
+myboot$mean %>% hist()
 ```
+We can see above the *latent distribution of 1000 statistics we could have gotten due to random sampling error*. This is called a **sampling distribution**. Whenever we make confidence intervals, we are *always* drawing from a **sampling distribution**.
 
-Correspondingly, the reliability function $R(t)$ would be...
+<br>
+<br>
+
+###  Bootstrapped or Theoretical Sampling Distributions?
+
+The question is, are you relying on a *bootstrapped* sampling distribution or a *theoretical* sampling distribution? 
+
+- If we assume a perfectly *normal* distribution, then we're relying on a theoretical sampling distribution, and we need formulas to calculate our confidence intervals. This is a big assumption!
+
+- If we are comfortable with computing 1000 or more replicates, then we can bootstrap those confidence intervals instead, gaining accuracy at the expense of computational power.
+
+Let's learn how to make confidence intervals for our indices from (1) a theoretical sampling distribution, and then we'll learn to make them from (2) a bootstrapped sampling distribution.
+
+<br>
+<br>
+
+###  Confidence Intervals with Theoretical Sampling Distributions
+
+Suppose our lower and upper specification limits - the expectations of the market and/or regulators - are that our *onsen*'s temperature should be between 42 and 50 degrees Celsius if we advertise ourselves as an Extra Hot Onsen.
+
+For any index, you'll need to get the ingredients needed to calculate the index and to calculate its *standard error* (the standard deviation of the sampling distribution you're trying to approximate).
+
+So, let's first get our ingredients...
 
 ```{r}
-# Write the reliability function
-r = function(t, k, lambda){
-  # Make a vector of values from 0 to k-1
-  n = seq(from = 0, to = k - 1)
-  # Now compute the reliability function
-  sum( (lambda*t)^n / factorial(n)  * exp(-lambda*t) )
-}
+stat = water %>%
+  group_by(time) %>%
+  summarize(xbar = mean(temp),
+            s = sd(temp),
+            n_w = n()) %>%
+  summarize(
+    xbbar = mean(xbar), # grand mean x-double-bar
+    sigma_s = sqrt(mean(s^2)), # sigma_short
+    sigma_t = water$temp %>% sd(), # sigma_total!
+    n = sum(n_w), # or just n = n()   # Total sample size
+    n_w = unique(n_w),
+    k = time %>% unique() %>% length())   # Get total subgroups
 
-# Get reliability function via calculus...
-rc = function(t,k,lambda){
-  # compute CDF
-  fc = antiD(tilde = d(t, k, lambda) ~ t)
-  # return 1 - CDF
-  1 - fc(t = t, k = k, lambda = lambda)
-}
-
-
-# Compare outputs!
-# with pgamma()
-1 - pgamma(q = 10, shape = 3, rate = 1)
-# with rc()
-rc(t = 10, k = 3, lambda = 1)
-# with r()
-r(t = 10, k = 3, lambda = 1)
-# They're the same!
-```
-
-<br>
-<br>
-
-$z(t)$ Failure Rate function
-
-The failure rate remains $z(t) = \frac{f(t)}{R(t)}$. Further, in the gamma distribution, the rate remains constant, although the size parameter causes a result quite different from the exponential!
-
-```{r}
-# Let's write the failure rate function
-z = function(t,k,lambda){
-  # We'll break it up into parts to help readability
-  
-  # Compute the PDF d(t) (or f(t))
-  d_of_t = lambda / factorial(k - 1) * (lambda*t)^(k-1) * exp(-t*lambda)
-  
-  # Make a vector of values from 0 to k-1
-  n = seq(from = 0, to = k - 1)
-  
-  # Now compute the reliability function R(t)
-  r_of_t = sum( (lambda*t)^n / factorial(n)  * exp(-lambda*t) )
- 
-  # Divide the two to get the failure rate!
-  d_of_t / r_of_t
-}
-
-# Or, using calculus....
-zc = function(t, k, lambda){
-  # Get CDF via integration
-  fc = antiD(tilde = d(t, k, lambda) ~ t)
-  # Get r(t) using 1 - f(t)
-  # Take PDF / (1 - CDF)
-  d(t = t, k = k, lambda = lambda) / (1 - fc(t = t, k = k, lambda = lambda) )
-}
-
-# Try it out!
-
-# Using dgamma() and pgamma()
-dgamma(1,shape = 1, rate = 0.1) / 
-  (1 - pgamma(1,shape = 1, rate = 0.1))
-
-# Using our calculus based function
-zc(t = 1, k = 1, lambda = 0.1)
-
-# Using our home cooked function
-z(t = 1, k = 1, lambda = 0.1)
-```
-
-<br>
-<br>
-
-### MTTF and Variance
-
-We can also compute the mean time to fail (MTTF) and variance using the following formulas.
-
-$$ MTTF = \int_{0}^{\infty}{ t \  f(t) dt} = \frac{k}{\lambda} $$
-$$ Var(t) = \frac{k}{ \lambda^2} $$
-We can encode these as functions as follows.
-
-```{r}
-# Mean (aka mean time to fail)
-mttf = function(k, lambda){   k / lambda  }
 # Check it!
-mttf(k = 1, lambda = 0.1)
+stat
 ```
 
+Now, let's calculate our Capability Index $C_{p}$, which assumes a process *centered* between the upper and lower specification limits and a *stable* process.
+
 ```{r}
-# Variance
-variance = function(k, lambda){ k / lambda^2 }
-# Try it!
-variance(k = 1, lambda = 0.1)
+# Capability Index (for centered, normal data)
+cp = function(sigma_s, upper, lower){  abs(upper - lower) / (6*sigma_s)   }
+
+
+stat %>% 
+  summarize(
+    limit_lower = 42,
+    limit_upper = 50,
+    # index
+    estimate = cp(sigma_s = sigma_s, lower = limit_lower, upper = limit_upper))
 ```
+
+
+That was surprisingly painless!
+
+Now, let's estimate the two-sided, 95% confidence interval of our sampling distribution for the statistic `cp`, assuming that this sampling distribution has a *normal* shape.
+
+We're getting the interval that spans 95%, so it's got to start at 2.5% and end at 97.5%, covering the 95% *most frequently occurring statistics* in the sampling distribution.
+
+```{r}
+bands = stat %>% 
+  summarize(
+    limit_lower = 42,
+    limit_upper = 50,
+    # index
+    estimate = cp(sigma_s = sigma_s, lower = limit_lower, upper = limit_upper),
+    # Get our extra quantities of interest
+    v_short = k*(n_w - 1), # get degrees of freedom
+    # Get standard error for estimate
+    se = estimate * sqrt(1 / (2*v_short)),
+    # Get z score
+    z = qnorm(0.975), # get position of 97.5th percentile in normal distribution
+    # Now if z, the 97.5th percentile,
+    # is 1.96 standard deviations from the mean in the normal,
+    # Then so too is the 2.5th percentile in the normal.
+    # Give me 1.96 standard deviations above cp 
+    # in the sampling distribution of cp!
+    # Get upper and lower confidence interval!
+    lower = estimate - z * se,
+    upper = estimate + z * se)
+
+bands
+```
+
 
 <br>
 <br>
 
----
+###  Visualizing Confidence Intervals
 
-## Learning Check 2 {.unnumbered #LC2}
-
-**Question**
-
-A car bumper has demonstrated a gamma distribution with a failure rate of $\lambda = 0.005$ per day given $k = 3$ potential shocks. Determine the reliability of this bumper over a 30, 300, and 600 day period.
-
-<details><summary>**[View Answer!]**</summary>
+Were we to visualize this, it might look like...
 
 ```{r}
-# Compute a reliability function using pgamma()
-r = function(t,k,lambda){ 1 - pgamma(t,shape = k, rate = lambda) }
-
-# For 24 hours
-r(t = c(30, 300, 600), k = 3, lambda = 0.005)
+bands %>%
+  ggplot(mapping = aes(x = "Cp Index", y = estimate, 
+                       ymin = lower, ymax = upper)) +
+  # Get draw us some benchmarks to make our chart meaningful
+  geom_hline(yintercept = c(0,1,2), color = c("grey", "black", "grey")) +
+  # Draw the points!
+  geom_point() +
+  geom_linerange() +
+  # Add theming
+  theme_classic(base_size = 14) +
+  coord_flip() +
+  labs(y = "Index Value", x = NULL)
 ```
 
+It's not the most exciting plot, but it does show very clearly that the value of $C_{p}$ and its 95% confidence interval are nowhere even close to 1.0, the key threshold. This means we can say with 95% confidence that the true value of $C_{p}$ is **less than 1**.
 
-</details>
+<br>
+<br>
+
+###  Bootstrapping $C_{p}$
+
+How might we estimate this using the bootstrap?
+
+Well, we could...
+
+```{r}
+myboot = tibble(rep = 1:1000) %>%
+  # For each rep,
+  group_by(rep) %>%
+  # Give me the data.frame water,
+  summarize(water) %>%
+  # And give me a random sample of observations
+  sample_n(size = n(), replace = TRUE)
   
----
-
-<br>
-<br>
-
-
-##  Weibull Distribution
-
-Another popular distribution is the Weibull distribution. The exponential is a special case of Weibull distribution where the failure rate $\lambda$ is held constant such that $m = 1$. But in a usual Weibull distribution, the failure rate can change over time! This makes it very flexible, able to take on the shape of an exponential, gamma, or normal distribution depending on the parameters.
-
-We can show this easily using the Weibull's cumulative hazard function $H(t) = (\lambda t)^m$. If $m = 1$, as in the exponential distribution, then $H(t) = \lambda t$, as in the exponential distribution. But if $m \neq 1$, then the accumulative hazard rate increases to the $m$ power with ever passing hour. 
-
-We can use this to derive the failure function $F(t)$, reliability function $R(t)$, and failure rate $z(t)$. (Similarly, we can use all the same tricks from before to get the $AFR(t_1, t_2)$, like using the accumulative hazard function $\frac{H(t_2) - H(t_1)}{t_2 - t_1}$.)
-
-<br>
-<br>
-
-### $F(t)$ Failure Function and $R(t)$ Reliability Function
-
-To derive $F(t)$, we can sub in the new formula for the accumulative hazard function into the formula for the failure function. The Weibull failure function is also commonly written replacing $\lambda$ with $c = \frac{1}{\lambda}$, the *characteristic life*.
-
-$$ F(t) = 1 - e^{-H(t)} = 1 - e^{-(\lambda t)^m} = 1 - e^{-(t/c)^m}$$
-We can code it like so:
-
-```{r}
-f = function(t, m, c){ 1 - exp(-1*(t/c)^m) }
-# Compare!
-# Using pweibull()
-pweibull(1, shape = 1, scale = 1)
-# Using our home-made function!
-f(t = 1, m = 1, c = 1)
+myboot %>% glimpse()
 ```
-Similarly, we can write the reliability function as...
+This produces a very, very big data.frame!
+
+Let's now, for each rep, calculate our statistics from before!
 
 ```{r}
-r = function(t, m, c){ exp(-1*(t/c)^m) }
-
-# Try it with pweibull()
-1 - pweibull(1, shape = 1, scale = 1)
-# Using our home-made function!
-r(t = 1, m = 1, c = 1)
+mybootstat = myboot %>%
+  # For each rep, and each subgroup...
+ group_by(rep, time) %>%
+  summarize(
+    xbar = mean(temp),  # Get within group mean
+    sigma_w = sd(temp),  # Get within group sigma
+    n_w = n()             # Get within subgroup size
+  ) %>%
+  # For each rep...
+  group_by(rep) %>%
+  summarize(
+    limit_upper = 42,
+    limit_lower = 50,
+    xbbar = mean(xbar),               # Get grand mean
+    sigma_s = sqrt(mean(sigma_w^2)), # Get sigma_short
+    n = sum(n_w), # Get total observations
+    n_w = unique(n_w)[1],
+    k = n(),   # Get number of subgroups k
+    limit_lower = 42,
+    limit_upper = 50,
+    estimate = cp(sigma_s, upper = limit_upper, lower = limit_lower))
 ```
 
-### $f(t)$ or `d(t)` (PDF)
+So cool! We've now generated the sampling distributions for `xbbar`, `sigma_s`, and `cp`! 
 
-While not nearly as straightforward to derive, we can literally take the derivative of the Failure function to get the PDF.
+We can even visualize the raw distributions now! Look at those wicked cool bootstrapped sampling distributions!!!
 
-$$ f(t) = \frac{m}{t} \times (\frac{t}{c})^m \times e^{-(t/c)^m}$$
 ```{r}
-d = function(t, m, c){
-  (m / t) * (t / c)^m * exp(-1*(t/c)^m)
-  # alternatively written using calculus:
-  # D(f(t,m,c) ~ t)
+g = mybootstat %>%
+  # For each rep,
+  group_by(rep) %>%
+  # Stack our values atop each other...
+  summarize(
+    # Get these names, and repeat them each n times
+    type = c("xbbar", "sigma_s", "cp") %>% rep(each = n()),
+    value = c(xbbar, sigma_s, estimate)) %>%
+  ggplot(mapping = aes(x = value, fill = type)) +
+  geom_histogram() +
+  facet_wrap(~type, scales = "free") +
+  guides(fill = "none")
+# View it!
+g
+```
+```{r, echo = FALSE, results='hide', include = FALSE}
+ggsave(g, filename = "images/10_cover.png", dpi = 200, width = 8, height = 4)
+```
+So last, let's take our boostrapped $C_{p}$ statistics in `mybootstat$cp` and estimate a confidence interval and standard error for this sampling distribution.
+
+Because we have the *entire distribution*, we can extract values at specific percentiles in the distribution using `quantiles()`, rather than `qnorm()` or such theoretical distributions.
+
+```{r}
+# We'll save it as 'myqi', for quantities of interest
+myqi = mybootstat %>% 
+  summarize(
+    # Let's grab the original cp statistic
+    cp = bands$estimate,
+    # Get the lower and upper 95% confidence intervals
+    lower = quantile(estimate, probs = 0.025),
+    upper = quantile(estimate, probs = 0.975),
+    # We can even get the standard error,
+    # which is *literally* the standard deviation of this sampling distribution
+    se = sd(estimate))
+
+# Check it out!
+myqi
+```
+
+This suggests a wider confidence interval that our normal distribution assumes by default - interesting!
+
+We can perform bootstrapping to estimate confidence intervals for *any* statistic, including $C_{p}$, $C_{pk}$, $P_{p}$, or $P_{pk}$. The only limit is your computational power! Wheee!
+
+
+*Note*: Whenever you bootstrap, it's important that you clear out your `R` environment to keep things running quickly, because you tend to accumulate a lot of really big data.frames. You can use `remove()` to do this.
+
+```{r}
+remove(myboot, mybootstat)
+```
+
+<br>
+<br>
+
+## CIs for any Index!
+
+Let's practice calculating confidence intervals (CIs) for each of these indices.
+
+<br>
+<br>
+
+###  CIs for $P_p$
+
+Now that we have our ingredients, let's get our index and its confidence intervals!
+
+```{r}
+# Capability Index (for centered, normal data)
+cp = function(sigma_s, upper, lower){  abs(upper - lower) / (6*sigma_s)   }
+
+
+stat %>% 
+  summarize(
+    # index
+    estimate = cp(sigma_s = sigma_s, lower = 42, upper = 50),
+    # Get our extra quantities of interest
+    v_short = k*(n_w - 1), # get degrees of freedom
+    # Get standard error for cpk
+    se = estimate * sqrt(1 / (2*v_short)),
+    # Get z score
+    z = qnorm(0.975), # get position of 97.5th percentile in normal distribution
+    # Get upper and lower confidence interval!
+    lower = estimate - z * se,
+    upper = estimate + z * se)
+```
+
+###  CIs for $C_{pk}$
+
+Write the function and generate the confidence interval for $P_{pk}$!
+
+```{r}
+
+# Capability Index (for skewed, uncentered data)
+cpk = function(mu, sigma_s, lower = NULL, upper = NULL){
+  if(!is.null(lower)){
+    a = abs(mu - lower) / (3 * sigma_s)
+  }
+  if(!is.null(upper)){
+    b = abs(upper - mu) /  (3 * sigma_s)
+  }
+  # We can also write if else statements like this
+  # If we got both stats, return the min!
+  if(!is.null(lower) & !is.null(upper)){
+    min(a,b) %>% return()
+    
+    # If we got just the upper stat, return b (for upper)
+  }else if(is.null(lower)){ return(b) 
+    
+    # If we got just the lower stat, return a (for lower)
+    }else if(is.null(upper)){ return(a) }
 }
 
-# Compare results!
-dweibull(1, shape = 1, scale = 1)
-d(t = 1, m = 1, c = 1)
+
+stat %>% 
+  summarize(
+    # index
+    estimate = cpk(mu = xbbar, sigma_s = sigma_s, lower = 42, upper = 50),
+    # Get our extra quantities of interest
+    v_short = k*(n_w - 1), # get degrees of freedom
+    # Get standard error for ppk
+    se = estimate * sqrt( 1 / (2*v_short)  + 1 / (9 * n * estimate^2) ),
+    # Get z score
+    z = qnorm(0.975), # get position of 97.5th percentile in normal distribution
+    # Get upper and lower confidence interval!
+    lower = estimate - z * se,
+    upper = estimate + z * se)
 ```
-### $z(t)$ Failure Rate
 
-We can similarly *derive* the failure rate $z(t)$ by taking the derivative of the accumulative hazard rate, which gives us:
 
-$$z(t) = m \lambda (\lambda t)^{m-1} = (m/c) \times (t/c)^{m-1} $$/'
+###  CIs for $P_p$
+
+Now that we have our ingredients, let's get our index and its confidence intervals!
 
 ```{r}
-z = function(t, m, c){
-  (m/c) * (t/c)^(m-1)
+# Suppose we're looking at the entire process!
+
+# Process Performance Index (for centered, normal data)
+pp = function(sigma_t, upper, lower){  abs(upper - lower) / (6*sigma_t)   }
+
+
+stat %>% 
+  summarize(
+    # index
+    estimate = pp(sigma_t = sigma_t, lower = 42, upper = 50),
+    # Get our extra quantities of interest
+    v_total = n_w*k - 1, # get degrees of freedom
+    # Get standard error for cpk
+    se = estimate * sqrt(1 / (2*v_total)),
+    # Get z score
+    z = qnorm(0.975), # get position of 97.5th percentile in normal distribution
+    # Get upper and lower confidence interval!
+    lower = estimate - z * se,
+    upper = estimate + z * se)
+```
+
+<br>
+<br>
+
+###  CIs for $P_{pk}$
+
+Write the function and generate the confidence interval for $P_{pk}$!
+
+```{r}
+# Process Performance Index (for skewed, uncentered data)
+ppk = function(mu, sigma_t, lower = NULL, upper = NULL){
+  if(!is.null(lower)){
+    a = abs(mu - lower) / (3 * sigma_t)
+  }
+  if(!is.null(upper)){
+    b = abs(upper - mu) /  (3 * sigma_t)
+  }
+  # We can also write if else statements like this
+  # If we got both stats, return the min!
+  if(!is.null(lower) & !is.null(upper)){
+    min(a,b) %>% return()
+    
+    # If we got just the upper stat, return b (for upper)
+  }else if(is.null(lower)){ return(b) 
+    
+    # If we got just the lower stat, return a (for lower)
+  }else if(is.null(upper)){ return(a) }
 }
 
-# try it!
-z(1, m = 1, c = 0.1)
-
-# using dweibull() and pweibull()
-dweibull(1, shape = 1, scale = 0.1) /
-  (1 - pweibull(1, shape = 1, scale = 0.1)) 
-```
-<br>
-<br>
-
-### $m$ and $c$
-
-Fortunately, if any 3 of the 4 parameters ($F(t), m, t, c$ are known about a Weibull distribution, the remaining parameter can be calculated. Since $F(t) = 1 - e^{-(t/c)^m}$, we can say:
-
-$$ t = c \times ( -log( 1 - F ))^{1/m} $$
-
-$$m = \frac{log( -log( 1 - F) )}{log(t/c)}$$
-
-$$c = \frac{t}{( -log(1 - F) )^{1/m}}$$
-
-- Characteristic life $c$, in this case, really means the time at which 63.2% of units will consistently have failed.
-
-- Shape parameter $m$ is used to describe several different types of Weibull distributions. $m = 1$ is an exponential; $m = 2$ is a Reyleigh distribution, where the failure rate increases linearly. When $m < 1$, it looks like the left-end of a bath-tub. When $m > 1$, it looks like the right-end of a bath-tub.
-
-<br>
-<br>
-
-
-### Weibull Series Systems
-
-In a series system of independent components, which are each Weibull distributed with the same shape parameter $m$, that system has a Weibull distribution, as follows:
-
-$$ c_{series} = (\sum_{i=1}^{n}{ \frac{1}{c_i^m}})^{-\frac{1}{m}} $$
-
-### MTTF and Variance
-
-Finally, we could code the mean time to fail and variance as follows.
-
-$$ MTTF = c \Gamma(1 + \frac{1}{m})  = c \times (k - 1)! \times (1 + \frac{1}{m})  $$ 
-
-$$ Variance = c^2 \Gamma(1 + \frac{2}{m} ) - [ c \Gamma(1 + \frac{1}{m})]^{2} $$
-
-```{r}
-# We could code these up simply like so
-mttf = function(c, m){  c * gamma( 1 + 1/m)  }
-# Though we know that mttf = integral of R(t), so we could also write it like this
-mttf = antiD((1 - pweibull(t, shape = m, scale = c))  ~ t)
-
-# We could code these up simply like so
-variance = function(c, m){  c^2 * gamma( 1 + 2/m ) - ( c * gamma( 1 + 1/m) )^2  }
-
+stat %>% 
+  summarize(
+    # index
+    estimate = ppk(mu = xbbar, sigma_t = sigma_t, lower = 42, upper = 50),
+    # Get our extra quantities of interest
+    v_total = n_w*k - 1, # get degrees of freedom
+    # Get standard error for cpk
+    se = estimate * sqrt( 1 / (2*v_total)  + 1 / (9 * n * estimate^2) ),
+    # Get z score
+    z = qnorm(0.975), # get position of 97.5th percentile in normal distribution
+    # Get upper and lower confidence interval!
+    lower = estimate - z * se,
+    upper = estimate + z * se)
 ```
 
 
 <br>
 <br>
-
----
-
-## Learning Check 3 {.unnumbered #LC3}
-
-**Question**
-  
-You've done this a bunch now - for this learning check, write your own function to find $t$, $m$, and $c$ in a Weibull distribution.
-
-<details><summary>**[View Answer!]**</summary>
-
-```{r}
-# Write a function to get t
-get_t = function(f,m,c){
-  log(-log(1 - f)  )/log(t/c)
-}
-
-```
-
-```{r}
-# Write a function to get m
-get_m = function(t,f,c){
-  log(-log(1 - f)  )/log(t/c)
-}
-```
-
-```{r}
-# Write a function to get c
-get_c = function(t,f,m){
-  t / ( (-log(1 - f))^(1/m) )
-}
-```
-
-</details>
-  
----
-
-<br>
 <br>
 
----
+## Conclusion {-}
 
-## Learning Check 4 {.unnumbered #LC4}
+Alright! You are now a confidence interval wizard! 
 
-**Question**
-
-- Find the characteristic life necessary for 10% of failures to occur by 168 hours, if the shape parameter $m = 2$.
-
-- Then, using that characteristic life, plot the probability of failure when $m = 1$, $m = 2$, and $m = 3$.
-
-  
-<details><summary>**[View Answer!]**</summary>
-
-```{r}
-# Write our function to find c
-get_c = function(t, f, m){
-  t / ( (-log(1 - f))^(1/m) )
-}
-
-get_c(t = 168, f = 0.10, m = 2)
-# Looks like we expect a characteristic life of >500 hours. 
-```
-
-<br>
-
-```{r}
-# Write the failure function
-f = function(t, c, m){ 1 - exp(-1*(t/c)^m) }
-
-m1 <- data.frame(hours = 1:100) %>%
-  mutate(prob = f(t = hours, c = 517.5715, m = 1),
-         m = "m = 1")
-
-m2 <- data.frame(hours = 1:100) %>%
-  mutate(prob = f(t = hours, c = 517.5715, m = 2),
-         m = "m = 2")
-
-m3 <- data.frame(hours = 1:100) %>%
-  mutate(prob = f(t = hours, c = 517.5715, m = 3),
-         m = "m = 3")
-
-bind_rows(m1,m2,m3) %>%
-  ggplot(mapping = aes(x = hours, y = prob, color = m)) +
-  geom_line()
-```
-
-</details>
-  
----
-
-<br>
-<br>
-
-## Lognormal Distribution
-
-The log-normal distribution can be very useful, often in modeling semi-conductors, among other product.
-
-To understand the log-normal distribution, let's outline the normal distribution PDF, and compare it to the log-normal distribution PDF.
-
-### $f(t)$ or `d(t)` (PDF)
-
-The normal distribution contains the parameters $\mu$ (mean) and $\sigma$ (standard deviation).
-
-$$f(t) = \frac{1}{\sigma \sqrt{2\pi} } \times e^{-(t - \mu)^2 / 2\sigma^2 } $$
-The log-normal distribution is quite similar. Here, $t$ becomes $e^t$ and median $T_{50} = e^{\mu}$. $\sigma$ is really more of a shape parameter here than the standard deviation as we usually think of it.
-
-$$ f(t) = \frac{1}{\sigma t \sqrt{2\pi}} \times e^{-(1/2\sigma^2) \times (log(t) - log(T_{50} ))^2}$$
-<br>
-<br>
-
-### $\Phi$
-
-Interestingly, the CDF of the log-normal relies on the CDF of the normal distribution, sometimes written as $\Phi$. Both distributions' CDFs are written below.
-
-$$ Normal \ F(t) = \Phi ( \frac{t - \mu}{ \sigma } )  $$
-
-$$ Log-Normal \ \ F(t) = \Phi (\frac{log(t / T_{50})}{\sigma}) $$
-
-We can write the *normal distribution's* CDF, $\Phi$, as the cumulative probability of a lifespan $t$ that is $\frac{t - \mu}{\sigma}$ standard deviations away from the mean. In the log-normal CDF, we transform our value $t$ into a point measured in standard deviations from the mean. These points are called **z-scores.**
-
-We can feed that value to `pnorm()` to find out the cumulative probability of reaching that point on a normal distribution, with a mean of 0 and a standard deviation of 1.
-
-```{r}
-# Suppose...
-t = 50
-t50 = 100
-sigma = 2
-# Get the cumulative probability of failure at time t
-p <- pnorm( log(t/t50) / sigma )
-# Check it!
-p
-```
-
-Similarly, if we have a cumulative probability like `p`, we can solve for the z-score that made it using `qnorm()`. `qnorm()` is sometimes referred to as inverse-phi ($\Phi^{-1}$).
-
-```{r}
-# Get the z-score for F(t) = 0.36!
-z <- qnorm(p)
-# Check it!
-z
-```
-
-Now that we know the z-score, we can easily solve for `t`, `t50`, or `sigma` with algebra if we know the other parameters, since $z = \frac{log(t/T_{50})}{\sigma}$!
-
-To get `t`...
-
-```{r}
-# t = exp(z * sigma) * t50
-exp(z * sigma) * t50 
-```
-
-To get `t50`...
-
-```{r}
-# t50 = t / exp(z * sigma)
-t / exp(z * sigma)
-```
-
-
-To get `sigma`...
-
-```{r}
-# sigma = log(t/t50) / z
-log(t/t50) / z
-```
-
-Pretty quick, right?
-
-```{r, echo = FALSE, warning=FALSE, message=FALSE}
-# remove excess data
-remove(t, t50, sigma, p, z)
-```
-
-<br>
-<br>
-
-### Key Functions
-
-This one's pretty messy. (One can use the `dlnorm()` function, but it contains 2 parameters, `meanlog` and `sdlog`, which are *NOT* $T_{50}$ (median) and $\sigma$ (shape). For six-sigma, it tends to be more helpful for us to write the log-normal functions in terms of $T_{50}$ and $\sigma$ instead.)
-
-```{r}
-# Write the pdf of the log-normal, f(t) or d(t)!
-d = function(t, t50, sigma){ 1 / (sigma * t * sqrt(2*pi)) * exp( -(1/ 2 * sigma^2 )*(log(t) - log(t50))^2) } 
-
-# Write the failure function of the log-normal F(t)!
-f = function(t, t50, sigma){  pnorm( log(t / t50) / sigma ) }
-# Or with mosaicCalc via derivation...
-# dc = D(f(t,t50, sigma)~t)
-
-# Write the reliability function R(t)!
-r = function(t, t50, sigma){ 1 - pnorm( log(t / t50) / sigma ) }
-
-# Write the failure rate z(t)!
-z = function(t, t50, sigma){  d(t, t50, sigma) / r(t, t50, sigma)  }
-
-# Write the accumulative hazard function H(t)!
-h = function(t, t50, sigma){ -log(r(t, t50, sigma))  }
-
-# Write the average failure rate function AFR(t)
-afr = function(t1, t2, t50, sigma){ (h(t2) - h(t1) ) / (t2 - t1)  }
-```
-
-Wow! That was surprisingly easy! In this way, as we pick up more and more distributions in this course, our tools for generating failure and reliability functions get easier and easier too!
-
-<br>
-<br>
-
-### MTTF and Variance
-
-Finally, we can quickly calculate these quantities of interest too.
-
-$$ MTTF = T_{50} \times e^{\sigma^2 / 2} $$
-
-$$ Variance = T_{50} \times e^{\sigma^2} \times (e^{\sigma^2} - 1)$$
-```{r}
-# We could code these up simply like so
-mttf = function(mu, sigma){  mu * exp(sigma^2  / 2)  }
-
-# We could code these up simply like so
-variance = function(mu, sigma){  mu * exp(sigma^2) * (exp(sigma^2) - 1)  }
-```
-
-
-<br>
-<br>
-
----
-
-## Learning Check 5 {.unnumbered #LC5}
-
-**Question**
-
-A crop tends to grow to a median height of 2 feet tall. We know from past data that this crop has a lognormal distribution, with a shape parameter $\sigma$ of about 0.2 feet. Market standards prefer crops between 1.5 and 8 feet tall. Given these standards, what percentage of crops are not eligible for market?
-
-<details><summary>**[View Answer!]**</summary>
-  
-```{r}
-# Get percent under 1.5 feet
-below <- f(1.5, t50 = 2, sigma = 0.2)
-
-# Get percentage over 8 feet
-above <- 1 - f(8, t50 = 2, sigma = 0.2)
-
-# Get total percentage outside of these bounds
-below + above
-```
-
-</details>
-  
----
-<br>
-<br>
-
-
-
----
-
-## Learning Check 6 {.unnumbered #LC6}
-
-**Question**
-  
-A log normal distribution has a median time to failure equal to `50,000` hours and shape parameter $\sigma$ equal to `0.8`. What is the mean time to failure and true standard deviation in this distribution?
-
-
-<details><summary>**[View Answer!]**</summary>
-
-```{r}
-# Let's write a mean time to failure function
-mttf = function(median, sigma){  median * exp(sigma^2 / 2)  }
-
-mttf(median = 50000, sigma = 0.8)
-# Looks like the MTTF is ~69,000 hours
-```
-
-```{r}
-# Let's write the variance function
-variance = function(median, sigma){
-  median^2 * exp(sigma^2 / 2)  * (exp(sigma^2) - 1)
-}
-
-# Now calculate variance, and take square root to get sd
-variance(median = 50000, sigma = 0.8) %>% sqrt()
-# with a very wide standard deviation
-```
-
-</details>
-  
----
-
-<br>
-<br>
-
-## Conclusion
-
-Great work! You've learned to work with the Exponential, Gamma, Weibull, and Log-normal distribution. You're ready to start coding some cool systems reliability analyses! Next week, we'll learn some new techniques to help!
-
+Go forth and make confidence intervals!
 
 ```{r, include = FALSE}
 rm(list = ls())

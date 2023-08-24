@@ -1,4 +1,8 @@
-# Skill: Visualization with `ggplot` in `R` {-}
+# Skill: Visualization with `ggplot` in `R` {.unnumbered #skill_ggplot}
+
+```{r setup_skill_gpplot, include = FALSE}
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+```
 
 Visualization is a key part of statistical analyses, especially in systems engineering! Visuals themselves are often the analysis themselves! In this tutorial, we're going to learn how to visualize data in the `ggplot2` package.
 
@@ -62,7 +66,7 @@ Using the `gapminder` data, let's map a series of vectors to become aesthetic fe
 ```{r}
 ggplot(data = gapminder, mapping = aes(
   # Let's make the x-axis gross-domestic product per capita (wealth per person)
-  x = year, 
+  x = gdpPercap, 
   # Let's make the y-axis country life expectancy
   y = lifeExp))
 ```

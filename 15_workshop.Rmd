@@ -1,7 +1,7 @@
-# Workshop: Response Surface Methodology in `R`
+# Workshop: Response Surface Methodology in `R` {#workshop_15}
 
 ```{r setup_workshop_15, include =FALSE}
-knitr::opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 library(tidyverse)
 library(broom)
 library(viridis)

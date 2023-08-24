@@ -1,167 +1,222 @@
-# Workshop: Physical Acceleration Models
+# Workshop: Useful Life Distributions (Exponential) {#workshop_7}
 
-```{r setup_workshop_7, include = FALSE}
-nm = loadedNamespaces()
-if("mosaicCalc" %in% nm){ detach(name = "package:mosaicCalc", unload = TRUE) }
-if("mosaic" %in% nm){ detach(name = "package:mosaic", unload = TRUE) }
-
+```{r setup_workshop_5, include = FALSE}
 library(tidyverse)
 library(knitr)
 library(kableExtra)
-
-knitr::opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 ```
 
-In this workshop, we'll learn how to use **physical acceleration models** to convert results from reliability tests done under laboratory conditions (which may be slightly unrealistic) into estimates that match real outcomes in the field!
+In this workshop, we're going to learn some `R` functions for working with common life distributions, namely the **Exponential** distributions.
 
-```{r gif, echo = FALSE, out.width="100%", fig.cap="Crash Testing with LEGOs: a very safe prototype"}
-knitr::include_graphics("https://c.tenor.com/5duS2KkYJGAAAAAC/lego-car.gif")
-```
+## Getting Started
 
-## Getting Started {-}
+### Load Packages
 
-### Load Packages {-}
-
-Let's start by loading the `tidyverse` and `broom` packages! Also, sometimes select gets overruled by other packages, so it can help to load it directly.
+Let's start by loading the `tidyverse` package, which will let us `mutate()`, `filter()`, and `summarize()` data quickly. We'll also load `mosaicCalc`, for taking derivatives and integrals (eg. `D()` and `antiD()`).
 
 ```{r}
 # Load packages
 library(tidyverse)
-library(broom)
-# Load specific function to environment
-select = dplyr::select
-```
-
-###  Helpful Functions {-}
-
-We'll be using the `tibble()` function; it works identically to the `data.frame()` function, but allows you to reference any vector that came before. For example:
-
-```{r, eval = FALSE}
-# This doesn't work...
-data.frame(x = c(1,2), y = x + 2)
-```
-```{r}
-# But this does.
-tibble(x = c(1,2), y = x + 2)
-```
-
-
-<br>
-<br>
-
-##  Acceleration Factor
-
-###  Stress vs. Usage Conditions
-
-**Imagine**: You work in Dearborn, Michigan, testing airbag failure rates with car crash dummies every day. Your work helps people stay safe on the road! Unfortunately, lab conditions tend to be a little more extreme than the real world. Moisture levels, temperature, speed, friction, etc. are very hard (nay impossible) to *perfectly* match to real driving conditions. A product life distribution measured under lab "stress" conditions will always be slightly *off* from the real, "use"-case life distribution by a *specific factor*. **What if we could measure and approximate that factor?**
-
-Suppose researchers are stress testing airbags in the lab! Their empirical data reveals the airbag lifespans are Weibull distributed, with a characteristic life of `c = 4100` hours and a shape parameter of `m = 1.25`. They write the Weibull density function (PDF) `d()` below, and use it to calculate and visualize the probability the airbags fail every hour from 1 to 8000 hours. 
-
-- They can visualize the **blue density curve** of the stress-tested airbags shown below ($s$), called $f_s(t)$. 
-
-- But what they really want to know is the **red dashed curve** of the airbags under normal use conditions ($u$), called $f_u(t)$! But they don't know it!
-
-- Fortunately, they know that in past *on-road* and *off-road* studies, the *median airbag*'s time to failure was `250%` times greater under *normal usage* as when *under stress condition*. We write `250%` here the **Acceleration Factor** $AF$ (or $A$), because it describes how stress-testing *accelerates* the failure  by a **factor** of `2.5`. We can write it like:
-
-$$f_u(t) = f_s(t) \times AF = f_s(t) \times 2.5 $$
-```{r}
-# Let's write ourselves a speedy weibull density function 'd()'
-d = function(t, m, c){
-  (m / t) * (t / c)^m * exp(-1*(t/c)^m)
-  # or dweibull(t, scale = c, shape = m)
-}
-
-airbags <- data.frame(t = seq(1, 12000, by = 20)) %>%
-  mutate(d_stress = d(t, c = 4100, m = 1.25)) %>%
-  # Suppose the lifespans under normal usage are just off by a factor of ~2.5
-  # then we could project the PDF under normal usage like:
-  mutate(d_usage = d(t = t / 2.5, c = 4100, m = 1.25) / 2.5)
-
-ggplot() +
-  # Plot the PDF under stress conditions 
-  geom_line(data = airbags, mapping = aes(x = t, y = d_stress, color = "Stress"), 
-            size = 1.5) +
-  # Plot the PDF under normal usage conditions
-  geom_line(data = airbags, mapping = aes(x = t, y = d_usage, color = "Normal Usage"), 
-            size = 1, linetype = "dashed") +
-  # Add a nice theme and clear labels
-  theme_classic(base_size = 14) +
-  labs(x = "Airbag Lifespan in hours (t)", y = "Probability Density d(t)",
-       color = "Conditions", 
-       subtitle = "We want Lifespan under Normal Usage,\nbut can only get Lifespan under Stress")
+library(mosaicCalc)
 ```
 
 <br>
 <br>
 
-###  Acceleration as a Function $\frac{f_{s}(t)}{f_{u}(t)}$
+###  Key Concepts
 
-In reality, $f_{u}(t)$ probably doesn't have exactly a constant relationship with $f_{s}(t)$. In a perfect world, we could collect raw data for both lifetimes under normal conditions $t_u$ and under stress-testing $t_s$, and then estimate their density functions $f_u(t)$ and $f_s(t)$. We could then calculate $AF$ *exactly* as a function `af()` that relates them. For example:
+In this lesson, we'll be building on several key concepts from prior lessons. I've defined them below as a helpful review.
 
-```{r}
-# Let's write an acceleration factor function!
-af = function(t){
-  # Find density under stress
-  ds <- d(t, m = 1.25, c = 4100)
-  # Find density function under normal conditions
-  du <- d(t, m = 1.5, c = 4500)
-  
-  # Since f_u(t) = f_s(t) x AF,
-  # then AF = f_s(t) / f_u(t)  = ds / du
-  ds / du
-}
-```
+- **life distribution**: the distribution of a vector of $n$ products, whose values recording the amount of time it took for each product to fail. In other words, its **lifespan**.
 
-Were we to plot it, we can see below `AF` is *not* constant here, but varies over time, because $f_u(t)$ and $f_s(t)$ vary over time. So, when we pick an `AF`, we're usually picking the `AF` corresponding to a specific parameter, like the characteristic life or median of a distribution.
+- **probability density function (PDF)**: the function describing the probability (relative frequency) of any value in a distribution.
 
-```{r}
+- **cumulative distribution function (CDF)**: the function describing the *cumulative* probability of each successive value in a distribution. Spans from 0 to 1.
+
+- Have questions? I *strongly* recommend you review Workshops 2, 3, and 4 before this one! It will help it all fit together!
+
+<br>
+<br>
+
+###  Our Data
+
+In this workshop, we're going to work with a data.frame called `masks`. An extremely annoying moment in the COVID-era is when a part of your mask snaps, requiring you to get a fresh mask. Let's examine a (hypothetical) sample of `n = 50` masks produced by Company X to explore how often this happens!
+
+Please import the `masks.csv` data.frame below. Each row is a mask, with its own unique `id`. Columns describe how many hours it took for the `left_earloop` to snap, the `right_earloop` to snap, the nose `wire` to snap, and the `fabric` of the mask to tear.
+
+```{r, eval = FALSE, echo = FALSE}
 data.frame(
-  time = 1:1000,
-  af = af(1:1000)
-) %>% 
-  # Visualize it!
-  ggplot(mapping = aes(x = time, y = af)) +
-  geom_line() + geom_point() +
-  labs(subtitle = "Acceleration Factor for Airbag Lifespan",
-       y = "Acceleration Factor function af()",
-       x = "Time in hours (t)")
-```
-<br>
-
-Supposing that $t_{u} = t_{s} \times AF$, we can say several more things:
-
-$$ Failure \ Function = F_{u}(t) = F_{s}(t/AF) $$
-$$ Density \ Function = f_{u}(t) = \frac{f_{s}(t/AF)}{AF} $$ 
-$$ Failure \ Rate = z_{u}(t) = \frac{z_{s}(t/AF)}{AF} $$ 
-
-<br>
-<br>
-
-###  Linear Acceleration
-
-However, it's usually very difficult to obtain the density functions for both usage and stress conditions. That's *why* we want acceleration factors (AF) - because they'll let use estimate $f_u(t)$ when we only have $f_s(t)$. So in practice, we usually assume $AF$ shows a constant, linear relationship between $f_{u}(t)$ and $f_{s}(t)$, like when $AF = 2.5$. This is called **linear acceleration**.
-
-Linear acceleration requires us to choose a constant value of $AF$ from *just 1 time-step* from the plot above. How can we choose!? We should probably choose a fairly representative lifespan, based off a parameter like the median time to fail $T_{50}$ (or the mean time to fail $m$, characteristic life $c$, etc.). Even if we don't have access to all the raw data, if we know the median lifespan under stress $T_{50_{s}}$ and under normal conditions $T_{50_{u}}$, we can estimate $AF$ by taking $AF = \frac{T_{50_{u}}}{T_{50_{s}}}$. For example:
-
-```{r}
-# Let's write a weibull quantile function
-q = function(p, c, m){  qweibull(p, scale = c, shape = m)  }
-
-# Get median under stress
-median_s <- q(0.5, c = 4100, m = 1.25)
-# Get median under normal conditions
-median_u <- q(0.5, c = 4500, m = 1.5)
-
-# Calculate it!
-af = median_u / median_s
-# Check the Acceleration Factor!
-af
+  id = 1:50,
+  left_earloop = rexp(n = 50, rate = .10) %>% round(0),
+  right_earloop = rexp(n = 50, rate = .10) %>% round(0),
+  wire = rexp(n = 50, rate = .05) %>% round(0),
+  fabric = rexp(n = 50, rate = .001) %>% round(0)
+) %>%
+  write_csv("workshops/masks.csv")
 ```
 
-Let's clear this data.
+```{r, message=FALSE, warning = FALSE}
+masks <- read_csv("workshops/masks.csv")
+
+# Let's glimpse() its contents!
+masks %>% glimpse()
+```
+
+<br>
+<br>
+
+## Quantities of Interest
+
+When we work with life distributions, we often want to find several useful quantities of interest (a.k.a. parameters) about them. Let's find out how to do that with an **exponential distribution**!
+
+### Lack of Memory 
+
+**Exponential distributions** are famous for a key trait. The failure rate $ \lambda $ remains **constant** in an exponential distribution. The probability that a product fails in the next hour of use is the same at `t = 0`, `t = 100`, or `t = infinity!` It doesn't worsen with time. (It's the literal meaning of the saying, "if it is not broke, don't fix it!")
+
+### Mean Time to Fail
+
+The Mean Time to Fail describes the **mean** of a lifespan distribution. For example, let's calculate the mean time to fail (in hours) for a mask's `left_earloop` in our sample.
 
 ```{r}
-remove(af, median_s, median_u, q, d)
+stat <- masks %>%
+  summarize(
+    # We can take the mean of this vector of time to fail in hours
+    mttf = mean(left_earloop),
+    # Lambda is the reciprocal of the MTTF
+    lambda = 1 / mttf)
+
+# Check out the contents!
+stat
+```
+
+In an exponential distribution, the MTTF *always* has a cumulative probability of `1 - 1 / e = 0.632`. (This can be coded in R like so:)
+
+```{r}
+1 - 1 / exp(1)
+```
+
+Let's assume our sample's left earloops have an exponential lifespan distribution, and use `pexp()` to calculate the cumulative probability of getting an MTTF of `r stat$mttf`. We'll need to supply `pexp()` the benchmark in the distribution in question (`mttf`), plus the the `rate` parameter $\lambda$, which we always need when simulating an exponential distribution.
+
+```{r}
+prob <- pexp(stat$mttf, rate = stat$lambda)
+```
+
+Indeed, the figure below compares the observed PDF function (made using `density()`) to the assumed exponential PDF (made using `dexp()`), and we can see that that 63% of the distribution has failed by the Mean Time to Fail.
+
+```{r, echo = FALSE}
+ggplot() +
+  geom_area(
+    data = data.frame(x = seq(0, 50, by = 0.1)) %>%
+      mutate(y = dexp(x, rate = stat$lambda),
+             fill = stat$mttf > x),
+    mapping = aes(x = x, y = y, fill = fill)) +
+  geom_density(
+    data = masks, mapping = aes(x = left_earloop)) +
+  geom_vline(data = stat, mapping = aes(xintercept = mttf), linetype = "dashed") +
+  geom_text(data = stat, mapping = aes(x = mttf, y = 0.04, label = paste(" MTTF = ", mttf, sep = "")), hjust = 0) +
+  geom_text(
+    mapping = aes(x = 7, y = 0.03, 
+                  label = paste(round(pexp(stat$mttf, rate = stat$lambda) * 100, 1), "%", sep = ""))) +
+  theme_classic(base_size = 14) +
+  theme(axis.line = element_blank(),
+        panel.border = element_rect(color = "#373737", fill = NA),
+        legend.position = "none") +
+  labs(x = "Lifespan (hours)\nLeft Earloop of Sampled Masks (n = 50)",
+       y = "Probability",
+       subtitle = "(Observed PDF vs. Assumed Exponential PDF)\n63.2% of Products fail before MTTF in Exp. Distribution",
+       title = "Lifespan Distribution of Left Earloops")
+```
+
+<br>
+<br>
+
+### Mean Time to Fail via *Integration*
+
+**Mean Time to Fail (MTTF)** can be number-crunched empirically as the *mean of observed lifespans*, assuming an exponential distribution. But it is also equal to the **integral of the reliability** function: $MTTF = \int_{0}^{\infty}{R(t)dx} $.
+
+So, let's make ourselves a nice reliability function to help us calculate the MTTF.
+
+- We know the reliability function can be stated as $R(t) = 1 - F(t)$. 
+
+- Assuming an exponential distribution, the failure rate $F(t) = 1 - e^{-\lambda t}$.
+
+- We know $\lambda = \frac{1}{MTTF}$, and above, we found that `r paste("lambda =", stat$lambda)` for a left-earloop.
+
+```{r}
+# Reliability Function for exponential distribution
+r = function(t, lambda){ exp(-1*t*lambda)}
+```
+
+We can calculate it below...
+
+```{r}
+# Use mosaicCalc's antiD function
+# To get integral of r(t, lambda) as x goes from 0 to infinity
+mttf = antiD(tilde = r(t, lambda) ~ t)
+```
+
+Great! We have developed our own `mttf` function for an exponential distribution! If we feed `t` a suitably large value, like 1000 (approaching infinity), we will reach the original observed/estimated `mttf`.
+
+```{r}
+mttf(t = 1000, lambda = stat$lambda)
+mttf(t = Inf, lambda = stat$lambda)
+```
+This only helps you if you *know* **lambda**, the inverse of the MTTF, or have the reliability function but not the MTTF.
+
+<br>
+<br>
+
+### Median Time to Fail $T_{50}$
+
+We might also want to know the **median** time to failure ($T_{50}$), the value on the x axis that splits the area under the curve in half at 50% and 50%. We can calculate this as...
+
+$F(T_{50}) = 50\% = 0.5 = 1 - e^{-\lambda T_{50}}$
+
+where:
+
+$T_{50} = \frac{log(2)}{ \lambda } = \frac{0.693}{\lambda}$
+
+```{r}
+# Let's update stat to include the observed 'median' 
+# and 't50', the median assuming an exponential distribution 
+
+stat <- masks %>%
+  summarize(
+    # The literal mean time to fail 
+    # in our observed distribution is this
+    mttf = mean(left_earloop),
+    # And lambda is this...
+    lambda = 1 / mttf,
+    # The observed median is this....
+    median = median(left_earloop),
+    # But if we assume it's an exponential distribution
+    # and calculate the median from lambda,
+    # we get t50, which is very close.
+    t50 = log(2) / lambda)
+
+# Check it out!
+stat
+```
+
+### Modal Time to Fail
+
+Finally, the modal time to fail is pretty easy to calculate. Its the most common time to fail, also known as the **max** probability in a PDF.
+
+```{r}
+masks %>%
+  summarize(
+    # Let's get lambda, the reciprocal of the MTTF
+    lambda = 1 / mean(left_earloop),
+    # And let's estimate the PDF...
+    t = 1:max(left_earloop),
+    prob = dexp(t, rate = lambda)) %>%
+  # And let's sort the data.frame from highest to lowest
+  arrange(desc(prob)) %>%
+  # Grab first 3 rows, for brevity
+  head(3)
+
+# This reveals that t = 1 is our mode
 ```
 
 <br>
@@ -173,81 +228,264 @@ remove(af, median_s, median_u, q, d)
 
 **Question**
   
-A kitchen mixer has an exponential distributed lifespan. Labs stress tested the mixer at `125` degrees Celsius, yielding a *mean time to fail* of `4500` hours. But, it is usually heats to 32 degrees Celsius, and has an acceleration factor of `35`.
+A competing mask manufacturer made a mask whose earloops fail at a constant failure rate of `0.08`.
 
-What proportion of mixers do we expect will fail by 40,000 hours under normal use?
+1. What is the probability that 1 fails *before* 20 hours of use?
+
+2. What is the probability that 2 fail *before* 20 hours of use?
+
+3. After how long should we expect 1% failures?
 
 <details><summary>**[View Answer!]**</summary>
   
+1. What is the probability that 1 fails *before* 20 hours of use?
+
 ```{r}
-# Given an acceleration factor of 35
-af <- 35
+# Let's generate an expondential failure function,
+# because **constant** rate of failure
+f = function(t, lambda){1 - exp(-1*t*lambda)}
 
-# Write a failure function
-f = function(t, lambda){ 1 - exp(-t*lambda) }
-
-
-# Method 1:
-# Failure  Function = fu(t) = fs(t/AF)
-f(t = 40000 / af, lambda = 1 / 4500)
-
-# Method 2:
-# We know that lambda = zu(t) = zs(t/AF) / AF
-# so... plus that in for lambda
-f(t = 40000, lambda = 1 / (4500 * af) )
+# Use failure function (CDF) to get area under curve BEFORE 20 hours.
+f(t = 20, lambda = 0.08)
+# There's a 79% chance 1 fails within 20 hours
 ```
 
-We expect ~22% of mixers will fail after 40,000 hours when running at 32 degrees Celsius.
+2. What is the probability that 2 fail *before* 20 hours of use?
 
 ```{r}
-remove(af, f)
+# For n failures, take F(t) to the nth power
+f(t = 20, lambda = 0.08)^2
+# There's a 63% chance 2 fail within 20 hours.
+```
+
+3. After how long should we expect 1% failures?
+
+```{r}
+# We can solve this using the failure function
+# f(t) = 1 - e^{-t*lambda}
+
+# But we need to invert it,
+# to solve for t
+# f(t) = 1 - e^{-t*lambda}
+# e^{-t*lambda} = 1 - f(t) 
+# log(1 - f(t)) = -t*lambda
+# -log(1 - f(t)) / lambda = t
+
+# So if we set f(t) = 1%, and lambda = 0.08,
+# this will tell us at what time F(t) will equal 1%
+-log(1 - 0.01) / 0.08
+# Looks like that time of interest is t = 0.1256 hours.
 ```
 
 </details>
   
 ---
 
-<br>
-<br>
-
----
 
 ## Learning Check 2 {.unnumbered #LC2}
 
 **Question**
   
-Suppose we want no more than 10% of components to fail after 40,000 hours at normal usage conditions. So, we redesign the mixer to operate at a lower temperature. What (linear) acceleration factor is needed to project from our 125 degree conditions in lab to the normal use temperature of 32 degrees?
+Above, we examined a sample of surgical masks, checking how often their `left_earloop` snapped. How does that compare with the `right_earloop`?
+
+Calculate the mean time to fail for the right earloop, and $\lamba$, the mean failure rate. Is the right earloop more or less reliable than the left earloop?
 
 <details><summary>**[View Answer!]**</summary>
 
-```{r}
-# Write failure function
-f = function(t, lambda){ 1 - exp(-t*lambda) }
-
-# Failure  Function = fu(t) = fs(t/AF)
-# 0.10 = fu(t = 40000) = 1 - exp(-40000*lambda)
-# log(1 - 0.10) = -40000*lambda
-lambda_u = -log(0.90) / 40000
-
-lambda_s = 1/4500
-
-
-
-# Get ratio between these parameters
-# lambda_u = 1 / af * lambda_s
-# so...
-af = lambda_s / lambda_u
-
-# Check acceleration factor!
-af
-```
-
-We would need an acceleration factor `af` of ~`84.4`.
+1. MTTF and Lambda
 
 ```{r}
-remove(lambda_u, lambda_s, af, f)
+compare <- masks %>%
+  summarize(mttf_right = mean(right_earloop),
+            mttf_left = mean(left_earloop),
+            lambda_right = 1 / mttf_right,
+            lambda_left = 1 / mttf_left)
+# Check it
+compare
+# Looks like the left earloop fails less often.
 ```
+
   
+</details>
+  
+---
+
+
+<br>
+<br>
+
+## Quantities of Interest (continued)
+
+### Conditional Reliability (Survival) Function
+
+We may also want to know, after age `t`, what's the probability that a product survives an additional `x` years to age `t + x`? We can restate this in terms of $T_{Fail}$, the time at which the product finally fails. 
+
+We want to know, what's the probability that $T_{Fail}$ is greater than $t + x$, given that we *already know* $T_{Fail}$ must be greater than $t$ (since it hasn't failed yet as of time $t$)? Fortunately, this can be simplified in terms of the reliability functions. As long as we can calculate $R(x + t)$ and $R(t)$, we can find $R(x|t)$, the conditional survival function.
+
+$$ R(x | t) = \frac{ R(x + t) }{ R(t) } = \frac{ P(T_{Fail} > x + t) }{P(T_{Fail} > t)} $$
+So, let's use our nice reliability function from before to help us calculate the conditional reliability function. 
+
+```{r}
+# Reliability Function for exponential distribution
+r = function(t, lambda){ exp(-1*t*lambda)}
+```
+
+So, what's the probability that a left-earloop that has lasted 10 hours will last another 5 hours?
+
+```{r}
+r(t = 10 + 5, lambda = stat$lambda) / 
+  r(t = 10, lambda = stat$lambda)
+```
+
+Looks like there's a 69% chance it will last another 5 hours, given that it has already lasted 10 hours. 
+
+Let's finish up by building ourselves a nice Conditional Reliability function `cr`, which which calculates the conditional probability of any item surviving `x` more hours given that it survived `t` hours and a mean failure rate of `lambda`.
+
+```{r}
+cr = function(t, x, lambda){
+  # We can actually nest functions inside each other, 
+  # to make them easier to write
+  r = function(t, lambda){ exp(-1*t*lambda)}
+  
+  # Calculate R(x + t) / R(t) 
+  output <- r(t = t + x, lambda) / r(t = t, lambda)
+  
+  # and return the result!
+  return(output)
+}
+```
+
+```{r}
+# Let's compare our result to above! It's the same!
+cr(t = 10, x = 5, lambda = stat$lambda)
+```
+If we were to visualize our conditional reliability function `cr` below as x ranges from 1 to 50, it would produce the following curve.
+
+```{r, echo = FALSE}
+data.frame(
+  x = 1:50,
+  lambda = stat$lambda) %>%
+  mutate(prob = cr(t = 10, x = x, lambda = stat$lambda)) %>%
+  ggplot(mapping = aes(x = x, y = prob, fill = "Conditional Reliability\nFunction")) +
+  geom_area() +
+  labs(y = "Probability",
+       x = "Lifespan = 10 + x more hours of use",
+       subtitle = "Conditional Reliability of 50 Sampled Masks' Left-Earloops") +
+  guides(fill = "none") +
+  theme_classic(base_size = 14) +
+  theme(panel.border = element_rect(fill = NA, color = "#373737"),
+        axis.line = element_blank())
+```
+
+<br>
+<br>
+
+### $\mu(t)$: Mean Residual Life
+
+The Conditional Reliability Function $R(x|t)$ also allows us to calculate the Mean Residual Life (MRL, a.k.a. $\mu$) at time $t$, in this case referring to the average $x$ more years the product is expected to survive *after* time $t$. We can calculate it using the distribution below.
+
+$$MRL(t) = \mu(t) = \int_{0}^{\infty}{ R(x|t)dx} = \frac{1}{R(t)} \int_{0}^{\infty}{ R(x) dx} $$
+Technically, the Mean Residual Life at time $t$ represents **how many times greater** is the MTTF expected than the probability of survival at time t (proportion of cases not yet failed). It shows the mean expected remaining life years, for however $x$ many more time steps come after $t$.
+
+```{r}
+# Calculate the probability of survival R(t = 10)
+prob_survival_t = r(t = 10, lambda = stat$lambda)
+# Calculate the MTTF for +x more years
+mttf_inf = mttf(t = Inf, lambda = stat$lambda)
+
+# calculate the Mean Residual Life for t=10
+mttf_inf / prob_survival_t
+```
+
+We can formalize this as function `mu(t, lambda)`. (Since the Greek letter $\mu$ is pronounced `mu`.)
+
+```{r}
+# Calculate Mean Residual Life
+mu = function(t, lambda){
+  
+  # Get the Reliability Function for exponential distribution
+  r = function(t, lambda){ exp(-1*t*lambda)}
+  
+  # Get the MTTF (integral of reliability function)
+  mttf = antiD(tilde = r(t = t, lambda = lambda) ~ t)
+
+  # Now calculate mu(), the Mean Residual Life function at time t
+  output <- mttf(t = Inf, lambda = lambda) / r(t = t, lambda = lambda)
+  
+  return(output)
+}
+```
+
+Let's test it out and compare to our previous version.
+
+```{r}
+mu(t = 10, lambda = stat$lambda)
+```
+Works perfectly!
+
+
+<br>
+<br>
+
+### $g(t)$: MRL as % of MTTF
+
+We can also estimate $g(t)$, which describes, how *large* is the MRL $\mu(t)$, relative to the MTTF?
+
+When $t = 0$, $\mu(t) = \mu = MTTF$, so we can write $g(t)$ as follows:
+
+$$g(t) = \frac{MRL(t)}{MTTF} = \frac{\mu(t)}{\mu(t = 0)}$$
+So, for the mask component we've been working with, `left_earloop`, we can calculate the MRL-to-MTTF ratio `g(t)` after `t = 10` hours as follows:
+
+```{r}
+mu(t = 10, lambda = stat$lambda) / mu(t = 0, lambda = stat$lambda)
+```
+
+<br>
+<br>
+
+---
+
+## Learning Check 3 {.unnumbered #LC3}
+
+**Question**
+  
+A competing firm produced a mask with a wire that fails at a constant rate of 1 failure per 240 hours. 
+
+1. The probability that the wire survives 1 week (`t = 168` hours) in continuous use is... (
+
+2. You buy the mask, and it works without failure for 2 weeks (`t = 336` hours) The probability the wire will snap during the next week (`t = 504` hours) is...
+
+<details><summary>**[View Answer!]**</summary>
+  
+1. The probability that the wire survives 1 week (`t = 168` hours) in continuous use is... (
+
+```{r}
+# Write the reliability function
+r = function(t, lambda){ exp(-1*t*lambda)}
+
+# Probability it survives 1 month (760 hours) is...
+r(t = 168, lambda = 1 / 240)
+
+# ~ 50%
+```
+
+2. You buy the mask, and it works without failure for 2 weeks (`t = 336` hours) The probability the wire will snap during the next week (`t = 504` hours) is...
+
+```{r}
+# We can calculate it 2 ways.
+
+# First, we can take
+# R(t + x) / R(t)
+r(t = 504, lambda = 1 / 240) / 
+  r(t = 336, lambda = 1 / 240)
+
+# Or, we can calculate the failure function
+f = function(t, lambda){1 - exp(-1*t*lambda)}
+# And just calculate the rate of F(t = x)
+# Because lambda is a constant failure rate
+f(t = 168, lambda = 1 / 240)
+```
+
 </details>
   
 ---
@@ -255,594 +493,689 @@ remove(lambda_u, lambda_s, af, f)
 <br>
 <br>
 
+## System Failure with Independent Failure Rates
 
-## Modeling Normal Use Lifespan
+Consider a mask with a left and right earloop, which have independent failure rates $\lambda_{left}$ and $\lambda_{right}$. What's the probability that the left loop fails before the right loop?
 
-### Models and Prediction
+We can express this as:
 
-A model is an equation approximating the relationship between two or more vectors of data. It's not the real thing - it's an approximation! Why use models? Usually we know quite a lot about the *conditions* under which a product was tested in lab, but we can't actually observe the characteristic lifespan of that product under *normal use conditions.* But if we can make a really good model of the relationship between the outcome and those conditions, then we can predict for *any* set of conditions what the outcome - the characteristic lifespan of a product - would be under those conditions.
+$$ P(j \ fails \ first) = \frac{ \lambda_{j}}{  \sum_{i=1}^{n}{ \lambda{i}} }$$
 
-Fortunately, `R` was built to make statistical models! To make a model of lifespans, we need 4 ingredients.
+In other words, the probability that component $j$ fails first reflects how **big** $\lambda_{j}$ is relative to all the other failure rates in total.
 
-1. an *outcome* `vector`, saved in a `data.frame`.
-
-2. 1 (or more) vectors of condition/predictors, saved in the same `data.frame`.
-
-3. the `lm()` function in `R`, which makes a *linear model* drawing the **line of best fit** between each value of the predictor(s) and outcome. The *model* is the equation of that line!
-
-4. the *outcome* `vector` needs to be *log-transformed*, because (a) most useful life distributions involve exponential processes and (b) lifespans are by nature non-negative, right-skewed variables. Taking `log(outcome)` adjusts for that and lets us plot a straight line of best fit.
-
-- *Note: We'll learn more in later weeks about *how* `lm()` makes models, but for now, we'll assume it's magic!*
-
-For example, let's think about a *car alternator*, the device that converts mechanical energy into electrical energy in a car. We'll make a few tiny example models!
-
-Suppose we tested 5 samples of 100 alternators each, and recorded the results in our `alt` data.frame below. We calculated the characteristic life in each of our 5 samples in the `c`, but our samples were all subjected to different stress conditions: different temperatures in Celsius (`temp`), which were converted into units of temperature factor scores (`tf`); different voltage levels in `volts`; at different points in the devices' lifespan (`time`, in hours); and with different average performance ratings (`rating`) in amps.
+Let's test this out with our `masks` dataset.
 
 ```{r}
-alt <- tibble(
-  # Characteristic life in hours
-  c = c(1400, 1450, 1500, 1550, 1650),
-  # Temperature in Celsius
-  temp = c(160, 155, 152, 147, 144),
-  # Temperature Factor (a standardized unit)
-  tf = 1 / (1 / 11605 * (temp + 273.15)),
-  # Voltage, in volts
-  volts = c(17, 16.5, 14.5, 14, 13),
-  # Hours of life spent by time of test
-  time = c(1200, 1000, 950, 600, 500),
-  # Performance Rating, in Amps
-  rating = c(60, 70, 80, 90, 100))
-```
+masks %>%
+  summarize(
+    # Calculate failure rates of left and right loops
+    lambda_left = 1 / mean(left_earloop),
+    lambda_right = 1 / mean(right_earloop),
+    # Calculate the total probability of either loop failing
+    lambda_sum = lambda_left + lambda_right,
+    # Calculate probability the left loop fails first
+    prob_left_first = lambda_left / lambda_sum)
 
-Let's use this data to explore some of the different classic physical acceleration models, including the **Arrhenius Model**, **Eyring Model**, and **Degradation Model**. 
-
-<br>
-<br>
-
-###  Arrhenius Model (Temperature)
-
-The Arrhenius Model is a simple equation that models the impact of temperature (`tf`) on the `log()` of lifespan (`c`). Let's explore it *visually* using `ggplot()`, and then *estimate* it using `lm()`.
-
-<br>
-
-### Visualizing the Arrhenius Model
-
-We could visualize the relationship between each of these conditions and the `log()` of the characteristic lifespan `c` using... 
-
-- `geom_point()` which makes a scatterplot between `x` and `y` coordinates in the `aes()`.
-
-- `geom_smooth(method = "lm")`, which finds the line of best fit. 
-
-```{r}
-g <- alt %>%
-  ggplot(mapping = aes(x = tf, y = log(c) )) +
-  geom_point(size = 5) + # Add scatterplot points
-  geom_smooth(method = "lm", se = FALSE) # Make line of best fit, using lm() - a linear model
-  # we can write 'se = FALSE' (standard error = FALSE) to get rid of the confidence interval
-```
-
-We can also add in the *equation* of this line of best fit (which we'll calculate below), plus other labels.
-
-```{r}
-g + 
-  # Add theme
-  theme_classic(base_size = 14) +
-  # Add labels
-  labs(title = "Arrhenius Model, Visualized",
-       subtitle = "Model Equation:  log(c) = 3.1701 + 0.1518 TF    \nModel Fit: 96%",
-       # We can add a line-break in the subtitle by writing \n
-       x = "Temperature Factor (TF)", y = "Characteristic Lifespan log(c)")
+# Looks like a probability of about 44% that left loop fails first.
 ```
 
 <br>
 <br>
 
-### Estimating the Arrhenius Model
+### Reliability Functions with Multiple Inputs
 
-So how did `R` calculate that line of best fit? It used the `lm()` function to make a **linear model** - an equation, which fits the data with a specific accuracy rate (eg. `96%`). Let's make a model `m1` to *predict* the `log()` of characteristic lifespan `c`, based on our temperature factor vector `tf` in `alt`!
+Suppose a fraction of our masks are shipped in from manufacturer 1, while some are shipped from manufacturer 2. A fraction $p$ is coming from manufacturer 1, while $1-p$ is coming from manufacturer 2. We can use the rules of total probability to calculate the reliability function and other quantities for this mask:
 
-First, let's make the model with `lm()`, piping our vectors from `alt`.
+$$R(t) = \sum_{i=1}^{n}{ ( \ p_{i} \times R_i(t) \ ) } = \sum_{i=1}^{n}{ ( \ p_{i} \times e^{-\lambda_{i} t} ) }$$
 
-```{r}
-m1 <- alt %>%
-  lm(formula = log(c) ~ tf)
-```
+$$MTTF = \sum_{i=1}^{n}{ \frac{p_i}{\lambda_{i}}}$$
 
-Second, let's inspect the model's fit with `glance()` from the `broom` package, and `select()` the `r.squared` statistic. `0%` means terrible model fit. `100%` means the model equation perfectly predicts every value of `log(c)` in our `alt` data.frame. We aim for excellent predictive power where possible. `96%` is excellent!
+$$f(t) = \frac{-d}{dt}R(t) = \sum_{i=1}^{n}{p\lambda_{i}e^{-\lambda_{i}t}}$$
 
-```{r}
-m1 %>% glance() %>% select(r.squared)
-```
+$$z(t) = \frac{ f(t) }{ R(t)} = \frac{  \sum_{i=1}^{n}{p\lambda_{i}e^{-\lambda_{i}t}} }{ \sum_{i=1}^{n}{ ( \ p_{i} \times R_i(t) \ ) } }  $$
 
-Third, we can now read the model equation for our line of best fit.
+It's pretty messy, but powerful!
 
-```{r}
-m1
-```
+Suppose we order 75% of our stock from a manufacturer with a failure rate of 1 fabric tear per 50 hours, but 25% from our stock from a manufacturer with a failure rate of 1 tear per 100 hours. What is the (1) overall mean time to failure and (2) overall failure rate at 100 hours for any random mask in your supply?
 
-The `lm()` function estimated our model equation `m1`, including 2 constant `coefficients` named `(Intercept)` and `tf`. These `coefficients` show the **y-intercept** (`(Intercept)`), called $\alpha$  and the **slope/effect/rate of change** called $\beta$ for every 1 unit increase in the temperature factor `tf`. We can write this model equation formally as:
-
-$$ \begin{align*} log(c) =& \ Intercept + Slope \ \times TF \\ or:& \\  log(c) =& \ \alpha +    \beta \times TF, \\ & where \ \alpha = 3.1701 \ and \ \beta = 0.1518, \\ so:& \\ log(c) =& \ 3.1701 + 0.1518 \ TF \\ so:& \\ c =& e^{\alpha + \beta \times TF} \\ or:& \\ c =& \ e^\alpha \times e^{\beta \times TF} \\ or:& \\ c =& e^{3.1701} + e^{0.1518 \ TF}   \\ or:&\\ Arrhenius \ Model:& \\ c =& A + e^{\Delta H \times TF} \  \\ &\ where \ A = e^{Intercept} = e^{\beta} \ \ and \ \Delta H = Slope = \beta \\ also:& \\c =& A + e^{\Delta H \times (1 / (k T))} \\ &where \ TF = 1 / (k \times T_{Kelvin}) \ and \ k = 1 / 11605 \end{align*}  $$
-As you can see above, there are many ways to write the Arrhenius model, but it boils down to this: *any linear model* of the log-characteristic life will involve:
-
-- a **y-intercept constant** called $\alpha$ ($log(A)$ in the Arrhenius model). $\alpha$ describes how much `log(c)` we get independent of any other factors (ie: if `tf = 0`).
-
-  - *Interpreting our model:* If the temperature factor $TF = 0$, our model predicts that $log(c) = 3.1701$.
-
-- a **slope constant** called $\beta$ describing the effect of your variable ($TF$ or `tf`), for every 1 unit increase in your variable. In the Arrhenius model, $\beta$ is written as $\Delta H$, the 'activation energy' rate at which a temperature factor increase of 1 unit affects `log(c)`.
-
-  - *Interpreting our model:* If the temperature factor $TF$ increases by 1, our model predicts that $log(c)$ will change by $\beta = \Delta H = 0.1518$.
-
-And that's how we read any statistical model with two variables!
-
-<br>
-<br
-
-###  Prediction
-
-Now that we have our model equation (and, importantly, a good fitting one), we can feed it values of our predictor $TF$ (generically called $X$) to calculate our predicted log of the characteristic life $log(\hat{c})$ (generically called $log(\hat{Y})$). We can do this two ways: (1) by writing a `function` or (2) using the `predict()` function in `R`.
-
-Writing our own function works the same way as writing our `d()`, `f()`, or `r()` function. We'll call it `c_hat()`.
+We can tally this up in a `stock` data.frame.
 
 ```{r}
-# For any value of tf, we can now calculate c_hat.
-# We write the model equation for log(c), then exponentiate it with exp()!
-c_hat = function(tf){ exp( 3.1701 + 0.1518*tf) }
-
-# Test it!
-c_hat(tf = 28)
+stock <- data.frame(
+  prob = c(0.75, 0.25),
+  lambda = c(1 / 50, 1 / 100))
 ```
 
-It works! The characteristic life for `tf = 28` is ~`r c_hat(tf = 28) %>% round(0)`.
+To calculate the MTTF, we just take the sum of the fraction of each proportion and each failure rate lambda.
 
 ```{r}
-# Or better yet, let's calculate temperature factor 'tf' too,
-# so we only have to supply a temperature in Celsius
-tf = function(temp){
-  k = 1 / 11605   # Get Boltzmann's constant
-  1 / (k * (temp + 273.15)) # Get TF!
-}
-# Now predict c_hat for 30, 60, and 90 degrees celsius!
-c_hat = function(temp){  exp( 3.1701 + 0.1518*tf(temp))  }
-
-c(30, 60, 90) %>% c_hat()
+stock %>%
+  summarize(mttf = sum(prob / lambda))
 ```
 
-So cool!
-
-<br>
-<br>
-
-Wouldn't it be nice though, if we could simplify that process? The `predict()` function in `R` can help! The predict function will run your `model` equation on any `newdata` that you feed it, calculating the predicted outcomes. `newdata` must be formatted as a data.frame, containing vectors named to match each predictor from your original `data` (which we named `alt`).
-
-Let's make a data.frame of `fakedata` with `tibble()`, varying temperature from 0 to 200 degrees Celsius, and then transform that into a temperature factor `tf` with our `tf()` function. 
+To calculate the overall failure rate, we will generate the reliability function, take its derivative to get the PDF.
 
 ```{r}
-fakedata <- tibble(
-  temp = seq(0, 200, by = 10),
-  tf = tf(temp))
-# Check the first 3 rows!
-fakedata %>% head(3)
+# Let's write an exponential reliability function
+r = function(t, lambda){ exp(-1*t*lambda) }
+
+# Let's derive an exponential PDF f(t), using mosaicCalc's D()
+f = D(-1*r(t, lambda) ~ t)
 ```
-Then, we'll feet our 21 rows of `fakedata` and our model `m1` to the `predict()` function, which will output 21 predictions for `log(c)`.
+
+Then, we use the PDFs $f_i(t)$ and the Reliability functions $R_i(t)$ to get calculate the overall failure rate $z(t)$.
 
 ```{r}
-m1 %>% predict(newdata = fakedata)
+stock %>%
+  summarize(
+    total_f = sum(prob * f(t = 100, lambda = lambda)),
+    total_r = sum(prob * r(t = 100, lambda = lambda)),
+    z = total_f / total_r)
 ```
-But we can exponentiate it with `exp()` to get `c_hat`!
+
+We could even write it as a function, where `p` and `lambda` are equal length vectors for plant 1, plant 2, plant 3, ... plant $n$.
 
 ```{r}
-m1 %>% predict(newdata = fakedata) %>% exp()
-```
-
-We could even write the whole thing inside a `tibble()` function:
-
-```{r}
-fakedata <- tibble(
-  temp = seq(0, 200, by = 10),
-  tf = tf(temp),
-  # Predict c_hat
-  c_hat = predict(m1, newdata = tibble(tf)) %>% exp())
-# View the first 3 rows!
-fakedata %>% head(3)
-```
-
-And now, we can plot the line of best fit between `temp` and `c_hat`, which are the quantities we actually care about.
-
-```{r}
-g2 <- fakedata %>%
-  ggplot(mapping = aes(x = temp, y = c_hat)) +
-  geom_line() +
-  geom_point()
-
-# add some labels!
-g2 + 
-  labs(x = "Temperature in Celsius (T)", y = "Predicted Characteristic Life (c-hat)",
-       title = "Arrhenius Model of Car Alternator Characteristic Life",
-       # Here's a little trick for cleanly adding linebreaks in subtitles:
-       # Just write a paste() function
-       subtitle = paste(
-         "Equation:   c = e^(3.1701 + 0.1518 TF) = e^3.1701 * e^(0.1518 * (1 / kT))",
-         "Model: log(c) = 3.1701 + 0.1518 TF", sep = "\n"))
-```
-
-<br>
-<br>
-
-##  Eyring Model (Multiple Stressors)
-
-But in our `alt` data, multiple conditions varied, including `tf` but also `volts` and `time`. These might each have independent effects on `log(c)`! So let's estimate their effect by adding some more coefficients to our model!
-
-The **Eyring Model** provides an equation derived from chemical reaction theory and quantum mechanics, which supposes that we can predict lifespan parameters pretty well if we know temperature *and* any other stresses, such as voltage. The general form of the Eyring Model can also be distilled into a *multivariate* regression equation. This means instead of drawing a line of best fit approximating the relationship between 2 vectors (`log(c)` and `tf`), we can approximate the relationship between 3 vectors (`log(c)`, `tf`, and `volts`), making a plane.
-
-$$ \begin{align*} c =& AT^{\alpha} \times e^{\frac{\Delta H}{kT}} \times e^{(B + C/T) \times S} \\ &where: \ T = Temperature \ in \ Kelvin, \\ &so: \ if \ \alpha = 0, \ T^{\alpha} = 1 \\ &also:\\ &where: \ S = Stressor \ S, \\ &and: \ B + C/T = \ temperature \ contigent \ effect \ of \ S\\ \\ &simplifies \ to: \\ c=&e^{intercept} \times T^{\alpha} + e^{\Delta H \times (1 / (kT)) \ +  \ (B + C/T)^S } \\ \\ & so \ assuming \ \ T^{\alpha} = 1: \\ log(c) =& intercept  \ + \ \Delta H \times (1 / (kT)) + (B + C/T)\times S  \\ & can \ be \ rewritten \ as: \\ log(c) =& \alpha \ + \ \beta_1 X_1 + B_2 X_2 + ... \\ & where \ \alpha = intercept, \\ &X_1 = Temperature \ Factor = TF = 1 / (kT), \\ &\beta_1 = effect \ of X_1 \ [Temperature \ Factor], \\ &X_2 = Stressor \ S, \\ &B_2 = net \ effect \ of \ X_2 \ [Stressor \ S] \\ &... = any \ other \ stressors \end{align*}$$
-
-This is a monster of an equation, but we can still model it relatively simply using a linear model `lm()` of the `log(c)`.
-
-Often, we care about *voltage*, which can be written as:
-
-$$ \beta_{2}X_{2} = B \times (-log(V)), \ where \ \beta_2 = B = effect \ of \ -log(Voltage) $$ 
-
-We can write model this as `m2`, like so:
-
-```{r}
-m2 <- alt %>%
-  lm(formula = log(c) ~ tf + log(volts) )
-# See our model equation!
-m2
-```
-Then, we can just supply `predict()` with any values of `tf` and `volts` to predict `log(c_hat)`, and exponeniate the result.
-
-```{r}
-fakedata <- tibble(
-  # Hold temperature constant
-  temp = 30,
-  tf = tf(temp),
-  # But vary volts
-  volts = seq(from = 1, to = 30, by = 1),
-  # Predict c_hat
-  c_hat = predict(m2, newdata = tibble(tf, volts)) %>% exp())
-```
-
-And we can visualize our `fakedata` to see the impact of changing `volts` on `c_hat` as `temp` and `tf` were held constant.
-
-```{r}
-fakedata %>%
-  ggplot(mapping = aes(x = volts, y = c_hat)) +
-  geom_line() +
-  geom_point() +
-  theme_classic(base_size = 14) +
-  labs(title = "Eyring Model of Effect of Voltage on Lifespan (30 Deg. Celsius)",
-       subtitle = "Equation: c = e^(5.0086 + 0.1027 TF - 0.1837 * log(volts))",
-       x = "Voltage (volts)", y = "Predicted Characteristic Life (c-hat)")
-```
-
-<br>
-<br>
-
-##  Degradation Model (Time Trends)
-
-One final common impact on lifespan is simple degradation in functioning over time. With each passing day, the product is exposed to a stressor an additional time, bringing it a little closer to whatever we define as failure, and in turn, impacting the estimation of performance across our samples.
-
-We can model this as...
-
-$$ \begin{align*}  Q_t =& \ Q_0 \times e^{-R(S)t} \\ &where: \\& Q_t = performance \ metric \ at \ time \ t, \\&  Q_0 = starting \ value \ at \ t = 0, \ and    \\& R(S) = effect \ of \ stressor \ S \  \\ \\& modeled \ as: \\ log(Y_t) =& \ \alpha + \beta X \times t \\ &where: \\&log(Y_t) = log(Q_t), \\ & \alpha = intercept = log(Q_0), \\& \beta = -R = degradation \ effect \ of \ S,\\& X = stressor \ S \ (sometimes \ excluded), \ and \\ &t = time \ t \\&or: \\ log(Y_t) =& \ \alpha + \beta \times t \\& where: \beta = overall \ degradation \ effect \ of \ time \ t \end{align*} $$
-Let's try this out using our `alt` data!
-
-We might expect the power rating of an alternator might decline over time. We could model the *overall* degradation effect on the `log(rating)` by regressing a single vector `time` against our model. This produces a great fit of ~`94%`.
-
-```{r}
-alt %>%
-  lm(formula = log(rating) ~ time) %>%
-  glance() %>% select(r.squared)
-```
-
-Alternatively, if the degradation effect *depends* on another condition, like *how much voltage was run on it*, we could write an *interaction effect* using `I(volts * time)`. This forces our model to be written as $log(Y) = \alpha + \beta X \times t$ instead of just $log(Y) = \alpha + \beta \times t$.
-
-```{r}
-alt %>%
-  lm(formula = log(rating) ~ I(volts * time) )
-```
-We could even apply these effects right into our estimation of characteristic life $\hat{c}$ for our alternators! Perhaps we think the characteristic life would tend to be lower if the sample were measured later in `time`, after being exposed to higher `volts`. Let's estimate this model as `m3`!
-
-```{r}
-m3 <- alt %>%
-  lm(formula = log(c) ~ tf + log(volts) + I(volts * time))
-# Really good fit!
-m3 %>%  glance()
-```
-
-As you can see, we can build nearly as complex models as you can imagine! A good rule of thumb is to seek to build the most *parsimonious* (simplest) model that explains the most variation (maximizes the `r.squared`)
-
-<br>
-<br>
-
-
-```{r gif2, echo = FALSE, out.width="100%", fig.cap="Wasn't that fun?"}
-knitr::include_graphics("https://media4.giphy.com/media/9ADoZQgs0tyww/giphy.gif")
-```
-
-<br>
-<br>
-
-##  Burn-in Periods
-
-Sometimes, manufacturers will deliberately test-run their products for several hundred hours before selling them, just to 'burn-in' to their lifespan distributions. The idea is, if they can force the defective products to fail early on, then the products that remain are less likely to fail. Acceleration Factors can help us identify the ideal burn in period.
-
-We can say:
-
-- $z(t)$ = failure rate curve with no burn-in.
-
-- $z_b(t)$ = failure rate curve *after* a burn-in period of $t_b$ hours.
-
-- $a$ = acceleration factor between normal use vs. stress (burn-in), so:
-
-- $z_b(t = 0) = z(a \times t_b)$: failure rate after 0 hours of burn-in  $z_b(t = 0)$ should equal the normal failure rate at a time $a$ times greater than the burn-in period of $t_b$ hours.
-
-- In other words, we can use the acceleration factor $a$ to project the **conditional probability of failure after surviving burn-in**. We can say, hey, what's the probability of failure *under normal use* $t$ hours after burn-in $F_b(t)$, *given that* we know it survived up through the burn-in period $t_b$ and its use-to-stress relationship is characterized by an acceleration factor of $a$?
-
-```{r}
-# Let's write the Weibull density and failure function, as always...
-d = function(t, c, m){  (m / t) * (t / c)^m * exp(-1*(t/c)^m)   }
-f = function(t, c, m){ 1 - exp(-1*((t/c)^m)) }
-```
-
-Since we can calculate $F(t)$ as `f(t,c,m)` and $f(t)$ as `d(t,c,m)`, we can write the conditional probability of failure post-burn-in as:
-
-$$ F_b(t) = \frac{ F(t + a t_b) - F(at_b)}{ 1 - F(at_b) } $$
-And we can code it as:
-
-```{r}
-fb = function(t, tb, a, c, m){ 
-  # Change in probability of failure
-  delta_failure <- f(t = t + a*tb, c, m) - f(t = a*tb, c, m)  
-  # Reliability after burn-in period
-  reliability <- 1 - f(t = a*tb, c, m)
-  # conditional probability of failure
-  delta_failure / reliability
-}
-```
-
-Let's try it!
-
-```{r}
-# 1000 hours after burn-in
-# with a burn-in period of 100 hours
-# an acceleration factor of 20
-# characteristic life c = 2000 hours
-# and
-# shape parameter m = 1.5
-fb(t = 1000, tb = 100, a = 20, c = 2000, m = 1.5)
-```
-
-Likewise, the conditional density function $f_b(t)$ can be written as:
-
-$$ f_b(t) = \frac{ f(t + at_b)}{ 1 - F(at_b)} $$
-
-```{r}
-# And we'll write the condition
-db = function(t, tb, a, c, m){  
-  density <- d(t = t + a*tb, c, m)
-  reliability <- 1 - f(t = a*tb, c, m)
-  # get conditional density
-  density / reliability
-}
-```
-
-Let's try it! What's the conditional probability of having a lifespan of 1000 hours, given that you had a burn-in period of 100 hours? Let's assume an acceleration factor of 20, characteristic life of 2000 hours, and a shape parameter of 1.5, like before.
-
-```{r}
-db(t = 1000, tb = 100, a = 20, c = 2000, m = 1.5)
-```
-
-<br>
-<br>
-
-##  Maximum Likelihood Estimation (MLE) for Physical Acceleration Models
-
-But how in the world did we *get* all these estimates of `c` in the first place? Often, we end up calculating it via maximum likelihood estimation (MLE) from **cross-tabulated readout data.**
-
-Suppose we have several cross-tabulations of readout data available to us about the occurrence of failure for `wheels` by temperature. We know these are Weibull distributed, but we don't know the distributions' parameters for each temperature level, let alone the $\Delta H$ or the Acceleration Factor $AF$!  
-
-The examples below will focus on samples of car wheels, each with a Weibull distribution, but they are equally applicable to other distributions.
-
-```{r}
-# Let's write Weibull density, failure, and reliability functions
-d = function(t, c, m){  (m / t) * (t / c)^m * exp(-1*(t/c)^m)   }
-f = function(t, c, m){ 1 - exp(-1*((t/c)^m)) }
-r = function(t, c, m){ 1 - f(t,c,m) }
-```
-
-<br>
-<br>
-
-###  MLE for an Example Arrhenius Model
-
-```{r}
-# Let's load in our crosstable
-wheels <- tibble(
-  label = c("[0,1000]", "(1000,2000]", "(2000,3000]", "(3000,4000]", "(4000,5000]"),
-  t = c(500, 1500, 2500, 3500, 4500),
-  temp_100 = c(106, 66, 22, 4, 2), # out of 200 wheels
-  temp_150 = c(125, 25, 25, 15, 10), # out of 175 wheels
-  temp_200 = c(140, 30, 15, 10, 15)) # out of 300 wheels
-
-# Check it!
-wheels
-```
-
-We can write a maximum likelihood estimation function to find the *most likely* parameters for our products stress tested at 100 degrees Celsius, using `optim()` to perform MLE.
-
-```{r}
-# Let's write our crosstable's likelihood function
-ll = function(t, x, par){
-  r = sum(x)   # Get total failures
-  n = 200       # Record total sampel size
-  tmax = max(t) # Record last time step
+z = function(t){
+  # Set the input percentages of products from plants 1 and 2
+  p = c(0.75, 0.25)
+  # Set the failure rates for each
+  lambda = c(0.02, 0.01)
   
-  # Get the product of the log-densities at each time step, for all failures then
-  prob_d = ((d(t, c = par[1], m = par[2]) %>% log()) * x) %>% sum()
   
-  # For the last time step, get the probability of each remaining unit surviving 
-  prob_r = r(t = tmax, c = par[1], m = par[2])^(n - r) %>% log()
-  # Get joint log-likelihood
-  prob_d + prob_r
+  # Let's write an exponential reliability function
+  r = function(t, lambda){ exp(-1*t*lambda) }
+  # Let's derive an exponential PDF f(t),
+  f = D(-1*r(t, lambda) ~ t)
+
+  # Calculate total probability
+  total_f = sum( p * f(t, lambda) )
+  # Calculate total reliability
+  total_r = sum( p * r(t, lambda) )
+  
+  # Calculate overall failure rate
+  z = total_f / total_r
+  
+  return(z)
 }
-
-# And let's run MLE!
-mle100 <- optim(par = c(1000, 1), t = wheels$t,  x = wheels$temp_100,  fn = ll, 
-                control = list(fnscale = -1))
-# Our characteristic life and shape parameter m!
-mle100$par
+# Try it out!
+z(t = 1)
+z(t = 10)
+z(t = 100)
 ```
 
-But doesn't it seem like a waste that we have all this data at multiple temperature readouts, but we're just relying on one temperature to estimate parameters? We can do better! Let's write a maximum likelihood estimator that maximizes *more* parameters! 
+<br>
+<br>
 
-We'll assume that the shape parameter $m$ is the same for each distribution, but the characteristic life varies (a common assumption in physical acceleration models).
+### Phase-Type Distributions
+
+One way to more accurately model the lifespan of a product is to accept that its failure rate may remain constant, but it might change between failure rates as it passes through **phases**. Let's model that!
+
+We can write the time $T$ to critical failure (via either overstress OR degraded failure) as $T = min(T_c, T_d+T_{dc})$.
+
+```{r, echo = FALSE}
+library(DiagrammeR)
+
+c("graph LR",
+  'O(("Overstress"))',
+  'C(("Critical<br>Failure"))',
+  'D(("Degraded<br>Failure"))',
+  'DC(("Critical<br>Degraded"))',
+  "O-->|&lambda;<sub>C</sub>|C",
+  "O-->|&lambda;<sub>D</sub>|D",
+  "D-->|&lambda;<sub>C</sub>|C",
+  "D-->|&lambda;<sub>DC</sub>|DC") %>%
+  paste(collapse = "\n ") %>%
+  mermaid()
+```
+
+The total probability of a product being in any phase $a_{i \to n}$ equals 1.
+
+- $a_c = 25\%$
+
+- $a_d = 40\%$
+
+- $a_dc = 10\%$
+
+We can represent it in a dataframe, like so:
 
 ```{r}
-# Let's write our crosstable's likelihood function
-ll = function(t, x1, x2, x3, par){
-  # Get total failures
-  r1 = sum(x1)  
-  r2 = sum(x2)  
-  r3 = sum(x3)  
-  # Record total sample size in each
-  n1 = 200       
-  n2 = 175
-  n3 = 300
-  tmax = max(t) # Record last time step
-  
-  # Get the product of the log-densities at each time step, for all failures then
-  prob_d1 = ((d(t, c = par[1], m = par[4]) %>% log()) * x1) %>% sum()
-  prob_d2 = ((d(t, c = par[2], m = par[4]) %>% log()) * x2) %>% sum()
-  prob_d3 = ((d(t, c = par[3], m = par[4]) %>% log()) * x3) %>% sum()
-  
-  # For the last time step, get the probability of each remaining unit surviving 
-  prob_r1 = r(t = tmax, c = par[1], m = par[4])^(n1 - r1) %>% log()
-  prob_r2 = r(t = tmax, c = par[2], m = par[4])^(n2 - r2) %>% log()
-  prob_r3 = r(t = tmax, c = par[3], m = par[4])^(n3 - r3) %>% log()
-  
-  # Get joint log-likelihood, across ALL vectors
-  prob_d1 + prob_r1 + prob_d2 + prob_r2 + prob_d3 + prob_r3
-}
-
-# And let's run MLE!
-mle <- optim(par = c(1000, 1000, 1000, 1), t = wheels$t,  
-                x1 = wheels$temp_100,  
-                x2 = wheels$temp_150,  
-                x3 = wheels$temp_200,  
-                fn = ll,  control = list(fnscale = -1))
-# Check out our 3 characteristic life parameters, 
-# for temp_100, temp_150, and temp_200, and our shared shape parameter!
-mle$par
-```
-
-We can apply MLE to estimate *as many parameters* as our computers and patience for coding functions will allow!
-
-###  Estimating $\Delta H$ with MLE
-
-Next, let's use our MLE values to estimate $\Delta H$, the impact of temperature on lifespan parameters.
-
-```{r}
-# Remember our function to calculate temperature factors
-tf = function(temp){  1 / ((1 / 11605) * (temp + 273.15)) }
-
-# Let's collect our parameter estimates
-param <- tibble(
-  # For each temperature
-  temp = c(100, 150, 200),
-  # report the MLE c estimates
-  c = mle$par[1:3],
-  # and the shared MLE m estimate
-  m = mle$par[4],
-  # and Calculate TF (for each temperature...)
-  # This will be our independent variable
-  tf = tf(temp))
-
-# Check it!
-param
-```
-
-Now, we've got three different $c$ estimates. We'd really like to project, for any temperature `temp`, what would the characteristic life `c` be? Fortunately, we know we can estimate that with a line of best fit.
-
-```{r}
-m4 <- param %>%
-  lm(formula = log(c) ~ tf)
-# Pretty good fit (93%)
-m4 %>% glance()
-```
-
-Now that we've built a fairly good model, we can use it to *predict* the characteristic life $c$ for any temperature `temp`. 
-
-And if we have `c_hat()`, then all of a sudden, we can calculate the probability of failure at any time `t`! Suppose our wheel was used at 30 degrees Celsius. Our model projects a probability of failure of 32% by the 100th hour! (Don't buy that wheel!)
-
-```{r, eval = FALSE}
-tibble(
-  t = 100,
-  temp = 10,
-  tf = tf(temp),
-  # Predict c-hat for our specified temperature
-  c_hat = predict(m4, newdata = tibble(tf)) %>% exp(),
-  # Grab our MLE estimate of m
-  m = mle$par[4],
-  # And calculate the probability of failure, given a use temperature of 30
-  prob_f = f(t, c = c_hat, m = m)
+myphase <- data.frame(
+  id = 1:4,
+  phase = c("c", "d", "c", "dc"),
+  alpha = c(0.25, 0.40, 0.25, 0.10),
+  lambda = c(0.50, 1, 0.50, 3)
 )
 ```
 
+And, using the same tricks from the preceding section, we can calculate `z(t)`, the overall hazard rate of a phase-type exponential distribution, by taking the sum of the weighted probabilities.
+
+```{r}
+r = function(t, lambda){ exp(-1*t*lambda) }
+# Let's derive an exponential PDF f(t),
+f = D(-1*r(t, lambda) ~ t)
+
+z = function(t, data){
+  output <- data %>%
+    summarize(
+      prob_f = sum(alpha * f(t = t, lambda)),
+      prob_r = sum(alpha * r(t = t, lambda)),
+      ratio_z = prob_f / prob_r)
+  output$ratio_z %>% return()
+}
+
+# Take a peek!
+z(t = 1, data = myphase)
+z(t = 2, data = myphase)
+z(t = 5, data = myphase)
+z(t = 10, data = myphase)
+```
+
+
 <br>
 <br>
 
-###  Visualizing Probabilities
+## Statistical Techniques for Exponential Distributions 
 
-We can even then make some rad graphs!
+Finally, we're going to examine several key tools that will help you (1) cross-tabulate failure data over time, (2) use statistics to determine whether an archetypal distribution (eg. exponential) fits your data sufficiently, (3) how to estimate the failure rate $\lambda$ from tabulated data, and (4) how to plan experiments for product testing. Here we go!
 
-For example, we can vary time but hold constant temperature to calculate the probability of failure over time at a specific temperature.
+<br>
+<br>
 
-```{r, eval = FALSE}
+### Factors in R
 
-tibble(
-  t = seq(0, 2000, by = 10),
-  tf = tf(temp = 30),
-  # Get parameters
-  c_hat = predict(m4, newdata = tibble(tf)) %>% exp(),
-  m = mle$par[4],
-  # Calculate Probability
-  prob_f = f(t, c = c_hat, m = m)
-) %>%
-  ggplot(mapping = aes(x = t, y = prob_f)) +
-  geom_area() +
-  labs(x = "Time", y = "Failure Function F(t)",
-       subtitle = "Probability of Failure at 30 Degrees Celsius")
+For the next section, you'll need to understand `factors`.
+
+- Factors are ordered vectors. They are helpful in `ggplot` and elsewhere for telling `R` what order to interpret things in.
+
+- You can make your own vector into a `factor` using `factor(vector, levels = c("first", "second", "etc"))`.
+
+```{r}
+# Make character vector
+myvector <- c("surgical", "KN-95", "KN-95", "N-95", "surgical")
+# Turn it into a factor
+myfactor <- factor(myvector, levels = c("N-95", "KN-95", "surgical"))
+# check it
+myfactor
 ```
 
-Or, we can hold constant time but vary temperature, to show the changing probability of failure given different stress levels by temperature.
+`factor`s can be reduced to `numeric` vectors using `as.numeric()`. This returns the level for each value in the factor.
+
+```{r}
+# Turn the factor numeric
+mynum <- myfactor %>% as.numeric()
+# Compare
+data.frame(myfactor, mynum)
+# for example, N-95, which was ranked first in the factor, receives a 1 anytime the value N-95 appears
+```
+
+<br>
+<br>
+
+### Crosstabulation
+
+Sometimes, we might want to tabulate failures in terms of meaningful units of time, counting the total failures every 5 hours, every 24 hours, etc. Let's learn how!
+
+```{r}
+d1 <- data.frame(t = masks$left_earloop) %>%
+  # classify each value into 5-point width bins (0 to 5, 6-10, 11-15, etc.)
+  # then convert it to a numeric ranking of categories from 1  to n bins
+  mutate(label = cut_interval(t, length = 5))
+
+# Let's take a peek
+d1 %>% glimpse()
+```
+
+**Step 2**: Tabulate Observations per Bin.
+
+```{r}
+d2 <- d1 %>%
+  # For each bin label
+  group_by(label, .drop = FALSE) %>%
+  # Get total observed rows in each bin
+  # .drop = FALSE records factor levels in label that have 0 cases
+  summarize(count = n())
+
+d2 %>% glimpse()
+```
+
+**Step 3**: Get bounds and midpoint of Bins
+
+Last, we might need the bounds (upper and lower value), or the midpoint. Here's how!
+
+```{r}
+d3 <- d2 %>%
+  # Get bin ranking, lower and upper bounds, and midpoint
+  mutate(
+    bin = as.numeric(label),
+    lower = (bin - 1) * 5, 
+    upper = bin * 5,
+    midpoint = (lower + upper) / 2) 
+# Check it!
+d3
+```
+
+<br>
+<br>
+
+### Chi-squared
+
+**Chi-squared** ($\chi^{2}$) is a special statistic used frequently to evaluate the relationship between two categorical variables. In this case, the first variable is the `type` of data (`observed` vs. `model`), while the second variable is `bin`.
+
+Back in Workshop 2, we *visually* compared several distributions to an observed distribution, to determine which fits best. But can we do that statistically? One way to do this is to chop our observed data into bins of `length` equal width using `cut_interval()` from `ggplot2`. We must specify:
+
+**Step 1** Crosstabulate Observed Values into Bins.
+
+```{r}
+# Let's repeat our process from before!
+c1 <- data.frame(t = masks$left_earloop) %>%
+  # Part 1: Split into bins
+  mutate(label = cut_interval(t, length = 5)) %>%
+  # Part 2: Tally up by bin
+  group_by(label, .drop = FALSE) %>%
+  summarize(count = n()) %>%
+  mutate(
+    bin = as.numeric(label),
+    lower = (bin - 1) * 5, 
+    upper = bin * 5,
+    midpoint = (lower + upper) / 2)
+```
+
+**Step 3**: Calculate Observed and Expected Values per Bin.
+
+Sometimes you might only receive **tabulated data**, meaning a table of bins, not the original vector. In that case, start from **Step 3**!
+
+```{r}
+# Get any parameters you need (might need to be provided if only tabulated data)
+mystat = masks %>% summarize(lambda = 1 / mean(left_earloop))
+# Get your 'model' function
+f = function(t, lambda){ 1 - exp(-1*lambda*t) }
+
+# Now calculate cumulatives
+c2 <- c1 %>% 
+  mutate(
+    # Get total units in table
+    total = sum(count),
+    # Get cumulative OBSERVED in that bin
+    o = cumsum(count),
+    # Get cumulative EXPECTED in that bin due to model
+    e = f(t = midpoint, lambda = mystat$lambda) * total)
+    # Note: pexp(t) is equivalent to f(t) for exponential distribution
+    # e = pexp(midpoint, rate = mystat$lambda) * total
+# Check it!
+c2
+```
+
+**Step 4**: Calculate Chi-squared Statistic
+
+- **Chi-squared** here represents the sum of ratios for each bin. Each ratio is the (1) squared difference between the observed and expected value over (2) the expected value. Ranges from 0 to infinity. The bigger (more positive) the statistic, the greater difference between the observed and expected data.
+
+- **Degrees of Freedom (df)** is used as the standard deviation in the chi-squared distribution, to help evaluate *how extreme is our chi-squared statistic?*
+
+- **Chi-squared Distribution** is a distribution of squared deviations from a normal distribution centered at 0. This means it only has positive values.
+
+```{r}
+c3 <- c2 %>%
+  summarize(
+      # Calculate Chi-squared statistic
+    chisq = sum((o - e)^2 / e),
+    # Calculate number of bins (rows)
+    nbin = n(),
+    # Record number of parameters used (jjust lambda)
+    np = 1,
+    # Calculate degree of freedom
+    df = nbin - np - 1)
+# Check it!
+c3
+```
+
+**Step 5**: Calculate p-values and confidence intervals
+
+Last, let's use the `pchisq()` function to evaluate the CDF of the Chi-squared distribution. We'll find out:
+
+- `p_value`: what's the probability of getting a value **greater than or equal to** (more extreme than) our observed chi-squared statistic?
+
+- **"statistically significant"**: if our observed statistic is more extreme than most possible chi-squared statistics (eg. >95% of the distribution), it's probably not due to chance! We call it 'statistically significant.'
+
+```{r}
+# Calculate area remaining under the curve
+c4 <- c3 %>%
+  mutate(p_value = 1 - pchisq(q = chisq, df = df))
+# Check
+c4
+```
+
+For a visual representation:
+
+```{r, echo = FALSE}
+c4 %>%
+  summarize(
+    obs = chisq,
+    null = rchisq(n = 1000, df = df),
+    dnull = dchisq(null, df = df),
+    pnull = pchisq(null, df = df),
+    type = obs > null) %>%
+  ggplot(mapping = aes(x = null, y = dnull, fill = type)) +
+  geom_area(position = "identity") +
+  geom_vline(xintercept = c4$chisq, linetype = "dashed", size = 2)  +
+  annotate(geom = "text", x = 15, y = 0.075, label = paste("Chi-squared = ", round(c4$chisq, 2), 
+                                                           "\n", "p-value = ", round(c4$p_value, 3), sep = ""), 
+           size = 5, fontface = "bold", hjust = 0) +
+  annotate(geom = "text", x = 16, y = 0.015, label = paste(round(c4$p_value, 3)*100, "%", sep = ""), size = 5, fontface = "bold") +
+  labs(y = "Probability Density Function\ndchisq(x, df)",
+       x = "x = 1000 possible Chi-squared values\nrchisq(n = 1000, x, df)",
+       fill = "> Observed\nstatistic",
+       subtitle = "Visual Interpretation of Chi-squared Test p-value") +
+  theme_classic(base_size = 14) +
+  theme(panel.border = element_rect(fill = NA, color = "#373737"),
+        axis.line = element_blank())
+```
+
+**Step 6**: Do it all in one step!
+
+Let's try this one more time, all in one code chunk:
+
+```{r}
+# Get any parameters you need
+# Right now, we'll sub in our observed lambda value,
+mystat = masks %>% summarize(lambda = 1 / mean(left_earloop))
+# Note: if your data is crosstabulated and you DON'T have the observed lambda value,
+# you might need to use the methods described below in 'Estimating Lambda'
+
+# Get your 'model' function
+f = function(t, lambda){ 1 - exp(-1*lambda*t) }
+
+data.frame(t = masks$left_earloop) %>%
+  # Step 1: Split into bins
+  mutate(label = cut_interval(t, length = 5)) %>%
+  # Step 2: Tally up by bin
+  group_by(label, .drop = FALSE) %>%
+  summarize(count = n()) %>%
+  mutate(
+    bin = as.numeric(label),
+    lower = (bin - 1) * 5, 
+    upper = bin * 5,
+    midpoint = (lower + upper) / 2)  %>%
+  # Step 3: Calculate Observed vs. Expected
+  mutate(
+    total = sum(count),
+    o = cumsum(count),
+    e = f(t = midpoint, lambda = mystat$lambda) * total) %>%
+ # Calculate Chi-squared statistic and p-value
+ summarize(
+    chisq = sum((o - e)^2 / e),
+    nbin = n(),
+    np = 1,
+    df = nbin - np - 1,
+    p_value = 1 - pchisq(q = chisq, df = df))
+
+# And if that's a lot to type every time, you could always code a function for it :)
+```
+
+
+
+
+### Estimating Lambda
+
+Depending on whether we have *complete* data or not, we may need to estimate $\lambda$, rather than compute it directly.
+
+1. If we have a complete sample of data (eg. not censored), then we can just calculate: $\hat{\lambda} = \frac{no. \ of \ failures}{total \ unit \ test \ hours} $
+
+```{r}
+# Eg. 
+1 / mean(masks$left_earloop)
+```
+
+2. If our data is censored or pre-tabulated into groups, we may need to use the `midpoint` and `count` of failures in each `bin` to calculate $\lambda$.
+
+- Tabulated: tallied up in equally sized bins.
+
+- Tabulated, Type I Censoring: experiment stops when time $t$ reaches $limit$.
+
+- Tabulated, Type II Censoring: experiment stops when number of units failed $n_{failed}$ reaches $limit$.
+
+For example, if we receive just the `d3` data.frame we made above, how do we estimate $\lambda$ from it? We will need:
+
+- $r$: total failures (`sum(count > 0)`)
+
+- $n$: total observations (failed or not) (provided; otherwise, $n = r$)
+
+- $\sum_{i=1}^{r}{t_i}$: total unit-hours (`sum(midpoint*count)`)
+
+- $T$: timestep of (1) last failure observed (sometimes written $t_r$)  or (2) last timestep recorded; usually obtained by `max(midpoint)`.
+
+- Unless some cases do not fail, $(n - r)t_z$ will cancel out as `0`.
+
+$$ \hat{\lambda} = \frac{ r  }{ \sum_{i=1}^{r}{t_i}  +  (n - r)t_z} $$
+```{r}
+# Let's calculate it!
+d4 <- d3 %>%
+  summarize(
+    r = sum(count > 0), # total failures
+    hours = sum(midpoint*count), # total failure-hours
+    n = r, # in this case, total failures = total obs
+    tz = max(midpoint), # end of study period
+    # Calculate lambda hat!
+    lambda_hat = r / (hours + (n - r)*tz))
+```
+
+```{r}
+1 / mean(masks$left_earloop)
+```
+Also, our estimate of lambda might be slightly off due to random sampling error. (Every time you take a random sample, there's a little change, right?) So, let's build a **confidence interval** around our estimate.
+
+- We can do so by **weighting** $\hat{\lambda}$ by a factor $k$. 
+
+- This factor $k$ may be greater depending on (1) the total number of failures $r$ and (2) our level of acceptable error ($alpha$). 
+
+- Like any statistic, our estimate $\hat{\lambda}$ has a full *sampling distribution* of $\hat{\lambda}$ values we could get due to random sampling error, with some of them occurring more frequently than others. 
+
+- We want to find the upper and lower bounds around the 90%, 95%, or perhaps 99% *most common* (middle-most) values in that sampling distribution. So, if $alpha = 0.10$, we're going to get a 90% confidence interval (dubbed $interval$) spanning from the 5%~95% of that sampling distribution.
+
+```{r}
+# To calculate a 'one-tailed' 90% CI (eg. we only care if above 90%)
+alpha = 0.10
+ci = 1 - alpha
+```
+
+```{r}
+# To adjust this to be 'two-tailed' 90% CI (eg. we care if below 5% or above 95%)...
+0.5 + (ci / 2)
+0.5 - ci / 2
+```
+
+- No Censoring: If we have complete data (all observations failed!), using this formula to calculate factor $k$:
 
 ```{r, eval = FALSE}
-tibble(
-  t = 1000,
-  temp = seq(0, 200, by = 10),
-  tf = tf(temp),
-  # Get parameters
-  c_hat = predict(m4, newdata = tibble(tf)) %>% exp(),
-  m = mle$par[4],
-  # Calculate Probability
-  prob_f = f(t, c = c_hat, m = m)
-) %>%
-  ggplot(mapping = aes(x = temp, y = prob_f)) +
-  geom_area() +
-  labs(x = "Temperature (Celsius)", y = "Failure Function F(t)",
-       subtitle = "Probability of Failure after 1000 hours")
+# For example, let's say r = 50
+r = 50
+k = qchisq(ci, df = 2*r) / (2*r)
 ```
+
+- Time-Censoring: If we only record up to a specific time (eg. planning an experiment), use **this** formula to calculate factor $k$, setting as the degrees of freedom $df = 2(r+1)$. 
+
+```{r, eval = FALSE}
+# For example, let's say r = 50
+r = 50
+k = qchisq(ci, df = 2*(r+1)) / (2*r)
+```
+
+```{r}
+# Clear these
+remove(r, k)
+```
+
+So, since we do not have time censoring in our `d4` dataset, we can go ahead an calculate the `df = 2*r` and compute the 90% `lower` and `upper` confidence intervals.
+
+```{r}
+d4 %>%
+  summarize(
+    lambda_hat = lambda_hat,
+    r = r,
+    k_upper = qchisq(0.95, df = 2*r) / (2*r),
+    k_lower = qchisq(0.05, df = 2*r) / (2*r),
+    lower = lambda_hat * k_lower,
+    upper = lambda_hat * k_upper)
+```
+
+### Planning Experiments
+
+When planning an experiment, we can use the following formula to determine the necessary values of $r$, $t$, $lambda$, $k$, or $n$ for our experiment to function:
+
+$$ \frac{r}{n \ t} \times k_{r, 1 - \alpha} = \hat{\lambda} $$ 
+
+*Note*: Experiment planning by definition makes time-censored datasets, so you'll need your adjusted $k$ formula so that $df = 2(r+1)$.
+
+Let's try an example. Imagine a company wants to test a new line of masks. Your company can budget `500` hours to test these masks' elastic bands, and they accept that up to `10` of these masks may break in the process. Company policy anticipates a failure rate of just `0.00002` masks per hour, and we want to be `90`% confidence that the failure rate will not *exceed* this level. (But it's fine if it goes below that level.) 
+
+If we aim to fit within these constraints, how many masks need to be tested in this product trial?
+
+```{r}
+# Max failures
+r = 10
+# Number of hours
+t = 500
+# Max acceptable failure rate
+lambda = 0.00002
+
+# Calcuate a one-tailed confidence interval
+alpha = 0.10
+ci = 1 - alpha
+
+# Use these ingredients to calculate the factor k, using time-censored rule df = 2*(r+1)
+k = qchisq(ci, df = 2*(r+1)) / (2*r)
+
+# Reformat 
+# r / (t*n) * k = lambda
+n = k * r  / (lambda * t)
+
+# Check it!
+n
+```
+
+Looks like you'll need a sample of about `r round(n,0)` masks to be able to fit those constraints.
+
+
+
+<br>
+<br>
+
+
+---
+
+## Learning Check 4 {.unnumbered #LC4}
+
+**Question**
+  
+A small start-up is product testing a new super-effective mask. They product tested 25 masks over 60 days. They contract you to analyze the masks' lifespan data, recorded below as the number of days to failure. 
+
+```{r}
+# Lifespan in days
+supermasks <- c(1, 2, 2, 2, 3, 3, 4, 4, 5, 9, 13, 15, 17, 19, 
+            20, 21, 23, 24, 24, 24, 32, 33, 33, 34, 54)
+```
+
+1. Cross-tabulate the lifespan distribution in intervals of 7 days.
+
+2. Estimate $\hat{\lambda}$ from the cross-tabulated data.
+
+3. Estimate a 95% confidence interval for $\hat{\lambda}$.
+
+4. *Using the cross-tabulated data*, do these masks' lifespan distribution fit an exponential distribution, or does their distribution differ to a statistically significant degree from the exponential? How much? (eg. statistic and p-value).
+
+
+<details><summary>**[View Answer!]**</summary>
+  
+1. Cross-tabulate the lifespan distribution in intervals of 7 days.
+
+```{r, echo = FALSE}
+# Days to failure
+a <- data.frame(t = supermasks) %>%
+  # Step 1: Split into bins
+  mutate(label = cut_interval(t, length = 7)) %>%
+  # Step 2: Tally up by bin
+  group_by(label, .drop = FALSE) %>%
+  summarize(count = n()) %>%
+  mutate(
+    bin = as.numeric(label),
+    lower = (bin - 1) * 7, 
+    upper = bin * 7,
+    midpoint = (lower + upper) / 2)
+# Check it
+a
+```
+
+2. Estimate $\hat{\lambda}$ from the cross-tabulated data.
+
+```{r}
+# Let's estimate lambda!
+b <- a %>%
+  summarize(
+    r = sum(count > 0), # total failures
+    days = sum(midpoint*count), # total failure-days
+    n = r, # in this case, total failures = total obs
+    tz = max(midpoint), # end of study period
+    # Calculate lambda hat!
+    lambda_hat = r / (days + (n - r)*tz)) 
+# Check it
+b
+```
+
+3. Estimate a 95% confidence interval for $\hat{\lambda}$.
+
+```{r}
+c <- b %>%
+  summarize(
+    lambda_hat = lambda_hat,
+    r = r,
+    k_upper = qchisq(0.975, df = 2*r) / (2*r),
+    k_lower = qchisq(0.025, df = 2*r) / (2*r),
+    lower = lambda_hat * k_lower,
+    upper = lambda_hat * k_upper)
+# Check it
+c
+```
+
+4. *Using the cross-tabulated data*, do these masks' lifespan distribution fit an exponential distribution, or does their distribution differ to a statistically significant degree from the exponential? How much? (eg. statistic and p-value).
+
+```{r}
+# Get your 'model' function
+f = function(t, lambda){ 1 - exp(-1*lambda*t) }
+# Get lambda-hat from b$lambda_hat
+
+# Step 3: Calculate Observed vs. Expected
+d <- a %>%
+  mutate(
+    total = sum(count),
+    o = cumsum(count),
+    e = f(t = midpoint, lambda = b$lambda_hat) * total) %>%
+ # Calculate Chi-squared statistic and p-value
+ summarize(
+    chisq = sum((o - e)^2 / e),
+    nbin = n(),
+    np = 1,
+    df = nbin - np - 1,
+    p_value = 1 - pchisq(q = chisq, df = df))
+
+# Check it!
+d
+```
+
+
+</details>
+  
+---
 
 <br>
 <br>
 
 ## Conclusion
 
-All done! You have covered several major models for estimating change in lifespan parameters! Hooray!
+Congrats! You made it! You've just picked up some of the key techniques for evaluating product lifespans in `R`!
 
 ```{r, include = FALSE}
 rm(list = ls())
 ```
+
+
+

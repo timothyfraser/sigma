@@ -1,223 +1,263 @@
-# Workshop: Useful Life Distributions (Exponential)
+# Workshop: Statistical Process Control in `R` {#workshop_5}
 
-```{r setup_workshop_5, include = FALSE}
+```{r setup_workshop_9, include = FALSE, echo = FALSE}
 library(tidyverse)
 library(knitr)
 library(kableExtra)
-knitr::opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 ```
 
-In this workshop, we're going to learn some `R` functions for working with common life distributions, namely the **Exponential** distributions.
+```{r, out.width = "100%", echo = FALSE, fig.cap="Statistical Process Control!"}
+knitr::include_graphics("images/9_chart.png")
+```
 
-## Getting Started
+In this workshop, we will learn how to perform statistical process control in `R`, using statistical tools and `ggplot` visualizations! Statistical Process Control refers to using statistics to (1) measure variation in product quality over time and (2) identify benchmarks to know when intervention is needed. Let's get started!
 
-### Load Packages
+<br>
+<br>
 
-Let's start by loading the `tidyverse` package, which will let us `mutate()`, `filter()`, and `summarize()` data quickly. We'll also load `mosaicCalc`, for taking derivatives and integrals (eg. `D()` and `antiD()`).
+## Getting Started  {-}
+
+### Packages {-}
+
+We'll be using the `tidyverse` package for visualization, `viridis` for color palletes, `moments` for descriptive statistics, plus `ggpubr` for some add-on functions in `ggplot`.
 
 ```{r}
-# Load packages
 library(tidyverse)
-library(mosaicCalc)
+library(viridis)
+# you'll probably need to install these packages!
+# install.packages(c("ggpubr", "moments")) 
+library(ggpubr)
+library(moments)
 ```
 
 <br>
 <br>
 
-###  Key Concepts
+### Our Case {-}
 
-In this lesson, we'll be building on several key concepts from prior lessons. I've defined them below as a helpful review.
+```{r, out.width="100%", echo = FALSE, fig.cap="Obanazawa City, Yamagata Prefecture - A Hot Springs Economy. [**Photo credit and more here.**](https://www.thehiddenjapan.com/ginzanonsen)"}
+knitr::include_graphics("https://static.wixstatic.com/media/e8dc42_9cf1b5c0e5664ebd96581ffa8891eae2~mv2_d_1960_1200_s_2.jpg/v1/fill/w_1225,h_819,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/DSC00255-1-3_JPG.jpg")
 
-- **life distribution**: the distribution of a vector of $n$ products, whose values recording the amount of time it took for each product to fail. In other words, its **lifespan**.
-
-- **probability density function (PDF)**: the function describing the probability (relative frequency) of any value in a distribution.
-
-- **cumulative distribution function (CDF)**: the function describing the *cumulative* probability of each successive value in a distribution. Spans from 0 to 1.
-
-- Have questions? I *strongly* recommend you review Workshops 2, 3, and 4 before this one! It will help it all fit together!
-
-<br>
-<br>
-
-###  Our Data
-
-In this workshop, we're going to work with a data.frame called `masks`. An extremely annoying moment in the COVID-era is when a part of your mask snaps, requiring you to get a fresh mask. Let's examine a (hypothetical) sample of `n = 50` masks produced by Company X to explore how often this happens!
-
-Please import the `masks.csv` data.frame below. Each row is a mask, with its own unique `id`. Columns describe how many hours it took for the `left_earloop` to snap, the `right_earloop` to snap, the nose `wire` to snap, and the `fabric` of the mask to tear.
-
-```{r, eval = FALSE, echo = FALSE}
-data.frame(
-  id = 1:50,
-  left_earloop = rexp(n = 50, rate = .10) %>% round(0),
-  right_earloop = rexp(n = 50, rate = .10) %>% round(0),
-  wire = rexp(n = 50, rate = .05) %>% round(0),
-  fabric = rexp(n = 50, rate = .001) %>% round(0)
-) %>%
-  write_csv("workshops/masks.csv")
 ```
 
-```{r, message=FALSE, warning = FALSE}
-masks <- read_csv("workshops/masks.csv")
+For today's workshop, we're going to think about why quality control matters in a local economy, by examining the case of the Japanese Hot Springs bath economy! Hot springs, or *onsen*, are [a major source of tourism and recreation for families in Japan](https://asiatimes.com/2020/07/japanese-hot-spring-tourism-at-a-crossroads/), bringing residents from across the country every year to often rural communities where the right geological conditions have brought on naturally occurring hot springs. Restaurants, taxi and bus companies, and many service sector firms rely on their local onsen to bring in a steady stream (pun intended) of tourists to the local economy. So, it's often in the best interest of *onsen* operators to keep an eye on the temperature, minerals, or other aspects of their hot springs baths to ensure quality control, to keep up their firm (and town's!) reputation for quality rest and relaxation!
 
-# Let's glimpse() its contents!
-masks %>% glimpse()
+*Onsen*-goers often seek out *specific* types of hot springs, so it's important for an *onsen* to actually provide what it advertises! [Serbulea and Payyappallimana (2012)](http://dx.doi.org/10.1016/j.healthplace.2012.06.020) describe some of these benchmarks.
+
+- **Temperature**: Onsen are divided into "Extra Hot Springs" (`>42 °C`), "Hot Springs" (`41~34°C`), and "Warm Springs" (`33~25°C`).
+
+- **pH**: Onsen are classified into "Acidic" (`pH < 3`), "Mildly Acidic" (`pH 3~6`), "Neutral" (`pH 6~7.5`), "Mildly alkaline" (`ph 7.5~8.5`), and "Aklaline" (`pH > 8.5`).
+
+- **Sulfur**: Sulfur *onsen* typically have about 2mg of sulfur per 1kg of hot spring water; sulfur levels *must* exceed 1 mg to count as a Sulfur *onsen.* (It smells like rotten eggs!)
+
+These are decent examples of quality control metrics that *onsen* operators might want to keep tabs on! 
+
+<br>
+<br>
+
+```{r, fig.cap="Monkeys are even fans of onsen! Read [**more here!**](https://www.nytimes.com/2018/04/03/science/japan-monkeys-hot-springs-stress.html)", echo = FALSE, out.width = "100%"}
+knitr::include_graphics("images/9_monkeys.png")
 ```
 
-<br>
-<br>
 
-## Quantities of Interest
+### Our Data {-}
 
-When we work with life distributions, we often want to find several useful quantities of interest (a.k.a. parameters) about them. Let's find out how to do that with an **exponential distribution**!
+You've been hired to evaluate quality control at a local *onsen* in sunny Kagoshima prefecture! Every month, for 15 months, you systematically took 20 random samples of hot spring water and recorded its **temperature**, **pH**, and **sulfur** levels. How might you determine if this *onsen* is at risk of slipping out of one sector of the market (eg. Extra Hot!) and into another (just normal Hot Springs?). 
 
-### Lack of Memory 
-
-**Exponential distributions** are famous for a key trait. The failure rate $ \lambda $ remains **constant** in an exponential distribution. The probability that a product fails in the next hour of use is the same at `t = 0`, `t = 100`, or `t = infinity!` It doesn't worsen with time. (It's the literal meaning of the saying, "if it is not broke, don't fix it!")
-
-### Mean Time to Fail
-
-The Mean Time to Fail describes the **mean** of a lifespan distribution. For example, let's calculate the mean time to fail (in hours) for a mask's `left_earloop` in our sample.
-
-```{r}
-stat <- masks %>%
+```{r sample_data, echo = FALSE, eval = FALSE}
+# Let's make some random data!
+tibble(time = 1:8,
+              n = 20) %>%
+  group_by(time) %>%
   summarize(
-    # We can take the mean of this vector of time to fail in hours
-    mttf = mean(left_earloop),
-    # Lambda is the reciprocal of the MTTF
-    lambda = 1 / mttf)
-
-# Check out the contents!
-stat
+    
+    temp = case_when(
+      time %in% c(1, 2, 3, 5) ~ rnorm(n = n, mean = 45, sd = 2),
+      TRUE ~  rnorm(n = n, mean = 45, sd = 2) - time * rnorm(n = n, mean = 0.1, sd = 0.1)),
+    
+    ph = case_when(
+      
+      time %in% c(1, 3, 5, 7) ~ rnorm(n = n, mean = 5.5, sd = 0.5),
+      TRUE ~ rnorm(n = n, mean = 5.5, sd = 0.5) - rnorm(n = n, mean = 0.1, sd = 0.1)),
+    
+    sulfur = case_when(
+      time %in% c(1, 2, 3, 4, 5) ~ rgamma(n = n, shape = 0.5, rate = 1),
+      TRUE ~ rgamma(n = n, shape = 0.5, rate = 1) + time / 2 * rnorm(n = n, mean = 0.1, sd = 0.1))) %>%
+  ungroup() %>%
+  mutate(temp = round(temp, 1),
+         ph = round(ph, 1),
+         sulfur = round(sulfur, 1),
+         time = time * 2 - 1,
+         id = 1:n()) %>%
+  select(id, time, temp, ph, sulfur) %>%
+  write_csv("workshops/onsen.csv")
 ```
 
-In an exponential distribution, the MTTF *always* has a cumulative probability of `1 - 1 / e = 0.632`. (This can be coded in R like so:)
+Let's read in our data from `workshops/onsen.csv`!
 
 ```{r}
-1 - 1 / exp(1)
+# Let's import our samples of bathwater over time!
+water = read_csv("workshops/onsen.csv")
+# Take a peek!
+water %>% glimpse()
 ```
 
-Let's assume our sample's left earloops have an exponential lifespan distribution, and use `pexp()` to calculate the cumulative probability of getting an MTTF of `r stat$mttf`. We'll need to supply `pexp()` the benchmark in the distribution in question (`mttf`), plus the the `rate` parameter $\lambda$, which we always need when simulating an exponential distribution.
+Our dataset contains:
+
+- `id`: unique identifer for each sample of *onsen* water.
+
+- `time`: categorical variable describing date of sample (month `1`, month `3`, ... month `15`).
+
+- `temp`: temperature in celsius.
+
+- `ph`: pH (0 to 14)
+
+- `sulfur`: milligrams of sulfur ions.
+
+<br>
+<br>
+
+## Visualizing Quality Control
+
+Let's learn some key techniques for visualizing quality control!
+
+<br>
+
+### `theme_set()`
+
+First, when you're about to make a bunch of `ggplot` visuals, it can help to set a common theme across them all with `theme_set()`.
 
 ```{r}
-prob <- pexp(stat$mttf, rate = stat$lambda)
-```
-
-Indeed, the figure below compares the observed PDF function (made using `density()`) to the assumed exponential PDF (made using `dexp()`), and we can see that that 63% of the distribution has failed by the Mean Time to Fail.
-
-```{r, echo = FALSE}
-ggplot() +
-  geom_area(
-    data = data.frame(x = seq(0, 50, by = 0.1)) %>%
-      mutate(y = dexp(x, rate = stat$lambda),
-             fill = stat$mttf > x),
-    mapping = aes(x = x, y = y, fill = fill)) +
-  geom_density(
-    data = masks, mapping = aes(x = left_earloop)) +
-  geom_vline(data = stat, mapping = aes(xintercept = mttf), linetype = "dashed") +
-  geom_text(data = stat, mapping = aes(x = mttf, y = 0.04, label = paste(" MTTF = ", mttf, sep = "")), hjust = 0) +
-  geom_text(
-    mapping = aes(x = 7, y = 0.03, 
-                  label = paste(round(pexp(stat$mttf, rate = stat$lambda) * 100, 1), "%", sep = ""))) +
+# By running theme_set()
+theme_set(
+  # we tell ggplot to give EVERY plot this theme
   theme_classic(base_size = 14) +
-  theme(axis.line = element_blank(),
-        panel.border = element_rect(color = "#373737", fill = NA),
-        legend.position = "none") +
-  labs(x = "Lifespan (hours)\nLeft Earloop of Sampled Masks (n = 50)",
-       y = "Probability",
-       subtitle = "(Observed PDF vs. Assumed Exponential PDF)\n63.2% of Products fail before MTTF in Exp. Distribution",
-       title = "Lifespan Distribution of Left Earloops")
+  # With these theme traits, including
+  theme(
+    # Putting the legend on the bottom, if applicable
+    legend.position = "bottom",
+    # horizontally justify plot subtitle and caption in center
+    plot.title = element_text(hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5),
+    plot.caption = element_text(hjust = 0.5),
+    # Getting rid of busy axis ticks
+    axis.ticks = element_blank(),
+    # Getting rid of busy axis lines
+    axis.line = element_blank(),
+    # Surrounding the plot in a nice grey border
+    panel.border = element_rect(fill = NA, color = "grey"),
+    # Remove the right margin, for easy joining of plots
+    plot.margin = margin(r = 0)
+  )
+)
 ```
 
 <br>
 <br>
 
-### Mean Time to Fail via *Integration*
 
-**Mean Time to Fail (MTTF)** can be number-crunched empirically as the *mean of observed lifespans*, assuming an exponential distribution. But it is also equal to the **integral of the reliability** function: $MTTF = \int_{0}^{\infty}{R(t)dx} $.
+### Process Descriptive Statistics
 
-So, let's make ourselves a nice reliability function to help us calculate the MTTF.
+First, let's describe our process, using favorite description statistics. We're going to want to do this a bunch, so why don't we just write a `function` for it? Let's write `describe()`, which will take a vector `x` and calculate the `mean()`, `sd()`, `skewness()`, and `kurtosis()`, and then `paste()` together a nice caption describing them. 
 
-- We know the reliability function can be stated as $R(t) = 1 - F(t)$. 
-
-- Assuming an exponential distribution, the failure rate $F(t) = 1 - e^{-\lambda t}$.
-
-- We know $\lambda = \frac{1}{MTTF}$, and above, we found that `r paste("lambda =", stat$lambda)` for a left-earloop.
+(*I encourage you to write your own functions like this to help expedite your coding! Start simple!*)
 
 ```{r}
-# Reliability Function for exponential distribution
-r = function(t, lambda){ exp(-1*t*lambda)}
-```
-
-We can calculate it below...
-
-```{r}
-# Use mosaicCalc's antiD function
-# To get integral of r(t, lambda) as x goes from 0 to infinity
-mttf = antiD(tilde = r(t, lambda) ~ t)
-```
-
-Great! We have developed our own `mttf` function for an exponential distribution! If we feed `t` a suitably large value, like 1000 (approaching infinity), we will reach the original observed/estimated `mttf`.
-
-```{r}
-mttf(t = 1000, lambda = stat$lambda)
-mttf(t = Inf, lambda = stat$lambda)
-```
-This only helps you if you *know* **lambda**, the inverse of the MTTF, or have the reliability function but not the MTTF.
-
-<br>
-<br>
-
-### Median Time to Fail $T_{50}$
-
-We might also want to know the **median** time to failure ($T_{50}$), the value on the x axis that splits the area under the curve in half at 50% and 50%. We can calculate this as...
-
-$F(T_{50}) = 50\% = 0.5 = 1 - e^{-\lambda T_{50}}$
-
-where:
-
-$T_{50} = \frac{log(2)}{ \lambda } = \frac{0.693}{\lambda}$
-
-```{r}
-# Let's update stat to include the observed 'median' 
-# and 't50', the median assuming an exponential distribution 
-
-stat <- masks %>%
-  summarize(
-    # The literal mean time to fail 
-    # in our observed distribution is this
-    mttf = mean(left_earloop),
-    # And lambda is this...
-    lambda = 1 / mttf,
-    # The observed median is this....
-    median = median(left_earloop),
-    # But if we assume it's an exponential distribution
-    # and calculate the median from lambda,
-    # we get t50, which is very close.
-    t50 = log(2) / lambda)
-
+describe = function(x){
+  # Put our vector x in a tibble
+  tibble(x) %>%
+    # Calculate summary statistics
+    summarize(
+      mean = mean(x, na.rm = TRUE),
+      sd = sd(x, na.rm = TRUE),
+      # We'll use the moments package for these two
+      skew = skewness(x, na.rm = TRUE),
+      kurtosis = kurtosis(x, na.rm = TRUE)) %>%
+    # Let's add a caption, that compiles  all these statistics  
+    mutate(
+      # We'll paste() the following together
+      caption = paste(
+        # Listing the name of each stat, then reporting its value and rounding it, then separating with " | "
+        "Process Mean: ", mean %>% round(2), " | ", 
+        "SD: ", sd %>% round(2), " | ",
+        "Skewness: ", skew %>% round(2), " | ",
+        "Kurtosis: ", kurtosis %>% round(2), 
+        # Then make sure no extra spaces separate each item
+        sep = "")) %>%
+    return()
+}
+# Run descriptives!
+tab = water$temp %>% describe()
 # Check it out!
-stat
+tab
 ```
 
-### Modal Time to Fail
+<br>
+<br>
 
-Finally, the modal time to fail is pretty easy to calculate. Its the most common time to fail, also known as the **max** probability in a PDF.
+### Process Overview Visual 
+
+Your first step should always be to look at the data overall! `geom_jitter()`, `geom_boxplot()`, and `ggMarginal()` can help you do this.
+
+- `geom_jitter()` is a jittered scatterplot, jittering points a little to help with visibility. Since we want to be really precise on our quality control metrics, we could jitter the width a little (`width = 0.25`), but hold the y-axis (quality metric) constant at `height = 0`. These are in your x and y axis units, so decide based on your data each time.
+
+- `geom_boxplot()` makes a boxplot for each `group` (`time`) in our data, showing the interquartile range (25th, 50th, and 75th percentiles) of our `y` variable for each `group`. Helpful way to view distributions. (Alternatively, you can try `geom_violin()`, which works the same way.)
+
+- `geom_hline()` makes a horizontal line at the `yintercept`; we can tell it to show the `mean()` of `y` (in this case, `temp`).
+
+- `geom_histogram()` is a histogram! We can use `coord_flip()` to turn it vertical to match the `y-axis`.
+
+- `ggarrange()` from the `ggpubr` package binds two plots together into one, giving each a specific proportional `width` (eg. `c(0.25, 0.75)` percent, or `c(5, 1)` would be 5/6 and 1/6.)
 
 ```{r}
-masks %>%
-  summarize(
-    # Let's get lambda, the reciprocal of the MTTF
-    lambda = 1 / mean(left_earloop),
-    # And let's estimate the PDF...
-    t = 1:max(left_earloop),
-    prob = dexp(t, rate = lambda)) %>%
-  # And let's sort the data.frame from highest to lowest
-  arrange(desc(prob)) %>%
-  # Grab first 3 rows, for brevity
-  head(3)
-
-# This reveals that t = 1 is our mode
+# Make the initial boxplot...
+g1 = water %>%
+  ggplot(mapping = aes(x = time, y = temp, group = time)) +
+  # Plot grand mean
+  geom_hline(mapping = aes(yintercept = mean(temp)), color = "lightgrey", size = 3) +
+  # Plot points and boxplots 
+  geom_jitter(height = 0, width = 0.25) +
+  geom_boxplot() +
+  labs(x = "Time (Subgroup)", y = "Temperature (Celsius)",
+       subtitle = "Process Overview",
+       # Add our descriptive stats in the caption!
+       caption = tab$caption)
+# Part 1 of plot
+g1
 ```
+
+<br>
+
+```{r}
+# Make the histogram, but tilt it on its side
+g2 = water %>%
+  ggplot(mapping = aes(x = temp)) +
+  geom_histogram(bins = 15, color = "white", fill = "grey") +
+  theme_void() +   # Clear the them
+  coord_flip()   # tilt on its side
+# Part 2 of plot
+g2
+```
+
+<br>
+
+```{r}
+# Then bind them together into 1 plot, 'h'orizontally aligned.
+p1 = ggarrange(g1,g2, widths = c(5,1), align = "h")
+# Check it out!
+p1
+```
+<br>
+<br>
+
+We can tell from this visual several things!
+
+1. **Side Histogram**: Our overall distribution is pretty centered.
+
+2. **Descriptive Statistics**: Our distribution has little skew (~0) and has **slightly higher-than-average kurtosis (<3)** (very centered) ([Review Skewness and Kurtosis here](https://docs.google.com/presentation/d/1hYpNxsmKBJYCW_8rply9sKCPHLH1mCOTuT_ohqflK7Q/edit?usp=sharing).)
+
+3. **Line vs. Boxplots**: Over time, our samples sure do seem to be getting slightly further from the mean!
 
 <br>
 <br>
@@ -227,218 +267,538 @@ masks %>%
 ## Learning Check 1 {.unnumbered #LC1}
 
 **Question**
-  
-A competing mask manufacturer made a mask whose earloops fail at a constant failure rate of `0.08`.
 
-1. What is the probability that 1 fails *before* 20 hours of use?
-
-2. What is the probability that 2 fail *before* 20 hours of use?
-
-3. After how long should we expect 1% failures?
+We analyzed temperature variation above, but our hot springs owner wants to know about variation in `pH` too! Write a `function` to produce a process overview plot given any 2 vectors (`water$time` and `water$pH`, in this case), and visualize the process overview for `pH`! (*You can do it!*)
 
 <details><summary>**[View Answer!]**</summary>
+
+```{r}
+ggprocess = function(x, y, xlab = "Subgroup", ylab = "Metric"){
   
-1. What is the probability that 1 fails *before* 20 hours of use?
+  # Get descriptive statistics
+  tab = describe(y)
+  
+  # Make the initial boxplot...
+  g1 = ggplot(mapping = aes(x = x, y = y, group = x)) +
+    # Plot grand mean
+    geom_hline(mapping = aes(yintercept = mean(y)), color = "lightgrey", size = 3) +
+    # Plot points and boxplots 
+    geom_jitter(height = 0, width = 0.25) +
+    geom_boxplot() +
+    labs(x = xlab, y = ylab,
+         subtitle = "Process Overview",
+         # Add our descriptive stats in the caption!
+         caption = tab$caption)
+  
+  # Make the histogram, but tilt it on its side
+  g2 = ggplot(mapping = aes(x = y)) +
+    geom_histogram(bins = 15, color = "white", fill = "grey") +
+    theme_void() +   # Clear the them
+    coord_flip()   # tilt on its side
+  
+  # Then bind them together into 1 plot, 'h'orizontally aligned.
+  p1 = ggarrange(g1,g2, widths = c(5,1), align = "h")
+  
+  return(p1)
+}
 
-```{r}
-# Let's generate an expondential failure function,
-# because **constant** rate of failure
-f = function(t, lambda){1 - exp(-1*t*lambda)}
-
-# Use failure function (CDF) to get area under curve BEFORE 20 hours.
-f(t = 20, lambda = 0.08)
-# There's a 79% chance 1 fails within 20 hours
+# Visualize it!
+ggprocess(x = water$time, y = water$ph)
 ```
 
-2. What is the probability that 2 fail *before* 20 hours of use?
+In comparison to `temp`, `pH` is a much more controlled process.
 
-```{r}
-# For n failures, take F(t) to the nth power
-f(t = 20, lambda = 0.08)^2
-# There's a 63% chance 2 fail within 20 hours.
-```
+I encourage you to use this `ggprocess()` function you just created!
 
-3. After how long should we expect 1% failures?
-
-```{r}
-# We can solve this using the failure function
-# f(t) = 1 - e^{-t*lambda}
-
-# But we need to invert it,
-# to solve for t
-# f(t) = 1 - e^{-t*lambda}
-# e^{-t*lambda} = 1 - f(t) 
-# log(1 - f(t)) = -t*lambda
-# -log(1 - f(t)) / lambda = t
-
-# So if we set f(t) = 1%, and lambda = 0.08,
-# this will tell us at what time F(t) will equal 1%
--log(1 - 0.01) / 0.08
-# Looks like that time of interest is t = 0.1256 hours.
-```
 
 </details>
   
 ---
 
+<br>
+<br>
+
+
+## Average and Standard Deviation Graphs
+
+### Key Statistics
+
+Next, to analyze these processes more in depth, we need to assemble statistics at 2 levels: 
+
+1. **within-group statistics** measure quantities of interest within each subgroup (eg. each monthly slice `time` in our *onsen* data). 
+
+2. **between-group statistics** measure *total* quantities of interest for the overall process (eg. the overall *"grand"* mean, overall standard deviation in our *onsen* data).
+
+<br>
+<br>
+
+### Subgroup (Within-Group) Statistics
+
+Let's apply these to our *onsen* data to get statistics describing each subgroup's distribution, a.k.a. short-term or within-group statistics.
+
+```{r}
+# Calculate short-term statistics within each group
+stat_s = water %>% 
+  # For each timestpe
+  group_by(time) %>%
+  # Calculate these statistics of interest!
+  summarize(
+    # within-group mean
+    xbar = mean(temp),
+    # within-group range
+    r = max(temp) - min(temp),
+    # within-group standard deviation
+    sd = sd(temp),
+    # within-group sample size
+    nw = n(),
+    # Degrees of freedom within groups
+    df = nw - 1) %>%
+  # Last, we'll calculate sigma_short (within-group variance)
+  # We're going to calculate the short-term variation parameter sigma_s (sigma_short)
+  # by taking the square root of the average of the standard deviation
+  # Essentially, we're weakening the impact of any special cause variation
+  # so that our sigma is mostly representative of common cause (within-group) variation
+  mutate(
+    # these are equivalent
+    sigma_s = sqrt( sum(df * sd^2) / sum(df) ),
+    sigma_s = sqrt(mean(sd^2)), 
+    # And get standard error (in a way that retains each subgroup's sample size!)
+    se = sigma_s / sqrt(nw),
+    # Calculate 6-sigma control limits!
+    upper = mean(xbar) + 3*se,
+    lower = mean(xbar) - 3*se)
+
+
+# Check it!
+stat_s %>% head(3)
+```
+<br>
+<br>
+
+### Total Statistics (Between Groups)
+
+```{r}
+# To get between-group estimates....
+stat_t = stat_s %>%
+  summarize(
+    xbbar = mean(xbar),
+    rbar = mean(r),
+    sdbar = mean(sd),
+    # We can also recalculate sigma_short here too
+    sigma_s = sqrt( mean(sd^2) ),
+    # Or we can calculate overall standard deviation 
+    sigma_t = sd(water$temp) )
+
+```
+
+<br>
+<br>
+
+So, now that we have estimated within-group, common cause variation via $\sigma_{short}$ (`sigma_s`) and the standard error (`se`), what can we say about our process?
+
+<br>
+<br>
+
+### Average and Standard Deviation Charts
+
+The preferred method for measuring within-group variability is the standard deviation, rather than the range, so we generally recommend (a) Average ($\bar{X}$) and Standard Deviation ($S$) charts over (b) Average ($\bar{X}$) and Range ($R$) charts.
+
+```{r}
+# Let's extract some labels
+labels = stat_s %>%
+  summarize(
+    time = max(time),
+    type = c("xbbar",  "upper", "lower"),
+    name = c("mean", "+3 s", "-3 s"),
+    value = c(mean(xbar), unique(upper), unique(lower)),
+    value = round(value, 2),
+    text = paste(name, value, sep = " = "))
+
+stat_s %>%
+  ggplot(mapping = aes(x = time, y = xbar)) +
+  geom_hline(mapping = aes(yintercept = mean(xbar)), color = "lightgrey", size = 3) +
+  geom_ribbon(mapping = aes(ymin = lower, ymax = upper), fill = "steelblue", alpha = 0.2) +
+  geom_line(size = 1) +
+  geom_point(size = 5) +
+  # Plot labels
+  geom_label(data = labels, mapping = aes(x = time, y = value, label = text),  hjust = 1)  +
+  labs(x = "Time (Subgroups)", y = "Average",
+       subtitle = "Average and Standard Deviation Chart")
+```
+This tells us that excitingly, our *onsen* temperatures are quite firmly within range. While the average varies quite a bit, it remains comfortably within 3 standard deviations of the mean.
+
+<br>
+<br>
+
+---
 
 ## Learning Check 2 {.unnumbered #LC2}
 
 **Question**
   
-Above, we examined a sample of surgical masks, checking how often their `left_earloop` snapped. How does that compare with the `right_earloop`?
+Well, that was nifty, but can we do it all over again for `pH`? Make some rad upper and lower confidence intervals for $\bar{X}$ for `pH`!
 
-Calculate the mean time to fail for the right earloop, and $\lamba$, the mean failure rate. Is the right earloop more or less reliable than the left earloop?
 
 <details><summary>**[View Answer!]**</summary>
 
-1. MTTF and Lambda
-
 ```{r}
-compare <- masks %>%
-  summarize(mttf_right = mean(right_earloop),
-            mttf_left = mean(left_earloop),
-            lambda_right = 1 / mttf_right,
-            lambda_left = 1 / mttf_left)
-# Check it
-compare
-# Looks like the left earloop fails less often.
+# Get the within-group stats for ph!
+ph_s = water %>%
+  group_by(time) %>%
+  summarize(
+    xbar = mean(ph),
+    r = max(ph) - min(ph),
+    sd = sd(ph),
+    nw = n(),
+    df = nw - 1) %>%
+  mutate(
+    sigma_s = sqrt(mean(sd^2)), 
+    se = sigma_s / sqrt(nw),
+    upper = mean(xbar) + 3*se,
+    lower = mean(xbar) - 3*se)
+
+# Let's extract some labels
+labels = ph_s %>%
+  summarize(
+    time = max(time),
+    type = c("xbbar",  "upper", "lower"),
+    name = c("mean", "-3 s", "+3 s"),
+    value = c(mean(xbar), unique(upper), unique(lower)),
+    value = round(value, 2),
+    text = paste(name, value, sep = " = "))
+
+# and let's visualize it!
+ph_s %>%
+  ggplot(mapping = aes(x = time, y = xbar)) +
+  geom_hline(mapping = aes(yintercept = mean(xbar)), color = "lightgrey", size = 3) +
+  geom_ribbon(mapping = aes(ymin = lower, ymax = upper), fill = "steelblue", alpha = 0.2) +
+  geom_line(size = 1) +
+  geom_point(size = 5) +
+  # Plot labels
+  geom_label(data = labels, mapping = aes(x = time, y = value, label = text),  hjust = 1)  +
+  labs(x = "Time (Subgroups)", y = "Average pH",
+       subtitle = "Average and Standard Deviation Chart")
 ```
 
-  
 </details>
   
 ---
 
+<br>
+<br>
+
+## Moving Range Charts
+
+
+### Individual and Moving Range Charts
+
+Suppose we only had 1 observation per subgroup! There's no way to calculate standard deviation for that - after all, there's no variation within each subgroup! Instead, we can generate an individual and moving range chart.
+
+```{r}
+# Suppose we sample just the first out of each our months.
+indiv = water %>%
+  filter(id %in% c(1, 21, 41, 61, 81, 101, 121, 141))
+```
+
+The *average moving range* $m\bar{R}$ aptly refers to the average of the *moving Range* $mR$, the *difference* in values over time. We can calculate the moving range using the `diff()` function on a vector like `temp`, shown below. `abs()` converts each value to be positive, since ranges are always 0 to infinity.
+
+```{r}
+# Let's see our original values
+indiv$temp
+# diff() gets range between second and first, third and second, and so on
+indiv$temp %>% diff() %>% abs()
+```
+
+<br>
+
+Just like all statistics, $m\bar{R}$ too has its own distribution, containing a range of slightly higher and lower $m\bar{R}$ statistics we might have gotten had our sample been just slightly different due to chance. As a result, we will want to estimate a confidence interval around $m\bar{R}$, but how are we to do that if we have no statistic like $\sigma$ to capture that variation? 
+
+Well, good news: We can *approximate* $\sigma_s$ by taking the ratio of $m\bar{R}$ over a factor called $d_{2}$. What is $d_{2}$? I'm glad you asked!
+
+$$\sigma_{short} \approx \frac{m\bar{R}}{d_{2}} $$
+<br>
+<br>
+
+### Factors $d_{2}$ and Friends
+
+As discussed above, *any statistics* has a latent distribution of other values you might have gotten for your statistic had your sample been just slightly different due to random error. Fun fact: we can actually *see* those distributions pretty easily thanks to simulation!
+
+- Suppose we have a subgroup of size `n = 1`, so we calculate a moving range of `length 1`.
+
+- This subgroup and its moving range is just one of the possible subgroups we could have encountered by chance, so we can think of it as a random draw from an archetypal normal distribution (`mean = 0` and `sd = 1`).
+
+- If we take *enough* samples of moving ranges from that distribution, we can plot the distribution. Below, we take `n = 10000` samples with `rnorm()` and plot the vector with `hist()`.
+
+- We find a beautiful distribution of moving range statistics for `n=1` size subgroups.
+
+```{r}
+mrsim = rnorm(n = 10000, mean = 0, sd = 1) %>% diff() %>% abs()
+mrsim %>% hist()
+```
+
+Much like $k$ factors in the exponential distribution, we can use this distribution of $mR$ stats to produce a series of *factors* that can help us estimate any upper or lower confidence interval in a moving range distribution.
+
+For example, we can calculate:
+
+- $d_{2}$, the *mean* of this archetypal $mR$ distribution.
+
+- $d_{3}$, the *standard deviation* of this $mR$ distribution.
+
+- Technically, $d_{2}$ is a ratio, which says that *in a distribution with a standard deviation of 1, the mean mR is $d_{2}$.* In other words, $d_{2} = \frac{m\bar{R}_{normal, n = 1} }{\sigma_{normal,n=1} }$. So, if we have observed a real life average moving range $m\bar{R}_{observed,n=1}$, we can use this $d_{2}$ factor to convert out of units of $1 \sigma_{normal,n=1}$ into units the $\sigma_{short}$ of our observed data! 
+
+```{r}
+# For example, the mean of our vector mrsim, for subgroup size n = 1, 
+# says that d2 (mean of these mR stats) is...
+mrsim %>% mean()
+```
+
+```{r}
+# While d3 (standard deviation is...)
+mrsim %>% sd()
+```
+
+But why stop there? We can calculate loads of other interesting statistics!
+
+```{r}
+# For example, these statistics 
+# estimate the median, upper 90, and upper 95% of the distribution! 
+mrsim %>%
+  quantile(probs = c(0.50, 0.90, .95)) %>% round(3)
+```
 
 <br>
 <br>
 
-## Quantities of Interest (continued)
+### Estimating $\sigma_{short}$ for Moving Range Statistics
 
-### Conditional Reliability (Survival) Function
-
-We may also want to know, after age `t`, what's the probability that a product survives an additional `x` years to age `t + x`? We can restate this in terms of $T_{Fail}$, the time at which the product finally fails. 
-
-We want to know, what's the probability that $T_{Fail}$ is greater than $t + x$, given that we *already know* $T_{Fail}$ must be greater than $t$ (since it hasn't failed yet as of time $t$)? Fortunately, this can be simplified in terms of the reliability functions. As long as we can calculate $R(x + t)$ and $R(t)$, we can find $R(x|t)$, the conditional survival function.
-
-$$ R(x | t) = \frac{ R(x + t) }{ R(t) } = \frac{ P(T_{Fail} > x + t) }{P(T_{Fail} > t)} $$
-So, let's use our nice reliability function from before to help us calculate the conditional reliability function. 
+Let's apply our new knowledge about $d_{2}$ to calculate some upper bounds ($+3 \sigma$) for our average moving range estimates!
 
 ```{r}
-# Reliability Function for exponential distribution
-r = function(t, lambda){ exp(-1*t*lambda)}
+istat_s = indiv %>%
+  summarize(
+    time = time[-1],
+    # get moving range
+    mr = temp %>% diff() %>% abs(),
+    # Get average moving range
+    mrbar = mean(mr),
+    # Get total sample size!
+    d2 = rnorm(n = 10000, mean = 0, sd = 1) %>% diff() %>% abs() %>% mean(),
+    # If we approximate sigma_s....
+    # pretty good!
+    sigma_s = mrbar / d2,
+    # Our subgroup size was 1, right?
+    n = 1,
+    # so this means sigma_s just equals the standard error here
+    se = sigma_s / sqrt(n),
+    # compute upper 3-se bound
+    upper = mrbar + 3 * se,
+    # and lower ALWAYS equals 0 for moving range
+    lower = 0)
+
 ```
 
-So, what's the probability that a left-earloop that has lasted 10 hours will last another 5 hours?
+Why stop there? Let's visualize it!
 
 ```{r}
-r(t = 10 + 5, lambda = stat$lambda) / 
-  r(t = 10, lambda = stat$lambda)
+# Let's get our labels!
+labels = istat_s %>%
+  summarize(
+    time = max(time), 
+    type = c("mean", "+3 s", "lower"),
+    value = c(mrbar[1],  upper[1], lower[1]) %>% round(2),
+    name = paste(type, value, sep = " = "))
+
+# Now make the plot!
+istat_s %>%
+  ggplot(mapping = aes(x = time, y = mr)) +
+  # Plot the confidence intervals
+  geom_ribbon(mapping = aes(x = time, ymin = lower, ymax = upper), 
+              fill = "steelblue", alpha = 0.25) +
+  # Plot mrbar
+  geom_hline(mapping = aes(yintercept = mean(mr)), size = 3, color = "darkgrey") +
+  # Plot moving range
+  geom_line(size = 1) +
+  geom_point(size = 5) +
+  geom_label(data = labels, mapping = aes(x = time, y = value, label = name), hjust = 1) +  
+  labs(x = "Time (Subgroup)", y = "Moving Range",
+       subtitle = "Moving Range Chart")
+
 ```
 
-Looks like there's a 69% chance it will last another 5 hours, given that it has already lasted 10 hours. 
+Again, this process looks pretty sound, firmly within range.
 
-Let's finish up by building ourselves a nice Conditional Reliability function `cr`, which which calculates the conditional probability of any item surviving `x` more hours given that it survived `t` hours and a mean failure rate of `lambda`.
+<br>
+<br>
+
+
+## Constants
+
+### Find *any* $d_x$ Factor
+
+While our book writes extensively about $d_{2}$ and other $d_{whatever}$ factors, it's not strictly necessary to calculate them unless you *need* them. Usually, we do this when we *can't* calculate the standard deviation normally (eg. when we have *only* moving range statistics or *only* a subgroup sample size of `n=1`). If you're working with full data from your process though, you can easily calculate $\sigma_{short}$ right from the empirical data, without ever needing to use $d_x$ factors.
+
+But let's say you *did* need a $d_x$ factor for a subgroup range of a given sample size `n = 1, 2, 3.... n`. Could we calculate some kind of function to give us it?
+
+Funny you should ask! I've written a little helper function you can use.
 
 ```{r}
-cr = function(t, x, lambda){
-  # We can actually nest functions inside each other, 
-  # to make them easier to write
-  r = function(t, lambda){ exp(-1*t*lambda)}
-  
-  # Calculate R(x + t) / R(t) 
-  output <- r(t = t + x, lambda) / r(t = t, lambda)
-  
-  # and return the result!
-  return(output)
+# Let's calculate our own d function
+dn = function(n, reps = 1e4){
+  # For 10,0000 reps
+  tibble(rep = 1:reps) %>%
+    # For each rep,
+    group_by(rep) %>%
+    # Simulate the ranges of n values
+    summarize(r = rnorm(n = n, mean = 0, sd = 1) %>% range() %>% diff() %>% abs()) %>%
+    ungroup() %>%
+    # And calculate...
+    summarize(
+      # Mean range
+      d2 = mean(r),
+      # standard deviation of ranges
+      d3 = sd(r),
+      # and constants for obtaining lower and upper ci for rbar
+      D3 = 1 - 3*(d3/d2), # sometimes written D3
+      D4 = 1 + 3*(d3/d2), # sometimes written D4
+      # Sometimes D3 goes negative; we need to bound it at zero
+      D3 = if_else(D3 < 0, true = 0, false = D3) ) %>%
+    return()
+}
+# Let's try it, where subgroup size is n = 2
+dn(n = 2)
+```
+
+```{r}
+# Let's get the constants we need too.
+# Each of our samples has a sample size of 20
+d = dn(n = 20)
+
+# Check it!
+d
+```
+
+<br>
+<br>
+
+### Using $d_x$ factors
+
+Using `d_n()`, we can make a quick approximation for the upper and lower control limits for the *range* $\bar{R}$ as well (as opposed to $m\bar{R}$)!
+
+```{r}
+# Let's get within group range for temperature...
+stat_w = water %>%
+  group_by(time) %>%
+  summarize(r = temp %>% range() %>% diff() %>% abs(),
+            n_w = n()) # get subgroup size
+# Let's get average within group range for temperature...
+stat = stat_w %>%
+  summarize(rbar = mean(r), # get Rbar
+            n_w = unique(n_w)) # assuming constant subgroup size...
+# Check it!
+stat
+```
+
+```{r}
+# We find that dn() gives us constants D3 and D4... 
+mydstat = dn(n = stat$n_w)
+mydstat
+```
+
+And use these constants to estimate the upper and lower CI for $\bar{r}$!
+
+```{r}
+stat %>%
+  mutate(rbar_lower = rbar * mydstat$D3,
+         rbar_upper = rbar * mydstat$D4) %>%
+  select(rbar, rbar_lower, rbar_upper)
+```
+
+So quick! You could use these values to make a *range* chart now.
+
+```{r}
+remove(stat, stat_w)
+```
+
+<br>
+<br>
+
+### Finding *any* $b_x$ Factor.
+
+We might also want to know how much the standard deviation could possible vary due to sampling error. To figure this out, we'll simulate many many standard deviations from a normal distribution, like in `dn()`, for a given subgroup size `n`. 
+
+Then, we can calculate some quantities of interest like $C_{4}$ (the mean standard deviation from an archetypal normal distribution), $B_{3}$ (a multiplier for getting the lower control limit for 3 sigmas), and $B_{4}$ (a multiplier for getting the upper control limit for 3 sigmas.)
+
+```{r}
+# Let's write a function bn() to calculate our B3 and B4 statistics for any subgroup size n
+bn = function(n, reps = 1e4){
+  tibble(rep = 1:reps) %>%
+    group_by(rep) %>%
+    summarize(s = rnorm(n, mean = 0, sd = 1) %>% sd()) %>%
+    summarize(b2 = mean(s), 
+              b3 = sd(s),
+              C4 = b2, # this is sometimes called C4
+              A3 = 3 / (b2 * sqrt( n  )),
+              B3 = 1 - 3 * b3/b2,
+              B4 = 1 + 3 * b3/b2,
+              # bound B3 at 0, since we can't have a standard deviation below 0
+              B3 = if_else(B3 < 0, true = 0, false = B3)) %>%
+    return()
 }
 ```
 
-```{r}
-# Let's compare our result to above! It's the same!
-cr(t = 10, x = 5, lambda = stat$lambda)
-```
-If we were to visualize our conditional reliability function `cr` below as x ranges from 1 to 50, it would produce the following curve.
+Let's apply this to our `temp` vector. 
 
-```{r, echo = FALSE}
-data.frame(
-  x = 1:50,
-  lambda = stat$lambda) %>%
-  mutate(prob = cr(t = 10, x = x, lambda = stat$lambda)) %>%
-  ggplot(mapping = aes(x = x, y = prob, fill = "Conditional Reliability\nFunction")) +
-  geom_area() +
-  labs(y = "Probability",
-       x = "Lifespan = 10 + x more hours of use",
-       subtitle = "Conditional Reliability of 50 Sampled Masks' Left-Earloops") +
-  guides(fill = "none") +
-  theme_classic(base_size = 14) +
-  theme(panel.border = element_rect(fill = NA, color = "#373737"),
-        axis.line = element_blank())
-```
-
-<br>
-<br>
-
-### $\mu(t)$: Mean Residual Life
-
-The Conditional Reliability Function $R(x|t)$ also allows us to calculate the Mean Residual Life (MRL, a.k.a. $\mu$) at time $t$, in this case referring to the average $x$ more years the product is expected to survive *after* time $t$. We can calculate it using the distribution below.
-
-$$MRL(t) = \mu(t) = \int_{0}^{\infty}{ R(x|t)dx} = \frac{1}{R(t)} \int_{0}^{\infty}{ R(x) dx} $$
-Technically, the Mean Residual Life at time $t$ represents **how many times greater** is the MTTF expected than the probability of survival at time t (proportion of cases not yet failed). It shows the mean expected remaining life years, for however $x$ many more time steps come after $t$.
+First, we'll calculate the standard deviation within each subgroup, saved in `stat_w` under `s`.
 
 ```{r}
-# Calculate the probability of survival R(t = 10)
-prob_survival_t = r(t = 10, lambda = stat$lambda)
-# Calculate the MTTF for +x more years
-mttf_inf = mttf(t = Inf, lambda = stat$lambda)
+# Let's get within group standard deviation for temperature...
+stat_w = water %>%
+  group_by(time) %>%
+  summarize(s = temp %>% sd(),
+            n_w = n()) # get subgroup size
 
-# calculate the Mean Residual Life for t=10
-mttf_inf / prob_survival_t
+stat_w
 ```
 
-We can formalize this as function `mu(t, lambda)`. (Since the Greek letter $\mu$ is pronounced `mu`.)
+Second, we'll calculate the average standard deviation across subgroups, saved in `stat` under `sbar`.
 
 ```{r}
-# Calculate Mean Residual Life
-mu = function(t, lambda){
-  
-  # Get the Reliability Function for exponential distribution
-  r = function(t, lambda){ exp(-1*t*lambda)}
-  
-  # Get the MTTF (integral of reliability function)
-  mttf = antiD(tilde = r(t = t, lambda = lambda) ~ t)
-
-  # Now calculate mu(), the Mean Residual Life function at time t
-  output <- mttf(t = Inf, lambda = lambda) / r(t = t, lambda = lambda)
-  
-  return(output)
-}
+# Let's get average within group range for temperature...
+stat = stat_w %>%
+  summarize(sbar = mean(s), # get Rbar
+            n_w = unique(n_w)) # assuming constant subgroup size...
+# Check it!
+stat
 ```
 
-Let's test it out and compare to our previous version.
+Third, we'll get our constants $B_{3}$ and $B_{4}$!
 
 ```{r}
-mu(t = 10, lambda = stat$lambda)
+# For a subgroup size of 20...
+stat$n_w
+# Let's get our B constants!
+mybstat = bn(n = stat$n_w)
+
+# Check it out!
+mybstat
 ```
-Works perfectly!
 
-
-<br>
-<br>
-
-### $g(t)$: MRL as % of MTTF
-
-We can also estimate $g(t)$, which describes, how *large* is the MRL $\mu(t)$, relative to the MTTF?
-
-When $t = 0$, $\mu(t) = \mu = MTTF$, so we can write $g(t)$ as follows:
-
-$$g(t) = \frac{MRL(t)}{MTTF} = \frac{\mu(t)}{\mu(t = 0)}$$
-So, for the mask component we've been working with, `left_earloop`, we can calculate the MRL-to-MTTF ratio `g(t)` after `t = 10` hours as follows:
+Finally, let's calculate our control limits!
 
 ```{r}
-mu(t = 10, lambda = stat$lambda) / mu(t = 0, lambda = stat$lambda)
+stat = stat %>%
+  # Add our constants to the data.frame...
+  mutate(mybstat) %>%
+  # Calculate 3 sigma control limits
+  mutate(sbar_lower = sbar * B3,
+         sbar_upper = sbar * B4)
+
+# Check it out!
+stat %>%
+  select(sbar, sbar_lower, sbar_upper)
 ```
+
+Now you're all ready to make a control chart showing variation in the standard deviation!
 
 <br>
 <br>
@@ -448,42 +808,21 @@ mu(t = 10, lambda = stat$lambda) / mu(t = 0, lambda = stat$lambda)
 ## Learning Check 3 {.unnumbered #LC3}
 
 **Question**
-  
-A competing firm produced a mask with a wire that fails at a constant rate of 1 failure per 240 hours. 
 
-1. The probability that the wire survives 1 week (`t = 168` hours) in continuous use is... (
-
-2. You buy the mask, and it works without failure for 2 weeks (`t = 336` hours) The probability the wire will snap during the next week (`t = 504` hours) is...
+Using our `dn()` function above, compile for yourself a short table of the $d_{2}$ and $d_{3}$ factors for subgroups sized `2` to `10`.
 
 <details><summary>**[View Answer!]**</summary>
-  
-1. The probability that the wire survives 1 week (`t = 168` hours) in continuous use is... (
 
 ```{r}
-# Write the reliability function
-r = function(t, lambda){ exp(-1*t*lambda)}
+# Let's bind them together!
+dx = bind_rows(
+  dn(2), dn(3), dn(4), dn(5),
+  dn(6), dn(7), dn(8), dn(9), dn(10)) %>%
+  mutate(n = 2:10) %>%
+  select(n, d2, d3)
 
-# Probability it survives 1 month (760 hours) is...
-r(t = 168, lambda = 1 / 240)
-
-# ~ 50%
-```
-
-2. You buy the mask, and it works without failure for 2 weeks (`t = 336` hours) The probability the wire will snap during the next week (`t = 504` hours) is...
-
-```{r}
-# We can calculate it 2 ways.
-
-# First, we can take
-# R(t + x) / R(t)
-r(t = 504, lambda = 1 / 240) / 
-  r(t = 336, lambda = 1 / 240)
-
-# Or, we can calculate the failure function
-f = function(t, lambda){1 - exp(-1*t*lambda)}
-# And just calculate the rate of F(t = x)
-# Because lambda is a constant failure rate
-f(t = 168, lambda = 1 / 240)
+# Look at that cool table! 
+dx
 ```
 
 </details>
@@ -493,685 +832,8 @@ f(t = 168, lambda = 1 / 240)
 <br>
 <br>
 
-## System Failure with Independent Failure Rates
 
-Consider a mask with a left and right earloop, which have independent failure rates $\lambda_{left}$ and $\lambda_{right}$. What's the probability that the left loop fails before the right loop?
-
-We can express this as:
-
-$$ P(j \ fails \ first) = \frac{ \lambda_{j}}{  \sum_{i=1}^{n}{ \lambda{i}} }$$
-
-In other words, the probability that component $j$ fails first reflects how **big** $\lambda_{j}$ is relative to all the other failure rates in total.
-
-Let's test this out with our `masks` dataset.
-
-```{r}
-masks %>%
-  summarize(
-    # Calculate failure rates of left and right loops
-    lambda_left = 1 / mean(left_earloop),
-    lambda_right = 1 / mean(right_earloop),
-    # Calculate the total probability of either loop failing
-    lambda_sum = lambda_left + lambda_right,
-    # Calculate probability the left loop fails first
-    prob_left_first = lambda_left / lambda_sum)
-
-# Looks like a probability of about 44% that left loop fails first.
-```
-
-<br>
-<br>
-
-### Reliability Functions with Multiple Inputs
-
-Suppose a fraction of our masks are shipped in from manufacturer 1, while some are shipped from manufacturer 2. A fraction $p$ is coming from manufacturer 1, while $1-p$ is coming from manufacturer 2. We can use the rules of total probability to calculate the reliability function and other quantities for this mask:
-
-$$R(t) = \sum_{i=1}^{n}{ ( \ p_{i} \times R_i(t) \ ) } = \sum_{i=1}^{n}{ ( \ p_{i} \times e^{-\lambda_{i} t} ) }$$
-
-$$MTTF = \sum_{i=1}^{n}{ \frac{p_i}{\lambda_{i}}}$$
-
-$$f(t) = \frac{-d}{dt}R(t) = \sum_{i=1}^{n}{p\lambda_{i}e^{-\lambda_{i}t}}$$
-
-$$z(t) = \frac{ f(t) }{ R(t)} = \frac{  \sum_{i=1}^{n}{p\lambda_{i}e^{-\lambda_{i}t}} }{ \sum_{i=1}^{n}{ ( \ p_{i} \times R_i(t) \ ) } }  $$
-
-It's pretty messy, but powerful!
-
-Suppose we order 75% of our stock from a manufacturer with a failure rate of 1 fabric tear per 50 hours, but 25% from our stock from a manufacturer with a failure rate of 1 tear per 100 hours. What is the (1) overall mean time to failure and (2) overall failure rate at 100 hours for any random mask in your supply?
-
-We can tally this up in a `stock` data.frame.
-
-```{r}
-stock <- data.frame(
-  prob = c(0.75, 0.25),
-  lambda = c(1 / 50, 1 / 100))
-```
-
-To calculate the MTTF, we just take the sum of the fraction of each proportion and each failure rate lambda.
-
-```{r}
-stock %>%
-  summarize(mttf = sum(prob / lambda))
-```
-
-To calculate the overall failure rate, we will generate the reliability function, take its derivative to get the PDF.
-
-```{r}
-# Let's write an exponential reliability function
-r = function(t, lambda){ exp(-1*t*lambda) }
-
-# Let's derive an exponential PDF f(t), using mosaicCalc's D()
-f = D(-1*r(t, lambda) ~ t)
-```
-
-Then, we use the PDFs $f_i(t)$ and the Reliability functions $R_i(t)$ to get calculate the overall failure rate $z(t)$.
-
-```{r}
-stock %>%
-  summarize(
-    total_f = sum(prob * f(t = 100, lambda = lambda)),
-    total_r = sum(prob * r(t = 100, lambda = lambda)),
-    z = total_f / total_r)
-```
-
-We could even write it as a function, where `p` and `lambda` are equal length vectors for plant 1, plant 2, plant 3, ... plant $n$.
-
-```{r}
-z = function(t){
-  # Set the input percentages of products from plants 1 and 2
-  p = c(0.75, 0.25)
-  # Set the failure rates for each
-  lambda = c(0.02, 0.01)
-  
-  
-  # Let's write an exponential reliability function
-  r = function(t, lambda){ exp(-1*t*lambda) }
-  # Let's derive an exponential PDF f(t),
-  f = D(-1*r(t, lambda) ~ t)
-
-  # Calculate total probability
-  total_f = sum( p * f(t, lambda) )
-  # Calculate total reliability
-  total_r = sum( p * r(t, lambda) )
-  
-  # Calculate overall failure rate
-  z = total_f / total_r
-  
-  return(z)
-}
-# Try it out!
-z(t = 1)
-z(t = 10)
-z(t = 100)
-```
-
-<br>
-<br>
-
-### Phase-Type Distributions
-
-One way to more accurately model the lifespan of a product is to accept that its failure rate may remain constant, but it might change between failure rates as it passes through **phases**. Let's model that!
-
-We can write the time $T$ to critical failure (via either overstress OR degraded failure) as $T = min(T_c, T_d+T_{dc})$.
-
-```{r, echo = FALSE}
-library(DiagrammeR)
-
-c("graph LR",
-  'O(("Overstress"))',
-  'C(("Critical<br>Failure"))',
-  'D(("Degraded<br>Failure"))',
-  'DC(("Critical<br>Degraded"))',
-  "O-->|&lambda;<sub>C</sub>|C",
-  "O-->|&lambda;<sub>D</sub>|D",
-  "D-->|&lambda;<sub>C</sub>|C",
-  "D-->|&lambda;<sub>DC</sub>|DC") %>%
-  paste(collapse = "\n ") %>%
-  mermaid()
-```
-
-The total probability of a product being in any phase $a_{i \to n}$ equals 1.
-
-- $a_c = 25\%$
-
-- $a_d = 40\%$
-
-- $a_dc = 10\%$
-
-We can represent it in a dataframe, like so:
-
-```{r}
-myphase <- data.frame(
-  id = 1:4,
-  phase = c("c", "d", "c", "dc"),
-  alpha = c(0.25, 0.40, 0.25, 0.10),
-  lambda = c(0.50, 1, 0.50, 3)
-)
-```
-
-And, using the same tricks from the preceding section, we can calculate `z(t)`, the overall hazard rate of a phase-type exponential distribution, by taking the sum of the weighted probabilities.
-
-```{r}
-r = function(t, lambda){ exp(-1*t*lambda) }
-# Let's derive an exponential PDF f(t),
-f = D(-1*r(t, lambda) ~ t)
-
-z = function(t, data){
-  output <- data %>%
-    summarize(
-      prob_f = sum(alpha * f(t = t, lambda)),
-      prob_r = sum(alpha * r(t = t, lambda)),
-      ratio_z = prob_f / prob_r)
-  output$ratio_z %>% return()
-}
-
-# Take a peek!
-z(t = 1, data = myphase)
-z(t = 2, data = myphase)
-z(t = 5, data = myphase)
-z(t = 10, data = myphase)
-```
-
-
-<br>
-<br>
-
-## Statistical Techniques for Exponential Distributions 
-
-Finally, we're going to examine several key tools that will help you (1) cross-tabulate failure data over time, (2) use statistics to determine whether an archetypal distribution (eg. exponential) fits your data sufficiently, (3) how to estimate the failure rate $\lambda$ from tabulated data, and (4) how to plan experiments for product testing. Here we go!
-
-<br>
-<br>
-
-### Factors in R
-
-For the next section, you'll need to understand `factors`.
-
-- Factors are ordered vectors. They are helpful in `ggplot` and elsewhere for telling `R` what order to interpret things in.
-
-- You can make your own vector into a `factor` using `factor(vector, levels = c("first", "second", "etc"))`.
-
-```{r}
-# Make character vector
-myvector <- c("surgical", "KN-95", "KN-95", "N-95", "surgical")
-# Turn it into a factor
-myfactor <- factor(myvector, levels = c("N-95", "KN-95", "surgical"))
-# check it
-myfactor
-```
-
-`factor`s can be reduced to `numeric` vectors using `as.numeric()`. This returns the level for each value in the factor.
-
-```{r}
-# Turn the factor numeric
-mynum <- myfactor %>% as.numeric()
-# Compare
-data.frame(myfactor, mynum)
-# for example, N-95, which was ranked first in the factor, receives a 1 anytime the value N-95 appears
-```
-
-<br>
-<br>
-
-### Crosstabulation
-
-Sometimes, we might want to tabulate failures in terms of meaningful units of time, counting the total failures every 5 hours, every 24 hours, etc. Let's learn how!
-
-```{r}
-d1 <- data.frame(t = masks$left_earloop) %>%
-  # classify each value into 5-point width bins (0 to 5, 6-10, 11-15, etc.)
-  # then convert it to a numeric ranking of categories from 1  to n bins
-  mutate(label = cut_interval(t, length = 5))
-
-# Let's take a peek
-d1 %>% glimpse()
-```
-
-**Step 2**: Tabulate Observations per Bin.
-
-```{r}
-d2 <- d1 %>%
-  # For each bin label
-  group_by(label, .drop = FALSE) %>%
-  # Get total observed rows in each bin
-  # .drop = FALSE records factor levels in label that have 0 cases
-  summarize(count = n())
-
-d2 %>% glimpse()
-```
-
-**Step 3**: Get bounds and midpoint of Bins
-
-Last, we might need the bounds (upper and lower value), or the midpoint. Here's how!
-
-```{r}
-d3 <- d2 %>%
-  # Get bin ranking, lower and upper bounds, and midpoint
-  mutate(
-    bin = as.numeric(label),
-    lower = (bin - 1) * 5, 
-    upper = bin * 5,
-    midpoint = (lower + upper) / 2) 
-# Check it!
-d3
-```
-
-<br>
-<br>
-
-### Chi-squared
-
-**Chi-squared** ($\chi^{2}$) is a special statistic used frequently to evaluate the relationship between two categorical variables. In this case, the first variable is the `type` of data (`observed` vs. `model`), while the second variable is `bin`.
-
-Back in Workshop 2, we *visually* compared several distributions to an observed distribution, to determine which fits best. But can we do that statistically? One way to do this is to chop our observed data into bins of `length` equal width using `cut_interval()` from `ggplot2`. We must specify:
-
-**Step 1** Crosstabulate Observed Values into Bins.
-
-```{r}
-# Let's repeat our process from before!
-c1 <- data.frame(t = masks$left_earloop) %>%
-  # Part 1: Split into bins
-  mutate(label = cut_interval(t, length = 5)) %>%
-  # Part 2: Tally up by bin
-  group_by(label, .drop = FALSE) %>%
-  summarize(count = n()) %>%
-  mutate(
-    bin = as.numeric(label),
-    lower = (bin - 1) * 5, 
-    upper = bin * 5,
-    midpoint = (lower + upper) / 2)
-```
-
-**Step 3**: Calculate Observed and Expected Values per Bin.
-
-Sometimes you might only receive **tabulated data**, meaning a table of bins, not the original vector. In that case, start from **Step 3**!
-
-```{r}
-# Get any parameters you need (might need to be provided if only tabulated data)
-mystat = masks %>% summarize(lambda = 1 / mean(left_earloop))
-# Get your 'model' function
-f = function(t, lambda){ 1 - exp(-1*lambda*t) }
-
-# Now calculate cumulatives
-c2 <- c1 %>% 
-  mutate(
-    # Get total units in table
-    total = sum(count),
-    # Get cumulative OBSERVED in that bin
-    o = cumsum(count),
-    # Get cumulative EXPECTED in that bin due to model
-    e = f(t = midpoint, lambda = mystat$lambda) * total)
-    # Note: pexp(t) is equivalent to f(t) for exponential distribution
-    # e = pexp(midpoint, rate = mystat$lambda) * total
-# Check it!
-c2
-```
-
-**Step 4**: Calculate Chi-squared Statistic
-
-- **Chi-squared** here represents the sum of ratios for each bin. Each ratio is the (1) squared difference between the observed and expected value over (2) the expected value. Ranges from 0 to infinity. The bigger (more positive) the statistic, the greater difference between the observed and expected data.
-
-- **Degrees of Freedom (df)** is used as the standard deviation in the chi-squared distribution, to help evaluate *how extreme is our chi-squared statistic?*
-
-- **Chi-squared Distribution** is a distribution of squared deviations from a normal distribution centered at 0. This means it only has positive values.
-
-```{r}
-c3 <- c2 %>%
-  summarize(
-      # Calculate Chi-squared statistic
-    chisq = sum((o - e)^2 / e),
-    # Calculate number of bins (rows)
-    nbin = n(),
-    # Record number of parameters used (jjust lambda)
-    np = 1,
-    # Calculate degree of freedom
-    df = nbin - np - 1)
-# Check it!
-c3
-```
-
-**Step 5**: Calculate p-values and confidence intervals
-
-Last, let's use the `pchisq()` function to evaluate the CDF of the Chi-squared distribution. We'll find out:
-
-- `p_value`: what's the probability of getting a value **greater than or equal to** (more extreme than) our observed chi-squared statistic?
-
-- **"statistically significant"**: if our observed statistic is more extreme than most possible chi-squared statistics (eg. >95% of the distribution), it's probably not due to chance! We call it 'statistically significant.'
-
-```{r}
-# Calculate area remaining under the curve
-c4 <- c3 %>%
-  mutate(p_value = 1 - pchisq(q = chisq, df = df))
-# Check
-c4
-```
-
-For a visual representation:
-
-```{r, echo = FALSE}
-c4 %>%
-  summarize(
-    obs = chisq,
-    null = rchisq(n = 1000, df = df),
-    dnull = dchisq(null, df = df),
-    pnull = pchisq(null, df = df),
-    type = obs > null) %>%
-  ggplot(mapping = aes(x = null, y = dnull, fill = type)) +
-  geom_area(position = "identity") +
-  geom_vline(xintercept = c4$chisq, linetype = "dashed", size = 2)  +
-  annotate(geom = "text", x = 15, y = 0.075, label = paste("Chi-squared = ", round(c4$chisq, 2), 
-                                                           "\n", "p-value = ", round(c4$p_value, 3), sep = ""), 
-           size = 5, fontface = "bold", hjust = 0) +
-  annotate(geom = "text", x = 16, y = 0.015, label = paste(round(c4$p_value, 3)*100, "%", sep = ""), size = 5, fontface = "bold") +
-  labs(y = "Probability Density Function\ndchisq(x, df)",
-       x = "x = 1000 possible Chi-squared values\nrchisq(n = 1000, x, df)",
-       fill = "> Observed\nstatistic",
-       subtitle = "Visual Interpretation of Chi-squared Test p-value") +
-  theme_classic(base_size = 14) +
-  theme(panel.border = element_rect(fill = NA, color = "#373737"),
-        axis.line = element_blank())
-```
-
-**Step 6**: Do it all in one step!
-
-Let's try this one more time, all in one code chunk:
-
-```{r}
-# Get any parameters you need
-# Right now, we'll sub in our observed lambda value,
-mystat = masks %>% summarize(lambda = 1 / mean(left_earloop))
-# Note: if your data is crosstabulated and you DON'T have the observed lambda value,
-# you might need to use the methods described below in 'Estimating Lambda'
-
-# Get your 'model' function
-f = function(t, lambda){ 1 - exp(-1*lambda*t) }
-
-data.frame(t = masks$left_earloop) %>%
-  # Step 1: Split into bins
-  mutate(label = cut_interval(t, length = 5)) %>%
-  # Step 2: Tally up by bin
-  group_by(label, .drop = FALSE) %>%
-  summarize(count = n()) %>%
-  mutate(
-    bin = as.numeric(label),
-    lower = (bin - 1) * 5, 
-    upper = bin * 5,
-    midpoint = (lower + upper) / 2)  %>%
-  # Step 3: Calculate Observed vs. Expected
-  mutate(
-    total = sum(count),
-    o = cumsum(count),
-    e = f(t = midpoint, lambda = mystat$lambda) * total) %>%
- # Calculate Chi-squared statistic and p-value
- summarize(
-    chisq = sum((o - e)^2 / e),
-    nbin = n(),
-    np = 1,
-    df = nbin - np - 1,
-    p_value = 1 - pchisq(q = chisq, df = df))
-
-# And if that's a lot to type every time, you could always code a function for it :)
-```
-
-
-
-
-### Estimating Lambda
-
-Depending on whether we have *complete* data or not, we may need to estimate $\lambda$, rather than compute it directly.
-
-1. If we have a complete sample of data (eg. not censored), then we can just calculate: $\hat{\lambda} = \frac{no. \ of \ failures}{total \ unit \ test \ hours} $
-
-```{r}
-# Eg. 
-1 / mean(masks$left_earloop)
-```
-
-2. If our data is censored or pre-tabulated into groups, we may need to use the `midpoint` and `count` of failures in each `bin` to calculate $\lambda$.
-
-- Tabulated: tallied up in equally sized bins.
-
-- Tabulated, Type I Censoring: experiment stops when time $t$ reaches $limit$.
-
-- Tabulated, Type II Censoring: experiment stops when number of units failed $n_{failed}$ reaches $limit$.
-
-For example, if we receive just the `d3` data.frame we made above, how do we estimate $\lambda$ from it? We will need:
-
-- $r$: total failures (`sum(count > 0)`)
-
-- $n$: total observations (failed or not) (provided; otherwise, $n = r$)
-
-- $\sum_{i=1}^{r}{t_i}$: total unit-hours (`sum(midpoint*count)`)
-
-- $T$: timestep of (1) last failure observed (sometimes written $t_r$)  or (2) last timestep recorded; usually obtained by `max(midpoint)`.
-
-- Unless some cases do not fail, $(n - r)t_z$ will cancel out as `0`.
-
-$$ \hat{\lambda} = \frac{ r  }{ \sum_{i=1}^{r}{t_i}  +  (n - r)t_z} $$
-```{r}
-# Let's calculate it!
-d4 <- d3 %>%
-  summarize(
-    r = sum(count > 0), # total failures
-    hours = sum(midpoint*count), # total failure-hours
-    n = r, # in this case, total failures = total obs
-    tz = max(midpoint), # end of study period
-    # Calculate lambda hat!
-    lambda_hat = r / (hours + (n - r)*tz))
-```
-
-```{r}
-1 / mean(masks$left_earloop)
-```
-Also, our estimate of lambda might be slightly off due to random sampling error. (Every time you take a random sample, there's a little change, right?) So, let's build a **confidence interval** around our estimate.
-
-- We can do so by **weighting** $\hat{\lambda}$ by a factor $k$. 
-
-- This factor $k$ may be greater depending on (1) the total number of failures $r$ and (2) our level of acceptable error ($alpha$). 
-
-- Like any statistic, our estimate $\hat{\lambda}$ has a full *sampling distribution* of $\hat{\lambda}$ values we could get due to random sampling error, with some of them occurring more frequently than others. 
-
-- We want to find the upper and lower bounds around the 90%, 95%, or perhaps 99% *most common* (middle-most) values in that sampling distribution. So, if $alpha = 0.10$, we're going to get a 90% confidence interval (dubbed $interval$) spanning from the 5%~95% of that sampling distribution.
-
-```{r}
-# To calculate a 'one-tailed' 90% CI (eg. we only care if above 90%)
-alpha = 0.10
-ci = 1 - alpha
-```
-
-```{r}
-# To adjust this to be 'two-tailed' 90% CI (eg. we care if below 5% or above 95%)...
-0.5 + (ci / 2)
-0.5 - ci / 2
-```
-
-- No Censoring: If we have complete data (all observations failed!), using this formula to calculate factor $k$:
-
-```{r, eval = FALSE}
-# For example, let's say r = 50
-r = 50
-k = qchisq(ci, df = 2*r) / (2*r)
-```
-
-- Time-Censoring: If we only record up to a specific time (eg. planning an experiment), use **this** formula to calculate factor $k$, setting as the degrees of freedom $df = 2(r+1)$. 
-
-```{r, eval = FALSE}
-# For example, let's say r = 50
-r = 50
-k = qchisq(ci, df = 2*(r+1)) / (2*r)
-```
-
-```{r}
-# Clear these
-remove(r, k)
-```
-
-So, since we do not have time censoring in our `d4` dataset, we can go ahead an calculate the `df = 2*r` and compute the 90% `lower` and `upper` confidence intervals.
-
-```{r}
-d4 %>%
-  summarize(
-    lambda_hat = lambda_hat,
-    r = r,
-    k_upper = qchisq(0.95, df = 2*r) / (2*r),
-    k_lower = qchisq(0.05, df = 2*r) / (2*r),
-    lower = lambda_hat * k_lower,
-    upper = lambda_hat * k_upper)
-```
-
-### Planning Experiments
-
-When planning an experiment, we can use the following formula to determine the necessary values of $r$, $t$, $lambda$, $k$, or $n$ for our experiment to function:
-
-$$ \frac{r}{n \ t} \times k_{r, 1 - \alpha} = \hat{\lambda} $$ 
-
-*Note*: Experiment planning by definition makes time-censored datasets, so you'll need your adjusted $k$ formula so that $df = 2(r+1)$.
-
-Let's try an example. Imagine a company wants to test a new line of masks. Your company can budget `500` hours to test these masks' elastic bands, and they accept that up to `10` of these masks may break in the process. Company policy anticipates a failure rate of just `0.00002` masks per hour, and we want to be `90`% confidence that the failure rate will not *exceed* this level. (But it's fine if it goes below that level.) 
-
-If we aim to fit within these constraints, how many masks need to be tested in this product trial?
-
-```{r}
-# Max failures
-r = 10
-# Number of hours
-t = 500
-# Max acceptable failure rate
-lambda = 0.00002
-
-# Calcuate a one-tailed confidence interval
-alpha = 0.10
-ci = 1 - alpha
-
-# Use these ingredients to calculate the factor k, using time-censored rule df = 2*(r+1)
-k = qchisq(ci, df = 2*(r+1)) / (2*r)
-
-# Reformat 
-# r / (t*n) * k = lambda
-n = k * r  / (lambda * t)
-
-# Check it!
-n
-```
-
-Looks like you'll need a sample of about `r round(n,0)` masks to be able to fit those constraints.
-
-
-
-<br>
-<br>
-
-
----
-
-## Learning Check 4 {.unnumbered #LC4}
-
-**Question**
-  
-A small start-up is product testing a new super-effective mask. They product tested 25 masks over 60 days. They contract you to analyze the masks' lifespan data, recorded below as the number of days to failure. 
-
-```{r}
-# Lifespan in days
-supermasks <- c(1, 2, 2, 2, 3, 3, 4, 4, 5, 9, 13, 15, 17, 19, 
-            20, 21, 23, 24, 24, 24, 32, 33, 33, 34, 54)
-```
-
-1. Cross-tabulate the lifespan distribution in intervals of 7 days.
-
-2. Estimate $\hat{\lambda}$ from the cross-tabulated data.
-
-3. Estimate a 95% confidence interval for $\hat{\lambda}$.
-
-4. *Using the cross-tabulated data*, do these masks' lifespan distribution fit an exponential distribution, or does their distribution differ to a statistically significant degree from the exponential? How much? (eg. statistic and p-value).
-
-
-<details><summary>**[View Answer!]**</summary>
-  
-1. Cross-tabulate the lifespan distribution in intervals of 7 days.
-
-```{r, echo = FALSE}
-# Days to failure
-a <- data.frame(t = supermasks) %>%
-  # Step 1: Split into bins
-  mutate(label = cut_interval(t, length = 7)) %>%
-  # Step 2: Tally up by bin
-  group_by(label, .drop = FALSE) %>%
-  summarize(count = n()) %>%
-  mutate(
-    bin = as.numeric(label),
-    lower = (bin - 1) * 7, 
-    upper = bin * 7,
-    midpoint = (lower + upper) / 2)
-# Check it
-a
-```
-
-2. Estimate $\hat{\lambda}$ from the cross-tabulated data.
-
-```{r}
-# Let's estimate lambda!
-b <- a %>%
-  summarize(
-    r = sum(count > 0), # total failures
-    days = sum(midpoint*count), # total failure-days
-    n = r, # in this case, total failures = total obs
-    tz = max(midpoint), # end of study period
-    # Calculate lambda hat!
-    lambda_hat = r / (days + (n - r)*tz)) 
-# Check it
-b
-```
-
-3. Estimate a 95% confidence interval for $\hat{\lambda}$.
-
-```{r}
-c <- b %>%
-  summarize(
-    lambda_hat = lambda_hat,
-    r = r,
-    k_upper = qchisq(0.975, df = 2*r) / (2*r),
-    k_lower = qchisq(0.025, df = 2*r) / (2*r),
-    lower = lambda_hat * k_lower,
-    upper = lambda_hat * k_upper)
-# Check it
-c
-```
-
-4. *Using the cross-tabulated data*, do these masks' lifespan distribution fit an exponential distribution, or does their distribution differ to a statistically significant degree from the exponential? How much? (eg. statistic and p-value).
-
-```{r}
-# Get your 'model' function
-f = function(t, lambda){ 1 - exp(-1*lambda*t) }
-# Get lambda-hat from b$lambda_hat
-
-# Step 3: Calculate Observed vs. Expected
-d <- a %>%
-  mutate(
-    total = sum(count),
-    o = cumsum(count),
-    e = f(t = midpoint, lambda = b$lambda_hat) * total) %>%
- # Calculate Chi-squared statistic and p-value
- summarize(
-    chisq = sum((o - e)^2 / e),
-    nbin = n(),
-    np = 1,
-    df = nbin - np - 1,
-    p_value = 1 - pchisq(q = chisq, df = df))
-
-# Check it!
-d
-```
-
-
-</details>
-  
----
-
-<br>
-<br>
-
-## Conclusion
-
-Congrats! You made it! You've just picked up some of the key techniques for evaluating product lifespans in `R`!
+All done! Great work!
 
 ```{r, include = FALSE}
 rm(list = ls())

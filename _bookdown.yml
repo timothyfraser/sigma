@@ -6,9 +6,9 @@ rmd_files:
     # Coding for Six Sigma
     "00_part1.Rmd",
     "01_workshop.Rmd", # Coding in R
-    "01_skill_fmea.Rmd", # Failure Mode and Effects Analysis
     "01_skill_ggplot.Rmd", # ggplot
-    
+    "01_skill_fmea.Rmd", # Failure Mode and Effects Analysis
+
     ##################################
     # Statistics & Reliability
     "00_part2.Rmd",
@@ -16,20 +16,20 @@ rmd_files:
     "02_skill_functions.Rmd",
     "03_workshop.Rmd", # Probability
     "04_workshop.Rmd", # Reliability
-    
+
     ##################################
     # Statistical Process Control
     "00_part3.Rmd",
-    "09_workshop.Rmd", # Statistical Process Control
-    "10_workshop.Rmd", # Process Indices & Confidence Intervals
+    "05_workshop.Rmd", # Statistical Process Control
+    "06_workshop.Rmd", # Process Indices & Confidence Intervals
 
     ##################################
     # Life Distributions
     "00_part4.Rmd",
-    "05_workshop.Rmd", # Life Distributions I
-    "06_workshop.Rmd", # Life Distributions II
-    "07_workshop.Rmd", # Acceleration Factors
-    "08_workshop.Rmd", # Fault Trees (eg. application of life distributions, etc.)
+    "07_workshop.Rmd", # Life Distributions I
+    "08_workshop.Rmd", # Life Distributions II
+    "09_workshop.Rmd", # Fault Trees (eg. application of life distributions, etc.)
+    "10_workshop.Rmd", # Acceleration Factors
     
     ##################################
     # Design of Experiments / RSM
@@ -39,9 +39,9 @@ rmd_files:
     "13_workshop.Rmd", # T-tests / Anova (Null Distributions)
     "14_workshop.Rmd", # factorial / interactions
     "15_workshop.Rmd" # rsm
-    
-    ##################################
-    #"99_references.Rmd"
+    # 
+    # ##################################
+    # #"99_references.Rmd"
   ]
 output_dir: "docs"
 delete_merged_file: TRUE

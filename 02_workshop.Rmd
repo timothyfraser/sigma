@@ -1,8 +1,8 @@
-# Workshop: Distributions and Descriptive Statistics
+# Workshop: Distributions and Descriptive Statistics {#workshop_2}
 
 ```{r setup_workshop_2, include=FALSE}
 ## Global options
-knitr::opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 library(knitr)
 library(kableExtra)
 library(magick)
@@ -118,7 +118,7 @@ sw %>% hist()
 <br>
 <br>
 
-## 2. Descriptive Statistics {.tabset .tabset-pills}
+## Descriptive Statistics {.tabset .tabset-pills}
 
 What's a statistic? A statistic is a **single number** that **summarizes something about a sample**. That's it! No magic! Statistics is the process of making statistics (eg. many single numbers) so we can understand samples of data! They help people make decisions when faced with uncertainty. We'll learn several functions to make statistics that describe our distributions.
 

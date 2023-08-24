@@ -1,7 +1,7 @@
-# Workshop: Bivariate Regression: Modeling Diamond Pricing
+# Workshop: Bivariate Regression: Modeling Diamond Pricing {#workshop_11}
 
 ```{r setup_workshop_11, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, cache = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE, message = FALSE, warning = FALSE)
 
 library(tidyverse)
 library(rmdformats)

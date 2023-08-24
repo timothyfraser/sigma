@@ -1,7 +1,7 @@
-# Workshop: Design of Experiments in R
+# Workshop: Design of Experiments in R {#workshop_13}
 
 ```{r setup_workshop_13, include =FALSE}
-knitr::opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 library(tidyverse)
 ```
 

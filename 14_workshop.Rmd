@@ -1,7 +1,7 @@
-# Workshop: Factorial Design and Interaction Effects in `R`
+# Workshop: Factorial Design and Interaction Effects in `R` {#workshop_14}
 
 ```{r setup_workshop_14, include =FALSE}
-knitr::opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 library(tidyverse)
 ```
 
