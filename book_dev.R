@@ -30,7 +30,7 @@ browseURL("docs/introduction.html")
 
 
 # Assuming we're happy, commit it!
-git_commit_all(message = "OK!")
+git_commit_all(message = "...")
 git_push() # Push to Github!
 
 # Clear environment
