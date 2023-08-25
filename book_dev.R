@@ -31,6 +31,7 @@ browseURL("docs/introduction.html")
 
 
 # Assuming we're happy, commit it!
+git_add(files = dir(all.files = TRUE, recursive = TRUE))
 git_commit_all(message = "...")
 git_push() # Push to Github!
 
