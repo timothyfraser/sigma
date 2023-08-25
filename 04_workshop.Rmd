@@ -1,4 +1,4 @@
-# Workshop: System Reliability {#workshop_4}
+# Workshop: System Reliability
 
 ```{r setup_workshop_4, include=FALSE}
 ## Global options

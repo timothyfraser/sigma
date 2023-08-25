@@ -1,4 +1,4 @@
-# Workshop: Bivariate Regression: Modeling Diamond Pricing {#workshop_11}
+# Workshop: Bivariate Regression: Modeling Diamond Pricing
 
 ```{r setup_workshop_11, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, cache = TRUE, message = FALSE, warning = FALSE)

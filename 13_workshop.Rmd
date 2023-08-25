@@ -1,4 +1,4 @@
-# Workshop: Design of Experiments in R {#workshop_13}
+# Workshop: Design of Experiments in R
 
 ```{r setup_workshop_13, include =FALSE}
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)

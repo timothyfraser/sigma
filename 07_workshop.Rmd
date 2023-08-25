@@ -1,4 +1,4 @@
-# Workshop: Useful Life Distributions (Exponential) {#workshop_7}
+# Workshop: Useful Life Distributions (Exponential)
 
 ```{r setup_workshop_5, include = FALSE}
 library(tidyverse)

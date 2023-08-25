@@ -1,4 +1,4 @@
-# Workshop: Probability {#workshop_3}
+# Workshop: Probability
 
 ```{r setup_workshop_3, include=FALSE}
 ## Global options

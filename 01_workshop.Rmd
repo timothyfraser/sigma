@@ -1,4 +1,4 @@
-# Workshop: Coding in R {#workshop_1}
+# Workshop: Coding in R
 
 ```{r setup_workshop_1, include=FALSE}
 ## Global options

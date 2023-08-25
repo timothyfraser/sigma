@@ -1,4 +1,4 @@
-# Workshop: Response Surface Methodology in `R` {#workshop_15}
+# Workshop: Response Surface Methodology in `R`
 
 ```{r setup_workshop_15, include =FALSE}
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)

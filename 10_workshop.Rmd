@@ -1,4 +1,4 @@
-# Workshop: Physical Acceleration Models {#workshop_10}
+# Workshop: Physical Acceleration Models
 
 ```{r setup_workshop_7, include = FALSE}
 nm = loadedNamespaces()

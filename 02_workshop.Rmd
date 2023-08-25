@@ -1,4 +1,4 @@
-# Workshop: Distributions and Descriptive Statistics {#workshop_2}
+# Workshop: Distributions and Descriptive Statistics
 
 ```{r setup_workshop_2, include=FALSE}
 ## Global options

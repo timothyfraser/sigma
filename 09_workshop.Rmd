@@ -1,4 +1,4 @@
-# Workshop: Fault Tree Analysis in R {#workshop_9}
+# Workshop: Fault Tree Analysis in R
 
 ```{r setup_workshop_8, include = FALSE}
 library(tidyverse)

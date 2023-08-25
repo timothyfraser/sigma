@@ -1,4 +1,4 @@
-# Workshop: Statistical Process Control in `R` {#workshop_5}
+# Workshop: Statistical Process Control in `R`
 
 ```{r setup_workshop_9, include = FALSE, echo = FALSE}
 library(tidyverse)

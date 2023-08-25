@@ -1,7 +1,7 @@
 rmd_files: 
   [ 
     ###################################
-    "00_index.Rmd", 
+    "index.Rmd", 
     ###################################
     # Coding for Six Sigma
     "00_part1.Rmd",

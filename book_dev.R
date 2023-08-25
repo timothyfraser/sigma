@@ -24,7 +24,7 @@ unlink("_main.Rmd")
 unlink("_book", recursive = TRUE)
 unlink("docs", recursive = TRUE)
 # Render the book!
-bookdown::render_book(input = "00_index.Rmd",  output_format = "bookdown::gitbook")
+bookdown::render_book(input = "index.Rmd",  output_format = "bookdown::gitbook")
 
 browseURL("docs/introduction.html")
 

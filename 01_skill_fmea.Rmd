@@ -1,4 +1,4 @@
-# Skill: Failure Modes and Effects Analysis in R {.unnumbered #skill_fmea}
+# Skill: Failure Modes and Effects Analysis in R {.unnumbered}
 
 ```{r setup_skill_fmea, include=FALSE}
 ## Global options

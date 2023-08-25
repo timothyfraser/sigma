@@ -1,4 +1,4 @@
-# Skill: Visualization with `ggplot` in `R` {.unnumbered #skill_ggplot}
+# Skill: Visualization with `ggplot` in `R` {.unnumbered}
 
 ```{r setup_skill_gpplot, include = FALSE}
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
