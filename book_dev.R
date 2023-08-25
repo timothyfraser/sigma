@@ -26,7 +26,7 @@ unlink("docs", recursive = TRUE)
 # Render the book!
 bookdown::render_book(input = "index.Rmd",  output_format = "bookdown::gitbook")
 
-serve_book(dir = ".", output_dir = "docs", preview = TRUE, in_session = FALSE)
+serve_book(dir = ".", output_dir = "docs", preview = FALSE, in_session = FALSE)
 browseURL("docs/introduction.html")
 
 

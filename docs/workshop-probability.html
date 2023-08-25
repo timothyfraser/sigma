@@ -4,26 +4,24 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Workshop: Probability | System Reliability and Six Sigma in R</title>
-  <meta name="description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  <title>3 Workshop: Probability | _main</title>
+  <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Workshop: Probability | System Reliability and Six Sigma in R" />
+  <meta property="og:title" content="3 Workshop: Probability | _main" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Workshop: Probability | System Reliability and Six Sigma in R" />
+  <meta name="twitter:title" content="3 Workshop: Probability | _main" />
   
-  <meta name="twitter:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  
   
 
-<meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2023-08-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -790,7 +788,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">System Reliability and Six Sigma in R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
           </h1>
         </div>
 
@@ -961,8 +959,8 @@ In other words, if two events are <em>interdependent</em>, you <strong>multiply.
 <p>I like to map these out, so I understand visually what all the possible pathways are. Here’s a chart I made using <code>mermaid</code>, where I’ve diagrammed each possible set of actions, like choosing Bag 1 then Marble <em>a</em> (1 pathway), choosing Bag 1 then Marble <em>b</em> (a second pathway), etc.</p>
 <p>If we look at the ties to the marbles, you’ll see I labeled each tie to a red marble as <code>1</code> and each tie to a blue marble as <code>0</code>. If we add these pathways up, we’ll get the <code>total probability</code>: <code>0.67</code> (aka <code>2/3</code>).</p>
 <div class="figure" style="text-align: center">
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-e5bb25b9ac8de71e49b0" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-e5bb25b9ac8de71e49b0">{"x":{"diagram":"graph TD\n you[You]\n subgraph Bags\n b1[Bag 1]\n b2[Bag 2]\n b3[Bag 3]\n end\n subgraph Marbles\n b1m1((Marble <i>a<\/i>))\n b1m2((Marble <i>b<\/i>))\n b1m3((Marble <i>c<\/i>))\n style b1m1 fill:#FB52A5\n style b1m2 fill:#FB52A5\n style b1m3 fill:#FB52A5\n b2m1((Marble <i>d<\/i>))\n b2m2((Marble <i>e<\/i>))\n b2m3((Marble <i>f<\/i>))\n style b2m1 fill:#FB52A5\n style b2m2 fill:#84A3F5\n style b2m3 fill:#84A3F5\n b3m1((Marble <i>g<\/i>))\n b3m2((Marble <i>h<\/i>))\n b3m3((Marble <i>j<\/i>))\n style b3m1 fill:#84A3F5\n style b3m2 fill:#FB52A5\n style b3m3 fill:#FB52A5\n end\n you--> b1\n you--> b2\n you--> b3\n b1-->|1|b1m1\n b1-->|1|b1m2\n b1-->|1|b1m3\n b2-->|1|b2m1\n b2-->|0|b2m2\n b2-->|0|b2m3\n b3-->|0|b3m1\n b3-->|1|b3m2\n b3-->|1|b3m3"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-a985ceb66dcd77f44fed" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-a985ceb66dcd77f44fed">{"x":{"diagram":"graph TD\n you[You]\n subgraph Bags\n b1[Bag 1]\n b2[Bag 2]\n b3[Bag 3]\n end\n subgraph Marbles\n b1m1((Marble <i>a<\/i>))\n b1m2((Marble <i>b<\/i>))\n b1m3((Marble <i>c<\/i>))\n style b1m1 fill:#FB52A5\n style b1m2 fill:#FB52A5\n style b1m3 fill:#FB52A5\n b2m1((Marble <i>d<\/i>))\n b2m2((Marble <i>e<\/i>))\n b2m3((Marble <i>f<\/i>))\n style b2m1 fill:#FB52A5\n style b2m2 fill:#84A3F5\n style b2m3 fill:#84A3F5\n b3m1((Marble <i>g<\/i>))\n b3m2((Marble <i>h<\/i>))\n b3m3((Marble <i>j<\/i>))\n style b3m1 fill:#84A3F5\n style b3m2 fill:#FB52A5\n style b3m3 fill:#FB52A5\n end\n you--> b1\n you--> b2\n you--> b3\n b1-->|1|b1m1\n b1-->|1|b1m2\n b1-->|1|b1m3\n b2-->|1|b2m1\n b2-->|0|b2m2\n b2-->|0|b2m3\n b3-->|0|b3m1\n b3-->|1|b3m2\n b3-->|1|b3m3"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 (#fig:img_mermaid)Drawing Probability Diagrams
 </p>
@@ -1820,7 +1818,7 @@ qexp()
 <span id="cb392-2"><a href="workshop-probability.html#cb392-2" tabindex="-1"></a>dsim <span class="ot">&lt;-</span> visits <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">approxfun</span>()</span>
 <span id="cb392-3"><a href="workshop-probability.html#cb392-3" tabindex="-1"></a><span class="co"># Try our density function for our simulated data!</span></span>
 <span id="cb392-4"><a href="workshop-probability.html#cb392-4" tabindex="-1"></a><span class="fu">dsim</span>(<span class="dv">5</span>)</span></code></pre></div>
-<pre><code>## [1] 0.1614332</code></pre>
+<pre><code>## [1] 0.1662681</code></pre>
 <div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="workshop-probability.html#cb394-1" tabindex="-1"></a><span class="co"># Pretty close to our results from dpois()!</span></span></code></pre></div>
 <p><br>
 <br></p>
@@ -1848,7 +1846,7 @@ qexp()
 <span id="cb399-7"><a href="workshop-probability.html#cb399-7" tabindex="-1"></a>  <span class="fu">approxfun</span>()</span>
 <span id="cb399-8"><a href="workshop-probability.html#cb399-8" tabindex="-1"></a><span class="co"># Check it!</span></span>
 <span id="cb399-9"><a href="workshop-probability.html#cb399-9" tabindex="-1"></a><span class="fu">psim</span>(<span class="dv">5</span>)</span></code></pre></div>
-<pre><code>## [1] 0.4246153</code></pre>
+<pre><code>## [1] 0.4371619</code></pre>
 <div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="workshop-probability.html#cb401-1" tabindex="-1"></a><span class="co"># Pretty close to cdf5!</span></span></code></pre></div>
 <p><br>
 <br></p>
