@@ -341,7 +341,7 @@ diff
 
 `diff` measures how far / how skewed each of these values ($x$) are from the mean $\bar{x}$). See the visual below!
 
-```{r, echo = FALSE, message=FALSE, warning = FALSE}
+```{r w2_plot1, echo = FALSE, message=FALSE, warning = FALSE}
 mylines <- data.frame(
   x = sort(sw),
   xbar = mean(sw)) %>%
@@ -538,7 +538,7 @@ kurt
 
 We can measure kurtosis! A pretty normal bell curve has a kurtosis of about `3`, so our data doesn't demonstrate much kurtosis. Kurtosis ranges from 0 to infinity (it is always positive), and the higher it goes, the pointier the distribution!
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
+```{r w2_plot2, echo = FALSE, message = FALSE, warning = FALSE}
 # The pearsonDS package can let us simulate data with specific skew and kurtosis 
 stat_mean <- mean(sw)
 stat_var <- var(sw)
@@ -653,7 +653,7 @@ remove(skewness, kurtosis, x)
 
 Finally, to describe **shape**, we need some shapes to compare our distributions to. Fortunately, the ```rnorm()```, ```rbinom()```, ```rpois()```, and ```rgamma()``` functions allow us to draw the shapes of several common distributions. **Table 2** shows the shape of these distributions, and their ranges.
 
-```{r, echo = FALSE, fig.caption = "Table 2: Examples of Simulated Distributions"}
+```{r w2_table2, echo = FALSE, fig.caption = "Table 2: Examples of Simulated Distributions"}
 mysample <- bind_rows(
   tibble(value = rnorm(1000, mean = 0, sd = 1), type = "Normal"),
   tibble(value = rpois(1000, lambda = 1), type = "Poisson"),
@@ -905,7 +905,7 @@ mysim <- bind_rows(
 
 Next, we can visualize those distributions using ```geom_density()``` in ggplot (or ```geom_histogram()```, really, if that floats your boat).
 
-```{r}
+```{r w2_plot3}
 # Let's write the initial graph and save it as an object
 g1 <- ggplot(data = mysim, mapping = aes(x = x, fill = type)) +
   geom_density(alpha = 0.5) +
@@ -921,7 +921,7 @@ Personally, I can't read much out of that, so it would be helpful to narrow in t
 g1 +
   xlim(0,10)
 ```
-```{r, include = FALSE}
+```{r w2_plot3_save, include = FALSE}
 ggsave(g1 + xlim(0,10), file = "images/2_viz.png", dpi = 500, width = 8, height = 5)
 ```
 
@@ -990,7 +990,7 @@ corgisim <- bind_rows(
 
 Finally, let's visualize it!
 
-```{r}
+```{r w2_plot4}
 # Visualize!
 ggplot(data = corgisim, mapping = aes(x = x, fill = type)) +
   geom_density(alpha = 0.5) +

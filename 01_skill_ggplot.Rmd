@@ -63,7 +63,7 @@ Our data has six variables. Great!
 
 Using the `gapminder` data, let's map a series of vectors to become aesthetic features in the visualization (point, colors, fills, etc.).
                           
-```{r}
+```{r plot5}
 ggplot(data = gapminder, mapping = aes(
   # Let's make the x-axis gross-domestic product per capita (wealth per person)
   x = gdpPercap, 
@@ -77,7 +77,7 @@ That's because ggplot needs helper functions to add aesthetic features to the gr
 
 For example, adding `+ geom_point()` will *overlay* a scatterplot.
 
-```{r}
+```{r plot6}
 # Make a scatterplot
 ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + # same as above, except "+"
   geom_point()
@@ -111,7 +111,7 @@ The graph above shows that as average wealth (GDP per capita) in a country incre
   
 What happens when you add the `alpha`, changing its values in the 3 visuals below?
 
-```{r}
+```{r plot7}
 # Run the following code:
 
 ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
@@ -149,7 +149,7 @@ a. If you want to make it **a single color**, where do you need to write `color 
 
 b. If you want to make it **multiple colors** according to a vector, where do you need to write `color = `?
 
-```{r, eval = FALSE}
+```{r plot8, eval = FALSE}
 # Run the following code:
 
 # Version 1
@@ -180,7 +180,7 @@ To assign multiple colors, you need to put the `color` *inside* the `aes(...)` p
 
 We can (and should!) make our visualizations much more readable by adding appropriate labels.
 
-```{r}
+```{r plot9}
 ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, 
 color = continent)) +
   geom_point(alpha = 0.5) +
@@ -197,7 +197,7 @@ We can actually save visualizations as objects too, which can make things faster
 
 Let's save our visual as `myviz`
 
-```{r}
+```{r plot10}
 myviz <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, 
                                                 color = continent)) + 
   geom_point(alpha = 0.5) +
@@ -221,7 +221,7 @@ Next, let's try a few more learning check that will ask you to try our ways to i
 **Question**
   
 Now run `myviz` - what happens?
-```{r}
+```{r plot11}
 myviz
 ```
 
@@ -244,21 +244,21 @@ When you save a ggplot to an `object`, eg. naming it `myviz`, you can call up th
 
 We can do better, adding things onto our myviz object! Try changing themes. What happens below?
 
-```{r}
+```{r plot12}
 # Version theme_bw
 myviz +
 # How about this theme?
 theme_bw()
 ```
 
-```{r}
+```{r plot13}
 # Version theme_dark
 myviz +
 # How about this theme?
 theme_dark()
 ```
 
-```{r}
+```{r plot14}
 # Version theme_classic
 myviz +
 # How about this theme?
@@ -301,7 +301,7 @@ glimpse(diamonds)
 Looks like `cut` is an ordinal variable (fair, good, ideal, etc.), while `price` is numeric (eg. dollars).
 A boxplot might be helpful!
 
-```{r}
+```{r plot15}
 ggplot(data = diamonds, mapping = aes(x = cut, y = price, group = cut)) +
   # notice how we added group = cut, to tell it to use 5 different boxes, one per cut?
   geom_boxplot()
@@ -324,7 +324,7 @@ Let's make this visualization more visually appealing.
 
 What changed in the code to make these two different visual effects? Why? (*Hint: fill.*)
 
-```{r}
+```{r plot16}
 ggplot(data = diamonds, mapping = aes(x = cut, y = price, group = cut)) +
   geom_boxplot(fill = "steelblue")
 
@@ -352,7 +352,7 @@ In the first visual, we assigned all the boxplots to have the same fill (`fill =
  
 Sometimes, the names of categories won't fit well. We can try the following. What did we do?
 
-```{r, eval = FALSE}
+```{r plot17, eval = FALSE}
 ggplot(data = diamonds, mapping = aes(x = cut, y = price, 
                                       group = cut, fill = cut)) +
   geom_boxplot() + 
@@ -382,7 +382,7 @@ Sometimes, the legend doesn't fit well. We can try this:
 
 What happens when you change `legend.position` from `"right"` to `"bottom"` to `"left"` to `"top"`?
 
-```{r, eval = FALSE}
+```{r plot18, eval = FALSE}
 ggplot(data = diamonds, mapping = aes(x = cut, y = price,
   group = cut, fill = cut)) +
   geom_boxplot() + coord_flip() +
@@ -424,7 +424,7 @@ For example, below is a **histogram.**  It visualizes the approximate distributi
 
 We can see how frequently `diamonds` are sold for certain prices versus others.
 
-```{r}
+```{r plot19}
 ggplot(data = diamonds, mapping = aes(x = price, group = cut, fill = cut)) +
   geom_histogram(color = "white") + # notice new function here
   labs(x = "Price (USD)",
@@ -477,7 +477,7 @@ Finally, we might want to break up our visual into multiple parts. We can use `f
 
 What changed in the code below, and what did it result in?
 
-```{r, eval = FALSE}
+```{r plot20, eval = FALSE}
 ggplot(data = diamonds, mapping = aes(x = price, fill = cut)) +
   geom_histogram(color = "white") + 
   facet_wrap(~cut) + # must be categorical variable

@@ -24,7 +24,8 @@ We'll be using RStudio.Cloud, a virtual version of R you can access from any com
 
 ### Accessing your First RStudio.Cloud Tutorial {-}
 
-Today's tutorial is at the following link: https://timothyfraser.github.io/sysen/workshop_1
+Today's tutorial is at the following link: https://timothyfraser.com/sigma/workshop_1
+
 
 1. Please copy and paste it into your browser url bar! 
 
@@ -32,7 +33,7 @@ Today's tutorial is at the following link: https://timothyfraser.github.io/sysen
 
 3. Read and follow along with the instructions on the webpage! Read the tutorial code (below), and then type it in and run it in your R session!
 
-```{r, echo = FALSE, out.width = "100%", fig.align='center', fig.cap= "Visual Intro to Using RStudio.Cloud"}
+```{r graphic_1, echo = FALSE, out.width = "100%", fig.align='center', fig.cap= "Visual Intro to Using RStudio.Cloud"}
 knitr::include_graphics(path = "images/1_0.png")
 ```
 
@@ -50,7 +51,7 @@ It contains two kinds of text:
 
 2. 'comments' - any text that immediately follows a '#' sign.
 
-```{r}
+```{r example_comment}
 # For example,
 # Comments are ignored by the calculator, so we can write ourselves notes.
 ```
@@ -696,7 +697,7 @@ hist(allsw$height)
 
 ```hist()``` is great for a quick check, but for anything more complex, we're going to use ```ggplot2```, the most popular visualization package in R. 
 
-```{r}
+```{r plot1}
 # Load ggplot2 package
 library(ggplot2)
 
@@ -723,7 +724,7 @@ Looks much nicer, right? Lots more code, but lots more options for customizing. 
 
 The value of ```ggplot2``` really comes alive when we make complex visuals. For example, our data ```allsw$height``` essentially contains 3 vectors, one per state; one for MA, one for RI, one for ME. Can we visualize *each* of these vectors' distributions using separate histograms?
 
-```{r}
+```{r plot2}
 # Repeat code from before...
 ggplot(data = allsw, mapping = aes(x = height)) +
   geom_histogram(color = "white", fill = "steelblue", binwidth = 0.5) +
@@ -759,14 +760,14 @@ Challenge: Please make a histogram of Jun Kanda's sample of seawall heights (```
   
 1. First, make a histogram using the ```hist()``` function. 
 
-```{r}
+```{r plot3}
 # Tell R to make a histogram from the 'seawall_m' vector inside 'jp'!
 hist(jp$seawall_m)
 ```
 
 2. Then, try and use the ```geom_histogram()``` function from ```ggplot2```!
 
-```{r}
+```{r plot4}
 # Tell ggplot to grab the 'seawall_m' vector from the 'jp' data.frame,
 # and make a histogram!
 ggplot(data = jp, mapping = aes(x = seawall_m)) +
