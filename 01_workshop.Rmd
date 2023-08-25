@@ -3,6 +3,8 @@
 ```{r setup_workshop_1, include=FALSE}
 ## Global options
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+library(dplyr)
+library(knitr)
 ```
 
 Welcome to RStudio Cloud! You made it! This document will introduce you to how to start coding in R, using RStudio Cloud. We will use the R statistical coding language frequently in class to conduct analyses and visualization.

@@ -44,4 +44,6 @@ rmd_files:
     # #"99_references.Rmd"
   ]
 output_dir: "docs"
+new_session: yes
+book_filename: "_main.md"
 delete_merged_file: TRUE

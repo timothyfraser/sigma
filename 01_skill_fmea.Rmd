@@ -3,6 +3,7 @@
 ```{r setup_skill_fmea, include=FALSE}
 ## Global options
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+library(dplyr)
 library(knitr)
 library(kableExtra)
 library(magick)
