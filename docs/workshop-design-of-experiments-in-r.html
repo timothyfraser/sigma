@@ -4,24 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>13 Workshop: Design of Experiments in R | _main</title>
-  <meta name="description" content="" />
+  <title>13 Workshop: Design of Experiments in R | System Reliability and Six Sigma in R</title>
+  <meta name="description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="13 Workshop: Design of Experiments in R | _main" />
+  <meta property="og:title" content="13 Workshop: Design of Experiments in R | System Reliability and Six Sigma in R" />
   <meta property="og:type" content="book" />
   
-  
+  <meta property="og:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="13 Workshop: Design of Experiments in R | _main" />
+  <meta name="twitter:title" content="13 Workshop: Design of Experiments in R | System Reliability and Six Sigma in R" />
   
-  
+  <meta name="twitter:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
   
 
+<meta name="author" content="Timothy Fraser, PhD" />
 
 
+<meta name="date" content="2023-08-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -152,7 +154,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#getting-started"><i class="fa fa-check"></i>Getting Started</a>
 <ul>
 <li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#making-an-rstudio.cloud-account"><i class="fa fa-check"></i>Making an RStudio.Cloud account</a></li>
-<li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#accessing-your-first-rstudio.cloud-tutorial"><i class="fa fa-check"></i>Accessing your First RStudio.Cloud Tutorial</a></li>
+<li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#using-r-for-the-first-time"><i class="fa fa-check"></i>Using R for the First Time</a></li>
 </ul></li>
 <li class="chapter" data-level="1.1" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#introduction-to-r"><i class="fa fa-check"></i><b>1.1</b> Introduction to <code>R</code></a></li>
 <li class="chapter" data-level="1.2" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#basic-calculations-in-r"><i class="fa fa-check"></i><b>1.2</b> Basic Calculations in R</a></li>
@@ -788,7 +790,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">System Reliability and Six Sigma in R</a>
           </h1>
         </div>
 
@@ -917,9 +919,9 @@ We can see from above that donuts from machine <code>b</code> do sure seem to we
 <pre><code>## # A tibble: 3 × 4
 ##     rep xbar_a xbar_b   dbar
 ##   &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-## 1     1   30.0   30.1 0.0400
-## 2     2   29.8   30.3 0.496 
-## 3     3   30.0   30.1 0.0320</code></pre>
+## 1     1   30.3   29.8 -0.528
+## 2     2   29.8   30.3  0.576
+## 3     3   30.2   29.9 -0.368</code></pre>
 <p>Now, let’s calculate - what percentage of random statistics were more extreme than than our observed statistic?</p>
 <div class="sourceCode" id="cb969"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb969-1"><a href="workshop-design-of-experiments-in-r.html#cb969-1" tabindex="-1"></a>perm <span class="sc">%&gt;%</span> </span>
 <span id="cb969-2"><a href="workshop-design-of-experiments-in-r.html#cb969-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
@@ -1005,12 +1007,12 @@ We can see from above that donuts from machine <code>b</code> do sure seem to we
 <pre><code>## # A tibble: 6 × 4
 ##     rep xbar_a xbar_b  dbar
 ##   &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
-## 1     1   27.8   30.7  2.89
-## 2     2   28.0   32.0  4.01
-## 3     3   28.2   32.0  3.77
-## 4     4   28.4   31.9  3.51
-## 5     5   28.5   31.2  2.62
-## 6     6   28.5   31.0  2.52</code></pre>
+## 1     1   28.5   31.5  3.04
+## 2     2   28.2   32.2  4.05
+## 3     3   28.4   32.5  4.13
+## 4     4   28.6   30.9  2.29
+## 5     5   27.9   30.7  2.76
+## 6     6   28.3   31.9  3.60</code></pre>
 <p>We can then use <code>summarize()</code> to compute quantities of interest from our bootstrapped sampling distribution of <code>dbar</code> in <code>stat_boot</code>, like the standard deviation (which would be the literal standard error, in this case), and confidence intervals.</p>
 <div class="sourceCode" id="cb975"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb975-1"><a href="workshop-design-of-experiments-in-r.html#cb975-1" tabindex="-1"></a>stat_boot <span class="sc">%&gt;%</span></span>
 <span id="cb975-2"><a href="workshop-design-of-experiments-in-r.html#cb975-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
@@ -1025,7 +1027,7 @@ We can see from above that donuts from machine <code>b</code> do sure seem to we
 <pre><code>## # A tibble: 1 × 4
 ##   estimate    se lower upper
 ##      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1     3.35 0.790  1.77  4.91</code></pre>
+## 1     3.35 0.755  1.90  4.79</code></pre>
 <p><br>
 <br></p>
 </div>

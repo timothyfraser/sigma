@@ -4,24 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Skill: Failure Modes and Effects Analysis in R | _main</title>
-  <meta name="description" content="" />
+  <title>Skill: Failure Modes and Effects Analysis in R | System Reliability and Six Sigma in R</title>
+  <meta name="description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Skill: Failure Modes and Effects Analysis in R | _main" />
+  <meta property="og:title" content="Skill: Failure Modes and Effects Analysis in R | System Reliability and Six Sigma in R" />
   <meta property="og:type" content="book" />
   
-  
+  <meta property="og:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Skill: Failure Modes and Effects Analysis in R | _main" />
+  <meta name="twitter:title" content="Skill: Failure Modes and Effects Analysis in R | System Reliability and Six Sigma in R" />
   
-  
+  <meta name="twitter:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
   
 
+<meta name="author" content="Timothy Fraser, PhD" />
 
 
+<meta name="date" content="2023-08-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -152,7 +154,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#getting-started"><i class="fa fa-check"></i>Getting Started</a>
 <ul>
 <li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#making-an-rstudio.cloud-account"><i class="fa fa-check"></i>Making an RStudio.Cloud account</a></li>
-<li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#accessing-your-first-rstudio.cloud-tutorial"><i class="fa fa-check"></i>Accessing your First RStudio.Cloud Tutorial</a></li>
+<li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#using-r-for-the-first-time"><i class="fa fa-check"></i>Using R for the First Time</a></li>
 </ul></li>
 <li class="chapter" data-level="1.1" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#introduction-to-r"><i class="fa fa-check"></i><b>1.1</b> Introduction to <code>R</code></a></li>
 <li class="chapter" data-level="1.2" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#basic-calculations-in-r"><i class="fa fa-check"></i><b>1.2</b> Basic Calculations in R</a></li>
@@ -788,7 +790,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">System Reliability and Six Sigma in R</a>
           </h1>
         </div>
 
@@ -849,8 +851,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Plus, several possible failure modes are involved, as discussed below.</p>
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-2e2ee69c318d01433c44" style="width:100%;height:384px;"></div>
-<script type="application/json" data-for="htmlwidget-2e2ee69c318d01433c44">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-54aceab8aeef75149b9b" style="width:100%;height:384px;"></div>
+<script type="application/json" data-for="htmlwidget-54aceab8aeef75149b9b">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figure 1.4: Ben &amp; Jerry’s Ice Cream Block Diagram
 </p>

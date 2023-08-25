@@ -19,16 +19,11 @@ Hello world! We are coding in R!
 We'll be using RStudio.Cloud, a virtual version of R you can access from any computer with an internet browser (PC, Mac, Chromebook, anything). To get set up, please [follow the steps in this **short Video playlist**](https://vod.video.cornell.edu/playlist/dedicated/1_89xs9wbc/)!
 
 
-### Accessing your First RStudio.Cloud Tutorial {-}
+### Using R for the First Time {-}
 
-Today's tutorial is at the following link: https://timothyfraser.com/sigma/workshop_1
+1. For a quick visual orientation, take a peek at the image below.
 
-
-1. Please copy and paste it into your browser url bar! 
-
-2. For a quick visual orientation, take a peek at the image below.
-
-3. Read and follow along with the instructions on the webpage! Read the tutorial code (below), and then type it in and run it in your R session!
+2. Read and follow along with the instructions on the webpage! Read the tutorial code (below), and then type it in and run it in your R session!
 
 <div class="figure" style="text-align: center">
 <img src="images/1_0.png" alt="Visual Intro to Using RStudio.Cloud" width="100%" />

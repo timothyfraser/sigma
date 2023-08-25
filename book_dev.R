@@ -24,12 +24,13 @@ unlink("_main.Rmd")
 unlink("_book", recursive = TRUE)
 unlink("docs", recursive = TRUE)
 # Render the book!
-bookdown::render_book(input = "index.Rmd",  output_format = "bookdown::gitbook")
-
-serve_book(dir = ".", output_dir = "docs", preview = FALSE, in_session = FALSE)
+bookdown::render_book(input = "index.Rmd", new_session = TRUE, output_format = "bookdown::gitbook")
 browseURL("docs/introduction.html")
 
+#serve_book(dir = ".", output_dir = "docs", preview = FALSE, in_session = FALSE)
 
+
+bookdown::render_book(input = "index.Rmd", new_session = TRUE, output_format = "bookdown::gitbook")
 # Assuming we're happy, commit it!
 git_add(files = dir(all.files = TRUE, recursive = TRUE))
 git_commit_all(message = "...")

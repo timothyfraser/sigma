@@ -4,24 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5 Workshop: Statistical Process Control in R | _main</title>
-  <meta name="description" content="" />
+  <title>5 Workshop: Statistical Process Control in R | System Reliability and Six Sigma in R</title>
+  <meta name="description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5 Workshop: Statistical Process Control in R | _main" />
+  <meta property="og:title" content="5 Workshop: Statistical Process Control in R | System Reliability and Six Sigma in R" />
   <meta property="og:type" content="book" />
   
-  
+  <meta property="og:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5 Workshop: Statistical Process Control in R | _main" />
+  <meta name="twitter:title" content="5 Workshop: Statistical Process Control in R | System Reliability and Six Sigma in R" />
   
-  
+  <meta name="twitter:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
   
 
+<meta name="author" content="Timothy Fraser, PhD" />
 
 
+<meta name="date" content="2023-08-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -152,7 +154,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#getting-started"><i class="fa fa-check"></i>Getting Started</a>
 <ul>
 <li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#making-an-rstudio.cloud-account"><i class="fa fa-check"></i>Making an RStudio.Cloud account</a></li>
-<li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#accessing-your-first-rstudio.cloud-tutorial"><i class="fa fa-check"></i>Accessing your First RStudio.Cloud Tutorial</a></li>
+<li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#using-r-for-the-first-time"><i class="fa fa-check"></i>Using R for the First Time</a></li>
 </ul></li>
 <li class="chapter" data-level="1.1" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#introduction-to-r"><i class="fa fa-check"></i><b>1.1</b> Introduction to <code>R</code></a></li>
 <li class="chapter" data-level="1.2" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#basic-calculations-in-r"><i class="fa fa-check"></i><b>1.2</b> Basic Calculations in R</a></li>
@@ -788,7 +790,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">System Reliability and Six Sigma in R</a>
           </h1>
         </div>
 
@@ -1244,17 +1246,17 @@ This tells us that excitingly, our <em>onsen</em> temperatures are quite firmly 
 <div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="workshop-statistical-process-control-in-r.html#cb519-1" tabindex="-1"></a><span class="co"># For example, the mean of our vector mrsim, for subgroup size n = 1, </span></span>
 <span id="cb519-2"><a href="workshop-statistical-process-control-in-r.html#cb519-2" tabindex="-1"></a><span class="co"># says that d2 (mean of these mR stats) is...</span></span>
 <span id="cb519-3"><a href="workshop-statistical-process-control-in-r.html#cb519-3" tabindex="-1"></a>mrsim <span class="sc">%&gt;%</span> <span class="fu">mean</span>()</span></code></pre></div>
-<pre><code>## [1] 1.13081</code></pre>
+<pre><code>## [1] 1.112395</code></pre>
 <div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="workshop-statistical-process-control-in-r.html#cb521-1" tabindex="-1"></a><span class="co"># While d3 (standard deviation is...)</span></span>
 <span id="cb521-2"><a href="workshop-statistical-process-control-in-r.html#cb521-2" tabindex="-1"></a>mrsim <span class="sc">%&gt;%</span> <span class="fu">sd</span>()</span></code></pre></div>
-<pre><code>## [1] 0.8528297</code></pre>
+<pre><code>## [1] 0.8524211</code></pre>
 <p>But why stop there? We can calculate loads of other interesting statistics!</p>
 <div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="workshop-statistical-process-control-in-r.html#cb523-1" tabindex="-1"></a><span class="co"># For example, these statistics </span></span>
 <span id="cb523-2"><a href="workshop-statistical-process-control-in-r.html#cb523-2" tabindex="-1"></a><span class="co"># estimate the median, upper 90, and upper 95% of the distribution! </span></span>
 <span id="cb523-3"><a href="workshop-statistical-process-control-in-r.html#cb523-3" tabindex="-1"></a>mrsim <span class="sc">%&gt;%</span></span>
 <span id="cb523-4"><a href="workshop-statistical-process-control-in-r.html#cb523-4" tabindex="-1"></a>  <span class="fu">quantile</span>(<span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.50</span>, <span class="fl">0.90</span>, .<span class="dv">95</span>)) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##   50%   90%   95% 
-## 0.951 2.338 2.769</code></pre>
+## 0.928 2.290 2.760</code></pre>
 <p><br>
 <br></p>
 </div>
@@ -1344,7 +1346,7 @@ This tells us that excitingly, our <em>onsen</em> temperatures are quite firmly 
 <pre><code>## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1  1.13 0.857     0  3.28</code></pre>
+## 1  1.14 0.853     0  3.24</code></pre>
 <div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="workshop-statistical-process-control-in-r.html#cb529-1" tabindex="-1"></a><span class="co"># Let&#39;s get the constants we need too.</span></span>
 <span id="cb529-2"><a href="workshop-statistical-process-control-in-r.html#cb529-2" tabindex="-1"></a><span class="co"># Each of our samples has a sample size of 20</span></span>
 <span id="cb529-3"><a href="workshop-statistical-process-control-in-r.html#cb529-3" tabindex="-1"></a>d <span class="ot">=</span> <span class="fu">dn</span>(<span class="at">n =</span> <span class="dv">20</span>)</span>
@@ -1354,7 +1356,7 @@ This tells us that excitingly, our <em>onsen</em> temperatures are quite firmly 
 <pre><code>## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1  3.73 0.731 0.413  1.59</code></pre>
+## 1  3.74 0.724 0.418  1.58</code></pre>
 <p><br>
 <br></p>
 </div>
@@ -1382,7 +1384,7 @@ This tells us that excitingly, our <em>onsen</em> temperatures are quite firmly 
 <pre><code>## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1  3.75 0.727 0.418  1.58</code></pre>
+## 1  3.73 0.736 0.409  1.59</code></pre>
 <p>And use these constants to estimate the upper and lower CI for <span class="math inline">\(\bar{r}\)</span>!</p>
 <div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="workshop-statistical-process-control-in-r.html#cb535-1" tabindex="-1"></a>stat <span class="sc">%&gt;%</span></span>
 <span id="cb535-2"><a href="workshop-statistical-process-control-in-r.html#cb535-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rbar_lower =</span> rbar <span class="sc">*</span> mydstat<span class="sc">$</span>D3,</span>
@@ -1391,7 +1393,7 @@ This tells us that excitingly, our <em>onsen</em> temperatures are quite firmly 
 <pre><code>## # A tibble: 1 × 3
 ##    rbar rbar_lower rbar_upper
 ##   &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
-## 1  7.26       3.03       11.5</code></pre>
+## 1  7.26       2.97       11.6</code></pre>
 <p>So quick! You could use these values to make a <em>range</em> chart now.</p>
 <div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="workshop-statistical-process-control-in-r.html#cb537-1" tabindex="-1"></a><span class="fu">remove</span>(stat, stat_w)</span></code></pre></div>
 <p><br>
@@ -1459,7 +1461,7 @@ This tells us that excitingly, our <em>onsen</em> temperatures are quite firmly 
 <pre><code>## # A tibble: 1 × 6
 ##      b2    b3    C4    A3    B3    B4
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 0.988 0.162 0.988 0.679 0.509  1.49</code></pre>
+## 1 0.984 0.161 0.984 0.682 0.510  1.49</code></pre>
 <p>Finally, let’s calculate our control limits!</p>
 <div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="workshop-statistical-process-control-in-r.html#cb547-1" tabindex="-1"></a>stat <span class="ot">=</span> stat <span class="sc">%&gt;%</span></span>
 <span id="cb547-2"><a href="workshop-statistical-process-control-in-r.html#cb547-2" tabindex="-1"></a>  <span class="co"># Add our constants to the data.frame...</span></span>
@@ -1474,7 +1476,7 @@ This tells us that excitingly, our <em>onsen</em> temperatures are quite firmly 
 <pre><code>## # A tibble: 1 × 3
 ##    sbar sbar_lower sbar_upper
 ##   &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
-## 1  1.94      0.986       2.89</code></pre>
+## 1  1.94      0.988       2.88</code></pre>
 <p>Now you’re all ready to make a control chart showing variation in the standard deviation!</p>
 <p><br>
 <br></p>
@@ -1501,15 +1503,15 @@ This tells us that excitingly, our <em>onsen</em> temperatures are quite firmly 
 <pre><code>## # A tibble: 9 × 3
 ##       n    d2    d3
 ##   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1     2  1.12 0.835
-## 2     3  1.71 0.892
-## 3     4  2.05 0.879
-## 4     5  2.33 0.861
-## 5     6  2.54 0.853
-## 6     7  2.69 0.825
-## 7     8  2.84 0.823
-## 8     9  2.97 0.807
-## 9    10  3.09 0.799</code></pre>
+## 1     2  1.13 0.846
+## 2     3  1.70 0.893
+## 3     4  2.06 0.878
+## 4     5  2.32 0.869
+## 5     6  2.53 0.848
+## 6     7  2.71 0.831
+## 7     8  2.84 0.811
+## 8     9  2.96 0.811
+## 9    10  3.06 0.805</code></pre>
 </details>
 <hr />
 <p><br>
