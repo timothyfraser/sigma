@@ -219,15 +219,15 @@ $$ P(A) = \sum_{i=1}^{n}{P(A|E_{i}) \times P(E_{i}) } $$
 
 You've got `3` bags ($E_{1 \to 3}$), each containing `3` marbles, each with a different split of red vs. blue marbles. If we choose a bag at random *and* sample a marble at random (2 mutually exclusive events), what's the probability that marble will be red ($P(A)$)?
 
-I like to map these out, so I understand visually what all the possible pathways are. Here's a chart I made using `mermaid`, where I've diagrammed each possible set of actions, like choosing Bag 1 then Marble *a* (1 pathway), choosing Bag 1 then Marble *b* (a second pathway), etc.  
+I like to map these out, so I understand visually what all the possible pathways are. Here's a chart I made (using `mermaid`), where I've diagrammed each possible set of actions, like choosing Bag 1 then Marble *a* (1 pathway), choosing Bag 1 then Marble *b* (a second pathway), etc.  
 
 If we look at the ties to the marbles, you'll see I labeled each tie to a red marble as `1` and each tie to a blue marble as `0`. If we add these pathways up, we'll get the `total probability`: `0.67` (aka `2/3`).
 
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-3ef05a5fce6f25a3356b" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-3ef05a5fce6f25a3356b">{"x":{"diagram":"graph TD\n you[You]\n subgraph Bags\n b1[Bag 1]\n b2[Bag 2]\n b3[Bag 3]\n end\n subgraph Marbles\n b1m1((Marble <i>a<\/i>))\n b1m2((Marble <i>b<\/i>))\n b1m3((Marble <i>c<\/i>))\n style b1m1 fill:#FB52A5\n style b1m2 fill:#FB52A5\n style b1m3 fill:#FB52A5\n b2m1((Marble <i>d<\/i>))\n b2m2((Marble <i>e<\/i>))\n b2m3((Marble <i>f<\/i>))\n style b2m1 fill:#FB52A5\n style b2m2 fill:#84A3F5\n style b2m3 fill:#84A3F5\n b3m1((Marble <i>g<\/i>))\n b3m2((Marble <i>h<\/i>))\n b3m3((Marble <i>j<\/i>))\n style b3m1 fill:#84A3F5\n style b3m2 fill:#FB52A5\n style b3m3 fill:#FB52A5\n end\n you--> b1\n you--> b2\n you--> b3\n b1-->|1|b1m1\n b1-->|1|b1m2\n b1-->|1|b1m3\n b2-->|1|b2m1\n b2-->|0|b2m2\n b2-->|0|b2m3\n b3-->|0|b3m1\n b3-->|1|b3m2\n b3-->|1|b3m3"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-56f393c91e30478cbfb5" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-56f393c91e30478cbfb5">{"x":{"diagram":"graph TD\n you[You]\n subgraph Bags\n b1[Bag 1]\n b2[Bag 2]\n b3[Bag 3]\n end\n subgraph Marbles\n b1m1((Marble <i>a<\/i>))\n b1m2((Marble <i>b<\/i>))\n b1m3((Marble <i>c<\/i>))\n style b1m1 fill:#FB52A5\n style b1m2 fill:#FB52A5\n style b1m3 fill:#FB52A5\n b2m1((Marble <i>d<\/i>))\n b2m2((Marble <i>e<\/i>))\n b2m3((Marble <i>f<\/i>))\n style b2m1 fill:#FB52A5\n style b2m2 fill:#84A3F5\n style b2m3 fill:#84A3F5\n b3m1((Marble <i>g<\/i>))\n b3m2((Marble <i>h<\/i>))\n b3m3((Marble <i>j<\/i>))\n style b3m1 fill:#84A3F5\n style b3m2 fill:#FB52A5\n style b3m3 fill:#FB52A5\n end\n you--> b1\n you--> b2\n you--> b3\n b1-->|1|b1m1\n b1-->|1|b1m2\n b1-->|1|b1m3\n b2-->|1|b2m1\n b2-->|0|b2m2\n b2-->|0|b2m3\n b3-->|0|b3m1\n b3-->|1|b3m2\n b3-->|1|b3m3"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:img_mermaid)Drawing Probability Diagrams</p>
@@ -556,79 +556,6 @@ orders %>%
 # It should! And it does! Tada!
 ```
 
-<br>
-<br>
-
-
----
-
-## Learning Check 1 {.unnumbered #LC1}
-
-**Question**
-  
-<div class="figure">
-<img src="https://external-preview.redd.it/6FJDW5OvgqXpUjFutYDMX18UZH6oGLlu_LY8Qlf-1Rs.jpg" alt="Figure 1. Bank of Evil, from Despicable Me" width="100%" />
-<p class="caption">(\#fig:img_bank)Figure 1. Bank of Evil, from Despicable Me</p>
-</div>
-
-A local business is trying to open a new branch and needs a short-term loan. They meet with a bank, but are surprised by the interest rates, so they do a little research. Over the last 5 years:
-
-- 50 businesses applied to this bank for loans.
-
-- 29 receive loans.
-
-- 18 went bankrupt.
-
-- 13 of those that went bankrupt got loans.
-
-1. Our local business wants to know: what's the probability that a firms goes bankrupt, given that they received a loan? 
-
-2. Assume that a bankruptcy rate above 10% indicates bad lending practices. Should you stay away from that bank?
-
-<br>
-
-<details><summary>**[View Answer!]**</summary>
-
-We know the following:
-
-
-```r
-# The probability of getting a loan (13) given that you went bankrupt (18)
-p_loan_bankrupt <- 13 / 18
-# Probability of going bankrupt (18), whether or not you got a loan (50)
-p_bankrupt <- 18 / 50
-# Probability of NOT going bankrupt (50 - 18 = 32), whether or not you got a loan (50)
-p_no_bankrupt <- 32 / 50
-# Probability of getting a loan (29), whether or not you go bankrupt (50)
-p_loan <- 29 / 50
-# Probability you get a loan (26), given that you don't go bankrupt (32)
-p_loan_no_bankrupt <- 26 / 32
-
-# Apply Bayes Rule
-p_bankrupt_loan <- p_loan_bankrupt * p_bankrupt /
-  (p_loan_bankrupt * p_bankrupt + p_loan_no_bankrupt * p_no_bankrupt)
-# Check!
-p_bankrupt_loan
-```
-
-```
-## [1] 0.3333333
-```
-Looks like there is a 33% chance that you will go bankrupt if you get a loan. That's much higher than 10%. Maybe be a little wary of that bank?
-
-
-
-
-```r
-# Clear excess data
-remove(firms, p_loan_bankrupt, p_bankrupt, p_no_bankrupt, p_loan, p_loan_no_bankrupt, p_bankrupt_loan)
-```
-
-
-  
-</details>
-  
----
 
 
 <br>
@@ -643,8 +570,8 @@ Probability allows us to measure for any statistic (or parameter) `mu`, how **ex
 ### Example: Observed Distributions
 
 <div class="figure">
-<img src="https://media.glamour.com/photos/5abd5bbd73c84932389610fd/master/pass/TCDEERR_EC008.jpg" alt="Figure 2. Your Local ER" width="100%" />
-<p class="caption">(\#fig:img_er)Figure 2. Your Local ER</p>
+<img src="https://media.glamour.com/photos/5abd5bbd73c84932389610fd/master/pass/TCDEERR_EC008.jpg" alt="Figure 1. Your Local ER" width="100%" />
+<p class="caption">(\#fig:img_er)Figure 1. Your Local ER</p>
 </div>
 
 For example, a local hospital wants to make their health care services more affordable, given the surge in inflation. 
@@ -806,8 +733,8 @@ mypd %>%
 ```
 
 <div class="figure">
-<img src="03_workshop_files/figure-html/plot_pdf-1.png" alt="Figure 3. Visualizing a Probability Density Function!" width="100%" />
-<p class="caption">(\#fig:plot_pdf)Figure 3. Visualizing a Probability Density Function!</p>
+<img src="03_workshop_files/figure-html/plot_pdf-1.png" alt="Figure 2. Visualizing a Probability Density Function!" width="100%" />
+<p class="caption">(\#fig:plot_pdf)Figure 2. Visualizing a Probability Density Function!</p>
 </div>
 
 <br>
@@ -865,8 +792,8 @@ ggplot() +
 ```
 
 <div class="figure">
-<img src="03_workshop_files/figure-html/plot_pdf_area-1.png" alt="Figure 4. PDF with Area Under Curve!" width="100%" />
-<p class="caption">(\#fig:plot_pdf_area)Figure 4. PDF with Area Under Curve!</p>
+<img src="03_workshop_files/figure-html/plot_pdf_area-1.png" alt="Figure 3. PDF with Area Under Curve!" width="100%" />
+<p class="caption">(\#fig:plot_pdf_area)Figure 3. PDF with Area Under Curve!</p>
 </div>
 
 <br>
@@ -981,8 +908,8 @@ viz_cd
 ```
 
 <div class="figure">
-<img src="03_workshop_files/figure-html/plot_cdf-1.png" alt="Figure 5. Visualizing a Cumulative Distribution Function!" width="100%" />
-<p class="caption">(\#fig:plot_cdf)Figure 5. Visualizing a Cumulative Distribution Function!</p>
+<img src="03_workshop_files/figure-html/plot_cdf-1.png" alt="Figure 4. Visualizing a Cumulative Distribution Function!" width="100%" />
+<p class="caption">(\#fig:plot_cdf)Figure 4. Visualizing a Cumulative Distribution Function!</p>
 </div>
 
 But wouldn't it be handy if we could just make a literal cumulative distribution `function`, just like we did for the probability density `function` `dobs()`?
@@ -1069,7 +996,7 @@ ggplot() +
   labs(x = "Cost", y = "Probability", color = "Type")
 ```
 
-<img src="03_workshop_files/figure-html/unnamed-chunk-44-1.png" width="672" />
+<img src="03_workshop_files/figure-html/unnamed-chunk-40-1.png" width="672" />
 
 So how do we generate the cumulative density function? The `mosaicCalc` package can help us with its functions `D()` and `antiD()`. 
 
@@ -1143,7 +1070,7 @@ remove(mypd, pdf, pdf2, cdf, obs)
 
 ---
 
-## Learning Check 2 {.unnumbered #LC2}
+## Learning Check 1 {.unnumbered #LC1}
 
 **Question**
   
@@ -1257,7 +1184,7 @@ ggplot() +
        fill = "Deter Future Visits")
 ```
 
-<img src="03_workshop_files/figure-html/unnamed-chunk-52-1.png" width="672" />
+<img src="03_workshop_files/figure-html/unnamed-chunk-48-1.png" width="672" />
 
 
 </details>
@@ -1279,7 +1206,7 @@ The Ithaca Farmers Market is a vendor-owned cooperative that runs a massive Satu
 
 <div class="figure">
 <img src="https://i0.wp.com/ithacamarket.com/wp-content/uploads/2019/04/IMG_3407-900px.jpg?w=900&ssl=1" alt="[Ithaca Farmers Market!](https://ithacamarket.com/markets/saturday-at-the-pavilion/)" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-53)[Ithaca Farmers Market!](https://ithacamarket.com/markets/saturday-at-the-pavilion/)</p>
+<p class="caption">(\#fig:unnamed-chunk-49)[Ithaca Farmers Market!](https://ithacamarket.com/markets/saturday-at-the-pavilion/)</p>
 </div>
 
 Market operators wants to know: 
@@ -1317,7 +1244,7 @@ visits <- rpois(n = 500, lambda = 5.5)
 visits %>% hist()
 ```
 
-<img src="03_workshop_files/figure-html/unnamed-chunk-54-1.png" width="672" />
+<img src="03_workshop_files/figure-html/unnamed-chunk-50-1.png" width="672" />
 
 <br>
 <br>
@@ -1329,7 +1256,7 @@ Much like `rpois()` randomly generates poisson distributed values, `dpois()` gen
 area under the curve (probability) of. See the Table below for several examples.
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
-<caption>(\#tab:unnamed-chunk-55)Table 1: Probability Functions (r, d, p, and q)</caption>
+<caption>(\#tab:unnamed-chunk-51)Table 1: Probability Functions (r, d, p, and q)</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Meaning </th>
@@ -1415,7 +1342,7 @@ dsim(5)
 ```
 
 ```
-## [1] 0.1617302
+## [1] 0.1612725
 ```
 
 ```r
@@ -1473,7 +1400,7 @@ psim(5)
 ```
 
 ```
-## [1] 0.446064
+## [1] 0.4664271
 ```
 
 ```r
@@ -1535,7 +1462,7 @@ rm(visits, pd5, cd5, q5, dsim, psim, qsim)
 
 ---
 
-## Learning Check 3 {.unnumbered #LC3}
+## Learning Check 2 {.unnumbered #LC2}
 
 **Question**
   

@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2023-08-24" />
+<meta name="date" content="2023-09-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -306,7 +306,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#example-coffee-shop-incomplete-information"><i class="fa fa-check"></i>Example: Coffee Shop (Incomplete Information)</a></li>
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#example-coffee-shop-complete-information"><i class="fa fa-check"></i>Example: Coffee Shop (Complete Information)</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#LC1"><i class="fa fa-check"></i>Learning Check 1</a></li>
 <li class="chapter" data-level="3.2" data-path="workshop-probability.html"><a href="workshop-probability.html#probability-functions"><i class="fa fa-check"></i><b>3.2</b> Probability Functions</a>
 <ul>
 <li class="chapter" data-level="3.2.1" data-path="workshop-probability.html"><a href="workshop-probability.html#example-observed-distributions"><i class="fa fa-check"></i><b>3.2.1</b> Example: Observed Distributions</a></li>
@@ -315,7 +314,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.4" data-path="workshop-probability.html"><a href="workshop-probability.html#observed-cumulative-distribution-functions"><i class="fa fa-check"></i><b>3.2.4</b> Observed Cumulative Distribution Functions</a></li>
 <li class="chapter" data-level="3.2.5" data-path="workshop-probability.html"><a href="workshop-probability.html#using-calculus"><i class="fa fa-check"></i><b>3.2.5</b> Using Calculus!</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#LC2"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#LC1"><i class="fa fa-check"></i>Learning Check 1</a></li>
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#hypothetical-probability-functions"><i class="fa fa-check"></i>Hypothetical Probability Functions</a>
 <ul>
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#example-farmers-market"><i class="fa fa-check"></i>Example: Farmers Market</a></li>
@@ -325,7 +324,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#cumulative-probabilities"><i class="fa fa-check"></i>Cumulative Probabilities</a></li>
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#quantiles"><i class="fa fa-check"></i>Quantiles</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#LC3"><i class="fa fa-check"></i>Learning Check 3</a></li>
+<li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#LC2"><i class="fa fa-check"></i>Learning Check 2</a></li>
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#conclusion-4"><i class="fa fa-check"></i>Conclusion</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="workshop-system-reliability.html"><a href="workshop-system-reliability.html"><i class="fa fa-check"></i><b>4</b> Workshop: System Reliability</a>
@@ -820,7 +819,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="scope-resolution" class="section level3 unnumbered hasAnchor">
 <h3>Scope &amp; Resolution<a href="skill-failure-modes-and-effects-analysis-in-r.html#scope-resolution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>As our scope, we’re going to just focus on <strong>melting</strong>. What are all the possible ways that ice cream could melt during this process? Melting would have several negative impacts, such as getting exposed to heat, bacteria, and, worst of all, melting the ice cream! This example is primarily people-centric, because it’s important to remember that <em>people</em> are part of our technological systems!</p>
-<p>Before proceeding, you can optionally check out our tutorial on making <code>mermaid</code> charts! (Estimated time: 10 minutes.) You’ll learn how to make the chart used <code>below</code>!</p>
 <p><br>
 <br></p>
 </div>
@@ -841,7 +839,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="block-diagram" class="section level3 unnumbered hasAnchor">
 <h3>Block Diagram<a href="skill-failure-modes-and-effects-analysis-in-r.html#block-diagram" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Below, we’ve visualized what the process of shipping out ice cream looks like once it has been made, using <code>mermaid</code>. This involves the following several steps:</p>
+<p>Below, we’ve visualized what the process of shipping out ice cream looks like once it has been made. This involves the following several steps:</p>
 <ul>
 <li><p>Worker 1 puts ice cream in Freezer</p></li>
 <li><p>Worker 2 loads ice cream into Truck</p></li>
@@ -851,8 +849,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Plus, several possible failure modes are involved, as discussed below.</p>
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-54aceab8aeef75149b9b" style="width:100%;height:384px;"></div>
-<script type="application/json" data-for="htmlwidget-54aceab8aeef75149b9b">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-e79fdb4de7e5fb20962f" style="width:100%;height:384px;"></div>
+<script type="application/json" data-for="htmlwidget-e79fdb4de7e5fb20962f">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figure 1.4: Ben &amp; Jerry’s Ice Cream Block Diagram
 </p>

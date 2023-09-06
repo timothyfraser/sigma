@@ -216,7 +216,7 @@ knitr::include_graphics("https://bhi61nm2cr3mkdgk1dtaov18-wpengine.netdna-ssl.co
 
 You've got `3` bags ($E_{1 \to 3}$), each containing `3` marbles, each with a different split of red vs. blue marbles. If we choose a bag at random *and* sample a marble at random (2 mutually exclusive events), what's the probability that marble will be red ($P(A)$)?
 
-I like to map these out, so I understand visually what all the possible pathways are. Here's a chart I made using `mermaid`, where I've diagrammed each possible set of actions, like choosing Bag 1 then Marble *a* (1 pathway), choosing Bag 1 then Marble *b* (a second pathway), etc.  
+I like to map these out, so I understand visually what all the possible pathways are. Here's a chart I made (using `mermaid`), where I've diagrammed each possible set of actions, like choosing Bag 1 then Marble *a* (1 pathway), choosing Bag 1 then Marble *b* (a second pathway), etc.  
 
 If we look at the ties to the marbles, you'll see I labeled each tie to a red marble as `1` and each tie to a blue marble as `0`. If we add these pathways up, we'll get the `total probability`: `0.67` (aka `2/3`).
 
@@ -534,103 +534,6 @@ orders %>%
 # It should! And it does! Tada!
 ```
 
-<br>
-<br>
-
-
----
-
-## Learning Check 1 {.unnumbered #LC1}
-
-**Question**
-  
-```{r img_bank, echo = FALSE, fig.height = 0.5, fig.cap=figcap("Bank of Evil, from Despicable Me"), out.width="100%", fig.height = 0.5}
-knitr::include_graphics("https://external-preview.redd.it/6FJDW5OvgqXpUjFutYDMX18UZH6oGLlu_LY8Qlf-1Rs.jpg", dpi = 100)
-```
-
-A local business is trying to open a new branch and needs a short-term loan. They meet with a bank, but are surprised by the interest rates, so they do a little research. Over the last 5 years:
-
-- 50 businesses applied to this bank for loans.
-
-- 29 receive loans.
-
-- 18 went bankrupt.
-
-- 13 of those that went bankrupt got loans.
-
-1. Our local business wants to know: what's the probability that a firms goes bankrupt, given that they received a loan? 
-
-2. Assume that a bankruptcy rate above 10% indicates bad lending practices. Should you stay away from that bank?
-
-<br>
-
-<details><summary>**[View Answer!]**</summary>
-
-We know the following:
-
-```{r}
-# The probability of getting a loan (13) given that you went bankrupt (18)
-p_loan_bankrupt <- 13 / 18
-# Probability of going bankrupt (18), whether or not you got a loan (50)
-p_bankrupt <- 18 / 50
-# Probability of NOT going bankrupt (50 - 18 = 32), whether or not you got a loan (50)
-p_no_bankrupt <- 32 / 50
-# Probability of getting a loan (29), whether or not you go bankrupt (50)
-p_loan <- 29 / 50
-# Probability you get a loan (26), given that you don't go bankrupt (32)
-p_loan_no_bankrupt <- 26 / 32
-
-# Apply Bayes Rule
-p_bankrupt_loan <- p_loan_bankrupt * p_bankrupt /
-  (p_loan_bankrupt * p_bankrupt + p_loan_no_bankrupt * p_no_bankrupt)
-# Check!
-p_bankrupt_loan
-```
-Looks like there is a 33% chance that you will go bankrupt if you get a loan. That's much higher than 10%. Maybe be a little wary of that bank?
-
-```{r, eval = FALSE, include = FALSE}
-firms <- tibble(
-  bankrupt = c("no", "no", "no", "yes", "no", "yes", "yes", "yes", "no", "no", "yes", 
-              "no", "no", "no", "yes", "yes", "no", "yes", "no", "no", "yes", "no", 
-              "no", "yes", "no", "yes", "no", "no", "no", "yes", "no", "no", "no", 
-              "yes", "yes", "no", "no", "no", "no", "no", "no", "yes", "yes", "yes", 
-              "no", "no", "no", "no", "yes", "no") %>% factor(levels = c("yes", "no")),
-  loan = c("yes", "yes", "yes", "yes", "yes", "no", "yes", "yes", "no", "yes", "yes", 
-            "yes", "yes", "yes", "no", "no", "yes", "yes", "yes", "yes", "yes", "yes", 
-            "yes", "no", "yes", "yes", "no", "yes", "yes", "yes", "yes", "yes", "yes", 
-            "yes", "yes", "no", "yes", "no", "yes", "yes", "yes", "yes", "yes", "yes", 
-            "no", "yes", "yes", "yes", "no", "no") %>% factor(levels=  c("yes", "no")))
-
-firms %>% table()
-
-# What's the likelihood that they would default if they receive a loan?
-firms %>% 
-  summarize(
-    # The goal (posterior)
-    p_bankrupt_loan = sum(bankrupt == "yes" & loan == "yes") / sum(loan == "yes"),
-    # The data
-    p_loan_bankrupt = sum(loan == "yes" & bankrupt == "yes") / sum(bankrupt == "yes"),
-    p_loan_no_bankrupt = sum(loan == "yes" & bankrupt == "no") / sum(bankrupt == "no"),
-    p_bankrupt = sum(bankrupt == "yes") / sum(loan == "yes" | loan == "no"),
-    p_no_bankrupt = sum(bankrupt == "no") / sum(loan == "yes" | loan == "no"),
-    # Now recalculate the goal, using the data we have collected.
-    # Does 'bayes' equal 'p_bankrupt_loan'?
-    bayes = p_loan_bankrupt * p_bankrupt / (p_loan_bankrupt * p_bankrupt + p_loan_no_bankrupt * p_no_bankrupt))
-```
-
-```{r, eval =FALSE}
-# Clear excess data
-remove(firms, p_loan_bankrupt, p_bankrupt, p_no_bankrupt, p_loan, p_loan_no_bankrupt, p_bankrupt_loan)
-```
-
-```{r, include = FALSE}
-# Clear excess data
-remove(orders, p_coffee, p_scone, p_coffee_no_scone, p_coffee_scone, p_scone_coffee)
-```
-  
-</details>
-  
----
 
 
 <br>
@@ -1015,7 +918,7 @@ remove(mypd, pdf, pdf2, cdf, obs)
 
 ---
 
-## Learning Check 2 {.unnumbered #LC2}
+## Learning Check 1 {.unnumbered #LC1}
 
 **Question**
   
@@ -1299,7 +1202,7 @@ rm(visits, pd5, cd5, q5, dsim, psim, qsim)
 
 ---
 
-## Learning Check 3 {.unnumbered #LC3}
+## Learning Check 2 {.unnumbered #LC2}
 
 **Question**
   

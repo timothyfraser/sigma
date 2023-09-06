@@ -43,8 +43,6 @@ knitr::include_graphics("https://www.benjerry.com/files/live/sites/systemsite/fi
 
 As our scope, we're going to just focus on **melting**. What are all the possible ways that ice cream could melt during this process? Melting would have several negative impacts, such as getting exposed to heat, bacteria, and, worst of all, melting the ice cream! This example is primarily people-centric, because it's important to remember that *people* are part of our technological systems!
 
-Before proceeding, you can optionally check out our tutorial on making `mermaid` charts! (Estimated time: 10 minutes.) You'll learn how to make the chart used `below`!
-
 <br>
 <br>
 
@@ -71,7 +69,7 @@ So, let's analyze them!
 
 ### Block Diagram {-}
 
-Below, we've visualized what the process of shipping out ice cream looks like once it has been made, using `mermaid`. This involves the following several steps:
+Below, we've visualized what the process of shipping out ice cream looks like once it has been made. This involves the following several steps:
 
 - Worker 1 puts ice cream in Freezer
 

@@ -30,8 +30,6 @@ For the sake of Ben and Jerry's (nay, the world!) let's use Failure Modes and Ef
 
 As our scope, we're going to just focus on **melting**. What are all the possible ways that ice cream could melt during this process? Melting would have several negative impacts, such as getting exposed to heat, bacteria, and, worst of all, melting the ice cream! This example is primarily people-centric, because it's important to remember that *people* are part of our technological systems!
 
-Before proceeding, you can optionally check out our tutorial on making `mermaid` charts! (Estimated time: 10 minutes.) You'll learn how to make the chart used `below`!
-
 <br>
 <br>
 
@@ -58,7 +56,7 @@ So, let's analyze them!
 
 ### Block Diagram {-}
 
-Below, we've visualized what the process of shipping out ice cream looks like once it has been made, using `mermaid`. This involves the following several steps:
+Below, we've visualized what the process of shipping out ice cream looks like once it has been made. This involves the following several steps:
 
 - Worker 1 puts ice cream in Freezer
 
@@ -75,8 +73,8 @@ Plus, several possible failure modes are involved, as discussed below.
 <div class="figure">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-54aceab8aeef75149b9b" style="width:100%;height:384px;"></div>
-<script type="application/json" data-for="htmlwidget-54aceab8aeef75149b9b">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-e79fdb4de7e5fb20962f" style="width:100%;height:384px;"></div>
+<script type="application/json" data-for="htmlwidget-e79fdb4de7e5fb20962f">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:unnamed-chunk-3)Ben & Jerry's Ice Cream Block Diagram</p>
