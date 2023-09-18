@@ -12,17 +12,17 @@ library(gert)
 
 
 # Login to Github with Personal Access Token (PAT)
-library(credentials)
-set_github_pat(force_new = TRUE)
+#library(credentials)
+#set_github_pat(force_new = TRUE)
 
 
 # your working directory MUST be the one containing the file 'index.Rmd'
 getwd()
 
 # Delete any existing copy of the book
-unlink("_main.Rmd")
-unlink("_book", recursive = TRUE)
-unlink("docs", recursive = TRUE)
+#unlink("_main.Rmd")
+#unlink("_book", recursive = TRUE)
+#unlink("docs", recursive = TRUE)
 # Render the book!
 bookdown::render_book(input = "index.Rmd", new_session = TRUE, output_format = "bookdown::gitbook")
 browseURL("docs/introduction.html")
