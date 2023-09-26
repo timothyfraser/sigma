@@ -534,6 +534,91 @@ orders %>%
 # It should! And it does! Tada!
 ```
 
+### Example: Movie Theatre Popularity {-}
+
+You are the manager of a movie theatre, and you want to determine the popularity of different genres of movies among your customers. 
+
+You have collected data on the genres of movies that customers choose to watch 
+
+-Probability of a customer choosing an Action movie, P(Action) = 0.25.
+-Similarly, P(Comedy) = 0.30.
+-P(Drama) = 0.20.
+-P(Sci-Fi) = 0.15.
+-P(Horror) = 0.10.
+
+You also have information about the overall popularity of each genre in the market:
+
+Out of the customers who chose an Action movie, 60% also bought tickets for Comedy.
+Out of the customers who chose a Comedy movie, 40% also bought tickets for Drama.
+Out of the customers who chose a Drama movie, 25% also bought tickets for Sci-Fi.
+Out of the customers who chose a Science Fiction movie, 70% also bought tickets for Action.
+Out of the customers who chose a Horror movie, 20% also bought tickets for Drama.
+
+You want to calculate the probability that a customer chooses a Drama movie given that they have already purchased a ticket.
+
+```{r}
+# We define the prior probabilities of customers choosing each genre based on the given problem statement.
+
+P_action <- 0.25
+P_comedy <- 0.30
+P_drama <- 0.20
+P_scifi <- 0.15
+P_horror <- 0.10
+
+# We define conditional probabilities that represent the likelihood of crossover purchases. 
+
+# For example, the probability of choosing Action given that the customer chose Comedy is 60%.
+
+conP_action_given_drama <- 0.00
+conP_comedy_given_drama <- 0.25
+conP_drama_given_drama <- 0.00
+conP_scifi_given_drama <- 0.00
+conP_horror_given_drama <- 0.20
+
+# Specify the target genre
+
+# Our target genre is Drama and we want to calculate the probability that a customer chooses a Drama movie given that they have already purchased a ticket.
+
+target_genre <- "Drama"  # We can change this to our desired target genre
+
+# To Calculate the probability that a customer chooses the target genre given a ticket purchase
+
+# We will be using Bayes' rule: P(Target Genre | Ticket Purchase) = P(Ticket Purchase | Target Genre) * P(Target Genre) / P(Ticket Purchase)
+
+# We calculate P(Ticket Purchase | Target Genre) * P(Target Genre) as probability_given_purchase
+
+# If target_genre is "Comedy," the switch function will select the conditional probability for choosing Comedy given a ticket purchase 
+
+probability_given_purchase <- switch(
+  target_genre,
+  "Action" = conP_action_given_drama * P_action,
+  "Comedy" = conP_comedy_given_drama * P_comedy,
+  "Drama" = conP_drama_given_drama * P_drama,
+  "SciFi" = conP_scifi_given_drama * P_scifi,
+  "Horror" = conP_horror_given_drama * P_horror
+)
+
+probability_given_purchase
+
+# We will further calculate the total probability of a ticket purchase P(Ticket Purchase) as total_probability_purchase:
+
+total_probability_purchase <- sum(
+  conP_action_given_drama * P_action,
+  conP_comedy_given_drama * P_comedy,
+  conP_drama_given_drama * P_drama,
+  conP_scifi_given_drama * P_scifi,
+  conP_horror_given_drama * P_horror
+)
+
+total_probability_purchase
+
+#We want to calculate the probability that a customer chooses a Drama movie given that they have already purchased a ticket, thus target genre is Drama.
+
+# P(Target Genre | Ticket Purchase) <- P(Ticket Purchase | Target Genre) * P(Target Genre) / P(Ticket Purchase)
+
+probability_target_genre_given_purchase <- probability_given_purchase / total_probability_purchase
+
+cat("Probability that a customer chooses a", target_genre, "movie given a ticket purchase:", probability_target_genre_given_purchase, "\n")
 
 
 <br>
@@ -1268,3 +1353,6 @@ And that's a wrap! Nice work! You can now figure out *a lot* of things about the
 ```{r, include = FALSE}
 rm(list = ls())
 ```
+
+
+
