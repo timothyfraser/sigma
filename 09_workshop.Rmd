@@ -235,19 +235,21 @@ The sky is the limit! Happy fault tree mapping!
 rm(list = ls())
 ```
 
-## Example 1 {-}
+## Learning Check 1
 
-You are tasked with assessing the risk of a widespread outbreak of a contagious disease in a population. The top event is defined as the "Widespread outbreak of a contagious disease in a population." This top event can occur based on the following intermediate events:
+**Question**
+
+You are tasked with assessing the risk of a widespread outbreak of a contagious disease in a population. The top event is defined as the **widespread outbreak** of a contagious disease in a population. This top event can occur based on the following intermediate events:
   
-Insufficient Vaccination Coverage:
+**Insufficient Vaccination Coverage**:
 All of the following must occur for this event to happen -
 Causes and Probabilities:
 - Lack of public awareness: P(Lack of public awareness) = 0.2 (20%)
 - Limited access to vaccines: P(Limited access) = 0.15 (15%)
 - Vaccine hesitancy due to misinformation: P(Vaccine hesitancy) = 0.3 (30%)
 
-Ineffective Quarantine Measures:
-Any of the following can lead to this event
+**Ineffective Quarantine Measures**:
+Any of the following can lead to this event -
 Causes and Probabilities:
 - Inadequate quarantine protocols: P(Inadequate protocols) = 0.1 (10%)
 - Non-compliance with quarantine rules: P(Non-compliance) = 0.15 (15%)
@@ -259,31 +261,49 @@ Causes and Probabilities:
 - High mutation rate of the pathogen: P(High mutation rate) = 0.05 (5%)
 - Inadequate monitoring of the pathogen mutations: P(Inadequate monitoring) = 0.1 (10%)
 
+**Answer**
+
+Let's calculate probabilities of intermediate events using probabilities based on available data.
+
 ```{r}
-
-# Calculating probabilities of intermediate events using probabilities based on available data:
-
 # Probability of Insufficient Vaccination Coverage:
 # All of the sub-events must occur for this intermediate event to happen:
-p_event1<- c(0.2, 0.15, 0.3)  # Probabilities for AND logic
+p_event1 <- c(0.2, 0.15, 0.3)  # Probabilities for AND logic
 p_insufficient_vaccine_coverage <- prod(p_event1)
 p_insufficient_vaccine_coverage
+```
 
+```{r}
 # Probability of Ineffective Quarantine Measures:
 # Any of the sub-event event can lead to this intermediate event:
 p_event2 <- c(0.1, 0.15, 0.2)  # Probabilities for OR logic
 p_quarantine_measures <- sum(p_event2)
 p_quarantine_measures
+```
 
+
+```{r}
 # Probability of Mutation of the Pathogen:
 # Both conditions need to be present in order for pathogen to mutate:
 p_event3 <- c(0.05, 0.1)  # Probabilities for AND logic
 logic_mutation <- "AND"
 p_pathogen_mutation <- prod(p_event3)
 p_pathogen_mutation
+```
 
+```{r}
 # Calculating the probability of widespread outbreak (top event) using the probabilities of intermediate events
 # Let's create a function that can calculate the probability of the top event using any number of intermediate events and any logic gate
+
+ftop = function(prob_a, prob_b, prob_c){
+
+  # Try to lightly adapt what you below into something that...
+  # doesn't use any if-then statements
+  
+  
+  
+}
+
 top_event <- function(intermediate_probability, logic) {
   
   if (logic == "AND") {
@@ -304,9 +324,25 @@ p_widespread_outbreak <- top_event(intermediate_probability, logic)
 
 # Print the result
 cat("Probability of the top event:", p_widespread_outbreak, "\n")
+```
 
 
+## Learning Check 2: Applying Exponential Distributions
 
-
+What if each of these events had an exponential lifespan distribution? Could we see how the probability of the top event changes over time `t`, given a set of failure rates `lambda_a`, `lambda_b`, `lambda_c`, etc.?
 
 ```{r}
+
+ftop2 = function(t, lambda_a, lambda_b, lambda_c){
+  
+  prob_a = pexp(t, rate = lambda_a)
+  prob_b = pexp(t, rate = lambda_b)
+  prob_c = pexp(t, rate = lambda_c)
+}
+
+
+
+```
+
+
+
