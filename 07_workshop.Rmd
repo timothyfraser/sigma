@@ -100,6 +100,7 @@ Let's assume our sample's left earloops have an exponential lifespan distributio
 
 ```{r}
 prob <- pexp(stat$mttf, rate = stat$lambda)
+prob
 ```
 
 Indeed, the figure below compares the observed PDF function (made using `density()`) to the assumed exponential PDF (made using `dexp()`), and we can see that that 63% of the distribution has failed by the Mean Time to Fail.
