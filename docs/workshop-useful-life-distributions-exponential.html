@@ -1095,7 +1095,7 @@ Technically, the Mean Residual Life at time <span class="math inline">\(t\)</spa
 <span id="cb637-5"><a href="workshop-useful-life-distributions-exponential.html#cb637-5" tabindex="-1"></a>  r <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda)}</span>
 <span id="cb637-6"><a href="workshop-useful-life-distributions-exponential.html#cb637-6" tabindex="-1"></a>  </span>
 <span id="cb637-7"><a href="workshop-useful-life-distributions-exponential.html#cb637-7" tabindex="-1"></a>  <span class="co"># Get the MTTF (integral of reliability function)</span></span>
-<span id="cb637-8"><a href="workshop-useful-life-distributions-exponential.html#cb637-8" tabindex="-1"></a>  mttf <span class="ot">=</span> <span class="fu">antiD</span>(<span class="at">tilde =</span> <span class="fu">r</span>(<span class="at">t =</span> t, <span class="at">lambda =</span> lambda) <span class="sc">~</span> t)</span>
+<span id="cb637-8"><a href="workshop-useful-life-distributions-exponential.html#cb637-8" tabindex="-1"></a>  mttf <span class="ot">=</span> <span class="fu">antiD</span>(<span class="at">tilde =</span> <span class="fu">r</span>(t, lambda) <span class="sc">~</span> t)</span>
 <span id="cb637-9"><a href="workshop-useful-life-distributions-exponential.html#cb637-9" tabindex="-1"></a></span>
 <span id="cb637-10"><a href="workshop-useful-life-distributions-exponential.html#cb637-10" tabindex="-1"></a>  <span class="co"># Now calculate mu(), the Mean Residual Life function at time t</span></span>
 <span id="cb637-11"><a href="workshop-useful-life-distributions-exponential.html#cb637-11" tabindex="-1"></a>  output <span class="ot">&lt;-</span> <span class="fu">mttf</span>(<span class="at">t =</span> <span class="cn">Inf</span>, <span class="at">lambda =</span> lambda) <span class="sc">/</span> <span class="fu">r</span>(<span class="at">t =</span> t, <span class="at">lambda =</span> lambda)</span>
@@ -1104,7 +1104,7 @@ Technically, the Mean Residual Life at time <span class="math inline">\(t\)</spa
 <span id="cb637-14"><a href="workshop-useful-life-distributions-exponential.html#cb637-14" tabindex="-1"></a>}</span></code></pre></div>
 <p>Let’s test it out and compare to our previous version.</p>
 <div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="workshop-useful-life-distributions-exponential.html#cb638-1" tabindex="-1"></a><span class="fu">mu</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">lambda =</span> stat<span class="sc">$</span>lambda)</span></code></pre></div>
-<pre><code>## [1] Inf</code></pre>
+<pre><code>## [1] 28.24081</code></pre>
 <p>Works perfectly!</p>
 <p><br>
 <br></p>
@@ -1116,7 +1116,7 @@ Technically, the Mean Residual Life at time <span class="math inline">\(t\)</spa
 <p><span class="math display">\[g(t) = \frac{MRL(t)}{MTTF} = \frac{\mu(t)}{\mu(t = 0)}\]</span>
 So, for the mask component we’ve been working with, <code>left_earloop</code>, we can calculate the MRL-to-MTTF ratio <code>g(t)</code> after <code>t = 10</code> hours as follows:</p>
 <div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="workshop-useful-life-distributions-exponential.html#cb640-1" tabindex="-1"></a><span class="fu">mu</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">lambda =</span> stat<span class="sc">$</span>lambda) <span class="sc">/</span> <span class="fu">mu</span>(<span class="at">t =</span> <span class="dv">0</span>, <span class="at">lambda =</span> stat<span class="sc">$</span>lambda)</span></code></pre></div>
-<pre><code>## [1] NaN</code></pre>
+<pre><code>## [1] 2.113833</code></pre>
 <p><br>
 <br></p>
 <hr />
@@ -1257,8 +1257,8 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 <h3><span class="header-section-number">7.4.2</span> Phase-Type Distributions<a href="workshop-useful-life-distributions-exponential.html#phase-type-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One way to more accurately model the lifespan of a product is to accept that its failure rate may remain constant, but it might change between failure rates as it passes through <strong>phases</strong>. Let’s model that!</p>
 <p>We can write the time <span class="math inline">\(T\)</span> to critical failure (via either overstress OR degraded failure) as <span class="math inline">\(T = min(T_c, T_d+T_{dc})\)</span>.</p>
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-5e91942d8fd87e165684" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-5e91942d8fd87e165684">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-793db600e1d105323877" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-793db600e1d105323877">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
 <p>The total probability of a product being in any phase <span class="math inline">\(a_{i \to n}\)</span> equals 1.</p>
 <ul>
 <li><p><span class="math inline">\(a_c = 25\%\)</span></p></li>

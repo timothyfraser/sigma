@@ -475,7 +475,7 @@ mu = function(t, lambda){
   r = function(t, lambda){ exp(-1*t*lambda)}
   
   # Get the MTTF (integral of reliability function)
-  mttf = antiD(tilde = r(t = t, lambda = lambda) ~ t)
+  mttf = antiD(tilde = r(t, lambda) ~ t)
 
   # Now calculate mu(), the Mean Residual Life function at time t
   output <- mttf(t = Inf, lambda = lambda) / r(t = t, lambda = lambda)
@@ -492,7 +492,7 @@ mu(t = 10, lambda = stat$lambda)
 ```
 
 ```
-## [1] Inf
+## [1] 28.24081
 ```
 Works perfectly!
 
@@ -515,7 +515,7 @@ mu(t = 10, lambda = stat$lambda) / mu(t = 0, lambda = stat$lambda)
 ```
 
 ```
-## [1] NaN
+## [1] 2.113833
 ```
 
 <br>
@@ -754,8 +754,8 @@ We can write the time $T$ to critical failure (via either overstress OR degraded
 
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-5e91942d8fd87e165684" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-5e91942d8fd87e165684">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-793db600e1d105323877" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-793db600e1d105323877">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
 ```
 
 The total probability of a product being in any phase $a_{i \to n}$ equals 1.

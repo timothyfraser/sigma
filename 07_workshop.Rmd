@@ -408,7 +408,7 @@ mu = function(t, lambda){
   r = function(t, lambda){ exp(-1*t*lambda)}
   
   # Get the MTTF (integral of reliability function)
-  mttf = antiD(tilde = r(t = t, lambda = lambda) ~ t)
+  mttf = antiD(tilde = r(t, lambda) ~ t)
 
   # Now calculate mu(), the Mean Residual Life function at time t
   output <- mttf(t = Inf, lambda = lambda) / r(t = t, lambda = lambda)
