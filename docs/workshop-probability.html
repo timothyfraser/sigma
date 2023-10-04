@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2023-09-06" />
+<meta name="date" content="2023-10-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -305,6 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#bayes-rule"><i class="fa fa-check"></i>Bayes Rule</a></li>
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#example-coffee-shop-incomplete-information"><i class="fa fa-check"></i>Example: Coffee Shop (Incomplete Information)</a></li>
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#example-coffee-shop-complete-information"><i class="fa fa-check"></i>Example: Coffee Shop (Complete Information)</a></li>
+<li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#example-movie-theatre-popularity"><i class="fa fa-check"></i>Example: Movie Theatre Popularity</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="workshop-probability.html"><a href="workshop-probability.html#probability-functions"><i class="fa fa-check"></i><b>3.2</b> Probability Functions</a>
 <ul>
@@ -479,8 +480,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.5.1" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#factors-in-r"><i class="fa fa-check"></i><b>7.5.1</b> Factors in R</a></li>
 <li class="chapter" data-level="7.5.2" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#crosstabulation"><i class="fa fa-check"></i><b>7.5.2</b> Crosstabulation</a></li>
 <li class="chapter" data-level="7.5.3" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#chi-squared"><i class="fa fa-check"></i><b>7.5.3</b> Chi-squared</a></li>
-<li class="chapter" data-level="7.5.4" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#estimating-lambda"><i class="fa fa-check"></i><b>7.5.4</b> Estimating Lambda</a></li>
-<li class="chapter" data-level="7.5.5" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#planning-experiments"><i class="fa fa-check"></i><b>7.5.5</b> Planning Experiments</a></li>
+<li class="chapter" data-level="7.5.4" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#building-a-chi-squared-function"><i class="fa fa-check"></i><b>7.5.4</b> Building a Chi-squared function</a></li>
+<li class="chapter" data-level="7.5.5" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#estimating-lambda"><i class="fa fa-check"></i><b>7.5.5</b> Estimating Lambda</a></li>
+<li class="chapter" data-level="7.5.6" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#planning-experiments"><i class="fa fa-check"></i><b>7.5.6</b> Planning Experiments</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#LC4"><i class="fa fa-check"></i>Learning Check 4</a></li>
 <li class="chapter" data-level="7.6" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#conclusion-6"><i class="fa fa-check"></i><b>7.6</b> Conclusion</a></li>
@@ -554,6 +556,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.2.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#coverage"><i class="fa fa-check"></i><b>9.2.4</b> Coverage</a></li>
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#simulate"><i class="fa fa-check"></i><b>9.3</b> Simulate</a></li>
+<li class="chapter" data-level="9.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#learning-check-1"><i class="fa fa-check"></i><b>9.4</b> Learning Check 1</a></li>
+<li class="chapter" data-level="9.5" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#learning-check-2-applying-exponential-distributions"><i class="fa fa-check"></i><b>9.5</b> Learning Check 2: Applying Exponential Distributions</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="workshop-physical-acceleration-models.html"><a href="workshop-physical-acceleration-models.html"><i class="fa fa-check"></i><b>10</b> Workshop: Physical Acceleration Models</a>
 <ul>
@@ -960,8 +964,8 @@ In other words, if two events are <em>interdependent</em>, you <strong>multiply.
 <p>I like to map these out, so I understand visually what all the possible pathways are. Here’s a chart I made (using <code>mermaid</code>), where I’ve diagrammed each possible set of actions, like choosing Bag 1 then Marble <em>a</em> (1 pathway), choosing Bag 1 then Marble <em>b</em> (a second pathway), etc.</p>
 <p>If we look at the ties to the marbles, you’ll see I labeled each tie to a red marble as <code>1</code> and each tie to a blue marble as <code>0</code>. If we add these pathways up, we’ll get the <code>total probability</code>: <code>0.67</code> (aka <code>2/3</code>).</p>
 <div class="figure" style="text-align: center">
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-56f393c91e30478cbfb5" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-56f393c91e30478cbfb5">{"x":{"diagram":"graph TD\n you[You]\n subgraph Bags\n b1[Bag 1]\n b2[Bag 2]\n b3[Bag 3]\n end\n subgraph Marbles\n b1m1((Marble <i>a<\/i>))\n b1m2((Marble <i>b<\/i>))\n b1m3((Marble <i>c<\/i>))\n style b1m1 fill:#FB52A5\n style b1m2 fill:#FB52A5\n style b1m3 fill:#FB52A5\n b2m1((Marble <i>d<\/i>))\n b2m2((Marble <i>e<\/i>))\n b2m3((Marble <i>f<\/i>))\n style b2m1 fill:#FB52A5\n style b2m2 fill:#84A3F5\n style b2m3 fill:#84A3F5\n b3m1((Marble <i>g<\/i>))\n b3m2((Marble <i>h<\/i>))\n b3m3((Marble <i>j<\/i>))\n style b3m1 fill:#84A3F5\n style b3m2 fill:#FB52A5\n style b3m3 fill:#FB52A5\n end\n you--> b1\n you--> b2\n you--> b3\n b1-->|1|b1m1\n b1-->|1|b1m2\n b1-->|1|b1m3\n b2-->|1|b2m1\n b2-->|0|b2m2\n b2-->|0|b2m3\n b3-->|0|b3m1\n b3-->|1|b3m2\n b3-->|1|b3m3"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-bc3bb81aa57ad02a82f6" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-bc3bb81aa57ad02a82f6">{"x":{"diagram":"graph TD\n you[You]\n subgraph Bags\n b1[Bag 1]\n b2[Bag 2]\n b3[Bag 3]\n end\n subgraph Marbles\n b1m1((Marble <i>a<\/i>))\n b1m2((Marble <i>b<\/i>))\n b1m3((Marble <i>c<\/i>))\n style b1m1 fill:#FB52A5\n style b1m2 fill:#FB52A5\n style b1m3 fill:#FB52A5\n b2m1((Marble <i>d<\/i>))\n b2m2((Marble <i>e<\/i>))\n b2m3((Marble <i>f<\/i>))\n style b2m1 fill:#FB52A5\n style b2m2 fill:#84A3F5\n style b2m3 fill:#84A3F5\n b3m1((Marble <i>g<\/i>))\n b3m2((Marble <i>h<\/i>))\n b3m3((Marble <i>j<\/i>))\n style b3m1 fill:#84A3F5\n style b3m2 fill:#FB52A5\n style b3m3 fill:#FB52A5\n end\n you--> b1\n you--> b2\n you--> b3\n b1-->|1|b1m1\n b1-->|1|b1m2\n b1-->|1|b1m3\n b2-->|1|b2m1\n b2-->|0|b2m2\n b2-->|0|b2m3\n b3-->|0|b3m1\n b3-->|1|b3m2\n b3-->|1|b3m3"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 (#fig:img_mermaid)Drawing Probability Diagrams
 </p>
@@ -1175,6 +1179,89 @@ In other words, if two events are <em>interdependent</em>, you <strong>multiply.
 ##            &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;
 ## 1            0.6          0.429             0.667     0.7        0.3   0.6</code></pre>
 <div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="workshop-probability.html#cb329-1" tabindex="-1"></a><span class="co"># It should! And it does! Tada!</span></span></code></pre></div>
+</div>
+<div id="example-movie-theatre-popularity" class="section level3 unnumbered hasAnchor">
+<h3>Example: Movie Theatre Popularity<a href="workshop-probability.html#example-movie-theatre-popularity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You are the manager of a movie theatre, and you want to determine the popularity of different genres of movies among your customers.</p>
+<p>You have collected data on the genres of movies that customers choose to watch</p>
+<ul>
+<li>Probability of a customer choosing an Action movie, P(Action) = <code>0.25</code>.</li>
+<li>Similarly, P(Comedy) = <code>0.30</code>.</li>
+<li>P(Drama) = <code>0.20</code>.</li>
+<li>P(Sci-Fi) = <code>0.15</code>.</li>
+<li>P(Horror) = <code>0.10</code>.</li>
+</ul>
+<p>You also have information about the overall popularity of each genre in the market:</p>
+<ul>
+<li>Out of the customers who chose an Action movie, 60% also bought tickets for Comedy.</li>
+<li>Out of the customers who chose a Comedy movie, 40% also bought tickets for Drama.</li>
+<li>Out of the customers who chose a Drama movie, 25% also bought tickets for Sci-Fi.</li>
+<li>Out of the customers who chose a Science Fiction movie, 70% also bought tickets for Action.</li>
+<li>Out of the customers who chose a Horror movie, 20% also bought tickets for Drama.</li>
+</ul>
+<p>You want to calculate the probability that a customer chooses a Drama movie given that they have already purchased a ticket.</p>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="workshop-probability.html#cb330-1" tabindex="-1"></a><span class="co"># We define the prior probabilities of customers choosing each genre based on the given problem statement.</span></span>
+<span id="cb330-2"><a href="workshop-probability.html#cb330-2" tabindex="-1"></a></span>
+<span id="cb330-3"><a href="workshop-probability.html#cb330-3" tabindex="-1"></a>P_action <span class="ot">&lt;-</span> <span class="fl">0.25</span></span>
+<span id="cb330-4"><a href="workshop-probability.html#cb330-4" tabindex="-1"></a>P_comedy <span class="ot">&lt;-</span> <span class="fl">0.30</span></span>
+<span id="cb330-5"><a href="workshop-probability.html#cb330-5" tabindex="-1"></a>P_drama <span class="ot">&lt;-</span> <span class="fl">0.20</span></span>
+<span id="cb330-6"><a href="workshop-probability.html#cb330-6" tabindex="-1"></a>P_scifi <span class="ot">&lt;-</span> <span class="fl">0.15</span></span>
+<span id="cb330-7"><a href="workshop-probability.html#cb330-7" tabindex="-1"></a>P_horror <span class="ot">&lt;-</span> <span class="fl">0.10</span></span>
+<span id="cb330-8"><a href="workshop-probability.html#cb330-8" tabindex="-1"></a></span>
+<span id="cb330-9"><a href="workshop-probability.html#cb330-9" tabindex="-1"></a><span class="co"># We define conditional probabilities that represent the likelihood of crossover purchases. </span></span>
+<span id="cb330-10"><a href="workshop-probability.html#cb330-10" tabindex="-1"></a><span class="co"># For example, the probability of choosing Action given that the customer chose Comedy is 60%.</span></span>
+<span id="cb330-11"><a href="workshop-probability.html#cb330-11" tabindex="-1"></a>conP_action_given_drama <span class="ot">&lt;-</span> <span class="fl">0.00</span></span>
+<span id="cb330-12"><a href="workshop-probability.html#cb330-12" tabindex="-1"></a>conP_comedy_given_drama <span class="ot">&lt;-</span> <span class="fl">0.25</span></span>
+<span id="cb330-13"><a href="workshop-probability.html#cb330-13" tabindex="-1"></a>conP_drama_given_drama <span class="ot">&lt;-</span> <span class="fl">0.00</span></span>
+<span id="cb330-14"><a href="workshop-probability.html#cb330-14" tabindex="-1"></a>conP_scifi_given_drama <span class="ot">&lt;-</span> <span class="fl">0.00</span></span>
+<span id="cb330-15"><a href="workshop-probability.html#cb330-15" tabindex="-1"></a>conP_horror_given_drama <span class="ot">&lt;-</span> <span class="fl">0.20</span></span>
+<span id="cb330-16"><a href="workshop-probability.html#cb330-16" tabindex="-1"></a></span>
+<span id="cb330-17"><a href="workshop-probability.html#cb330-17" tabindex="-1"></a><span class="co"># Specify the target genre</span></span>
+<span id="cb330-18"><a href="workshop-probability.html#cb330-18" tabindex="-1"></a><span class="co"># Our target genre is Drama and we want to calculate the probability that a customer chooses a Drama movie given that they have already purchased a ticket.</span></span>
+<span id="cb330-19"><a href="workshop-probability.html#cb330-19" tabindex="-1"></a>target_genre <span class="ot">&lt;-</span> <span class="st">&quot;Drama&quot;</span>  <span class="co"># We can change this to our desired target genre</span></span></code></pre></div>
+<p>To calculate the probability that a customer chooses the target genre given a ticket purchase, let’s use Bayes Rule!</p>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="workshop-probability.html#cb331-1" tabindex="-1"></a><span class="co"># We will be using Bayes&#39; rule: P(Target Genre | Ticket Purchase) = P(Ticket Purchase | Target Genre) * P(Target Genre) / P(Ticket Purchase)</span></span>
+<span id="cb331-2"><a href="workshop-probability.html#cb331-2" tabindex="-1"></a></span>
+<span id="cb331-3"><a href="workshop-probability.html#cb331-3" tabindex="-1"></a><span class="co"># We calculate P(Ticket Purchase | Target Genre) * P(Target Genre) as probability_given_purchase</span></span>
+<span id="cb331-4"><a href="workshop-probability.html#cb331-4" tabindex="-1"></a></span>
+<span id="cb331-5"><a href="workshop-probability.html#cb331-5" tabindex="-1"></a><span class="co"># If target_genre is &quot;Comedy,&quot; the switch function will select the conditional probability for choosing Comedy given a ticket purchase </span></span>
+<span id="cb331-6"><a href="workshop-probability.html#cb331-6" tabindex="-1"></a></span>
+<span id="cb331-7"><a href="workshop-probability.html#cb331-7" tabindex="-1"></a>probability_given_purchase <span class="ot">&lt;-</span> <span class="cf">switch</span>(</span>
+<span id="cb331-8"><a href="workshop-probability.html#cb331-8" tabindex="-1"></a>  target_genre,</span>
+<span id="cb331-9"><a href="workshop-probability.html#cb331-9" tabindex="-1"></a>  <span class="st">&quot;Action&quot;</span> <span class="ot">=</span> conP_action_given_drama <span class="sc">*</span> P_action,</span>
+<span id="cb331-10"><a href="workshop-probability.html#cb331-10" tabindex="-1"></a>  <span class="st">&quot;Comedy&quot;</span> <span class="ot">=</span> conP_comedy_given_drama <span class="sc">*</span> P_comedy,</span>
+<span id="cb331-11"><a href="workshop-probability.html#cb331-11" tabindex="-1"></a>  <span class="st">&quot;Drama&quot;</span> <span class="ot">=</span> conP_drama_given_drama <span class="sc">*</span> P_drama,</span>
+<span id="cb331-12"><a href="workshop-probability.html#cb331-12" tabindex="-1"></a>  <span class="st">&quot;SciFi&quot;</span> <span class="ot">=</span> conP_scifi_given_drama <span class="sc">*</span> P_scifi,</span>
+<span id="cb331-13"><a href="workshop-probability.html#cb331-13" tabindex="-1"></a>  <span class="st">&quot;Horror&quot;</span> <span class="ot">=</span> conP_horror_given_drama <span class="sc">*</span> P_horror</span>
+<span id="cb331-14"><a href="workshop-probability.html#cb331-14" tabindex="-1"></a>)</span>
+<span id="cb331-15"><a href="workshop-probability.html#cb331-15" tabindex="-1"></a><span class="co"># View it!</span></span>
+<span id="cb331-16"><a href="workshop-probability.html#cb331-16" tabindex="-1"></a>probability_given_purchase</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p>Next…</p>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="workshop-probability.html#cb333-1" tabindex="-1"></a><span class="co"># We will further calculate the total probability of a ticket purchase P(Ticket Purchase) as total_probability_purchase:</span></span>
+<span id="cb333-2"><a href="workshop-probability.html#cb333-2" tabindex="-1"></a></span>
+<span id="cb333-3"><a href="workshop-probability.html#cb333-3" tabindex="-1"></a>total_probability_purchase <span class="ot">&lt;-</span> <span class="fu">sum</span>(</span>
+<span id="cb333-4"><a href="workshop-probability.html#cb333-4" tabindex="-1"></a>  conP_action_given_drama <span class="sc">*</span> P_action,</span>
+<span id="cb333-5"><a href="workshop-probability.html#cb333-5" tabindex="-1"></a>  conP_comedy_given_drama <span class="sc">*</span> P_comedy,</span>
+<span id="cb333-6"><a href="workshop-probability.html#cb333-6" tabindex="-1"></a>  conP_drama_given_drama <span class="sc">*</span> P_drama,</span>
+<span id="cb333-7"><a href="workshop-probability.html#cb333-7" tabindex="-1"></a>  conP_scifi_given_drama <span class="sc">*</span> P_scifi,</span>
+<span id="cb333-8"><a href="workshop-probability.html#cb333-8" tabindex="-1"></a>  conP_horror_given_drama <span class="sc">*</span> P_horror</span>
+<span id="cb333-9"><a href="workshop-probability.html#cb333-9" tabindex="-1"></a>)</span>
+<span id="cb333-10"><a href="workshop-probability.html#cb333-10" tabindex="-1"></a><span class="co"># View it!</span></span>
+<span id="cb333-11"><a href="workshop-probability.html#cb333-11" tabindex="-1"></a>total_probability_purchase</span></code></pre></div>
+<pre><code>## [1] 0.095</code></pre>
+<p>We want to calculate the probability that a customer chooses a Drama movie given that they have already purchased a ticket, thus target genre is Drama.</p>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="workshop-probability.html#cb335-1" tabindex="-1"></a><span class="co"># P(Target Genre | Ticket Purchase) &lt;- P(Ticket Purchase | Target Genre) * P(Target Genre) / P(Ticket Purchase)</span></span>
+<span id="cb335-2"><a href="workshop-probability.html#cb335-2" tabindex="-1"></a></span>
+<span id="cb335-3"><a href="workshop-probability.html#cb335-3" tabindex="-1"></a>probability_target_genre_given_purchase <span class="ot">&lt;-</span> probability_given_purchase <span class="sc">/</span> total_probability_purchase</span>
+<span id="cb335-4"><a href="workshop-probability.html#cb335-4" tabindex="-1"></a></span>
+<span id="cb335-5"><a href="workshop-probability.html#cb335-5" tabindex="-1"></a><span class="co"># Let&#39;s print that using paste!</span></span>
+<span id="cb335-6"><a href="workshop-probability.html#cb335-6" tabindex="-1"></a><span class="fu">paste</span>(</span>
+<span id="cb335-7"><a href="workshop-probability.html#cb335-7" tabindex="-1"></a>  <span class="st">&quot;Probability that a customer chooses a&quot;</span>, </span>
+<span id="cb335-8"><a href="workshop-probability.html#cb335-8" tabindex="-1"></a>    target_genre, </span>
+<span id="cb335-9"><a href="workshop-probability.html#cb335-9" tabindex="-1"></a>  <span class="st">&quot;movie given a ticket purchase:&quot;</span>, </span>
+<span id="cb335-10"><a href="workshop-probability.html#cb335-10" tabindex="-1"></a>  probability_target_genre_given_purchase)</span></code></pre></div>
+<pre><code>## [1] &quot;Probability that a customer chooses a Drama movie given a ticket purchase: 0&quot;</code></pre>
 <p><br>
 <br></p>
 </div>
@@ -1196,21 +1283,21 @@ In other words, if two events are <em>interdependent</em>, you <strong>multiply.
 <li><p>They measured <code>n = 15</code> patients who stayed 1 night over the last 7 days, how much were they charged (before insurance)? Let’s call this vector <code>obs</code> (for ‘observed data’).</p></li>
 <li><p>A 16th patient received a bill of <code>$3000</code> (above the national mean of ~<code>$2500</code>). We’ll record this as <code>stat</code> below.</p></li>
 </ul>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="workshop-probability.html#cb330-1" tabindex="-1"></a><span class="co"># Let&#39;s record our vector of 15 patients</span></span>
-<span id="cb330-2"><a href="workshop-probability.html#cb330-2" tabindex="-1"></a>obs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1126</span>, <span class="dv">1493</span>, <span class="dv">1528</span>, <span class="dv">1713</span>, <span class="dv">1912</span>, <span class="dv">2060</span>, <span class="dv">2541</span>, <span class="dv">2612</span>, <span class="dv">2888</span>, <span class="dv">2915</span>, <span class="dv">3166</span>, <span class="dv">3552</span>, <span class="dv">3692</span>, <span class="dv">3695</span>, <span class="dv">4248</span>)</span>
-<span id="cb330-3"><a href="workshop-probability.html#cb330-3" tabindex="-1"></a><span class="co"># And let&#39;s get our new patient data point to compare against</span></span>
-<span id="cb330-4"><a href="workshop-probability.html#cb330-4" tabindex="-1"></a>stat <span class="ot">&lt;-</span> <span class="dv">3000</span></span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="workshop-probability.html#cb337-1" tabindex="-1"></a><span class="co"># Let&#39;s record our vector of 15 patients</span></span>
+<span id="cb337-2"><a href="workshop-probability.html#cb337-2" tabindex="-1"></a>obs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1126</span>, <span class="dv">1493</span>, <span class="dv">1528</span>, <span class="dv">1713</span>, <span class="dv">1912</span>, <span class="dv">2060</span>, <span class="dv">2541</span>, <span class="dv">2612</span>, <span class="dv">2888</span>, <span class="dv">2915</span>, <span class="dv">3166</span>, <span class="dv">3552</span>, <span class="dv">3692</span>, <span class="dv">3695</span>, <span class="dv">4248</span>)</span>
+<span id="cb337-3"><a href="workshop-probability.html#cb337-3" tabindex="-1"></a><span class="co"># And let&#39;s get our new patient data point to compare against</span></span>
+<span id="cb337-4"><a href="workshop-probability.html#cb337-4" tabindex="-1"></a>stat <span class="ot">&lt;-</span> <span class="dv">3000</span></span></code></pre></div>
 <p>Here, we know the full observed distribution of values (<code>cost</code>), so we can directly compute the <code>p_value</code> from them, using the logical operator <code>&gt;=</code>.</p>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="workshop-probability.html#cb331-1" tabindex="-1"></a><span class="co"># Which values of in vector obs were greater than or equal to stat?</span></span>
-<span id="cb331-2"><a href="workshop-probability.html#cb331-2" tabindex="-1"></a>obs <span class="sc">&gt;=</span> stat</span></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="workshop-probability.html#cb338-1" tabindex="-1"></a><span class="co"># Which values of in vector obs were greater than or equal to stat?</span></span>
+<span id="cb338-2"><a href="workshop-probability.html#cb338-2" tabindex="-1"></a>obs <span class="sc">&gt;=</span> stat</span></code></pre></div>
 <pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE
 ## [13]  TRUE  TRUE  TRUE</code></pre>
 <p><code>R</code> interprets <code>TRUE == 1</code> &amp; <code>FALSE == 0</code>, so we can take the <code>mean()</code> to get the percentage of values in <code>obs</code> greater than or equal to <code>stat</code>.</p>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="workshop-probability.html#cb333-1" tabindex="-1"></a><span class="co"># Get p-value, the probability of getting a value greater than or equal to stat</span></span>
-<span id="cb333-2"><a href="workshop-probability.html#cb333-2" tabindex="-1"></a><span class="fu">mean</span>(obs <span class="sc">&gt;=</span> stat)</span></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="workshop-probability.html#cb340-1" tabindex="-1"></a><span class="co"># Get p-value, the probability of getting a value greater than or equal to stat</span></span>
+<span id="cb340-2"><a href="workshop-probability.html#cb340-2" tabindex="-1"></a><span class="fu">mean</span>(obs <span class="sc">&gt;=</span> stat)</span></code></pre></div>
 <pre><code>## [1] 0.3333333</code></pre>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="workshop-probability.html#cb335-1" tabindex="-1"></a><span class="co"># This means Total Probability, where probability of each cost is 1/n</span></span>
-<span id="cb335-2"><a href="workshop-probability.html#cb335-2" tabindex="-1"></a><span class="fu">sum</span>(  (obs <span class="sc">&gt;=</span> stat) <span class="sc">/</span> <span class="fu">length</span>(obs)   )</span></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="workshop-probability.html#cb342-1" tabindex="-1"></a><span class="co"># This means Total Probability, where probability of each cost is 1/n</span></span>
+<span id="cb342-2"><a href="workshop-probability.html#cb342-2" tabindex="-1"></a><span class="fu">sum</span>(  (obs <span class="sc">&gt;=</span> stat) <span class="sc">/</span> <span class="fu">length</span>(obs)   )</span></code></pre></div>
 <pre><code>## [1] 0.3333333</code></pre>
 <p>Unfortunately, this only takes into account the exact values we observed (eg. $1493), but it can’t tell us anything about values we <em>didn’t</em> observe (eg. $1500). But logically, we know that the probability of getting a bill of $1500 should be pretty similar to a bill of $1493. So how do we fill in the gaps?</p>
 <p><br>
@@ -1225,7 +1312,7 @@ In other words, if two events are <em>interdependent</em>, you <strong>multiply.
 </ul>
 <p><br></p>
 <p>We can ask R to estimate the probability density function for any observed vector using <code>density()</code>. This returns the density (<code>y</code>) of a bunch of hypothetical values (<code>x</code>) matching our distribution’s curve. We can access those results using the <code>broom</code> package, by <code>tidy()</code>-ing it into a data.frame.</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="workshop-probability.html#cb337-1" tabindex="-1"></a>obs <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="workshop-probability.html#cb344-1" tabindex="-1"></a>obs <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 2
 ##       x           y
 ##   &lt;dbl&gt;       &lt;dbl&gt;
@@ -1233,25 +1320,25 @@ In other words, if two events are <em>interdependent</em>, you <strong>multiply.
 ## 2 5727. 0.000000675
 ## 3 5739. 0.000000628</code></pre>
 <p>But that’s <em>data</em>, not a <em>function</em>, right? Functions are <em>equations</em>, machines you can pump an input into to get a specific output. Given a data.frame of 2 vectors, <code>R</code> can actually approximate the <code>function</code> (equation) connecting vector 1 to vector 2 using <code>approxfun()</code>, <em>creating your own function!</em> So cool!</p>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="workshop-probability.html#cb339-1" tabindex="-1"></a><span class="co"># Let&#39;s make dobs(), the probability density function for our observed data. </span></span>
-<span id="cb339-2"><a href="workshop-probability.html#cb339-2" tabindex="-1"></a>dobs <span class="ot">&lt;-</span> obs <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">approxfun</span>()</span>
-<span id="cb339-3"><a href="workshop-probability.html#cb339-3" tabindex="-1"></a><span class="co"># Now let&#39;s get a sequence (seq()) of costs from 1000 to 3000, in units of 1000....</span></span>
-<span id="cb339-4"><a href="workshop-probability.html#cb339-4" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1000</span>, <span class="dv">3000</span>, <span class="at">by =</span> <span class="dv">1000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="workshop-probability.html#cb346-1" tabindex="-1"></a><span class="co"># Let&#39;s make dobs(), the probability density function for our observed data. </span></span>
+<span id="cb346-2"><a href="workshop-probability.html#cb346-2" tabindex="-1"></a>dobs <span class="ot">&lt;-</span> obs <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">approxfun</span>()</span>
+<span id="cb346-3"><a href="workshop-probability.html#cb346-3" tabindex="-1"></a><span class="co"># Now let&#39;s get a sequence (seq()) of costs from 1000 to 3000, in units of 1000....</span></span>
+<span id="cb346-4"><a href="workshop-probability.html#cb346-4" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1000</span>, <span class="dv">3000</span>, <span class="at">by =</span> <span class="dv">1000</span>)</span></code></pre></div>
 <pre><code>## [1] 1000 2000 3000</code></pre>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="workshop-probability.html#cb341-1" tabindex="-1"></a><span class="co"># and let&#39;s feed it a range of data to get the frequencies at those costs!</span></span>
-<span id="cb341-2"><a href="workshop-probability.html#cb341-2" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1000</span>, <span class="dv">3000</span>, <span class="at">by =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> <span class="fu">dobs</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="workshop-probability.html#cb348-1" tabindex="-1"></a><span class="co"># and let&#39;s feed it a range of data to get the frequencies at those costs!</span></span>
+<span id="cb348-2"><a href="workshop-probability.html#cb348-2" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1000</span>, <span class="dv">3000</span>, <span class="at">by =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> <span class="fu">dobs</span>()</span></code></pre></div>
 <pre><code>## [1] 0.0001505136 0.0003081445 0.0003186926</code></pre>
 <p>For now, let’s get the densities for costs ranging from the min to the max observed cost.</p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="workshop-probability.html#cb343-1" tabindex="-1"></a>mypd <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb343-2"><a href="workshop-probability.html#cb343-2" tabindex="-1"></a>  <span class="co"># Get sequence from min to max, in units of $10</span></span>
-<span id="cb343-3"><a href="workshop-probability.html#cb343-3" tabindex="-1"></a>  <span class="at">cost =</span> <span class="fu">seq</span>(<span class="fu">min</span>(obs), <span class="fu">max</span>(obs), <span class="at">by =</span> <span class="dv">10</span>),</span>
-<span id="cb343-4"><a href="workshop-probability.html#cb343-4" tabindex="-1"></a>  <span class="co"># Get probability densities</span></span>
-<span id="cb343-5"><a href="workshop-probability.html#cb343-5" tabindex="-1"></a>  <span class="at">prob_cost_i =</span> <span class="fu">dobs</span>(cost)) <span class="sc">%&gt;%</span></span>
-<span id="cb343-6"><a href="workshop-probability.html#cb343-6" tabindex="-1"></a>  <span class="co"># Classify each row as TRUE (1) if cost greater than or equal to stat, or FALSE (0) if not.</span></span>
-<span id="cb343-7"><a href="workshop-probability.html#cb343-7" tabindex="-1"></a>  <span class="co"># This is the probability that each row is extreme (1 or 0)</span></span>
-<span id="cb343-8"><a href="workshop-probability.html#cb343-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob_extreme_i =</span> cost <span class="sc">&gt;=</span> stat)</span>
-<span id="cb343-9"><a href="workshop-probability.html#cb343-9" tabindex="-1"></a><span class="co"># Check it out!</span></span>
-<span id="cb343-10"><a href="workshop-probability.html#cb343-10" tabindex="-1"></a>mypd <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="workshop-probability.html#cb350-1" tabindex="-1"></a>mypd <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb350-2"><a href="workshop-probability.html#cb350-2" tabindex="-1"></a>  <span class="co"># Get sequence from min to max, in units of $10</span></span>
+<span id="cb350-3"><a href="workshop-probability.html#cb350-3" tabindex="-1"></a>  <span class="at">cost =</span> <span class="fu">seq</span>(<span class="fu">min</span>(obs), <span class="fu">max</span>(obs), <span class="at">by =</span> <span class="dv">10</span>),</span>
+<span id="cb350-4"><a href="workshop-probability.html#cb350-4" tabindex="-1"></a>  <span class="co"># Get probability densities</span></span>
+<span id="cb350-5"><a href="workshop-probability.html#cb350-5" tabindex="-1"></a>  <span class="at">prob_cost_i =</span> <span class="fu">dobs</span>(cost)) <span class="sc">%&gt;%</span></span>
+<span id="cb350-6"><a href="workshop-probability.html#cb350-6" tabindex="-1"></a>  <span class="co"># Classify each row as TRUE (1) if cost greater than or equal to stat, or FALSE (0) if not.</span></span>
+<span id="cb350-7"><a href="workshop-probability.html#cb350-7" tabindex="-1"></a>  <span class="co"># This is the probability that each row is extreme (1 or 0)</span></span>
+<span id="cb350-8"><a href="workshop-probability.html#cb350-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob_extreme_i =</span> cost <span class="sc">&gt;=</span> stat)</span>
+<span id="cb350-9"><a href="workshop-probability.html#cb350-9" tabindex="-1"></a><span class="co"># Check it out!</span></span>
+<span id="cb350-10"><a href="workshop-probability.html#cb350-10" tabindex="-1"></a>mypd <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 3
 ##    cost prob_cost_i prob_extreme_i
 ##   &lt;dbl&gt;       &lt;dbl&gt; &lt;lgl&gt;         
@@ -1267,21 +1354,21 @@ In other words, if two events are <em>interdependent</em>, you <strong>multiply.
 <li><p>We can visualize <code>mypd</code> using <code>geom_area()</code> or <code>geom_line()</code> in <code>ggplot2</code>!</p></li>
 <li><p>We can add <code>geom_vline()</code> to draw a vertical line at the location of <code>stat</code> on the <code>xintercept</code>.</p></li>
 </ul>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="workshop-probability.html#cb345-1" tabindex="-1"></a>mypd <span class="sc">%&gt;%</span></span>
-<span id="cb345-2"><a href="workshop-probability.html#cb345-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_cost_i, <span class="at">fill =</span> prob_extreme_i)) <span class="sc">+</span></span>
-<span id="cb345-3"><a href="workshop-probability.html#cb345-3" tabindex="-1"></a>  <span class="co"># Fill in the area from 0 to y along x</span></span>
-<span id="cb345-4"><a href="workshop-probability.html#cb345-4" tabindex="-1"></a>  <span class="fu">geom_area</span>() <span class="sc">+</span></span>
-<span id="cb345-5"><a href="workshop-probability.html#cb345-5" tabindex="-1"></a>  <span class="co"># Or just draw curve with line</span></span>
-<span id="cb345-6"><a href="workshop-probability.html#cb345-6" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb345-7"><a href="workshop-probability.html#cb345-7" tabindex="-1"></a>  <span class="co"># add vertical line</span></span>
-<span id="cb345-8"><a href="workshop-probability.html#cb345-8" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> stat, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb345-9"><a href="workshop-probability.html#cb345-9" tabindex="-1"></a>  <span class="co"># Add theme and labels</span></span>
-<span id="cb345-10"><a href="workshop-probability.html#cb345-10" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb345-11"><a href="workshop-probability.html#cb345-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Range of Patient Costs (n = 15)&quot;</span>,</span>
-<span id="cb345-12"><a href="workshop-probability.html#cb345-12" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Probability&quot;</span>,</span>
-<span id="cb345-13"><a href="workshop-probability.html#cb345-13" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Probability Density Function of Hospital Stay Costs&quot;</span>) <span class="sc">+</span></span>
-<span id="cb345-14"><a href="workshop-probability.html#cb345-14" tabindex="-1"></a>  <span class="co"># And let&#39;s add a quick label</span></span>
-<span id="cb345-15"><a href="workshop-probability.html#cb345-15" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="dv">3500</span>, <span class="at">y =</span> <span class="fl">1.5e-4</span>, <span class="at">label =</span> <span class="st">&quot;(%) Area</span><span class="sc">\n</span><span class="st">under</span><span class="sc">\n</span><span class="st">curve??&quot;</span>, <span class="at">size =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="workshop-probability.html#cb352-1" tabindex="-1"></a>mypd <span class="sc">%&gt;%</span></span>
+<span id="cb352-2"><a href="workshop-probability.html#cb352-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_cost_i, <span class="at">fill =</span> prob_extreme_i)) <span class="sc">+</span></span>
+<span id="cb352-3"><a href="workshop-probability.html#cb352-3" tabindex="-1"></a>  <span class="co"># Fill in the area from 0 to y along x</span></span>
+<span id="cb352-4"><a href="workshop-probability.html#cb352-4" tabindex="-1"></a>  <span class="fu">geom_area</span>() <span class="sc">+</span></span>
+<span id="cb352-5"><a href="workshop-probability.html#cb352-5" tabindex="-1"></a>  <span class="co"># Or just draw curve with line</span></span>
+<span id="cb352-6"><a href="workshop-probability.html#cb352-6" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb352-7"><a href="workshop-probability.html#cb352-7" tabindex="-1"></a>  <span class="co"># add vertical line</span></span>
+<span id="cb352-8"><a href="workshop-probability.html#cb352-8" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> stat, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb352-9"><a href="workshop-probability.html#cb352-9" tabindex="-1"></a>  <span class="co"># Add theme and labels</span></span>
+<span id="cb352-10"><a href="workshop-probability.html#cb352-10" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb352-11"><a href="workshop-probability.html#cb352-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Range of Patient Costs (n = 15)&quot;</span>,</span>
+<span id="cb352-12"><a href="workshop-probability.html#cb352-12" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Probability&quot;</span>,</span>
+<span id="cb352-13"><a href="workshop-probability.html#cb352-13" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Probability Density Function of Hospital Stay Costs&quot;</span>) <span class="sc">+</span></span>
+<span id="cb352-14"><a href="workshop-probability.html#cb352-14" tabindex="-1"></a>  <span class="co"># And let&#39;s add a quick label</span></span>
+<span id="cb352-15"><a href="workshop-probability.html#cb352-15" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="dv">3500</span>, <span class="at">y =</span> <span class="fl">1.5e-4</span>, <span class="at">label =</span> <span class="st">&quot;(%) Area</span><span class="sc">\n</span><span class="st">under</span><span class="sc">\n</span><span class="st">curve??&quot;</span>, <span class="at">size =</span> <span class="dv">5</span>)</span></code></pre></div>
 <div class="figure">
 <img src="03_workshop_files/figure-html/plot_pdf-1.png" alt="Figure 2. Visualizing a Probability Density Function!" width="100%" />
 <p class="caption">
@@ -1299,35 +1386,35 @@ In other words, if two events are <em>interdependent</em>, you <strong>multiply.
 <li><p>We can calculate the total probability or <code>p_value</code> that a value of <code>cost</code> will be greater than our statistic <code>stat</code>, using our total probability formula. We can even restate it, so that it looks a little more like the weighted average it truly is.</p></li>
 </ul>
 <p><span class="math display">\[  P_{\ Extreme} =  \sum_{i = 1}^{n}{ P (Cost | Extreme_{\ i}) \times P (Cost_{\ i}) } = \frac{ \sum_{i = 1}^{n}{ P (Cost_{i}) \times P(Extreme)_{\ i} } }{ \sum_{i = 1}^{n}{ P(Cost_{i}) }  }     \]</span></p>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="workshop-probability.html#cb346-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> mypd <span class="sc">%&gt;%</span> </span>
-<span id="cb346-2"><a href="workshop-probability.html#cb346-2" tabindex="-1"></a>  <span class="co"># Calculate the conditional probability of each cost occurring given that condition</span></span>
-<span id="cb346-3"><a href="workshop-probability.html#cb346-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob_cost_extreme_i =</span> prob_cost_i <span class="sc">*</span> prob_extreme_i) <span class="sc">%&gt;%</span></span>
-<span id="cb346-4"><a href="workshop-probability.html#cb346-4" tabindex="-1"></a>  <span class="co"># Next, let&#39;s summarize these probabilities</span></span>
-<span id="cb346-5"><a href="workshop-probability.html#cb346-5" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb346-6"><a href="workshop-probability.html#cb346-6" tabindex="-1"></a>    <span class="co"># Add up all probabilities of each cost given its condition in row i</span></span>
-<span id="cb346-7"><a href="workshop-probability.html#cb346-7" tabindex="-1"></a>    <span class="at">prob_cost_extreme =</span> <span class="fu">sum</span>(prob_cost_extreme_i),</span>
-<span id="cb346-8"><a href="workshop-probability.html#cb346-8" tabindex="-1"></a>    <span class="co"># Add up all probabilities of each cost in any row i</span></span>
-<span id="cb346-9"><a href="workshop-probability.html#cb346-9" tabindex="-1"></a>    <span class="at">prob_cost =</span> <span class="fu">sum</span>(prob_cost_i),</span>
-<span id="cb346-10"><a href="workshop-probability.html#cb346-10" tabindex="-1"></a>    <span class="co"># Calculate the weighted average, or total probability of getting an extreme cost</span></span>
-<span id="cb346-11"><a href="workshop-probability.html#cb346-11" tabindex="-1"></a>    <span class="co"># by dividing these two sums!</span></span>
-<span id="cb346-12"><a href="workshop-probability.html#cb346-12" tabindex="-1"></a>    <span class="at">prob_extreme =</span> prob_cost_extreme <span class="sc">/</span> prob_cost)</span>
-<span id="cb346-13"><a href="workshop-probability.html#cb346-13" tabindex="-1"></a><span class="co"># Check it out!</span></span>
-<span id="cb346-14"><a href="workshop-probability.html#cb346-14" tabindex="-1"></a>p</span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="workshop-probability.html#cb353-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> mypd <span class="sc">%&gt;%</span> </span>
+<span id="cb353-2"><a href="workshop-probability.html#cb353-2" tabindex="-1"></a>  <span class="co"># Calculate the conditional probability of each cost occurring given that condition</span></span>
+<span id="cb353-3"><a href="workshop-probability.html#cb353-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob_cost_extreme_i =</span> prob_cost_i <span class="sc">*</span> prob_extreme_i) <span class="sc">%&gt;%</span></span>
+<span id="cb353-4"><a href="workshop-probability.html#cb353-4" tabindex="-1"></a>  <span class="co"># Next, let&#39;s summarize these probabilities</span></span>
+<span id="cb353-5"><a href="workshop-probability.html#cb353-5" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb353-6"><a href="workshop-probability.html#cb353-6" tabindex="-1"></a>    <span class="co"># Add up all probabilities of each cost given its condition in row i</span></span>
+<span id="cb353-7"><a href="workshop-probability.html#cb353-7" tabindex="-1"></a>    <span class="at">prob_cost_extreme =</span> <span class="fu">sum</span>(prob_cost_extreme_i),</span>
+<span id="cb353-8"><a href="workshop-probability.html#cb353-8" tabindex="-1"></a>    <span class="co"># Add up all probabilities of each cost in any row i</span></span>
+<span id="cb353-9"><a href="workshop-probability.html#cb353-9" tabindex="-1"></a>    <span class="at">prob_cost =</span> <span class="fu">sum</span>(prob_cost_i),</span>
+<span id="cb353-10"><a href="workshop-probability.html#cb353-10" tabindex="-1"></a>    <span class="co"># Calculate the weighted average, or total probability of getting an extreme cost</span></span>
+<span id="cb353-11"><a href="workshop-probability.html#cb353-11" tabindex="-1"></a>    <span class="co"># by dividing these two sums!</span></span>
+<span id="cb353-12"><a href="workshop-probability.html#cb353-12" tabindex="-1"></a>    <span class="at">prob_extreme =</span> prob_cost_extreme <span class="sc">/</span> prob_cost)</span>
+<span id="cb353-13"><a href="workshop-probability.html#cb353-13" tabindex="-1"></a><span class="co"># Check it out!</span></span>
+<span id="cb353-14"><a href="workshop-probability.html#cb353-14" tabindex="-1"></a>p</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 3
 ##   prob_cost_extreme prob_cost prob_extreme
 ##               &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;
 ## 1            0.0317    0.0868        0.365</code></pre>
 <p>Very cool! Visually, what’s happening here?</p>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="workshop-probability.html#cb348-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb348-2"><a href="workshop-probability.html#cb348-2" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mypd, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_cost_i, <span class="at">fill =</span> prob_extreme_i)) <span class="sc">+</span></span>
-<span id="cb348-3"><a href="workshop-probability.html#cb348-3" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> stat, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb348-4"><a href="workshop-probability.html#cb348-4" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb348-5"><a href="workshop-probability.html#cb348-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Range of Patient Costs (n = 15)&quot;</span>,</span>
-<span id="cb348-6"><a href="workshop-probability.html#cb348-6" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Probability&quot;</span>,</span>
-<span id="cb348-7"><a href="workshop-probability.html#cb348-7" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Probability Density Function of Hospital Stay Costs&quot;</span>) <span class="sc">+</span></span>
-<span id="cb348-8"><a href="workshop-probability.html#cb348-8" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="dv">3500</span>, <span class="at">y =</span> <span class="fl">1.5e-4</span>, </span>
-<span id="cb348-9"><a href="workshop-probability.html#cb348-9" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">&quot;P(Extreme)&quot;</span>, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>, <span class="st">&quot; = &quot;</span>, p<span class="sc">$</span>prob_extreme <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>), <span class="at">sep =</span> <span class="st">&quot;&quot;</span>),</span>
-<span id="cb348-10"><a href="workshop-probability.html#cb348-10" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="workshop-probability.html#cb355-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb355-2"><a href="workshop-probability.html#cb355-2" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mypd, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_cost_i, <span class="at">fill =</span> prob_extreme_i)) <span class="sc">+</span></span>
+<span id="cb355-3"><a href="workshop-probability.html#cb355-3" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> stat, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb355-4"><a href="workshop-probability.html#cb355-4" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb355-5"><a href="workshop-probability.html#cb355-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Range of Patient Costs (n = 15)&quot;</span>,</span>
+<span id="cb355-6"><a href="workshop-probability.html#cb355-6" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Probability&quot;</span>,</span>
+<span id="cb355-7"><a href="workshop-probability.html#cb355-7" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Probability Density Function of Hospital Stay Costs&quot;</span>) <span class="sc">+</span></span>
+<span id="cb355-8"><a href="workshop-probability.html#cb355-8" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="dv">3500</span>, <span class="at">y =</span> <span class="fl">1.5e-4</span>, </span>
+<span id="cb355-9"><a href="workshop-probability.html#cb355-9" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">&quot;P(Extreme)&quot;</span>, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>, <span class="st">&quot; = &quot;</span>, p<span class="sc">$</span>prob_extreme <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>), <span class="at">sep =</span> <span class="st">&quot;&quot;</span>),</span>
+<span id="cb355-10"><a href="workshop-probability.html#cb355-10" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">5</span>)</span></code></pre></div>
 <div class="figure">
 <img src="03_workshop_files/figure-html/plot_pdf_area-1.png" alt="Figure 3. PDF with Area Under Curve!" width="100%" />
 <p class="caption">
@@ -1343,22 +1430,22 @@ In other words, if two events are <em>interdependent</em>, you <strong>multiply.
 <ul>
 <li>To add a values/probabilities in a vector together sequentially, we can use <code>cumsum()</code> (short for cumulative sum). For example:</li>
 </ul>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="workshop-probability.html#cb349-1" tabindex="-1"></a><span class="co"># Normally</span></span>
-<span id="cb349-2"><a href="workshop-probability.html#cb349-2" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="workshop-probability.html#cb356-1" tabindex="-1"></a><span class="co"># Normally</span></span>
+<span id="cb356-2"><a href="workshop-probability.html#cb356-2" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 1 2 3 4 5</code></pre>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="workshop-probability.html#cb351-1" tabindex="-1"></a><span class="co"># Cumulatively summed</span></span>
-<span id="cb351-2"><a href="workshop-probability.html#cb351-2" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="fu">cumsum</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="workshop-probability.html#cb358-1" tabindex="-1"></a><span class="co"># Cumulatively summed</span></span>
+<span id="cb358-2"><a href="workshop-probability.html#cb358-2" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="fu">cumsum</span>()</span></code></pre></div>
 <pre><code>## [1]  1  3  6 10 15</code></pre>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="workshop-probability.html#cb353-1" tabindex="-1"></a><span class="co"># Same as</span></span>
-<span id="cb353-2"><a href="workshop-probability.html#cb353-2" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span><span class="sc">+</span><span class="dv">1</span>, <span class="dv">3</span><span class="sc">+</span><span class="dv">2</span><span class="sc">+</span><span class="dv">1</span>, <span class="dv">4</span><span class="sc">+</span><span class="dv">3</span><span class="sc">+</span><span class="dv">2</span><span class="sc">+</span><span class="dv">1</span>, <span class="dv">5</span><span class="sc">+</span><span class="dv">4</span><span class="sc">+</span><span class="dv">3</span><span class="sc">+</span><span class="dv">2</span><span class="sc">+</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="workshop-probability.html#cb360-1" tabindex="-1"></a><span class="co"># Same as</span></span>
+<span id="cb360-2"><a href="workshop-probability.html#cb360-2" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span><span class="sc">+</span><span class="dv">1</span>, <span class="dv">3</span><span class="sc">+</span><span class="dv">2</span><span class="sc">+</span><span class="dv">1</span>, <span class="dv">4</span><span class="sc">+</span><span class="dv">3</span><span class="sc">+</span><span class="dv">2</span><span class="sc">+</span><span class="dv">1</span>, <span class="dv">5</span><span class="sc">+</span><span class="dv">4</span><span class="sc">+</span><span class="dv">3</span><span class="sc">+</span><span class="dv">2</span><span class="sc">+</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1]  1  3  6 10 15</code></pre>
 <p>Every <strong>probability density function (PDF)</strong> can <em>also</em> be represented as a <strong>cumulative distribution function (CDF)</strong>. Here, we calculate the <em>cumulative</em> total probability of receiving <em>each</em> <code>cost</code>, applying <code>cumsum()</code> to the probability (<code>prob_cost</code>) of each value (<code>cost</code>). In this case, we’re basically saying, we’re interested in <em>all</em> the <code>costs</code>, so don’t discount any.</p>
 <p><span class="math display">\[  P_{\ Extreme} =  \sum_{i = 1}^{n}{ P (Cost | Extreme_{\ i} = 1) \times P (Cost_{\ i}) } = \frac{ \sum_{i = 1}^{n}{ P (Cost_{i}) \times 1 } }{ \sum_{i = 1}^{n}{ P(Cost_{i}) }  }     \]</span></p>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="workshop-probability.html#cb355-1" tabindex="-1"></a>mypd <span class="sc">%&gt;%</span> </span>
-<span id="cb355-2"><a href="workshop-probability.html#cb355-2" tabindex="-1"></a>  <span class="co"># For instance, we can do the first step here,</span></span>
-<span id="cb355-3"><a href="workshop-probability.html#cb355-3" tabindex="-1"></a>  <span class="co"># taking the cumulative probability of costs i through j....</span></span>
-<span id="cb355-4"><a href="workshop-probability.html#cb355-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob_cost_cumulative =</span> <span class="fu">cumsum</span>(prob_cost_i)) <span class="sc">%&gt;%</span></span>
-<span id="cb355-5"><a href="workshop-probability.html#cb355-5" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="workshop-probability.html#cb362-1" tabindex="-1"></a>mypd <span class="sc">%&gt;%</span> </span>
+<span id="cb362-2"><a href="workshop-probability.html#cb362-2" tabindex="-1"></a>  <span class="co"># For instance, we can do the first step here,</span></span>
+<span id="cb362-3"><a href="workshop-probability.html#cb362-3" tabindex="-1"></a>  <span class="co"># taking the cumulative probability of costs i through j....</span></span>
+<span id="cb362-4"><a href="workshop-probability.html#cb362-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob_cost_cumulative =</span> <span class="fu">cumsum</span>(prob_cost_i)) <span class="sc">%&gt;%</span></span>
+<span id="cb362-5"><a href="workshop-probability.html#cb362-5" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 4
 ##    cost prob_cost_i prob_extreme_i prob_cost_cumulative
 ##   &lt;dbl&gt;       &lt;dbl&gt; &lt;lgl&gt;                         &lt;dbl&gt;
@@ -1366,15 +1453,15 @@ In other words, if two events are <em>interdependent</em>, you <strong>multiply.
 ## 2  1136    0.000189 FALSE                      0.000375
 ## 3  1146    0.000191 FALSE                      0.000566</code></pre>
 <p>Our <code>prob_cost_cumulative</code> in row 3 above shows the total probability of <code>n = 3</code> patients receiving a cost of 1126 OR 1136 OR 1146. But, we want an <em>average</em> estimate for 1 patient. So, like in a weighted average, we can divide by the total probability of <em>all</em> (<code>n</code>) hypothetical patients in the probability density function receiving any of these costs. This gives us our <em>revised</em> <code>prob_cost_cumulative</code>, which ranges from <code>0</code> to <code>1</code>!</p>
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="workshop-probability.html#cb357-1" tabindex="-1"></a>mycd <span class="ot">&lt;-</span> mypd <span class="sc">%&gt;%</span> </span>
-<span id="cb357-2"><a href="workshop-probability.html#cb357-2" tabindex="-1"></a>  <span class="co"># For instance, we can do the first step here,</span></span>
-<span id="cb357-3"><a href="workshop-probability.html#cb357-3" tabindex="-1"></a>  <span class="co"># taking the cumulative probability of costs i through j....</span></span>
-<span id="cb357-4"><a href="workshop-probability.html#cb357-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob_cost_cumulative =</span> <span class="fu">cumsum</span>(prob_cost_i) <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i)) <span class="sc">%&gt;%</span></span>
-<span id="cb357-5"><a href="workshop-probability.html#cb357-5" tabindex="-1"></a>  <span class="co"># We can also then identify the segment that is extreme!</span></span>
-<span id="cb357-6"><a href="workshop-probability.html#cb357-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob_extreme =</span> prob_cost_cumulative <span class="sc">*</span> prob_extreme_i)</span>
-<span id="cb357-7"><a href="workshop-probability.html#cb357-7" tabindex="-1"></a></span>
-<span id="cb357-8"><a href="workshop-probability.html#cb357-8" tabindex="-1"></a><span class="co"># Take a peek at the tail!</span></span>
-<span id="cb357-9"><a href="workshop-probability.html#cb357-9" tabindex="-1"></a>mycd <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="workshop-probability.html#cb364-1" tabindex="-1"></a>mycd <span class="ot">&lt;-</span> mypd <span class="sc">%&gt;%</span> </span>
+<span id="cb364-2"><a href="workshop-probability.html#cb364-2" tabindex="-1"></a>  <span class="co"># For instance, we can do the first step here,</span></span>
+<span id="cb364-3"><a href="workshop-probability.html#cb364-3" tabindex="-1"></a>  <span class="co"># taking the cumulative probability of costs i through j....</span></span>
+<span id="cb364-4"><a href="workshop-probability.html#cb364-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob_cost_cumulative =</span> <span class="fu">cumsum</span>(prob_cost_i) <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i)) <span class="sc">%&gt;%</span></span>
+<span id="cb364-5"><a href="workshop-probability.html#cb364-5" tabindex="-1"></a>  <span class="co"># We can also then identify the segment that is extreme!</span></span>
+<span id="cb364-6"><a href="workshop-probability.html#cb364-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob_extreme =</span> prob_cost_cumulative <span class="sc">*</span> prob_extreme_i)</span>
+<span id="cb364-7"><a href="workshop-probability.html#cb364-7" tabindex="-1"></a></span>
+<span id="cb364-8"><a href="workshop-probability.html#cb364-8" tabindex="-1"></a><span class="co"># Take a peek at the tail!</span></span>
+<span id="cb364-9"><a href="workshop-probability.html#cb364-9" tabindex="-1"></a>mycd <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 5
 ##    cost prob_cost_i prob_extreme_i prob_cost_cumulative prob_extreme
 ##   &lt;dbl&gt;       &lt;dbl&gt; &lt;lgl&gt;                         &lt;dbl&gt;        &lt;dbl&gt;
@@ -1382,24 +1469,24 @@ In other words, if two events are <em>interdependent</em>, you <strong>multiply.
 ## 2  4236    0.000142 TRUE                          0.998        0.998
 ## 3  4246    0.000140 TRUE                          1            1</code></pre>
 <p>Let’s visualize <code>mycd</code>, our cumulative probabilities!</p>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="workshop-probability.html#cb359-1" tabindex="-1"></a>viz_cd <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb359-2"><a href="workshop-probability.html#cb359-2" tabindex="-1"></a>  <span class="co"># Show the cumulative probability of each cost, </span></span>
-<span id="cb359-3"><a href="workshop-probability.html#cb359-3" tabindex="-1"></a>  <span class="co"># shaded by whether it is &quot;extreme&quot; (cost &gt;= stat)  or not</span></span>
-<span id="cb359-4"><a href="workshop-probability.html#cb359-4" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycd, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_cost_cumulative, <span class="at">fill =</span> prob_extreme_i)) <span class="sc">+</span></span>
-<span id="cb359-5"><a href="workshop-probability.html#cb359-5" tabindex="-1"></a>  <span class="co"># Show cumulative probability of getting an extreme cost</span></span>
-<span id="cb359-6"><a href="workshop-probability.html#cb359-6" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycd, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_extreme, <span class="at">fill =</span> prob_extreme_i))  <span class="sc">+</span></span>
-<span id="cb359-7"><a href="workshop-probability.html#cb359-7" tabindex="-1"></a>  <span class="co"># Show the 16th patient&#39;s cost</span></span>
-<span id="cb359-8"><a href="workshop-probability.html#cb359-8" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> stat, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb359-9"><a href="workshop-probability.html#cb359-9" tabindex="-1"></a>  <span class="co"># Add formatting</span></span>
-<span id="cb359-10"><a href="workshop-probability.html#cb359-10" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb359-11"><a href="workshop-probability.html#cb359-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Cost of Hospital Stays (n = 15)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Cumulative Probability of Cost&quot;</span>,</span>
-<span id="cb359-12"><a href="workshop-probability.html#cb359-12" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">&quot;P(Extreme i)&quot;</span>,</span>
-<span id="cb359-13"><a href="workshop-probability.html#cb359-13" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Cumulative Distribution Function for Cost of Hospital Stays&quot;</span>,</span>
-<span id="cb359-14"><a href="workshop-probability.html#cb359-14" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Probability of Cost more Extreme than $3000 = 0.36&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="workshop-probability.html#cb360-1" tabindex="-1"></a><span class="co"># View it! </span></span>
-<span id="cb360-2"><a href="workshop-probability.html#cb360-2" tabindex="-1"></a>viz_cd</span>
-<span id="cb360-3"><a href="workshop-probability.html#cb360-3" tabindex="-1"></a><span class="co"># (Note: I&#39;ve added some more annotation to mine </span></span>
-<span id="cb360-4"><a href="workshop-probability.html#cb360-4" tabindex="-1"></a><span class="co"># than your image will have - don&#39;t worry!)</span></span></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="workshop-probability.html#cb366-1" tabindex="-1"></a>viz_cd <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb366-2"><a href="workshop-probability.html#cb366-2" tabindex="-1"></a>  <span class="co"># Show the cumulative probability of each cost, </span></span>
+<span id="cb366-3"><a href="workshop-probability.html#cb366-3" tabindex="-1"></a>  <span class="co"># shaded by whether it is &quot;extreme&quot; (cost &gt;= stat)  or not</span></span>
+<span id="cb366-4"><a href="workshop-probability.html#cb366-4" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycd, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_cost_cumulative, <span class="at">fill =</span> prob_extreme_i)) <span class="sc">+</span></span>
+<span id="cb366-5"><a href="workshop-probability.html#cb366-5" tabindex="-1"></a>  <span class="co"># Show cumulative probability of getting an extreme cost</span></span>
+<span id="cb366-6"><a href="workshop-probability.html#cb366-6" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycd, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_extreme, <span class="at">fill =</span> prob_extreme_i))  <span class="sc">+</span></span>
+<span id="cb366-7"><a href="workshop-probability.html#cb366-7" tabindex="-1"></a>  <span class="co"># Show the 16th patient&#39;s cost</span></span>
+<span id="cb366-8"><a href="workshop-probability.html#cb366-8" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> stat, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb366-9"><a href="workshop-probability.html#cb366-9" tabindex="-1"></a>  <span class="co"># Add formatting</span></span>
+<span id="cb366-10"><a href="workshop-probability.html#cb366-10" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb366-11"><a href="workshop-probability.html#cb366-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Cost of Hospital Stays (n = 15)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Cumulative Probability of Cost&quot;</span>,</span>
+<span id="cb366-12"><a href="workshop-probability.html#cb366-12" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">&quot;P(Extreme i)&quot;</span>,</span>
+<span id="cb366-13"><a href="workshop-probability.html#cb366-13" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Cumulative Distribution Function for Cost of Hospital Stays&quot;</span>,</span>
+<span id="cb366-14"><a href="workshop-probability.html#cb366-14" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Probability of Cost more Extreme than $3000 = 0.36&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="workshop-probability.html#cb367-1" tabindex="-1"></a><span class="co"># View it! </span></span>
+<span id="cb367-2"><a href="workshop-probability.html#cb367-2" tabindex="-1"></a>viz_cd</span>
+<span id="cb367-3"><a href="workshop-probability.html#cb367-3" tabindex="-1"></a><span class="co"># (Note: I&#39;ve added some more annotation to mine </span></span>
+<span id="cb367-4"><a href="workshop-probability.html#cb367-4" tabindex="-1"></a><span class="co"># than your image will have - don&#39;t worry!)</span></span></code></pre></div>
 <div class="figure">
 <img src="03_workshop_files/figure-html/plot_cdf-1.png" alt="Figure 4. Visualizing a Cumulative Distribution Function!" width="100%" />
 <p class="caption">
@@ -1407,20 +1494,20 @@ In other words, if two events are <em>interdependent</em>, you <strong>multiply.
 </p>
 </div>
 <p>But wouldn’t it be handy if we could just make a literal cumulative distribution <code>function</code>, just like we did for the probability density <code>function</code> <code>dobs()</code>?</p>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="workshop-probability.html#cb361-1" tabindex="-1"></a>pobs <span class="ot">&lt;-</span> obs <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb361-2"><a href="workshop-probability.html#cb361-2" tabindex="-1"></a>  <span class="co"># Sort from smallest to largest</span></span>
-<span id="cb361-3"><a href="workshop-probability.html#cb361-3" tabindex="-1"></a>  <span class="fu">arrange</span>(x) <span class="sc">%&gt;%</span></span>
-<span id="cb361-4"><a href="workshop-probability.html#cb361-4" tabindex="-1"></a>  <span class="co"># take cumulative sum, divided by total probability</span></span>
-<span id="cb361-5"><a href="workshop-probability.html#cb361-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">cumsum</span>(y) <span class="sc">/</span> <span class="fu">sum</span>(y)) <span class="sc">%&gt;%</span> </span>
-<span id="cb361-6"><a href="workshop-probability.html#cb361-6" tabindex="-1"></a>  <span class="co"># Make cumulative distribution function pobs()!</span></span>
-<span id="cb361-7"><a href="workshop-probability.html#cb361-7" tabindex="-1"></a>  <span class="fu">approxfun</span>()</span>
-<span id="cb361-8"><a href="workshop-probability.html#cb361-8" tabindex="-1"></a></span>
-<span id="cb361-9"><a href="workshop-probability.html#cb361-9" tabindex="-1"></a><span class="co"># We&#39;ll test it out!</span></span>
-<span id="cb361-10"><a href="workshop-probability.html#cb361-10" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pobs</span>(<span class="dv">3000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="workshop-probability.html#cb368-1" tabindex="-1"></a>pobs <span class="ot">&lt;-</span> obs <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb368-2"><a href="workshop-probability.html#cb368-2" tabindex="-1"></a>  <span class="co"># Sort from smallest to largest</span></span>
+<span id="cb368-3"><a href="workshop-probability.html#cb368-3" tabindex="-1"></a>  <span class="fu">arrange</span>(x) <span class="sc">%&gt;%</span></span>
+<span id="cb368-4"><a href="workshop-probability.html#cb368-4" tabindex="-1"></a>  <span class="co"># take cumulative sum, divided by total probability</span></span>
+<span id="cb368-5"><a href="workshop-probability.html#cb368-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">cumsum</span>(y) <span class="sc">/</span> <span class="fu">sum</span>(y)) <span class="sc">%&gt;%</span> </span>
+<span id="cb368-6"><a href="workshop-probability.html#cb368-6" tabindex="-1"></a>  <span class="co"># Make cumulative distribution function pobs()!</span></span>
+<span id="cb368-7"><a href="workshop-probability.html#cb368-7" tabindex="-1"></a>  <span class="fu">approxfun</span>()</span>
+<span id="cb368-8"><a href="workshop-probability.html#cb368-8" tabindex="-1"></a></span>
+<span id="cb368-9"><a href="workshop-probability.html#cb368-9" tabindex="-1"></a><span class="co"># We&#39;ll test it out!</span></span>
+<span id="cb368-10"><a href="workshop-probability.html#cb368-10" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pobs</span>(<span class="dv">3000</span>)</span></code></pre></div>
 <pre><code>## [1] 0.3726192</code></pre>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="workshop-probability.html#cb363-1" tabindex="-1"></a><span class="co"># Pretty close to our probability we calculated before!</span></span></code></pre></div>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="workshop-probability.html#cb364-1" tabindex="-1"></a><span class="co"># Clear unnecessary data.</span></span>
-<span id="cb364-2"><a href="workshop-probability.html#cb364-2" tabindex="-1"></a><span class="fu">remove</span>(stat, mycd, p, viz_cd)</span></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="workshop-probability.html#cb370-1" tabindex="-1"></a><span class="co"># Pretty close to our probability we calculated before!</span></span></code></pre></div>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="workshop-probability.html#cb371-1" tabindex="-1"></a><span class="co"># Clear unnecessary data.</span></span>
+<span id="cb371-2"><a href="workshop-probability.html#cb371-2" tabindex="-1"></a><span class="fu">remove</span>(stat, mycd, p, viz_cd)</span></code></pre></div>
 </div>
 <div id="using-calculus" class="section level3 hasAnchor" number="3.2.5">
 <h3><span class="header-section-number">3.2.5</span> Using Calculus!<a href="workshop-probability.html#using-calculus" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1436,55 +1523,55 @@ In other words, if two events are <em>interdependent</em>, you <strong>multiply.
 <p>For example, this equation does a pretty okay job of approximating the shape of our distribution in <code>obs</code>.</p>
 <p><span class="math display">\[ f(x) = \frac{-2}{10^7} + \frac{25x}{10^8} - \frac{45x^2}{10^{12}} \]</span>
 We can write that up in a <code>function</code>, which we will call <code>pdf</code>. For every <code>x</code> value we supply, it will compute that equation to predict that value’s relative refequency/probability.</p>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="workshop-probability.html#cb365-1" tabindex="-1"></a><span class="co"># Write out our nice polynomial function</span></span>
-<span id="cb365-2"><a href="workshop-probability.html#cb365-2" tabindex="-1"></a>pdf <span class="ot">=</span> <span class="cf">function</span>(x){</span>
-<span id="cb365-3"><a href="workshop-probability.html#cb365-3" tabindex="-1"></a>  <span class="sc">-</span><span class="dv">2</span><span class="sc">/</span><span class="dv">10</span><span class="sc">^</span><span class="dv">7</span> <span class="sc">+</span> <span class="dv">25</span><span class="sc">/</span><span class="dv">10</span><span class="sc">^</span><span class="dv">8</span><span class="sc">*</span>x <span class="sc">+</span> <span class="sc">-</span><span class="dv">45</span><span class="sc">/</span><span class="dv">10</span><span class="sc">^</span><span class="dv">12</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb365-4"><a href="workshop-probability.html#cb365-4" tabindex="-1"></a>}</span>
-<span id="cb365-5"><a href="workshop-probability.html#cb365-5" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb365-6"><a href="workshop-probability.html#cb365-6" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">3000</span>) <span class="sc">%&gt;%</span> <span class="fu">pdf</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="workshop-probability.html#cb372-1" tabindex="-1"></a><span class="co"># Write out our nice polynomial function</span></span>
+<span id="cb372-2"><a href="workshop-probability.html#cb372-2" tabindex="-1"></a>pdf <span class="ot">=</span> <span class="cf">function</span>(x){</span>
+<span id="cb372-3"><a href="workshop-probability.html#cb372-3" tabindex="-1"></a>  <span class="sc">-</span><span class="dv">2</span><span class="sc">/</span><span class="dv">10</span><span class="sc">^</span><span class="dv">7</span> <span class="sc">+</span> <span class="dv">25</span><span class="sc">/</span><span class="dv">10</span><span class="sc">^</span><span class="dv">8</span><span class="sc">*</span>x <span class="sc">+</span> <span class="sc">-</span><span class="dv">45</span><span class="sc">/</span><span class="dv">10</span><span class="sc">^</span><span class="dv">12</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb372-4"><a href="workshop-probability.html#cb372-4" tabindex="-1"></a>}</span>
+<span id="cb372-5"><a href="workshop-probability.html#cb372-5" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb372-6"><a href="workshop-probability.html#cb372-6" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">3000</span>) <span class="sc">%&gt;%</span> <span class="fu">pdf</span>()</span></code></pre></div>
 <pre><code>## [1] 0.0003198 0.0003448</code></pre>
 <p>The figure below demonstrates that it approximates the true density relatively closely.</p>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="workshop-probability.html#cb367-1" tabindex="-1"></a><span class="co"># We&#39;re going to add another column to our mypd dataset,</span></span>
-<span id="cb367-2"><a href="workshop-probability.html#cb367-2" tabindex="-1"></a>mypd <span class="ot">&lt;-</span> mypd <span class="sc">%&gt;%</span></span>
-<span id="cb367-3"><a href="workshop-probability.html#cb367-3" tabindex="-1"></a>  <span class="co"># approximating the probability of each cost with our new pdf()</span></span>
-<span id="cb367-4"><a href="workshop-probability.html#cb367-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob_cost_i2 =</span> <span class="fu">pdf</span>(cost))</span>
-<span id="cb367-5"><a href="workshop-probability.html#cb367-5" tabindex="-1"></a></span>
-<span id="cb367-6"><a href="workshop-probability.html#cb367-6" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb367-7"><a href="workshop-probability.html#cb367-7" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> mypd, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_cost_i, <span class="at">color =</span> <span class="st">&quot;from raw data&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb367-8"><a href="workshop-probability.html#cb367-8" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> mypd, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_cost_i2, <span class="at">color =</span> <span class="st">&quot;from function&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb367-9"><a href="workshop-probability.html#cb367-9" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb367-10"><a href="workshop-probability.html#cb367-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Cost&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Probability&quot;</span>, <span class="at">color =</span> <span class="st">&quot;Type&quot;</span>)</span></code></pre></div>
-<p><img src="03_workshop_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="workshop-probability.html#cb374-1" tabindex="-1"></a><span class="co"># We&#39;re going to add another column to our mypd dataset,</span></span>
+<span id="cb374-2"><a href="workshop-probability.html#cb374-2" tabindex="-1"></a>mypd <span class="ot">&lt;-</span> mypd <span class="sc">%&gt;%</span></span>
+<span id="cb374-3"><a href="workshop-probability.html#cb374-3" tabindex="-1"></a>  <span class="co"># approximating the probability of each cost with our new pdf()</span></span>
+<span id="cb374-4"><a href="workshop-probability.html#cb374-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob_cost_i2 =</span> <span class="fu">pdf</span>(cost))</span>
+<span id="cb374-5"><a href="workshop-probability.html#cb374-5" tabindex="-1"></a></span>
+<span id="cb374-6"><a href="workshop-probability.html#cb374-6" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb374-7"><a href="workshop-probability.html#cb374-7" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> mypd, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_cost_i, <span class="at">color =</span> <span class="st">&quot;from raw data&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb374-8"><a href="workshop-probability.html#cb374-8" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> mypd, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_cost_i2, <span class="at">color =</span> <span class="st">&quot;from function&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb374-9"><a href="workshop-probability.html#cb374-9" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb374-10"><a href="workshop-probability.html#cb374-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Cost&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Probability&quot;</span>, <span class="at">color =</span> <span class="st">&quot;Type&quot;</span>)</span></code></pre></div>
+<p><img src="03_workshop_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
 <p>So how do we generate the cumulative density function? The <code>mosaicCalc</code> package can help us with its functions <code>D()</code> and <code>antiD()</code>.</p>
 <ul>
 <li><code>D()</code> computes the derivative of a function (Eg. CDF -&gt; PDF)</li>
 <li><code>antiD()</code> computes its integral (Eg. PDF -&gt; CDF)</li>
 </ul>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="workshop-probability.html#cb368-1" tabindex="-1"></a><span class="co"># Compute the anti-derivative (integral) of the function pdf(x), solving for x.</span></span>
-<span id="cb368-2"><a href="workshop-probability.html#cb368-2" tabindex="-1"></a>cdf <span class="ot">&lt;-</span> <span class="fu">antiD</span>(<span class="at">tilde =</span> <span class="fu">pdf</span>(x) <span class="sc">~</span> x)</span>
-<span id="cb368-3"><a href="workshop-probability.html#cb368-3" tabindex="-1"></a><span class="co"># It works just the same as our other functions</span></span>
-<span id="cb368-4"><a href="workshop-probability.html#cb368-4" tabindex="-1"></a>obs <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> <span class="fu">cdf</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="workshop-probability.html#cb375-1" tabindex="-1"></a><span class="co"># Compute the anti-derivative (integral) of the function pdf(x), solving for x.</span></span>
+<span id="cb375-2"><a href="workshop-probability.html#cb375-2" tabindex="-1"></a>cdf <span class="ot">&lt;-</span> <span class="fu">antiD</span>(<span class="at">tilde =</span> <span class="fu">pdf</span>(x) <span class="sc">~</span> x)</span>
+<span id="cb375-3"><a href="workshop-probability.html#cb375-3" tabindex="-1"></a><span class="co"># It works just the same as our other functions</span></span>
+<span id="cb375-4"><a href="workshop-probability.html#cb375-4" tabindex="-1"></a>obs <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> <span class="fu">cdf</span>()</span></code></pre></div>
 <pre><code>## [1] 0.1368449 0.2284130 0.2380292 0.2910549 0.3517389 0.3989108</code></pre>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="workshop-probability.html#cb370-1" tabindex="-1"></a><span class="co"># (Note: Our function is not a perfect fit for the data, so probabilities exceed 1!)</span></span>
-<span id="cb370-2"><a href="workshop-probability.html#cb370-2" tabindex="-1"></a></span>
-<span id="cb370-3"><a href="workshop-probability.html#cb370-3" tabindex="-1"></a><span class="co"># Let&#39;s compare our cdf() function made with calculus with pobs(), our computationally-generated CDF function. </span></span>
-<span id="cb370-4"><a href="workshop-probability.html#cb370-4" tabindex="-1"></a>obs <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> <span class="fu">pobs</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="workshop-probability.html#cb377-1" tabindex="-1"></a><span class="co"># (Note: Our function is not a perfect fit for the data, so probabilities exceed 1!)</span></span>
+<span id="cb377-2"><a href="workshop-probability.html#cb377-2" tabindex="-1"></a></span>
+<span id="cb377-3"><a href="workshop-probability.html#cb377-3" tabindex="-1"></a><span class="co"># Let&#39;s compare our cdf() function made with calculus with pobs(), our computationally-generated CDF function. </span></span>
+<span id="cb377-4"><a href="workshop-probability.html#cb377-4" tabindex="-1"></a>obs <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> <span class="fu">pobs</span>()</span></code></pre></div>
 <pre><code>## [1] 0.07774089 0.16376985 0.17348497 0.22750868 0.28831038 0.33387171</code></pre>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="workshop-probability.html#cb372-1" tabindex="-1"></a><span class="co"># Pretty similar results. The differences are due the fact that our original function is just an approximation, rather than dobs(), which is a perfect fit for our densities.</span></span></code></pre></div>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="workshop-probability.html#cb379-1" tabindex="-1"></a><span class="co"># Pretty similar results. The differences are due the fact that our original function is just an approximation, rather than dobs(), which is a perfect fit for our densities.</span></span></code></pre></div>
 <p>And we can also take the derivative of our <code>cdf()</code> function with <code>D()</code> to get back our <code>pdf()</code>, which we’ll call <code>pdf2()</code>.</p>
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="workshop-probability.html#cb373-1" tabindex="-1"></a>pdf2 <span class="ot">&lt;-</span> <span class="fu">D</span>(<span class="at">tilde =</span> <span class="fu">cdf</span>(x) <span class="sc">~</span> x)</span>
-<span id="cb373-2"><a href="workshop-probability.html#cb373-2" tabindex="-1"></a><span class="co"># Let&#39;s compare results....</span></span>
-<span id="cb373-3"><a href="workshop-probability.html#cb373-3" tabindex="-1"></a><span class="co"># Our original pdf...</span></span>
-<span id="cb373-4"><a href="workshop-probability.html#cb373-4" tabindex="-1"></a>obs <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> <span class="fu">pdf</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="workshop-probability.html#cb380-1" tabindex="-1"></a>pdf2 <span class="ot">&lt;-</span> <span class="fu">D</span>(<span class="at">tilde =</span> <span class="fu">cdf</span>(x) <span class="sc">~</span> x)</span>
+<span id="cb380-2"><a href="workshop-probability.html#cb380-2" tabindex="-1"></a><span class="co"># Let&#39;s compare results....</span></span>
+<span id="cb380-3"><a href="workshop-probability.html#cb380-3" tabindex="-1"></a><span class="co"># Our original pdf...</span></span>
+<span id="cb380-4"><a href="workshop-probability.html#cb380-4" tabindex="-1"></a>obs <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> <span class="fu">pdf</span>()</span></code></pre></div>
 <pre><code>## [1] 0.0002242456 0.0002727428 0.0002767347 0.0002960034 0.0003132915
 ## [6] 0.0003238380</code></pre>
-<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="workshop-probability.html#cb375-1" tabindex="-1"></a><span class="co"># Our pdf dervied from cdf...</span></span>
-<span id="cb375-2"><a href="workshop-probability.html#cb375-2" tabindex="-1"></a>obs <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> <span class="fu">pdf2</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="workshop-probability.html#cb382-1" tabindex="-1"></a><span class="co"># Our pdf dervied from cdf...</span></span>
+<span id="cb382-2"><a href="workshop-probability.html#cb382-2" tabindex="-1"></a>obs <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> <span class="fu">pdf2</span>()</span></code></pre></div>
 <pre><code>## [1] 0.0002242456 0.0002727428 0.0002767347 0.0002960034 0.0003132915
 ## [6] 0.0003238380</code></pre>
-<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="workshop-probability.html#cb377-1" tabindex="-1"></a><span class="co"># They&#39;re the same!</span></span></code></pre></div>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="workshop-probability.html#cb384-1" tabindex="-1"></a><span class="co"># They&#39;re the same!</span></span></code></pre></div>
 <p>Tada! You can do calculus in <code>R</code>!</p>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="workshop-probability.html#cb378-1" tabindex="-1"></a><span class="fu">remove</span>(mypd, pdf, pdf2, cdf, obs)</span></code></pre></div>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="workshop-probability.html#cb385-1" tabindex="-1"></a><span class="fu">remove</span>(mypd, pdf, pdf2, cdf, obs)</span></code></pre></div>
 <p><br>
 <br></p>
 <hr />
@@ -1501,53 +1588,53 @@ We can write that up in a <code>function</code>, which we will call <code>pdf</c
 <li><p>What’s the probability that a patient might be <em>somewhat</em> deterred but <strong>not</strong> <em>greatly</em> deterred from going to the hospital?</p></li>
 <li><p>Note: Assume that the PDF matches the range of observed patients.</p></li>
 </ul>
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="workshop-probability.html#cb379-1" tabindex="-1"></a><span class="co"># Let&#39;s record our vector of 30 patients</span></span>
-<span id="cb379-2"><a href="workshop-probability.html#cb379-2" tabindex="-1"></a>patients <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1126</span>, <span class="dv">1493</span>, <span class="dv">1528</span>, <span class="dv">1713</span>, <span class="dv">1912</span>, <span class="dv">2060</span>, <span class="dv">2541</span>, <span class="dv">2612</span>, <span class="dv">2888</span>, <span class="dv">2915</span>, <span class="dv">3166</span>, <span class="dv">3552</span>, <span class="dv">3692</span>, <span class="dv">3695</span>, <span class="dv">4248</span>,</span>
-<span id="cb379-3"><a href="workshop-probability.html#cb379-3" tabindex="-1"></a>         <span class="dv">3000</span>, <span class="dv">3104</span>, <span class="dv">3071</span>, <span class="dv">2953</span>, <span class="dv">2934</span>, <span class="dv">2976</span>, <span class="dv">2902</span>, <span class="dv">2998</span>, <span class="dv">3040</span>, <span class="dv">3030</span>, <span class="dv">3021</span>, <span class="dv">3028</span>, <span class="dv">2952</span>, <span class="dv">3013</span>, <span class="dv">3047</span>)</span>
-<span id="cb379-4"><a href="workshop-probability.html#cb379-4" tabindex="-1"></a><span class="co"># And let&#39;s get our statistics to compare against</span></span>
-<span id="cb379-5"><a href="workshop-probability.html#cb379-5" tabindex="-1"></a>somewhat <span class="ot">&lt;-</span> <span class="dv">3000</span></span>
-<span id="cb379-6"><a href="workshop-probability.html#cb379-6" tabindex="-1"></a>greatly <span class="ot">&lt;-</span> <span class="dv">4000</span></span></code></pre></div>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="workshop-probability.html#cb386-1" tabindex="-1"></a><span class="co"># Let&#39;s record our vector of 30 patients</span></span>
+<span id="cb386-2"><a href="workshop-probability.html#cb386-2" tabindex="-1"></a>patients <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1126</span>, <span class="dv">1493</span>, <span class="dv">1528</span>, <span class="dv">1713</span>, <span class="dv">1912</span>, <span class="dv">2060</span>, <span class="dv">2541</span>, <span class="dv">2612</span>, <span class="dv">2888</span>, <span class="dv">2915</span>, <span class="dv">3166</span>, <span class="dv">3552</span>, <span class="dv">3692</span>, <span class="dv">3695</span>, <span class="dv">4248</span>,</span>
+<span id="cb386-3"><a href="workshop-probability.html#cb386-3" tabindex="-1"></a>         <span class="dv">3000</span>, <span class="dv">3104</span>, <span class="dv">3071</span>, <span class="dv">2953</span>, <span class="dv">2934</span>, <span class="dv">2976</span>, <span class="dv">2902</span>, <span class="dv">2998</span>, <span class="dv">3040</span>, <span class="dv">3030</span>, <span class="dv">3021</span>, <span class="dv">3028</span>, <span class="dv">2952</span>, <span class="dv">3013</span>, <span class="dv">3047</span>)</span>
+<span id="cb386-4"><a href="workshop-probability.html#cb386-4" tabindex="-1"></a><span class="co"># And let&#39;s get our statistics to compare against</span></span>
+<span id="cb386-5"><a href="workshop-probability.html#cb386-5" tabindex="-1"></a>somewhat <span class="ot">&lt;-</span> <span class="dv">3000</span></span>
+<span id="cb386-6"><a href="workshop-probability.html#cb386-6" tabindex="-1"></a>greatly <span class="ot">&lt;-</span> <span class="dv">4000</span></span></code></pre></div>
 <details>
 <summary>
 <strong>[View Answer!]</strong>
 </summary>
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="workshop-probability.html#cb380-1" tabindex="-1"></a><span class="co"># Get the probability density function for our new data</span></span>
-<span id="cb380-2"><a href="workshop-probability.html#cb380-2" tabindex="-1"></a>dobs2 <span class="ot">&lt;-</span> patients <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">approxfun</span>()</span>
-<span id="cb380-3"><a href="workshop-probability.html#cb380-3" tabindex="-1"></a></span>
-<span id="cb380-4"><a href="workshop-probability.html#cb380-4" tabindex="-1"></a><span class="co"># Get the probability densities</span></span>
-<span id="cb380-5"><a href="workshop-probability.html#cb380-5" tabindex="-1"></a>mypd2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb380-6"><a href="workshop-probability.html#cb380-6" tabindex="-1"></a>  <span class="at">cost =</span> <span class="fu">seq</span>(<span class="fu">min</span>(patients), <span class="fu">max</span>(patients), <span class="at">by =</span> <span class="dv">10</span>),</span>
-<span id="cb380-7"><a href="workshop-probability.html#cb380-7" tabindex="-1"></a>  <span class="at">prob_cost_i =</span> cost <span class="sc">%&gt;%</span> <span class="fu">dobs2</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb380-8"><a href="workshop-probability.html#cb380-8" tabindex="-1"></a>  <span class="co"># Calculate probability of being somewhat deterred</span></span>
-<span id="cb380-9"><a href="workshop-probability.html#cb380-9" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb380-10"><a href="workshop-probability.html#cb380-10" tabindex="-1"></a>    <span class="at">prob_somewhat_i =</span> cost <span class="sc">&gt;=</span> somewhat,</span>
-<span id="cb380-11"><a href="workshop-probability.html#cb380-11" tabindex="-1"></a>    <span class="at">prob_greatly_i =</span> cost <span class="sc">&gt;=</span> greatly,</span>
-<span id="cb380-12"><a href="workshop-probability.html#cb380-12" tabindex="-1"></a>    <span class="at">prob_somewhat_not_greatly_i =</span> cost <span class="sc">&gt;=</span> somewhat <span class="sc">&amp;</span> cost <span class="sc">&lt;</span> greatly)</span></code></pre></div>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="workshop-probability.html#cb387-1" tabindex="-1"></a><span class="co"># Get the probability density function for our new data</span></span>
+<span id="cb387-2"><a href="workshop-probability.html#cb387-2" tabindex="-1"></a>dobs2 <span class="ot">&lt;-</span> patients <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">approxfun</span>()</span>
+<span id="cb387-3"><a href="workshop-probability.html#cb387-3" tabindex="-1"></a></span>
+<span id="cb387-4"><a href="workshop-probability.html#cb387-4" tabindex="-1"></a><span class="co"># Get the probability densities</span></span>
+<span id="cb387-5"><a href="workshop-probability.html#cb387-5" tabindex="-1"></a>mypd2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb387-6"><a href="workshop-probability.html#cb387-6" tabindex="-1"></a>  <span class="at">cost =</span> <span class="fu">seq</span>(<span class="fu">min</span>(patients), <span class="fu">max</span>(patients), <span class="at">by =</span> <span class="dv">10</span>),</span>
+<span id="cb387-7"><a href="workshop-probability.html#cb387-7" tabindex="-1"></a>  <span class="at">prob_cost_i =</span> cost <span class="sc">%&gt;%</span> <span class="fu">dobs2</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb387-8"><a href="workshop-probability.html#cb387-8" tabindex="-1"></a>  <span class="co"># Calculate probability of being somewhat deterred</span></span>
+<span id="cb387-9"><a href="workshop-probability.html#cb387-9" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb387-10"><a href="workshop-probability.html#cb387-10" tabindex="-1"></a>    <span class="at">prob_somewhat_i =</span> cost <span class="sc">&gt;=</span> somewhat,</span>
+<span id="cb387-11"><a href="workshop-probability.html#cb387-11" tabindex="-1"></a>    <span class="at">prob_greatly_i =</span> cost <span class="sc">&gt;=</span> greatly,</span>
+<span id="cb387-12"><a href="workshop-probability.html#cb387-12" tabindex="-1"></a>    <span class="at">prob_somewhat_not_greatly_i =</span> cost <span class="sc">&gt;=</span> somewhat <span class="sc">&amp;</span> cost <span class="sc">&lt;</span> greatly)</span></code></pre></div>
 <p>To calculate these probabilities straight from the probability densities, do like so:</p>
-<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="workshop-probability.html#cb381-1" tabindex="-1"></a>mypd2 <span class="sc">%&gt;%</span></span>
-<span id="cb381-2"><a href="workshop-probability.html#cb381-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb381-3"><a href="workshop-probability.html#cb381-3" tabindex="-1"></a>    <span class="co"># Calculate total probability of a cost somewhat deterring medical care</span></span>
-<span id="cb381-4"><a href="workshop-probability.html#cb381-4" tabindex="-1"></a>    <span class="at">prob_somewhat =</span> <span class="fu">sum</span>(prob_cost_i <span class="sc">*</span> prob_somewhat_i) <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i),</span>
-<span id="cb381-5"><a href="workshop-probability.html#cb381-5" tabindex="-1"></a>    <span class="co"># Calculate total probability of a cost greatly deterring medical care</span></span>
-<span id="cb381-6"><a href="workshop-probability.html#cb381-6" tabindex="-1"></a>    <span class="at">prob_greatly =</span> <span class="fu">sum</span>(prob_cost_i <span class="sc">*</span> prob_greatly_i) <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i),</span>
-<span id="cb381-7"><a href="workshop-probability.html#cb381-7" tabindex="-1"></a>    <span class="co"># Calculate total probability of a cost somewhat-but-not-greatly deterring medical care</span></span>
-<span id="cb381-8"><a href="workshop-probability.html#cb381-8" tabindex="-1"></a>    <span class="at">prob_somewhat_not_greatly =</span> <span class="fu">sum</span>(prob_cost_i <span class="sc">*</span> prob_somewhat_not_greatly_i) <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i))</span></code></pre></div>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="workshop-probability.html#cb388-1" tabindex="-1"></a>mypd2 <span class="sc">%&gt;%</span></span>
+<span id="cb388-2"><a href="workshop-probability.html#cb388-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb388-3"><a href="workshop-probability.html#cb388-3" tabindex="-1"></a>    <span class="co"># Calculate total probability of a cost somewhat deterring medical care</span></span>
+<span id="cb388-4"><a href="workshop-probability.html#cb388-4" tabindex="-1"></a>    <span class="at">prob_somewhat =</span> <span class="fu">sum</span>(prob_cost_i <span class="sc">*</span> prob_somewhat_i) <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i),</span>
+<span id="cb388-5"><a href="workshop-probability.html#cb388-5" tabindex="-1"></a>    <span class="co"># Calculate total probability of a cost greatly deterring medical care</span></span>
+<span id="cb388-6"><a href="workshop-probability.html#cb388-6" tabindex="-1"></a>    <span class="at">prob_greatly =</span> <span class="fu">sum</span>(prob_cost_i <span class="sc">*</span> prob_greatly_i) <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i),</span>
+<span id="cb388-7"><a href="workshop-probability.html#cb388-7" tabindex="-1"></a>    <span class="co"># Calculate total probability of a cost somewhat-but-not-greatly deterring medical care</span></span>
+<span id="cb388-8"><a href="workshop-probability.html#cb388-8" tabindex="-1"></a>    <span class="at">prob_somewhat_not_greatly =</span> <span class="fu">sum</span>(prob_cost_i <span class="sc">*</span> prob_somewhat_not_greatly_i) <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 3
 ##   prob_somewhat prob_greatly prob_somewhat_not_greatly
 ##           &lt;dbl&gt;        &lt;dbl&gt;                     &lt;dbl&gt;
 ## 1         0.431       0.0172                     0.414</code></pre>
 <p>To calculate these probabilities from the cumulative distribution functions, we can do the following:</p>
-<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="workshop-probability.html#cb383-1" tabindex="-1"></a><span class="co"># Get cumulative probabilities of each</span></span>
-<span id="cb383-2"><a href="workshop-probability.html#cb383-2" tabindex="-1"></a>mycd2 <span class="ot">&lt;-</span> mypd2 <span class="sc">%&gt;%</span></span>
-<span id="cb383-3"><a href="workshop-probability.html#cb383-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb383-4"><a href="workshop-probability.html#cb383-4" tabindex="-1"></a>    <span class="co"># Calculate total probability of a cost somewhat deterring medical care</span></span>
-<span id="cb383-5"><a href="workshop-probability.html#cb383-5" tabindex="-1"></a>    <span class="at">prob_somewhat =</span> <span class="fu">cumsum</span>(prob_cost_i) <span class="sc">*</span> prob_somewhat_i <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i),</span>
-<span id="cb383-6"><a href="workshop-probability.html#cb383-6" tabindex="-1"></a>    <span class="co"># Calculate total probability of a cost greatly deterring medical care</span></span>
-<span id="cb383-7"><a href="workshop-probability.html#cb383-7" tabindex="-1"></a>    <span class="at">prob_greatly =</span> <span class="fu">cumsum</span>(prob_cost_i) <span class="sc">*</span> prob_greatly_i <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i),</span>
-<span id="cb383-8"><a href="workshop-probability.html#cb383-8" tabindex="-1"></a>    <span class="co"># Calculate total probability of a cost somewhat-but-not-greatly deterring medical care</span></span>
-<span id="cb383-9"><a href="workshop-probability.html#cb383-9" tabindex="-1"></a>    <span class="at">prob_somewhat_not_greatly =</span> <span class="fu">cumsum</span>(prob_cost_i) <span class="sc">*</span> prob_somewhat_not_greatly_i <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i))</span>
-<span id="cb383-10"><a href="workshop-probability.html#cb383-10" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb383-11"><a href="workshop-probability.html#cb383-11" tabindex="-1"></a>mycd2 <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="workshop-probability.html#cb390-1" tabindex="-1"></a><span class="co"># Get cumulative probabilities of each</span></span>
+<span id="cb390-2"><a href="workshop-probability.html#cb390-2" tabindex="-1"></a>mycd2 <span class="ot">&lt;-</span> mypd2 <span class="sc">%&gt;%</span></span>
+<span id="cb390-3"><a href="workshop-probability.html#cb390-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb390-4"><a href="workshop-probability.html#cb390-4" tabindex="-1"></a>    <span class="co"># Calculate total probability of a cost somewhat deterring medical care</span></span>
+<span id="cb390-5"><a href="workshop-probability.html#cb390-5" tabindex="-1"></a>    <span class="at">prob_somewhat =</span> <span class="fu">cumsum</span>(prob_cost_i) <span class="sc">*</span> prob_somewhat_i <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i),</span>
+<span id="cb390-6"><a href="workshop-probability.html#cb390-6" tabindex="-1"></a>    <span class="co"># Calculate total probability of a cost greatly deterring medical care</span></span>
+<span id="cb390-7"><a href="workshop-probability.html#cb390-7" tabindex="-1"></a>    <span class="at">prob_greatly =</span> <span class="fu">cumsum</span>(prob_cost_i) <span class="sc">*</span> prob_greatly_i <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i),</span>
+<span id="cb390-8"><a href="workshop-probability.html#cb390-8" tabindex="-1"></a>    <span class="co"># Calculate total probability of a cost somewhat-but-not-greatly deterring medical care</span></span>
+<span id="cb390-9"><a href="workshop-probability.html#cb390-9" tabindex="-1"></a>    <span class="at">prob_somewhat_not_greatly =</span> <span class="fu">cumsum</span>(prob_cost_i) <span class="sc">*</span> prob_somewhat_not_greatly_i <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i))</span>
+<span id="cb390-10"><a href="workshop-probability.html#cb390-10" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb390-11"><a href="workshop-probability.html#cb390-11" tabindex="-1"></a>mycd2 <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 8
 ##    cost prob_cost_i prob_somewhat_i prob_greatly_i prob_somewhat_not_greatly_i
 ##   &lt;dbl&gt;       &lt;dbl&gt; &lt;lgl&gt;           &lt;lgl&gt;          &lt;lgl&gt;                      
@@ -1557,22 +1644,22 @@ We can write that up in a <code>function</code>, which we will call <code>pdf</c
 ## # ℹ 3 more variables: prob_somewhat &lt;dbl&gt;, prob_greatly &lt;dbl&gt;,
 ## #   prob_somewhat_not_greatly &lt;dbl&gt;</code></pre>
 <p>Finally, if you want to visualize them, here’s how you would do it!</p>
-<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="workshop-probability.html#cb385-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb385-2"><a href="workshop-probability.html#cb385-2" tabindex="-1"></a>  <span class="co"># Get cumulative probability generally</span></span>
-<span id="cb385-3"><a href="workshop-probability.html#cb385-3" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycd2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> <span class="fu">cumsum</span>(prob_cost_i) <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i),</span>
-<span id="cb385-4"><a href="workshop-probability.html#cb385-4" tabindex="-1"></a>                                         <span class="at">fill =</span> <span class="st">&quot;Very Little&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb385-5"><a href="workshop-probability.html#cb385-5" tabindex="-1"></a>  <span class="co"># Get cumulative probability if somewhat but not greatly</span></span>
-<span id="cb385-6"><a href="workshop-probability.html#cb385-6" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycd2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_somewhat_not_greatly, </span>
-<span id="cb385-7"><a href="workshop-probability.html#cb385-7" tabindex="-1"></a>                                         <span class="at">fill =</span> <span class="st">&quot;Somewhat-not-Greatly&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb385-8"><a href="workshop-probability.html#cb385-8" tabindex="-1"></a>  <span class="co"># Get cumulative probability if greatly</span></span>
-<span id="cb385-9"><a href="workshop-probability.html#cb385-9" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycd2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_greatly, </span>
-<span id="cb385-10"><a href="workshop-probability.html#cb385-10" tabindex="-1"></a>                                         <span class="at">fill =</span> <span class="st">&quot;Greatly&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb385-11"><a href="workshop-probability.html#cb385-11" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb385-12"><a href="workshop-probability.html#cb385-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Cost of Hospital Stay (n = 30)&quot;</span>,</span>
-<span id="cb385-13"><a href="workshop-probability.html#cb385-13" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Cumulative Probability&quot;</span>,</span>
-<span id="cb385-14"><a href="workshop-probability.html#cb385-14" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Probability of Hospital Bill Deterring Future Hospital Visits&quot;</span>,</span>
-<span id="cb385-15"><a href="workshop-probability.html#cb385-15" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">&quot;Deter Future Visits&quot;</span>)</span></code></pre></div>
-<p><img src="03_workshop_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="workshop-probability.html#cb392-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb392-2"><a href="workshop-probability.html#cb392-2" tabindex="-1"></a>  <span class="co"># Get cumulative probability generally</span></span>
+<span id="cb392-3"><a href="workshop-probability.html#cb392-3" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycd2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> <span class="fu">cumsum</span>(prob_cost_i) <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i),</span>
+<span id="cb392-4"><a href="workshop-probability.html#cb392-4" tabindex="-1"></a>                                         <span class="at">fill =</span> <span class="st">&quot;Very Little&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb392-5"><a href="workshop-probability.html#cb392-5" tabindex="-1"></a>  <span class="co"># Get cumulative probability if somewhat but not greatly</span></span>
+<span id="cb392-6"><a href="workshop-probability.html#cb392-6" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycd2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_somewhat_not_greatly, </span>
+<span id="cb392-7"><a href="workshop-probability.html#cb392-7" tabindex="-1"></a>                                         <span class="at">fill =</span> <span class="st">&quot;Somewhat-not-Greatly&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb392-8"><a href="workshop-probability.html#cb392-8" tabindex="-1"></a>  <span class="co"># Get cumulative probability if greatly</span></span>
+<span id="cb392-9"><a href="workshop-probability.html#cb392-9" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycd2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_greatly, </span>
+<span id="cb392-10"><a href="workshop-probability.html#cb392-10" tabindex="-1"></a>                                         <span class="at">fill =</span> <span class="st">&quot;Greatly&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb392-11"><a href="workshop-probability.html#cb392-11" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb392-12"><a href="workshop-probability.html#cb392-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Cost of Hospital Stay (n = 30)&quot;</span>,</span>
+<span id="cb392-13"><a href="workshop-probability.html#cb392-13" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Cumulative Probability&quot;</span>,</span>
+<span id="cb392-14"><a href="workshop-probability.html#cb392-14" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Probability of Hospital Bill Deterring Future Hospital Visits&quot;</span>,</span>
+<span id="cb392-15"><a href="workshop-probability.html#cb392-15" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">&quot;Deter Future Visits&quot;</span>)</span></code></pre></div>
+<p><img src="03_workshop_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
 </details>
 <hr />
 <p><br>
@@ -1587,7 +1674,7 @@ We can write that up in a <code>function</code>, which we will call <code>pdf</c
 <ul>
 <li>The average customer visited a <code>mean</code> of <code>5.5</code> stalls and a <code>median</code> of <code>5</code> stalls, with a standard deviation of <code>2.5</code> stalls.</li>
 </ul>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-49"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-53"></span>
 <img src="https://i0.wp.com/ithacamarket.com/wp-content/uploads/2019/04/IMG_3407-900px.jpg?w=900&ssl=1" alt="[Ithaca Farmers Market!](https://ithacamarket.com/markets/saturday-at-the-pavilion/)" width="100%" />
 <p class="caption">
 Figure 3.1: <a href="https://ithacamarket.com/markets/saturday-at-the-pavilion/">Ithaca Farmers Market!</a>
@@ -1613,11 +1700,11 @@ Figure 3.1: <a href="https://ithacamarket.com/markets/saturday-at-the-pavilion/"
 <li><p>The median (<code>5</code>) is less than the mean (<code>5.5</code>), so our distribution is <strong>right-skewed</strong>.</p></li>
 </ul>
 <p>This sounds like a classic Poisson distribution! Let’s simulate some poisson-distributed data to demonstrate.</p>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="workshop-probability.html#cb386-1" tabindex="-1"></a><span class="co"># Randomly sample 500 visits from a poisson distribution with a mean of 5.5</span></span>
-<span id="cb386-2"><a href="workshop-probability.html#cb386-2" tabindex="-1"></a>visits <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">500</span>, <span class="at">lambda =</span> <span class="fl">5.5</span>)</span>
-<span id="cb386-3"><a href="workshop-probability.html#cb386-3" tabindex="-1"></a><span class="co"># Check out the distribution!</span></span>
-<span id="cb386-4"><a href="workshop-probability.html#cb386-4" tabindex="-1"></a>visits <span class="sc">%&gt;%</span> <span class="fu">hist</span>()</span></code></pre></div>
-<p><img src="03_workshop_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="workshop-probability.html#cb393-1" tabindex="-1"></a><span class="co"># Randomly sample 500 visits from a poisson distribution with a mean of 5.5</span></span>
+<span id="cb393-2"><a href="workshop-probability.html#cb393-2" tabindex="-1"></a>visits <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">500</span>, <span class="at">lambda =</span> <span class="fl">5.5</span>)</span>
+<span id="cb393-3"><a href="workshop-probability.html#cb393-3" tabindex="-1"></a><span class="co"># Check out the distribution!</span></span>
+<span id="cb393-4"><a href="workshop-probability.html#cb393-4" tabindex="-1"></a>visits <span class="sc">%&gt;%</span> <span class="fu">hist</span>()</span></code></pre></div>
+<p><img src="03_workshop_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
 <p><br>
 <br></p>
 </div>
@@ -1627,7 +1714,7 @@ Figure 3.1: <a href="https://ithacamarket.com/markets/saturday-at-the-pavilion/"
 <p>area under the curve (probability) of. See the Table below for several examples.</p>
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:unnamed-chunk-51">Table 3.1: </span>Table 1: Probability Functions (r, d, p, and q)
+<span id="tab:unnamed-chunk-55">Table 3.1: </span>Table 1: Probability Functions (r, d, p, and q)
 </caption>
 <thead>
 <tr>
@@ -1756,75 +1843,75 @@ qexp()
 <h3>Density<a href="workshop-probability.html#density" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>So, what percentage of customers stopped by 1 stall?</p>
 <p>Below, <code>dpois()</code> tells us the <code>density()</code> or frequency of your value, given a distribution where the <code>mean = 5.5</code>.</p>
-<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="workshop-probability.html#cb387-1" tabindex="-1"></a><span class="co"># Get the frequency for 5 visits in the distribution</span></span>
-<span id="cb387-2"><a href="workshop-probability.html#cb387-2" tabindex="-1"></a>pd5 <span class="ot">&lt;-</span> <span class="fu">dpois</span>(<span class="dv">5</span>, <span class="at">lambda =</span> <span class="fl">5.5</span>)</span>
-<span id="cb387-3"><a href="workshop-probability.html#cb387-3" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb387-4"><a href="workshop-probability.html#cb387-4" tabindex="-1"></a>pd5</span></code></pre></div>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="workshop-probability.html#cb394-1" tabindex="-1"></a><span class="co"># Get the frequency for 5 visits in the distribution</span></span>
+<span id="cb394-2"><a href="workshop-probability.html#cb394-2" tabindex="-1"></a>pd5 <span class="ot">&lt;-</span> <span class="fu">dpois</span>(<span class="dv">5</span>, <span class="at">lambda =</span> <span class="fl">5.5</span>)</span>
+<span id="cb394-3"><a href="workshop-probability.html#cb394-3" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb394-4"><a href="workshop-probability.html#cb394-4" tabindex="-1"></a>pd5</span></code></pre></div>
 <pre><code>## [1] 0.1714007</code></pre>
 <p>Looks like 17.1% of customers stopped by 5 stalls.</p>
 <p>We can validate this using our simulated <code>visits</code> from above. We can calculate the <code>density()</code> function, extract it using <code>approxfun()</code>, and then assign it to <code>dsim()</code>, our own exact probability density function for our data. It works just like <code>dpois()</code>, but you don’t need to specify <code>lambda</code>, because it only works for this exact distribution!</p>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="workshop-probability.html#cb389-1" tabindex="-1"></a><span class="co"># Approximate the PDF of our simulated visits</span></span>
-<span id="cb389-2"><a href="workshop-probability.html#cb389-2" tabindex="-1"></a>dsim <span class="ot">&lt;-</span> visits <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">approxfun</span>()</span>
-<span id="cb389-3"><a href="workshop-probability.html#cb389-3" tabindex="-1"></a><span class="co"># Try our density function for our simulated data!</span></span>
-<span id="cb389-4"><a href="workshop-probability.html#cb389-4" tabindex="-1"></a><span class="fu">dsim</span>(<span class="dv">5</span>)</span></code></pre></div>
-<pre><code>## [1] 0.1612725</code></pre>
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="workshop-probability.html#cb391-1" tabindex="-1"></a><span class="co"># Pretty close to our results from dpois()!</span></span></code></pre></div>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="workshop-probability.html#cb396-1" tabindex="-1"></a><span class="co"># Approximate the PDF of our simulated visits</span></span>
+<span id="cb396-2"><a href="workshop-probability.html#cb396-2" tabindex="-1"></a>dsim <span class="ot">&lt;-</span> visits <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">approxfun</span>()</span>
+<span id="cb396-3"><a href="workshop-probability.html#cb396-3" tabindex="-1"></a><span class="co"># Try our density function for our simulated data!</span></span>
+<span id="cb396-4"><a href="workshop-probability.html#cb396-4" tabindex="-1"></a><span class="fu">dsim</span>(<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] 0.1793785</code></pre>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="workshop-probability.html#cb398-1" tabindex="-1"></a><span class="co"># Pretty close to our results from dpois()!</span></span></code></pre></div>
 <p><br>
 <br></p>
 </div>
 <div id="cumulative-probabilities" class="section level3 unnumbered hasAnchor">
 <h3>Cumulative Probabilities<a href="workshop-probability.html#cumulative-probabilities" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>What percentage of customers stopped by <em>at max 5 stalls?</em></p>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="workshop-probability.html#cb392-1" tabindex="-1"></a><span class="co"># Get the cumulative frequency for a value (5) in the distribution</span></span>
-<span id="cb392-2"><a href="workshop-probability.html#cb392-2" tabindex="-1"></a>cd5 <span class="ot">&lt;-</span> <span class="fu">ppois</span>(<span class="at">q =</span> <span class="dv">5</span>, <span class="at">lambda =</span> <span class="fl">5.5</span>)</span>
-<span id="cb392-3"><a href="workshop-probability.html#cb392-3" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb392-4"><a href="workshop-probability.html#cb392-4" tabindex="-1"></a>cd5</span></code></pre></div>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="workshop-probability.html#cb399-1" tabindex="-1"></a><span class="co"># Get the cumulative frequency for a value (5) in the distribution</span></span>
+<span id="cb399-2"><a href="workshop-probability.html#cb399-2" tabindex="-1"></a>cd5 <span class="ot">&lt;-</span> <span class="fu">ppois</span>(<span class="at">q =</span> <span class="dv">5</span>, <span class="at">lambda =</span> <span class="fl">5.5</span>)</span>
+<span id="cb399-3"><a href="workshop-probability.html#cb399-3" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb399-4"><a href="workshop-probability.html#cb399-4" tabindex="-1"></a>cd5</span></code></pre></div>
 <pre><code>## [1] 0.5289187</code></pre>
 <p>Looks like just 52.9% of customers stopped by 1 stall or fewer.</p>
 <p>What percentage of customers stopped by <em>over 5 stalls?</em></p>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="workshop-probability.html#cb394-1" tabindex="-1"></a><span class="co"># Get the probability they will NOT stop at 5 or fewer stalls</span></span>
-<span id="cb394-2"><a href="workshop-probability.html#cb394-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> cd5</span></code></pre></div>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="workshop-probability.html#cb401-1" tabindex="-1"></a><span class="co"># Get the probability they will NOT stop at 5 or fewer stalls</span></span>
+<span id="cb401-2"><a href="workshop-probability.html#cb401-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> cd5</span></code></pre></div>
 <pre><code>## [1] 0.4710813</code></pre>
 <p>We can validate our results against our simulated distribution.</p>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="workshop-probability.html#cb396-1" tabindex="-1"></a>psim <span class="ot">&lt;-</span> visits <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb396-2"><a href="workshop-probability.html#cb396-2" tabindex="-1"></a>  <span class="co"># Get cumulative probability distribution</span></span>
-<span id="cb396-3"><a href="workshop-probability.html#cb396-3" tabindex="-1"></a>  <span class="fu">arrange</span>(x) <span class="sc">%&gt;%</span> </span>
-<span id="cb396-4"><a href="workshop-probability.html#cb396-4" tabindex="-1"></a>  <span class="co"># Get cumulative probabilities</span></span>
-<span id="cb396-5"><a href="workshop-probability.html#cb396-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">cumsum</span>(y) <span class="sc">/</span> <span class="fu">sum</span>(y)) <span class="sc">%&gt;%</span> </span>
-<span id="cb396-6"><a href="workshop-probability.html#cb396-6" tabindex="-1"></a>  <span class="co"># Turn it into a literal function!</span></span>
-<span id="cb396-7"><a href="workshop-probability.html#cb396-7" tabindex="-1"></a>  <span class="fu">approxfun</span>()</span>
-<span id="cb396-8"><a href="workshop-probability.html#cb396-8" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb396-9"><a href="workshop-probability.html#cb396-9" tabindex="-1"></a><span class="fu">psim</span>(<span class="dv">5</span>)</span></code></pre></div>
-<pre><code>## [1] 0.4664271</code></pre>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="workshop-probability.html#cb398-1" tabindex="-1"></a><span class="co"># Pretty close to cdf5!</span></span></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="workshop-probability.html#cb403-1" tabindex="-1"></a>psim <span class="ot">&lt;-</span> visits <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb403-2"><a href="workshop-probability.html#cb403-2" tabindex="-1"></a>  <span class="co"># Get cumulative probability distribution</span></span>
+<span id="cb403-3"><a href="workshop-probability.html#cb403-3" tabindex="-1"></a>  <span class="fu">arrange</span>(x) <span class="sc">%&gt;%</span> </span>
+<span id="cb403-4"><a href="workshop-probability.html#cb403-4" tabindex="-1"></a>  <span class="co"># Get cumulative probabilities</span></span>
+<span id="cb403-5"><a href="workshop-probability.html#cb403-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">cumsum</span>(y) <span class="sc">/</span> <span class="fu">sum</span>(y)) <span class="sc">%&gt;%</span> </span>
+<span id="cb403-6"><a href="workshop-probability.html#cb403-6" tabindex="-1"></a>  <span class="co"># Turn it into a literal function!</span></span>
+<span id="cb403-7"><a href="workshop-probability.html#cb403-7" tabindex="-1"></a>  <span class="fu">approxfun</span>()</span>
+<span id="cb403-8"><a href="workshop-probability.html#cb403-8" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb403-9"><a href="workshop-probability.html#cb403-9" tabindex="-1"></a><span class="fu">psim</span>(<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] 0.4436929</code></pre>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="workshop-probability.html#cb405-1" tabindex="-1"></a><span class="co"># Pretty close to cdf5!</span></span></code></pre></div>
 <p><br>
 <br></p>
 </div>
 <div id="quantiles" class="section level3 unnumbered hasAnchor">
 <h3>Quantiles<a href="workshop-probability.html#quantiles" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>How many visits did people <em>usually</em> make? Estimate the interquartile range (25th-75th percentiles) of the unobserved distribution.</p>
-<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="workshop-probability.html#cb399-1" tabindex="-1"></a>q5 <span class="ot">&lt;-</span> <span class="fu">qpois</span>(<span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">25</span>, .<span class="dv">75</span>), <span class="at">lambda =</span> <span class="fl">5.5</span>)</span>
-<span id="cb399-2"><a href="workshop-probability.html#cb399-2" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb399-3"><a href="workshop-probability.html#cb399-3" tabindex="-1"></a>q5</span></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="workshop-probability.html#cb406-1" tabindex="-1"></a>q5 <span class="ot">&lt;-</span> <span class="fu">qpois</span>(<span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">25</span>, .<span class="dv">75</span>), <span class="at">lambda =</span> <span class="fl">5.5</span>)</span>
+<span id="cb406-2"><a href="workshop-probability.html#cb406-2" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb406-3"><a href="workshop-probability.html#cb406-3" tabindex="-1"></a>q5</span></code></pre></div>
 <pre><code>## [1] 4 7</code></pre>
 <p>Looks like 50% of folks visited between 4 and 7 stalls</p>
 <p>We can compare against our simulated data using <code>quantile()</code>.</p>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="workshop-probability.html#cb401-1" tabindex="-1"></a><span class="co"># Approximate the quantile function of this distribution</span></span>
-<span id="cb401-2"><a href="workshop-probability.html#cb401-2" tabindex="-1"></a>qsim <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb401-3"><a href="workshop-probability.html#cb401-3" tabindex="-1"></a>  <span class="co"># Get a vector of percentiles from 0 to 1, in units of 0.001</span></span>
-<span id="cb401-4"><a href="workshop-probability.html#cb401-4" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.001</span>),</span>
-<span id="cb401-5"><a href="workshop-probability.html#cb401-5" tabindex="-1"></a>  <span class="co"># Using our simulated distribution, </span></span>
-<span id="cb401-6"><a href="workshop-probability.html#cb401-6" tabindex="-1"></a>  <span class="co"># get the quantiles (values) at those points from this distribution</span></span>
-<span id="cb401-7"><a href="workshop-probability.html#cb401-7" tabindex="-1"></a>  <span class="at">y =</span> visits <span class="sc">%&gt;%</span> <span class="fu">quantile</span>(<span class="at">probs =</span> x)) <span class="sc">%&gt;%</span></span>
-<span id="cb401-8"><a href="workshop-probability.html#cb401-8" tabindex="-1"></a>  <span class="co"># Approximate function!</span></span>
-<span id="cb401-9"><a href="workshop-probability.html#cb401-9" tabindex="-1"></a>  <span class="fu">approxfun</span>()</span>
-<span id="cb401-10"><a href="workshop-probability.html#cb401-10" tabindex="-1"></a></span>
-<span id="cb401-11"><a href="workshop-probability.html#cb401-11" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb401-12"><a href="workshop-probability.html#cb401-12" tabindex="-1"></a><span class="fu">qsim</span>(<span class="fu">c</span>(.<span class="dv">25</span>, .<span class="dv">75</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="workshop-probability.html#cb408-1" tabindex="-1"></a><span class="co"># Approximate the quantile function of this distribution</span></span>
+<span id="cb408-2"><a href="workshop-probability.html#cb408-2" tabindex="-1"></a>qsim <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb408-3"><a href="workshop-probability.html#cb408-3" tabindex="-1"></a>  <span class="co"># Get a vector of percentiles from 0 to 1, in units of 0.001</span></span>
+<span id="cb408-4"><a href="workshop-probability.html#cb408-4" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.001</span>),</span>
+<span id="cb408-5"><a href="workshop-probability.html#cb408-5" tabindex="-1"></a>  <span class="co"># Using our simulated distribution, </span></span>
+<span id="cb408-6"><a href="workshop-probability.html#cb408-6" tabindex="-1"></a>  <span class="co"># get the quantiles (values) at those points from this distribution</span></span>
+<span id="cb408-7"><a href="workshop-probability.html#cb408-7" tabindex="-1"></a>  <span class="at">y =</span> visits <span class="sc">%&gt;%</span> <span class="fu">quantile</span>(<span class="at">probs =</span> x)) <span class="sc">%&gt;%</span></span>
+<span id="cb408-8"><a href="workshop-probability.html#cb408-8" tabindex="-1"></a>  <span class="co"># Approximate function!</span></span>
+<span id="cb408-9"><a href="workshop-probability.html#cb408-9" tabindex="-1"></a>  <span class="fu">approxfun</span>()</span>
+<span id="cb408-10"><a href="workshop-probability.html#cb408-10" tabindex="-1"></a></span>
+<span id="cb408-11"><a href="workshop-probability.html#cb408-11" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb408-12"><a href="workshop-probability.html#cb408-12" tabindex="-1"></a><span class="fu">qsim</span>(<span class="fu">c</span>(.<span class="dv">25</span>, .<span class="dv">75</span>))</span></code></pre></div>
 <pre><code>## [1] 4 7</code></pre>
 <p><br>
 <br></p>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="workshop-probability.html#cb403-1" tabindex="-1"></a><span class="fu">rm</span>(visits, pd5, cd5, q5, dsim, psim, qsim)</span></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="workshop-probability.html#cb410-1" tabindex="-1"></a><span class="fu">rm</span>(visits, pd5, cd5, q5, dsim, psim, qsim)</span></code></pre></div>
 <p><br>
 <br></p>
 <hr />
@@ -1841,34 +1928,34 @@ qexp()
 <p>We know there were <code>n = 500</code> customers, with a mean of <code>5.5</code> visits, a median of <code>5</code> visits, and a standard deviation of <code>2.5</code> visits.</p>
 <p>For a Normal Distribution:</p>
 <p>We learned in Workshop 2 that <code>rnorm()</code> requires a <code>mean</code> and <code>sd</code> (standard deviation); we conveniently have both!</p>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="workshop-probability.html#cb404-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">5</span>, <span class="at">mean =</span> <span class="fl">5.5</span>, <span class="at">sd =</span> <span class="fl">2.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="workshop-probability.html#cb411-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">5</span>, <span class="at">mean =</span> <span class="fl">5.5</span>, <span class="at">sd =</span> <span class="fl">2.5</span>)</span></code></pre></div>
 <pre><code>## [1] 0.5792597</code></pre>
 <p>For a Gamma Distribution:</p>
 <p>We learned in Workshop 2 that <code>rgamma()</code> requires a <code>shape</code> and <code>scale</code> (or <code>rate</code>); we can calculate these from the <code>mean</code> and <code>sd</code> (standard deviation).</p>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="workshop-probability.html#cb406-1" tabindex="-1"></a><span class="co"># shape = mean^2 / variance = mean^2 / sd^2</span></span>
-<span id="cb406-2"><a href="workshop-probability.html#cb406-2" tabindex="-1"></a>shape <span class="ot">&lt;-</span> <span class="fl">5.5</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fl">2.5</span><span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb406-3"><a href="workshop-probability.html#cb406-3" tabindex="-1"></a><span class="co"># scale = variance / mean</span></span>
-<span id="cb406-4"><a href="workshop-probability.html#cb406-4" tabindex="-1"></a>scale <span class="ot">&lt;-</span> <span class="fl">2.5</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fl">5.5</span></span>
-<span id="cb406-5"><a href="workshop-probability.html#cb406-5" tabindex="-1"></a><span class="co"># AND</span></span>
-<span id="cb406-6"><a href="workshop-probability.html#cb406-6" tabindex="-1"></a><span class="co"># rate = 1 / scale</span></span>
-<span id="cb406-7"><a href="workshop-probability.html#cb406-7" tabindex="-1"></a>rate <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> scale</span>
-<span id="cb406-8"><a href="workshop-probability.html#cb406-8" tabindex="-1"></a></span>
-<span id="cb406-9"><a href="workshop-probability.html#cb406-9" tabindex="-1"></a><span class="co"># So...</span></span>
-<span id="cb406-10"><a href="workshop-probability.html#cb406-10" tabindex="-1"></a><span class="co"># Get 1 - cumulative probability up to 5</span></span>
-<span id="cb406-11"><a href="workshop-probability.html#cb406-11" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pgamma</span>(<span class="dv">5</span>, <span class="at">shape =</span> shape, <span class="at">scale =</span> scale)</span></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="workshop-probability.html#cb413-1" tabindex="-1"></a><span class="co"># shape = mean^2 / variance = mean^2 / sd^2</span></span>
+<span id="cb413-2"><a href="workshop-probability.html#cb413-2" tabindex="-1"></a>shape <span class="ot">&lt;-</span> <span class="fl">5.5</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fl">2.5</span><span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb413-3"><a href="workshop-probability.html#cb413-3" tabindex="-1"></a><span class="co"># scale = variance / mean</span></span>
+<span id="cb413-4"><a href="workshop-probability.html#cb413-4" tabindex="-1"></a>scale <span class="ot">&lt;-</span> <span class="fl">2.5</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fl">5.5</span></span>
+<span id="cb413-5"><a href="workshop-probability.html#cb413-5" tabindex="-1"></a><span class="co"># AND</span></span>
+<span id="cb413-6"><a href="workshop-probability.html#cb413-6" tabindex="-1"></a><span class="co"># rate = 1 / scale</span></span>
+<span id="cb413-7"><a href="workshop-probability.html#cb413-7" tabindex="-1"></a>rate <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> scale</span>
+<span id="cb413-8"><a href="workshop-probability.html#cb413-8" tabindex="-1"></a></span>
+<span id="cb413-9"><a href="workshop-probability.html#cb413-9" tabindex="-1"></a><span class="co"># So...</span></span>
+<span id="cb413-10"><a href="workshop-probability.html#cb413-10" tabindex="-1"></a><span class="co"># Get 1 - cumulative probability up to 5</span></span>
+<span id="cb413-11"><a href="workshop-probability.html#cb413-11" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pgamma</span>(<span class="dv">5</span>, <span class="at">shape =</span> shape, <span class="at">scale =</span> scale)</span></code></pre></div>
 <pre><code>## [1] 0.5211581</code></pre>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="workshop-probability.html#cb408-1" tabindex="-1"></a><span class="co"># OR (same)</span></span>
-<span id="cb408-2"><a href="workshop-probability.html#cb408-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pgamma</span>(<span class="dv">5</span>, <span class="at">shape =</span> shape, <span class="at">rate =</span> rate)</span></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="workshop-probability.html#cb415-1" tabindex="-1"></a><span class="co"># OR (same)</span></span>
+<span id="cb415-2"><a href="workshop-probability.html#cb415-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pgamma</span>(<span class="dv">5</span>, <span class="at">shape =</span> shape, <span class="at">rate =</span> rate)</span></code></pre></div>
 <pre><code>## [1] 0.5211581</code></pre>
 <p>For an Exponential Distribution:</p>
 <p>We learned in Workshop 2 that <code>rexp()</code> requires a <code>rate</code>; we can calculate this from the <code>mean</code>.</p>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="workshop-probability.html#cb410-1" tabindex="-1"></a><span class="co"># For exponential distribution,</span></span>
-<span id="cb410-2"><a href="workshop-probability.html#cb410-2" tabindex="-1"></a><span class="co"># rate = 1 / mean</span></span>
-<span id="cb410-3"><a href="workshop-probability.html#cb410-3" tabindex="-1"></a>rate <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fl">5.5</span></span>
-<span id="cb410-4"><a href="workshop-probability.html#cb410-4" tabindex="-1"></a></span>
-<span id="cb410-5"><a href="workshop-probability.html#cb410-5" tabindex="-1"></a><span class="co"># So...</span></span>
-<span id="cb410-6"><a href="workshop-probability.html#cb410-6" tabindex="-1"></a><span class="co"># Get 1 - cumulative probability up to 5</span></span>
-<span id="cb410-7"><a href="workshop-probability.html#cb410-7" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pexp</span>(<span class="dv">5</span>, <span class="at">rate =</span> rate)</span></code></pre></div>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="workshop-probability.html#cb417-1" tabindex="-1"></a><span class="co"># For exponential distribution,</span></span>
+<span id="cb417-2"><a href="workshop-probability.html#cb417-2" tabindex="-1"></a><span class="co"># rate = 1 / mean</span></span>
+<span id="cb417-3"><a href="workshop-probability.html#cb417-3" tabindex="-1"></a>rate <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fl">5.5</span></span>
+<span id="cb417-4"><a href="workshop-probability.html#cb417-4" tabindex="-1"></a></span>
+<span id="cb417-5"><a href="workshop-probability.html#cb417-5" tabindex="-1"></a><span class="co"># So...</span></span>
+<span id="cb417-6"><a href="workshop-probability.html#cb417-6" tabindex="-1"></a><span class="co"># Get 1 - cumulative probability up to 5</span></span>
+<span id="cb417-7"><a href="workshop-probability.html#cb417-7" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pexp</span>(<span class="dv">5</span>, <span class="at">rate =</span> rate)</span></code></pre></div>
 <pre><code>## [1] 0.4028903</code></pre>
 </details>
 <hr />

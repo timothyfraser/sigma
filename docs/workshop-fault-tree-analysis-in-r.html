@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2023-09-06" />
+<meta name="date" content="2023-10-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -305,6 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#bayes-rule"><i class="fa fa-check"></i>Bayes Rule</a></li>
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#example-coffee-shop-incomplete-information"><i class="fa fa-check"></i>Example: Coffee Shop (Incomplete Information)</a></li>
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#example-coffee-shop-complete-information"><i class="fa fa-check"></i>Example: Coffee Shop (Complete Information)</a></li>
+<li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#example-movie-theatre-popularity"><i class="fa fa-check"></i>Example: Movie Theatre Popularity</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="workshop-probability.html"><a href="workshop-probability.html#probability-functions"><i class="fa fa-check"></i><b>3.2</b> Probability Functions</a>
 <ul>
@@ -479,8 +480,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.5.1" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#factors-in-r"><i class="fa fa-check"></i><b>7.5.1</b> Factors in R</a></li>
 <li class="chapter" data-level="7.5.2" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#crosstabulation"><i class="fa fa-check"></i><b>7.5.2</b> Crosstabulation</a></li>
 <li class="chapter" data-level="7.5.3" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#chi-squared"><i class="fa fa-check"></i><b>7.5.3</b> Chi-squared</a></li>
-<li class="chapter" data-level="7.5.4" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#estimating-lambda"><i class="fa fa-check"></i><b>7.5.4</b> Estimating Lambda</a></li>
-<li class="chapter" data-level="7.5.5" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#planning-experiments"><i class="fa fa-check"></i><b>7.5.5</b> Planning Experiments</a></li>
+<li class="chapter" data-level="7.5.4" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#building-a-chi-squared-function"><i class="fa fa-check"></i><b>7.5.4</b> Building a Chi-squared function</a></li>
+<li class="chapter" data-level="7.5.5" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#estimating-lambda"><i class="fa fa-check"></i><b>7.5.5</b> Estimating Lambda</a></li>
+<li class="chapter" data-level="7.5.6" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#planning-experiments"><i class="fa fa-check"></i><b>7.5.6</b> Planning Experiments</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#LC4"><i class="fa fa-check"></i>Learning Check 4</a></li>
 <li class="chapter" data-level="7.6" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#conclusion-6"><i class="fa fa-check"></i><b>7.6</b> Conclusion</a></li>
@@ -554,6 +556,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.2.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#coverage"><i class="fa fa-check"></i><b>9.2.4</b> Coverage</a></li>
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#simulate"><i class="fa fa-check"></i><b>9.3</b> Simulate</a></li>
+<li class="chapter" data-level="9.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#learning-check-1"><i class="fa fa-check"></i><b>9.4</b> Learning Check 1</a></li>
+<li class="chapter" data-level="9.5" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#learning-check-2-applying-exponential-distributions"><i class="fa fa-check"></i><b>9.5</b> Learning Check 2: Applying Exponential Distributions</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="workshop-physical-acceleration-models.html"><a href="workshop-physical-acceleration-models.html"><i class="fa fa-check"></i><b>10</b> Workshop: Physical Acceleration Models</a>
 <ul>
@@ -806,16 +810,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Prerequisites<a href="workshop-fault-tree-analysis-in-r.html#prerequisites" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>As a prerequisite for this workshop, be sure to have read our class reading on Fault Trees!
 You’ll need to install a few packages real quick below. Here they are.</p>
-<div class="sourceCode" id="cb831"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb831-1"><a href="workshop-fault-tree-analysis-in-r.html#cb831-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;devtools&quot;</span>, <span class="st">&quot;admisc&quot;</span>, <span class="st">&quot;tidygraph&quot;</span>, <span class="st">&quot;ggraph&quot;</span>, <span class="st">&quot;QCA&quot;</span>))</span>
-<span id="cb831-2"><a href="workshop-fault-tree-analysis-in-r.html#cb831-2" tabindex="-1"></a><span class="co"># Install the tidyfault package!</span></span>
-<span id="cb831-3"><a href="workshop-fault-tree-analysis-in-r.html#cb831-3" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;timothyfraser/tidyfault&quot;</span>)</span>
-<span id="cb831-4"><a href="workshop-fault-tree-analysis-in-r.html#cb831-4" tabindex="-1"></a><span class="co"># Select, &#39;install all packages&#39;</span></span>
-<span id="cb831-5"><a href="workshop-fault-tree-analysis-in-r.html#cb831-5" tabindex="-1"></a><span class="co"># on the menu that will pop up in your console</span></span></code></pre></div>
+<div class="sourceCode" id="cb849"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb849-1"><a href="workshop-fault-tree-analysis-in-r.html#cb849-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;devtools&quot;</span>, <span class="st">&quot;admisc&quot;</span>, <span class="st">&quot;tidygraph&quot;</span>, <span class="st">&quot;ggraph&quot;</span>, <span class="st">&quot;QCA&quot;</span>))</span>
+<span id="cb849-2"><a href="workshop-fault-tree-analysis-in-r.html#cb849-2" tabindex="-1"></a><span class="co"># Install the tidyfault package!</span></span>
+<span id="cb849-3"><a href="workshop-fault-tree-analysis-in-r.html#cb849-3" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;timothyfraser/tidyfault&quot;</span>)</span>
+<span id="cb849-4"><a href="workshop-fault-tree-analysis-in-r.html#cb849-4" tabindex="-1"></a><span class="co"># Select, &#39;install all packages&#39;</span></span>
+<span id="cb849-5"><a href="workshop-fault-tree-analysis-in-r.html#cb849-5" tabindex="-1"></a><span class="co"># on the menu that will pop up in your console</span></span></code></pre></div>
 </div>
 <div id="load-packages-5" class="section level3 unnumbered hasAnchor">
 <h3>Load Packages<a href="workshop-fault-tree-analysis-in-r.html#load-packages-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb832"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb832-1"><a href="workshop-fault-tree-analysis-in-r.html#cb832-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb832-2"><a href="workshop-fault-tree-analysis-in-r.html#cb832-2" tabindex="-1"></a><span class="fu">library</span>(tidyfault)</span></code></pre></div>
+<div class="sourceCode" id="cb850"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb850-1"><a href="workshop-fault-tree-analysis-in-r.html#cb850-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb850-2"><a href="workshop-fault-tree-analysis-in-r.html#cb850-2" tabindex="-1"></a><span class="fu">library</span>(tidyfault)</span></code></pre></div>
 <p><br>
 <br></p>
 </div>
@@ -834,20 +838,20 @@ You’ll need to install a few packages real quick below. Here they are.</p>
 <li><p>each node should be classified by <code>type</code> as (1) an <code>and</code> gate, (2) an <code>or</code> gate, or (3) <code>not</code> a gate. We can use <code>factor()</code> to tell R to always remember <code>"and"</code>, <code>"or"</code>, and <code>"not"</code> in that order (useful for <code>ggplot</code> legends).</p></li>
 <li><p>classic fault trees sometimes write events and the gates that condition them as separate nodes, but as far as the graph is concerned, they are really the <em>same node</em>. So, remember to combine them for analysis.</p></li>
 </ul>
-<div class="sourceCode" id="cb833"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb833-1"><a href="workshop-fault-tree-analysis-in-r.html#cb833-1" tabindex="-1"></a><span class="co"># Let&#39;s make a data.frame of nodes!</span></span>
-<span id="cb833-2"><a href="workshop-fault-tree-analysis-in-r.html#cb833-2" tabindex="-1"></a><span class="fu">tribble</span>(</span>
-<span id="cb833-3"><a href="workshop-fault-tree-analysis-in-r.html#cb833-3" tabindex="-1"></a>  <span class="co"># Make the headers, using a tilde</span></span>
-<span id="cb833-4"><a href="workshop-fault-tree-analysis-in-r.html#cb833-4" tabindex="-1"></a>  <span class="sc">~</span>id, <span class="sc">~</span>event, <span class="sc">~</span>type,</span>
-<span id="cb833-5"><a href="workshop-fault-tree-analysis-in-r.html#cb833-5" tabindex="-1"></a>  <span class="co"># Add the value entries</span></span>
-<span id="cb833-6"><a href="workshop-fault-tree-analysis-in-r.html#cb833-6" tabindex="-1"></a>  <span class="st">&quot;T&quot;</span>,   <span class="st">&quot;T&quot;</span>,   <span class="st">&quot;top&quot;</span>,</span>
-<span id="cb833-7"><a href="workshop-fault-tree-analysis-in-r.html#cb833-7" tabindex="-1"></a>  <span class="st">&quot;G1&quot;</span>,  <span class="st">&quot;G1&quot;</span>,  <span class="st">&quot;and&quot;</span>,</span>
-<span id="cb833-8"><a href="workshop-fault-tree-analysis-in-r.html#cb833-8" tabindex="-1"></a>  <span class="co"># Notice how event &#39;B&#39; appears twice,</span></span>
-<span id="cb833-9"><a href="workshop-fault-tree-analysis-in-r.html#cb833-9" tabindex="-1"></a>  <span class="co"># so it has a logical but differentiated `name` &quot;B1&quot; and &quot;B2&quot;?</span></span>
-<span id="cb833-10"><a href="workshop-fault-tree-analysis-in-r.html#cb833-10" tabindex="-1"></a>  <span class="st">&quot;B1&quot;</span>,  <span class="st">&quot;B&quot;</span>,   <span class="st">&quot;not&quot;</span>,</span>
-<span id="cb833-11"><a href="workshop-fault-tree-analysis-in-r.html#cb833-11" tabindex="-1"></a>  <span class="st">&quot;B2&quot;</span>,  <span class="st">&quot;B&quot;</span>,   <span class="st">&quot;not&quot;</span>,</span>
-<span id="cb833-12"><a href="workshop-fault-tree-analysis-in-r.html#cb833-12" tabindex="-1"></a>  <span class="st">&quot;C1&quot;</span>,  <span class="st">&quot;C&quot;</span>,   <span class="st">&quot;not&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb833-13"><a href="workshop-fault-tree-analysis-in-r.html#cb833-13" tabindex="-1"></a>  <span class="co"># Classify &#39;type&#39; as a factor, with specific levels</span></span>
-<span id="cb833-14"><a href="workshop-fault-tree-analysis-in-r.html#cb833-14" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">factor</span>(type, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;top&quot;</span>, <span class="st">&quot;and&quot;</span>, <span class="st">&quot;or&quot;</span>, <span class="st">&quot;not&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb851"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb851-1"><a href="workshop-fault-tree-analysis-in-r.html#cb851-1" tabindex="-1"></a><span class="co"># Let&#39;s make a data.frame of nodes!</span></span>
+<span id="cb851-2"><a href="workshop-fault-tree-analysis-in-r.html#cb851-2" tabindex="-1"></a><span class="fu">tribble</span>(</span>
+<span id="cb851-3"><a href="workshop-fault-tree-analysis-in-r.html#cb851-3" tabindex="-1"></a>  <span class="co"># Make the headers, using a tilde</span></span>
+<span id="cb851-4"><a href="workshop-fault-tree-analysis-in-r.html#cb851-4" tabindex="-1"></a>  <span class="sc">~</span>id, <span class="sc">~</span>event, <span class="sc">~</span>type,</span>
+<span id="cb851-5"><a href="workshop-fault-tree-analysis-in-r.html#cb851-5" tabindex="-1"></a>  <span class="co"># Add the value entries</span></span>
+<span id="cb851-6"><a href="workshop-fault-tree-analysis-in-r.html#cb851-6" tabindex="-1"></a>  <span class="st">&quot;T&quot;</span>,   <span class="st">&quot;T&quot;</span>,   <span class="st">&quot;top&quot;</span>,</span>
+<span id="cb851-7"><a href="workshop-fault-tree-analysis-in-r.html#cb851-7" tabindex="-1"></a>  <span class="st">&quot;G1&quot;</span>,  <span class="st">&quot;G1&quot;</span>,  <span class="st">&quot;and&quot;</span>,</span>
+<span id="cb851-8"><a href="workshop-fault-tree-analysis-in-r.html#cb851-8" tabindex="-1"></a>  <span class="co"># Notice how event &#39;B&#39; appears twice,</span></span>
+<span id="cb851-9"><a href="workshop-fault-tree-analysis-in-r.html#cb851-9" tabindex="-1"></a>  <span class="co"># so it has a logical but differentiated `name` &quot;B1&quot; and &quot;B2&quot;?</span></span>
+<span id="cb851-10"><a href="workshop-fault-tree-analysis-in-r.html#cb851-10" tabindex="-1"></a>  <span class="st">&quot;B1&quot;</span>,  <span class="st">&quot;B&quot;</span>,   <span class="st">&quot;not&quot;</span>,</span>
+<span id="cb851-11"><a href="workshop-fault-tree-analysis-in-r.html#cb851-11" tabindex="-1"></a>  <span class="st">&quot;B2&quot;</span>,  <span class="st">&quot;B&quot;</span>,   <span class="st">&quot;not&quot;</span>,</span>
+<span id="cb851-12"><a href="workshop-fault-tree-analysis-in-r.html#cb851-12" tabindex="-1"></a>  <span class="st">&quot;C1&quot;</span>,  <span class="st">&quot;C&quot;</span>,   <span class="st">&quot;not&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb851-13"><a href="workshop-fault-tree-analysis-in-r.html#cb851-13" tabindex="-1"></a>  <span class="co"># Classify &#39;type&#39; as a factor, with specific levels</span></span>
+<span id="cb851-14"><a href="workshop-fault-tree-analysis-in-r.html#cb851-14" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">factor</span>(type, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;top&quot;</span>, <span class="st">&quot;and&quot;</span>, <span class="st">&quot;or&quot;</span>, <span class="st">&quot;not&quot;</span>)))</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 3
 ##   id    event type 
 ##   &lt;chr&gt; &lt;chr&gt; &lt;fct&gt;
@@ -865,13 +869,13 @@ You’ll need to install a few packages real quick below. Here they are.</p>
 <ul>
 <li>each row shows a unique edge between nodes, recording their node <code>id</code>s from the top-down in the <code>from</code> and <code>to</code> columns.</li>
 </ul>
-<div class="sourceCode" id="cb835"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb835-1"><a href="workshop-fault-tree-analysis-in-r.html#cb835-1" tabindex="-1"></a><span class="co"># For example....</span></span>
-<span id="cb835-2"><a href="workshop-fault-tree-analysis-in-r.html#cb835-2" tabindex="-1"></a><span class="fu">tribble</span>(</span>
-<span id="cb835-3"><a href="workshop-fault-tree-analysis-in-r.html#cb835-3" tabindex="-1"></a>  <span class="sc">~</span>from, <span class="sc">~</span>to,</span>
-<span id="cb835-4"><a href="workshop-fault-tree-analysis-in-r.html#cb835-4" tabindex="-1"></a>  <span class="st">&quot;T&quot;</span>,   <span class="st">&quot;G1&quot;</span>,</span>
-<span id="cb835-5"><a href="workshop-fault-tree-analysis-in-r.html#cb835-5" tabindex="-1"></a>  <span class="st">&quot;G1&quot;</span>, <span class="st">&quot;G2&quot;</span>,</span>
-<span id="cb835-6"><a href="workshop-fault-tree-analysis-in-r.html#cb835-6" tabindex="-1"></a>  <span class="st">&quot;G2&quot;</span>, <span class="st">&quot;B1&quot;</span>,</span>
-<span id="cb835-7"><a href="workshop-fault-tree-analysis-in-r.html#cb835-7" tabindex="-1"></a>  <span class="st">&quot;G2&quot;</span>, <span class="st">&quot;G5&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb853"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb853-1"><a href="workshop-fault-tree-analysis-in-r.html#cb853-1" tabindex="-1"></a><span class="co"># For example....</span></span>
+<span id="cb853-2"><a href="workshop-fault-tree-analysis-in-r.html#cb853-2" tabindex="-1"></a><span class="fu">tribble</span>(</span>
+<span id="cb853-3"><a href="workshop-fault-tree-analysis-in-r.html#cb853-3" tabindex="-1"></a>  <span class="sc">~</span>from, <span class="sc">~</span>to,</span>
+<span id="cb853-4"><a href="workshop-fault-tree-analysis-in-r.html#cb853-4" tabindex="-1"></a>  <span class="st">&quot;T&quot;</span>,   <span class="st">&quot;G1&quot;</span>,</span>
+<span id="cb853-5"><a href="workshop-fault-tree-analysis-in-r.html#cb853-5" tabindex="-1"></a>  <span class="st">&quot;G1&quot;</span>, <span class="st">&quot;G2&quot;</span>,</span>
+<span id="cb853-6"><a href="workshop-fault-tree-analysis-in-r.html#cb853-6" tabindex="-1"></a>  <span class="st">&quot;G2&quot;</span>, <span class="st">&quot;B1&quot;</span>,</span>
+<span id="cb853-7"><a href="workshop-fault-tree-analysis-in-r.html#cb853-7" tabindex="-1"></a>  <span class="st">&quot;G2&quot;</span>, <span class="st">&quot;G5&quot;</span>) </span></code></pre></div>
 <pre><code>## # A tibble: 4 × 2
 ##   from  to   
 ##   &lt;chr&gt; &lt;chr&gt;
@@ -883,9 +887,9 @@ You’ll need to install a few packages real quick below. Here they are.</p>
 <div id="our-data-3" class="section level3 hasAnchor" number="9.1.3">
 <h3><span class="header-section-number">9.1.3</span> Our Data<a href="workshop-fault-tree-analysis-in-r.html#our-data-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In this example, we’re going to use the default data in <code>tidyfault</code>, called <code>fakenodes</code> and <code>fakeedges</code>. You can download it like this:</p>
-<div class="sourceCode" id="cb837"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb837-1"><a href="workshop-fault-tree-analysis-in-r.html#cb837-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;fakenodes&quot;</span>)</span>
-<span id="cb837-2"><a href="workshop-fault-tree-analysis-in-r.html#cb837-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;fakeedges&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb838"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb838-1"><a href="workshop-fault-tree-analysis-in-r.html#cb838-1" tabindex="-1"></a>fakenodes</span></code></pre></div>
+<div class="sourceCode" id="cb855"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb855-1"><a href="workshop-fault-tree-analysis-in-r.html#cb855-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;fakenodes&quot;</span>)</span>
+<span id="cb855-2"><a href="workshop-fault-tree-analysis-in-r.html#cb855-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;fakeedges&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb856"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb856-1"><a href="workshop-fault-tree-analysis-in-r.html#cb856-1" tabindex="-1"></a>fakenodes</span></code></pre></div>
 <pre><code>## # A tibble: 12 × 3
 ##       id event type 
 ##    &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;
@@ -901,7 +905,7 @@ You’ll need to install a few packages real quick below. Here they are.</p>
 ## 10    10 C     not  
 ## 11    11 C     not  
 ## 12    12 D     not</code></pre>
-<div class="sourceCode" id="cb840"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb840-1"><a href="workshop-fault-tree-analysis-in-r.html#cb840-1" tabindex="-1"></a>fakeedges</span></code></pre></div>
+<div class="sourceCode" id="cb858"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb858-1"><a href="workshop-fault-tree-analysis-in-r.html#cb858-1" tabindex="-1"></a>fakeedges</span></code></pre></div>
 <pre><code>## # A tibble: 11 × 2
 ##     from    to
 ##    &lt;dbl&gt; &lt;dbl&gt;
@@ -922,17 +926,17 @@ You’ll need to install a few packages real quick below. Here they are.</p>
 <div id="getting-a-fault-tree-layout" class="section level3 hasAnchor" number="9.1.4">
 <h3><span class="header-section-number">9.1.4</span> Getting a Fault Tree Layout<a href="workshop-fault-tree-analysis-in-r.html#getting-a-fault-tree-layout" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Using <code>tidyfault</code>‘s <code>illustrate()</code> function, we can quickly assign <code>x</code> and <code>y</code> coordinates for a ’tree’ layout to to our <code>fakenodes</code> and <code>fakeedges</code>. We say <code>type = "both"</code> because we want to receive coordinates for <em>both</em> the nodes and edges.</p>
-<div class="sourceCode" id="cb842"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb842-1"><a href="workshop-fault-tree-analysis-in-r.html#cb842-1" tabindex="-1"></a>gg <span class="ot">=</span> <span class="fu">illustrate</span>(<span class="at">nodes =</span> fakenodes, <span class="at">edges =</span> fakeedges, </span>
-<span id="cb842-2"><a href="workshop-fault-tree-analysis-in-r.html#cb842-2" tabindex="-1"></a>                <span class="at">type =</span> <span class="st">&quot;both&quot;</span>, <span class="at">node_key =</span> <span class="st">&quot;id&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb860"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb860-1"><a href="workshop-fault-tree-analysis-in-r.html#cb860-1" tabindex="-1"></a>gg <span class="ot">=</span> <span class="fu">illustrate</span>(<span class="at">nodes =</span> fakenodes, <span class="at">edges =</span> fakeedges, </span>
+<span id="cb860-2"><a href="workshop-fault-tree-analysis-in-r.html#cb860-2" tabindex="-1"></a>                <span class="at">type =</span> <span class="st">&quot;both&quot;</span>, <span class="at">node_key =</span> <span class="st">&quot;id&quot;</span>)</span></code></pre></div>
 <p>This returns a <code>list()</code> object. <code>list()</code> objects are collections of data.frames - sort of like a vector whose values are entire data.frames. We can query the values inside lists by using the <code>$</code>, just like a data.frame.</p>
-<div class="sourceCode" id="cb843"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb843-1"><a href="workshop-fault-tree-analysis-in-r.html#cb843-1" tabindex="-1"></a><span class="co"># see the nodes</span></span>
-<span id="cb843-2"><a href="workshop-fault-tree-analysis-in-r.html#cb843-2" tabindex="-1"></a>gg<span class="sc">$</span>nodes <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb861"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb861-1"><a href="workshop-fault-tree-analysis-in-r.html#cb861-1" tabindex="-1"></a><span class="co"># see the nodes</span></span>
+<span id="cb861-2"><a href="workshop-fault-tree-analysis-in-r.html#cb861-2" tabindex="-1"></a>gg<span class="sc">$</span>nodes <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##    x y id event type
 ## 1  0 4  1     T  top
 ## 2  0 3  2    G1  and
 ## 3 -1 2  3    G2  and</code></pre>
-<div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb845-1"><a href="workshop-fault-tree-analysis-in-r.html#cb845-1" tabindex="-1"></a><span class="co"># see the edges</span></span>
-<span id="cb845-2"><a href="workshop-fault-tree-analysis-in-r.html#cb845-2" tabindex="-1"></a>gg<span class="sc">$</span>edges <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb863"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb863-1"><a href="workshop-fault-tree-analysis-in-r.html#cb863-1" tabindex="-1"></a><span class="co"># see the edges</span></span>
+<span id="cb863-2"><a href="workshop-fault-tree-analysis-in-r.html#cb863-2" tabindex="-1"></a>gg<span class="sc">$</span>edges <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 5
 ## # Groups:   edge_id [2]
 ##   edge_id direction    id     x     y
@@ -943,23 +947,23 @@ You’ll need to install a few packages real quick below. Here they are.</p>
 </div>
 <div id="visualize-a-fault-tree" class="section level3 hasAnchor" number="9.1.5">
 <h3><span class="header-section-number">9.1.5</span> Visualize a Fault Tree<a href="workshop-fault-tree-analysis-in-r.html#visualize-a-fault-tree" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb847"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb847-1"><a href="workshop-fault-tree-analysis-in-r.html#cb847-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb847-2"><a href="workshop-fault-tree-analysis-in-r.html#cb847-2" tabindex="-1"></a>  <span class="co"># Plot each line corresponding to the unique edge id, used to group them</span></span>
-<span id="cb847-3"><a href="workshop-fault-tree-analysis-in-r.html#cb847-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> gg<span class="sc">$</span>edges, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">group =</span> edge_id)) <span class="sc">+</span></span>
-<span id="cb847-4"><a href="workshop-fault-tree-analysis-in-r.html#cb847-4" tabindex="-1"></a>  <span class="co"># Plot each point</span></span>
-<span id="cb847-5"><a href="workshop-fault-tree-analysis-in-r.html#cb847-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> gg<span class="sc">$</span>nodes, </span>
-<span id="cb847-6"><a href="workshop-fault-tree-analysis-in-r.html#cb847-6" tabindex="-1"></a>             <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">shape =</span> type, <span class="at">fill =</span> type),</span>
-<span id="cb847-7"><a href="workshop-fault-tree-analysis-in-r.html#cb847-7" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb847-8"><a href="workshop-fault-tree-analysis-in-r.html#cb847-8" tabindex="-1"></a>  <span class="co"># Plot labels!</span></span>
-<span id="cb847-9"><a href="workshop-fault-tree-analysis-in-r.html#cb847-9" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> gg<span class="sc">$</span>nodes, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">label =</span> event)) <span class="sc">+</span></span>
-<span id="cb847-10"><a href="workshop-fault-tree-analysis-in-r.html#cb847-10" tabindex="-1"></a>  <span class="co"># We can also assign shapes!</span></span>
-<span id="cb847-11"><a href="workshop-fault-tree-analysis-in-r.html#cb847-11" tabindex="-1"></a>  <span class="co"># (shapes 21, 22, 23, 24, and 25 have fill and color)</span></span>
-<span id="cb847-12"><a href="workshop-fault-tree-analysis-in-r.html#cb847-12" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">24</span>, <span class="dv">25</span>, <span class="dv">21</span>)) <span class="sc">+</span></span>
-<span id="cb847-13"><a href="workshop-fault-tree-analysis-in-r.html#cb847-13" tabindex="-1"></a>  <span class="co"># And assign some poppy colors here</span></span>
-<span id="cb847-14"><a href="workshop-fault-tree-analysis-in-r.html#cb847-14" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkgrey&quot;</span>, <span class="st">&quot;cyan&quot;</span>, <span class="st">&quot;coral&quot;</span>, <span class="st">&quot;lightgrey&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb847-15"><a href="workshop-fault-tree-analysis-in-r.html#cb847-15" tabindex="-1"></a>  <span class="co"># Finally, we can make a clean void theme, with the legend below.</span></span>
-<span id="cb847-16"><a href="workshop-fault-tree-analysis-in-r.html#cb847-16" tabindex="-1"></a>  <span class="fu">theme_void</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb847-17"><a href="workshop-fault-tree-analysis-in-r.html#cb847-17" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb865"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb865-1"><a href="workshop-fault-tree-analysis-in-r.html#cb865-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb865-2"><a href="workshop-fault-tree-analysis-in-r.html#cb865-2" tabindex="-1"></a>  <span class="co"># Plot each line corresponding to the unique edge id, used to group them</span></span>
+<span id="cb865-3"><a href="workshop-fault-tree-analysis-in-r.html#cb865-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> gg<span class="sc">$</span>edges, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">group =</span> edge_id)) <span class="sc">+</span></span>
+<span id="cb865-4"><a href="workshop-fault-tree-analysis-in-r.html#cb865-4" tabindex="-1"></a>  <span class="co"># Plot each point</span></span>
+<span id="cb865-5"><a href="workshop-fault-tree-analysis-in-r.html#cb865-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> gg<span class="sc">$</span>nodes, </span>
+<span id="cb865-6"><a href="workshop-fault-tree-analysis-in-r.html#cb865-6" tabindex="-1"></a>             <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">shape =</span> type, <span class="at">fill =</span> type),</span>
+<span id="cb865-7"><a href="workshop-fault-tree-analysis-in-r.html#cb865-7" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb865-8"><a href="workshop-fault-tree-analysis-in-r.html#cb865-8" tabindex="-1"></a>  <span class="co"># Plot labels!</span></span>
+<span id="cb865-9"><a href="workshop-fault-tree-analysis-in-r.html#cb865-9" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> gg<span class="sc">$</span>nodes, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">label =</span> event)) <span class="sc">+</span></span>
+<span id="cb865-10"><a href="workshop-fault-tree-analysis-in-r.html#cb865-10" tabindex="-1"></a>  <span class="co"># We can also assign shapes!</span></span>
+<span id="cb865-11"><a href="workshop-fault-tree-analysis-in-r.html#cb865-11" tabindex="-1"></a>  <span class="co"># (shapes 21, 22, 23, 24, and 25 have fill and color)</span></span>
+<span id="cb865-12"><a href="workshop-fault-tree-analysis-in-r.html#cb865-12" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">24</span>, <span class="dv">25</span>, <span class="dv">21</span>)) <span class="sc">+</span></span>
+<span id="cb865-13"><a href="workshop-fault-tree-analysis-in-r.html#cb865-13" tabindex="-1"></a>  <span class="co"># And assign some poppy colors here</span></span>
+<span id="cb865-14"><a href="workshop-fault-tree-analysis-in-r.html#cb865-14" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkgrey&quot;</span>, <span class="st">&quot;cyan&quot;</span>, <span class="st">&quot;coral&quot;</span>, <span class="st">&quot;lightgrey&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb865-15"><a href="workshop-fault-tree-analysis-in-r.html#cb865-15" tabindex="-1"></a>  <span class="co"># Finally, we can make a clean void theme, with the legend below.</span></span>
+<span id="cb865-16"><a href="workshop-fault-tree-analysis-in-r.html#cb865-16" tabindex="-1"></a>  <span class="fu">theme_void</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb865-17"><a href="workshop-fault-tree-analysis-in-r.html#cb865-17" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
 <p><img src="09_workshop_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 <br>
 <br></p>
@@ -975,10 +979,10 @@ You’ll need to install a few packages real quick below. Here they are.</p>
 <p>To do this, we’re going to use an algorithm, called the MOCUS top-down algorithm. I wrote it in <code>R</code> for you! Yay!</p>
 <div id="gates" class="section level3 hasAnchor" number="9.2.1">
 <h3><span class="header-section-number">9.2.1</span> Gates<a href="workshop-fault-tree-analysis-in-r.html#gates" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb848"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb848-1"><a href="workshop-fault-tree-analysis-in-r.html#cb848-1" tabindex="-1"></a><span class="co"># To get a data.frame of gates, use curate()!</span></span>
-<span id="cb848-2"><a href="workshop-fault-tree-analysis-in-r.html#cb848-2" tabindex="-1"></a>g <span class="ot">=</span> <span class="fu">curate</span>(fakenodes, fakeedges)</span>
-<span id="cb848-3"><a href="workshop-fault-tree-analysis-in-r.html#cb848-3" tabindex="-1"></a><span class="co"># Check it</span></span>
-<span id="cb848-4"><a href="workshop-fault-tree-analysis-in-r.html#cb848-4" tabindex="-1"></a>g</span></code></pre></div>
+<div class="sourceCode" id="cb866"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb866-1"><a href="workshop-fault-tree-analysis-in-r.html#cb866-1" tabindex="-1"></a><span class="co"># To get a data.frame of gates, use curate()!</span></span>
+<span id="cb866-2"><a href="workshop-fault-tree-analysis-in-r.html#cb866-2" tabindex="-1"></a>g <span class="ot">=</span> <span class="fu">curate</span>(fakenodes, fakeedges)</span>
+<span id="cb866-3"><a href="workshop-fault-tree-analysis-in-r.html#cb866-3" tabindex="-1"></a><span class="co"># Check it</span></span>
+<span id="cb866-4"><a href="workshop-fault-tree-analysis-in-r.html#cb866-4" tabindex="-1"></a>g</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 6
 ##   gate  type  class     n set           items    
 ##   &lt;chr&gt; &lt;fct&gt; &lt;fct&gt; &lt;int&gt; &lt;chr&gt;         &lt;list&gt;   
@@ -992,30 +996,30 @@ You’ll need to install a few packages real quick below. Here they are.</p>
 <div id="equations" class="section level3 hasAnchor" number="9.2.2">
 <h3><span class="header-section-number">9.2.2</span> Equations<a href="workshop-fault-tree-analysis-in-r.html#equations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To get the full boolean equation of the fault tree, use <code>equate()</code>!</p>
-<div class="sourceCode" id="cb850"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb850-1"><a href="workshop-fault-tree-analysis-in-r.html#cb850-1" tabindex="-1"></a>g <span class="sc">%&gt;%</span> <span class="fu">equate</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb868"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb868-1"><a href="workshop-fault-tree-analysis-in-r.html#cb868-1" tabindex="-1"></a>g <span class="sc">%&gt;%</span> <span class="fu">equate</span>() </span></code></pre></div>
 <pre><code>## [1] &quot; ( ( (B *  (C + D) )  *  (A +  (B * C) ) ) ) &quot;</code></pre>
 <p>We can format it as a function too!</p>
-<div class="sourceCode" id="cb852"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb852-1"><a href="workshop-fault-tree-analysis-in-r.html#cb852-1" tabindex="-1"></a>f <span class="ot">=</span> g <span class="sc">%&gt;%</span> <span class="fu">equate</span>() <span class="sc">%&gt;%</span> <span class="fu">formulate</span>()</span>
-<span id="cb852-2"><a href="workshop-fault-tree-analysis-in-r.html#cb852-2" tabindex="-1"></a></span>
-<span id="cb852-3"><a href="workshop-fault-tree-analysis-in-r.html#cb852-3" tabindex="-1"></a><span class="co"># Suppose there is each of these probabilities that A, B, C, and D occur</span></span>
-<span id="cb852-4"><a href="workshop-fault-tree-analysis-in-r.html#cb852-4" tabindex="-1"></a><span class="co"># what&#39;s the probability of the top event?</span></span>
-<span id="cb852-5"><a href="workshop-fault-tree-analysis-in-r.html#cb852-5" tabindex="-1"></a><span class="fu">f</span>(<span class="at">A =</span> <span class="fl">0.3</span>, <span class="at">B =</span> <span class="fl">0.5</span>, <span class="at">C =</span> <span class="fl">0.1</span>, <span class="at">D =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb870"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb870-1"><a href="workshop-fault-tree-analysis-in-r.html#cb870-1" tabindex="-1"></a>f <span class="ot">=</span> g <span class="sc">%&gt;%</span> <span class="fu">equate</span>() <span class="sc">%&gt;%</span> <span class="fu">formulate</span>()</span>
+<span id="cb870-2"><a href="workshop-fault-tree-analysis-in-r.html#cb870-2" tabindex="-1"></a></span>
+<span id="cb870-3"><a href="workshop-fault-tree-analysis-in-r.html#cb870-3" tabindex="-1"></a><span class="co"># Suppose there is each of these probabilities that A, B, C, and D occur</span></span>
+<span id="cb870-4"><a href="workshop-fault-tree-analysis-in-r.html#cb870-4" tabindex="-1"></a><span class="co"># what&#39;s the probability of the top event?</span></span>
+<span id="cb870-5"><a href="workshop-fault-tree-analysis-in-r.html#cb870-5" tabindex="-1"></a><span class="fu">f</span>(<span class="at">A =</span> <span class="fl">0.3</span>, <span class="at">B =</span> <span class="fl">0.5</span>, <span class="at">C =</span> <span class="fl">0.1</span>, <span class="at">D =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <pre><code>## [1] 0.105</code></pre>
 </div>
 <div id="minimal-cutsets" class="section level3 hasAnchor" number="9.2.3">
 <h3><span class="header-section-number">9.2.3</span> Minimal Cutsets<a href="workshop-fault-tree-analysis-in-r.html#minimal-cutsets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To simplify down to the minimal cutsets, use <code>concentrate()</code>! It’s pretty quick for small graphs, but gets exponentially longer the more nodes you add. (Especially with <code>OR</code> statements.) That’s MOCUS’s value as well as its tradeoff.</p>
-<div class="sourceCode" id="cb854"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb854-1"><a href="workshop-fault-tree-analysis-in-r.html#cb854-1" tabindex="-1"></a>m <span class="ot">=</span> g <span class="sc">%&gt;%</span> </span>
-<span id="cb854-2"><a href="workshop-fault-tree-analysis-in-r.html#cb854-2" tabindex="-1"></a>  <span class="fu">concentrate</span>(<span class="at">method =</span> <span class="st">&quot;mocus&quot;</span>)</span>
-<span id="cb854-3"><a href="workshop-fault-tree-analysis-in-r.html#cb854-3" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb854-4"><a href="workshop-fault-tree-analysis-in-r.html#cb854-4" tabindex="-1"></a>m</span></code></pre></div>
+<div class="sourceCode" id="cb872"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb872-1"><a href="workshop-fault-tree-analysis-in-r.html#cb872-1" tabindex="-1"></a>m <span class="ot">=</span> g <span class="sc">%&gt;%</span> </span>
+<span id="cb872-2"><a href="workshop-fault-tree-analysis-in-r.html#cb872-2" tabindex="-1"></a>  <span class="fu">concentrate</span>(<span class="at">method =</span> <span class="st">&quot;mocus&quot;</span>)</span>
+<span id="cb872-3"><a href="workshop-fault-tree-analysis-in-r.html#cb872-3" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb872-4"><a href="workshop-fault-tree-analysis-in-r.html#cb872-4" tabindex="-1"></a>m</span></code></pre></div>
 <pre><code>## [1] &quot;B*C&quot;   &quot;A*B*D&quot;</code></pre>
 </div>
 <div id="coverage" class="section level3 hasAnchor" number="9.2.4">
 <h3><span class="header-section-number">9.2.4</span> Coverage<a href="workshop-fault-tree-analysis-in-r.html#coverage" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We might want to know, <em>how important</em> are each of my minimal cutsets? We can compute the total number of cutsets that include the minimal cutset, the total cutsets leading to failure in general, and the percentage (<code>coverage</code>) of cutsets containing your minimal cutset out of all total cutsets leading to failure. It’s basically a measure of the explanatory power of your cutsets!</p>
-<div class="sourceCode" id="cb856"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb856-1"><a href="workshop-fault-tree-analysis-in-r.html#cb856-1" tabindex="-1"></a>m <span class="sc">%&gt;%</span> </span>
-<span id="cb856-2"><a href="workshop-fault-tree-analysis-in-r.html#cb856-2" tabindex="-1"></a>  <span class="fu">tabulate</span>(<span class="at">formula =</span> f)</span></code></pre></div>
+<div class="sourceCode" id="cb874"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb874-1"><a href="workshop-fault-tree-analysis-in-r.html#cb874-1" tabindex="-1"></a>m <span class="sc">%&gt;%</span> </span>
+<span id="cb874-2"><a href="workshop-fault-tree-analysis-in-r.html#cb874-2" tabindex="-1"></a>  <span class="fu">tabulate</span>(<span class="at">formula =</span> f)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   mincut query                                        cutsets failures coverage
 ##   &lt;chr&gt;  &lt;chr&gt;                                          &lt;int&gt;    &lt;int&gt;    &lt;dbl&gt;
@@ -1027,14 +1031,100 @@ You’ll need to install a few packages real quick below. Here they are.</p>
 <h2><span class="header-section-number">9.3</span> Simulate<a href="workshop-fault-tree-analysis-in-r.html#simulate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Fortunately, fault trees are extremely flexible. You can apply all of our past simulation approaches, probability rules, lifespan distribution concepts, and reliability analysis tools to them.</p>
 <p>For example, we can simulate how the probability of the top event would change if the probability of each event varies ever so slightly across 100 simulations.</p>
-<div class="sourceCode" id="cb858"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb858-1"><a href="workshop-fault-tree-analysis-in-r.html#cb858-1" tabindex="-1"></a><span class="fu">f</span>(<span class="at">A =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="fl">0.3</span>, <span class="at">sd =</span> <span class="fl">0.1</span>), </span>
-<span id="cb858-2"><a href="workshop-fault-tree-analysis-in-r.html#cb858-2" tabindex="-1"></a>  <span class="at">B =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="fl">0.5</span>, <span class="at">sd =</span> <span class="fl">0.2</span>), </span>
-<span id="cb858-3"><a href="workshop-fault-tree-analysis-in-r.html#cb858-3" tabindex="-1"></a>  <span class="at">C =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="fl">0.1</span>, <span class="at">sd =</span> <span class="fl">0.3</span>), </span>
-<span id="cb858-4"><a href="workshop-fault-tree-analysis-in-r.html#cb858-4" tabindex="-1"></a>  <span class="at">D =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="fl">0.5</span>, <span class="at">sd =</span> <span class="fl">0.1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb858-5"><a href="workshop-fault-tree-analysis-in-r.html#cb858-5" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
-<pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-## -0.01123  0.03478  0.09688  0.17710  0.21004  1.20535</code></pre>
+<div class="sourceCode" id="cb876"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb876-1"><a href="workshop-fault-tree-analysis-in-r.html#cb876-1" tabindex="-1"></a><span class="fu">f</span>(<span class="at">A =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="fl">0.3</span>, <span class="at">sd =</span> <span class="fl">0.1</span>), </span>
+<span id="cb876-2"><a href="workshop-fault-tree-analysis-in-r.html#cb876-2" tabindex="-1"></a>  <span class="at">B =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="fl">0.5</span>, <span class="at">sd =</span> <span class="fl">0.2</span>), </span>
+<span id="cb876-3"><a href="workshop-fault-tree-analysis-in-r.html#cb876-3" tabindex="-1"></a>  <span class="at">C =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="fl">0.1</span>, <span class="at">sd =</span> <span class="fl">0.3</span>), </span>
+<span id="cb876-4"><a href="workshop-fault-tree-analysis-in-r.html#cb876-4" tabindex="-1"></a>  <span class="at">D =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="fl">0.5</span>, <span class="at">sd =</span> <span class="fl">0.1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb876-5"><a href="workshop-fault-tree-analysis-in-r.html#cb876-5" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+## -0.009971  0.028641  0.085338  0.152521  0.178840  1.078695</code></pre>
 <p>The sky is the limit! Happy fault tree mapping!</p>
+</div>
+<div id="learning-check-1" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> Learning Check 1<a href="workshop-fault-tree-analysis-in-r.html#learning-check-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Question</strong></p>
+<p>You are tasked with assessing the risk of a widespread outbreak of a contagious disease in a population. The top event is defined as the <strong>widespread outbreak</strong> of a contagious disease in a population. This top event can occur based on the following intermediate events:</p>
+<p><strong>Insufficient Vaccination Coverage</strong>:
+All of the following must occur for this event to happen -
+Causes and Probabilities:
+- Lack of public awareness: P(Lack of public awareness) = 0.2 (20%)
+- Limited access to vaccines: P(Limited access) = 0.15 (15%)
+- Vaccine hesitancy due to misinformation: P(Vaccine hesitancy) = 0.3 (30%)</p>
+<p><strong>Ineffective Quarantine Measures</strong>:
+Any of the following can lead to this event -
+Causes and Probabilities:
+- Inadequate quarantine protocols: P(Inadequate protocols) = 0.1 (10%)
+- Non-compliance with quarantine rules: P(Non-compliance) = 0.15 (15%)
+- Inefficient monitoring of quarantined individuals: P(Inefficient monitoring) = 0.2 (20%)</p>
+<p>Mutation of the Pathogen:
+This event itself can lead to the top event
+Causes and Probabilities:
+- High mutation rate of the pathogen: P(High mutation rate) = 0.05 (5%)
+- Inadequate monitoring of the pathogen mutations: P(Inadequate monitoring) = 0.1 (10%)</p>
+<p><strong>Answer</strong></p>
+<p>Let’s calculate probabilities of intermediate events using probabilities based on available data.</p>
+<div class="sourceCode" id="cb878"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb878-1"><a href="workshop-fault-tree-analysis-in-r.html#cb878-1" tabindex="-1"></a><span class="co"># Probability of Insufficient Vaccination Coverage:</span></span>
+<span id="cb878-2"><a href="workshop-fault-tree-analysis-in-r.html#cb878-2" tabindex="-1"></a><span class="co"># All of the sub-events must occur for this intermediate event to happen:</span></span>
+<span id="cb878-3"><a href="workshop-fault-tree-analysis-in-r.html#cb878-3" tabindex="-1"></a>p_event1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.15</span>, <span class="fl">0.3</span>)  <span class="co"># Probabilities for AND logic</span></span>
+<span id="cb878-4"><a href="workshop-fault-tree-analysis-in-r.html#cb878-4" tabindex="-1"></a>p_insufficient_vaccine_coverage <span class="ot">&lt;-</span> <span class="fu">prod</span>(p_event1)</span>
+<span id="cb878-5"><a href="workshop-fault-tree-analysis-in-r.html#cb878-5" tabindex="-1"></a>p_insufficient_vaccine_coverage</span></code></pre></div>
+<pre><code>## [1] 0.009</code></pre>
+<div class="sourceCode" id="cb880"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb880-1"><a href="workshop-fault-tree-analysis-in-r.html#cb880-1" tabindex="-1"></a><span class="co"># Probability of Ineffective Quarantine Measures:</span></span>
+<span id="cb880-2"><a href="workshop-fault-tree-analysis-in-r.html#cb880-2" tabindex="-1"></a><span class="co"># Any of the sub-event event can lead to this intermediate event:</span></span>
+<span id="cb880-3"><a href="workshop-fault-tree-analysis-in-r.html#cb880-3" tabindex="-1"></a>p_event2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.15</span>, <span class="fl">0.2</span>)  <span class="co"># Probabilities for OR logic</span></span>
+<span id="cb880-4"><a href="workshop-fault-tree-analysis-in-r.html#cb880-4" tabindex="-1"></a>p_quarantine_measures <span class="ot">&lt;-</span> <span class="fu">sum</span>(p_event2)</span>
+<span id="cb880-5"><a href="workshop-fault-tree-analysis-in-r.html#cb880-5" tabindex="-1"></a>p_quarantine_measures</span></code></pre></div>
+<pre><code>## [1] 0.45</code></pre>
+<div class="sourceCode" id="cb882"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb882-1"><a href="workshop-fault-tree-analysis-in-r.html#cb882-1" tabindex="-1"></a><span class="co"># Probability of Mutation of the Pathogen:</span></span>
+<span id="cb882-2"><a href="workshop-fault-tree-analysis-in-r.html#cb882-2" tabindex="-1"></a><span class="co"># Both conditions need to be present in order for pathogen to mutate:</span></span>
+<span id="cb882-3"><a href="workshop-fault-tree-analysis-in-r.html#cb882-3" tabindex="-1"></a>p_event3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.1</span>)  <span class="co"># Probabilities for AND logic</span></span>
+<span id="cb882-4"><a href="workshop-fault-tree-analysis-in-r.html#cb882-4" tabindex="-1"></a>logic_mutation <span class="ot">&lt;-</span> <span class="st">&quot;AND&quot;</span></span>
+<span id="cb882-5"><a href="workshop-fault-tree-analysis-in-r.html#cb882-5" tabindex="-1"></a>p_pathogen_mutation <span class="ot">&lt;-</span> <span class="fu">prod</span>(p_event3)</span>
+<span id="cb882-6"><a href="workshop-fault-tree-analysis-in-r.html#cb882-6" tabindex="-1"></a>p_pathogen_mutation</span></code></pre></div>
+<pre><code>## [1] 0.005</code></pre>
+<div class="sourceCode" id="cb884"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb884-1"><a href="workshop-fault-tree-analysis-in-r.html#cb884-1" tabindex="-1"></a><span class="co"># Calculating the probability of widespread outbreak (top event) using the probabilities of intermediate events</span></span>
+<span id="cb884-2"><a href="workshop-fault-tree-analysis-in-r.html#cb884-2" tabindex="-1"></a><span class="co"># Let&#39;s create a function that can calculate the probability of the top event using any number of intermediate events and any logic gate</span></span>
+<span id="cb884-3"><a href="workshop-fault-tree-analysis-in-r.html#cb884-3" tabindex="-1"></a></span>
+<span id="cb884-4"><a href="workshop-fault-tree-analysis-in-r.html#cb884-4" tabindex="-1"></a>ftop <span class="ot">=</span> <span class="cf">function</span>(prob_a, prob_b, prob_c){</span>
+<span id="cb884-5"><a href="workshop-fault-tree-analysis-in-r.html#cb884-5" tabindex="-1"></a></span>
+<span id="cb884-6"><a href="workshop-fault-tree-analysis-in-r.html#cb884-6" tabindex="-1"></a>  <span class="co"># Try to lightly adapt what you below into something that...</span></span>
+<span id="cb884-7"><a href="workshop-fault-tree-analysis-in-r.html#cb884-7" tabindex="-1"></a>  <span class="co"># doesn&#39;t use any if-then statements</span></span>
+<span id="cb884-8"><a href="workshop-fault-tree-analysis-in-r.html#cb884-8" tabindex="-1"></a>  </span>
+<span id="cb884-9"><a href="workshop-fault-tree-analysis-in-r.html#cb884-9" tabindex="-1"></a>  </span>
+<span id="cb884-10"><a href="workshop-fault-tree-analysis-in-r.html#cb884-10" tabindex="-1"></a>  </span>
+<span id="cb884-11"><a href="workshop-fault-tree-analysis-in-r.html#cb884-11" tabindex="-1"></a>}</span>
+<span id="cb884-12"><a href="workshop-fault-tree-analysis-in-r.html#cb884-12" tabindex="-1"></a></span>
+<span id="cb884-13"><a href="workshop-fault-tree-analysis-in-r.html#cb884-13" tabindex="-1"></a>top_event <span class="ot">&lt;-</span> <span class="cf">function</span>(intermediate_probability, logic) {</span>
+<span id="cb884-14"><a href="workshop-fault-tree-analysis-in-r.html#cb884-14" tabindex="-1"></a>  </span>
+<span id="cb884-15"><a href="workshop-fault-tree-analysis-in-r.html#cb884-15" tabindex="-1"></a>  <span class="cf">if</span> (logic <span class="sc">==</span> <span class="st">&quot;AND&quot;</span>) {</span>
+<span id="cb884-16"><a href="workshop-fault-tree-analysis-in-r.html#cb884-16" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">prod</span>(intermediate_probability))</span>
+<span id="cb884-17"><a href="workshop-fault-tree-analysis-in-r.html#cb884-17" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (logic <span class="sc">==</span> <span class="st">&quot;OR&quot;</span>) {</span>
+<span id="cb884-18"><a href="workshop-fault-tree-analysis-in-r.html#cb884-18" tabindex="-1"></a>    <span class="fu">return</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">prod</span>(<span class="dv">1</span> <span class="sc">-</span> intermediate_probability))</span>
+<span id="cb884-19"><a href="workshop-fault-tree-analysis-in-r.html#cb884-19" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb884-20"><a href="workshop-fault-tree-analysis-in-r.html#cb884-20" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;Unsupported logic operator. Use &#39;AND&#39; or &#39;OR&#39;.&quot;</span>)</span>
+<span id="cb884-21"><a href="workshop-fault-tree-analysis-in-r.html#cb884-21" tabindex="-1"></a>  }</span>
+<span id="cb884-22"><a href="workshop-fault-tree-analysis-in-r.html#cb884-22" tabindex="-1"></a>}</span>
+<span id="cb884-23"><a href="workshop-fault-tree-analysis-in-r.html#cb884-23" tabindex="-1"></a></span>
+<span id="cb884-24"><a href="workshop-fault-tree-analysis-in-r.html#cb884-24" tabindex="-1"></a><span class="co"># Define probabilities and logic gates as vector</span></span>
+<span id="cb884-25"><a href="workshop-fault-tree-analysis-in-r.html#cb884-25" tabindex="-1"></a>intermediate_probability<span class="ot">&lt;-</span> <span class="fu">c</span>(p_insufficient_vaccine_coverage,p_quarantine_measures,p_pathogen_mutation)  <span class="co"># Probabilities for the intermediate events</span></span>
+<span id="cb884-26"><a href="workshop-fault-tree-analysis-in-r.html#cb884-26" tabindex="-1"></a>logic <span class="ot">&lt;-</span> <span class="st">&quot;OR&quot;</span>  <span class="co"># Logic gate for the top event (&quot;AND&quot; or &quot;OR&quot;)</span></span>
+<span id="cb884-27"><a href="workshop-fault-tree-analysis-in-r.html#cb884-27" tabindex="-1"></a></span>
+<span id="cb884-28"><a href="workshop-fault-tree-analysis-in-r.html#cb884-28" tabindex="-1"></a><span class="co"># Calculate the probability of the top event - Widespread outbreak of disease: </span></span>
+<span id="cb884-29"><a href="workshop-fault-tree-analysis-in-r.html#cb884-29" tabindex="-1"></a>p_widespread_outbreak <span class="ot">&lt;-</span> <span class="fu">top_event</span>(intermediate_probability, logic)</span>
+<span id="cb884-30"><a href="workshop-fault-tree-analysis-in-r.html#cb884-30" tabindex="-1"></a></span>
+<span id="cb884-31"><a href="workshop-fault-tree-analysis-in-r.html#cb884-31" tabindex="-1"></a><span class="co"># Print the result</span></span>
+<span id="cb884-32"><a href="workshop-fault-tree-analysis-in-r.html#cb884-32" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Probability of the top event:&quot;</span>, p_widespread_outbreak, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Probability of the top event: 0.4576752</code></pre>
+</div>
+<div id="learning-check-2-applying-exponential-distributions" class="section level2 hasAnchor" number="9.5">
+<h2><span class="header-section-number">9.5</span> Learning Check 2: Applying Exponential Distributions<a href="workshop-fault-tree-analysis-in-r.html#learning-check-2-applying-exponential-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>What if each of these events had an exponential lifespan distribution? Could we see how the probability of the top event changes over time <code>t</code>, given a set of failure rates <code>lambda_a</code>, <code>lambda_b</code>, <code>lambda_c</code>, etc.?</p>
+<div class="sourceCode" id="cb886"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb886-1"><a href="workshop-fault-tree-analysis-in-r.html#cb886-1" tabindex="-1"></a>ftop2 <span class="ot">=</span> <span class="cf">function</span>(t, lambda_a, lambda_b, lambda_c){</span>
+<span id="cb886-2"><a href="workshop-fault-tree-analysis-in-r.html#cb886-2" tabindex="-1"></a>  </span>
+<span id="cb886-3"><a href="workshop-fault-tree-analysis-in-r.html#cb886-3" tabindex="-1"></a>  prob_a <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_a)</span>
+<span id="cb886-4"><a href="workshop-fault-tree-analysis-in-r.html#cb886-4" tabindex="-1"></a>  prob_b <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_b)</span>
+<span id="cb886-5"><a href="workshop-fault-tree-analysis-in-r.html#cb886-5" tabindex="-1"></a>  prob_c <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_c)</span>
+<span id="cb886-6"><a href="workshop-fault-tree-analysis-in-r.html#cb886-6" tabindex="-1"></a>}</span></code></pre></div>
 
 </div>
 </div>

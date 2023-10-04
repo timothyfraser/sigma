@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2023-09-06" />
+<meta name="date" content="2023-10-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -305,6 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#bayes-rule"><i class="fa fa-check"></i>Bayes Rule</a></li>
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#example-coffee-shop-incomplete-information"><i class="fa fa-check"></i>Example: Coffee Shop (Incomplete Information)</a></li>
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#example-coffee-shop-complete-information"><i class="fa fa-check"></i>Example: Coffee Shop (Complete Information)</a></li>
+<li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#example-movie-theatre-popularity"><i class="fa fa-check"></i>Example: Movie Theatre Popularity</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="workshop-probability.html"><a href="workshop-probability.html#probability-functions"><i class="fa fa-check"></i><b>3.2</b> Probability Functions</a>
 <ul>
@@ -479,8 +480,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.5.1" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#factors-in-r"><i class="fa fa-check"></i><b>7.5.1</b> Factors in R</a></li>
 <li class="chapter" data-level="7.5.2" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#crosstabulation"><i class="fa fa-check"></i><b>7.5.2</b> Crosstabulation</a></li>
 <li class="chapter" data-level="7.5.3" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#chi-squared"><i class="fa fa-check"></i><b>7.5.3</b> Chi-squared</a></li>
-<li class="chapter" data-level="7.5.4" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#estimating-lambda"><i class="fa fa-check"></i><b>7.5.4</b> Estimating Lambda</a></li>
-<li class="chapter" data-level="7.5.5" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#planning-experiments"><i class="fa fa-check"></i><b>7.5.5</b> Planning Experiments</a></li>
+<li class="chapter" data-level="7.5.4" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#building-a-chi-squared-function"><i class="fa fa-check"></i><b>7.5.4</b> Building a Chi-squared function</a></li>
+<li class="chapter" data-level="7.5.5" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#estimating-lambda"><i class="fa fa-check"></i><b>7.5.5</b> Estimating Lambda</a></li>
+<li class="chapter" data-level="7.5.6" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#planning-experiments"><i class="fa fa-check"></i><b>7.5.6</b> Planning Experiments</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#LC4"><i class="fa fa-check"></i>Learning Check 4</a></li>
 <li class="chapter" data-level="7.6" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#conclusion-6"><i class="fa fa-check"></i><b>7.6</b> Conclusion</a></li>
@@ -554,6 +556,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.2.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#coverage"><i class="fa fa-check"></i><b>9.2.4</b> Coverage</a></li>
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#simulate"><i class="fa fa-check"></i><b>9.3</b> Simulate</a></li>
+<li class="chapter" data-level="9.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#learning-check-1"><i class="fa fa-check"></i><b>9.4</b> Learning Check 1</a></li>
+<li class="chapter" data-level="9.5" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#learning-check-2-applying-exponential-distributions"><i class="fa fa-check"></i><b>9.5</b> Learning Check 2: Applying Exponential Distributions</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="workshop-physical-acceleration-models.html"><a href="workshop-physical-acceleration-models.html"><i class="fa fa-check"></i><b>10</b> Workshop: Physical Acceleration Models</a>
 <ul>
@@ -814,8 +818,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="coding-your-own-function" class="section level2 unnumbered hasAnchor">
 <h2>Coding your own function!<a href="skill-functions-in-r.html#coding-your-own-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><code>Functions</code> are machines that do a specific <strong>calculation</strong> using an <strong>input</strong> to produce a specific <strong>output</strong>.</p>
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8ff19426bb7bcfa3878f" style="width:100%;height:144px;"></div>
-<script type="application/json" data-for="htmlwidget-8ff19426bb7bcfa3878f">{"x":{"diagram":"graph LR\n subgraph before\n i[input data <i>x<\/i>]\n end\n subgraph function\n c[calculation]\n end\n subgraph after\n o[output data <i>y<\/i>]\n end\n i --> c\n c --> o"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-98cb39b732cb7c277293" style="width:100%;height:144px;"></div>
+<script type="application/json" data-for="htmlwidget-98cb39b732cb7c277293">{"x":{"diagram":"graph LR\n subgraph before\n i[input data <i>x<\/i>]\n end\n subgraph function\n c[calculation]\n end\n subgraph after\n o[output data <i>y<\/i>]\n end\n i --> c\n c --> o"},"evals":[],"jsHooks":[]}</script>
 <p>Below, we’ll write an example function, called <code>add(a, b)</code>.</p>
 <ul>
 <li><p>This function takes two <code>numeric</code> values, <code>a</code> and <code>b</code>, as <code>inputs</code>, and adds them together.</p></li>

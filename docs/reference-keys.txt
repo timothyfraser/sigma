@@ -8,8 +8,8 @@ fig:seawall
 fig:unnamed-chunk-8
 fig:unnamed-chunk-12
 fig:unnamed-chunk-14
-fig:unnamed-chunk-49
-tab:unnamed-chunk-51
+fig:unnamed-chunk-53
+tab:unnamed-chunk-55
 fig:unnamed-chunk-6
 fig:unnamed-chunk-16
 fig:nested1
@@ -157,6 +157,7 @@ statistical-techniques-for-exponential-distributions
 factors-in-r
 crosstabulation
 chi-squared
+building-a-chi-squared-function
 estimating-lambda
 planning-experiments
 conclusion-6
@@ -200,6 +201,8 @@ equations
 minimal-cutsets
 coverage
 simulate
+learning-check-1
+learning-check-2-applying-exponential-distributions
 workshop-physical-acceleration-models
 acceleration-factor
 stress-vs.-usage-conditions

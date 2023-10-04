@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2023-09-06" />
+<meta name="date" content="2023-10-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -305,6 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#bayes-rule"><i class="fa fa-check"></i>Bayes Rule</a></li>
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#example-coffee-shop-incomplete-information"><i class="fa fa-check"></i>Example: Coffee Shop (Incomplete Information)</a></li>
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#example-coffee-shop-complete-information"><i class="fa fa-check"></i>Example: Coffee Shop (Complete Information)</a></li>
+<li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#example-movie-theatre-popularity"><i class="fa fa-check"></i>Example: Movie Theatre Popularity</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="workshop-probability.html"><a href="workshop-probability.html#probability-functions"><i class="fa fa-check"></i><b>3.2</b> Probability Functions</a>
 <ul>
@@ -479,8 +480,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.5.1" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#factors-in-r"><i class="fa fa-check"></i><b>7.5.1</b> Factors in R</a></li>
 <li class="chapter" data-level="7.5.2" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#crosstabulation"><i class="fa fa-check"></i><b>7.5.2</b> Crosstabulation</a></li>
 <li class="chapter" data-level="7.5.3" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#chi-squared"><i class="fa fa-check"></i><b>7.5.3</b> Chi-squared</a></li>
-<li class="chapter" data-level="7.5.4" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#estimating-lambda"><i class="fa fa-check"></i><b>7.5.4</b> Estimating Lambda</a></li>
-<li class="chapter" data-level="7.5.5" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#planning-experiments"><i class="fa fa-check"></i><b>7.5.5</b> Planning Experiments</a></li>
+<li class="chapter" data-level="7.5.4" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#building-a-chi-squared-function"><i class="fa fa-check"></i><b>7.5.4</b> Building a Chi-squared function</a></li>
+<li class="chapter" data-level="7.5.5" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#estimating-lambda"><i class="fa fa-check"></i><b>7.5.5</b> Estimating Lambda</a></li>
+<li class="chapter" data-level="7.5.6" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#planning-experiments"><i class="fa fa-check"></i><b>7.5.6</b> Planning Experiments</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#LC4"><i class="fa fa-check"></i>Learning Check 4</a></li>
 <li class="chapter" data-level="7.6" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#conclusion-6"><i class="fa fa-check"></i><b>7.6</b> Conclusion</a></li>
@@ -554,6 +556,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.2.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#coverage"><i class="fa fa-check"></i><b>9.2.4</b> Coverage</a></li>
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#simulate"><i class="fa fa-check"></i><b>9.3</b> Simulate</a></li>
+<li class="chapter" data-level="9.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#learning-check-1"><i class="fa fa-check"></i><b>9.4</b> Learning Check 1</a></li>
+<li class="chapter" data-level="9.5" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#learning-check-2-applying-exponential-distributions"><i class="fa fa-check"></i><b>9.5</b> Learning Check 2: Applying Exponential Distributions</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="workshop-physical-acceleration-models.html"><a href="workshop-physical-acceleration-models.html"><i class="fa fa-check"></i><b>10</b> Workshop: Physical Acceleration Models</a>
 <ul>
@@ -811,9 +815,9 @@ Analysis (also known as Survival Analysis) in <code>R</code>.</p>
 <h2>Getting Started<a href="workshop-system-reliability.html#getting-started-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="packages-2" class="section level3 unnumbered hasAnchor">
 <h3>Packages<a href="workshop-system-reliability.html#packages-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="workshop-system-reliability.html#cb412-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb412-2"><a href="workshop-system-reliability.html#cb412-2" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb412-3"><a href="workshop-system-reliability.html#cb412-3" tabindex="-1"></a><span class="fu">library</span>(DiagrammeR)</span></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="workshop-system-reliability.html#cb419-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb419-2"><a href="workshop-system-reliability.html#cb419-2" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb419-3"><a href="workshop-system-reliability.html#cb419-3" tabindex="-1"></a><span class="fu">library</span>(DiagrammeR)</span></code></pre></div>
 </div>
 </div>
 <div id="concepts" class="section level2 hasAnchor" number="4.1">
@@ -824,54 +828,54 @@ Analysis (also known as Survival Analysis) in <code>R</code>.</p>
 <div id="life-distributions" class="section level3 hasAnchor" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Life Distributions<a href="workshop-system-reliability.html#life-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>All technologies, operations, etc. have a ‘lifetime distribution’. If you took a sample of, say, cars in New York, you could measure <em>how long each car functioned properly</em> (its life-span), and build a <em>Lifetime Distribution</em> from that vector.</p>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="workshop-system-reliability.html#cb413-1" tabindex="-1"></a><span class="co"># Let&#39;s imagine a normally distributed lifespan for these cars...</span></span>
-<span id="cb413-2"><a href="workshop-system-reliability.html#cb413-2" tabindex="-1"></a>lifespan <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="workshop-system-reliability.html#cb420-1" tabindex="-1"></a><span class="co"># Let&#39;s imagine a normally distributed lifespan for these cars...</span></span>
+<span id="cb420-2"><a href="workshop-system-reliability.html#cb420-2" tabindex="-1"></a>lifespan <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>The <em>lifetime distribution</em> is the probability density function telling
 us how <em>frequently</em> each potential lifespan is expected to occur.</p>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="workshop-system-reliability.html#cb414-1" tabindex="-1"></a><span class="co"># We can build ourself the PDF of our lifetime distribution here</span></span>
-<span id="cb414-2"><a href="workshop-system-reliability.html#cb414-2" tabindex="-1"></a>dlife <span class="ot">&lt;-</span> lifespan <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">approxfun</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="workshop-system-reliability.html#cb421-1" tabindex="-1"></a><span class="co"># We can build ourself the PDF of our lifetime distribution here</span></span>
+<span id="cb421-2"><a href="workshop-system-reliability.html#cb421-2" tabindex="-1"></a>dlife <span class="ot">&lt;-</span> lifespan <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">approxfun</span>()</span></code></pre></div>
 <p>In contrast, the Cumulative Distribution Function (CDF) for a lifetime
 distribution tells us, for any time <span class="math inline">\(t\)</span>, the <em>probability that a car
 will fail by time</em> <span class="math inline">\(t\)</span>.</p>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="workshop-system-reliability.html#cb415-1" tabindex="-1"></a><span class="co"># And we can build the CDF here</span></span>
-<span id="cb415-2"><a href="workshop-system-reliability.html#cb415-2" tabindex="-1"></a>plife <span class="ot">&lt;-</span> lifespan <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb415-3"><a href="workshop-system-reliability.html#cb415-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">cumsum</span>(y) <span class="sc">/</span> <span class="fu">sum</span>(y)) <span class="sc">%&gt;%</span> <span class="fu">approxfun</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="workshop-system-reliability.html#cb422-1" tabindex="-1"></a><span class="co"># And we can build the CDF here</span></span>
+<span id="cb422-2"><a href="workshop-system-reliability.html#cb422-2" tabindex="-1"></a>plife <span class="ot">&lt;-</span> lifespan <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb422-3"><a href="workshop-system-reliability.html#cb422-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">cumsum</span>(y) <span class="sc">/</span> <span class="fu">sum</span>(y)) <span class="sc">%&gt;%</span> <span class="fu">approxfun</span>()</span></code></pre></div>
 <p>Having built these functions for our cars, we can generate the
 probability (PDF) and cumulative probability (CDF) of failure across our
-observed vector of car lifespans, from ~2.66
-to ~7.42.</p>
+observed vector of car lifespans, from ~2.5
+to ~8.07.</p>
 <p>Reliability or Survival Analysis is concerned with <em>the probability</em>
 that a unit (our car) will still be operating by a specific time <span class="math inline">\(t\)</span>,
 representing the percentage of all cars that will survive to that point
 in time. So let’s also calculate
 <code>1 - cumulative probability of failure</code>.</p>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="workshop-system-reliability.html#cb416-1" tabindex="-1"></a>mycars <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb416-2"><a href="workshop-system-reliability.html#cb416-2" tabindex="-1"></a>  <span class="at">time =</span> <span class="fu">seq</span>(<span class="fu">min</span>(lifespan), <span class="fu">max</span>(lifespan), <span class="at">by =</span> <span class="fl">0.1</span>),</span>
-<span id="cb416-3"><a href="workshop-system-reliability.html#cb416-3" tabindex="-1"></a>  <span class="co"># Get probability of failing at time time</span></span>
-<span id="cb416-4"><a href="workshop-system-reliability.html#cb416-4" tabindex="-1"></a>  <span class="at">prob =</span> time <span class="sc">%&gt;%</span> <span class="fu">dlife</span>(),</span>
-<span id="cb416-5"><a href="workshop-system-reliability.html#cb416-5" tabindex="-1"></a>  <span class="co"># Get probability of failing at or before time t</span></span>
-<span id="cb416-6"><a href="workshop-system-reliability.html#cb416-6" tabindex="-1"></a>  <span class="at">prob_cumulative =</span> time <span class="sc">%&gt;%</span> <span class="fu">plife</span>(),</span>
-<span id="cb416-7"><a href="workshop-system-reliability.html#cb416-7" tabindex="-1"></a>  <span class="co"># Get probability of surving past time t </span></span>
-<span id="cb416-8"><a href="workshop-system-reliability.html#cb416-8" tabindex="-1"></a>  <span class="co"># (NOT failing at or before time t) </span></span>
-<span id="cb416-9"><a href="workshop-system-reliability.html#cb416-9" tabindex="-1"></a>  <span class="at">prob_survival =</span> <span class="dv">1</span> <span class="sc">-</span> time <span class="sc">%&gt;%</span> <span class="fu">plife</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="workshop-system-reliability.html#cb423-1" tabindex="-1"></a>mycars <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb423-2"><a href="workshop-system-reliability.html#cb423-2" tabindex="-1"></a>  <span class="at">time =</span> <span class="fu">seq</span>(<span class="fu">min</span>(lifespan), <span class="fu">max</span>(lifespan), <span class="at">by =</span> <span class="fl">0.1</span>),</span>
+<span id="cb423-3"><a href="workshop-system-reliability.html#cb423-3" tabindex="-1"></a>  <span class="co"># Get probability of failing at time time</span></span>
+<span id="cb423-4"><a href="workshop-system-reliability.html#cb423-4" tabindex="-1"></a>  <span class="at">prob =</span> time <span class="sc">%&gt;%</span> <span class="fu">dlife</span>(),</span>
+<span id="cb423-5"><a href="workshop-system-reliability.html#cb423-5" tabindex="-1"></a>  <span class="co"># Get probability of failing at or before time t</span></span>
+<span id="cb423-6"><a href="workshop-system-reliability.html#cb423-6" tabindex="-1"></a>  <span class="at">prob_cumulative =</span> time <span class="sc">%&gt;%</span> <span class="fu">plife</span>(),</span>
+<span id="cb423-7"><a href="workshop-system-reliability.html#cb423-7" tabindex="-1"></a>  <span class="co"># Get probability of surving past time t </span></span>
+<span id="cb423-8"><a href="workshop-system-reliability.html#cb423-8" tabindex="-1"></a>  <span class="co"># (NOT failing at or before time t) </span></span>
+<span id="cb423-9"><a href="workshop-system-reliability.html#cb423-9" tabindex="-1"></a>  <span class="at">prob_survival =</span> <span class="dv">1</span> <span class="sc">-</span> time <span class="sc">%&gt;%</span> <span class="fu">plife</span>())</span></code></pre></div>
 <p>Let’s plot our three curves!</p>
-<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="workshop-system-reliability.html#cb417-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb417-2"><a href="workshop-system-reliability.html#cb417-2" tabindex="-1"></a>  <span class="co"># Make one area plot for Cumulative Probability (CDF)</span></span>
-<span id="cb417-3"><a href="workshop-system-reliability.html#cb417-3" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycars, </span>
-<span id="cb417-4"><a href="workshop-system-reliability.html#cb417-4" tabindex="-1"></a>            <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> prob_cumulative, </span>
-<span id="cb417-5"><a href="workshop-system-reliability.html#cb417-5" tabindex="-1"></a>                          <span class="at">fill =</span> <span class="st">&quot;Cumulative Probability&quot;</span>), <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb417-6"><a href="workshop-system-reliability.html#cb417-6" tabindex="-1"></a>  <span class="co"># Make one area plot for Relibability</span></span>
-<span id="cb417-7"><a href="workshop-system-reliability.html#cb417-7" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycars, </span>
-<span id="cb417-8"><a href="workshop-system-reliability.html#cb417-8" tabindex="-1"></a>            <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> prob_survival, </span>
-<span id="cb417-9"><a href="workshop-system-reliability.html#cb417-9" tabindex="-1"></a>                          <span class="at">fill =</span> <span class="st">&quot;Reliability (Survival)&quot;</span>), <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb417-10"><a href="workshop-system-reliability.html#cb417-10" tabindex="-1"></a>  <span class="co"># Make one area plot for Probability (PDF)</span></span>
-<span id="cb417-11"><a href="workshop-system-reliability.html#cb417-11" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycars,</span>
-<span id="cb417-12"><a href="workshop-system-reliability.html#cb417-12" tabindex="-1"></a>            <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> prob, </span>
-<span id="cb417-13"><a href="workshop-system-reliability.html#cb417-13" tabindex="-1"></a>                          <span class="at">fill =</span> <span class="st">&quot;Probability&quot;</span>), <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb417-14"><a href="workshop-system-reliability.html#cb417-14" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb417-15"><a href="workshop-system-reliability.html#cb417-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="sc">+</span></span>
-<span id="cb417-16"><a href="workshop-system-reliability.html#cb417-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Lifespan of Car&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Probability&quot;</span>,</span>
-<span id="cb417-17"><a href="workshop-system-reliability.html#cb417-17" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Example Life Distributions&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="workshop-system-reliability.html#cb424-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb424-2"><a href="workshop-system-reliability.html#cb424-2" tabindex="-1"></a>  <span class="co"># Make one area plot for Cumulative Probability (CDF)</span></span>
+<span id="cb424-3"><a href="workshop-system-reliability.html#cb424-3" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycars, </span>
+<span id="cb424-4"><a href="workshop-system-reliability.html#cb424-4" tabindex="-1"></a>            <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> prob_cumulative, </span>
+<span id="cb424-5"><a href="workshop-system-reliability.html#cb424-5" tabindex="-1"></a>                          <span class="at">fill =</span> <span class="st">&quot;Cumulative Probability&quot;</span>), <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb424-6"><a href="workshop-system-reliability.html#cb424-6" tabindex="-1"></a>  <span class="co"># Make one area plot for Relibability</span></span>
+<span id="cb424-7"><a href="workshop-system-reliability.html#cb424-7" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycars, </span>
+<span id="cb424-8"><a href="workshop-system-reliability.html#cb424-8" tabindex="-1"></a>            <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> prob_survival, </span>
+<span id="cb424-9"><a href="workshop-system-reliability.html#cb424-9" tabindex="-1"></a>                          <span class="at">fill =</span> <span class="st">&quot;Reliability (Survival)&quot;</span>), <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb424-10"><a href="workshop-system-reliability.html#cb424-10" tabindex="-1"></a>  <span class="co"># Make one area plot for Probability (PDF)</span></span>
+<span id="cb424-11"><a href="workshop-system-reliability.html#cb424-11" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycars,</span>
+<span id="cb424-12"><a href="workshop-system-reliability.html#cb424-12" tabindex="-1"></a>            <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> prob, </span>
+<span id="cb424-13"><a href="workshop-system-reliability.html#cb424-13" tabindex="-1"></a>                          <span class="at">fill =</span> <span class="st">&quot;Probability&quot;</span>), <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb424-14"><a href="workshop-system-reliability.html#cb424-14" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb424-15"><a href="workshop-system-reliability.html#cb424-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="sc">+</span></span>
+<span id="cb424-16"><a href="workshop-system-reliability.html#cb424-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Lifespan of Car&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Probability&quot;</span>,</span>
+<span id="cb424-17"><a href="workshop-system-reliability.html#cb424-17" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Example Life Distributions&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-6"></span>
 <img src="04_workshop_files/figure-html/unnamed-chunk-6-1.png" alt="Figure 2. Life Distributions of a Fleet of Cars" width="672" />
 <p class="caption">
@@ -898,8 +902,8 @@ Cumulative Distribution Function, and we can write it up like this.</p>
 <p><span class="math display">\[ CDF(t) = F(t) = 1 - e^{-(2t/1500)} = 1 - e^{-t/750} \]</span> What’s pretty
 cool is, we can tell R to make a matching function <code>fplane()</code>, using the
 <code>function()</code> command.</p>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="workshop-system-reliability.html#cb418-1" tabindex="-1"></a><span class="co"># For any value `t` we supply, do the following to that `t` value.</span></span>
-<span id="cb418-2"><a href="workshop-system-reliability.html#cb418-2" tabindex="-1"></a>fplane <span class="ot">=</span> <span class="cf">function</span>(t){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>( <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>(t <span class="sc">/</span> <span class="dv">750</span>)) }</span></code></pre></div>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="workshop-system-reliability.html#cb425-1" tabindex="-1"></a><span class="co"># For any value `t` we supply, do the following to that `t` value.</span></span>
+<span id="cb425-2"><a href="workshop-system-reliability.html#cb425-2" tabindex="-1"></a>fplane <span class="ot">=</span> <span class="cf">function</span>(t){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>( <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>(t <span class="sc">/</span> <span class="dv">750</span>)) }</span></code></pre></div>
 <p>Let’s use our function <code>fplane()</code> to answer our Lockheed engineers’
 questions.</p>
 <p><br></p>
@@ -907,7 +911,7 @@ questions.</p>
 <li>What’s the probability a propeller will fail by <code>t = 600</code> days? By
 <code>t = 5000</code> days?</li>
 </ol>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="workshop-system-reliability.html#cb419-1" tabindex="-1"></a><span class="fu">fplane</span>(<span class="at">t =</span> <span class="fu">c</span>(<span class="dv">600</span>, <span class="dv">5000</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="workshop-system-reliability.html#cb426-1" tabindex="-1"></a><span class="fu">fplane</span>(<span class="at">t =</span> <span class="fu">c</span>(<span class="dv">600</span>, <span class="dv">5000</span>))</span></code></pre></div>
 <pre><code>## [1] 0.5506710 0.9987274</code></pre>
 <p>Looks like 55% will fail by <code>600</code> days, and 99% fail by <code>5000</code> days.</p>
 <p><br></p>
@@ -915,14 +919,14 @@ questions.</p>
 <li>What’s the probability a propeller will fail between <code>600</code> and
 <code>5000</code> days?</li>
 </ol>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="workshop-system-reliability.html#cb421-1" tabindex="-1"></a><span class="fu">fplane</span>(<span class="at">t =</span> <span class="dv">5000</span>) <span class="sc">-</span> <span class="fu">fplane</span>(<span class="at">t =</span> <span class="dv">600</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="workshop-system-reliability.html#cb428-1" tabindex="-1"></a><span class="fu">fplane</span>(<span class="at">t =</span> <span class="dv">5000</span>) <span class="sc">-</span> <span class="fu">fplane</span>(<span class="at">t =</span> <span class="dv">600</span>)</span></code></pre></div>
 <pre><code>## [1] 0.4480563</code></pre>
 <p>~45% more will fail between this period.</p>
 <p><br></p>
 <ol start="3" style="list-style-type: decimal">
 <li>What percentage of new propellers will work more than <code>6000</code> days?</li>
 </ol>
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="workshop-system-reliability.html#cb423-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">fplane</span>(<span class="at">t =</span> <span class="dv">6000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="workshop-system-reliability.html#cb430-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">fplane</span>(<span class="at">t =</span> <span class="dv">6000</span>)</span></code></pre></div>
 <pre><code>## [1] 0.0003354626</code></pre>
 <p>0.03% will <em>survive</em> past 6000 days.</p>
 <p><br></p>
@@ -930,15 +934,15 @@ questions.</p>
 <li>If Lockheed uses 300 propellers, how many will fail in 1 year? In 3
 years?</li>
 </ol>
-<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="workshop-system-reliability.html#cb425-1" tabindex="-1"></a><span class="co"># Given a sample of 300 propellers,</span></span>
-<span id="cb425-2"><a href="workshop-system-reliability.html#cb425-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">300</span></span>
-<span id="cb425-3"><a href="workshop-system-reliability.html#cb425-3" tabindex="-1"></a><span class="co"># We project n * fplane(t = 362.25) will fail in 1 year (365.25 days)</span></span>
-<span id="cb425-4"><a href="workshop-system-reliability.html#cb425-4" tabindex="-1"></a><span class="co"># that&#39;s ~115 propellers.</span></span>
-<span id="cb425-5"><a href="workshop-system-reliability.html#cb425-5" tabindex="-1"></a>n<span class="sc">*</span><span class="fu">fplane</span>(<span class="at">t =</span> <span class="fl">365.25</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="workshop-system-reliability.html#cb432-1" tabindex="-1"></a><span class="co"># Given a sample of 300 propellers,</span></span>
+<span id="cb432-2"><a href="workshop-system-reliability.html#cb432-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">300</span></span>
+<span id="cb432-3"><a href="workshop-system-reliability.html#cb432-3" tabindex="-1"></a><span class="co"># We project n * fplane(t = 362.25) will fail in 1 year (365.25 days)</span></span>
+<span id="cb432-4"><a href="workshop-system-reliability.html#cb432-4" tabindex="-1"></a><span class="co"># that&#39;s ~115 propellers.</span></span>
+<span id="cb432-5"><a href="workshop-system-reliability.html#cb432-5" tabindex="-1"></a>n<span class="sc">*</span><span class="fu">fplane</span>(<span class="at">t =</span> <span class="fl">365.25</span>)</span></code></pre></div>
 <pre><code>## [1] 115.6599</code></pre>
-<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="workshop-system-reliability.html#cb427-1" tabindex="-1"></a><span class="co"># We also prject that n * fplane(t = 3 * 362.25) will fail in 3 years</span></span>
-<span id="cb427-2"><a href="workshop-system-reliability.html#cb427-2" tabindex="-1"></a><span class="co"># that&#39;s ~230 propellers!</span></span>
-<span id="cb427-3"><a href="workshop-system-reliability.html#cb427-3" tabindex="-1"></a>n<span class="sc">*</span><span class="fu">fplane</span>(<span class="at">t =</span> <span class="dv">3</span><span class="sc">*</span><span class="fl">365.25</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="workshop-system-reliability.html#cb434-1" tabindex="-1"></a><span class="co"># We also prject that n * fplane(t = 3 * 362.25) will fail in 3 years</span></span>
+<span id="cb434-2"><a href="workshop-system-reliability.html#cb434-2" tabindex="-1"></a><span class="co"># that&#39;s ~230 propellers!</span></span>
+<span id="cb434-3"><a href="workshop-system-reliability.html#cb434-3" tabindex="-1"></a>n<span class="sc">*</span><span class="fu">fplane</span>(<span class="at">t =</span> <span class="dv">3</span><span class="sc">*</span><span class="fl">365.25</span>)</span></code></pre></div>
 <pre><code>## [1] 230.3988</code></pre>
 <p>Pretty powerful!</p>
 <p><br>
@@ -963,25 +967,25 @@ years?</li>
 </summary>
 <p>Using the information above, we can calculate the mean time to fail <code>m</code>,
 the rate of how many days it takes for an average unit to fail.</p>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="workshop-system-reliability.html#cb429-1" tabindex="-1"></a>days <span class="ot">&lt;-</span> <span class="dv">500</span></span>
-<span id="cb429-2"><a href="workshop-system-reliability.html#cb429-2" tabindex="-1"></a>units <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb429-3"><a href="workshop-system-reliability.html#cb429-3" tabindex="-1"></a>m <span class="ot">&lt;-</span> days <span class="sc">/</span> units</span>
-<span id="cb429-4"><a href="workshop-system-reliability.html#cb429-4" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb429-5"><a href="workshop-system-reliability.html#cb429-5" tabindex="-1"></a>m</span></code></pre></div>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="workshop-system-reliability.html#cb436-1" tabindex="-1"></a>days <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb436-2"><a href="workshop-system-reliability.html#cb436-2" tabindex="-1"></a>units <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb436-3"><a href="workshop-system-reliability.html#cb436-3" tabindex="-1"></a>m <span class="ot">&lt;-</span> days <span class="sc">/</span> units</span>
+<span id="cb436-4"><a href="workshop-system-reliability.html#cb436-4" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb436-5"><a href="workshop-system-reliability.html#cb436-5" tabindex="-1"></a>m</span></code></pre></div>
 <pre><code>## [1] 100</code></pre>
 <p>We can use <code>m</code> to make our explosion function <code>fexplode()</code>, which in
 this case, is our (catastrophic) failure function <span class="math inline">\(f(t)\)</span>!</p>
 <p><span class="math display">\[ CDF(days) = Explode(days) = 1 - e^{-(days \times \frac{1 \ unit}{100 \ days})} = 1 - e^{-0.01 \times days} \]</span></p>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="workshop-system-reliability.html#cb431-1" tabindex="-1"></a>fexplode <span class="ot">=</span> <span class="cf">function</span>(days){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>days<span class="sc">*</span><span class="fl">0.01</span>) }</span></code></pre></div>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="workshop-system-reliability.html#cb438-1" tabindex="-1"></a>fexplode <span class="ot">=</span> <span class="cf">function</span>(days){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>days<span class="sc">*</span><span class="fl">0.01</span>) }</span></code></pre></div>
 <p>Then, we can calculate <span class="math inline">\(r(t)\)</span>, the cumulative probability that a phone
 will <em>not</em> explode after <span class="math inline">\(t\)</span> days.</p>
 <p>Let’s answer our questions!</p>
 <p>What percentage of phone are expected to survive 6 months?</p>
-<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="workshop-system-reliability.html#cb432-1" tabindex="-1"></a><span class="co"># What percent</span></span>
-<span id="cb432-2"><a href="workshop-system-reliability.html#cb432-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">fexplode</span>(<span class="fl">365.25</span> <span class="sc">/</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="workshop-system-reliability.html#cb439-1" tabindex="-1"></a><span class="co"># What percent</span></span>
+<span id="cb439-2"><a href="workshop-system-reliability.html#cb439-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">fexplode</span>(<span class="fl">365.25</span> <span class="sc">/</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 0.1610162</code></pre>
 <p>What percentage of phone are expected to survive 1 year?</p>
-<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="workshop-system-reliability.html#cb434-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">fexplode</span>(<span class="fl">365.25</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="workshop-system-reliability.html#cb441-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">fexplode</span>(<span class="fl">365.25</span>)</span></code></pre></div>
 <pre><code>## [1] 0.02592623</code></pre>
 </details>
 <hr />
@@ -1005,22 +1009,22 @@ Figure 4.2: Figure 4. Oops.
 </div>
 <p>For example, there’s a 50% chance that 1 coffee cup breaks at local coffeeshop <em>Coffee Please!</em> every 6 months (180 days). Thus, the mean number of days to cup failure is <span class="math inline">\(m = \frac{180 \ days}{ 1 \ cup \times 0.50 \ chance} = 360 \ days\)</span>,
 while the relative frequency (probability) that a cup will break is $ = $.</p>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="workshop-system-reliability.html#cb436-1" tabindex="-1"></a>fcup <span class="ot">=</span> <span class="cf">function</span>(days){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>( <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>(days<span class="sc">/</span><span class="dv">360</span>))}</span>
-<span id="cb436-2"><a href="workshop-system-reliability.html#cb436-2" tabindex="-1"></a><span class="co"># So the probability that 1 breaks within 100 days is XX percent</span></span>
-<span id="cb436-3"><a href="workshop-system-reliability.html#cb436-3" tabindex="-1"></a><span class="fu">fcup</span>(<span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="workshop-system-reliability.html#cb443-1" tabindex="-1"></a>fcup <span class="ot">=</span> <span class="cf">function</span>(days){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>( <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>(days<span class="sc">/</span><span class="dv">360</span>))}</span>
+<span id="cb443-2"><a href="workshop-system-reliability.html#cb443-2" tabindex="-1"></a><span class="co"># So the probability that 1 breaks within 100 days is XX percent</span></span>
+<span id="cb443-3"><a href="workshop-system-reliability.html#cb443-3" tabindex="-1"></a><span class="fu">fcup</span>(<span class="dv">100</span>)</span></code></pre></div>
 <pre><code>## [1] 0.2425349</code></pre>
 <p>And let’s write out a reliability function too, based on our function
 for the failure function.</p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="workshop-system-reliability.html#cb438-1" tabindex="-1"></a><span class="co"># Notice how we can reference an earlier function fcup in our later function? Always have to define functions in order.</span></span>
-<span id="cb438-2"><a href="workshop-system-reliability.html#cb438-2" tabindex="-1"></a>rcup <span class="ot">=</span> <span class="cf">function</span>(days){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">fcup</span>(days) }</span>
-<span id="cb438-3"><a href="workshop-system-reliability.html#cb438-3" tabindex="-1"></a><span class="co"># So the probability that 1 *doesn&#39;t* break within 100 days is XX perecent</span></span>
-<span id="cb438-4"><a href="workshop-system-reliability.html#cb438-4" tabindex="-1"></a><span class="fu">rcup</span>(<span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="workshop-system-reliability.html#cb445-1" tabindex="-1"></a><span class="co"># Notice how we can reference an earlier function fcup in our later function? Always have to define functions in order.</span></span>
+<span id="cb445-2"><a href="workshop-system-reliability.html#cb445-2" tabindex="-1"></a>rcup <span class="ot">=</span> <span class="cf">function</span>(days){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">fcup</span>(days) }</span>
+<span id="cb445-3"><a href="workshop-system-reliability.html#cb445-3" tabindex="-1"></a><span class="co"># So the probability that 1 *doesn&#39;t* break within 100 days is XX perecent</span></span>
+<span id="cb445-4"><a href="workshop-system-reliability.html#cb445-4" tabindex="-1"></a><span class="fu">rcup</span>(<span class="dv">100</span>)</span></code></pre></div>
 <pre><code>## [1] 0.7574651</code></pre>
 <p>But the probability that <em>two</em> break within 100 days is…</p>
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="workshop-system-reliability.html#cb440-1" tabindex="-1"></a><span class="fu">fcup</span>(<span class="dv">100</span>) <span class="sc">*</span> <span class="fu">fcup</span>(<span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="workshop-system-reliability.html#cb447-1" tabindex="-1"></a><span class="fu">fcup</span>(<span class="dv">100</span>) <span class="sc">*</span> <span class="fu">fcup</span>(<span class="dv">100</span>)</span></code></pre></div>
 <pre><code>## [1] 0.05882316</code></pre>
 <p>And the probability that 5 break within 100 days is… very small!</p>
-<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="workshop-system-reliability.html#cb442-1" tabindex="-1"></a><span class="fu">fcup</span>(<span class="dv">100</span>)<span class="sc">^</span><span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="workshop-system-reliability.html#cb449-1" tabindex="-1"></a><span class="fu">fcup</span>(<span class="dv">100</span>)<span class="sc">^</span><span class="dv">5</span></span></code></pre></div>
 <pre><code>## [1] 0.0008392106</code></pre>
 </div>
 <div id="compliment-rule" class="section level3 hasAnchor" number="4.2.2">
@@ -1031,11 +1035,11 @@ for the failure function.</p>
 </ul>
 <p>So, if <em>Coffee Please!</em> buys 2 new cups for their store, the probability
 that at least 1 unit breaks within a year is…</p>
-<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="workshop-system-reliability.html#cb444-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">rcup</span>(<span class="at">days =</span> <span class="fl">365.25</span>)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="workshop-system-reliability.html#cb451-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">rcup</span>(<span class="at">days =</span> <span class="fl">365.25</span>)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 0.868555</code></pre>
 <p>While if they buy 5 new cups for their store, the chance at least 1 cup
 breaks within a year is…</p>
-<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="workshop-system-reliability.html#cb446-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">rcup</span>(<span class="at">days =</span> <span class="fl">365.25</span>)<span class="sc">^</span><span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="workshop-system-reliability.html#cb453-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">rcup</span>(<span class="at">days =</span> <span class="fl">365.25</span>)<span class="sc">^</span><span class="dv">5</span></span></code></pre></div>
 <pre><code>## [1] 0.9937359</code></pre>
 </div>
 </div>
@@ -1050,10 +1054,10 @@ Local coffeeshop <em>Coffee Please!</em> also has a lucky mug, which has stayed
 intact for 5 years, despite being dropped numerous times by patrons.
 <em>Coffee Please!</em>’s failure rate suggests they had a 99.3% chance of it
 breaking to date.</p>
-<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="workshop-system-reliability.html#cb448-1" tabindex="-1"></a><span class="co"># we call this the Hazard Rate Z</span></span>
-<span id="cb448-2"><a href="workshop-system-reliability.html#cb448-2" tabindex="-1"></a>zcup <span class="ot">=</span> <span class="cf">function</span>(days, <span class="at">plus =</span> <span class="dv">1</span>){ </span>
-<span id="cb448-3"><a href="workshop-system-reliability.html#cb448-3" tabindex="-1"></a>  ( <span class="fu">fcup</span>(days <span class="sc">+</span> plus) <span class="sc">-</span> <span class="fu">fcup</span>(days)  )  <span class="sc">/</span> (plus <span class="sc">*</span> <span class="fu">rcup</span>(days) )</span>
-<span id="cb448-4"><a href="workshop-system-reliability.html#cb448-4" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="workshop-system-reliability.html#cb455-1" tabindex="-1"></a><span class="co"># we call this the Hazard Rate Z</span></span>
+<span id="cb455-2"><a href="workshop-system-reliability.html#cb455-2" tabindex="-1"></a>zcup <span class="ot">=</span> <span class="cf">function</span>(days, <span class="at">plus =</span> <span class="dv">1</span>){ </span>
+<span id="cb455-3"><a href="workshop-system-reliability.html#cb455-3" tabindex="-1"></a>  ( <span class="fu">fcup</span>(days <span class="sc">+</span> plus) <span class="sc">-</span> <span class="fu">fcup</span>(days)  )  <span class="sc">/</span> (plus <span class="sc">*</span> <span class="fu">rcup</span>(days) )</span>
+<span id="cb455-4"><a href="workshop-system-reliability.html#cb455-4" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="accumulative-hazard-function" class="section level3 hasAnchor" number="4.3.2">
 <h3><span class="header-section-number">4.3.2</span> Accumulative Hazard Function<a href="workshop-system-reliability.html#accumulative-hazard-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1063,9 +1067,9 @@ that has been gained by progressing from 0 to time <span class="math inline">\(t
 <li><p>the (instantaneous) hazard rate <span class="math inline">\(h(t)\)</span> can grow or shrink over time,
 but the cumulative hazard rate only increases or stays constant.</p></li>
 </ul>
-<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="workshop-system-reliability.html#cb449-1" tabindex="-1"></a>hcup <span class="ot">=</span> <span class="cf">function</span>(days){ <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span><span class="fu">log</span>( <span class="fu">rcup</span>(days) ) }</span>
-<span id="cb449-2"><a href="workshop-system-reliability.html#cb449-2" tabindex="-1"></a><span class="co"># This captures the accumulative probability of a hazard (failure) occurring given the number of days past.</span></span>
-<span id="cb449-3"><a href="workshop-system-reliability.html#cb449-3" tabindex="-1"></a><span class="fu">hcup</span>(<span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="workshop-system-reliability.html#cb456-1" tabindex="-1"></a>hcup <span class="ot">=</span> <span class="cf">function</span>(days){ <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span><span class="fu">log</span>( <span class="fu">rcup</span>(days) ) }</span>
+<span id="cb456-2"><a href="workshop-system-reliability.html#cb456-2" tabindex="-1"></a><span class="co"># This captures the accumulative probability of a hazard (failure) occurring given the number of days past.</span></span>
+<span id="cb456-3"><a href="workshop-system-reliability.html#cb456-3" tabindex="-1"></a><span class="fu">hcup</span>(<span class="dv">100</span>)</span></code></pre></div>
 <pre><code>## [1] 0.2777778</code></pre>
 </div>
 <div id="average-failure-rate" class="section level3 hasAnchor" number="4.3.3">
@@ -1074,29 +1078,29 @@ but the cumulative hazard rate only increases or stays constant.</p></li>
 statistic to summarize the distribution of hazard rates that <span class="math inline">\(z(t)\)</span> can
 provide us between times <span class="math inline">\(t_{a} \to t_{z}\)</span>. We’ll call this the Average
 Failure Rate <span class="math inline">\(AFR(T)\)</span>.</p>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="workshop-system-reliability.html#cb451-1" tabindex="-1"></a>afrcup <span class="ot">=</span> <span class="cf">function</span>(t1,t2){ (<span class="fu">hcup</span>(t2) <span class="sc">-</span> <span class="fu">hcup</span>(t1) ) <span class="sc">/</span> (t2 <span class="sc">-</span> t1)}</span>
-<span id="cb451-2"><a href="workshop-system-reliability.html#cb451-2" tabindex="-1"></a><span class="fu">afrcup</span>(<span class="dv">0</span>, <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="workshop-system-reliability.html#cb458-1" tabindex="-1"></a>afrcup <span class="ot">=</span> <span class="cf">function</span>(t1,t2){ (<span class="fu">hcup</span>(t2) <span class="sc">-</span> <span class="fu">hcup</span>(t1) ) <span class="sc">/</span> (t2 <span class="sc">-</span> t1)}</span>
+<span id="cb458-2"><a href="workshop-system-reliability.html#cb458-2" tabindex="-1"></a><span class="fu">afrcup</span>(<span class="dv">0</span>, <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 0.002777778</code></pre>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="workshop-system-reliability.html#cb453-1" tabindex="-1"></a><span class="co"># Or write it as....</span></span>
-<span id="cb453-2"><a href="workshop-system-reliability.html#cb453-2" tabindex="-1"></a>afrcup <span class="ot">=</span> <span class="cf">function</span>(t1,t2){ (<span class="fu">log</span>(<span class="fu">rcup</span>(t1)) <span class="sc">-</span> <span class="fu">log</span>(<span class="fu">rcup</span>(t2)) ) <span class="sc">/</span> (t2 <span class="sc">-</span> t1)}</span>
-<span id="cb453-3"><a href="workshop-system-reliability.html#cb453-3" tabindex="-1"></a><span class="fu">afrcup</span>(<span class="dv">0</span>, <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="workshop-system-reliability.html#cb460-1" tabindex="-1"></a><span class="co"># Or write it as....</span></span>
+<span id="cb460-2"><a href="workshop-system-reliability.html#cb460-2" tabindex="-1"></a>afrcup <span class="ot">=</span> <span class="cf">function</span>(t1,t2){ (<span class="fu">log</span>(<span class="fu">rcup</span>(t1)) <span class="sc">-</span> <span class="fu">log</span>(<span class="fu">rcup</span>(t2)) ) <span class="sc">/</span> (t2 <span class="sc">-</span> t1)}</span>
+<span id="cb460-3"><a href="workshop-system-reliability.html#cb460-3" tabindex="-1"></a><span class="fu">afrcup</span>(<span class="dv">0</span>, <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 0.002777778</code></pre>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="workshop-system-reliability.html#cb455-1" tabindex="-1"></a><span class="co"># And if we&#39;re going from 0 to time t,</span></span>
-<span id="cb455-2"><a href="workshop-system-reliability.html#cb455-2" tabindex="-1"></a><span class="co"># it simplifies to...</span></span>
-<span id="cb455-3"><a href="workshop-system-reliability.html#cb455-3" tabindex="-1"></a>afrcup <span class="ot">=</span> <span class="cf">function</span>(days){ <span class="fu">hcup</span>(days) <span class="sc">/</span> days }</span>
-<span id="cb455-4"><a href="workshop-system-reliability.html#cb455-4" tabindex="-1"></a><span class="fu">afrcup</span>(<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="workshop-system-reliability.html#cb462-1" tabindex="-1"></a><span class="co"># And if we&#39;re going from 0 to time t,</span></span>
+<span id="cb462-2"><a href="workshop-system-reliability.html#cb462-2" tabindex="-1"></a><span class="co"># it simplifies to...</span></span>
+<span id="cb462-3"><a href="workshop-system-reliability.html#cb462-3" tabindex="-1"></a>afrcup <span class="ot">=</span> <span class="cf">function</span>(days){ <span class="fu">hcup</span>(days) <span class="sc">/</span> days }</span>
+<span id="cb462-4"><a href="workshop-system-reliability.html#cb462-4" tabindex="-1"></a><span class="fu">afrcup</span>(<span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 0.002777778</code></pre>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="workshop-system-reliability.html#cb457-1" tabindex="-1"></a><span class="co"># or to this</span></span>
-<span id="cb457-2"><a href="workshop-system-reliability.html#cb457-2" tabindex="-1"></a>afrcup <span class="ot">=</span> <span class="cf">function</span>(days){ <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span><span class="fu">log</span>(<span class="fu">rcup</span>(days)) <span class="sc">/</span> days }</span>
-<span id="cb457-3"><a href="workshop-system-reliability.html#cb457-3" tabindex="-1"></a><span class="fu">afrcup</span>(<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="workshop-system-reliability.html#cb464-1" tabindex="-1"></a><span class="co"># or to this</span></span>
+<span id="cb464-2"><a href="workshop-system-reliability.html#cb464-2" tabindex="-1"></a>afrcup <span class="ot">=</span> <span class="cf">function</span>(days){ <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span><span class="fu">log</span>(<span class="fu">rcup</span>(days)) <span class="sc">/</span> days }</span>
+<span id="cb464-3"><a href="workshop-system-reliability.html#cb464-3" tabindex="-1"></a><span class="fu">afrcup</span>(<span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 0.002777778</code></pre>
 <p>When the probability for a time <span class="math inline">\(t\)</span> is less than <code>0.10</code>,
 <span class="math inline">\(AFR = F(t) / T\)</span>. This means that
 <span class="math inline">\(F(t) = 1 - e^{-T \times AFR(T)} \approx T \times AFR(T) \ \ when \  F(T) &lt; 0.10\)</span>.</p>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="workshop-system-reliability.html#cb459-1" tabindex="-1"></a>afrcup <span class="ot">=</span> <span class="cf">function</span>(days){ <span class="fu">fcup</span>(days) <span class="sc">/</span> days }</span>
-<span id="cb459-2"><a href="workshop-system-reliability.html#cb459-2" tabindex="-1"></a><span class="fu">afrcup</span>(<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="workshop-system-reliability.html#cb466-1" tabindex="-1"></a>afrcup <span class="ot">=</span> <span class="cf">function</span>(days){ <span class="fu">fcup</span>(days) <span class="sc">/</span> days }</span>
+<span id="cb466-2"><a href="workshop-system-reliability.html#cb466-2" tabindex="-1"></a><span class="fu">afrcup</span>(<span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 0.002758577</code></pre>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="workshop-system-reliability.html#cb461-1" tabindex="-1"></a><span class="co"># and this is approximately....</span></span></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="workshop-system-reliability.html#cb468-1" tabindex="-1"></a><span class="co"># and this is approximately....</span></span></code></pre></div>
 </div>
 <div id="table-of-functions" class="section level3 hasAnchor" number="4.3.4">
 <h3><span class="header-section-number">4.3.4</span> Table of Functions<a href="workshop-system-reliability.html#table-of-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1246,71 +1250,71 @@ them into <span class="math inline">\(\%/K\)</span> and <span class="math inline
 <div id="failure-functions" class="section level3 hasAnchor" number="4.4.1">
 <h3><span class="header-section-number">4.4.1</span> Failure Functions<a href="workshop-system-reliability.html#failure-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>First, let’s write the failure function <code>f(t)</code>.</p>
-<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="workshop-system-reliability.html#cb462-1" tabindex="-1"></a><span class="co"># Write failure rate</span></span>
-<span id="cb462-2"><a href="workshop-system-reliability.html#cb462-2" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span>(t<span class="sc">/</span><span class="dv">2000</span>)<span class="sc">^</span><span class="fl">0.5</span>) }</span></code></pre></div>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="workshop-system-reliability.html#cb469-1" tabindex="-1"></a><span class="co"># Write failure rate</span></span>
+<span id="cb469-2"><a href="workshop-system-reliability.html#cb469-2" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span>(t<span class="sc">/</span><span class="dv">2000</span>)<span class="sc">^</span><span class="fl">0.5</span>) }</span></code></pre></div>
 <p>Second, let’s write the hazard rate <code>z(t)</code>, for a 1 unit change in <code>t</code>.</p>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="workshop-system-reliability.html#cb463-1" tabindex="-1"></a><span class="co"># Write hazard rate</span></span>
-<span id="cb463-2"><a href="workshop-system-reliability.html#cb463-2" tabindex="-1"></a>z <span class="ot">=</span> <span class="cf">function</span>(t, <span class="at">change =</span> <span class="dv">1</span>){ </span>
-<span id="cb463-3"><a href="workshop-system-reliability.html#cb463-3" tabindex="-1"></a>  <span class="co"># Often I like to break up my functions into multiple lines;</span></span>
-<span id="cb463-4"><a href="workshop-system-reliability.html#cb463-4" tabindex="-1"></a>  <span class="co"># it makes it much clearer to me.</span></span>
-<span id="cb463-5"><a href="workshop-system-reliability.html#cb463-5" tabindex="-1"></a>  <span class="co"># To help, we can make &#39;temporary&#39; objects; </span></span>
-<span id="cb463-6"><a href="workshop-system-reliability.html#cb463-6" tabindex="-1"></a>  <span class="co"># they only exist within the function.</span></span>
-<span id="cb463-7"><a href="workshop-system-reliability.html#cb463-7" tabindex="-1"></a>  </span>
-<span id="cb463-8"><a href="workshop-system-reliability.html#cb463-8" tabindex="-1"></a>  <span class="co"># Get change in failure function</span></span>
-<span id="cb463-9"><a href="workshop-system-reliability.html#cb463-9" tabindex="-1"></a>  deltaf <span class="ot">&lt;-</span> (<span class="fu">f</span>(t<span class="sc">+</span>change) <span class="sc">-</span> <span class="fu">f</span>(t) ) <span class="sc">/</span> change</span>
-<span id="cb463-10"><a href="workshop-system-reliability.html#cb463-10" tabindex="-1"></a>  <span class="co"># Get reliability function</span></span>
-<span id="cb463-11"><a href="workshop-system-reliability.html#cb463-11" tabindex="-1"></a>  r <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">f</span>(t)</span>
-<span id="cb463-12"><a href="workshop-system-reliability.html#cb463-12" tabindex="-1"></a>  <span class="co"># Get hazard rate</span></span>
-<span id="cb463-13"><a href="workshop-system-reliability.html#cb463-13" tabindex="-1"></a>  deltaf <span class="sc">/</span> r</span>
-<span id="cb463-14"><a href="workshop-system-reliability.html#cb463-14" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="workshop-system-reliability.html#cb470-1" tabindex="-1"></a><span class="co"># Write hazard rate</span></span>
+<span id="cb470-2"><a href="workshop-system-reliability.html#cb470-2" tabindex="-1"></a>z <span class="ot">=</span> <span class="cf">function</span>(t, <span class="at">change =</span> <span class="dv">1</span>){ </span>
+<span id="cb470-3"><a href="workshop-system-reliability.html#cb470-3" tabindex="-1"></a>  <span class="co"># Often I like to break up my functions into multiple lines;</span></span>
+<span id="cb470-4"><a href="workshop-system-reliability.html#cb470-4" tabindex="-1"></a>  <span class="co"># it makes it much clearer to me.</span></span>
+<span id="cb470-5"><a href="workshop-system-reliability.html#cb470-5" tabindex="-1"></a>  <span class="co"># To help, we can make &#39;temporary&#39; objects; </span></span>
+<span id="cb470-6"><a href="workshop-system-reliability.html#cb470-6" tabindex="-1"></a>  <span class="co"># they only exist within the function.</span></span>
+<span id="cb470-7"><a href="workshop-system-reliability.html#cb470-7" tabindex="-1"></a>  </span>
+<span id="cb470-8"><a href="workshop-system-reliability.html#cb470-8" tabindex="-1"></a>  <span class="co"># Get change in failure function</span></span>
+<span id="cb470-9"><a href="workshop-system-reliability.html#cb470-9" tabindex="-1"></a>  deltaf <span class="ot">&lt;-</span> (<span class="fu">f</span>(t<span class="sc">+</span>change) <span class="sc">-</span> <span class="fu">f</span>(t) ) <span class="sc">/</span> change</span>
+<span id="cb470-10"><a href="workshop-system-reliability.html#cb470-10" tabindex="-1"></a>  <span class="co"># Get reliability function</span></span>
+<span id="cb470-11"><a href="workshop-system-reliability.html#cb470-11" tabindex="-1"></a>  r <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">f</span>(t)</span>
+<span id="cb470-12"><a href="workshop-system-reliability.html#cb470-12" tabindex="-1"></a>  <span class="co"># Get hazard rate</span></span>
+<span id="cb470-13"><a href="workshop-system-reliability.html#cb470-13" tabindex="-1"></a>  deltaf <span class="sc">/</span> r</span>
+<span id="cb470-14"><a href="workshop-system-reliability.html#cb470-14" tabindex="-1"></a>}</span></code></pre></div>
 <p>Third, let’s write the average hazard rate <code>afr(t1,t2)</code>.</p>
-<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="workshop-system-reliability.html#cb464-1" tabindex="-1"></a>afr <span class="ot">=</span> <span class="cf">function</span>(t1,t2){</span>
-<span id="cb464-2"><a href="workshop-system-reliability.html#cb464-2" tabindex="-1"></a>  </span>
-<span id="cb464-3"><a href="workshop-system-reliability.html#cb464-3" tabindex="-1"></a>  <span class="co"># Let&#39;s get the survival rate r(t)</span></span>
-<span id="cb464-4"><a href="workshop-system-reliability.html#cb464-4" tabindex="-1"></a>  r1 <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">f</span>(t1)</span>
-<span id="cb464-5"><a href="workshop-system-reliability.html#cb464-5" tabindex="-1"></a>  r2 <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">f</span>(t2)</span>
-<span id="cb464-6"><a href="workshop-system-reliability.html#cb464-6" tabindex="-1"></a>  </span>
-<span id="cb464-7"><a href="workshop-system-reliability.html#cb464-7" tabindex="-1"></a>  <span class="co"># Let&#39;s get the accumulative hazard rate h(t)</span></span>
-<span id="cb464-8"><a href="workshop-system-reliability.html#cb464-8" tabindex="-1"></a>  h1 <span class="ot">=</span> <span class="sc">-</span><span class="fu">log</span>(r1)</span>
-<span id="cb464-9"><a href="workshop-system-reliability.html#cb464-9" tabindex="-1"></a>  h2 <span class="ot">=</span> <span class="sc">-</span><span class="fu">log</span>(r2)</span>
-<span id="cb464-10"><a href="workshop-system-reliability.html#cb464-10" tabindex="-1"></a>  </span>
-<span id="cb464-11"><a href="workshop-system-reliability.html#cb464-11" tabindex="-1"></a>  <span class="co"># And let&#39;s calculate the averge failure rate!</span></span>
-<span id="cb464-12"><a href="workshop-system-reliability.html#cb464-12" tabindex="-1"></a>  afr <span class="ot">=</span> (h2 <span class="sc">-</span> h1) <span class="sc">/</span> (t2 <span class="sc">-</span> t1)</span>
-<span id="cb464-13"><a href="workshop-system-reliability.html#cb464-13" tabindex="-1"></a>  </span>
-<span id="cb464-14"><a href="workshop-system-reliability.html#cb464-14" tabindex="-1"></a>  <span class="co"># And return it!</span></span>
-<span id="cb464-15"><a href="workshop-system-reliability.html#cb464-15" tabindex="-1"></a>  afr</span>
-<span id="cb464-16"><a href="workshop-system-reliability.html#cb464-16" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="workshop-system-reliability.html#cb471-1" tabindex="-1"></a>afr <span class="ot">=</span> <span class="cf">function</span>(t1,t2){</span>
+<span id="cb471-2"><a href="workshop-system-reliability.html#cb471-2" tabindex="-1"></a>  </span>
+<span id="cb471-3"><a href="workshop-system-reliability.html#cb471-3" tabindex="-1"></a>  <span class="co"># Let&#39;s get the survival rate r(t)</span></span>
+<span id="cb471-4"><a href="workshop-system-reliability.html#cb471-4" tabindex="-1"></a>  r1 <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">f</span>(t1)</span>
+<span id="cb471-5"><a href="workshop-system-reliability.html#cb471-5" tabindex="-1"></a>  r2 <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">f</span>(t2)</span>
+<span id="cb471-6"><a href="workshop-system-reliability.html#cb471-6" tabindex="-1"></a>  </span>
+<span id="cb471-7"><a href="workshop-system-reliability.html#cb471-7" tabindex="-1"></a>  <span class="co"># Let&#39;s get the accumulative hazard rate h(t)</span></span>
+<span id="cb471-8"><a href="workshop-system-reliability.html#cb471-8" tabindex="-1"></a>  h1 <span class="ot">=</span> <span class="sc">-</span><span class="fu">log</span>(r1)</span>
+<span id="cb471-9"><a href="workshop-system-reliability.html#cb471-9" tabindex="-1"></a>  h2 <span class="ot">=</span> <span class="sc">-</span><span class="fu">log</span>(r2)</span>
+<span id="cb471-10"><a href="workshop-system-reliability.html#cb471-10" tabindex="-1"></a>  </span>
+<span id="cb471-11"><a href="workshop-system-reliability.html#cb471-11" tabindex="-1"></a>  <span class="co"># And let&#39;s calculate the averge failure rate!</span></span>
+<span id="cb471-12"><a href="workshop-system-reliability.html#cb471-12" tabindex="-1"></a>  afr <span class="ot">=</span> (h2 <span class="sc">-</span> h1) <span class="sc">/</span> (t2 <span class="sc">-</span> t1)</span>
+<span id="cb471-13"><a href="workshop-system-reliability.html#cb471-13" tabindex="-1"></a>  </span>
+<span id="cb471-14"><a href="workshop-system-reliability.html#cb471-14" tabindex="-1"></a>  <span class="co"># And return it!</span></span>
+<span id="cb471-15"><a href="workshop-system-reliability.html#cb471-15" tabindex="-1"></a>  afr</span>
+<span id="cb471-16"><a href="workshop-system-reliability.html#cb471-16" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="conversion-functions" class="section level3 hasAnchor" number="4.4.2">
 <h3><span class="header-section-number">4.4.2</span> Conversion Functions<a href="workshop-system-reliability.html#conversion-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Fourth, let’s write some functions to convert our results into %/K and
 PPM/K, so we can be lazy! We’ll call our functions <code>pk()</code> and <code>ppmk()</code>.</p>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="workshop-system-reliability.html#cb465-1" tabindex="-1"></a><span class="co"># % per 1000 hours</span></span>
-<span id="cb465-2"><a href="workshop-system-reliability.html#cb465-2" tabindex="-1"></a>pk <span class="ot">=</span> <span class="cf">function</span>(rate){ rate <span class="sc">*</span> <span class="dv">100</span> <span class="sc">*</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">3</span> }</span>
-<span id="cb465-3"><a href="workshop-system-reliability.html#cb465-3" tabindex="-1"></a></span>
-<span id="cb465-4"><a href="workshop-system-reliability.html#cb465-4" tabindex="-1"></a><span class="co"># PPM/1000 hours</span></span>
-<span id="cb465-5"><a href="workshop-system-reliability.html#cb465-5" tabindex="-1"></a>ppmk <span class="ot">=</span> <span class="cf">function</span>(rate){ rate <span class="sc">*</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">9</span> }</span></code></pre></div>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="workshop-system-reliability.html#cb472-1" tabindex="-1"></a><span class="co"># % per 1000 hours</span></span>
+<span id="cb472-2"><a href="workshop-system-reliability.html#cb472-2" tabindex="-1"></a>pk <span class="ot">=</span> <span class="cf">function</span>(rate){ rate <span class="sc">*</span> <span class="dv">100</span> <span class="sc">*</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">3</span> }</span>
+<span id="cb472-3"><a href="workshop-system-reliability.html#cb472-3" tabindex="-1"></a></span>
+<span id="cb472-4"><a href="workshop-system-reliability.html#cb472-4" tabindex="-1"></a><span class="co"># PPM/1000 hours</span></span>
+<span id="cb472-5"><a href="workshop-system-reliability.html#cb472-5" tabindex="-1"></a>ppmk <span class="ot">=</span> <span class="cf">function</span>(rate){ rate <span class="sc">*</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">9</span> }</span></code></pre></div>
 </div>
 <div id="converting-estimates" class="section level3 hasAnchor" number="4.4.3">
 <h3><span class="header-section-number">4.4.3</span> Converting Estimates<a href="workshop-system-reliability.html#converting-estimates" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s compare our hazard rates when <code>t = 10</code>, per hour, in % per 1000
 hours, and in PPM per 1000 hours.</p>
-<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="workshop-system-reliability.html#cb466-1" tabindex="-1"></a><span class="co"># Per hour... Ew. Not very readable.</span></span>
-<span id="cb466-2"><a href="workshop-system-reliability.html#cb466-2" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="workshop-system-reliability.html#cb473-1" tabindex="-1"></a><span class="co"># Per hour... Ew. Not very readable.</span></span>
+<span id="cb473-2"><a href="workshop-system-reliability.html#cb473-2" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## [1] 0.003445358</code></pre>
-<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="workshop-system-reliability.html#cb468-1" tabindex="-1"></a><span class="co"># % per 1000 hours.... Wheee! Much more legible</span></span>
-<span id="cb468-2"><a href="workshop-system-reliability.html#cb468-2" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">pk</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="workshop-system-reliability.html#cb475-1" tabindex="-1"></a><span class="co"># % per 1000 hours.... Wheee! Much more legible</span></span>
+<span id="cb475-2"><a href="workshop-system-reliability.html#cb475-2" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">pk</span>()</span></code></pre></div>
 <pre><code>## [1] 344.5358</code></pre>
-<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="workshop-system-reliability.html#cb470-1" tabindex="-1"></a><span class="co"># PPM per 1000 hours.... Who! Big numbers!</span></span>
-<span id="cb470-2"><a href="workshop-system-reliability.html#cb470-2" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">ppmk</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="workshop-system-reliability.html#cb477-1" tabindex="-1"></a><span class="co"># PPM per 1000 hours.... Who! Big numbers!</span></span>
+<span id="cb477-2"><a href="workshop-system-reliability.html#cb477-2" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">ppmk</span>()</span></code></pre></div>
 <pre><code>## [1] 3445358</code></pre>
 <p>Finally, let’s calculate the Average Failure Rate between 1000 and 10000
 hours, in %/K.</p>
-<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="workshop-system-reliability.html#cb472-1" tabindex="-1"></a><span class="co"># Tada! Average Failure Rate from 1000 to 10000 hours, in % of units per 1000 hours</span></span>
-<span id="cb472-2"><a href="workshop-system-reliability.html#cb472-2" tabindex="-1"></a><span class="fu">afr</span>(<span class="dv">1000</span>, <span class="dv">10000</span>) <span class="sc">%&gt;%</span> <span class="fu">pk</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="workshop-system-reliability.html#cb479-1" tabindex="-1"></a><span class="co"># Tada! Average Failure Rate from 1000 to 10000 hours, in % of units per 1000 hours</span></span>
+<span id="cb479-2"><a href="workshop-system-reliability.html#cb479-2" tabindex="-1"></a><span class="fu">afr</span>(<span class="dv">1000</span>, <span class="dv">10000</span>) <span class="sc">%&gt;%</span> <span class="fu">pk</span>()</span></code></pre></div>
 <pre><code>## [1] 16.98846</code></pre>
-<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="workshop-system-reliability.html#cb474-1" tabindex="-1"></a><span class="co"># And in ppmk!</span></span>
-<span id="cb474-2"><a href="workshop-system-reliability.html#cb474-2" tabindex="-1"></a><span class="fu">afr</span>(<span class="dv">1000</span>, <span class="dv">10000</span>) <span class="sc">%&gt;%</span> <span class="fu">ppmk</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="workshop-system-reliability.html#cb481-1" tabindex="-1"></a><span class="co"># And in ppmk!</span></span>
+<span id="cb481-2"><a href="workshop-system-reliability.html#cb481-2" tabindex="-1"></a><span class="fu">afr</span>(<span class="dv">1000</span>, <span class="dv">10000</span>) <span class="sc">%&gt;%</span> <span class="fu">ppmk</span>()</span></code></pre></div>
 <pre><code>## [1] 169884.6</code></pre>
 <p><br> <br> <br></p>
 <hr />
@@ -1333,11 +1337,11 @@ packages of that company’s ramen noodles, randomly sampled from a
 warehouse. When a student comes down with food poisoning, she records
 that product as having gone bad after XX days. She treats the record of
 ramen food poisonings as a sample of the lifespan of ramen products.</p>
-<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="workshop-system-reliability.html#cb476-1" tabindex="-1"></a>ramen <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">163</span>, <span class="dv">309</span>, <span class="dv">215</span>, <span class="dv">211</span>, <span class="dv">246</span>, <span class="dv">198</span>, <span class="dv">281</span>, <span class="dv">180</span>, <span class="dv">317</span>, <span class="dv">291</span>, </span>
-<span id="cb476-2"><a href="workshop-system-reliability.html#cb476-2" tabindex="-1"></a>           <span class="dv">238</span>, <span class="dv">281</span>, <span class="dv">215</span>, <span class="dv">208</span>, <span class="dv">212</span>, <span class="dv">300</span>, <span class="dv">231</span>, <span class="dv">240</span>, <span class="dv">285</span>, <span class="dv">232</span>, </span>
-<span id="cb476-3"><a href="workshop-system-reliability.html#cb476-3" tabindex="-1"></a>           <span class="dv">252</span>, <span class="dv">261</span>, <span class="dv">310</span>, <span class="dv">226</span>, <span class="dv">282</span>, <span class="dv">140</span>, <span class="dv">208</span>, <span class="dv">280</span>, <span class="dv">237</span>, <span class="dv">270</span>, </span>
-<span id="cb476-4"><a href="workshop-system-reliability.html#cb476-4" tabindex="-1"></a>           <span class="dv">185</span>, <span class="dv">409</span>, <span class="dv">293</span>, <span class="dv">164</span>, <span class="dv">231</span>, <span class="dv">237</span>, <span class="dv">269</span>, <span class="dv">233</span>, <span class="dv">246</span>, <span class="dv">287</span>, </span>
-<span id="cb476-5"><a href="workshop-system-reliability.html#cb476-5" tabindex="-1"></a>           <span class="dv">187</span>, <span class="dv">232</span>, <span class="dv">180</span>, <span class="dv">227</span>, <span class="dv">215</span>, <span class="dv">260</span>, <span class="dv">236</span>, <span class="dv">229</span>, <span class="dv">263</span>, <span class="dv">220</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="workshop-system-reliability.html#cb483-1" tabindex="-1"></a>ramen <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">163</span>, <span class="dv">309</span>, <span class="dv">215</span>, <span class="dv">211</span>, <span class="dv">246</span>, <span class="dv">198</span>, <span class="dv">281</span>, <span class="dv">180</span>, <span class="dv">317</span>, <span class="dv">291</span>, </span>
+<span id="cb483-2"><a href="workshop-system-reliability.html#cb483-2" tabindex="-1"></a>           <span class="dv">238</span>, <span class="dv">281</span>, <span class="dv">215</span>, <span class="dv">208</span>, <span class="dv">212</span>, <span class="dv">300</span>, <span class="dv">231</span>, <span class="dv">240</span>, <span class="dv">285</span>, <span class="dv">232</span>, </span>
+<span id="cb483-3"><a href="workshop-system-reliability.html#cb483-3" tabindex="-1"></a>           <span class="dv">252</span>, <span class="dv">261</span>, <span class="dv">310</span>, <span class="dv">226</span>, <span class="dv">282</span>, <span class="dv">140</span>, <span class="dv">208</span>, <span class="dv">280</span>, <span class="dv">237</span>, <span class="dv">270</span>, </span>
+<span id="cb483-4"><a href="workshop-system-reliability.html#cb483-4" tabindex="-1"></a>           <span class="dv">185</span>, <span class="dv">409</span>, <span class="dv">293</span>, <span class="dv">164</span>, <span class="dv">231</span>, <span class="dv">237</span>, <span class="dv">269</span>, <span class="dv">233</span>, <span class="dv">246</span>, <span class="dv">287</span>, </span>
+<span id="cb483-5"><a href="workshop-system-reliability.html#cb483-5" tabindex="-1"></a>           <span class="dv">187</span>, <span class="dv">232</span>, <span class="dv">180</span>, <span class="dv">227</span>, <span class="dv">215</span>, <span class="dv">260</span>, <span class="dv">236</span>, <span class="dv">229</span>, <span class="dv">263</span>, <span class="dv">220</span>)</span></code></pre></div>
 <p>Using this data, please calculate…</p>
 <ol style="list-style-type: decimal">
 <li><p>What’s the cumulative probability of a pack of ramen going bad
@@ -1355,28 +1359,28 @@ to 1 year?</p></li>
 <p>First, we take her ramen lifespan data, estimate the PDF with
 <code>density()</code>, and make the failure function (CDF), which I’ve called
 <code>framen()</code> below.</p>
-<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="workshop-system-reliability.html#cb477-1" tabindex="-1"></a><span class="co"># Get failure function f(t) = CDF of ramen failure</span></span>
-<span id="cb477-2"><a href="workshop-system-reliability.html#cb477-2" tabindex="-1"></a>framen <span class="ot">&lt;-</span> ramen <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb477-3"><a href="workshop-system-reliability.html#cb477-3" tabindex="-1"></a>  <span class="co"># Now compute CDF</span></span>
-<span id="cb477-4"><a href="workshop-system-reliability.html#cb477-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">cumsum</span>(y) <span class="sc">/</span> <span class="fu">sum</span>(y)) <span class="sc">%&gt;%</span></span>
-<span id="cb477-5"><a href="workshop-system-reliability.html#cb477-5" tabindex="-1"></a>  <span class="fu">approxfun</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="workshop-system-reliability.html#cb484-1" tabindex="-1"></a><span class="co"># Get failure function f(t) = CDF of ramen failure</span></span>
+<span id="cb484-2"><a href="workshop-system-reliability.html#cb484-2" tabindex="-1"></a>framen <span class="ot">&lt;-</span> ramen <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb484-3"><a href="workshop-system-reliability.html#cb484-3" tabindex="-1"></a>  <span class="co"># Now compute CDF</span></span>
+<span id="cb484-4"><a href="workshop-system-reliability.html#cb484-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">cumsum</span>(y) <span class="sc">/</span> <span class="fu">sum</span>(y)) <span class="sc">%&gt;%</span></span>
+<span id="cb484-5"><a href="workshop-system-reliability.html#cb484-5" tabindex="-1"></a>  <span class="fu">approxfun</span>()</span></code></pre></div>
 <p>Second, we calculate the reliability function <code>rramen()</code>.</p>
-<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="workshop-system-reliability.html#cb478-1" tabindex="-1"></a><span class="co"># Get survival function r(t) = 1 - f(t)</span></span>
-<span id="cb478-2"><a href="workshop-system-reliability.html#cb478-2" tabindex="-1"></a>rramen <span class="ot">&lt;-</span> <span class="cf">function</span>(days){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">framen</span>(days) }</span></code></pre></div>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="workshop-system-reliability.html#cb485-1" tabindex="-1"></a><span class="co"># Get survival function r(t) = 1 - f(t)</span></span>
+<span id="cb485-2"><a href="workshop-system-reliability.html#cb485-2" tabindex="-1"></a>rramen <span class="ot">&lt;-</span> <span class="cf">function</span>(days){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">framen</span>(days) }</span></code></pre></div>
 <p>Third, we can shortcut to the average failure rate, called <code>afrramen()</code>
 below, by using the reliability function <code>rramen()</code> to make our hazard
 rates at time 1 (<code>h1</code>) and time 2 (<code>h2</code>).</p>
-<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="workshop-system-reliability.html#cb479-1" tabindex="-1"></a><span class="co"># Get average failure rate from time 1 to time 2</span></span>
-<span id="cb479-2"><a href="workshop-system-reliability.html#cb479-2" tabindex="-1"></a>afrramen <span class="ot">&lt;-</span> <span class="cf">function</span>(days1, days2){</span>
-<span id="cb479-3"><a href="workshop-system-reliability.html#cb479-3" tabindex="-1"></a>  h1 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span><span class="fu">log</span>(<span class="fu">rramen</span>(days1))</span>
-<span id="cb479-4"><a href="workshop-system-reliability.html#cb479-4" tabindex="-1"></a>  h2 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span><span class="fu">log</span>(<span class="fu">rramen</span>(days2))</span>
-<span id="cb479-5"><a href="workshop-system-reliability.html#cb479-5" tabindex="-1"></a>  (h2 <span class="sc">-</span> h1) <span class="sc">/</span> (days2 <span class="sc">-</span> days1)</span>
-<span id="cb479-6"><a href="workshop-system-reliability.html#cb479-6" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="workshop-system-reliability.html#cb486-1" tabindex="-1"></a><span class="co"># Get average failure rate from time 1 to time 2</span></span>
+<span id="cb486-2"><a href="workshop-system-reliability.html#cb486-2" tabindex="-1"></a>afrramen <span class="ot">&lt;-</span> <span class="cf">function</span>(days1, days2){</span>
+<span id="cb486-3"><a href="workshop-system-reliability.html#cb486-3" tabindex="-1"></a>  h1 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span><span class="fu">log</span>(<span class="fu">rramen</span>(days1))</span>
+<span id="cb486-4"><a href="workshop-system-reliability.html#cb486-4" tabindex="-1"></a>  h2 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">*</span><span class="fu">log</span>(<span class="fu">rramen</span>(days2))</span>
+<span id="cb486-5"><a href="workshop-system-reliability.html#cb486-5" tabindex="-1"></a>  (h2 <span class="sc">-</span> h1) <span class="sc">/</span> (days2 <span class="sc">-</span> days1)</span>
+<span id="cb486-6"><a href="workshop-system-reliability.html#cb486-6" tabindex="-1"></a>}</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>What’s the cumulative probability of a pack of ramen going bad
 within 8 months (240 days)? Are the company’s predictions accurate?</li>
 </ol>
-<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="workshop-system-reliability.html#cb480-1" tabindex="-1"></a><span class="fu">framen</span>(<span class="dv">240</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="workshop-system-reliability.html#cb487-1" tabindex="-1"></a><span class="fu">framen</span>(<span class="dv">240</span>)</span></code></pre></div>
 <pre><code>## [1] 0.5082465</code></pre>
 <p>Yes! ~50% of packages will go bad within 8 months. Pretty accurate!</p>
 <p><br></p>
@@ -1384,9 +1388,9 @@ within 8 months (240 days)? Are the company’s predictions accurate?</li>
 <li>What’s the average failure rate (<span class="math inline">\(\lambda\)</span>) for the period between 8
 months (240 days) to 1 year?</li>
 </ol>
-<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="workshop-system-reliability.html#cb482-1" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fu">afrramen</span>(<span class="dv">240</span>, <span class="dv">365</span>)</span>
-<span id="cb482-2"><a href="workshop-system-reliability.html#cb482-2" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb482-3"><a href="workshop-system-reliability.html#cb482-3" tabindex="-1"></a>lambda</span></code></pre></div>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="workshop-system-reliability.html#cb489-1" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fu">afrramen</span>(<span class="dv">240</span>, <span class="dv">365</span>)</span>
+<span id="cb489-2"><a href="workshop-system-reliability.html#cb489-2" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb489-3"><a href="workshop-system-reliability.html#cb489-3" tabindex="-1"></a>lambda</span></code></pre></div>
 <pre><code>## [1] 0.0256399</code></pre>
 <p>On average, between 8 months to 1 year, ramen packages go bad at a rate
 of ~<code>0.026</code> units per day.</p>
@@ -1395,10 +1399,10 @@ of ~<code>0.026</code> units per day.</p>
 <li>What’s the mean time to fail (<span class="math inline">\(m\)</span>) for the period between 8 months
 to 1 year?</li>
 </ol>
-<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="workshop-system-reliability.html#cb484-1" tabindex="-1"></a><span class="co"># Calculate the inverse of lambda!</span></span>
-<span id="cb484-2"><a href="workshop-system-reliability.html#cb484-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> lambda</span>
-<span id="cb484-3"><a href="workshop-system-reliability.html#cb484-3" tabindex="-1"></a><span class="co"># check it!</span></span>
-<span id="cb484-4"><a href="workshop-system-reliability.html#cb484-4" tabindex="-1"></a>m</span></code></pre></div>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="workshop-system-reliability.html#cb491-1" tabindex="-1"></a><span class="co"># Calculate the inverse of lambda!</span></span>
+<span id="cb491-2"><a href="workshop-system-reliability.html#cb491-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> lambda</span>
+<span id="cb491-3"><a href="workshop-system-reliability.html#cb491-3" tabindex="-1"></a><span class="co"># check it!</span></span>
+<span id="cb491-4"><a href="workshop-system-reliability.html#cb491-4" tabindex="-1"></a>m</span></code></pre></div>
 <pre><code>## [1] 39.00172</code></pre>
 <p><code>39</code> days per package. In other words, during this period
 post-expiration, this data suggests 1 package will go bad every <code>39</code>
@@ -1433,8 +1437,8 @@ formula below.</p>
 <p><span class="math display">\[ Series \ System \ Reliability = R_{S} = \prod^{n}_{i = 1}R_{i} = R_1 \times R_2 \times ... \times R_n \]</span>
 We can also visualize it below, where each labelled node is a component.</p>
 <div class="figure">
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f26b62a8bde3e24ce401" style="width:672px;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-f26b62a8bde3e24ce401">{"x":{"diagram":"graph LR\n sstart(( ))\n send(( ))\n subgraph Series System\n 1\n 2\n 3\n end\n 1---2\n 2---3\n sstart---1\n 3---send"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-91242b29b22d3a20a61d" style="width:672px;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-91242b29b22d3a20a61d">{"x":{"diagram":"graph LR\n sstart(( ))\n send(( ))\n subgraph Series System\n 1\n 2\n 3\n end\n 1---2\n 2---3\n sstart---1\n 3---send"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 (#fig:mermaid_series)Figure 6. Example Series System
 </p>
@@ -1463,8 +1467,8 @@ component. (Unlabelled nodes are just junctions for relationships, so
 they don’t get a probability. Some diagrams will not have these; you
 need them in <code>mermaid</code>.)</p>
 <div class="figure">
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-bd0e989a337766e23f23" style="width:100%;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-bd0e989a337766e23f23">{"x":{"diagram":"graph LR\n ostart(( ))\n oend(( ))\n subgraph Parallel System\n pstart(( ))\n 1\n 2\n 3\n pend(( ))\n pstart---1\n pstart---2\n pstart---3\n 1---pend\n 2---pend\n 3---pend\n end\n ostart---pstart\n pend---oend"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d7a7546bc06e90f827de" style="width:100%;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-d7a7546bc06e90f827de">{"x":{"diagram":"graph LR\n ostart(( ))\n oend(( ))\n subgraph Parallel System\n pstart(( ))\n 1\n 2\n 3\n pend(( ))\n pstart---1\n pstart---2\n pstart---3\n 1---pend\n 2---pend\n 3---pend\n end\n ostart---pstart\n pend---oend"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 (#fig:mermaid_parallel)Figure 7. Example Parallel System
 </p>
@@ -1481,8 +1485,8 @@ system.</p>
 <li><strong>Series System with Nested Parallel System:</strong></li>
 </ol>
 <div class="figure"><span style="display:block;" id="fig:nested1"></span>
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-866fba7a51abee5e5bd5" style="width:672px;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-866fba7a51abee5e5bd5">{"x":{"diagram":"graph LR\n subgraph Series System\n 1[1<br>R=0.80]\n 5[5<br>R=0.95]\n subgraph Parallel System\n pstart(( ))\n 2[2<br>R=0.98]\n 3[3<br>R=0.99]\n 4[4<br>R=0.90]\n pend(( ))\n pstart---2\n pstart---3\n pstart---4\n 2---pend\n 3---pend\n 4---pend\n end\n 1---pstart\n pend---5\n end"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-3b7dfd338ec12207fa2d" style="width:672px;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-3b7dfd338ec12207fa2d">{"x":{"diagram":"graph LR\n subgraph Series System\n 1[1<br>R=0.80]\n 5[5<br>R=0.95]\n subgraph Parallel System\n pstart(( ))\n 2[2<br>R=0.98]\n 3[3<br>R=0.99]\n 4[4<br>R=0.90]\n pend(( ))\n pstart---2\n pstart---3\n pstart---4\n 2---pend\n 3---pend\n 4---pend\n end\n 1---pstart\n pend---5\n end"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figure 4.3: Figure 8. Series System with Nested Parallel System
 </p>
@@ -1494,8 +1498,8 @@ Figure 4.3: Figure 8. Series System with Nested Parallel System
 <li><strong>Parallel System with Nested Series Systems (Right Diagram):</strong></li>
 </ol>
 <div class="figure"><span style="display:block;" id="fig:nestedb"></span>
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-0fdd68b02257245d3726" style="width:672px;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-0fdd68b02257245d3726">{"x":{"diagram":"graph LR\n subgraph Parallel System\n pbstart(( ))\n pbend(( ))\n subgraph Series System A\n 6[6<br>R=0.80]\n 7[7<br>R=0.90]\n end\n subgraph Series System B\n 8[8<br>R=0.95]\n 9[9<br>R=0.99]\n end\n pbstart---6\n 6---7\n 7---pbend\n pbstart---8\n 8---9\n 9---pbend\n end"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-adb9088f13b2f548a0ea" style="width:672px;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-adb9088f13b2f548a0ea">{"x":{"diagram":"graph LR\n subgraph Parallel System\n pbstart(( ))\n pbend(( ))\n subgraph Series System A\n 6[6<br>R=0.80]\n 7[7<br>R=0.90]\n end\n subgraph Series System B\n 8[8<br>R=0.95]\n 9[9<br>R=0.99]\n end\n pbstart---6\n 6---7\n 7---pbend\n pbstart---8\n 8---9\n 9---pbend\n end"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figure 4.4: Figure 9. Parallel System with Nested Series Systems
 </p>
@@ -1528,33 +1532,33 @@ change (Failed 5 times in the 3 months).</p></li>
 </ol>
 <p>We can represent this in a system diagram below.</p>
 <div class="figure">
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-0770a9b109f3da861ddf" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-0770a9b109f3da861ddf">{"x":{"diagram":"graph LR\n subgraph Coffee Shop Series System\n a[Water]\n b[Coffee Grounds]\n c[Refrigerator]\n d[Dishwasher]\n e[Register]\n end\n a---b\n b---c\n c---d\n d---e"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-fb9b22c3358e6480ead3" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-fb9b22c3358e6480ead3">{"x":{"diagram":"graph LR\n subgraph Coffee Shop Series System\n a[Water]\n b[Coffee Grounds]\n c[Refrigerator]\n d[Dishwasher]\n e[Register]\n end\n a---b\n b---c\n c---d\n d---e"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 (#fig:coffee_series)Figure 10. Example Series System in a Coffeeshop
 </p>
 </div>
 <p>We can extract the average daily failure rate <span class="math inline">\(lambda\)</span> for each of these
 components.</p>
-<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="workshop-system-reliability.html#cb486-1" tabindex="-1"></a><span class="co"># Water outage occrred 3 days in last 365 days</span></span>
-<span id="cb486-2"><a href="workshop-system-reliability.html#cb486-2" tabindex="-1"></a>lambda_water <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">/</span> <span class="dv">365</span></span>
-<span id="cb486-3"><a href="workshop-system-reliability.html#cb486-3" tabindex="-1"></a><span class="co"># Ran out of stock 5 days in last 365 days</span></span>
-<span id="cb486-4"><a href="workshop-system-reliability.html#cb486-4" tabindex="-1"></a>lambda_grounds <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">/</span> <span class="dv">365</span></span>
-<span id="cb486-5"><a href="workshop-system-reliability.html#cb486-5" tabindex="-1"></a><span class="co"># 1% of refrigerators fail within a 365 days</span></span>
-<span id="cb486-6"><a href="workshop-system-reliability.html#cb486-6" tabindex="-1"></a>lambda_refrigerator <span class="ot">&lt;-</span> <span class="fl">0.01</span> <span class="sc">/</span> <span class="dv">365</span></span>
-<span id="cb486-7"><a href="workshop-system-reliability.html#cb486-7" tabindex="-1"></a><span class="co"># Failed 2 times in last 60 days</span></span>
-<span id="cb486-8"><a href="workshop-system-reliability.html#cb486-8" tabindex="-1"></a>lambda_dishwasher <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">/</span> <span class="dv">60</span></span>
-<span id="cb486-9"><a href="workshop-system-reliability.html#cb486-9" tabindex="-1"></a><span class="co"># Failed 5 times in last 90 days</span></span>
-<span id="cb486-10"><a href="workshop-system-reliability.html#cb486-10" tabindex="-1"></a>lambda_cash <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">/</span> <span class="dv">90</span></span></code></pre></div>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="workshop-system-reliability.html#cb493-1" tabindex="-1"></a><span class="co"># Water outage occrred 3 days in last 365 days</span></span>
+<span id="cb493-2"><a href="workshop-system-reliability.html#cb493-2" tabindex="-1"></a>lambda_water <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">/</span> <span class="dv">365</span></span>
+<span id="cb493-3"><a href="workshop-system-reliability.html#cb493-3" tabindex="-1"></a><span class="co"># Ran out of stock 5 days in last 365 days</span></span>
+<span id="cb493-4"><a href="workshop-system-reliability.html#cb493-4" tabindex="-1"></a>lambda_grounds <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">/</span> <span class="dv">365</span></span>
+<span id="cb493-5"><a href="workshop-system-reliability.html#cb493-5" tabindex="-1"></a><span class="co"># 1% of refrigerators fail within a 365 days</span></span>
+<span id="cb493-6"><a href="workshop-system-reliability.html#cb493-6" tabindex="-1"></a>lambda_refrigerator <span class="ot">&lt;-</span> <span class="fl">0.01</span> <span class="sc">/</span> <span class="dv">365</span></span>
+<span id="cb493-7"><a href="workshop-system-reliability.html#cb493-7" tabindex="-1"></a><span class="co"># Failed 2 times in last 60 days</span></span>
+<span id="cb493-8"><a href="workshop-system-reliability.html#cb493-8" tabindex="-1"></a>lambda_dishwasher <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">/</span> <span class="dv">60</span></span>
+<span id="cb493-9"><a href="workshop-system-reliability.html#cb493-9" tabindex="-1"></a><span class="co"># Failed 5 times in last 90 days</span></span>
+<span id="cb493-10"><a href="workshop-system-reliability.html#cb493-10" tabindex="-1"></a>lambda_cash <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">/</span> <span class="dv">90</span></span></code></pre></div>
 <p>Assuming a constant chance of failure, we can write ourselves a quick
 failure function <code>f</code> and reliability function <code>r</code> for an exponential
 distribution.</p>
-<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="workshop-system-reliability.html#cb487-1" tabindex="-1"></a><span class="co"># Write a reliability function</span></span>
-<span id="cb487-2"><a href="workshop-system-reliability.html#cb487-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda)  }</span></code></pre></div>
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="workshop-system-reliability.html#cb494-1" tabindex="-1"></a><span class="co"># Write a reliability function</span></span>
+<span id="cb494-2"><a href="workshop-system-reliability.html#cb494-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda)  }</span></code></pre></div>
 <p>And we can calculate the overall reliability of this coffeeshop’s series
 system in 1 day by multiplying these reliability rates together.</p>
-<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="workshop-system-reliability.html#cb488-1" tabindex="-1"></a><span class="fu">r</span>(<span class="dv">1</span>, lambda_water) <span class="sc">*</span> <span class="fu">r</span>(<span class="dv">1</span>, lambda_grounds) <span class="sc">*</span> <span class="fu">r</span>(<span class="dv">1</span>, lambda_refrigerator) <span class="sc">*</span> </span>
-<span id="cb488-2"><a href="workshop-system-reliability.html#cb488-2" tabindex="-1"></a>  <span class="fu">r</span>(<span class="dv">1</span>, lambda_dishwasher) <span class="sc">*</span> <span class="fu">r</span>(<span class="dv">1</span>, lambda_cash)</span></code></pre></div>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="workshop-system-reliability.html#cb495-1" tabindex="-1"></a><span class="fu">r</span>(<span class="dv">1</span>, lambda_water) <span class="sc">*</span> <span class="fu">r</span>(<span class="dv">1</span>, lambda_grounds) <span class="sc">*</span> <span class="fu">r</span>(<span class="dv">1</span>, lambda_refrigerator) <span class="sc">*</span> </span>
+<span id="cb495-2"><a href="workshop-system-reliability.html#cb495-2" tabindex="-1"></a>  <span class="fu">r</span>(<span class="dv">1</span>, lambda_dishwasher) <span class="sc">*</span> <span class="fu">r</span>(<span class="dv">1</span>, lambda_cash)</span></code></pre></div>
 <pre><code>## [1] 0.8950872</code></pre>
 <p>This means there’s an 89.5% chance of this system fully functioning on a
 given day!</p>
@@ -1572,66 +1576,66 @@ at time <span class="math inline">\(t\)</span>.</p>
 <p>Example:</p>
 <p>Let’s say that…</p>
 <p>For 10 units, we calculated how many days post production they lasted till failure (<code>failure</code>) as well as how many days post production till they were replaced (<code>replace</code>). Using this, we can calculate the lag-time, or the time taken for <code>renewal</code>.</p>
-<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="workshop-system-reliability.html#cb490-1" tabindex="-1"></a>units <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb490-2"><a href="workshop-system-reliability.html#cb490-2" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>,</span>
-<span id="cb490-3"><a href="workshop-system-reliability.html#cb490-3" tabindex="-1"></a>  <span class="at">failure =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">200</span>, <span class="dv">250</span>, <span class="dv">300</span>, <span class="dv">350</span>, </span>
-<span id="cb490-4"><a href="workshop-system-reliability.html#cb490-4" tabindex="-1"></a>        <span class="dv">375</span>, <span class="dv">525</span>, <span class="dv">525</span>, <span class="dv">525</span>, <span class="dv">525</span>,</span>
-<span id="cb490-5"><a href="workshop-system-reliability.html#cb490-5" tabindex="-1"></a>        <span class="dv">600</span>, <span class="dv">650</span>, <span class="dv">650</span>, <span class="dv">675</span>, <span class="dv">725</span>),</span>
-<span id="cb490-6"><a href="workshop-system-reliability.html#cb490-6" tabindex="-1"></a>  <span class="at">replace =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">250</span>, <span class="dv">350</span>, <span class="dv">440</span>, <span class="dv">550</span>, </span>
-<span id="cb490-7"><a href="workshop-system-reliability.html#cb490-7" tabindex="-1"></a>              <span class="dv">390</span>, <span class="dv">600</span>, <span class="dv">625</span>, <span class="dv">660</span>, <span class="dv">605</span>, </span>
-<span id="cb490-8"><a href="workshop-system-reliability.html#cb490-8" tabindex="-1"></a>              <span class="dv">700</span>, <span class="dv">700</span>, <span class="dv">700</span>, <span class="dv">725</span>, <span class="dv">750</span>),</span>
-<span id="cb490-9"><a href="workshop-system-reliability.html#cb490-9" tabindex="-1"></a>  <span class="at">renewal =</span> replace <span class="sc">-</span> failure</span>
-<span id="cb490-10"><a href="workshop-system-reliability.html#cb490-10" tabindex="-1"></a>)</span>
-<span id="cb490-11"><a href="workshop-system-reliability.html#cb490-11" tabindex="-1"></a></span>
-<span id="cb490-12"><a href="workshop-system-reliability.html#cb490-12" tabindex="-1"></a><span class="co"># Let&#39;s get the failure funciont...</span></span>
-<span id="cb490-13"><a href="workshop-system-reliability.html#cb490-13" tabindex="-1"></a><span class="co"># by calculating the CDF of failure</span></span>
-<span id="cb490-14"><a href="workshop-system-reliability.html#cb490-14" tabindex="-1"></a></span>
-<span id="cb490-15"><a href="workshop-system-reliability.html#cb490-15" tabindex="-1"></a><span class="co"># first, we calculate the PDF of failure</span></span>
-<span id="cb490-16"><a href="workshop-system-reliability.html#cb490-16" tabindex="-1"></a>f <span class="ot">&lt;-</span> units<span class="sc">$</span>failure <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb490-17"><a href="workshop-system-reliability.html#cb490-17" tabindex="-1"></a>  <span class="co"># Get CDF</span></span>
-<span id="cb490-18"><a href="workshop-system-reliability.html#cb490-18" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">cumsum</span>(y) <span class="sc">/</span> <span class="fu">sum</span>(y)) <span class="sc">%&gt;%</span></span>
-<span id="cb490-19"><a href="workshop-system-reliability.html#cb490-19" tabindex="-1"></a>  <span class="co"># turn into function</span></span>
-<span id="cb490-20"><a href="workshop-system-reliability.html#cb490-20" tabindex="-1"></a>  <span class="fu">approxfun</span>()</span>
-<span id="cb490-21"><a href="workshop-system-reliability.html#cb490-21" tabindex="-1"></a></span>
-<span id="cb490-22"><a href="workshop-system-reliability.html#cb490-22" tabindex="-1"></a><span class="co"># Let&#39;s also calculate the CDF of replacement</span></span>
-<span id="cb490-23"><a href="workshop-system-reliability.html#cb490-23" tabindex="-1"></a>fr <span class="ot">&lt;-</span> units<span class="sc">$</span>replace <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb490-24"><a href="workshop-system-reliability.html#cb490-24" tabindex="-1"></a>  <span class="co"># Get CDF </span></span>
-<span id="cb490-25"><a href="workshop-system-reliability.html#cb490-25" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">cumsum</span>(y) <span class="sc">/</span> <span class="fu">sum</span>(y)) <span class="sc">%&gt;%</span></span>
-<span id="cb490-26"><a href="workshop-system-reliability.html#cb490-26" tabindex="-1"></a>  <span class="co"># Get function</span></span>
-<span id="cb490-27"><a href="workshop-system-reliability.html#cb490-27" tabindex="-1"></a>  <span class="fu">approxfun</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="workshop-system-reliability.html#cb497-1" tabindex="-1"></a>units <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb497-2"><a href="workshop-system-reliability.html#cb497-2" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>,</span>
+<span id="cb497-3"><a href="workshop-system-reliability.html#cb497-3" tabindex="-1"></a>  <span class="at">failure =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">200</span>, <span class="dv">250</span>, <span class="dv">300</span>, <span class="dv">350</span>, </span>
+<span id="cb497-4"><a href="workshop-system-reliability.html#cb497-4" tabindex="-1"></a>        <span class="dv">375</span>, <span class="dv">525</span>, <span class="dv">525</span>, <span class="dv">525</span>, <span class="dv">525</span>,</span>
+<span id="cb497-5"><a href="workshop-system-reliability.html#cb497-5" tabindex="-1"></a>        <span class="dv">600</span>, <span class="dv">650</span>, <span class="dv">650</span>, <span class="dv">675</span>, <span class="dv">725</span>),</span>
+<span id="cb497-6"><a href="workshop-system-reliability.html#cb497-6" tabindex="-1"></a>  <span class="at">replace =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">250</span>, <span class="dv">350</span>, <span class="dv">440</span>, <span class="dv">550</span>, </span>
+<span id="cb497-7"><a href="workshop-system-reliability.html#cb497-7" tabindex="-1"></a>              <span class="dv">390</span>, <span class="dv">600</span>, <span class="dv">625</span>, <span class="dv">660</span>, <span class="dv">605</span>, </span>
+<span id="cb497-8"><a href="workshop-system-reliability.html#cb497-8" tabindex="-1"></a>              <span class="dv">700</span>, <span class="dv">700</span>, <span class="dv">700</span>, <span class="dv">725</span>, <span class="dv">750</span>),</span>
+<span id="cb497-9"><a href="workshop-system-reliability.html#cb497-9" tabindex="-1"></a>  <span class="at">renewal =</span> replace <span class="sc">-</span> failure</span>
+<span id="cb497-10"><a href="workshop-system-reliability.html#cb497-10" tabindex="-1"></a>)</span>
+<span id="cb497-11"><a href="workshop-system-reliability.html#cb497-11" tabindex="-1"></a></span>
+<span id="cb497-12"><a href="workshop-system-reliability.html#cb497-12" tabindex="-1"></a><span class="co"># Let&#39;s get the failure funciont...</span></span>
+<span id="cb497-13"><a href="workshop-system-reliability.html#cb497-13" tabindex="-1"></a><span class="co"># by calculating the CDF of failure</span></span>
+<span id="cb497-14"><a href="workshop-system-reliability.html#cb497-14" tabindex="-1"></a></span>
+<span id="cb497-15"><a href="workshop-system-reliability.html#cb497-15" tabindex="-1"></a><span class="co"># first, we calculate the PDF of failure</span></span>
+<span id="cb497-16"><a href="workshop-system-reliability.html#cb497-16" tabindex="-1"></a>f <span class="ot">&lt;-</span> units<span class="sc">$</span>failure <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb497-17"><a href="workshop-system-reliability.html#cb497-17" tabindex="-1"></a>  <span class="co"># Get CDF</span></span>
+<span id="cb497-18"><a href="workshop-system-reliability.html#cb497-18" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">cumsum</span>(y) <span class="sc">/</span> <span class="fu">sum</span>(y)) <span class="sc">%&gt;%</span></span>
+<span id="cb497-19"><a href="workshop-system-reliability.html#cb497-19" tabindex="-1"></a>  <span class="co"># turn into function</span></span>
+<span id="cb497-20"><a href="workshop-system-reliability.html#cb497-20" tabindex="-1"></a>  <span class="fu">approxfun</span>()</span>
+<span id="cb497-21"><a href="workshop-system-reliability.html#cb497-21" tabindex="-1"></a></span>
+<span id="cb497-22"><a href="workshop-system-reliability.html#cb497-22" tabindex="-1"></a><span class="co"># Let&#39;s also calculate the CDF of replacement</span></span>
+<span id="cb497-23"><a href="workshop-system-reliability.html#cb497-23" tabindex="-1"></a>fr <span class="ot">&lt;-</span> units<span class="sc">$</span>replace <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb497-24"><a href="workshop-system-reliability.html#cb497-24" tabindex="-1"></a>  <span class="co"># Get CDF </span></span>
+<span id="cb497-25"><a href="workshop-system-reliability.html#cb497-25" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">cumsum</span>(y) <span class="sc">/</span> <span class="fu">sum</span>(y)) <span class="sc">%&gt;%</span></span>
+<span id="cb497-26"><a href="workshop-system-reliability.html#cb497-26" tabindex="-1"></a>  <span class="co"># Get function</span></span>
+<span id="cb497-27"><a href="workshop-system-reliability.html#cb497-27" tabindex="-1"></a>  <span class="fu">approxfun</span>()</span></code></pre></div>
 <p>Above, we made the function <code>fr()</code>, which represents the cumulative probability of replacement, <em>unrelated to failure</em>. But what we really want to know is a conditional probability, specifically: how likely is a
 unit to get replaced at time <span class="math inline">\(b\)</span>, given that it failed at time <span class="math inline">\(a\)</span>? Fortunately, we can use Bayes’ Rule to deduce this.</p>
 <p>First, let’s make a function <code>f_fr()</code>, meaning the cumulative probability of <em>failure</em> given <em>replacement</em>. This should (probably) be the same probability of failure as usual, but we need to restart the clock after replacement, so we’ll set the time as <span class="math inline">\(time_{failure} - time_{replacement}\)</span>.</p>
-<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="workshop-system-reliability.html#cb491-1" tabindex="-1"></a><span class="co"># Probability of failure given replacement</span></span>
-<span id="cb491-2"><a href="workshop-system-reliability.html#cb491-2" tabindex="-1"></a>f_fr <span class="ot">=</span> <span class="cf">function</span>(time, time_replacement){</span>
-<span id="cb491-3"><a href="workshop-system-reliability.html#cb491-3" tabindex="-1"></a>  <span class="fu">f</span>(time <span class="sc">-</span> time_replacement)</span>
-<span id="cb491-4"><a href="workshop-system-reliability.html#cb491-4" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="workshop-system-reliability.html#cb498-1" tabindex="-1"></a><span class="co"># Probability of failure given replacement</span></span>
+<span id="cb498-2"><a href="workshop-system-reliability.html#cb498-2" tabindex="-1"></a>f_fr <span class="ot">=</span> <span class="cf">function</span>(time, time_replacement){</span>
+<span id="cb498-3"><a href="workshop-system-reliability.html#cb498-3" tabindex="-1"></a>  <span class="fu">f</span>(time <span class="sc">-</span> time_replacement)</span>
+<span id="cb498-4"><a href="workshop-system-reliability.html#cb498-4" tabindex="-1"></a>}</span></code></pre></div>
 <p>Next, we’ll use Bayes Rule to get the cumulative probability of
 <em>replacement given failure</em>, estimated in a function <code>fr_f()</code>.</p>
-<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="workshop-system-reliability.html#cb492-1" tabindex="-1"></a><span class="co"># Probability of replacement given failure</span></span>
-<span id="cb492-2"><a href="workshop-system-reliability.html#cb492-2" tabindex="-1"></a>fr_f <span class="ot">=</span> <span class="cf">function</span>(time, time_replacement){</span>
-<span id="cb492-3"><a href="workshop-system-reliability.html#cb492-3" tabindex="-1"></a>  <span class="co"># Estimate conditional probability of Failure given Replacement times Replacement</span></span>
-<span id="cb492-4"><a href="workshop-system-reliability.html#cb492-4" tabindex="-1"></a>  top <span class="ot">&lt;-</span> <span class="fu">f_fr</span>(time, time_replacement) <span class="sc">*</span> <span class="fu">fr</span>(time_replacement)</span>
-<span id="cb492-5"><a href="workshop-system-reliability.html#cb492-5" tabindex="-1"></a>  <span class="co"># Estimate total probability of Failure</span></span>
-<span id="cb492-6"><a href="workshop-system-reliability.html#cb492-6" tabindex="-1"></a>  bottom <span class="ot">&lt;-</span> <span class="fu">f_fr</span>(time, time_replacement) <span class="sc">*</span> <span class="fu">fr</span>(time_replacement)  <span class="sc">+</span>  (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">f_fr</span>(time, time_replacement)) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">fr</span>(time_replacement))</span>
-<span id="cb492-7"><a href="workshop-system-reliability.html#cb492-7" tabindex="-1"></a>  <span class="co"># Divide them, and voila!</span></span>
-<span id="cb492-8"><a href="workshop-system-reliability.html#cb492-8" tabindex="-1"></a>  top<span class="sc">/</span>bottom</span>
-<span id="cb492-9"><a href="workshop-system-reliability.html#cb492-9" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="workshop-system-reliability.html#cb499-1" tabindex="-1"></a><span class="co"># Probability of replacement given failure</span></span>
+<span id="cb499-2"><a href="workshop-system-reliability.html#cb499-2" tabindex="-1"></a>fr_f <span class="ot">=</span> <span class="cf">function</span>(time, time_replacement){</span>
+<span id="cb499-3"><a href="workshop-system-reliability.html#cb499-3" tabindex="-1"></a>  <span class="co"># Estimate conditional probability of Failure given Replacement times Replacement</span></span>
+<span id="cb499-4"><a href="workshop-system-reliability.html#cb499-4" tabindex="-1"></a>  top <span class="ot">&lt;-</span> <span class="fu">f_fr</span>(time, time_replacement) <span class="sc">*</span> <span class="fu">fr</span>(time_replacement)</span>
+<span id="cb499-5"><a href="workshop-system-reliability.html#cb499-5" tabindex="-1"></a>  <span class="co"># Estimate total probability of Failure</span></span>
+<span id="cb499-6"><a href="workshop-system-reliability.html#cb499-6" tabindex="-1"></a>  bottom <span class="ot">&lt;-</span> <span class="fu">f_fr</span>(time, time_replacement) <span class="sc">*</span> <span class="fu">fr</span>(time_replacement)  <span class="sc">+</span>  (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">f_fr</span>(time, time_replacement)) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">fr</span>(time_replacement))</span>
+<span id="cb499-7"><a href="workshop-system-reliability.html#cb499-7" tabindex="-1"></a>  <span class="co"># Divide them, and voila!</span></span>
+<span id="cb499-8"><a href="workshop-system-reliability.html#cb499-8" tabindex="-1"></a>  top<span class="sc">/</span>bottom</span>
+<span id="cb499-9"><a href="workshop-system-reliability.html#cb499-9" tabindex="-1"></a>}</span></code></pre></div>
 <p>Finally, what do these functions actually look like? Let’s simulate
 failure and replacement over time, in a dataset of <code>fakeunits</code>.</p>
-<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="workshop-system-reliability.html#cb493-1" tabindex="-1"></a>fakeunits <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb493-2"><a href="workshop-system-reliability.html#cb493-2" tabindex="-1"></a>  <span class="co"># As time increases from 0 to 1100,</span></span>
-<span id="cb493-3"><a href="workshop-system-reliability.html#cb493-3" tabindex="-1"></a>  <span class="at">time =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1100</span>, <span class="at">by =</span> <span class="dv">1</span>),</span>
-<span id="cb493-4"><a href="workshop-system-reliability.html#cb493-4" tabindex="-1"></a>  <span class="co"># Let&#39;s get the probability of failure at that time,</span></span>
-<span id="cb493-5"><a href="workshop-system-reliability.html#cb493-5" tabindex="-1"></a>  <span class="at">prob_f =</span> time <span class="sc">%&gt;%</span> <span class="fu">f</span>(),</span>
-<span id="cb493-6"><a href="workshop-system-reliability.html#cb493-6" tabindex="-1"></a>  <span class="co"># Let&#39;s get the probability of replacement at time t + 10 given failure at time t</span></span>
-<span id="cb493-7"><a href="workshop-system-reliability.html#cb493-7" tabindex="-1"></a>  <span class="at">prob_fr_f_10 =</span> <span class="fu">fr_f</span>(<span class="at">time =</span> time, <span class="at">time_replacement =</span> time <span class="sc">+</span> <span class="dv">10</span>),</span>
-<span id="cb493-8"><a href="workshop-system-reliability.html#cb493-8" tabindex="-1"></a>  <span class="co"># How about t + 50?</span></span>
-<span id="cb493-9"><a href="workshop-system-reliability.html#cb493-9" tabindex="-1"></a>  <span class="at">prob_fr_f_50 =</span> <span class="fu">fr_f</span>(<span class="at">time =</span> time, <span class="at">time_replacement =</span> time <span class="sc">+</span> <span class="dv">50</span>)</span>
-<span id="cb493-10"><a href="workshop-system-reliability.html#cb493-10" tabindex="-1"></a>  </span>
-<span id="cb493-11"><a href="workshop-system-reliability.html#cb493-11" tabindex="-1"></a>)</span>
-<span id="cb493-12"><a href="workshop-system-reliability.html#cb493-12" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb493-13"><a href="workshop-system-reliability.html#cb493-13" tabindex="-1"></a>fakeunits <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="workshop-system-reliability.html#cb500-1" tabindex="-1"></a>fakeunits <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb500-2"><a href="workshop-system-reliability.html#cb500-2" tabindex="-1"></a>  <span class="co"># As time increases from 0 to 1100,</span></span>
+<span id="cb500-3"><a href="workshop-system-reliability.html#cb500-3" tabindex="-1"></a>  <span class="at">time =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1100</span>, <span class="at">by =</span> <span class="dv">1</span>),</span>
+<span id="cb500-4"><a href="workshop-system-reliability.html#cb500-4" tabindex="-1"></a>  <span class="co"># Let&#39;s get the probability of failure at that time,</span></span>
+<span id="cb500-5"><a href="workshop-system-reliability.html#cb500-5" tabindex="-1"></a>  <span class="at">prob_f =</span> time <span class="sc">%&gt;%</span> <span class="fu">f</span>(),</span>
+<span id="cb500-6"><a href="workshop-system-reliability.html#cb500-6" tabindex="-1"></a>  <span class="co"># Let&#39;s get the probability of replacement at time t + 10 given failure at time t</span></span>
+<span id="cb500-7"><a href="workshop-system-reliability.html#cb500-7" tabindex="-1"></a>  <span class="at">prob_fr_f_10 =</span> <span class="fu">fr_f</span>(<span class="at">time =</span> time, <span class="at">time_replacement =</span> time <span class="sc">+</span> <span class="dv">10</span>),</span>
+<span id="cb500-8"><a href="workshop-system-reliability.html#cb500-8" tabindex="-1"></a>  <span class="co"># How about t + 50?</span></span>
+<span id="cb500-9"><a href="workshop-system-reliability.html#cb500-9" tabindex="-1"></a>  <span class="at">prob_fr_f_50 =</span> <span class="fu">fr_f</span>(<span class="at">time =</span> time, <span class="at">time_replacement =</span> time <span class="sc">+</span> <span class="dv">50</span>)</span>
+<span id="cb500-10"><a href="workshop-system-reliability.html#cb500-10" tabindex="-1"></a>  </span>
+<span id="cb500-11"><a href="workshop-system-reliability.html#cb500-11" tabindex="-1"></a>)</span>
+<span id="cb500-12"><a href="workshop-system-reliability.html#cb500-12" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb500-13"><a href="workshop-system-reliability.html#cb500-13" tabindex="-1"></a>fakeunits <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 4
 ##    time prob_f prob_fr_f_10 prob_fr_f_50
 ##   &lt;dbl&gt;  &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;

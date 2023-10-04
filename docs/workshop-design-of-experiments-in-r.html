@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2023-09-06" />
+<meta name="date" content="2023-10-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -305,6 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#bayes-rule"><i class="fa fa-check"></i>Bayes Rule</a></li>
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#example-coffee-shop-incomplete-information"><i class="fa fa-check"></i>Example: Coffee Shop (Incomplete Information)</a></li>
 <li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#example-coffee-shop-complete-information"><i class="fa fa-check"></i>Example: Coffee Shop (Complete Information)</a></li>
+<li class="chapter" data-level="" data-path="workshop-probability.html"><a href="workshop-probability.html#example-movie-theatre-popularity"><i class="fa fa-check"></i>Example: Movie Theatre Popularity</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="workshop-probability.html"><a href="workshop-probability.html#probability-functions"><i class="fa fa-check"></i><b>3.2</b> Probability Functions</a>
 <ul>
@@ -479,8 +480,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.5.1" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#factors-in-r"><i class="fa fa-check"></i><b>7.5.1</b> Factors in R</a></li>
 <li class="chapter" data-level="7.5.2" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#crosstabulation"><i class="fa fa-check"></i><b>7.5.2</b> Crosstabulation</a></li>
 <li class="chapter" data-level="7.5.3" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#chi-squared"><i class="fa fa-check"></i><b>7.5.3</b> Chi-squared</a></li>
-<li class="chapter" data-level="7.5.4" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#estimating-lambda"><i class="fa fa-check"></i><b>7.5.4</b> Estimating Lambda</a></li>
-<li class="chapter" data-level="7.5.5" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#planning-experiments"><i class="fa fa-check"></i><b>7.5.5</b> Planning Experiments</a></li>
+<li class="chapter" data-level="7.5.4" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#building-a-chi-squared-function"><i class="fa fa-check"></i><b>7.5.4</b> Building a Chi-squared function</a></li>
+<li class="chapter" data-level="7.5.5" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#estimating-lambda"><i class="fa fa-check"></i><b>7.5.5</b> Estimating Lambda</a></li>
+<li class="chapter" data-level="7.5.6" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#planning-experiments"><i class="fa fa-check"></i><b>7.5.6</b> Planning Experiments</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#LC4"><i class="fa fa-check"></i>Learning Check 4</a></li>
 <li class="chapter" data-level="7.6" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#conclusion-6"><i class="fa fa-check"></i><b>7.6</b> Conclusion</a></li>
@@ -554,6 +556,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.2.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#coverage"><i class="fa fa-check"></i><b>9.2.4</b> Coverage</a></li>
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#simulate"><i class="fa fa-check"></i><b>9.3</b> Simulate</a></li>
+<li class="chapter" data-level="9.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#learning-check-1"><i class="fa fa-check"></i><b>9.4</b> Learning Check 1</a></li>
+<li class="chapter" data-level="9.5" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#learning-check-2-applying-exponential-distributions"><i class="fa fa-check"></i><b>9.5</b> Learning Check 2: Applying Exponential Distributions</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="workshop-physical-acceleration-models.html"><a href="workshop-physical-acceleration-models.html"><i class="fa fa-check"></i><b>10</b> Workshop: Physical Acceleration Models</a>
 <ul>
@@ -819,19 +823,19 @@ Figure 1.1: Donuts!
 <div id="import-data" class="section level3 unnumbered hasAnchor">
 <h3>Import Data<a href="workshop-design-of-experiments-in-r.html#import-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>First, let’s import our data, where each row is a <code>donut</code>, with produced in one <code>type</code> of machine, with a specific <code>weight</code>, <code>lifespan</code>, and <code>tastiness</code>, each made by a <code>baker</code> named <code>"Kim"</code>, <code>"Melanie"</code>, or <code>"Craig"</code>.</p>
-<div class="sourceCode" id="cb959"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb959-1"><a href="workshop-design-of-experiments-in-r.html#cb959-1" tabindex="-1"></a><span class="co"># Load packages, to get our dplyr, ggplot, tibble, and readr functions</span></span>
-<span id="cb959-2"><a href="workshop-design-of-experiments-in-r.html#cb959-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb959-3"><a href="workshop-design-of-experiments-in-r.html#cb959-3" tabindex="-1"></a><span class="fu">library</span>(broom) <span class="co"># get our tidy() function</span></span>
-<span id="cb959-4"><a href="workshop-design-of-experiments-in-r.html#cb959-4" tabindex="-1"></a></span>
-<span id="cb959-5"><a href="workshop-design-of-experiments-in-r.html#cb959-5" tabindex="-1"></a><span class="co"># Read data!</span></span>
-<span id="cb959-6"><a href="workshop-design-of-experiments-in-r.html#cb959-6" tabindex="-1"></a>donuts <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;workshops/donuts.csv&quot;</span>)</span>
-<span id="cb959-7"><a href="workshop-design-of-experiments-in-r.html#cb959-7" tabindex="-1"></a><span class="co"># Having trouble reading in your data?</span></span>
-<span id="cb959-8"><a href="workshop-design-of-experiments-in-r.html#cb959-8" tabindex="-1"></a><span class="co"># You can also use this code:</span></span>
-<span id="cb959-9"><a href="workshop-design-of-experiments-in-r.html#cb959-9" tabindex="-1"></a>donuts <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/timothyfraser/sysen/main/workshops/donuts.csv&quot;</span>)</span>
-<span id="cb959-10"><a href="workshop-design-of-experiments-in-r.html#cb959-10" tabindex="-1"></a></span>
-<span id="cb959-11"><a href="workshop-design-of-experiments-in-r.html#cb959-11" tabindex="-1"></a></span>
-<span id="cb959-12"><a href="workshop-design-of-experiments-in-r.html#cb959-12" tabindex="-1"></a><span class="co"># Check it out!</span></span>
-<span id="cb959-13"><a href="workshop-design-of-experiments-in-r.html#cb959-13" tabindex="-1"></a>donuts <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb986"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb986-1"><a href="workshop-design-of-experiments-in-r.html#cb986-1" tabindex="-1"></a><span class="co"># Load packages, to get our dplyr, ggplot, tibble, and readr functions</span></span>
+<span id="cb986-2"><a href="workshop-design-of-experiments-in-r.html#cb986-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb986-3"><a href="workshop-design-of-experiments-in-r.html#cb986-3" tabindex="-1"></a><span class="fu">library</span>(broom) <span class="co"># get our tidy() function</span></span>
+<span id="cb986-4"><a href="workshop-design-of-experiments-in-r.html#cb986-4" tabindex="-1"></a></span>
+<span id="cb986-5"><a href="workshop-design-of-experiments-in-r.html#cb986-5" tabindex="-1"></a><span class="co"># Read data!</span></span>
+<span id="cb986-6"><a href="workshop-design-of-experiments-in-r.html#cb986-6" tabindex="-1"></a>donuts <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;workshops/donuts.csv&quot;</span>)</span>
+<span id="cb986-7"><a href="workshop-design-of-experiments-in-r.html#cb986-7" tabindex="-1"></a><span class="co"># Having trouble reading in your data?</span></span>
+<span id="cb986-8"><a href="workshop-design-of-experiments-in-r.html#cb986-8" tabindex="-1"></a><span class="co"># You can also use this code:</span></span>
+<span id="cb986-9"><a href="workshop-design-of-experiments-in-r.html#cb986-9" tabindex="-1"></a>donuts <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/timothyfraser/sysen/main/workshops/donuts.csv&quot;</span>)</span>
+<span id="cb986-10"><a href="workshop-design-of-experiments-in-r.html#cb986-10" tabindex="-1"></a></span>
+<span id="cb986-11"><a href="workshop-design-of-experiments-in-r.html#cb986-11" tabindex="-1"></a></span>
+<span id="cb986-12"><a href="workshop-design-of-experiments-in-r.html#cb986-12" tabindex="-1"></a><span class="co"># Check it out!</span></span>
+<span id="cb986-13"><a href="workshop-design-of-experiments-in-r.html#cb986-13" tabindex="-1"></a>donuts <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
 <pre><code>## Rows: 50
 ## Columns: 5
 ## $ type      &lt;chr&gt; &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, …
@@ -848,19 +852,19 @@ Figure 1.1: Donuts!
 <p>Whenever we set up an experiment, we need to select a <code>control group</code> and a <code>treatment group</code>. In this case, our control group is the donuts produced by the <strong>original machine (<code>type = "a"</code>)</strong>, while our treatment group is the donuts produced by the <strong>new machine (<code>type = b</code>)</strong>.</p>
 <p>We can then calculate a single number to summarize the relationship between these 2 groups - a statistic called the <strong>difference of means</strong> <span class="math inline">\(\bar{d}\)</span>! It’s literally: <span class="math inline">\(\bar{d} = \bar{x}_{treatment} - \bar{x}_{control}\)</span>, where <span class="math inline">\(\bar{x}_{treatment}\)</span> is the mean outcome for the treatment group and <span class="math inline">\(\bar{x}_{control}\)</span> is the mean outcome for the control group.</p>
 <p>We can use <code>group_by()</code> and <code>summarize()</code> from the <code>dplyr</code> package to calculate the difference <code>diff</code>.</p>
-<div class="sourceCode" id="cb961"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb961-1"><a href="workshop-design-of-experiments-in-r.html#cb961-1" tabindex="-1"></a>diff <span class="ot">=</span> donuts <span class="sc">%&gt;%</span></span>
-<span id="cb961-2"><a href="workshop-design-of-experiments-in-r.html#cb961-2" tabindex="-1"></a>  <span class="fu">group_by</span>(type) <span class="sc">%&gt;%</span></span>
-<span id="cb961-3"><a href="workshop-design-of-experiments-in-r.html#cb961-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">xbar =</span> <span class="fu">mean</span>(weight))</span></code></pre></div>
+<div class="sourceCode" id="cb988"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb988-1"><a href="workshop-design-of-experiments-in-r.html#cb988-1" tabindex="-1"></a>diff <span class="ot">=</span> donuts <span class="sc">%&gt;%</span></span>
+<span id="cb988-2"><a href="workshop-design-of-experiments-in-r.html#cb988-2" tabindex="-1"></a>  <span class="fu">group_by</span>(type) <span class="sc">%&gt;%</span></span>
+<span id="cb988-3"><a href="workshop-design-of-experiments-in-r.html#cb988-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">xbar =</span> <span class="fu">mean</span>(weight))</span></code></pre></div>
 <p>Then, we can pivot the shape of this data.frame with <code>summarize()</code> again, so that our data.frame has just all it’s info in just 1 row:</p>
 <ul>
 <li><p>We’ll grab the <code>xbar</code> value from the row where <code>type == "a"</code> and putting it into the column <code>xbar_a</code>.</p></li>
 <li><p>We’ll repeat this with <code>xbar_b</code>, putting the <code>xbar</code> value from the row where <code>type == "b"</code> into the <code>xbar_b</code> column.</p></li>
 <li><p>Finally, we can calculate <code>dbar</code>, the difference of means, by subtracting <code>xbar_b</code> from <code>xbar_a</code>!</p></li>
 </ul>
-<div class="sourceCode" id="cb962"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb962-1"><a href="workshop-design-of-experiments-in-r.html#cb962-1" tabindex="-1"></a>stat <span class="ot">=</span> diff <span class="sc">%&gt;%</span></span>
-<span id="cb962-2"><a href="workshop-design-of-experiments-in-r.html#cb962-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">xbar_a =</span> xbar[type <span class="sc">==</span> <span class="st">&quot;a&quot;</span>],</span>
-<span id="cb962-3"><a href="workshop-design-of-experiments-in-r.html#cb962-3" tabindex="-1"></a>            <span class="at">xbar_b =</span> xbar[type <span class="sc">==</span> <span class="st">&quot;b&quot;</span>],</span>
-<span id="cb962-4"><a href="workshop-design-of-experiments-in-r.html#cb962-4" tabindex="-1"></a>            <span class="at">dbar =</span> xbar_b <span class="sc">-</span> xbar_a)</span></code></pre></div>
+<div class="sourceCode" id="cb989"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb989-1"><a href="workshop-design-of-experiments-in-r.html#cb989-1" tabindex="-1"></a>stat <span class="ot">=</span> diff <span class="sc">%&gt;%</span></span>
+<span id="cb989-2"><a href="workshop-design-of-experiments-in-r.html#cb989-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">xbar_a =</span> xbar[type <span class="sc">==</span> <span class="st">&quot;a&quot;</span>],</span>
+<span id="cb989-3"><a href="workshop-design-of-experiments-in-r.html#cb989-3" tabindex="-1"></a>            <span class="at">xbar_b =</span> xbar[type <span class="sc">==</span> <span class="st">&quot;b&quot;</span>],</span>
+<span id="cb989-4"><a href="workshop-design-of-experiments-in-r.html#cb989-4" tabindex="-1"></a>            <span class="at">dbar =</span> xbar_b <span class="sc">-</span> xbar_a)</span></code></pre></div>
 <p>In summary, the mean weight of a donut from the <strong>Krispy Kreme Machine</strong> (<code>type = a</code>) was 28.364 grams, while the mean weight of a donut from the <strong>Monster Donut Maker 5000</strong> (<code>type = b</code>) was 31.716 grams. This means that our treatment group of donuts (our <code>type = b</code> donuts) tended to be 3.352 grams heavier than our control group!</p>
 <p><br>
 <br></p>
@@ -868,14 +872,14 @@ Figure 1.1: Donuts!
 <div id="visualizing-the-difference-of-means" class="section level3 hasAnchor" number="13.1.2">
 <h3><span class="header-section-number">13.1.2</span> Visualizing the difference of means<a href="workshop-design-of-experiments-in-r.html#visualizing-the-difference-of-means" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can visualize the difference of means pretty quickly, using <code>geom_jitter()</code>.</p>
-<div class="sourceCode" id="cb963"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb963-1"><a href="workshop-design-of-experiments-in-r.html#cb963-1" tabindex="-1"></a>donuts <span class="sc">%&gt;%</span></span>
-<span id="cb963-2"><a href="workshop-design-of-experiments-in-r.html#cb963-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> type, <span class="at">y =</span> weight)) <span class="sc">+</span></span>
-<span id="cb963-3"><a href="workshop-design-of-experiments-in-r.html#cb963-3" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
-<span id="cb963-4"><a href="workshop-design-of-experiments-in-r.html#cb963-4" tabindex="-1"></a>              <span class="co"># Let&#39;s make a a bunch of donuts, using shape = 21 with white fill</span></span>
-<span id="cb963-5"><a href="workshop-design-of-experiments-in-r.html#cb963-5" tabindex="-1"></a>              <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>,</span>
-<span id="cb963-6"><a href="workshop-design-of-experiments-in-r.html#cb963-6" tabindex="-1"></a>              <span class="co"># and increase the width of the outline with &#39;stroke&#39;</span></span>
-<span id="cb963-7"><a href="workshop-design-of-experiments-in-r.html#cb963-7" tabindex="-1"></a>              <span class="at">stroke =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb963-8"><a href="workshop-design-of-experiments-in-r.html#cb963-8" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb990"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb990-1"><a href="workshop-design-of-experiments-in-r.html#cb990-1" tabindex="-1"></a>donuts <span class="sc">%&gt;%</span></span>
+<span id="cb990-2"><a href="workshop-design-of-experiments-in-r.html#cb990-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> type, <span class="at">y =</span> weight)) <span class="sc">+</span></span>
+<span id="cb990-3"><a href="workshop-design-of-experiments-in-r.html#cb990-3" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
+<span id="cb990-4"><a href="workshop-design-of-experiments-in-r.html#cb990-4" tabindex="-1"></a>              <span class="co"># Let&#39;s make a a bunch of donuts, using shape = 21 with white fill</span></span>
+<span id="cb990-5"><a href="workshop-design-of-experiments-in-r.html#cb990-5" tabindex="-1"></a>              <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>,</span>
+<span id="cb990-6"><a href="workshop-design-of-experiments-in-r.html#cb990-6" tabindex="-1"></a>              <span class="co"># and increase the width of the outline with &#39;stroke&#39;</span></span>
+<span id="cb990-7"><a href="workshop-design-of-experiments-in-r.html#cb990-7" tabindex="-1"></a>              <span class="at">stroke =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb990-8"><a href="workshop-design-of-experiments-in-r.html#cb990-8" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>) </span></code></pre></div>
 <p><img src="13_workshop_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 We can see from above that donuts from machine <code>b</code> do sure seem to weight a little bit more. Let’s estimate whether this difference is significant, below!</p>
 <p><br>
@@ -901,48 +905,48 @@ We can see from above that donuts from machine <code>b</code> do sure seem to we
 <div id="permutation-test-computational-approach" class="section level3 hasAnchor" number="13.3.1">
 <h3><span class="header-section-number">13.3.1</span> Permutation Test (Computational Approach)<a href="workshop-design-of-experiments-in-r.html#permutation-test-computational-approach" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>How can we see the null distribution? We can use <em>resampling without replacement</em> on our <code>donuts</code> data, <strong>permuting</strong> or <strong>shuffling</strong> which treatment group our donut ingredients got assigned to. This <strong>breaks</strong> any association between the outcome <code>weight</code> and our grouping variable <code>type</code>, such that any statistic we get is purely due to chance. We’ll <code>mutate()</code> our <code>type</code> vector using the <code>sample(replace = FALSE)</code> function, for 1000 repetitions of our data, creating 1000 random datasets, then calculate 1000 differences of means.</p>
-<div class="sourceCode" id="cb964"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb964-1"><a href="workshop-design-of-experiments-in-r.html#cb964-1" tabindex="-1"></a>perm <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb964-2"><a href="workshop-design-of-experiments-in-r.html#cb964-2" tabindex="-1"></a>  <span class="fu">group_by</span>(rep) <span class="sc">%&gt;%</span></span>
-<span id="cb964-3"><a href="workshop-design-of-experiments-in-r.html#cb964-3" tabindex="-1"></a>  <span class="fu">summarize</span>(donuts) <span class="sc">%&gt;%</span></span>
-<span id="cb964-4"><a href="workshop-design-of-experiments-in-r.html#cb964-4" tabindex="-1"></a>  <span class="fu">group_by</span>(rep) <span class="sc">%&gt;%</span></span>
-<span id="cb964-5"><a href="workshop-design-of-experiments-in-r.html#cb964-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">sample</span>(type, <span class="at">size =</span> <span class="fu">n</span>(), <span class="at">replace =</span> <span class="cn">FALSE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb964-6"><a href="workshop-design-of-experiments-in-r.html#cb964-6" tabindex="-1"></a>  <span class="fu">group_by</span>(rep, type) <span class="sc">%&gt;%</span></span>
-<span id="cb964-7"><a href="workshop-design-of-experiments-in-r.html#cb964-7" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">xbar =</span> <span class="fu">mean</span>(weight)) <span class="sc">%&gt;%</span></span>
-<span id="cb964-8"><a href="workshop-design-of-experiments-in-r.html#cb964-8" tabindex="-1"></a>  <span class="fu">group_by</span>(rep) <span class="sc">%&gt;%</span></span>
-<span id="cb964-9"><a href="workshop-design-of-experiments-in-r.html#cb964-9" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">xbar_a =</span> xbar[type <span class="sc">==</span> <span class="st">&quot;a&quot;</span>],</span>
-<span id="cb964-10"><a href="workshop-design-of-experiments-in-r.html#cb964-10" tabindex="-1"></a>            <span class="at">xbar_b =</span> xbar[type <span class="sc">==</span> <span class="st">&quot;b&quot;</span>],</span>
-<span id="cb964-11"><a href="workshop-design-of-experiments-in-r.html#cb964-11" tabindex="-1"></a>            <span class="at">dbar =</span> xbar_b <span class="sc">-</span> xbar_a)</span>
-<span id="cb964-12"><a href="workshop-design-of-experiments-in-r.html#cb964-12" tabindex="-1"></a></span>
-<span id="cb964-13"><a href="workshop-design-of-experiments-in-r.html#cb964-13" tabindex="-1"></a><span class="co"># Many different dbar statistics from many permuted datasets, where the statistic is ENTIRELY due to chance.</span></span>
-<span id="cb964-14"><a href="workshop-design-of-experiments-in-r.html#cb964-14" tabindex="-1"></a>perm <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb991"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb991-1"><a href="workshop-design-of-experiments-in-r.html#cb991-1" tabindex="-1"></a>perm <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb991-2"><a href="workshop-design-of-experiments-in-r.html#cb991-2" tabindex="-1"></a>  <span class="fu">group_by</span>(rep) <span class="sc">%&gt;%</span></span>
+<span id="cb991-3"><a href="workshop-design-of-experiments-in-r.html#cb991-3" tabindex="-1"></a>  <span class="fu">summarize</span>(donuts) <span class="sc">%&gt;%</span></span>
+<span id="cb991-4"><a href="workshop-design-of-experiments-in-r.html#cb991-4" tabindex="-1"></a>  <span class="fu">group_by</span>(rep) <span class="sc">%&gt;%</span></span>
+<span id="cb991-5"><a href="workshop-design-of-experiments-in-r.html#cb991-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">sample</span>(type, <span class="at">size =</span> <span class="fu">n</span>(), <span class="at">replace =</span> <span class="cn">FALSE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb991-6"><a href="workshop-design-of-experiments-in-r.html#cb991-6" tabindex="-1"></a>  <span class="fu">group_by</span>(rep, type) <span class="sc">%&gt;%</span></span>
+<span id="cb991-7"><a href="workshop-design-of-experiments-in-r.html#cb991-7" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">xbar =</span> <span class="fu">mean</span>(weight)) <span class="sc">%&gt;%</span></span>
+<span id="cb991-8"><a href="workshop-design-of-experiments-in-r.html#cb991-8" tabindex="-1"></a>  <span class="fu">group_by</span>(rep) <span class="sc">%&gt;%</span></span>
+<span id="cb991-9"><a href="workshop-design-of-experiments-in-r.html#cb991-9" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">xbar_a =</span> xbar[type <span class="sc">==</span> <span class="st">&quot;a&quot;</span>],</span>
+<span id="cb991-10"><a href="workshop-design-of-experiments-in-r.html#cb991-10" tabindex="-1"></a>            <span class="at">xbar_b =</span> xbar[type <span class="sc">==</span> <span class="st">&quot;b&quot;</span>],</span>
+<span id="cb991-11"><a href="workshop-design-of-experiments-in-r.html#cb991-11" tabindex="-1"></a>            <span class="at">dbar =</span> xbar_b <span class="sc">-</span> xbar_a)</span>
+<span id="cb991-12"><a href="workshop-design-of-experiments-in-r.html#cb991-12" tabindex="-1"></a></span>
+<span id="cb991-13"><a href="workshop-design-of-experiments-in-r.html#cb991-13" tabindex="-1"></a><span class="co"># Many different dbar statistics from many permuted datasets, where the statistic is ENTIRELY due to chance.</span></span>
+<span id="cb991-14"><a href="workshop-design-of-experiments-in-r.html#cb991-14" tabindex="-1"></a>perm <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 4
 ##     rep xbar_a xbar_b   dbar
 ##   &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-## 1     1   29.7   30.4  0.672
-## 2     2   29.7   30.4  0.656
-## 3     3   30.4   29.7 -0.656</code></pre>
+## 1     1   30.9   29.2 -1.63 
+## 2     2   29.8   30.2  0.384
+## 3     3   29.5   30.5  0.984</code></pre>
 <p>Now, let’s calculate - what percentage of random statistics were more extreme than than our observed statistic?</p>
-<div class="sourceCode" id="cb966"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb966-1"><a href="workshop-design-of-experiments-in-r.html#cb966-1" tabindex="-1"></a>perm <span class="sc">%&gt;%</span> </span>
-<span id="cb966-2"><a href="workshop-design-of-experiments-in-r.html#cb966-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb966-3"><a href="workshop-design-of-experiments-in-r.html#cb966-3" tabindex="-1"></a>    <span class="co"># Get our observed statistic</span></span>
-<span id="cb966-4"><a href="workshop-design-of-experiments-in-r.html#cb966-4" tabindex="-1"></a>    <span class="at">estimate =</span> stat<span class="sc">$</span>dbar,</span>
-<span id="cb966-5"><a href="workshop-design-of-experiments-in-r.html#cb966-5" tabindex="-1"></a>    <span class="co"># For a 2 tailed test...</span></span>
-<span id="cb966-6"><a href="workshop-design-of-experiments-in-r.html#cb966-6" tabindex="-1"></a>    <span class="co"># Turn all dbars positive (this takes care of the 2-tails)</span></span>
-<span id="cb966-7"><a href="workshop-design-of-experiments-in-r.html#cb966-7" tabindex="-1"></a>    <span class="co"># Now, what percentage of random stats were greater than the observed?</span></span>
-<span id="cb966-8"><a href="workshop-design-of-experiments-in-r.html#cb966-8" tabindex="-1"></a>    <span class="co"># That&#39;s our p-value!</span></span>
-<span id="cb966-9"><a href="workshop-design-of-experiments-in-r.html#cb966-9" tabindex="-1"></a>    <span class="at">p_value =</span> ( <span class="fu">sum</span>(<span class="fu">abs</span>(dbar) <span class="sc">&gt;=</span> <span class="fu">abs</span>(estimate) ) <span class="sc">/</span> <span class="fu">n</span>() ))</span></code></pre></div>
+<div class="sourceCode" id="cb993"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb993-1"><a href="workshop-design-of-experiments-in-r.html#cb993-1" tabindex="-1"></a>perm <span class="sc">%&gt;%</span> </span>
+<span id="cb993-2"><a href="workshop-design-of-experiments-in-r.html#cb993-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb993-3"><a href="workshop-design-of-experiments-in-r.html#cb993-3" tabindex="-1"></a>    <span class="co"># Get our observed statistic</span></span>
+<span id="cb993-4"><a href="workshop-design-of-experiments-in-r.html#cb993-4" tabindex="-1"></a>    <span class="at">estimate =</span> stat<span class="sc">$</span>dbar,</span>
+<span id="cb993-5"><a href="workshop-design-of-experiments-in-r.html#cb993-5" tabindex="-1"></a>    <span class="co"># For a 2 tailed test...</span></span>
+<span id="cb993-6"><a href="workshop-design-of-experiments-in-r.html#cb993-6" tabindex="-1"></a>    <span class="co"># Turn all dbars positive (this takes care of the 2-tails)</span></span>
+<span id="cb993-7"><a href="workshop-design-of-experiments-in-r.html#cb993-7" tabindex="-1"></a>    <span class="co"># Now, what percentage of random stats were greater than the observed?</span></span>
+<span id="cb993-8"><a href="workshop-design-of-experiments-in-r.html#cb993-8" tabindex="-1"></a>    <span class="co"># That&#39;s our p-value!</span></span>
+<span id="cb993-9"><a href="workshop-design-of-experiments-in-r.html#cb993-9" tabindex="-1"></a>    <span class="at">p_value =</span> ( <span class="fu">sum</span>(<span class="fu">abs</span>(dbar) <span class="sc">&gt;=</span> <span class="fu">abs</span>(estimate) ) <span class="sc">/</span> <span class="fu">n</span>() ))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 2
 ##   estimate p_value
 ##      &lt;dbl&gt;   &lt;dbl&gt;
 ## 1     3.35       0</code></pre>
 <p>Wow! That is a super statistically significant difference of means!</p>
 <p>We can visualize it like this. Pretty extreme, huh?</p>
-<div class="sourceCode" id="cb968"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb968-1"><a href="workshop-design-of-experiments-in-r.html#cb968-1" tabindex="-1"></a>perm <span class="sc">%&gt;%</span></span>
-<span id="cb968-2"><a href="workshop-design-of-experiments-in-r.html#cb968-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> dbar)) <span class="sc">+</span></span>
-<span id="cb968-3"><a href="workshop-design-of-experiments-in-r.html#cb968-3" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
-<span id="cb968-4"><a href="workshop-design-of-experiments-in-r.html#cb968-4" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb968-5"><a href="workshop-design-of-experiments-in-r.html#cb968-5" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> stat<span class="sc">$</span>dbar, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
-<span id="cb968-6"><a href="workshop-design-of-experiments-in-r.html#cb968-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Difference of Means&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Probability (%)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb995"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb995-1"><a href="workshop-design-of-experiments-in-r.html#cb995-1" tabindex="-1"></a>perm <span class="sc">%&gt;%</span></span>
+<span id="cb995-2"><a href="workshop-design-of-experiments-in-r.html#cb995-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> dbar)) <span class="sc">+</span></span>
+<span id="cb995-3"><a href="workshop-design-of-experiments-in-r.html#cb995-3" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb995-4"><a href="workshop-design-of-experiments-in-r.html#cb995-4" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb995-5"><a href="workshop-design-of-experiments-in-r.html#cb995-5" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> stat<span class="sc">$</span>dbar, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb995-6"><a href="workshop-design-of-experiments-in-r.html#cb995-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Difference of Means&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Probability (%)&quot;</span>)</span></code></pre></div>
 <p><img src="13_workshop_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 <br>
 <br></p>
@@ -959,16 +963,16 @@ We can see from above that donuts from machine <code>b</code> do sure seem to we
 <li><p>we can use <code>pt()</code> to calculate p-values, our chance of error.</p></li>
 </ul>
 <p>Suppose for a moment that we already found the standard error and we went and calculated our <code>t-statistic</code>, and we also have the degrees of freedom. We can approximate the null distribution as a t-distribution, for any number of degrees of freedom. See below for an example!</p>
-<div class="sourceCode" id="cb969"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb969-1"><a href="workshop-design-of-experiments-in-r.html#cb969-1" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">df =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">100</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb969-2"><a href="workshop-design-of-experiments-in-r.html#cb969-2" tabindex="-1"></a>  <span class="fu">group_by</span>(df) <span class="sc">%&gt;%</span></span>
-<span id="cb969-3"><a href="workshop-design-of-experiments-in-r.html#cb969-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">t =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="dv">5</span>, <span class="at">to =</span> <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.05</span>),</span>
-<span id="cb969-4"><a href="workshop-design-of-experiments-in-r.html#cb969-4" tabindex="-1"></a>            <span class="at">prob =</span> <span class="fu">dt</span>(t, df)) <span class="sc">%&gt;%</span></span>
-<span id="cb969-5"><a href="workshop-design-of-experiments-in-r.html#cb969-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> prob, <span class="at">color =</span> <span class="fu">factor</span>(df), <span class="at">group =</span> df)) <span class="sc">+</span></span>
-<span id="cb969-6"><a href="workshop-design-of-experiments-in-r.html#cb969-6" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb969-7"><a href="workshop-design-of-experiments-in-r.html#cb969-7" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb969-8"><a href="workshop-design-of-experiments-in-r.html#cb969-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Degrees of</span><span class="sc">\n</span><span class="st">Freedom (df)&quot;</span>,</span>
-<span id="cb969-9"><a href="workshop-design-of-experiments-in-r.html#cb969-9" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;t-statistic&quot;</span>, <span class="at">y =</span> <span class="st">&#39;Probability&#39;</span>,</span>
-<span id="cb969-10"><a href="workshop-design-of-experiments-in-r.html#cb969-10" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Student&#39;s T distribution by df&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb996"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb996-1"><a href="workshop-design-of-experiments-in-r.html#cb996-1" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">df =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">100</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb996-2"><a href="workshop-design-of-experiments-in-r.html#cb996-2" tabindex="-1"></a>  <span class="fu">group_by</span>(df) <span class="sc">%&gt;%</span></span>
+<span id="cb996-3"><a href="workshop-design-of-experiments-in-r.html#cb996-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">t =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="dv">5</span>, <span class="at">to =</span> <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.05</span>),</span>
+<span id="cb996-4"><a href="workshop-design-of-experiments-in-r.html#cb996-4" tabindex="-1"></a>            <span class="at">prob =</span> <span class="fu">dt</span>(t, df)) <span class="sc">%&gt;%</span></span>
+<span id="cb996-5"><a href="workshop-design-of-experiments-in-r.html#cb996-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> prob, <span class="at">color =</span> <span class="fu">factor</span>(df), <span class="at">group =</span> df)) <span class="sc">+</span></span>
+<span id="cb996-6"><a href="workshop-design-of-experiments-in-r.html#cb996-6" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb996-7"><a href="workshop-design-of-experiments-in-r.html#cb996-7" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb996-8"><a href="workshop-design-of-experiments-in-r.html#cb996-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Degrees of</span><span class="sc">\n</span><span class="st">Freedom (df)&quot;</span>,</span>
+<span id="cb996-9"><a href="workshop-design-of-experiments-in-r.html#cb996-9" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;t-statistic&quot;</span>, <span class="at">y =</span> <span class="st">&#39;Probability&#39;</span>,</span>
+<span id="cb996-10"><a href="workshop-design-of-experiments-in-r.html#cb996-10" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Student&#39;s T distribution by df&quot;</span>)</span></code></pre></div>
 <p><img src="13_workshop_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>We’ll learn below how to calculate a t-statistic. The <strong>main value added behind a t-statistic</strong> is that it is computationally very easy to obtain, whereas a permutation test requires us to generate 1000s of random permutations - a more computationally expensive method.</p>
 <p><strong>Why Do we Assume Normal Distributions?</strong>: The <strong>reason</strong> why we rely on these assumptions is because for decades, it was <em>not possible</em> to approximate and visualize the shape of the of these distributions, because it was so computationally expensive! <strong>That’s why we wrote up giant tables of <span class="math inline">\(k\)</span>, <span class="math inline">\(\chi^{2}\)</span>, and <span class="math inline">\(t\)</span> statistics instead,</strong> so that researchers could just calculate those statistics <em>once</em> and share the tables, rather than computing them over and over!</p>
@@ -984,49 +988,49 @@ We can see from above that donuts from machine <code>b</code> do sure seem to we
 <div id="bootstrapped-cis-for-dbar" class="section level3 hasAnchor" number="13.4.1">
 <h3><span class="header-section-number">13.4.1</span> Bootstrapped CIs for <code>dbar</code><a href="workshop-design-of-experiments-in-r.html#bootstrapped-cis-for-dbar" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If we have lots of computational power available (we do now that it’s 2020), we could bootstrap our data, taking 1000 versions of our dataset and resampling with replacement to simulate sampling error, and calculate dbar 1000 times to get the sampling distribution.</p>
-<div class="sourceCode" id="cb970"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb970-1"><a href="workshop-design-of-experiments-in-r.html#cb970-1" tabindex="-1"></a><span class="co"># The the donuts 1000 times</span></span>
-<span id="cb970-2"><a href="workshop-design-of-experiments-in-r.html#cb970-2" tabindex="-1"></a>stat_boot <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb970-3"><a href="workshop-design-of-experiments-in-r.html#cb970-3" tabindex="-1"></a>  <span class="fu">group_by</span>(rep) <span class="sc">%&gt;%</span></span>
-<span id="cb970-4"><a href="workshop-design-of-experiments-in-r.html#cb970-4" tabindex="-1"></a>  <span class="fu">summarize</span>(donuts) <span class="sc">%&gt;%</span></span>
-<span id="cb970-5"><a href="workshop-design-of-experiments-in-r.html#cb970-5" tabindex="-1"></a>  <span class="co"># For each rep, randomly resample donuts</span></span>
-<span id="cb970-6"><a href="workshop-design-of-experiments-in-r.html#cb970-6" tabindex="-1"></a>  <span class="fu">group_by</span>(rep) <span class="sc">%&gt;%</span></span>
-<span id="cb970-7"><a href="workshop-design-of-experiments-in-r.html#cb970-7" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="at">size =</span> <span class="fu">n</span>(), <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb970-8"><a href="workshop-design-of-experiments-in-r.html#cb970-8" tabindex="-1"></a>  <span class="co"># For each rep and treatment group, get the mean</span></span>
-<span id="cb970-9"><a href="workshop-design-of-experiments-in-r.html#cb970-9" tabindex="-1"></a>  <span class="fu">group_by</span>(rep, type) <span class="sc">%&gt;%</span></span>
-<span id="cb970-10"><a href="workshop-design-of-experiments-in-r.html#cb970-10" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">xbar =</span> <span class="fu">mean</span>(weight)) <span class="sc">%&gt;%</span></span>
-<span id="cb970-11"><a href="workshop-design-of-experiments-in-r.html#cb970-11" tabindex="-1"></a>  <span class="co"># For each rep, get dbar</span></span>
-<span id="cb970-12"><a href="workshop-design-of-experiments-in-r.html#cb970-12" tabindex="-1"></a>  <span class="fu">group_by</span>(rep) <span class="sc">%&gt;%</span></span>
-<span id="cb970-13"><a href="workshop-design-of-experiments-in-r.html#cb970-13" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">xbar_a =</span> xbar[type <span class="sc">==</span> <span class="st">&quot;a&quot;</span>],</span>
-<span id="cb970-14"><a href="workshop-design-of-experiments-in-r.html#cb970-14" tabindex="-1"></a>            <span class="at">xbar_b =</span> xbar[type <span class="sc">==</span> <span class="st">&quot;b&quot;</span>],</span>
-<span id="cb970-15"><a href="workshop-design-of-experiments-in-r.html#cb970-15" tabindex="-1"></a>            <span class="at">dbar =</span> xbar_b <span class="sc">-</span> xbar_a)</span>
-<span id="cb970-16"><a href="workshop-design-of-experiments-in-r.html#cb970-16" tabindex="-1"></a></span>
-<span id="cb970-17"><a href="workshop-design-of-experiments-in-r.html#cb970-17" tabindex="-1"></a><span class="co"># Voila! Look at those beautiful `dbar` statistics!</span></span>
-<span id="cb970-18"><a href="workshop-design-of-experiments-in-r.html#cb970-18" tabindex="-1"></a><span class="co"># We&#39;ve got a full 1000 slightly varying dbars!</span></span>
-<span id="cb970-19"><a href="workshop-design-of-experiments-in-r.html#cb970-19" tabindex="-1"></a>stat_boot <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb997"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb997-1"><a href="workshop-design-of-experiments-in-r.html#cb997-1" tabindex="-1"></a><span class="co"># The the donuts 1000 times</span></span>
+<span id="cb997-2"><a href="workshop-design-of-experiments-in-r.html#cb997-2" tabindex="-1"></a>stat_boot <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb997-3"><a href="workshop-design-of-experiments-in-r.html#cb997-3" tabindex="-1"></a>  <span class="fu">group_by</span>(rep) <span class="sc">%&gt;%</span></span>
+<span id="cb997-4"><a href="workshop-design-of-experiments-in-r.html#cb997-4" tabindex="-1"></a>  <span class="fu">summarize</span>(donuts) <span class="sc">%&gt;%</span></span>
+<span id="cb997-5"><a href="workshop-design-of-experiments-in-r.html#cb997-5" tabindex="-1"></a>  <span class="co"># For each rep, randomly resample donuts</span></span>
+<span id="cb997-6"><a href="workshop-design-of-experiments-in-r.html#cb997-6" tabindex="-1"></a>  <span class="fu">group_by</span>(rep) <span class="sc">%&gt;%</span></span>
+<span id="cb997-7"><a href="workshop-design-of-experiments-in-r.html#cb997-7" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="at">size =</span> <span class="fu">n</span>(), <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb997-8"><a href="workshop-design-of-experiments-in-r.html#cb997-8" tabindex="-1"></a>  <span class="co"># For each rep and treatment group, get the mean</span></span>
+<span id="cb997-9"><a href="workshop-design-of-experiments-in-r.html#cb997-9" tabindex="-1"></a>  <span class="fu">group_by</span>(rep, type) <span class="sc">%&gt;%</span></span>
+<span id="cb997-10"><a href="workshop-design-of-experiments-in-r.html#cb997-10" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">xbar =</span> <span class="fu">mean</span>(weight)) <span class="sc">%&gt;%</span></span>
+<span id="cb997-11"><a href="workshop-design-of-experiments-in-r.html#cb997-11" tabindex="-1"></a>  <span class="co"># For each rep, get dbar</span></span>
+<span id="cb997-12"><a href="workshop-design-of-experiments-in-r.html#cb997-12" tabindex="-1"></a>  <span class="fu">group_by</span>(rep) <span class="sc">%&gt;%</span></span>
+<span id="cb997-13"><a href="workshop-design-of-experiments-in-r.html#cb997-13" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">xbar_a =</span> xbar[type <span class="sc">==</span> <span class="st">&quot;a&quot;</span>],</span>
+<span id="cb997-14"><a href="workshop-design-of-experiments-in-r.html#cb997-14" tabindex="-1"></a>            <span class="at">xbar_b =</span> xbar[type <span class="sc">==</span> <span class="st">&quot;b&quot;</span>],</span>
+<span id="cb997-15"><a href="workshop-design-of-experiments-in-r.html#cb997-15" tabindex="-1"></a>            <span class="at">dbar =</span> xbar_b <span class="sc">-</span> xbar_a)</span>
+<span id="cb997-16"><a href="workshop-design-of-experiments-in-r.html#cb997-16" tabindex="-1"></a></span>
+<span id="cb997-17"><a href="workshop-design-of-experiments-in-r.html#cb997-17" tabindex="-1"></a><span class="co"># Voila! Look at those beautiful `dbar` statistics!</span></span>
+<span id="cb997-18"><a href="workshop-design-of-experiments-in-r.html#cb997-18" tabindex="-1"></a><span class="co"># We&#39;ve got a full 1000 slightly varying dbars!</span></span>
+<span id="cb997-19"><a href="workshop-design-of-experiments-in-r.html#cb997-19" tabindex="-1"></a>stat_boot <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 4
 ##     rep xbar_a xbar_b  dbar
 ##   &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
-## 1     1   28.7   30.7  2.00
-## 2     2   29.1   31.1  2.02
-## 3     3   28.9   32.5  3.59
-## 4     4   27.9   32.4  4.55
-## 5     5   28.1   31.2  3.05
-## 6     6   28.3   32.0  3.65</code></pre>
+## 1     1   27.3   31.8  4.47
+## 2     2   28.1   33.0  4.93
+## 3     3   29.0   32.6  3.64
+## 4     4   28.1   30.9  2.84
+## 5     5   28.4   31.6  3.21
+## 6     6   28.6   31.8  3.22</code></pre>
 <p>We can then use <code>summarize()</code> to compute quantities of interest from our bootstrapped sampling distribution of <code>dbar</code> in <code>stat_boot</code>, like the standard deviation (which would be the literal standard error, in this case), and confidence intervals.</p>
-<div class="sourceCode" id="cb972"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb972-1"><a href="workshop-design-of-experiments-in-r.html#cb972-1" tabindex="-1"></a>stat_boot <span class="sc">%&gt;%</span></span>
-<span id="cb972-2"><a href="workshop-design-of-experiments-in-r.html#cb972-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb972-3"><a href="workshop-design-of-experiments-in-r.html#cb972-3" tabindex="-1"></a>    <span class="co"># Let&#39;s grab our observed dbar statistic from &#39;stat&#39;</span></span>
-<span id="cb972-4"><a href="workshop-design-of-experiments-in-r.html#cb972-4" tabindex="-1"></a>    <span class="at">estimate =</span> stat<span class="sc">$</span>dbar,</span>
-<span id="cb972-5"><a href="workshop-design-of-experiments-in-r.html#cb972-5" tabindex="-1"></a>    <span class="co"># standard error of sampling distribution....</span></span>
-<span id="cb972-6"><a href="workshop-design-of-experiments-in-r.html#cb972-6" tabindex="-1"></a>    <span class="at">se =</span> <span class="fu">sd</span>(dbar),</span>
-<span id="cb972-7"><a href="workshop-design-of-experiments-in-r.html#cb972-7" tabindex="-1"></a>    <span class="co"># lower 2.5th percentile</span></span>
-<span id="cb972-8"><a href="workshop-design-of-experiments-in-r.html#cb972-8" tabindex="-1"></a>    <span class="at">lower =</span> <span class="fu">quantile</span>(dbar, <span class="at">prob =</span> <span class="fl">0.025</span>),</span>
-<span id="cb972-9"><a href="workshop-design-of-experiments-in-r.html#cb972-9" tabindex="-1"></a>    <span class="co"># upper 97.5th percentile</span></span>
-<span id="cb972-10"><a href="workshop-design-of-experiments-in-r.html#cb972-10" tabindex="-1"></a>    <span class="at">upper =</span> <span class="fu">quantile</span>(dbar, <span class="at">prob =</span> <span class="fl">0.975</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb999"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb999-1"><a href="workshop-design-of-experiments-in-r.html#cb999-1" tabindex="-1"></a>stat_boot <span class="sc">%&gt;%</span></span>
+<span id="cb999-2"><a href="workshop-design-of-experiments-in-r.html#cb999-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb999-3"><a href="workshop-design-of-experiments-in-r.html#cb999-3" tabindex="-1"></a>    <span class="co"># Let&#39;s grab our observed dbar statistic from &#39;stat&#39;</span></span>
+<span id="cb999-4"><a href="workshop-design-of-experiments-in-r.html#cb999-4" tabindex="-1"></a>    <span class="at">estimate =</span> stat<span class="sc">$</span>dbar,</span>
+<span id="cb999-5"><a href="workshop-design-of-experiments-in-r.html#cb999-5" tabindex="-1"></a>    <span class="co"># standard error of sampling distribution....</span></span>
+<span id="cb999-6"><a href="workshop-design-of-experiments-in-r.html#cb999-6" tabindex="-1"></a>    <span class="at">se =</span> <span class="fu">sd</span>(dbar),</span>
+<span id="cb999-7"><a href="workshop-design-of-experiments-in-r.html#cb999-7" tabindex="-1"></a>    <span class="co"># lower 2.5th percentile</span></span>
+<span id="cb999-8"><a href="workshop-design-of-experiments-in-r.html#cb999-8" tabindex="-1"></a>    <span class="at">lower =</span> <span class="fu">quantile</span>(dbar, <span class="at">prob =</span> <span class="fl">0.025</span>),</span>
+<span id="cb999-9"><a href="workshop-design-of-experiments-in-r.html#cb999-9" tabindex="-1"></a>    <span class="co"># upper 97.5th percentile</span></span>
+<span id="cb999-10"><a href="workshop-design-of-experiments-in-r.html#cb999-10" tabindex="-1"></a>    <span class="at">upper =</span> <span class="fu">quantile</span>(dbar, <span class="at">prob =</span> <span class="fl">0.975</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 4
 ##   estimate    se lower upper
 ##      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1     3.35 0.786  1.85  4.82</code></pre>
+## 1     3.35 0.731  2.03  4.89</code></pre>
 <p><br>
 <br></p>
 </div>
@@ -1040,59 +1044,59 @@ We can see from above that donuts from machine <code>b</code> do sure seem to we
 <p>Suppose our treatment and control group had the same sample size (they do in this case). Then, we can calculate the standard error of the difference of means <span class="math inline">\(\bar{d}\)</span> as:</p>
 <p><span class="math display">\[ \sigma = \frac{ s_{\bar{d}} }{ \sqrt{n} } = \sqrt{ \frac{ \sum{ (d - \bar{d} )^{2} } }{ n - 1} } \times \frac{1}{\sqrt{n}}  \]</span>
 Here, <span class="math inline">\(d\)</span> refers to the differences between group <code>a</code> and <code>b</code>. (This is pretty unrealistic.) You can only calculate it if the sample size of your treatment and control group is identical. For example:</p>
-<div class="sourceCode" id="cb974"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb974-1"><a href="workshop-design-of-experiments-in-r.html#cb974-1" tabindex="-1"></a><span class="co"># In a paired sample t-test, our data might look like this.s</span></span>
-<span id="cb974-2"><a href="workshop-design-of-experiments-in-r.html#cb974-2" tabindex="-1"></a>paired <span class="ot">=</span> donuts <span class="sc">%&gt;%</span></span>
-<span id="cb974-3"><a href="workshop-design-of-experiments-in-r.html#cb974-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">weight_a =</span> weight[type <span class="sc">==</span> <span class="st">&quot;a&quot;</span>],</span>
-<span id="cb974-4"><a href="workshop-design-of-experiments-in-r.html#cb974-4" tabindex="-1"></a>            <span class="at">weight_b =</span> weight[type <span class="sc">==</span> <span class="st">&quot;b&quot;</span>]) <span class="sc">%&gt;%</span></span>
-<span id="cb974-5"><a href="workshop-design-of-experiments-in-r.html#cb974-5" tabindex="-1"></a>  <span class="co"># and we could calculate their differences &#39;d&#39; like so:</span></span>
-<span id="cb974-6"><a href="workshop-design-of-experiments-in-r.html#cb974-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">d =</span> weight_b <span class="sc">-</span> weight_a)</span>
-<span id="cb974-7"><a href="workshop-design-of-experiments-in-r.html#cb974-7" tabindex="-1"></a></span>
-<span id="cb974-8"><a href="workshop-design-of-experiments-in-r.html#cb974-8" tabindex="-1"></a><span class="co"># Check it</span></span>
-<span id="cb974-9"><a href="workshop-design-of-experiments-in-r.html#cb974-9" tabindex="-1"></a>paired <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1001"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1001-1"><a href="workshop-design-of-experiments-in-r.html#cb1001-1" tabindex="-1"></a><span class="co"># In a paired sample t-test, our data might look like this.s</span></span>
+<span id="cb1001-2"><a href="workshop-design-of-experiments-in-r.html#cb1001-2" tabindex="-1"></a>paired <span class="ot">=</span> donuts <span class="sc">%&gt;%</span></span>
+<span id="cb1001-3"><a href="workshop-design-of-experiments-in-r.html#cb1001-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">weight_a =</span> weight[type <span class="sc">==</span> <span class="st">&quot;a&quot;</span>],</span>
+<span id="cb1001-4"><a href="workshop-design-of-experiments-in-r.html#cb1001-4" tabindex="-1"></a>            <span class="at">weight_b =</span> weight[type <span class="sc">==</span> <span class="st">&quot;b&quot;</span>]) <span class="sc">%&gt;%</span></span>
+<span id="cb1001-5"><a href="workshop-design-of-experiments-in-r.html#cb1001-5" tabindex="-1"></a>  <span class="co"># and we could calculate their differences &#39;d&#39; like so:</span></span>
+<span id="cb1001-6"><a href="workshop-design-of-experiments-in-r.html#cb1001-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">d =</span> weight_b <span class="sc">-</span> weight_a)</span>
+<span id="cb1001-7"><a href="workshop-design-of-experiments-in-r.html#cb1001-7" tabindex="-1"></a></span>
+<span id="cb1001-8"><a href="workshop-design-of-experiments-in-r.html#cb1001-8" tabindex="-1"></a><span class="co"># Check it</span></span>
+<span id="cb1001-9"><a href="workshop-design-of-experiments-in-r.html#cb1001-9" tabindex="-1"></a>paired <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
 <pre><code>## Rows: 25
 ## Columns: 3
 ## $ weight_a &lt;dbl&gt; 28.2, 26.1, 27.2, 25.7, 29.4, 28.0, 27.4, 30.5, 29.8, 27.9, 2…
 ## $ weight_b &lt;dbl&gt; 28.1, 29.3, 28.4, 28.8, 31.7, 30.4, 27.5, 28.8, 30.0, 34.7, 3…
 ## $ d        &lt;dbl&gt; -0.1, 3.2, 1.2, 3.1, 2.3, 2.4, 0.1, -1.7, 0.2, 6.8, 8.6, 1.5,…</code></pre>
 <p>And we could then calculate the standard error like so…</p>
-<div class="sourceCode" id="cb976"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb976-1"><a href="workshop-design-of-experiments-in-r.html#cb976-1" tabindex="-1"></a>paired <span class="sc">%&gt;%</span> </span>
-<span id="cb976-2"><a href="workshop-design-of-experiments-in-r.html#cb976-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb976-3"><a href="workshop-design-of-experiments-in-r.html#cb976-3" tabindex="-1"></a>    <span class="co"># Get the total pairs of donuts analyzed</span></span>
-<span id="cb976-4"><a href="workshop-design-of-experiments-in-r.html#cb976-4" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb976-5"><a href="workshop-design-of-experiments-in-r.html#cb976-5" tabindex="-1"></a>    <span class="co"># Get mean difference / difference of means &#39;d&#39;</span></span>
-<span id="cb976-6"><a href="workshop-design-of-experiments-in-r.html#cb976-6" tabindex="-1"></a>    <span class="at">dbar =</span> <span class="fu">mean</span>(d),</span>
-<span id="cb976-7"><a href="workshop-design-of-experiments-in-r.html#cb976-7" tabindex="-1"></a>    <span class="co"># Calculate the variance of d, called &#39;variance&#39;</span></span>
-<span id="cb976-8"><a href="workshop-design-of-experiments-in-r.html#cb976-8" tabindex="-1"></a>    <span class="at">variance =</span> <span class="fu">sum</span>( (d <span class="sc">-</span> dbar)<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">/</span> (n <span class="sc">-</span> <span class="dv">1</span>),</span>
-<span id="cb976-9"><a href="workshop-design-of-experiments-in-r.html#cb976-9" tabindex="-1"></a>    <span class="co"># Calculate the standard deviation of d, by taking the square root of the variance</span></span>
-<span id="cb976-10"><a href="workshop-design-of-experiments-in-r.html#cb976-10" tabindex="-1"></a>    <span class="at">s_d =</span> <span class="fu">sqrt</span>(variance),</span>
-<span id="cb976-11"><a href="workshop-design-of-experiments-in-r.html#cb976-11" tabindex="-1"></a>    <span class="co"># Calculate the standard error sigma of d, </span></span>
-<span id="cb976-12"><a href="workshop-design-of-experiments-in-r.html#cb976-12" tabindex="-1"></a>    <span class="co"># by dividing the standard deviation by the total sample size</span></span>
-<span id="cb976-13"><a href="workshop-design-of-experiments-in-r.html#cb976-13" tabindex="-1"></a>    <span class="at">se =</span> s_d <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span></code></pre></div>
+<div class="sourceCode" id="cb1003"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1003-1"><a href="workshop-design-of-experiments-in-r.html#cb1003-1" tabindex="-1"></a>paired <span class="sc">%&gt;%</span> </span>
+<span id="cb1003-2"><a href="workshop-design-of-experiments-in-r.html#cb1003-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1003-3"><a href="workshop-design-of-experiments-in-r.html#cb1003-3" tabindex="-1"></a>    <span class="co"># Get the total pairs of donuts analyzed</span></span>
+<span id="cb1003-4"><a href="workshop-design-of-experiments-in-r.html#cb1003-4" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb1003-5"><a href="workshop-design-of-experiments-in-r.html#cb1003-5" tabindex="-1"></a>    <span class="co"># Get mean difference / difference of means &#39;d&#39;</span></span>
+<span id="cb1003-6"><a href="workshop-design-of-experiments-in-r.html#cb1003-6" tabindex="-1"></a>    <span class="at">dbar =</span> <span class="fu">mean</span>(d),</span>
+<span id="cb1003-7"><a href="workshop-design-of-experiments-in-r.html#cb1003-7" tabindex="-1"></a>    <span class="co"># Calculate the variance of d, called &#39;variance&#39;</span></span>
+<span id="cb1003-8"><a href="workshop-design-of-experiments-in-r.html#cb1003-8" tabindex="-1"></a>    <span class="at">variance =</span> <span class="fu">sum</span>( (d <span class="sc">-</span> dbar)<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">/</span> (n <span class="sc">-</span> <span class="dv">1</span>),</span>
+<span id="cb1003-9"><a href="workshop-design-of-experiments-in-r.html#cb1003-9" tabindex="-1"></a>    <span class="co"># Calculate the standard deviation of d, by taking the square root of the variance</span></span>
+<span id="cb1003-10"><a href="workshop-design-of-experiments-in-r.html#cb1003-10" tabindex="-1"></a>    <span class="at">s_d =</span> <span class="fu">sqrt</span>(variance),</span>
+<span id="cb1003-11"><a href="workshop-design-of-experiments-in-r.html#cb1003-11" tabindex="-1"></a>    <span class="co"># Calculate the standard error sigma of d, </span></span>
+<span id="cb1003-12"><a href="workshop-design-of-experiments-in-r.html#cb1003-12" tabindex="-1"></a>    <span class="co"># by dividing the standard deviation by the total sample size</span></span>
+<span id="cb1003-13"><a href="workshop-design-of-experiments-in-r.html#cb1003-13" tabindex="-1"></a>    <span class="at">se =</span> s_d <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##       n  dbar variance   s_d    se
 ##   &lt;int&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1    25  3.35     15.6  3.95 0.789</code></pre>
 <p>So, knowing what we do about the t-distribution, we can now run our paired sample t-test pretty quickly. Once we have a t-statistic, it’s pretty easy to then calculate a p-value, the share of statistics more extreme than ours. Let’s try calculating it all in one step!</p>
-<div class="sourceCode" id="cb978"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb978-1"><a href="workshop-design-of-experiments-in-r.html#cb978-1" tabindex="-1"></a>paired <span class="sc">%&gt;%</span></span>
-<span id="cb978-2"><a href="workshop-design-of-experiments-in-r.html#cb978-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb978-3"><a href="workshop-design-of-experiments-in-r.html#cb978-3" tabindex="-1"></a>            <span class="at">dbar =</span> <span class="fu">mean</span>(d),</span>
-<span id="cb978-4"><a href="workshop-design-of-experiments-in-r.html#cb978-4" tabindex="-1"></a>            <span class="at">se =</span>  <span class="fu">sqrt</span>( <span class="fu">sum</span>( (d <span class="sc">-</span> dbar)<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">/</span> (n <span class="sc">-</span> <span class="dv">1</span>) ) <span class="sc">/</span> <span class="fu">sqrt</span>(n),</span>
-<span id="cb978-5"><a href="workshop-design-of-experiments-in-r.html#cb978-5" tabindex="-1"></a>            <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>,</span>
-<span id="cb978-6"><a href="workshop-design-of-experiments-in-r.html#cb978-6" tabindex="-1"></a>            <span class="co"># Let&#39;s calculate our t-statistic, called &#39;statistic&#39;</span></span>
-<span id="cb978-7"><a href="workshop-design-of-experiments-in-r.html#cb978-7" tabindex="-1"></a>            <span class="at">statistic =</span> dbar <span class="sc">/</span> se,</span>
-<span id="cb978-8"><a href="workshop-design-of-experiments-in-r.html#cb978-8" tabindex="-1"></a>            <span class="co"># Get the **two-tailed** p-value</span></span>
-<span id="cb978-9"><a href="workshop-design-of-experiments-in-r.html#cb978-9" tabindex="-1"></a>            <span class="co"># by looking at the right side of the null distribution</span></span>
-<span id="cb978-10"><a href="workshop-design-of-experiments-in-r.html#cb978-10" tabindex="-1"></a>            <span class="co"># getting the percentage of stats greater than abs(statistic)</span></span>
-<span id="cb978-11"><a href="workshop-design-of-experiments-in-r.html#cb978-11" tabindex="-1"></a>            <span class="co"># subtracting that from 1 to get the one-tailed p-value</span></span>
-<span id="cb978-12"><a href="workshop-design-of-experiments-in-r.html#cb978-12" tabindex="-1"></a>            <span class="co"># then multiplying that percentage by 2,</span></span>
-<span id="cb978-13"><a href="workshop-design-of-experiments-in-r.html#cb978-13" tabindex="-1"></a>            <span class="co"># to represent the combined error on BOTH tails</span></span>
-<span id="cb978-14"><a href="workshop-design-of-experiments-in-r.html#cb978-14" tabindex="-1"></a>            <span class="at">p_value =</span> <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fu">abs</span>(statistic), df)),</span>
-<span id="cb978-15"><a href="workshop-design-of-experiments-in-r.html#cb978-15" tabindex="-1"></a>            <span class="co"># Let&#39;s also calculate our multiplier t on the t-distribution</span></span>
-<span id="cb978-16"><a href="workshop-design-of-experiments-in-r.html#cb978-16" tabindex="-1"></a>            <span class="co"># which will tell us how many standard deviations from the mean is the 97.5th percentile</span></span>
-<span id="cb978-17"><a href="workshop-design-of-experiments-in-r.html#cb978-17" tabindex="-1"></a>            <span class="at">t =</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, df),</span>
-<span id="cb978-18"><a href="workshop-design-of-experiments-in-r.html#cb978-18" tabindex="-1"></a>            <span class="co"># Next, let&#39;s calculate the upper and lower confidence intervals!</span></span>
-<span id="cb978-19"><a href="workshop-design-of-experiments-in-r.html#cb978-19" tabindex="-1"></a>            <span class="at">upper =</span> dbar <span class="sc">+</span> t <span class="sc">*</span> se,</span>
-<span id="cb978-20"><a href="workshop-design-of-experiments-in-r.html#cb978-20" tabindex="-1"></a>            <span class="at">lower =</span> dbar <span class="sc">-</span> t <span class="sc">*</span> se)</span></code></pre></div>
+<div class="sourceCode" id="cb1005"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1005-1"><a href="workshop-design-of-experiments-in-r.html#cb1005-1" tabindex="-1"></a>paired <span class="sc">%&gt;%</span></span>
+<span id="cb1005-2"><a href="workshop-design-of-experiments-in-r.html#cb1005-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb1005-3"><a href="workshop-design-of-experiments-in-r.html#cb1005-3" tabindex="-1"></a>            <span class="at">dbar =</span> <span class="fu">mean</span>(d),</span>
+<span id="cb1005-4"><a href="workshop-design-of-experiments-in-r.html#cb1005-4" tabindex="-1"></a>            <span class="at">se =</span>  <span class="fu">sqrt</span>( <span class="fu">sum</span>( (d <span class="sc">-</span> dbar)<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">/</span> (n <span class="sc">-</span> <span class="dv">1</span>) ) <span class="sc">/</span> <span class="fu">sqrt</span>(n),</span>
+<span id="cb1005-5"><a href="workshop-design-of-experiments-in-r.html#cb1005-5" tabindex="-1"></a>            <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>,</span>
+<span id="cb1005-6"><a href="workshop-design-of-experiments-in-r.html#cb1005-6" tabindex="-1"></a>            <span class="co"># Let&#39;s calculate our t-statistic, called &#39;statistic&#39;</span></span>
+<span id="cb1005-7"><a href="workshop-design-of-experiments-in-r.html#cb1005-7" tabindex="-1"></a>            <span class="at">statistic =</span> dbar <span class="sc">/</span> se,</span>
+<span id="cb1005-8"><a href="workshop-design-of-experiments-in-r.html#cb1005-8" tabindex="-1"></a>            <span class="co"># Get the **two-tailed** p-value</span></span>
+<span id="cb1005-9"><a href="workshop-design-of-experiments-in-r.html#cb1005-9" tabindex="-1"></a>            <span class="co"># by looking at the right side of the null distribution</span></span>
+<span id="cb1005-10"><a href="workshop-design-of-experiments-in-r.html#cb1005-10" tabindex="-1"></a>            <span class="co"># getting the percentage of stats greater than abs(statistic)</span></span>
+<span id="cb1005-11"><a href="workshop-design-of-experiments-in-r.html#cb1005-11" tabindex="-1"></a>            <span class="co"># subtracting that from 1 to get the one-tailed p-value</span></span>
+<span id="cb1005-12"><a href="workshop-design-of-experiments-in-r.html#cb1005-12" tabindex="-1"></a>            <span class="co"># then multiplying that percentage by 2,</span></span>
+<span id="cb1005-13"><a href="workshop-design-of-experiments-in-r.html#cb1005-13" tabindex="-1"></a>            <span class="co"># to represent the combined error on BOTH tails</span></span>
+<span id="cb1005-14"><a href="workshop-design-of-experiments-in-r.html#cb1005-14" tabindex="-1"></a>            <span class="at">p_value =</span> <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fu">abs</span>(statistic), df)),</span>
+<span id="cb1005-15"><a href="workshop-design-of-experiments-in-r.html#cb1005-15" tabindex="-1"></a>            <span class="co"># Let&#39;s also calculate our multiplier t on the t-distribution</span></span>
+<span id="cb1005-16"><a href="workshop-design-of-experiments-in-r.html#cb1005-16" tabindex="-1"></a>            <span class="co"># which will tell us how many standard deviations from the mean is the 97.5th percentile</span></span>
+<span id="cb1005-17"><a href="workshop-design-of-experiments-in-r.html#cb1005-17" tabindex="-1"></a>            <span class="at">t =</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, df),</span>
+<span id="cb1005-18"><a href="workshop-design-of-experiments-in-r.html#cb1005-18" tabindex="-1"></a>            <span class="co"># Next, let&#39;s calculate the upper and lower confidence intervals!</span></span>
+<span id="cb1005-19"><a href="workshop-design-of-experiments-in-r.html#cb1005-19" tabindex="-1"></a>            <span class="at">upper =</span> dbar <span class="sc">+</span> t <span class="sc">*</span> se,</span>
+<span id="cb1005-20"><a href="workshop-design-of-experiments-in-r.html#cb1005-20" tabindex="-1"></a>            <span class="at">lower =</span> dbar <span class="sc">-</span> t <span class="sc">*</span> se)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 9
 ##       n  dbar    se    df statistic  p_value     t upper lower
 ##   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1106,27 +1110,27 @@ Here, <span class="math inline">\(d\)</span> refers to the differences between g
 <p>On the other hand, suppose that our treatment and control group did <em>not</em> have the same sample size. (They usually don’t.) We can <em>alternatively</em> calculate the standard error using the standard deviations (<span class="math inline">\(s_1\)</span> and <span class="math inline">\(s_2\)</span>) and sample sizes (<span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span>) of the treatment and control groups.</p>
 <p><span class="math display">\[ \sigma = \sqrt{ \frac{s_{1}^{2}}{n_{1}} + \frac{s_{2}^{2}}{n_{2}}  } \]</span></p>
 <p>Let’s try it!</p>
-<div class="sourceCode" id="cb980"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb980-1"><a href="workshop-design-of-experiments-in-r.html#cb980-1" tabindex="-1"></a><span class="co"># For our unpaired sampled t-test...</span></span>
-<span id="cb980-2"><a href="workshop-design-of-experiments-in-r.html#cb980-2" tabindex="-1"></a>unpaired <span class="ot">=</span> donuts <span class="sc">%&gt;%</span></span>
-<span id="cb980-3"><a href="workshop-design-of-experiments-in-r.html#cb980-3" tabindex="-1"></a>  <span class="co"># For each type (donut maker)</span></span>
-<span id="cb980-4"><a href="workshop-design-of-experiments-in-r.html#cb980-4" tabindex="-1"></a>  <span class="fu">group_by</span>(type) <span class="sc">%&gt;%</span></span>
-<span id="cb980-5"><a href="workshop-design-of-experiments-in-r.html#cb980-5" tabindex="-1"></a>  <span class="co"># Calculate our basic ingredients...</span></span>
-<span id="cb980-6"><a href="workshop-design-of-experiments-in-r.html#cb980-6" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">xbar =</span> <span class="fu">mean</span>(weight), <span class="co"># mean of each group</span></span>
-<span id="cb980-7"><a href="workshop-design-of-experiments-in-r.html#cb980-7" tabindex="-1"></a>            <span class="at">s =</span> <span class="fu">sd</span>(weight), <span class="co"># standard deviation of each group</span></span>
-<span id="cb980-8"><a href="workshop-design-of-experiments-in-r.html#cb980-8" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> <span class="co"># sample size of each group</span></span>
-<span id="cb980-9"><a href="workshop-design-of-experiments-in-r.html#cb980-9" tabindex="-1"></a>  <span class="co"># then let&#39;s pivot the data into one row...</span></span>
-<span id="cb980-10"><a href="workshop-design-of-experiments-in-r.html#cb980-10" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb980-11"><a href="workshop-design-of-experiments-in-r.html#cb980-11" tabindex="-1"></a>    <span class="co"># Get the means....</span></span>
-<span id="cb980-12"><a href="workshop-design-of-experiments-in-r.html#cb980-12" tabindex="-1"></a>    <span class="at">xbar_a =</span> xbar[type <span class="sc">==</span> <span class="st">&quot;a&quot;</span>],</span>
-<span id="cb980-13"><a href="workshop-design-of-experiments-in-r.html#cb980-13" tabindex="-1"></a>    <span class="at">xbar_b =</span> xbar[type <span class="sc">==</span> <span class="st">&quot;b&quot;</span>],</span>
-<span id="cb980-14"><a href="workshop-design-of-experiments-in-r.html#cb980-14" tabindex="-1"></a>    <span class="co"># Get the standard deviations...</span></span>
-<span id="cb980-15"><a href="workshop-design-of-experiments-in-r.html#cb980-15" tabindex="-1"></a>    <span class="at">s_a =</span> s[type <span class="sc">==</span> <span class="st">&quot;a&quot;</span>],</span>
-<span id="cb980-16"><a href="workshop-design-of-experiments-in-r.html#cb980-16" tabindex="-1"></a>    <span class="at">s_b =</span> s[type <span class="sc">==</span> <span class="st">&quot;b&quot;</span>],</span>
-<span id="cb980-17"><a href="workshop-design-of-experiments-in-r.html#cb980-17" tabindex="-1"></a>    <span class="co"># Get the sample sizes...</span></span>
-<span id="cb980-18"><a href="workshop-design-of-experiments-in-r.html#cb980-18" tabindex="-1"></a>    <span class="at">n_a =</span> n[type <span class="sc">==</span> <span class="st">&quot;a&quot;</span>],</span>
-<span id="cb980-19"><a href="workshop-design-of-experiments-in-r.html#cb980-19" tabindex="-1"></a>    <span class="at">n_b =</span> n[type <span class="sc">==</span> <span class="st">&quot;b&quot;</span>])</span>
-<span id="cb980-20"><a href="workshop-design-of-experiments-in-r.html#cb980-20" tabindex="-1"></a></span>
-<span id="cb980-21"><a href="workshop-design-of-experiments-in-r.html#cb980-21" tabindex="-1"></a>unpaired</span></code></pre></div>
+<div class="sourceCode" id="cb1007"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1007-1"><a href="workshop-design-of-experiments-in-r.html#cb1007-1" tabindex="-1"></a><span class="co"># For our unpaired sampled t-test...</span></span>
+<span id="cb1007-2"><a href="workshop-design-of-experiments-in-r.html#cb1007-2" tabindex="-1"></a>unpaired <span class="ot">=</span> donuts <span class="sc">%&gt;%</span></span>
+<span id="cb1007-3"><a href="workshop-design-of-experiments-in-r.html#cb1007-3" tabindex="-1"></a>  <span class="co"># For each type (donut maker)</span></span>
+<span id="cb1007-4"><a href="workshop-design-of-experiments-in-r.html#cb1007-4" tabindex="-1"></a>  <span class="fu">group_by</span>(type) <span class="sc">%&gt;%</span></span>
+<span id="cb1007-5"><a href="workshop-design-of-experiments-in-r.html#cb1007-5" tabindex="-1"></a>  <span class="co"># Calculate our basic ingredients...</span></span>
+<span id="cb1007-6"><a href="workshop-design-of-experiments-in-r.html#cb1007-6" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">xbar =</span> <span class="fu">mean</span>(weight), <span class="co"># mean of each group</span></span>
+<span id="cb1007-7"><a href="workshop-design-of-experiments-in-r.html#cb1007-7" tabindex="-1"></a>            <span class="at">s =</span> <span class="fu">sd</span>(weight), <span class="co"># standard deviation of each group</span></span>
+<span id="cb1007-8"><a href="workshop-design-of-experiments-in-r.html#cb1007-8" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> <span class="co"># sample size of each group</span></span>
+<span id="cb1007-9"><a href="workshop-design-of-experiments-in-r.html#cb1007-9" tabindex="-1"></a>  <span class="co"># then let&#39;s pivot the data into one row...</span></span>
+<span id="cb1007-10"><a href="workshop-design-of-experiments-in-r.html#cb1007-10" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1007-11"><a href="workshop-design-of-experiments-in-r.html#cb1007-11" tabindex="-1"></a>    <span class="co"># Get the means....</span></span>
+<span id="cb1007-12"><a href="workshop-design-of-experiments-in-r.html#cb1007-12" tabindex="-1"></a>    <span class="at">xbar_a =</span> xbar[type <span class="sc">==</span> <span class="st">&quot;a&quot;</span>],</span>
+<span id="cb1007-13"><a href="workshop-design-of-experiments-in-r.html#cb1007-13" tabindex="-1"></a>    <span class="at">xbar_b =</span> xbar[type <span class="sc">==</span> <span class="st">&quot;b&quot;</span>],</span>
+<span id="cb1007-14"><a href="workshop-design-of-experiments-in-r.html#cb1007-14" tabindex="-1"></a>    <span class="co"># Get the standard deviations...</span></span>
+<span id="cb1007-15"><a href="workshop-design-of-experiments-in-r.html#cb1007-15" tabindex="-1"></a>    <span class="at">s_a =</span> s[type <span class="sc">==</span> <span class="st">&quot;a&quot;</span>],</span>
+<span id="cb1007-16"><a href="workshop-design-of-experiments-in-r.html#cb1007-16" tabindex="-1"></a>    <span class="at">s_b =</span> s[type <span class="sc">==</span> <span class="st">&quot;b&quot;</span>],</span>
+<span id="cb1007-17"><a href="workshop-design-of-experiments-in-r.html#cb1007-17" tabindex="-1"></a>    <span class="co"># Get the sample sizes...</span></span>
+<span id="cb1007-18"><a href="workshop-design-of-experiments-in-r.html#cb1007-18" tabindex="-1"></a>    <span class="at">n_a =</span> n[type <span class="sc">==</span> <span class="st">&quot;a&quot;</span>],</span>
+<span id="cb1007-19"><a href="workshop-design-of-experiments-in-r.html#cb1007-19" tabindex="-1"></a>    <span class="at">n_b =</span> n[type <span class="sc">==</span> <span class="st">&quot;b&quot;</span>])</span>
+<span id="cb1007-20"><a href="workshop-design-of-experiments-in-r.html#cb1007-20" tabindex="-1"></a></span>
+<span id="cb1007-21"><a href="workshop-design-of-experiments-in-r.html#cb1007-21" tabindex="-1"></a>unpaired</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
 ##   xbar_a xbar_b   s_a   s_b   n_a   n_b
 ##    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt;
@@ -1134,34 +1138,34 @@ Here, <span class="math inline">\(d\)</span> refers to the differences between g
 <p>We should also probably assume that our variances are <em>not</em> equal, meaning that we need to use a new formula to calculate our <em>degrees of freedom.</em> That formula is absolutely ridiculously large!</p>
 <p><span class="math display">\[  df = \frac{ ( \frac{s_1^2}{n_1} + \frac{s_2^2}{n_2})^2   }{ \frac{ (s_1^2 / n_1)^2 }{ n_1 - 1 } + \frac{(s_2^2 / n_2)^2 }{ n_2 - 1 }}  \]</span>
 Now, that’s pretty silly, so I’ve written a short <code>function</code> for us here. In a moment, we’re about to learn a really-really short method for t-tests, but it’s important that you know <em>how it works first</em>.</p>
-<div class="sourceCode" id="cb982"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb982-1"><a href="workshop-design-of-experiments-in-r.html#cb982-1" tabindex="-1"></a>df <span class="ot">=</span> <span class="cf">function</span>(s1, n1, s2, n2){</span>
-<span id="cb982-2"><a href="workshop-design-of-experiments-in-r.html#cb982-2" tabindex="-1"></a>  <span class="co"># Calculate our ingredients...</span></span>
-<span id="cb982-3"><a href="workshop-design-of-experiments-in-r.html#cb982-3" tabindex="-1"></a>  top <span class="ot">=</span> (s1<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n1 <span class="sc">+</span> s2<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n2)<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb982-4"><a href="workshop-design-of-experiments-in-r.html#cb982-4" tabindex="-1"></a>  bottom_left <span class="ot">=</span> (s1<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n1)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (n1 <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb982-5"><a href="workshop-design-of-experiments-in-r.html#cb982-5" tabindex="-1"></a>  bottom_right <span class="ot">=</span> (s2<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n2)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (n2 <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb982-6"><a href="workshop-design-of-experiments-in-r.html#cb982-6" tabindex="-1"></a>  <span class="co"># Return the degrees of freedom</span></span>
-<span id="cb982-7"><a href="workshop-design-of-experiments-in-r.html#cb982-7" tabindex="-1"></a>  top <span class="sc">/</span> (bottom_left <span class="sc">+</span> bottom_right)</span>
-<span id="cb982-8"><a href="workshop-design-of-experiments-in-r.html#cb982-8" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb1009"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1009-1"><a href="workshop-design-of-experiments-in-r.html#cb1009-1" tabindex="-1"></a>df <span class="ot">=</span> <span class="cf">function</span>(s1, n1, s2, n2){</span>
+<span id="cb1009-2"><a href="workshop-design-of-experiments-in-r.html#cb1009-2" tabindex="-1"></a>  <span class="co"># Calculate our ingredients...</span></span>
+<span id="cb1009-3"><a href="workshop-design-of-experiments-in-r.html#cb1009-3" tabindex="-1"></a>  top <span class="ot">=</span> (s1<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n1 <span class="sc">+</span> s2<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n2)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb1009-4"><a href="workshop-design-of-experiments-in-r.html#cb1009-4" tabindex="-1"></a>  bottom_left <span class="ot">=</span> (s1<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n1)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (n1 <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb1009-5"><a href="workshop-design-of-experiments-in-r.html#cb1009-5" tabindex="-1"></a>  bottom_right <span class="ot">=</span> (s2<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n2)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (n2 <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb1009-6"><a href="workshop-design-of-experiments-in-r.html#cb1009-6" tabindex="-1"></a>  <span class="co"># Return the degrees of freedom</span></span>
+<span id="cb1009-7"><a href="workshop-design-of-experiments-in-r.html#cb1009-7" tabindex="-1"></a>  top <span class="sc">/</span> (bottom_left <span class="sc">+</span> bottom_right)</span>
+<span id="cb1009-8"><a href="workshop-design-of-experiments-in-r.html#cb1009-8" tabindex="-1"></a>}</span></code></pre></div>
 <p>Now, let’s calculate our quantities of interest!</p>
-<div class="sourceCode" id="cb983"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb983-1"><a href="workshop-design-of-experiments-in-r.html#cb983-1" tabindex="-1"></a>unpaired <span class="sc">%&gt;%</span></span>
-<span id="cb983-2"><a href="workshop-design-of-experiments-in-r.html#cb983-2" tabindex="-1"></a>  <span class="co"># Let&#39;s calculate...</span></span>
-<span id="cb983-3"><a href="workshop-design-of-experiments-in-r.html#cb983-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb983-4"><a href="workshop-design-of-experiments-in-r.html#cb983-4" tabindex="-1"></a>    <span class="co"># difference of means</span></span>
-<span id="cb983-5"><a href="workshop-design-of-experiments-in-r.html#cb983-5" tabindex="-1"></a>    <span class="at">dbar =</span> xbar_b <span class="sc">-</span> xbar_a,</span>
-<span id="cb983-6"><a href="workshop-design-of-experiments-in-r.html#cb983-6" tabindex="-1"></a>    <span class="co"># standard error            </span></span>
-<span id="cb983-7"><a href="workshop-design-of-experiments-in-r.html#cb983-7" tabindex="-1"></a>    <span class="at">se =</span> <span class="fu">sqrt</span>(s_a<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n_a <span class="sc">+</span> s_b<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n_b),</span>
-<span id="cb983-8"><a href="workshop-design-of-experiments-in-r.html#cb983-8" tabindex="-1"></a>    <span class="co"># t-statistic</span></span>
-<span id="cb983-9"><a href="workshop-design-of-experiments-in-r.html#cb983-9" tabindex="-1"></a>    <span class="at">statistic =</span> dbar <span class="sc">/</span> se,</span>
-<span id="cb983-10"><a href="workshop-design-of-experiments-in-r.html#cb983-10" tabindex="-1"></a>    <span class="co"># degrees of freedom</span></span>
-<span id="cb983-11"><a href="workshop-design-of-experiments-in-r.html#cb983-11" tabindex="-1"></a>    <span class="at">df =</span> <span class="fu">df</span>(<span class="at">s1 =</span> s_a, <span class="at">s2 =</span> s_b, <span class="at">n1 =</span> n_a, <span class="at">n2 =</span> n_b),</span>
-<span id="cb983-12"><a href="workshop-design-of-experiments-in-r.html#cb983-12" tabindex="-1"></a>    <span class="co"># p-value</span></span>
-<span id="cb983-13"><a href="workshop-design-of-experiments-in-r.html#cb983-13" tabindex="-1"></a>    <span class="at">p_value =</span> <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fu">abs</span>(statistic), <span class="at">df =</span> df)),</span>
-<span id="cb983-14"><a href="workshop-design-of-experiments-in-r.html#cb983-14" tabindex="-1"></a>    <span class="co"># multiplier t</span></span>
-<span id="cb983-15"><a href="workshop-design-of-experiments-in-r.html#cb983-15" tabindex="-1"></a>    <span class="at">t =</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, df),</span>
-<span id="cb983-16"><a href="workshop-design-of-experiments-in-r.html#cb983-16" tabindex="-1"></a>    <span class="co"># lower 2.5% CI</span></span>
-<span id="cb983-17"><a href="workshop-design-of-experiments-in-r.html#cb983-17" tabindex="-1"></a>    <span class="at">lower =</span> dbar <span class="sc">-</span> t <span class="sc">*</span> se,</span>
-<span id="cb983-18"><a href="workshop-design-of-experiments-in-r.html#cb983-18" tabindex="-1"></a>    <span class="co"># upper 97.5% CI</span></span>
-<span id="cb983-19"><a href="workshop-design-of-experiments-in-r.html#cb983-19" tabindex="-1"></a>    <span class="at">upper =</span> dbar <span class="sc">+</span> t <span class="sc">*</span> se)</span></code></pre></div>
+<div class="sourceCode" id="cb1010"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1010-1"><a href="workshop-design-of-experiments-in-r.html#cb1010-1" tabindex="-1"></a>unpaired <span class="sc">%&gt;%</span></span>
+<span id="cb1010-2"><a href="workshop-design-of-experiments-in-r.html#cb1010-2" tabindex="-1"></a>  <span class="co"># Let&#39;s calculate...</span></span>
+<span id="cb1010-3"><a href="workshop-design-of-experiments-in-r.html#cb1010-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1010-4"><a href="workshop-design-of-experiments-in-r.html#cb1010-4" tabindex="-1"></a>    <span class="co"># difference of means</span></span>
+<span id="cb1010-5"><a href="workshop-design-of-experiments-in-r.html#cb1010-5" tabindex="-1"></a>    <span class="at">dbar =</span> xbar_b <span class="sc">-</span> xbar_a,</span>
+<span id="cb1010-6"><a href="workshop-design-of-experiments-in-r.html#cb1010-6" tabindex="-1"></a>    <span class="co"># standard error            </span></span>
+<span id="cb1010-7"><a href="workshop-design-of-experiments-in-r.html#cb1010-7" tabindex="-1"></a>    <span class="at">se =</span> <span class="fu">sqrt</span>(s_a<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n_a <span class="sc">+</span> s_b<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n_b),</span>
+<span id="cb1010-8"><a href="workshop-design-of-experiments-in-r.html#cb1010-8" tabindex="-1"></a>    <span class="co"># t-statistic</span></span>
+<span id="cb1010-9"><a href="workshop-design-of-experiments-in-r.html#cb1010-9" tabindex="-1"></a>    <span class="at">statistic =</span> dbar <span class="sc">/</span> se,</span>
+<span id="cb1010-10"><a href="workshop-design-of-experiments-in-r.html#cb1010-10" tabindex="-1"></a>    <span class="co"># degrees of freedom</span></span>
+<span id="cb1010-11"><a href="workshop-design-of-experiments-in-r.html#cb1010-11" tabindex="-1"></a>    <span class="at">df =</span> <span class="fu">df</span>(<span class="at">s1 =</span> s_a, <span class="at">s2 =</span> s_b, <span class="at">n1 =</span> n_a, <span class="at">n2 =</span> n_b),</span>
+<span id="cb1010-12"><a href="workshop-design-of-experiments-in-r.html#cb1010-12" tabindex="-1"></a>    <span class="co"># p-value</span></span>
+<span id="cb1010-13"><a href="workshop-design-of-experiments-in-r.html#cb1010-13" tabindex="-1"></a>    <span class="at">p_value =</span> <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fu">abs</span>(statistic), <span class="at">df =</span> df)),</span>
+<span id="cb1010-14"><a href="workshop-design-of-experiments-in-r.html#cb1010-14" tabindex="-1"></a>    <span class="co"># multiplier t</span></span>
+<span id="cb1010-15"><a href="workshop-design-of-experiments-in-r.html#cb1010-15" tabindex="-1"></a>    <span class="at">t =</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, df),</span>
+<span id="cb1010-16"><a href="workshop-design-of-experiments-in-r.html#cb1010-16" tabindex="-1"></a>    <span class="co"># lower 2.5% CI</span></span>
+<span id="cb1010-17"><a href="workshop-design-of-experiments-in-r.html#cb1010-17" tabindex="-1"></a>    <span class="at">lower =</span> dbar <span class="sc">-</span> t <span class="sc">*</span> se,</span>
+<span id="cb1010-18"><a href="workshop-design-of-experiments-in-r.html#cb1010-18" tabindex="-1"></a>    <span class="co"># upper 97.5% CI</span></span>
+<span id="cb1010-19"><a href="workshop-design-of-experiments-in-r.html#cb1010-19" tabindex="-1"></a>    <span class="at">upper =</span> dbar <span class="sc">+</span> t <span class="sc">*</span> se)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 8
 ##    dbar    se statistic    df  p_value     t lower upper
 ##   &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1175,16 +1179,16 @@ Now, that’s pretty silly, so I’ve written a short <code>function</code> for 
 <h2><span class="header-section-number">13.5</span> Speedy t-tests<a href="workshop-design-of-experiments-in-r.html#speedy-t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Wow, that took a bit! Wouldn’t it be nice if some statisticians, social scientists, and natural scientists teamed up to write a single <code>R</code> function that did all that really quickly? They did! It’s called <code>t.test()</code>. You can query it using the code below, then extract its results into a data.frame using <code>tidy()</code> from the <code>broom</code> package. It allows you to simply dictate whether you want a paired test or not (<code>paired</code>) and whether you assume the variances in each group to be equal or noth (<code>var.equal</code>).</p>
 <p>There’s just one catch. You <strong>must (!!!)</strong> turn your grouping variable <code>type</code> into a factor, where the treatment group comes first, followed by the control group. Otherwise, <code>R</code> will default to alphabetical order when calculating the difference of means. (Very important!)</p>
-<div class="sourceCode" id="cb985"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb985-1"><a href="workshop-design-of-experiments-in-r.html#cb985-1" tabindex="-1"></a>donuts2 <span class="ot">=</span> donuts <span class="sc">%&gt;%</span></span>
-<span id="cb985-2"><a href="workshop-design-of-experiments-in-r.html#cb985-2" tabindex="-1"></a>  <span class="co"># Convert type to factor, where treatment group b is first</span></span>
-<span id="cb985-3"><a href="workshop-design-of-experiments-in-r.html#cb985-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">factor</span>(type, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;b&quot;</span>, <span class="st">&quot;a&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb1012"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1012-1"><a href="workshop-design-of-experiments-in-r.html#cb1012-1" tabindex="-1"></a>donuts2 <span class="ot">=</span> donuts <span class="sc">%&gt;%</span></span>
+<span id="cb1012-2"><a href="workshop-design-of-experiments-in-r.html#cb1012-2" tabindex="-1"></a>  <span class="co"># Convert type to factor, where treatment group b is first</span></span>
+<span id="cb1012-3"><a href="workshop-design-of-experiments-in-r.html#cb1012-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">factor</span>(type, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;b&quot;</span>, <span class="st">&quot;a&quot;</span>)))</span></code></pre></div>
 <ul>
 <li><strong>paired t-test (equal variance)</strong> <code>t.test(outcome_var ~ group_var, paired = TRUE, var.equal = TRUE)</code></li>
 </ul>
-<div class="sourceCode" id="cb986"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb986-1"><a href="workshop-design-of-experiments-in-r.html#cb986-1" tabindex="-1"></a>donuts2 <span class="sc">%&gt;%</span></span>
-<span id="cb986-2"><a href="workshop-design-of-experiments-in-r.html#cb986-2" tabindex="-1"></a>  <span class="co"># Run our t-test using the data from donuts, then tidy() it into a data.frame</span></span>
-<span id="cb986-3"><a href="workshop-design-of-experiments-in-r.html#cb986-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb986-4"><a href="workshop-design-of-experiments-in-r.html#cb986-4" tabindex="-1"></a>    <span class="fu">t.test</span>(weight <span class="sc">~</span> type,  <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="at">var.equal =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb1013"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1013-1"><a href="workshop-design-of-experiments-in-r.html#cb1013-1" tabindex="-1"></a>donuts2 <span class="sc">%&gt;%</span></span>
+<span id="cb1013-2"><a href="workshop-design-of-experiments-in-r.html#cb1013-2" tabindex="-1"></a>  <span class="co"># Run our t-test using the data from donuts, then tidy() it into a data.frame</span></span>
+<span id="cb1013-3"><a href="workshop-design-of-experiments-in-r.html#cb1013-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1013-4"><a href="workshop-design-of-experiments-in-r.html#cb1013-4" tabindex="-1"></a>    <span class="fu">t.test</span>(weight <span class="sc">~</span> type,  <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="at">var.equal =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>())</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 8
 ##   estimate statistic  p.value parameter conf.low conf.high method    alternative
 ##      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;      
@@ -1192,9 +1196,9 @@ Now, that’s pretty silly, so I’ve written a short <code>function</code> for 
 <ul>
 <li><strong>unpaired t-test (equal variance)</strong>: <code>t.test(outcome_var ~ group_var, paired = FALSE, var.equal = TRUE)</code></li>
 </ul>
-<div class="sourceCode" id="cb988"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb988-1"><a href="workshop-design-of-experiments-in-r.html#cb988-1" tabindex="-1"></a>donuts2 <span class="sc">%&gt;%</span></span>
-<span id="cb988-2"><a href="workshop-design-of-experiments-in-r.html#cb988-2" tabindex="-1"></a>  <span class="co"># Run our t-test using the data from donuts, then tidy() it into a data.frame</span></span>
-<span id="cb988-3"><a href="workshop-design-of-experiments-in-r.html#cb988-3" tabindex="-1"></a>  <span class="fu">summarize</span>(  <span class="fu">t.test</span>(weight <span class="sc">~</span> type, <span class="at">paired =</span> <span class="cn">FALSE</span>, <span class="at">var.equal =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()  )</span></code></pre></div>
+<div class="sourceCode" id="cb1015"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1015-1"><a href="workshop-design-of-experiments-in-r.html#cb1015-1" tabindex="-1"></a>donuts2 <span class="sc">%&gt;%</span></span>
+<span id="cb1015-2"><a href="workshop-design-of-experiments-in-r.html#cb1015-2" tabindex="-1"></a>  <span class="co"># Run our t-test using the data from donuts, then tidy() it into a data.frame</span></span>
+<span id="cb1015-3"><a href="workshop-design-of-experiments-in-r.html#cb1015-3" tabindex="-1"></a>  <span class="fu">summarize</span>(  <span class="fu">t.test</span>(weight <span class="sc">~</span> type, <span class="at">paired =</span> <span class="cn">FALSE</span>, <span class="at">var.equal =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()  )</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 10
 ##   estimate estimate1 estimate2 statistic  p.value parameter conf.low conf.high
 ##      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
@@ -1203,9 +1207,9 @@ Now, that’s pretty silly, so I’ve written a short <code>function</code> for 
 <ul>
 <li><strong>unpaired t-test (unequal variance)</strong>: <code>t.test(outcome_var ~ group_var, paried = FALSE, var.equal = FALSE)</code></li>
 </ul>
-<div class="sourceCode" id="cb990"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb990-1"><a href="workshop-design-of-experiments-in-r.html#cb990-1" tabindex="-1"></a>donuts2 <span class="sc">%&gt;%</span></span>
-<span id="cb990-2"><a href="workshop-design-of-experiments-in-r.html#cb990-2" tabindex="-1"></a>  <span class="co"># Run our t-test using the data from donuts, then tidy() it into a data.frame</span></span>
-<span id="cb990-3"><a href="workshop-design-of-experiments-in-r.html#cb990-3" tabindex="-1"></a>  <span class="fu">summarize</span>(  <span class="fu">t.test</span>(weight <span class="sc">~</span> type, <span class="at">paired =</span> <span class="cn">FALSE</span>, <span class="at">var.equal =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()  )</span></code></pre></div>
+<div class="sourceCode" id="cb1017"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1017-1"><a href="workshop-design-of-experiments-in-r.html#cb1017-1" tabindex="-1"></a>donuts2 <span class="sc">%&gt;%</span></span>
+<span id="cb1017-2"><a href="workshop-design-of-experiments-in-r.html#cb1017-2" tabindex="-1"></a>  <span class="co"># Run our t-test using the data from donuts, then tidy() it into a data.frame</span></span>
+<span id="cb1017-3"><a href="workshop-design-of-experiments-in-r.html#cb1017-3" tabindex="-1"></a>  <span class="fu">summarize</span>(  <span class="fu">t.test</span>(weight <span class="sc">~</span> type, <span class="at">paired =</span> <span class="cn">FALSE</span>, <span class="at">var.equal =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()  )</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 10
 ##   estimate estimate1 estimate2 statistic  p.value parameter conf.low conf.high
 ##      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
@@ -1221,14 +1225,14 @@ Now, that’s pretty silly, so I’ve written a short <code>function</code> for 
 <div id="visualizing-anova" class="section level3 hasAnchor" number="13.6.1">
 <h3><span class="header-section-number">13.6.1</span> Visualizing ANOVA<a href="workshop-design-of-experiments-in-r.html#visualizing-anova" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Practically speaking, <code>ANOVA</code> tries to ascertain how far apart three distributions are from each other, and the F statistic (ranging from <code>0</code> to <code>Inf</code>) shows <em>how extreme is the difference between these distributions</em>. If minor, F is near 0. If large gaps, F grows.</p>
-<div class="sourceCode" id="cb992"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb992-1"><a href="workshop-design-of-experiments-in-r.html#cb992-1" tabindex="-1"></a>donuts <span class="sc">%&gt;%</span></span>
-<span id="cb992-2"><a href="workshop-design-of-experiments-in-r.html#cb992-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> baker, <span class="at">y =</span> weight, <span class="at">color =</span> baker)) <span class="sc">+</span></span>
-<span id="cb992-3"><a href="workshop-design-of-experiments-in-r.html#cb992-3" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
-<span id="cb992-4"><a href="workshop-design-of-experiments-in-r.html#cb992-4" tabindex="-1"></a>              <span class="co"># Let&#39;s make a a bunch of donuts, using shape = 21 with white fill</span></span>
-<span id="cb992-5"><a href="workshop-design-of-experiments-in-r.html#cb992-5" tabindex="-1"></a>              <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>,</span>
-<span id="cb992-6"><a href="workshop-design-of-experiments-in-r.html#cb992-6" tabindex="-1"></a>              <span class="co"># and increase the width of the outline with &#39;stroke&#39;</span></span>
-<span id="cb992-7"><a href="workshop-design-of-experiments-in-r.html#cb992-7" tabindex="-1"></a>              <span class="at">stroke =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb992-8"><a href="workshop-design-of-experiments-in-r.html#cb992-8" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1019"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1019-1"><a href="workshop-design-of-experiments-in-r.html#cb1019-1" tabindex="-1"></a>donuts <span class="sc">%&gt;%</span></span>
+<span id="cb1019-2"><a href="workshop-design-of-experiments-in-r.html#cb1019-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> baker, <span class="at">y =</span> weight, <span class="at">color =</span> baker)) <span class="sc">+</span></span>
+<span id="cb1019-3"><a href="workshop-design-of-experiments-in-r.html#cb1019-3" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
+<span id="cb1019-4"><a href="workshop-design-of-experiments-in-r.html#cb1019-4" tabindex="-1"></a>              <span class="co"># Let&#39;s make a a bunch of donuts, using shape = 21 with white fill</span></span>
+<span id="cb1019-5"><a href="workshop-design-of-experiments-in-r.html#cb1019-5" tabindex="-1"></a>              <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;goldenrod&quot;</span>,</span>
+<span id="cb1019-6"><a href="workshop-design-of-experiments-in-r.html#cb1019-6" tabindex="-1"></a>              <span class="co"># and increase the width of the outline with &#39;stroke&#39;</span></span>
+<span id="cb1019-7"><a href="workshop-design-of-experiments-in-r.html#cb1019-7" tabindex="-1"></a>              <span class="at">stroke =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb1019-8"><a href="workshop-design-of-experiments-in-r.html#cb1019-8" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code></pre></div>
 <p><img src="13_workshop_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p>I dunno what Craig’s doing, but his donuts are <em>definitely</em> not like Melanie or Kim’s donuts. Craig’s donuts are like lead bricks. So, can we put a number to just how bad Craig is at making donuts?</p>
 </div>
@@ -1251,40 +1255,40 @@ Now, that’s pretty silly, so I’ve written a short <code>function</code> for 
 <li><p>Residual Sum of Squares measures how much deviation remains between your treatment group means and other values within each treatment group. This is the <em>unexplained error</em> in your model.</p></li>
 <li><p>Explained Sum of Squares measures how much deviation <em>was explained</em> by your treatment group means (your model).</p></li>
 </ul>
-<div class="sourceCode" id="cb994"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb994-1"><a href="workshop-design-of-experiments-in-r.html#cb994-1" tabindex="-1"></a>qi <span class="ot">=</span> values <span class="sc">%&gt;%</span></span>
-<span id="cb994-2"><a href="workshop-design-of-experiments-in-r.html#cb994-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb994-3"><a href="workshop-design-of-experiments-in-r.html#cb994-3" tabindex="-1"></a>    <span class="co"># Calculate the *total* sum of squares</span></span>
-<span id="cb994-4"><a href="workshop-design-of-experiments-in-r.html#cb994-4" tabindex="-1"></a>    <span class="co"># compared to the grand mean</span></span>
-<span id="cb994-5"><a href="workshop-design-of-experiments-in-r.html#cb994-5" tabindex="-1"></a>    <span class="at">tss =</span> <span class="fu">sum</span>( (weight <span class="sc">-</span> xbbar)<span class="sc">^</span><span class="dv">2</span>),</span>
-<span id="cb994-6"><a href="workshop-design-of-experiments-in-r.html#cb994-6" tabindex="-1"></a>    <span class="co"># Calculate the *residual* sum of squares</span></span>
-<span id="cb994-7"><a href="workshop-design-of-experiments-in-r.html#cb994-7" tabindex="-1"></a>    <span class="co"># compared to the your &#39;model&#39; prediction, xbar</span></span>
-<span id="cb994-8"><a href="workshop-design-of-experiments-in-r.html#cb994-8" tabindex="-1"></a>    <span class="co"># in this case, your model is the idea that the</span></span>
-<span id="cb994-9"><a href="workshop-design-of-experiments-in-r.html#cb994-9" tabindex="-1"></a>    <span class="co"># mean of each treatment group explains the difference in weight.</span></span>
-<span id="cb994-10"><a href="workshop-design-of-experiments-in-r.html#cb994-10" tabindex="-1"></a>    <span class="at">rss =</span> <span class="fu">sum</span>( (weight <span class="sc">-</span> xbar)<span class="sc">^</span><span class="dv">2</span> ),</span>
-<span id="cb994-11"><a href="workshop-design-of-experiments-in-r.html#cb994-11" tabindex="-1"></a>    <span class="co"># calculate the ess - the explained sum of squares</span></span>
-<span id="cb994-12"><a href="workshop-design-of-experiments-in-r.html#cb994-12" tabindex="-1"></a>    <span class="co"># a.k.a the variation explained by the &#39;model&#39;</span></span>
-<span id="cb994-13"><a href="workshop-design-of-experiments-in-r.html#cb994-13" tabindex="-1"></a>    <span class="at">ess =</span> tss <span class="sc">-</span> rss,    </span>
-<span id="cb994-14"><a href="workshop-design-of-experiments-in-r.html#cb994-14" tabindex="-1"></a>    <span class="co"># Get the total number of treatment groups, k</span></span>
-<span id="cb994-15"><a href="workshop-design-of-experiments-in-r.html#cb994-15" tabindex="-1"></a>    <span class="at">k =</span> baker <span class="sc">%&gt;%</span> <span class="fu">unique</span>() <span class="sc">%&gt;%</span> <span class="fu">length</span>(),</span>
-<span id="cb994-16"><a href="workshop-design-of-experiments-in-r.html#cb994-16" tabindex="-1"></a>    <span class="co"># Get the total sample size</span></span>
-<span id="cb994-17"><a href="workshop-design-of-experiments-in-r.html#cb994-17" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>())</span>
-<span id="cb994-18"><a href="workshop-design-of-experiments-in-r.html#cb994-18" tabindex="-1"></a><span class="co"># View it!</span></span>
-<span id="cb994-19"><a href="workshop-design-of-experiments-in-r.html#cb994-19" tabindex="-1"></a>qi</span></code></pre></div>
+<div class="sourceCode" id="cb1021"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1021-1"><a href="workshop-design-of-experiments-in-r.html#cb1021-1" tabindex="-1"></a>qi <span class="ot">=</span> values <span class="sc">%&gt;%</span></span>
+<span id="cb1021-2"><a href="workshop-design-of-experiments-in-r.html#cb1021-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1021-3"><a href="workshop-design-of-experiments-in-r.html#cb1021-3" tabindex="-1"></a>    <span class="co"># Calculate the *total* sum of squares</span></span>
+<span id="cb1021-4"><a href="workshop-design-of-experiments-in-r.html#cb1021-4" tabindex="-1"></a>    <span class="co"># compared to the grand mean</span></span>
+<span id="cb1021-5"><a href="workshop-design-of-experiments-in-r.html#cb1021-5" tabindex="-1"></a>    <span class="at">tss =</span> <span class="fu">sum</span>( (weight <span class="sc">-</span> xbbar)<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb1021-6"><a href="workshop-design-of-experiments-in-r.html#cb1021-6" tabindex="-1"></a>    <span class="co"># Calculate the *residual* sum of squares</span></span>
+<span id="cb1021-7"><a href="workshop-design-of-experiments-in-r.html#cb1021-7" tabindex="-1"></a>    <span class="co"># compared to the your &#39;model&#39; prediction, xbar</span></span>
+<span id="cb1021-8"><a href="workshop-design-of-experiments-in-r.html#cb1021-8" tabindex="-1"></a>    <span class="co"># in this case, your model is the idea that the</span></span>
+<span id="cb1021-9"><a href="workshop-design-of-experiments-in-r.html#cb1021-9" tabindex="-1"></a>    <span class="co"># mean of each treatment group explains the difference in weight.</span></span>
+<span id="cb1021-10"><a href="workshop-design-of-experiments-in-r.html#cb1021-10" tabindex="-1"></a>    <span class="at">rss =</span> <span class="fu">sum</span>( (weight <span class="sc">-</span> xbar)<span class="sc">^</span><span class="dv">2</span> ),</span>
+<span id="cb1021-11"><a href="workshop-design-of-experiments-in-r.html#cb1021-11" tabindex="-1"></a>    <span class="co"># calculate the ess - the explained sum of squares</span></span>
+<span id="cb1021-12"><a href="workshop-design-of-experiments-in-r.html#cb1021-12" tabindex="-1"></a>    <span class="co"># a.k.a the variation explained by the &#39;model&#39;</span></span>
+<span id="cb1021-13"><a href="workshop-design-of-experiments-in-r.html#cb1021-13" tabindex="-1"></a>    <span class="at">ess =</span> tss <span class="sc">-</span> rss,    </span>
+<span id="cb1021-14"><a href="workshop-design-of-experiments-in-r.html#cb1021-14" tabindex="-1"></a>    <span class="co"># Get the total number of treatment groups, k</span></span>
+<span id="cb1021-15"><a href="workshop-design-of-experiments-in-r.html#cb1021-15" tabindex="-1"></a>    <span class="at">k =</span> baker <span class="sc">%&gt;%</span> <span class="fu">unique</span>() <span class="sc">%&gt;%</span> <span class="fu">length</span>(),</span>
+<span id="cb1021-16"><a href="workshop-design-of-experiments-in-r.html#cb1021-16" tabindex="-1"></a>    <span class="co"># Get the total sample size</span></span>
+<span id="cb1021-17"><a href="workshop-design-of-experiments-in-r.html#cb1021-17" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>())</span>
+<span id="cb1021-18"><a href="workshop-design-of-experiments-in-r.html#cb1021-18" tabindex="-1"></a><span class="co"># View it!</span></span>
+<span id="cb1021-19"><a href="workshop-design-of-experiments-in-r.html#cb1021-19" tabindex="-1"></a>qi</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##     tss   rss   ess     k     n
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt;
 ## 1  515.  407.  108.     3    50</code></pre>
 <p>Then, let’s use our <code>qi</code> to calculate an F statistic!</p>
 <p>Though our ESS and RSS give us the <em>sum</em> of our squared deviations, we know that some data points are bound to vary more than others. So, we should really evaluate the relative distance between our distributions using an <em>average</em> of the ESS (called the <code>mean_squares_explained</code>) and an <em>average</em> of the RSS (called the <code>mean_squares_explained</code> - its squart root is the root-mean-squared-error, a.k.a. <em>sigma</em>!!!).</p>
-<div class="sourceCode" id="cb996"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb996-1"><a href="workshop-design-of-experiments-in-r.html#cb996-1" tabindex="-1"></a>qi <span class="sc">%&gt;%</span></span>
-<span id="cb996-2"><a href="workshop-design-of-experiments-in-r.html#cb996-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb996-3"><a href="workshop-design-of-experiments-in-r.html#cb996-3" tabindex="-1"></a>    <span class="co"># Get the average variation explained by dividing by k - 1 groups</span></span>
-<span id="cb996-4"><a href="workshop-design-of-experiments-in-r.html#cb996-4" tabindex="-1"></a>    <span class="at">mean_squares_explained =</span> ess <span class="sc">/</span> (k <span class="sc">-</span> <span class="dv">1</span>),</span>
-<span id="cb996-5"><a href="workshop-design-of-experiments-in-r.html#cb996-5" tabindex="-1"></a>    <span class="co"># Get the average variation unexplained by dividing by n - k</span></span>
-<span id="cb996-6"><a href="workshop-design-of-experiments-in-r.html#cb996-6" tabindex="-1"></a>    <span class="at">mean_squared_error =</span> rss <span class="sc">/</span> (n <span class="sc">-</span> k) ) <span class="sc">%&gt;%</span>  </span>
-<span id="cb996-7"><a href="workshop-design-of-experiments-in-r.html#cb996-7" tabindex="-1"></a>  <span class="co"># Calculate the f-statistic, </span></span>
-<span id="cb996-8"><a href="workshop-design-of-experiments-in-r.html#cb996-8" tabindex="-1"></a>  <span class="co"># the ratio of the variation explained versus unexplained by your model!</span></span>
-<span id="cb996-9"><a href="workshop-design-of-experiments-in-r.html#cb996-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">f =</span> mean_squares_explained <span class="sc">/</span> mean_squared_error)</span></code></pre></div>
+<div class="sourceCode" id="cb1023"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1023-1"><a href="workshop-design-of-experiments-in-r.html#cb1023-1" tabindex="-1"></a>qi <span class="sc">%&gt;%</span></span>
+<span id="cb1023-2"><a href="workshop-design-of-experiments-in-r.html#cb1023-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1023-3"><a href="workshop-design-of-experiments-in-r.html#cb1023-3" tabindex="-1"></a>    <span class="co"># Get the average variation explained by dividing by k - 1 groups</span></span>
+<span id="cb1023-4"><a href="workshop-design-of-experiments-in-r.html#cb1023-4" tabindex="-1"></a>    <span class="at">mean_squares_explained =</span> ess <span class="sc">/</span> (k <span class="sc">-</span> <span class="dv">1</span>),</span>
+<span id="cb1023-5"><a href="workshop-design-of-experiments-in-r.html#cb1023-5" tabindex="-1"></a>    <span class="co"># Get the average variation unexplained by dividing by n - k</span></span>
+<span id="cb1023-6"><a href="workshop-design-of-experiments-in-r.html#cb1023-6" tabindex="-1"></a>    <span class="at">mean_squared_error =</span> rss <span class="sc">/</span> (n <span class="sc">-</span> k) ) <span class="sc">%&gt;%</span>  </span>
+<span id="cb1023-7"><a href="workshop-design-of-experiments-in-r.html#cb1023-7" tabindex="-1"></a>  <span class="co"># Calculate the f-statistic, </span></span>
+<span id="cb1023-8"><a href="workshop-design-of-experiments-in-r.html#cb1023-8" tabindex="-1"></a>  <span class="co"># the ratio of the variation explained versus unexplained by your model!</span></span>
+<span id="cb1023-9"><a href="workshop-design-of-experiments-in-r.html#cb1023-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">f =</span> mean_squares_explained <span class="sc">/</span> mean_squared_error)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 8
 ##     tss   rss   ess     k     n mean_squares_explained mean_squared_error     f
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt;                  &lt;dbl&gt;              &lt;dbl&gt; &lt;dbl&gt;
@@ -1299,11 +1303,11 @@ Now, that’s pretty silly, so I’ve written a short <code>function</code> for 
 <div id="lm---the-easy-way" class="section level3 hasAnchor" number="13.6.4">
 <h3><span class="header-section-number">13.6.4</span> <code>lm()</code> - the easy way<a href="workshop-design-of-experiments-in-r.html#lm---the-easy-way" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here, <code>sigma</code> gives you the residual standard error (which is the square root of the root-mean-squared-error that anova gives you). <code>statistic</code> gives you the F-statistic, while <code>p.value</code> gives you the p-value for the F-statistic.</p>
-<div class="sourceCode" id="cb998"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb998-1"><a href="workshop-design-of-experiments-in-r.html#cb998-1" tabindex="-1"></a>m1 <span class="ot">=</span> donuts <span class="sc">%&gt;%</span></span>
-<span id="cb998-2"><a href="workshop-design-of-experiments-in-r.html#cb998-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">lm</span>(weight <span class="sc">~</span> baker) <span class="sc">%&gt;%</span> <span class="fu">glance</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb998-3"><a href="workshop-design-of-experiments-in-r.html#cb998-3" tabindex="-1"></a>  <span class="fu">select</span>(sigma, statistic, p.value, df)</span>
-<span id="cb998-4"><a href="workshop-design-of-experiments-in-r.html#cb998-4" tabindex="-1"></a></span>
-<span id="cb998-5"><a href="workshop-design-of-experiments-in-r.html#cb998-5" tabindex="-1"></a>m1</span></code></pre></div>
+<div class="sourceCode" id="cb1025"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1025-1"><a href="workshop-design-of-experiments-in-r.html#cb1025-1" tabindex="-1"></a>m1 <span class="ot">=</span> donuts <span class="sc">%&gt;%</span></span>
+<span id="cb1025-2"><a href="workshop-design-of-experiments-in-r.html#cb1025-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">lm</span>(weight <span class="sc">~</span> baker) <span class="sc">%&gt;%</span> <span class="fu">glance</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb1025-3"><a href="workshop-design-of-experiments-in-r.html#cb1025-3" tabindex="-1"></a>  <span class="fu">select</span>(sigma, statistic, p.value, df)</span>
+<span id="cb1025-4"><a href="workshop-design-of-experiments-in-r.html#cb1025-4" tabindex="-1"></a></span>
+<span id="cb1025-5"><a href="workshop-design-of-experiments-in-r.html#cb1025-5" tabindex="-1"></a>m1</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 4
 ##   sigma statistic p.value    df
 ##   &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
@@ -1313,8 +1317,8 @@ Now, that’s pretty silly, so I’ve written a short <code>function</code> for 
 <div id="aov---the-normal-way" class="section level3 hasAnchor" number="13.6.5">
 <h3><span class="header-section-number">13.6.5</span> <code>aov()</code> - the normal way<a href="workshop-design-of-experiments-in-r.html#aov---the-normal-way" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here, we get the F <code>statistic</code> and its <code>p.value</code>, as well as several quantities used to calculate the f-statistic, including the root-mean-squared-error (row 2 <code>Residuals</code>, column <code>meansq</code>).</p>
-<div class="sourceCode" id="cb1000"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1000-1"><a href="workshop-design-of-experiments-in-r.html#cb1000-1" tabindex="-1"></a>donuts <span class="sc">%&gt;%</span></span>
-<span id="cb1000-2"><a href="workshop-design-of-experiments-in-r.html#cb1000-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">aov</span>(weight <span class="sc">~</span> baker) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb1027"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1027-1"><a href="workshop-design-of-experiments-in-r.html#cb1027-1" tabindex="-1"></a>donuts <span class="sc">%&gt;%</span></span>
+<span id="cb1027-2"><a href="workshop-design-of-experiments-in-r.html#cb1027-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">aov</span>(weight <span class="sc">~</span> baker) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>())</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 6
 ##   term         df sumsq meansq statistic  p.value
 ##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
@@ -1326,12 +1330,12 @@ Now, that’s pretty silly, so I’ve written a short <code>function</code> for 
 <div id="oneway.test---if-you-know-your-group-variances-are-unequal" class="section level3 hasAnchor" number="13.6.6">
 <h3><span class="header-section-number">13.6.6</span> <code>oneway.test()</code> - if you know your group variances are unequal<a href="workshop-design-of-experiments-in-r.html#oneway.test---if-you-know-your-group-variances-are-unequal" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Alternatively, <code>oneway.test()</code> can let you use <code>var.equal = TRUE</code> or <code>FALSE</code> to lightly adjust your statistics to accommodate uneven variances among groups. Randomization <em>should</em> usually deal with unequal variances, but if you’re working with non-random samples, be sure to check your variances and then use <code>var.equal = FALSE</code>.</p>
-<div class="sourceCode" id="cb1002"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1002-1"><a href="workshop-design-of-experiments-in-r.html#cb1002-1" tabindex="-1"></a><span class="co"># If even...</span></span>
-<span id="cb1002-2"><a href="workshop-design-of-experiments-in-r.html#cb1002-2" tabindex="-1"></a>donuts <span class="sc">%&gt;%</span></span>
-<span id="cb1002-3"><a href="workshop-design-of-experiments-in-r.html#cb1002-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">oneway.test</span>(<span class="at">data =</span> ., <span class="at">formula =</span> weight <span class="sc">~</span> baker, <span class="at">var.equal =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>())</span></code></pre></div>
-<div class="sourceCode" id="cb1003"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1003-1"><a href="workshop-design-of-experiments-in-r.html#cb1003-1" tabindex="-1"></a><span class="co"># If uneven...</span></span>
-<span id="cb1003-2"><a href="workshop-design-of-experiments-in-r.html#cb1003-2" tabindex="-1"></a>donuts <span class="sc">%&gt;%</span></span>
-<span id="cb1003-3"><a href="workshop-design-of-experiments-in-r.html#cb1003-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">oneway.test</span>(<span class="at">formula =</span> weight <span class="sc">~</span> baker, <span class="at">var.equal =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb1029"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1029-1"><a href="workshop-design-of-experiments-in-r.html#cb1029-1" tabindex="-1"></a><span class="co"># If even...</span></span>
+<span id="cb1029-2"><a href="workshop-design-of-experiments-in-r.html#cb1029-2" tabindex="-1"></a>donuts <span class="sc">%&gt;%</span></span>
+<span id="cb1029-3"><a href="workshop-design-of-experiments-in-r.html#cb1029-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">oneway.test</span>(<span class="at">data =</span> ., <span class="at">formula =</span> weight <span class="sc">~</span> baker, <span class="at">var.equal =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb1030"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1030-1"><a href="workshop-design-of-experiments-in-r.html#cb1030-1" tabindex="-1"></a><span class="co"># If uneven...</span></span>
+<span id="cb1030-2"><a href="workshop-design-of-experiments-in-r.html#cb1030-2" tabindex="-1"></a>donuts <span class="sc">%&gt;%</span></span>
+<span id="cb1030-3"><a href="workshop-design-of-experiments-in-r.html#cb1030-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">oneway.test</span>(<span class="at">formula =</span> weight <span class="sc">~</span> baker, <span class="at">var.equal =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>())</span></code></pre></div>
 <p><br>
 <br></p>
 </div>
@@ -1339,27 +1343,27 @@ Now, that’s pretty silly, so I’ve written a short <code>function</code> for 
 <h3><span class="header-section-number">13.6.7</span> Multiple Variables<a href="workshop-design-of-experiments-in-r.html#multiple-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>But what if we need to test the impact of multiple variables simultaneously?</p>
 <p>For example, what if we want to assess how much differences in average weight were due to the <code>type</code> of machine versus the <code>baker</code>?</p>
-<div class="sourceCode" id="cb1004"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1004-1"><a href="workshop-design-of-experiments-in-r.html#cb1004-1" tabindex="-1"></a><span class="co"># We can add both type and baker to the model</span></span>
-<span id="cb1004-2"><a href="workshop-design-of-experiments-in-r.html#cb1004-2" tabindex="-1"></a>m2 <span class="ot">=</span> donuts <span class="sc">%&gt;%</span></span>
-<span id="cb1004-3"><a href="workshop-design-of-experiments-in-r.html#cb1004-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">lm</span>(<span class="at">formula =</span> weight <span class="sc">~</span> type <span class="sc">+</span> baker) <span class="sc">%&gt;%</span> <span class="fu">glance</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb1004-4"><a href="workshop-design-of-experiments-in-r.html#cb1004-4" tabindex="-1"></a>  <span class="co"># and compare our statistic and sigma values to before.</span></span>
-<span id="cb1004-5"><a href="workshop-design-of-experiments-in-r.html#cb1004-5" tabindex="-1"></a>  <span class="fu">select</span>(sigma, statistic, p.value, df)</span></code></pre></div>
+<div class="sourceCode" id="cb1031"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1031-1"><a href="workshop-design-of-experiments-in-r.html#cb1031-1" tabindex="-1"></a><span class="co"># We can add both type and baker to the model</span></span>
+<span id="cb1031-2"><a href="workshop-design-of-experiments-in-r.html#cb1031-2" tabindex="-1"></a>m2 <span class="ot">=</span> donuts <span class="sc">%&gt;%</span></span>
+<span id="cb1031-3"><a href="workshop-design-of-experiments-in-r.html#cb1031-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">lm</span>(<span class="at">formula =</span> weight <span class="sc">~</span> type <span class="sc">+</span> baker) <span class="sc">%&gt;%</span> <span class="fu">glance</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb1031-4"><a href="workshop-design-of-experiments-in-r.html#cb1031-4" tabindex="-1"></a>  <span class="co"># and compare our statistic and sigma values to before.</span></span>
+<span id="cb1031-5"><a href="workshop-design-of-experiments-in-r.html#cb1031-5" tabindex="-1"></a>  <span class="fu">select</span>(sigma, statistic, p.value, df)</span></code></pre></div>
 <p>Let’s stack our earlier ANOVA model <code>m1</code> on top of our new model <code>m2</code>. We can see from the <code>sigma</code> statistic that the residual standard error (average prediction error) has decreased in our new model, indicating better model fit. We can also see that adding baker had led to a greater F <code>statistic</code> with a lower, more significant <code>p.value</code>.</p>
-<div class="sourceCode" id="cb1005"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1005-1"><a href="workshop-design-of-experiments-in-r.html#cb1005-1" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
-<span id="cb1005-2"><a href="workshop-design-of-experiments-in-r.html#cb1005-2" tabindex="-1"></a>  m1 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">vars =</span> <span class="st">&quot;baker&quot;</span>),</span>
-<span id="cb1005-3"><a href="workshop-design-of-experiments-in-r.html#cb1005-3" tabindex="-1"></a>  m2 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">vars =</span> <span class="st">&quot;type + baker&quot;</span>) )</span></code></pre></div>
+<div class="sourceCode" id="cb1032"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1032-1"><a href="workshop-design-of-experiments-in-r.html#cb1032-1" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb1032-2"><a href="workshop-design-of-experiments-in-r.html#cb1032-2" tabindex="-1"></a>  m1 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">vars =</span> <span class="st">&quot;baker&quot;</span>),</span>
+<span id="cb1032-3"><a href="workshop-design-of-experiments-in-r.html#cb1032-3" tabindex="-1"></a>  m2 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">vars =</span> <span class="st">&quot;type + baker&quot;</span>) )</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   sigma statistic    p.value    df vars        
 ##   &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;       
 ## 1  2.94      6.24 0.00395        2 baker       
 ## 2  2.41     14.3  0.00000102     3 type + baker</code></pre>
 <p>Alternatively, what if Craig is pretty okay at making donuts with the old machine, but is just particularly bad at making donuts on the new machine? For this, we can use <strong>interaction effects.</strong></p>
-<div class="sourceCode" id="cb1007"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1007-1"><a href="workshop-design-of-experiments-in-r.html#cb1007-1" tabindex="-1"></a>m3 <span class="ot">=</span> donuts <span class="sc">%&gt;%</span></span>
-<span id="cb1007-2"><a href="workshop-design-of-experiments-in-r.html#cb1007-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> weight <span class="sc">~</span> type <span class="sc">*</span> baker) <span class="sc">%&gt;%</span> </span>
-<span id="cb1007-3"><a href="workshop-design-of-experiments-in-r.html#cb1007-3" tabindex="-1"></a>  <span class="fu">glance</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1007-4"><a href="workshop-design-of-experiments-in-r.html#cb1007-4" tabindex="-1"></a>  <span class="fu">select</span>(sigma, statistic, p.value)</span>
-<span id="cb1007-5"><a href="workshop-design-of-experiments-in-r.html#cb1007-5" tabindex="-1"></a></span>
-<span id="cb1007-6"><a href="workshop-design-of-experiments-in-r.html#cb1007-6" tabindex="-1"></a>m3</span></code></pre></div>
+<div class="sourceCode" id="cb1034"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1034-1"><a href="workshop-design-of-experiments-in-r.html#cb1034-1" tabindex="-1"></a>m3 <span class="ot">=</span> donuts <span class="sc">%&gt;%</span></span>
+<span id="cb1034-2"><a href="workshop-design-of-experiments-in-r.html#cb1034-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> weight <span class="sc">~</span> type <span class="sc">*</span> baker) <span class="sc">%&gt;%</span> </span>
+<span id="cb1034-3"><a href="workshop-design-of-experiments-in-r.html#cb1034-3" tabindex="-1"></a>  <span class="fu">glance</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1034-4"><a href="workshop-design-of-experiments-in-r.html#cb1034-4" tabindex="-1"></a>  <span class="fu">select</span>(sigma, statistic, p.value)</span>
+<span id="cb1034-5"><a href="workshop-design-of-experiments-in-r.html#cb1034-5" tabindex="-1"></a></span>
+<span id="cb1034-6"><a href="workshop-design-of-experiments-in-r.html#cb1034-6" tabindex="-1"></a>m3</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 3
 ##   sigma statistic     p.value
 ##   &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
