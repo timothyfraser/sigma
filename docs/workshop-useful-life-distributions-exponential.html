@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2023-09-06" />
+<meta name="date" content="2023-10-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -479,8 +479,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.5.1" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#factors-in-r"><i class="fa fa-check"></i><b>7.5.1</b> Factors in R</a></li>
 <li class="chapter" data-level="7.5.2" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#crosstabulation"><i class="fa fa-check"></i><b>7.5.2</b> Crosstabulation</a></li>
 <li class="chapter" data-level="7.5.3" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#chi-squared"><i class="fa fa-check"></i><b>7.5.3</b> Chi-squared</a></li>
-<li class="chapter" data-level="7.5.4" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#estimating-lambda"><i class="fa fa-check"></i><b>7.5.4</b> Estimating Lambda</a></li>
-<li class="chapter" data-level="7.5.5" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#planning-experiments"><i class="fa fa-check"></i><b>7.5.5</b> Planning Experiments</a></li>
+<li class="chapter" data-level="7.5.4" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#building-a-chi-squared-function"><i class="fa fa-check"></i><b>7.5.4</b> Building a Chi-squared function</a></li>
+<li class="chapter" data-level="7.5.5" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#estimating-lambda"><i class="fa fa-check"></i><b>7.5.5</b> Estimating Lambda</a></li>
+<li class="chapter" data-level="7.5.6" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#planning-experiments"><i class="fa fa-check"></i><b>7.5.6</b> Planning Experiments</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#LC4"><i class="fa fa-check"></i>Learning Check 4</a></li>
 <li class="chapter" data-level="7.6" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#conclusion-6"><i class="fa fa-check"></i><b>7.6</b> Conclusion</a></li>
@@ -1254,8 +1255,8 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 <h3><span class="header-section-number">7.4.2</span> Phase-Type Distributions<a href="workshop-useful-life-distributions-exponential.html#phase-type-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One way to more accurately model the lifespan of a product is to accept that its failure rate may remain constant, but it might change between failure rates as it passes through <strong>phases</strong>. Let’s model that!</p>
 <p>We can write the time <span class="math inline">\(T\)</span> to critical failure (via either overstress OR degraded failure) as <span class="math inline">\(T = min(T_c, T_d+T_{dc})\)</span>.</p>
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-7df1c0b11381a8445c32" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-7df1c0b11381a8445c32">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-025049ac49f59ce6ffc0" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-025049ac49f59ce6ffc0">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
 <p>The total probability of a product being in any phase <span class="math inline">\(a_{i \to n}\)</span> equals 1.</p>
 <ul>
 <li><p><span class="math inline">\(a_c = 25\%\)</span></p></li>
@@ -1393,137 +1394,254 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 <p><strong>Step 1</strong> Crosstabulate Observed Values into Bins.</p>
 <div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb683-1"><a href="workshop-useful-life-distributions-exponential.html#cb683-1" tabindex="-1"></a><span class="co"># Let&#39;s repeat our process from before!</span></span>
 <span id="cb683-2"><a href="workshop-useful-life-distributions-exponential.html#cb683-2" tabindex="-1"></a>c1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">t =</span> masks<span class="sc">$</span>left_earloop) <span class="sc">%&gt;%</span></span>
-<span id="cb683-3"><a href="workshop-useful-life-distributions-exponential.html#cb683-3" tabindex="-1"></a>  <span class="co"># Part 1: Split into bins</span></span>
-<span id="cb683-4"><a href="workshop-useful-life-distributions-exponential.html#cb683-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">cut_interval</span>(t, <span class="at">length =</span> <span class="dv">5</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb683-5"><a href="workshop-useful-life-distributions-exponential.html#cb683-5" tabindex="-1"></a>  <span class="co"># Part 2: Tally up by bin</span></span>
-<span id="cb683-6"><a href="workshop-useful-life-distributions-exponential.html#cb683-6" tabindex="-1"></a>  <span class="fu">group_by</span>(label, <span class="at">.drop =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb683-7"><a href="workshop-useful-life-distributions-exponential.html#cb683-7" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb683-3"><a href="workshop-useful-life-distributions-exponential.html#cb683-3" tabindex="-1"></a>  <span class="co"># Part 1.1: Split into bins</span></span>
+<span id="cb683-4"><a href="workshop-useful-life-distributions-exponential.html#cb683-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">interval =</span> <span class="fu">cut_interval</span>(t, <span class="at">length =</span> <span class="dv">5</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb683-5"><a href="workshop-useful-life-distributions-exponential.html#cb683-5" tabindex="-1"></a>  <span class="co"># Part 1.2: Tally up observed failures &#39;r_obs&#39; by bin</span></span>
+<span id="cb683-6"><a href="workshop-useful-life-distributions-exponential.html#cb683-6" tabindex="-1"></a>  <span class="fu">group_by</span>(interval, <span class="at">.drop =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb683-7"><a href="workshop-useful-life-distributions-exponential.html#cb683-7" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">r_obs =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
 <span id="cb683-8"><a href="workshop-useful-life-distributions-exponential.html#cb683-8" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb683-9"><a href="workshop-useful-life-distributions-exponential.html#cb683-9" tabindex="-1"></a>    <span class="at">bin =</span> <span class="fu">as.numeric</span>(label),</span>
-<span id="cb683-10"><a href="workshop-useful-life-distributions-exponential.html#cb683-10" tabindex="-1"></a>    <span class="at">lower =</span> (bin <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">5</span>, </span>
-<span id="cb683-11"><a href="workshop-useful-life-distributions-exponential.html#cb683-11" tabindex="-1"></a>    <span class="at">upper =</span> bin <span class="sc">*</span> <span class="dv">5</span>,</span>
-<span id="cb683-12"><a href="workshop-useful-life-distributions-exponential.html#cb683-12" tabindex="-1"></a>    <span class="at">midpoint =</span> (lower <span class="sc">+</span> upper) <span class="sc">/</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><strong>Step 3</strong>: Calculate Observed and Expected Values per Bin.</p>
-<p>Sometimes you might only receive <strong>tabulated data</strong>, meaning a table of bins, not the original vector. In that case, start from <strong>Step 3</strong>!</p>
+<span id="cb683-9"><a href="workshop-useful-life-distributions-exponential.html#cb683-9" tabindex="-1"></a>    <span class="at">bin =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(), <span class="co"># give each bin a numeric id from 1 to inf</span></span>
+<span id="cb683-10"><a href="workshop-useful-life-distributions-exponential.html#cb683-10" tabindex="-1"></a>    <span class="co"># bin = as.numeric(interval), # you could alternatively turn the factor numeric</span></span>
+<span id="cb683-11"><a href="workshop-useful-life-distributions-exponential.html#cb683-11" tabindex="-1"></a>    <span class="at">lower =</span> (bin <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">5</span>, </span>
+<span id="cb683-12"><a href="workshop-useful-life-distributions-exponential.html#cb683-12" tabindex="-1"></a>    <span class="at">upper =</span> bin <span class="sc">*</span> <span class="dv">5</span>,</span>
+<span id="cb683-13"><a href="workshop-useful-life-distributions-exponential.html#cb683-13" tabindex="-1"></a>    <span class="at">midpoint =</span> (lower <span class="sc">+</span> upper) <span class="sc">/</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><strong>Step 2</strong>: Calculate Observed and Expected Values per Bin.</p>
+<p>Sometimes you might only receive <strong>tabulated data</strong>, meaning a table of bins, not the original vector. In that case, start from <strong>Step 2</strong>!</p>
 <div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="workshop-useful-life-distributions-exponential.html#cb684-1" tabindex="-1"></a><span class="co"># Get any parameters you need (might need to be provided if only tabulated data)</span></span>
-<span id="cb684-2"><a href="workshop-useful-life-distributions-exponential.html#cb684-2" tabindex="-1"></a>mystat <span class="ot">=</span> masks <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(left_earloop))</span>
-<span id="cb684-3"><a href="workshop-useful-life-distributions-exponential.html#cb684-3" tabindex="-1"></a><span class="co"># Get your &#39;model&#39; function</span></span>
-<span id="cb684-4"><a href="workshop-useful-life-distributions-exponential.html#cb684-4" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>lambda<span class="sc">*</span>t) }</span>
-<span id="cb684-5"><a href="workshop-useful-life-distributions-exponential.html#cb684-5" tabindex="-1"></a></span>
-<span id="cb684-6"><a href="workshop-useful-life-distributions-exponential.html#cb684-6" tabindex="-1"></a><span class="co"># Now calculate cumulatives</span></span>
-<span id="cb684-7"><a href="workshop-useful-life-distributions-exponential.html#cb684-7" tabindex="-1"></a>c2 <span class="ot">&lt;-</span> c1 <span class="sc">%&gt;%</span> </span>
-<span id="cb684-8"><a href="workshop-useful-life-distributions-exponential.html#cb684-8" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb684-9"><a href="workshop-useful-life-distributions-exponential.html#cb684-9" tabindex="-1"></a>    <span class="co"># Get total units in table</span></span>
-<span id="cb684-10"><a href="workshop-useful-life-distributions-exponential.html#cb684-10" tabindex="-1"></a>    <span class="at">total =</span> <span class="fu">sum</span>(count),</span>
-<span id="cb684-11"><a href="workshop-useful-life-distributions-exponential.html#cb684-11" tabindex="-1"></a>    <span class="co"># Get cumulative OBSERVED in that bin</span></span>
-<span id="cb684-12"><a href="workshop-useful-life-distributions-exponential.html#cb684-12" tabindex="-1"></a>    <span class="at">o =</span> <span class="fu">cumsum</span>(count),</span>
-<span id="cb684-13"><a href="workshop-useful-life-distributions-exponential.html#cb684-13" tabindex="-1"></a>    <span class="co"># Get cumulative EXPECTED in that bin due to model</span></span>
-<span id="cb684-14"><a href="workshop-useful-life-distributions-exponential.html#cb684-14" tabindex="-1"></a>    <span class="at">e =</span> <span class="fu">f</span>(<span class="at">t =</span> midpoint, <span class="at">lambda =</span> mystat<span class="sc">$</span>lambda) <span class="sc">*</span> total)</span>
-<span id="cb684-15"><a href="workshop-useful-life-distributions-exponential.html#cb684-15" tabindex="-1"></a>    <span class="co"># Note: pexp(t) is equivalent to f(t) for exponential distribution</span></span>
-<span id="cb684-16"><a href="workshop-useful-life-distributions-exponential.html#cb684-16" tabindex="-1"></a>    <span class="co"># e = pexp(midpoint, rate = mystat$lambda) * total</span></span>
-<span id="cb684-17"><a href="workshop-useful-life-distributions-exponential.html#cb684-17" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb684-18"><a href="workshop-useful-life-distributions-exponential.html#cb684-18" tabindex="-1"></a>c2</span></code></pre></div>
-<pre><code>## # A tibble: 11 × 9
-##    label   count   bin lower upper midpoint total     o     e
-##    &lt;fct&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
-##  1 [0,5]      17     1     0     5      2.5    50    17  8.53
-##  2 (5,10]     13     2     5    10      7.5    50    30 21.5 
-##  3 (10,15]     3     3    10    15     12.5    50    33 30.4 
-##  4 (15,20]     7     4    15    20     17.5    50    40 36.5 
-##  5 (20,25]     2     5    20    25     22.5    50    42 40.7 
-##  6 (25,30]     2     6    25    30     27.5    50    44 43.6 
-##  7 (30,35]     3     7    30    35     32.5    50    47 45.6 
-##  8 (35,40]     0     8    35    40     37.5    50    47 47.0 
-##  9 (40,45]     0     9    40    45     42.5    50    47 47.9 
-## 10 (45,50]     1    10    45    50     47.5    50    48 48.6 
-## 11 (50,55]     2    11    50    55     52.5    50    50 49.0</code></pre>
-<p><strong>Step 4</strong>: Calculate Chi-squared Statistic</p>
+<span id="cb684-2"><a href="workshop-useful-life-distributions-exponential.html#cb684-2" tabindex="-1"></a>mystat <span class="ot">=</span> masks <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(</span>
+<span id="cb684-3"><a href="workshop-useful-life-distributions-exponential.html#cb684-3" tabindex="-1"></a>  <span class="co"># failure rate</span></span>
+<span id="cb684-4"><a href="workshop-useful-life-distributions-exponential.html#cb684-4" tabindex="-1"></a>  <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(left_earloop),</span>
+<span id="cb684-5"><a href="workshop-useful-life-distributions-exponential.html#cb684-5" tabindex="-1"></a>  <span class="co"># total number of units under test                        </span></span>
+<span id="cb684-6"><a href="workshop-useful-life-distributions-exponential.html#cb684-6" tabindex="-1"></a>  <span class="at">n =</span> <span class="fu">n</span>())</span>
+<span id="cb684-7"><a href="workshop-useful-life-distributions-exponential.html#cb684-7" tabindex="-1"></a><span class="co"># Get your &#39;model&#39; function</span></span>
+<span id="cb684-8"><a href="workshop-useful-life-distributions-exponential.html#cb684-8" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>lambda<span class="sc">*</span>t) }</span>
+<span id="cb684-9"><a href="workshop-useful-life-distributions-exponential.html#cb684-9" tabindex="-1"></a><span class="co"># Note: pexp(t, rate) is equivalent to f(t, lambda) for exponential distribution</span></span>
+<span id="cb684-10"><a href="workshop-useful-life-distributions-exponential.html#cb684-10" tabindex="-1"></a></span>
+<span id="cb684-11"><a href="workshop-useful-life-distributions-exponential.html#cb684-11" tabindex="-1"></a><span class="co"># Now calculate expected units to fail per interval, r_exp</span></span>
+<span id="cb684-12"><a href="workshop-useful-life-distributions-exponential.html#cb684-12" tabindex="-1"></a>c2 <span class="ot">=</span> c1 <span class="sc">%&gt;%</span></span>
+<span id="cb684-13"><a href="workshop-useful-life-distributions-exponential.html#cb684-13" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb684-14"><a href="workshop-useful-life-distributions-exponential.html#cb684-14" tabindex="-1"></a>    <span class="co"># Get probability of failure by time t = upper bound</span></span>
+<span id="cb684-15"><a href="workshop-useful-life-distributions-exponential.html#cb684-15" tabindex="-1"></a>    <span class="at">p_upper =</span> <span class="fu">f</span>(<span class="at">t =</span> upper, <span class="at">lambda =</span> mystat<span class="sc">$</span>lambda),</span>
+<span id="cb684-16"><a href="workshop-useful-life-distributions-exponential.html#cb684-16" tabindex="-1"></a>    <span class="co"># Get probability of failure by time t = lower bound</span></span>
+<span id="cb684-17"><a href="workshop-useful-life-distributions-exponential.html#cb684-17" tabindex="-1"></a>    <span class="at">p_lower =</span> <span class="fu">f</span>(<span class="at">t =</span> lower, <span class="at">lambda =</span> mystat<span class="sc">$</span>lambda),</span>
+<span id="cb684-18"><a href="workshop-useful-life-distributions-exponential.html#cb684-18" tabindex="-1"></a>    <span class="co"># Get probability of failure during the interval,</span></span>
+<span id="cb684-19"><a href="workshop-useful-life-distributions-exponential.html#cb684-19" tabindex="-1"></a>    <span class="co"># i.e. between these thresholds</span></span>
+<span id="cb684-20"><a href="workshop-useful-life-distributions-exponential.html#cb684-20" tabindex="-1"></a>    <span class="at">p_fail =</span> p_upper <span class="sc">-</span> p_lower,</span>
+<span id="cb684-21"><a href="workshop-useful-life-distributions-exponential.html#cb684-21" tabindex="-1"></a>    <span class="co"># Add in total units under test</span></span>
+<span id="cb684-22"><a href="workshop-useful-life-distributions-exponential.html#cb684-22" tabindex="-1"></a>    <span class="at">n_total =</span> mystat<span class="sc">$</span>n,</span>
+<span id="cb684-23"><a href="workshop-useful-life-distributions-exponential.html#cb684-23" tabindex="-1"></a>    <span class="co"># Calculate expected units to fail in that interval</span></span>
+<span id="cb684-24"><a href="workshop-useful-life-distributions-exponential.html#cb684-24" tabindex="-1"></a>    <span class="at">r_exp =</span> n_total <span class="sc">*</span> p_fail)</span>
+<span id="cb684-25"><a href="workshop-useful-life-distributions-exponential.html#cb684-25" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb684-26"><a href="workshop-useful-life-distributions-exponential.html#cb684-26" tabindex="-1"></a>c2</span></code></pre></div>
+<pre><code>## # A tibble: 11 × 11
+##    interval r_obs   bin lower upper midpoint p_upper p_lower  p_fail n_total
+##    &lt;fct&gt;    &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;
+##  1 [0,5]       17     1     0     5      2.5   0.312   0     0.312        50
+##  2 (5,10]      13     2     5    10      7.5   0.527   0.312 0.215        50
+##  3 (10,15]      3     3    10    15     12.5   0.675   0.527 0.148        50
+##  4 (15,20]      7     4    15    20     17.5   0.776   0.675 0.102        50
+##  5 (20,25]      2     5    20    25     22.5   0.846   0.776 0.0699       50
+##  6 (25,30]      2     6    25    30     27.5   0.894   0.846 0.0481       50
+##  7 (30,35]      3     7    30    35     32.5   0.927   0.894 0.0331       50
+##  8 (35,40]      0     8    35    40     37.5   0.950   0.927 0.0227       50
+##  9 (40,45]      0     9    40    45     42.5   0.966   0.950 0.0156       50
+## 10 (45,50]      1    10    45    50     47.5   0.976   0.966 0.0108       50
+## 11 (50,55]      2    11    50    55     52.5   0.984   0.976 0.00740      50
+## # ℹ 1 more variable: r_exp &lt;dbl&gt;</code></pre>
+<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb686-1"><a href="workshop-useful-life-distributions-exponential.html#cb686-1" tabindex="-1"></a><span class="co"># We only need a few of these columns; let&#39;s look at them:</span></span>
+<span id="cb686-2"><a href="workshop-useful-life-distributions-exponential.html#cb686-2" tabindex="-1"></a>c2 <span class="sc">%&gt;%</span></span>
+<span id="cb686-3"><a href="workshop-useful-life-distributions-exponential.html#cb686-3" tabindex="-1"></a>  <span class="co"># interval: get time interval in that bin</span></span>
+<span id="cb686-4"><a href="workshop-useful-life-distributions-exponential.html#cb686-4" tabindex="-1"></a>  <span class="co"># r_obs: Get OBSERVED failures in that bin</span></span>
+<span id="cb686-5"><a href="workshop-useful-life-distributions-exponential.html#cb686-5" tabindex="-1"></a>  <span class="co"># r_exp: Get EXPECTED failures in that bin</span></span>
+<span id="cb686-6"><a href="workshop-useful-life-distributions-exponential.html#cb686-6" tabindex="-1"></a>  <span class="co"># n_total: Get TOTAL units, failed or not, overall</span></span>
+<span id="cb686-7"><a href="workshop-useful-life-distributions-exponential.html#cb686-7" tabindex="-1"></a>  <span class="fu">select</span>(interval, r_obs, r_exp, n_total)</span></code></pre></div>
+<pre><code>## # A tibble: 11 × 4
+##    interval r_obs  r_exp n_total
+##    &lt;fct&gt;    &lt;int&gt;  &lt;dbl&gt;   &lt;int&gt;
+##  1 [0,5]       17 15.6        50
+##  2 (5,10]      13 10.7        50
+##  3 (10,15]      3  7.38       50
+##  4 (15,20]      7  5.08       50
+##  5 (20,25]      2  3.49       50
+##  6 (25,30]      2  2.40       50
+##  7 (30,35]      3  1.65       50
+##  8 (35,40]      0  1.14       50
+##  9 (40,45]      0  0.782      50
+## 10 (45,50]      1  0.538      50
+## 11 (50,55]      2  0.370      50</code></pre>
+<p><strong>Step 3</strong>: Calculate Chi-squared Statistic</p>
 <ul>
 <li><p><strong>Chi-squared</strong> here represents the sum of ratios for each bin. Each ratio is the (1) squared difference between the observed and expected value over (2) the expected value. Ranges from 0 to infinity. The bigger (more positive) the statistic, the greater difference between the observed and expected data.</p></li>
 <li><p><strong>Degrees of Freedom (df)</strong> is used as the standard deviation in the chi-squared distribution, to help evaluate <em>how extreme is our chi-squared statistic?</em></p></li>
 <li><p><strong>Chi-squared Distribution</strong> is a distribution of squared deviations from a normal distribution centered at 0. This means it only has positive values.</p></li>
 </ul>
-<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb686-1"><a href="workshop-useful-life-distributions-exponential.html#cb686-1" tabindex="-1"></a>c3 <span class="ot">&lt;-</span> c2 <span class="sc">%&gt;%</span></span>
-<span id="cb686-2"><a href="workshop-useful-life-distributions-exponential.html#cb686-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb686-3"><a href="workshop-useful-life-distributions-exponential.html#cb686-3" tabindex="-1"></a>      <span class="co"># Calculate Chi-squared statistic</span></span>
-<span id="cb686-4"><a href="workshop-useful-life-distributions-exponential.html#cb686-4" tabindex="-1"></a>    <span class="at">chisq =</span> <span class="fu">sum</span>((o <span class="sc">-</span> e)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> e),</span>
-<span id="cb686-5"><a href="workshop-useful-life-distributions-exponential.html#cb686-5" tabindex="-1"></a>    <span class="co"># Calculate number of bins (rows)</span></span>
-<span id="cb686-6"><a href="workshop-useful-life-distributions-exponential.html#cb686-6" tabindex="-1"></a>    <span class="at">nbin =</span> <span class="fu">n</span>(),</span>
-<span id="cb686-7"><a href="workshop-useful-life-distributions-exponential.html#cb686-7" tabindex="-1"></a>    <span class="co"># Record number of parameters used (jjust lambda)</span></span>
-<span id="cb686-8"><a href="workshop-useful-life-distributions-exponential.html#cb686-8" tabindex="-1"></a>    <span class="at">np =</span> <span class="dv">1</span>,</span>
-<span id="cb686-9"><a href="workshop-useful-life-distributions-exponential.html#cb686-9" tabindex="-1"></a>    <span class="co"># Calculate degree of freedom</span></span>
-<span id="cb686-10"><a href="workshop-useful-life-distributions-exponential.html#cb686-10" tabindex="-1"></a>    <span class="at">df =</span> nbin <span class="sc">-</span> np <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb686-11"><a href="workshop-useful-life-distributions-exponential.html#cb686-11" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb686-12"><a href="workshop-useful-life-distributions-exponential.html#cb686-12" tabindex="-1"></a>c3</span></code></pre></div>
+<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb688-1"><a href="workshop-useful-life-distributions-exponential.html#cb688-1" tabindex="-1"></a>c3 <span class="ot">&lt;-</span> c2 <span class="sc">%&gt;%</span></span>
+<span id="cb688-2"><a href="workshop-useful-life-distributions-exponential.html#cb688-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb688-3"><a href="workshop-useful-life-distributions-exponential.html#cb688-3" tabindex="-1"></a>      <span class="co"># Calculate Chi-squared statistic</span></span>
+<span id="cb688-4"><a href="workshop-useful-life-distributions-exponential.html#cb688-4" tabindex="-1"></a>    <span class="at">chisq =</span> <span class="fu">sum</span>((r_obs <span class="sc">-</span> r_exp)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> r_exp),</span>
+<span id="cb688-5"><a href="workshop-useful-life-distributions-exponential.html#cb688-5" tabindex="-1"></a>    <span class="co"># Calculate number of bins (rows)</span></span>
+<span id="cb688-6"><a href="workshop-useful-life-distributions-exponential.html#cb688-6" tabindex="-1"></a>    <span class="at">nbin =</span> <span class="fu">n</span>(),</span>
+<span id="cb688-7"><a href="workshop-useful-life-distributions-exponential.html#cb688-7" tabindex="-1"></a>    <span class="co"># Record number of parameters used (jjust lambda)</span></span>
+<span id="cb688-8"><a href="workshop-useful-life-distributions-exponential.html#cb688-8" tabindex="-1"></a>    <span class="at">np =</span> <span class="dv">1</span>,</span>
+<span id="cb688-9"><a href="workshop-useful-life-distributions-exponential.html#cb688-9" tabindex="-1"></a>    <span class="co"># Calculate degree of freedom</span></span>
+<span id="cb688-10"><a href="workshop-useful-life-distributions-exponential.html#cb688-10" tabindex="-1"></a>    <span class="at">df =</span> nbin <span class="sc">-</span> np <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb688-11"><a href="workshop-useful-life-distributions-exponential.html#cb688-11" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb688-12"><a href="workshop-useful-life-distributions-exponential.html#cb688-12" tabindex="-1"></a>c3</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 4
 ##   chisq  nbin    np    df
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1  12.5    11     1     9</code></pre>
-<p><strong>Step 5</strong>: Calculate p-values and confidence intervals</p>
+## 1  15.2    11     1     9</code></pre>
+<p><strong>Step 4</strong>: Calculate p-values and confidence intervals</p>
 <p>Last, let’s use the <code>pchisq()</code> function to evaluate the CDF of the Chi-squared distribution. We’ll find out:</p>
 <ul>
 <li><p><code>p_value</code>: what’s the probability of getting a value <strong>greater than or equal to</strong> (more extreme than) our observed chi-squared statistic?</p></li>
 <li><p><strong>“statistically significant”</strong>: if our observed statistic is more extreme than most possible chi-squared statistics (eg. &gt;95% of the distribution), it’s probably not due to chance! We call it ‘statistically significant.’</p></li>
 </ul>
-<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb688-1"><a href="workshop-useful-life-distributions-exponential.html#cb688-1" tabindex="-1"></a><span class="co"># Calculate area remaining under the curve</span></span>
-<span id="cb688-2"><a href="workshop-useful-life-distributions-exponential.html#cb688-2" tabindex="-1"></a>c4 <span class="ot">&lt;-</span> c3 <span class="sc">%&gt;%</span></span>
-<span id="cb688-3"><a href="workshop-useful-life-distributions-exponential.html#cb688-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_value =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="at">q =</span> chisq, <span class="at">df =</span> df))</span>
-<span id="cb688-4"><a href="workshop-useful-life-distributions-exponential.html#cb688-4" tabindex="-1"></a><span class="co"># Check</span></span>
-<span id="cb688-5"><a href="workshop-useful-life-distributions-exponential.html#cb688-5" tabindex="-1"></a>c4</span></code></pre></div>
+<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb690-1"><a href="workshop-useful-life-distributions-exponential.html#cb690-1" tabindex="-1"></a><span class="co"># Calculate area remaining under the curve</span></span>
+<span id="cb690-2"><a href="workshop-useful-life-distributions-exponential.html#cb690-2" tabindex="-1"></a>c4 <span class="ot">&lt;-</span> c3 <span class="sc">%&gt;%</span></span>
+<span id="cb690-3"><a href="workshop-useful-life-distributions-exponential.html#cb690-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_value =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="at">q =</span> chisq, <span class="at">df =</span> df))</span>
+<span id="cb690-4"><a href="workshop-useful-life-distributions-exponential.html#cb690-4" tabindex="-1"></a><span class="co"># Check</span></span>
+<span id="cb690-5"><a href="workshop-useful-life-distributions-exponential.html#cb690-5" tabindex="-1"></a>c4</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##   chisq  nbin    np    df p_value
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-## 1  12.5    11     1     9   0.188</code></pre>
+## 1  15.2    11     1     9  0.0847</code></pre>
 <p>For a visual representation:</p>
-<p><img src="07_workshop_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
-<p><strong>Step 6</strong>: Do it all in one step!</p>
-<p>Let’s try this one more time, all in one code chunk:</p>
-<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb690-1"><a href="workshop-useful-life-distributions-exponential.html#cb690-1" tabindex="-1"></a><span class="co"># Get any parameters you need</span></span>
-<span id="cb690-2"><a href="workshop-useful-life-distributions-exponential.html#cb690-2" tabindex="-1"></a><span class="co"># Right now, we&#39;ll sub in our observed lambda value,</span></span>
-<span id="cb690-3"><a href="workshop-useful-life-distributions-exponential.html#cb690-3" tabindex="-1"></a>mystat <span class="ot">=</span> masks <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(left_earloop))</span>
-<span id="cb690-4"><a href="workshop-useful-life-distributions-exponential.html#cb690-4" tabindex="-1"></a><span class="co"># Note: if your data is crosstabulated and you DON&#39;T have the observed lambda value,</span></span>
-<span id="cb690-5"><a href="workshop-useful-life-distributions-exponential.html#cb690-5" tabindex="-1"></a><span class="co"># you might need to use the methods described below in &#39;Estimating Lambda&#39;</span></span>
-<span id="cb690-6"><a href="workshop-useful-life-distributions-exponential.html#cb690-6" tabindex="-1"></a></span>
-<span id="cb690-7"><a href="workshop-useful-life-distributions-exponential.html#cb690-7" tabindex="-1"></a><span class="co"># Get your &#39;model&#39; function</span></span>
-<span id="cb690-8"><a href="workshop-useful-life-distributions-exponential.html#cb690-8" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>lambda<span class="sc">*</span>t) }</span>
-<span id="cb690-9"><a href="workshop-useful-life-distributions-exponential.html#cb690-9" tabindex="-1"></a></span>
-<span id="cb690-10"><a href="workshop-useful-life-distributions-exponential.html#cb690-10" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">t =</span> masks<span class="sc">$</span>left_earloop) <span class="sc">%&gt;%</span></span>
-<span id="cb690-11"><a href="workshop-useful-life-distributions-exponential.html#cb690-11" tabindex="-1"></a>  <span class="co"># Step 1: Split into bins</span></span>
-<span id="cb690-12"><a href="workshop-useful-life-distributions-exponential.html#cb690-12" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">cut_interval</span>(t, <span class="at">length =</span> <span class="dv">5</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb690-13"><a href="workshop-useful-life-distributions-exponential.html#cb690-13" tabindex="-1"></a>  <span class="co"># Step 2: Tally up by bin</span></span>
-<span id="cb690-14"><a href="workshop-useful-life-distributions-exponential.html#cb690-14" tabindex="-1"></a>  <span class="fu">group_by</span>(label, <span class="at">.drop =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb690-15"><a href="workshop-useful-life-distributions-exponential.html#cb690-15" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb690-16"><a href="workshop-useful-life-distributions-exponential.html#cb690-16" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb690-17"><a href="workshop-useful-life-distributions-exponential.html#cb690-17" tabindex="-1"></a>    <span class="at">bin =</span> <span class="fu">as.numeric</span>(label),</span>
-<span id="cb690-18"><a href="workshop-useful-life-distributions-exponential.html#cb690-18" tabindex="-1"></a>    <span class="at">lower =</span> (bin <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">5</span>, </span>
-<span id="cb690-19"><a href="workshop-useful-life-distributions-exponential.html#cb690-19" tabindex="-1"></a>    <span class="at">upper =</span> bin <span class="sc">*</span> <span class="dv">5</span>,</span>
-<span id="cb690-20"><a href="workshop-useful-life-distributions-exponential.html#cb690-20" tabindex="-1"></a>    <span class="at">midpoint =</span> (lower <span class="sc">+</span> upper) <span class="sc">/</span> <span class="dv">2</span>)  <span class="sc">%&gt;%</span></span>
-<span id="cb690-21"><a href="workshop-useful-life-distributions-exponential.html#cb690-21" tabindex="-1"></a>  <span class="co"># Step 3: Calculate Observed vs. Expected</span></span>
-<span id="cb690-22"><a href="workshop-useful-life-distributions-exponential.html#cb690-22" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb690-23"><a href="workshop-useful-life-distributions-exponential.html#cb690-23" tabindex="-1"></a>    <span class="at">total =</span> <span class="fu">sum</span>(count),</span>
-<span id="cb690-24"><a href="workshop-useful-life-distributions-exponential.html#cb690-24" tabindex="-1"></a>    <span class="at">o =</span> <span class="fu">cumsum</span>(count),</span>
-<span id="cb690-25"><a href="workshop-useful-life-distributions-exponential.html#cb690-25" tabindex="-1"></a>    <span class="at">e =</span> <span class="fu">f</span>(<span class="at">t =</span> midpoint, <span class="at">lambda =</span> mystat<span class="sc">$</span>lambda) <span class="sc">*</span> total) <span class="sc">%&gt;%</span></span>
-<span id="cb690-26"><a href="workshop-useful-life-distributions-exponential.html#cb690-26" tabindex="-1"></a> <span class="co"># Calculate Chi-squared statistic and p-value</span></span>
-<span id="cb690-27"><a href="workshop-useful-life-distributions-exponential.html#cb690-27" tabindex="-1"></a> <span class="fu">summarize</span>(</span>
-<span id="cb690-28"><a href="workshop-useful-life-distributions-exponential.html#cb690-28" tabindex="-1"></a>    <span class="at">chisq =</span> <span class="fu">sum</span>((o <span class="sc">-</span> e)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> e),</span>
-<span id="cb690-29"><a href="workshop-useful-life-distributions-exponential.html#cb690-29" tabindex="-1"></a>    <span class="at">nbin =</span> <span class="fu">n</span>(),</span>
-<span id="cb690-30"><a href="workshop-useful-life-distributions-exponential.html#cb690-30" tabindex="-1"></a>    <span class="at">np =</span> <span class="dv">1</span>,</span>
-<span id="cb690-31"><a href="workshop-useful-life-distributions-exponential.html#cb690-31" tabindex="-1"></a>    <span class="at">df =</span> nbin <span class="sc">-</span> np <span class="sc">-</span> <span class="dv">1</span>,</span>
-<span id="cb690-32"><a href="workshop-useful-life-distributions-exponential.html#cb690-32" tabindex="-1"></a>    <span class="at">p_value =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="at">q =</span> chisq, <span class="at">df =</span> df))</span></code></pre></div>
+<p><img src="07_workshop_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+</div>
+<div id="building-a-chi-squared-function" class="section level3 hasAnchor" number="7.5.4">
+<h3><span class="header-section-number">7.5.4</span> Building a Chi-squared function<a href="workshop-useful-life-distributions-exponential.html#building-a-chi-squared-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>That was a lot of work! It might be more helpful for us to build our own <code>function</code> doing all those steps. Here’s a function I built, which should work pretty flexibly. You can improve it, tweak it, or use it for your own purposes. Our function <code>get_chisq()</code> is going to need several kinds of information.</p>
+<ul>
+<li>Our exponential failure function <code>f</code></li>
+<li>Our parameters, eg. failure rate <code>lambda</code></li>
+<li>Total number of parameters (if exponential, 1)</li>
+<li>Our total number of units under test <code>n</code></li>
+<li>Then, we’ll need a observed vector of times to failure <code>t</code>, plus a constant <code>binwidth</code> (previously, 5).</li>
+<li>Or, if our data is pre-crosstabulated, we can ignore <code>t</code> and <code>binwidth</code> and just supply a data.frame <code>data</code> of crosstabulated vectors <code>lower</code>, <code>upper</code>, and <code>r_obs</code>.</li>
+</ul>
+<p>For example, these inputs might look like this:</p>
+<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb692-1"><a href="workshop-useful-life-distributions-exponential.html#cb692-1" tabindex="-1"></a><span class="co"># Get your &#39;model&#39; function</span></span>
+<span id="cb692-2"><a href="workshop-useful-life-distributions-exponential.html#cb692-2" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>lambda<span class="sc">*</span>t) }</span>
+<span id="cb692-3"><a href="workshop-useful-life-distributions-exponential.html#cb692-3" tabindex="-1"></a><span class="co"># Parameters</span></span>
+<span id="cb692-4"><a href="workshop-useful-life-distributions-exponential.html#cb692-4" tabindex="-1"></a><span class="co"># lambda = 1 / mean(masks$left_earloop)</span></span>
+<span id="cb692-5"><a href="workshop-useful-life-distributions-exponential.html#cb692-5" tabindex="-1"></a><span class="co"># number of parameters</span></span>
+<span id="cb692-6"><a href="workshop-useful-life-distributions-exponential.html#cb692-6" tabindex="-1"></a><span class="co"># np = 1</span></span>
+<span id="cb692-7"><a href="workshop-useful-life-distributions-exponential.html#cb692-7" tabindex="-1"></a><span class="co"># total number of units (sometimes provided, if the data is time-censored)</span></span>
+<span id="cb692-8"><a href="workshop-useful-life-distributions-exponential.html#cb692-8" tabindex="-1"></a><span class="co"># n_total = length(masks$left_earloop)</span></span>
+<span id="cb692-9"><a href="workshop-useful-life-distributions-exponential.html#cb692-9" tabindex="-1"></a></span>
+<span id="cb692-10"><a href="workshop-useful-life-distributions-exponential.html#cb692-10" tabindex="-1"></a><span class="co"># AND</span></span>
+<span id="cb692-11"><a href="workshop-useful-life-distributions-exponential.html#cb692-11" tabindex="-1"></a></span>
+<span id="cb692-12"><a href="workshop-useful-life-distributions-exponential.html#cb692-12" tabindex="-1"></a><span class="co"># Raw observed data + binwidth</span></span>
+<span id="cb692-13"><a href="workshop-useful-life-distributions-exponential.html#cb692-13" tabindex="-1"></a><span class="co"># t = masks$left_earloop</span></span>
+<span id="cb692-14"><a href="workshop-useful-life-distributions-exponential.html#cb692-14" tabindex="-1"></a><span class="co"># binwidth = 5</span></span>
+<span id="cb692-15"><a href="workshop-useful-life-distributions-exponential.html#cb692-15" tabindex="-1"></a><span class="co"># OR</span></span>
+<span id="cb692-16"><a href="workshop-useful-life-distributions-exponential.html#cb692-16" tabindex="-1"></a><span class="co"># Crosstabulated data (c1 is an example we made before)</span></span>
+<span id="cb692-17"><a href="workshop-useful-life-distributions-exponential.html#cb692-17" tabindex="-1"></a><span class="co"># data = c1 %&gt;% select(lower, upper, r_obs)</span></span></code></pre></div>
+<p>Then, we could write out the function like this! I’ve added some fancy <code>@</code> tags below just for notation, but you can ditch them if you prefer. This is a fairly complex function! I’ve shared it with you as an example to help you build your own for your projects.</p>
+<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb693-1"><a href="workshop-useful-life-distributions-exponential.html#cb693-1" tabindex="-1"></a><span class="co">#&#39; @name get_chisq</span></span>
+<span id="cb693-2"><a href="workshop-useful-life-distributions-exponential.html#cb693-2" tabindex="-1"></a><span class="co">#&#39; @title Function to Get Chi-Squared!</span></span>
+<span id="cb693-3"><a href="workshop-useful-life-distributions-exponential.html#cb693-3" tabindex="-1"></a><span class="co">#&#39; @name Tim Fraser</span></span>
+<span id="cb693-4"><a href="workshop-useful-life-distributions-exponential.html#cb693-4" tabindex="-1"></a><span class="co">#&#39; If observed vector...</span></span>
+<span id="cb693-5"><a href="workshop-useful-life-distributions-exponential.html#cb693-5" tabindex="-1"></a><span class="co">#&#39; @param t a vector of times to failure</span></span>
+<span id="cb693-6"><a href="workshop-useful-life-distributions-exponential.html#cb693-6" tabindex="-1"></a><span class="co">#&#39; @param binwidth size of intervals (eg. 5 hours) (Only if t is provided)</span></span>
+<span id="cb693-7"><a href="workshop-useful-life-distributions-exponential.html#cb693-7" tabindex="-1"></a><span class="co">#&#39; If cross-tabulated data...</span></span>
+<span id="cb693-8"><a href="workshop-useful-life-distributions-exponential.html#cb693-8" tabindex="-1"></a><span class="co">#&#39; @param data a data.frame with the vectors `lower`, `upper`, and `r_obs`</span></span>
+<span id="cb693-9"><a href="workshop-useful-life-distributions-exponential.html#cb693-9" tabindex="-1"></a><span class="co">#&#39; Common Parameters:</span></span>
+<span id="cb693-10"><a href="workshop-useful-life-distributions-exponential.html#cb693-10" tabindex="-1"></a><span class="co">#&#39; @param n_total total number of units.</span></span>
+<span id="cb693-11"><a href="workshop-useful-life-distributions-exponential.html#cb693-11" tabindex="-1"></a><span class="co">#&#39; @param f specific failure function, such as `f = f(t, lambda)`</span></span>
+<span id="cb693-12"><a href="workshop-useful-life-distributions-exponential.html#cb693-12" tabindex="-1"></a><span class="co">#&#39; @param np total number of parameters in your function (eg. if exponential, 1 (lambda))</span></span>
+<span id="cb693-13"><a href="workshop-useful-life-distributions-exponential.html#cb693-13" tabindex="-1"></a><span class="co">#&#39; @param ... fill in here any named parameters you need, like `lambda = 2.4` or `rate = 2.3` or `mean = 0, sd = 2`</span></span>
+<span id="cb693-14"><a href="workshop-useful-life-distributions-exponential.html#cb693-14" tabindex="-1"></a>get_chisq <span class="ot">=</span> <span class="cf">function</span>(<span class="at">t =</span> <span class="cn">NULL</span>, <span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">data =</span> <span class="cn">NULL</span>, </span>
+<span id="cb693-15"><a href="workshop-useful-life-distributions-exponential.html#cb693-15" tabindex="-1"></a>                     n_total, f, <span class="at">np =</span> <span class="dv">1</span>, ...){</span>
+<span id="cb693-16"><a href="workshop-useful-life-distributions-exponential.html#cb693-16" tabindex="-1"></a>  </span>
+<span id="cb693-17"><a href="workshop-useful-life-distributions-exponential.html#cb693-17" tabindex="-1"></a>  <span class="co"># If vector `t` is NOT NULL</span></span>
+<span id="cb693-18"><a href="workshop-useful-life-distributions-exponential.html#cb693-18" tabindex="-1"></a>  <span class="co"># Do the raw data route</span></span>
+<span id="cb693-19"><a href="workshop-useful-life-distributions-exponential.html#cb693-19" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(t)){</span>
+<span id="cb693-20"><a href="workshop-useful-life-distributions-exponential.html#cb693-20" tabindex="-1"></a>    <span class="co"># Make a tibble called &#39;tab&#39;</span></span>
+<span id="cb693-21"><a href="workshop-useful-life-distributions-exponential.html#cb693-21" tabindex="-1"></a>    tab <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">t =</span> t) <span class="sc">%&gt;%</span></span>
+<span id="cb693-22"><a href="workshop-useful-life-distributions-exponential.html#cb693-22" tabindex="-1"></a>      <span class="co"># Part 1.1: Split into bins</span></span>
+<span id="cb693-23"><a href="workshop-useful-life-distributions-exponential.html#cb693-23" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">interval =</span> <span class="fu">cut_interval</span>(t, <span class="at">length =</span> binwidth)) <span class="sc">%&gt;%</span></span>
+<span id="cb693-24"><a href="workshop-useful-life-distributions-exponential.html#cb693-24" tabindex="-1"></a>      <span class="co"># Part 1.2: Tally up observed failures &#39;r_obs&#39; by bin</span></span>
+<span id="cb693-25"><a href="workshop-useful-life-distributions-exponential.html#cb693-25" tabindex="-1"></a>      <span class="fu">group_by</span>(interval, <span class="at">.drop =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb693-26"><a href="workshop-useful-life-distributions-exponential.html#cb693-26" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">r_obs =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb693-27"><a href="workshop-useful-life-distributions-exponential.html#cb693-27" tabindex="-1"></a>      <span class="co"># Let&#39;s repeat our process from before!</span></span>
+<span id="cb693-28"><a href="workshop-useful-life-distributions-exponential.html#cb693-28" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
+<span id="cb693-29"><a href="workshop-useful-life-distributions-exponential.html#cb693-29" tabindex="-1"></a>        <span class="at">bin =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(),</span>
+<span id="cb693-30"><a href="workshop-useful-life-distributions-exponential.html#cb693-30" tabindex="-1"></a>        <span class="at">lower =</span> (bin <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> binwidth, </span>
+<span id="cb693-31"><a href="workshop-useful-life-distributions-exponential.html#cb693-31" tabindex="-1"></a>        <span class="at">upper =</span> bin <span class="sc">*</span> binwidth,</span>
+<span id="cb693-32"><a href="workshop-useful-life-distributions-exponential.html#cb693-32" tabindex="-1"></a>        <span class="at">midpoint =</span> (lower <span class="sc">+</span> upper) <span class="sc">/</span> <span class="dv">2</span>) </span>
+<span id="cb693-33"><a href="workshop-useful-life-distributions-exponential.html#cb693-33" tabindex="-1"></a>    </span>
+<span id="cb693-34"><a href="workshop-useful-life-distributions-exponential.html#cb693-34" tabindex="-1"></a>    <span class="co"># Otherwise, if data.frame `data` is NOT NULL</span></span>
+<span id="cb693-35"><a href="workshop-useful-life-distributions-exponential.html#cb693-35" tabindex="-1"></a>    <span class="co"># Do the cross-tabulated data route</span></span>
+<span id="cb693-36"><a href="workshop-useful-life-distributions-exponential.html#cb693-36" tabindex="-1"></a>  }<span class="cf">else</span> <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(data)){</span>
+<span id="cb693-37"><a href="workshop-useful-life-distributions-exponential.html#cb693-37" tabindex="-1"></a>    tab <span class="ot">=</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb693-38"><a href="workshop-useful-life-distributions-exponential.html#cb693-38" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">bin =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(),</span>
+<span id="cb693-39"><a href="workshop-useful-life-distributions-exponential.html#cb693-39" tabindex="-1"></a>             <span class="at">midpoint =</span> (lower <span class="sc">+</span> upper) <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb693-40"><a href="workshop-useful-life-distributions-exponential.html#cb693-40" tabindex="-1"></a>  }</span>
+<span id="cb693-41"><a href="workshop-useful-life-distributions-exponential.html#cb693-41" tabindex="-1"></a>  </span>
+<span id="cb693-42"><a href="workshop-useful-life-distributions-exponential.html#cb693-42" tabindex="-1"></a>  <span class="co"># Part 2. Calculate probabilities by interval</span></span>
+<span id="cb693-43"><a href="workshop-useful-life-distributions-exponential.html#cb693-43" tabindex="-1"></a>  output <span class="ot">=</span> tab <span class="sc">%&gt;%</span> </span>
+<span id="cb693-44"><a href="workshop-useful-life-distributions-exponential.html#cb693-44" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb693-45"><a href="workshop-useful-life-distributions-exponential.html#cb693-45" tabindex="-1"></a>      <span class="at">p_upper =</span> <span class="fu">f</span>(upper, ...), <span class="co"># supplied parameters</span></span>
+<span id="cb693-46"><a href="workshop-useful-life-distributions-exponential.html#cb693-46" tabindex="-1"></a>      <span class="at">p_lower =</span> <span class="fu">f</span>(lower, ...), <span class="co"># supplied parameters</span></span>
+<span id="cb693-47"><a href="workshop-useful-life-distributions-exponential.html#cb693-47" tabindex="-1"></a>      <span class="at">p_fail =</span> p_upper <span class="sc">-</span> p_lower,</span>
+<span id="cb693-48"><a href="workshop-useful-life-distributions-exponential.html#cb693-48" tabindex="-1"></a>      <span class="at">n_total =</span> n_total,</span>
+<span id="cb693-49"><a href="workshop-useful-life-distributions-exponential.html#cb693-49" tabindex="-1"></a>      <span class="at">r_exp =</span> n_total <span class="sc">*</span> p_fail) <span class="sc">%&gt;%</span></span>
+<span id="cb693-50"><a href="workshop-useful-life-distributions-exponential.html#cb693-50" tabindex="-1"></a>    <span class="co"># Part 3-4: Calculate Chi-Squared statistic and p-value</span></span>
+<span id="cb693-51"><a href="workshop-useful-life-distributions-exponential.html#cb693-51" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb693-52"><a href="workshop-useful-life-distributions-exponential.html#cb693-52" tabindex="-1"></a>      <span class="at">chisq =</span> <span class="fu">sum</span>((r_obs <span class="sc">-</span> r_exp)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> r_exp),</span>
+<span id="cb693-53"><a href="workshop-useful-life-distributions-exponential.html#cb693-53" tabindex="-1"></a>      <span class="at">nbin =</span> <span class="fu">n</span>(),</span>
+<span id="cb693-54"><a href="workshop-useful-life-distributions-exponential.html#cb693-54" tabindex="-1"></a>      <span class="at">np =</span> np,</span>
+<span id="cb693-55"><a href="workshop-useful-life-distributions-exponential.html#cb693-55" tabindex="-1"></a>      <span class="at">df =</span> nbin <span class="sc">-</span> np <span class="sc">-</span> <span class="dv">1</span>,</span>
+<span id="cb693-56"><a href="workshop-useful-life-distributions-exponential.html#cb693-56" tabindex="-1"></a>      <span class="at">p_value =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="at">q =</span> chisq, <span class="at">df =</span> df) )</span>
+<span id="cb693-57"><a href="workshop-useful-life-distributions-exponential.html#cb693-57" tabindex="-1"></a>  </span>
+<span id="cb693-58"><a href="workshop-useful-life-distributions-exponential.html#cb693-58" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb693-59"><a href="workshop-useful-life-distributions-exponential.html#cb693-59" tabindex="-1"></a>}</span></code></pre></div>
+<p>Finally, let’s try using our function!</p>
+<p>Using a raw observed vector <code>t</code>:</p>
+<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb694-1"><a href="workshop-useful-life-distributions-exponential.html#cb694-1" tabindex="-1"></a><span class="fu">get_chisq</span>(</span>
+<span id="cb694-2"><a href="workshop-useful-life-distributions-exponential.html#cb694-2" tabindex="-1"></a>  <span class="at">t =</span> masks<span class="sc">$</span>left_earloop, <span class="at">binwidth =</span> <span class="dv">5</span>, </span>
+<span id="cb694-3"><a href="workshop-useful-life-distributions-exponential.html#cb694-3" tabindex="-1"></a>  <span class="at">n_total =</span> <span class="dv">50</span>, <span class="at">f =</span> f, <span class="at">np =</span> <span class="dv">1</span>, <span class="at">lambda =</span> mystat<span class="sc">$</span>lambda)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##   chisq  nbin    np    df p_value
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-## 1  12.5    11     1     9   0.188</code></pre>
-<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb692-1"><a href="workshop-useful-life-distributions-exponential.html#cb692-1" tabindex="-1"></a><span class="co"># And if that&#39;s a lot to type every time, you could always code a function for it :)</span></span></code></pre></div>
+## 1  15.2    11     1     9  0.0847</code></pre>
+<p>Or using crosstabulated <code>data</code>:</p>
+<div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb696-1"><a href="workshop-useful-life-distributions-exponential.html#cb696-1" tabindex="-1"></a><span class="fu">get_chisq</span>(</span>
+<span id="cb696-2"><a href="workshop-useful-life-distributions-exponential.html#cb696-2" tabindex="-1"></a>  <span class="at">data =</span> c1,</span>
+<span id="cb696-3"><a href="workshop-useful-life-distributions-exponential.html#cb696-3" tabindex="-1"></a>  <span class="at">n_total =</span> <span class="dv">50</span>, <span class="at">f =</span> f, <span class="at">np =</span> <span class="dv">1</span>, <span class="at">lambda =</span> mystat<span class="sc">$</span>lambda)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 5
+##   chisq  nbin    np    df p_value
+##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+## 1  15.2    11     1     9  0.0847</code></pre>
+<p>Using our <code>pexp</code> function instead of our homemade <code>f</code> function:</p>
+<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb698-1"><a href="workshop-useful-life-distributions-exponential.html#cb698-1" tabindex="-1"></a><span class="fu">get_chisq</span>(</span>
+<span id="cb698-2"><a href="workshop-useful-life-distributions-exponential.html#cb698-2" tabindex="-1"></a>  <span class="at">data =</span> c1,</span>
+<span id="cb698-3"><a href="workshop-useful-life-distributions-exponential.html#cb698-3" tabindex="-1"></a>  <span class="at">n_total =</span> <span class="dv">50</span>, <span class="at">f =</span> pexp, <span class="at">np =</span> <span class="dv">1</span>, <span class="at">rate =</span> mystat<span class="sc">$</span>lambda)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 5
+##   chisq  nbin    np    df p_value
+##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+## 1  15.2    11     1     9  0.0847</code></pre>
+<p>Or using a different function that is not exponential!</p>
+<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb700-1"><a href="workshop-useful-life-distributions-exponential.html#cb700-1" tabindex="-1"></a><span class="fu">get_chisq</span>(</span>
+<span id="cb700-2"><a href="workshop-useful-life-distributions-exponential.html#cb700-2" tabindex="-1"></a>  <span class="at">data =</span> c1,</span>
+<span id="cb700-3"><a href="workshop-useful-life-distributions-exponential.html#cb700-3" tabindex="-1"></a>  <span class="at">n_total =</span> <span class="dv">50</span>, <span class="at">f =</span> pweibull, <span class="at">np =</span> <span class="dv">2</span>, <span class="at">shape =</span> <span class="fl">0.2</span>, <span class="at">scale =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 5
+##   chisq  nbin    np    df p_value
+##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+## 1  171.    11     2     8       0</code></pre>
+<p><br>
+<br></p>
 </div>
-<div id="estimating-lambda" class="section level3 hasAnchor" number="7.5.4">
-<h3><span class="header-section-number">7.5.4</span> Estimating Lambda<a href="workshop-useful-life-distributions-exponential.html#estimating-lambda" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="estimating-lambda" class="section level3 hasAnchor" number="7.5.5">
+<h3><span class="header-section-number">7.5.5</span> Estimating Lambda<a href="workshop-useful-life-distributions-exponential.html#estimating-lambda" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Depending on whether we have <em>complete</em> data or not, we may need to estimate <span class="math inline">\(\lambda\)</span>, rather than compute it directly.</p>
 <ol style="list-style-type: decimal">
 <li>If we have a complete sample of data (eg. not censored), then we can just calculate: $ = $</li>
 </ol>
-<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb693-1"><a href="workshop-useful-life-distributions-exponential.html#cb693-1" tabindex="-1"></a><span class="co"># Eg. </span></span>
-<span id="cb693-2"><a href="workshop-useful-life-distributions-exponential.html#cb693-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(masks<span class="sc">$</span>left_earloop)</span></code></pre></div>
+<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb702-1"><a href="workshop-useful-life-distributions-exponential.html#cb702-1" tabindex="-1"></a><span class="co"># Eg. </span></span>
+<span id="cb702-2"><a href="workshop-useful-life-distributions-exponential.html#cb702-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(masks<span class="sc">$</span>left_earloop)</span></code></pre></div>
 <pre><code>## [1] 0.0748503</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>If our data is censored or pre-tabulated into groups, we may need to use the <code>midpoint</code> and <code>count</code> of failures in each <code>bin</code> to calculate <span class="math inline">\(\lambda\)</span>.</li>
@@ -1542,16 +1660,16 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 <li><p>Unless some cases do not fail, <span class="math inline">\((n - r)t_z\)</span> will cancel out as <code>0</code>.</p></li>
 </ul>
 <p><span class="math display">\[ \hat{\lambda} = \frac{ r  }{ \sum_{i=1}^{r}{t_i}  +  (n - r)t_z} \]</span></p>
-<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb695-1"><a href="workshop-useful-life-distributions-exponential.html#cb695-1" tabindex="-1"></a><span class="co"># Let&#39;s calculate it!</span></span>
-<span id="cb695-2"><a href="workshop-useful-life-distributions-exponential.html#cb695-2" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> d3 <span class="sc">%&gt;%</span></span>
-<span id="cb695-3"><a href="workshop-useful-life-distributions-exponential.html#cb695-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb695-4"><a href="workshop-useful-life-distributions-exponential.html#cb695-4" tabindex="-1"></a>    <span class="at">r =</span> <span class="fu">sum</span>(count <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="co"># total failures</span></span>
-<span id="cb695-5"><a href="workshop-useful-life-distributions-exponential.html#cb695-5" tabindex="-1"></a>    <span class="at">hours =</span> <span class="fu">sum</span>(midpoint<span class="sc">*</span>count), <span class="co"># total failure-hours</span></span>
-<span id="cb695-6"><a href="workshop-useful-life-distributions-exponential.html#cb695-6" tabindex="-1"></a>    <span class="at">n =</span> r, <span class="co"># in this case, total failures = total obs</span></span>
-<span id="cb695-7"><a href="workshop-useful-life-distributions-exponential.html#cb695-7" tabindex="-1"></a>    <span class="at">tz =</span> <span class="fu">max</span>(midpoint), <span class="co"># end of study period</span></span>
-<span id="cb695-8"><a href="workshop-useful-life-distributions-exponential.html#cb695-8" tabindex="-1"></a>    <span class="co"># Calculate lambda hat!</span></span>
-<span id="cb695-9"><a href="workshop-useful-life-distributions-exponential.html#cb695-9" tabindex="-1"></a>    <span class="at">lambda_hat =</span> r <span class="sc">/</span> (hours <span class="sc">+</span> (n <span class="sc">-</span> r)<span class="sc">*</span>tz))</span></code></pre></div>
-<div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb696-1"><a href="workshop-useful-life-distributions-exponential.html#cb696-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(masks<span class="sc">$</span>left_earloop)</span></code></pre></div>
+<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb704-1"><a href="workshop-useful-life-distributions-exponential.html#cb704-1" tabindex="-1"></a><span class="co"># Let&#39;s calculate it!</span></span>
+<span id="cb704-2"><a href="workshop-useful-life-distributions-exponential.html#cb704-2" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> d3 <span class="sc">%&gt;%</span></span>
+<span id="cb704-3"><a href="workshop-useful-life-distributions-exponential.html#cb704-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb704-4"><a href="workshop-useful-life-distributions-exponential.html#cb704-4" tabindex="-1"></a>    <span class="at">r =</span> <span class="fu">sum</span>(count <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="co"># total failures</span></span>
+<span id="cb704-5"><a href="workshop-useful-life-distributions-exponential.html#cb704-5" tabindex="-1"></a>    <span class="at">hours =</span> <span class="fu">sum</span>(midpoint<span class="sc">*</span>count), <span class="co"># total failure-hours</span></span>
+<span id="cb704-6"><a href="workshop-useful-life-distributions-exponential.html#cb704-6" tabindex="-1"></a>    <span class="at">n =</span> r, <span class="co"># in this case, total failures = total obs</span></span>
+<span id="cb704-7"><a href="workshop-useful-life-distributions-exponential.html#cb704-7" tabindex="-1"></a>    <span class="at">tz =</span> <span class="fu">max</span>(midpoint), <span class="co"># end of study period</span></span>
+<span id="cb704-8"><a href="workshop-useful-life-distributions-exponential.html#cb704-8" tabindex="-1"></a>    <span class="co"># Calculate lambda hat!</span></span>
+<span id="cb704-9"><a href="workshop-useful-life-distributions-exponential.html#cb704-9" tabindex="-1"></a>    <span class="at">lambda_hat =</span> r <span class="sc">/</span> (hours <span class="sc">+</span> (n <span class="sc">-</span> r)<span class="sc">*</span>tz))</span></code></pre></div>
+<div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb705-1"><a href="workshop-useful-life-distributions-exponential.html#cb705-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(masks<span class="sc">$</span>left_earloop)</span></code></pre></div>
 <pre><code>## [1] 0.0748503</code></pre>
 <p>Also, our estimate of lambda might be slightly off due to random sampling error. (Every time you take a random sample, there’s a little change, right?) So, let’s build a <strong>confidence interval</strong> around our estimate.</p>
 <ul>
@@ -1560,69 +1678,69 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 <li><p>Like any statistic, our estimate <span class="math inline">\(\hat{\lambda}\)</span> has a full <em>sampling distribution</em> of <span class="math inline">\(\hat{\lambda}\)</span> values we could get due to random sampling error, with some of them occurring more frequently than others.</p></li>
 <li><p>We want to find the upper and lower bounds around the 90%, 95%, or perhaps 99% <em>most common</em> (middle-most) values in that sampling distribution. So, if <span class="math inline">\(alpha = 0.10\)</span>, we’re going to get a 90% confidence interval (dubbed <span class="math inline">\(interval\)</span>) spanning from the 5%~95% of that sampling distribution.</p></li>
 </ul>
-<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb698-1"><a href="workshop-useful-life-distributions-exponential.html#cb698-1" tabindex="-1"></a><span class="co"># To calculate a &#39;one-tailed&#39; 90% CI (eg. we only care if above 90%)</span></span>
-<span id="cb698-2"><a href="workshop-useful-life-distributions-exponential.html#cb698-2" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.10</span></span>
-<span id="cb698-3"><a href="workshop-useful-life-distributions-exponential.html#cb698-3" tabindex="-1"></a>ci <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> alpha</span></code></pre></div>
-<div class="sourceCode" id="cb699"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb699-1"><a href="workshop-useful-life-distributions-exponential.html#cb699-1" tabindex="-1"></a><span class="co"># To adjust this to be &#39;two-tailed&#39; 90% CI (eg. we care if below 5% or above 95%)...</span></span>
-<span id="cb699-2"><a href="workshop-useful-life-distributions-exponential.html#cb699-2" tabindex="-1"></a><span class="fl">0.5</span> <span class="sc">+</span> (ci <span class="sc">/</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb707-1"><a href="workshop-useful-life-distributions-exponential.html#cb707-1" tabindex="-1"></a><span class="co"># To calculate a &#39;one-tailed&#39; 90% CI (eg. we only care if above 90%)</span></span>
+<span id="cb707-2"><a href="workshop-useful-life-distributions-exponential.html#cb707-2" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.10</span></span>
+<span id="cb707-3"><a href="workshop-useful-life-distributions-exponential.html#cb707-3" tabindex="-1"></a>ci <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> alpha</span></code></pre></div>
+<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb708-1"><a href="workshop-useful-life-distributions-exponential.html#cb708-1" tabindex="-1"></a><span class="co"># To adjust this to be &#39;two-tailed&#39; 90% CI (eg. we care if below 5% or above 95%)...</span></span>
+<span id="cb708-2"><a href="workshop-useful-life-distributions-exponential.html#cb708-2" tabindex="-1"></a><span class="fl">0.5</span> <span class="sc">+</span> (ci <span class="sc">/</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 0.95</code></pre>
-<div class="sourceCode" id="cb701"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb701-1"><a href="workshop-useful-life-distributions-exponential.html#cb701-1" tabindex="-1"></a><span class="fl">0.5</span> <span class="sc">-</span> ci <span class="sc">/</span> <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb710-1"><a href="workshop-useful-life-distributions-exponential.html#cb710-1" tabindex="-1"></a><span class="fl">0.5</span> <span class="sc">-</span> ci <span class="sc">/</span> <span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 0.05</code></pre>
 <ul>
 <li>No Censoring: If we have complete data (all observations failed!), using this formula to calculate factor <span class="math inline">\(k\)</span>:</li>
 </ul>
-<div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb703-1"><a href="workshop-useful-life-distributions-exponential.html#cb703-1" tabindex="-1"></a><span class="co"># For example, let&#39;s say r = 50</span></span>
-<span id="cb703-2"><a href="workshop-useful-life-distributions-exponential.html#cb703-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="dv">50</span></span>
-<span id="cb703-3"><a href="workshop-useful-life-distributions-exponential.html#cb703-3" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">qchisq</span>(ci, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r)</span></code></pre></div>
+<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb712-1"><a href="workshop-useful-life-distributions-exponential.html#cb712-1" tabindex="-1"></a><span class="co"># For example, let&#39;s say r = 50</span></span>
+<span id="cb712-2"><a href="workshop-useful-life-distributions-exponential.html#cb712-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="dv">50</span></span>
+<span id="cb712-3"><a href="workshop-useful-life-distributions-exponential.html#cb712-3" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">qchisq</span>(ci, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r)</span></code></pre></div>
 <ul>
 <li>Time-Censoring: If we only record up to a specific time (eg. planning an experiment), use <strong>this</strong> formula to calculate factor <span class="math inline">\(k\)</span>, setting as the degrees of freedom <span class="math inline">\(df = 2(r+1)\)</span>.</li>
 </ul>
-<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb704-1"><a href="workshop-useful-life-distributions-exponential.html#cb704-1" tabindex="-1"></a><span class="co"># For example, let&#39;s say r = 50</span></span>
-<span id="cb704-2"><a href="workshop-useful-life-distributions-exponential.html#cb704-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="dv">50</span></span>
-<span id="cb704-3"><a href="workshop-useful-life-distributions-exponential.html#cb704-3" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">qchisq</span>(ci, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>(r<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r)</span></code></pre></div>
-<div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb705-1"><a href="workshop-useful-life-distributions-exponential.html#cb705-1" tabindex="-1"></a><span class="co"># Clear these</span></span>
-<span id="cb705-2"><a href="workshop-useful-life-distributions-exponential.html#cb705-2" tabindex="-1"></a><span class="fu">remove</span>(r, k)</span></code></pre></div>
+<div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb713-1"><a href="workshop-useful-life-distributions-exponential.html#cb713-1" tabindex="-1"></a><span class="co"># For example, let&#39;s say r = 50</span></span>
+<span id="cb713-2"><a href="workshop-useful-life-distributions-exponential.html#cb713-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="dv">50</span></span>
+<span id="cb713-3"><a href="workshop-useful-life-distributions-exponential.html#cb713-3" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">qchisq</span>(ci, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>(r<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r)</span></code></pre></div>
+<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb714-1"><a href="workshop-useful-life-distributions-exponential.html#cb714-1" tabindex="-1"></a><span class="co"># Clear these</span></span>
+<span id="cb714-2"><a href="workshop-useful-life-distributions-exponential.html#cb714-2" tabindex="-1"></a><span class="fu">remove</span>(r, k)</span></code></pre></div>
 <p>So, since we do not have time censoring in our <code>d4</code> dataset, we can go ahead an calculate the <code>df = 2*r</code> and compute the 90% <code>lower</code> and <code>upper</code> confidence intervals.</p>
-<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb706-1"><a href="workshop-useful-life-distributions-exponential.html#cb706-1" tabindex="-1"></a>d4 <span class="sc">%&gt;%</span></span>
-<span id="cb706-2"><a href="workshop-useful-life-distributions-exponential.html#cb706-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb706-3"><a href="workshop-useful-life-distributions-exponential.html#cb706-3" tabindex="-1"></a>    <span class="at">lambda_hat =</span> lambda_hat,</span>
-<span id="cb706-4"><a href="workshop-useful-life-distributions-exponential.html#cb706-4" tabindex="-1"></a>    <span class="at">r =</span> r,</span>
-<span id="cb706-5"><a href="workshop-useful-life-distributions-exponential.html#cb706-5" tabindex="-1"></a>    <span class="at">k_upper =</span> <span class="fu">qchisq</span>(<span class="fl">0.95</span>, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r),</span>
-<span id="cb706-6"><a href="workshop-useful-life-distributions-exponential.html#cb706-6" tabindex="-1"></a>    <span class="at">k_lower =</span> <span class="fu">qchisq</span>(<span class="fl">0.05</span>, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r),</span>
-<span id="cb706-7"><a href="workshop-useful-life-distributions-exponential.html#cb706-7" tabindex="-1"></a>    <span class="at">lower =</span> lambda_hat <span class="sc">*</span> k_lower,</span>
-<span id="cb706-8"><a href="workshop-useful-life-distributions-exponential.html#cb706-8" tabindex="-1"></a>    <span class="at">upper =</span> lambda_hat <span class="sc">*</span> k_upper)</span></code></pre></div>
+<div class="sourceCode" id="cb715"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb715-1"><a href="workshop-useful-life-distributions-exponential.html#cb715-1" tabindex="-1"></a>d4 <span class="sc">%&gt;%</span></span>
+<span id="cb715-2"><a href="workshop-useful-life-distributions-exponential.html#cb715-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb715-3"><a href="workshop-useful-life-distributions-exponential.html#cb715-3" tabindex="-1"></a>    <span class="at">lambda_hat =</span> lambda_hat,</span>
+<span id="cb715-4"><a href="workshop-useful-life-distributions-exponential.html#cb715-4" tabindex="-1"></a>    <span class="at">r =</span> r,</span>
+<span id="cb715-5"><a href="workshop-useful-life-distributions-exponential.html#cb715-5" tabindex="-1"></a>    <span class="at">k_upper =</span> <span class="fu">qchisq</span>(<span class="fl">0.95</span>, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r),</span>
+<span id="cb715-6"><a href="workshop-useful-life-distributions-exponential.html#cb715-6" tabindex="-1"></a>    <span class="at">k_lower =</span> <span class="fu">qchisq</span>(<span class="fl">0.05</span>, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r),</span>
+<span id="cb715-7"><a href="workshop-useful-life-distributions-exponential.html#cb715-7" tabindex="-1"></a>    <span class="at">lower =</span> lambda_hat <span class="sc">*</span> k_lower,</span>
+<span id="cb715-8"><a href="workshop-useful-life-distributions-exponential.html#cb715-8" tabindex="-1"></a>    <span class="at">upper =</span> lambda_hat <span class="sc">*</span> k_upper)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
 ##   lambda_hat     r k_upper k_lower   lower  upper
 ##        &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
 ## 1     0.0138     9    1.60   0.522 0.00722 0.0222</code></pre>
 </div>
-<div id="planning-experiments" class="section level3 hasAnchor" number="7.5.5">
-<h3><span class="header-section-number">7.5.5</span> Planning Experiments<a href="workshop-useful-life-distributions-exponential.html#planning-experiments" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="planning-experiments" class="section level3 hasAnchor" number="7.5.6">
+<h3><span class="header-section-number">7.5.6</span> Planning Experiments<a href="workshop-useful-life-distributions-exponential.html#planning-experiments" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>When planning an experiment, we can use the following formula to determine the necessary values of <span class="math inline">\(r\)</span>, <span class="math inline">\(t\)</span>, <span class="math inline">\(lambda\)</span>, <span class="math inline">\(k\)</span>, or <span class="math inline">\(n\)</span> for our experiment to function:</p>
 <p><span class="math display">\[ \frac{r}{n \ t} \times k_{r, 1 - \alpha} = \hat{\lambda} \]</span></p>
 <p><em>Note</em>: Experiment planning by definition makes time-censored datasets, so you’ll need your adjusted <span class="math inline">\(k\)</span> formula so that <span class="math inline">\(df = 2(r+1)\)</span>.</p>
 <p>Let’s try an example. Imagine a company wants to test a new line of masks. Your company can budget <code>500</code> hours to test these masks’ elastic bands, and they accept that up to <code>10</code> of these masks may break in the process. Company policy anticipates a failure rate of just <code>0.00002</code> masks per hour, and we want to be <code>90</code>% confidence that the failure rate will not <em>exceed</em> this level. (But it’s fine if it goes below that level.)</p>
 <p>If we aim to fit within these constraints, how many masks need to be tested in this product trial?</p>
-<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb708-1"><a href="workshop-useful-life-distributions-exponential.html#cb708-1" tabindex="-1"></a><span class="co"># Max failures</span></span>
-<span id="cb708-2"><a href="workshop-useful-life-distributions-exponential.html#cb708-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="dv">10</span></span>
-<span id="cb708-3"><a href="workshop-useful-life-distributions-exponential.html#cb708-3" tabindex="-1"></a><span class="co"># Number of hours</span></span>
-<span id="cb708-4"><a href="workshop-useful-life-distributions-exponential.html#cb708-4" tabindex="-1"></a>t <span class="ot">=</span> <span class="dv">500</span></span>
-<span id="cb708-5"><a href="workshop-useful-life-distributions-exponential.html#cb708-5" tabindex="-1"></a><span class="co"># Max acceptable failure rate</span></span>
-<span id="cb708-6"><a href="workshop-useful-life-distributions-exponential.html#cb708-6" tabindex="-1"></a>lambda <span class="ot">=</span> <span class="fl">0.00002</span></span>
-<span id="cb708-7"><a href="workshop-useful-life-distributions-exponential.html#cb708-7" tabindex="-1"></a></span>
-<span id="cb708-8"><a href="workshop-useful-life-distributions-exponential.html#cb708-8" tabindex="-1"></a><span class="co"># Calcuate a one-tailed confidence interval</span></span>
-<span id="cb708-9"><a href="workshop-useful-life-distributions-exponential.html#cb708-9" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.10</span></span>
-<span id="cb708-10"><a href="workshop-useful-life-distributions-exponential.html#cb708-10" tabindex="-1"></a>ci <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> alpha</span>
-<span id="cb708-11"><a href="workshop-useful-life-distributions-exponential.html#cb708-11" tabindex="-1"></a></span>
-<span id="cb708-12"><a href="workshop-useful-life-distributions-exponential.html#cb708-12" tabindex="-1"></a><span class="co"># Use these ingredients to calculate the factor k, using time-censored rule df = 2*(r+1)</span></span>
-<span id="cb708-13"><a href="workshop-useful-life-distributions-exponential.html#cb708-13" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">qchisq</span>(ci, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>(r<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r)</span>
-<span id="cb708-14"><a href="workshop-useful-life-distributions-exponential.html#cb708-14" tabindex="-1"></a></span>
-<span id="cb708-15"><a href="workshop-useful-life-distributions-exponential.html#cb708-15" tabindex="-1"></a><span class="co"># Reformat </span></span>
-<span id="cb708-16"><a href="workshop-useful-life-distributions-exponential.html#cb708-16" tabindex="-1"></a><span class="co"># r / (t*n) * k = lambda</span></span>
-<span id="cb708-17"><a href="workshop-useful-life-distributions-exponential.html#cb708-17" tabindex="-1"></a>n <span class="ot">=</span> k <span class="sc">*</span> r  <span class="sc">/</span> (lambda <span class="sc">*</span> t)</span>
-<span id="cb708-18"><a href="workshop-useful-life-distributions-exponential.html#cb708-18" tabindex="-1"></a></span>
-<span id="cb708-19"><a href="workshop-useful-life-distributions-exponential.html#cb708-19" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb708-20"><a href="workshop-useful-life-distributions-exponential.html#cb708-20" tabindex="-1"></a>n</span></code></pre></div>
+<div class="sourceCode" id="cb717"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb717-1"><a href="workshop-useful-life-distributions-exponential.html#cb717-1" tabindex="-1"></a><span class="co"># Max failures</span></span>
+<span id="cb717-2"><a href="workshop-useful-life-distributions-exponential.html#cb717-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb717-3"><a href="workshop-useful-life-distributions-exponential.html#cb717-3" tabindex="-1"></a><span class="co"># Number of hours</span></span>
+<span id="cb717-4"><a href="workshop-useful-life-distributions-exponential.html#cb717-4" tabindex="-1"></a>t <span class="ot">=</span> <span class="dv">500</span></span>
+<span id="cb717-5"><a href="workshop-useful-life-distributions-exponential.html#cb717-5" tabindex="-1"></a><span class="co"># Max acceptable failure rate</span></span>
+<span id="cb717-6"><a href="workshop-useful-life-distributions-exponential.html#cb717-6" tabindex="-1"></a>lambda <span class="ot">=</span> <span class="fl">0.00002</span></span>
+<span id="cb717-7"><a href="workshop-useful-life-distributions-exponential.html#cb717-7" tabindex="-1"></a></span>
+<span id="cb717-8"><a href="workshop-useful-life-distributions-exponential.html#cb717-8" tabindex="-1"></a><span class="co"># Calcuate a one-tailed confidence interval</span></span>
+<span id="cb717-9"><a href="workshop-useful-life-distributions-exponential.html#cb717-9" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.10</span></span>
+<span id="cb717-10"><a href="workshop-useful-life-distributions-exponential.html#cb717-10" tabindex="-1"></a>ci <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> alpha</span>
+<span id="cb717-11"><a href="workshop-useful-life-distributions-exponential.html#cb717-11" tabindex="-1"></a></span>
+<span id="cb717-12"><a href="workshop-useful-life-distributions-exponential.html#cb717-12" tabindex="-1"></a><span class="co"># Use these ingredients to calculate the factor k, using time-censored rule df = 2*(r+1)</span></span>
+<span id="cb717-13"><a href="workshop-useful-life-distributions-exponential.html#cb717-13" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">qchisq</span>(ci, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>(r<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r)</span>
+<span id="cb717-14"><a href="workshop-useful-life-distributions-exponential.html#cb717-14" tabindex="-1"></a></span>
+<span id="cb717-15"><a href="workshop-useful-life-distributions-exponential.html#cb717-15" tabindex="-1"></a><span class="co"># Reformat </span></span>
+<span id="cb717-16"><a href="workshop-useful-life-distributions-exponential.html#cb717-16" tabindex="-1"></a><span class="co"># r / (t*n) * k = lambda</span></span>
+<span id="cb717-17"><a href="workshop-useful-life-distributions-exponential.html#cb717-17" tabindex="-1"></a>n <span class="ot">=</span> k <span class="sc">*</span> r  <span class="sc">/</span> (lambda <span class="sc">*</span> t)</span>
+<span id="cb717-18"><a href="workshop-useful-life-distributions-exponential.html#cb717-18" tabindex="-1"></a></span>
+<span id="cb717-19"><a href="workshop-useful-life-distributions-exponential.html#cb717-19" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb717-20"><a href="workshop-useful-life-distributions-exponential.html#cb717-20" tabindex="-1"></a>n</span></code></pre></div>
 <pre><code>## [1] 1540.664</code></pre>
 <p>Looks like you’ll need a sample of about 1541 masks to be able to fit those constraints.</p>
 <p><br>
@@ -1634,9 +1752,9 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 <h2>Learning Check 4<a href="workshop-coding-in-r.html#LC4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Question</strong></p>
 <p>A small start-up is product testing a new super-effective mask. They product tested 25 masks over 60 days. They contract you to analyze the masks’ lifespan data, recorded below as the number of days to failure.</p>
-<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb710-1"><a href="workshop-useful-life-distributions-exponential.html#cb710-1" tabindex="-1"></a><span class="co"># Lifespan in days</span></span>
-<span id="cb710-2"><a href="workshop-useful-life-distributions-exponential.html#cb710-2" tabindex="-1"></a>supermasks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">13</span>, <span class="dv">15</span>, <span class="dv">17</span>, <span class="dv">19</span>, </span>
-<span id="cb710-3"><a href="workshop-useful-life-distributions-exponential.html#cb710-3" tabindex="-1"></a>            <span class="dv">20</span>, <span class="dv">21</span>, <span class="dv">23</span>, <span class="dv">24</span>, <span class="dv">24</span>, <span class="dv">24</span>, <span class="dv">32</span>, <span class="dv">33</span>, <span class="dv">33</span>, <span class="dv">34</span>, <span class="dv">54</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb719-1"><a href="workshop-useful-life-distributions-exponential.html#cb719-1" tabindex="-1"></a><span class="co"># Lifespan in days</span></span>
+<span id="cb719-2"><a href="workshop-useful-life-distributions-exponential.html#cb719-2" tabindex="-1"></a>supermasks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">13</span>, <span class="dv">15</span>, <span class="dv">17</span>, <span class="dv">19</span>, </span>
+<span id="cb719-3"><a href="workshop-useful-life-distributions-exponential.html#cb719-3" tabindex="-1"></a>            <span class="dv">20</span>, <span class="dv">21</span>, <span class="dv">23</span>, <span class="dv">24</span>, <span class="dv">24</span>, <span class="dv">24</span>, <span class="dv">32</span>, <span class="dv">33</span>, <span class="dv">33</span>, <span class="dv">34</span>, <span class="dv">54</span>)</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>Cross-tabulate the lifespan distribution in intervals of 7 days.</p></li>
 <li><p>Estimate <span class="math inline">\(\hat{\lambda}\)</span> from the cross-tabulated data.</p></li>
@@ -1651,8 +1769,8 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 <li>Cross-tabulate the lifespan distribution in intervals of 7 days.</li>
 </ol>
 <pre><code>## # A tibble: 8 × 6
-##   label   count   bin lower upper midpoint
-##   &lt;fct&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+##   label   r_obs   bin lower upper midpoint
+##   &lt;fct&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
 ## 1 [0,7]       9     1     0     7      3.5
 ## 2 (7,14]      2     2     7    14     10.5
 ## 3 (14,21]     5     3    14    21     17.5
@@ -1664,17 +1782,17 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 <ol start="2" style="list-style-type: decimal">
 <li>Estimate <span class="math inline">\(\hat{\lambda}\)</span> from the cross-tabulated data.</li>
 </ol>
-<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb712-1"><a href="workshop-useful-life-distributions-exponential.html#cb712-1" tabindex="-1"></a><span class="co"># Let&#39;s estimate lambda!</span></span>
-<span id="cb712-2"><a href="workshop-useful-life-distributions-exponential.html#cb712-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> a <span class="sc">%&gt;%</span></span>
-<span id="cb712-3"><a href="workshop-useful-life-distributions-exponential.html#cb712-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb712-4"><a href="workshop-useful-life-distributions-exponential.html#cb712-4" tabindex="-1"></a>    <span class="at">r =</span> <span class="fu">sum</span>(count <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="co"># total failures</span></span>
-<span id="cb712-5"><a href="workshop-useful-life-distributions-exponential.html#cb712-5" tabindex="-1"></a>    <span class="at">days =</span> <span class="fu">sum</span>(midpoint<span class="sc">*</span>count), <span class="co"># total failure-days</span></span>
-<span id="cb712-6"><a href="workshop-useful-life-distributions-exponential.html#cb712-6" tabindex="-1"></a>    <span class="at">n =</span> r, <span class="co"># in this case, total failures = total obs</span></span>
-<span id="cb712-7"><a href="workshop-useful-life-distributions-exponential.html#cb712-7" tabindex="-1"></a>    <span class="at">tz =</span> <span class="fu">max</span>(midpoint), <span class="co"># end of study period</span></span>
-<span id="cb712-8"><a href="workshop-useful-life-distributions-exponential.html#cb712-8" tabindex="-1"></a>    <span class="co"># Calculate lambda hat!</span></span>
-<span id="cb712-9"><a href="workshop-useful-life-distributions-exponential.html#cb712-9" tabindex="-1"></a>    <span class="at">lambda_hat =</span> r <span class="sc">/</span> (days <span class="sc">+</span> (n <span class="sc">-</span> r)<span class="sc">*</span>tz)) </span>
-<span id="cb712-10"><a href="workshop-useful-life-distributions-exponential.html#cb712-10" tabindex="-1"></a><span class="co"># Check it</span></span>
-<span id="cb712-11"><a href="workshop-useful-life-distributions-exponential.html#cb712-11" tabindex="-1"></a>b</span></code></pre></div>
+<div class="sourceCode" id="cb721"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb721-1"><a href="workshop-useful-life-distributions-exponential.html#cb721-1" tabindex="-1"></a><span class="co"># Let&#39;s estimate lambda!</span></span>
+<span id="cb721-2"><a href="workshop-useful-life-distributions-exponential.html#cb721-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> a <span class="sc">%&gt;%</span></span>
+<span id="cb721-3"><a href="workshop-useful-life-distributions-exponential.html#cb721-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb721-4"><a href="workshop-useful-life-distributions-exponential.html#cb721-4" tabindex="-1"></a>    <span class="at">r =</span> <span class="fu">sum</span>(r_obs <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="co"># total failures</span></span>
+<span id="cb721-5"><a href="workshop-useful-life-distributions-exponential.html#cb721-5" tabindex="-1"></a>    <span class="at">days =</span> <span class="fu">sum</span>(midpoint<span class="sc">*</span>r_obs), <span class="co"># total failure-days</span></span>
+<span id="cb721-6"><a href="workshop-useful-life-distributions-exponential.html#cb721-6" tabindex="-1"></a>    <span class="at">n =</span> r, <span class="co"># in this case, total failures = total obs</span></span>
+<span id="cb721-7"><a href="workshop-useful-life-distributions-exponential.html#cb721-7" tabindex="-1"></a>    <span class="at">tz =</span> <span class="fu">max</span>(midpoint), <span class="co"># end of study period</span></span>
+<span id="cb721-8"><a href="workshop-useful-life-distributions-exponential.html#cb721-8" tabindex="-1"></a>    <span class="co"># Calculate lambda hat!</span></span>
+<span id="cb721-9"><a href="workshop-useful-life-distributions-exponential.html#cb721-9" tabindex="-1"></a>    <span class="at">lambda_hat =</span> r <span class="sc">/</span> (days <span class="sc">+</span> (n <span class="sc">-</span> r)<span class="sc">*</span>tz)) </span>
+<span id="cb721-10"><a href="workshop-useful-life-distributions-exponential.html#cb721-10" tabindex="-1"></a><span class="co"># Check it</span></span>
+<span id="cb721-11"><a href="workshop-useful-life-distributions-exponential.html#cb721-11" tabindex="-1"></a>b</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##       r  days     n    tz lambda_hat
 ##   &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;      &lt;dbl&gt;
@@ -1682,16 +1800,16 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 <ol start="3" style="list-style-type: decimal">
 <li>Estimate a 95% confidence interval for <span class="math inline">\(\hat{\lambda}\)</span>.</li>
 </ol>
-<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb714-1"><a href="workshop-useful-life-distributions-exponential.html#cb714-1" tabindex="-1"></a>c <span class="ot">&lt;-</span> b <span class="sc">%&gt;%</span></span>
-<span id="cb714-2"><a href="workshop-useful-life-distributions-exponential.html#cb714-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb714-3"><a href="workshop-useful-life-distributions-exponential.html#cb714-3" tabindex="-1"></a>    <span class="at">lambda_hat =</span> lambda_hat,</span>
-<span id="cb714-4"><a href="workshop-useful-life-distributions-exponential.html#cb714-4" tabindex="-1"></a>    <span class="at">r =</span> r,</span>
-<span id="cb714-5"><a href="workshop-useful-life-distributions-exponential.html#cb714-5" tabindex="-1"></a>    <span class="at">k_upper =</span> <span class="fu">qchisq</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r),</span>
-<span id="cb714-6"><a href="workshop-useful-life-distributions-exponential.html#cb714-6" tabindex="-1"></a>    <span class="at">k_lower =</span> <span class="fu">qchisq</span>(<span class="fl">0.025</span>, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r),</span>
-<span id="cb714-7"><a href="workshop-useful-life-distributions-exponential.html#cb714-7" tabindex="-1"></a>    <span class="at">lower =</span> lambda_hat <span class="sc">*</span> k_lower,</span>
-<span id="cb714-8"><a href="workshop-useful-life-distributions-exponential.html#cb714-8" tabindex="-1"></a>    <span class="at">upper =</span> lambda_hat <span class="sc">*</span> k_upper)</span>
-<span id="cb714-9"><a href="workshop-useful-life-distributions-exponential.html#cb714-9" tabindex="-1"></a><span class="co"># Check it</span></span>
-<span id="cb714-10"><a href="workshop-useful-life-distributions-exponential.html#cb714-10" tabindex="-1"></a>c</span></code></pre></div>
+<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb723-1"><a href="workshop-useful-life-distributions-exponential.html#cb723-1" tabindex="-1"></a>c <span class="ot">&lt;-</span> b <span class="sc">%&gt;%</span></span>
+<span id="cb723-2"><a href="workshop-useful-life-distributions-exponential.html#cb723-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb723-3"><a href="workshop-useful-life-distributions-exponential.html#cb723-3" tabindex="-1"></a>    <span class="at">lambda_hat =</span> lambda_hat,</span>
+<span id="cb723-4"><a href="workshop-useful-life-distributions-exponential.html#cb723-4" tabindex="-1"></a>    <span class="at">r =</span> r,</span>
+<span id="cb723-5"><a href="workshop-useful-life-distributions-exponential.html#cb723-5" tabindex="-1"></a>    <span class="at">k_upper =</span> <span class="fu">qchisq</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r),</span>
+<span id="cb723-6"><a href="workshop-useful-life-distributions-exponential.html#cb723-6" tabindex="-1"></a>    <span class="at">k_lower =</span> <span class="fu">qchisq</span>(<span class="fl">0.025</span>, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r),</span>
+<span id="cb723-7"><a href="workshop-useful-life-distributions-exponential.html#cb723-7" tabindex="-1"></a>    <span class="at">lower =</span> lambda_hat <span class="sc">*</span> k_lower,</span>
+<span id="cb723-8"><a href="workshop-useful-life-distributions-exponential.html#cb723-8" tabindex="-1"></a>    <span class="at">upper =</span> lambda_hat <span class="sc">*</span> k_upper)</span>
+<span id="cb723-9"><a href="workshop-useful-life-distributions-exponential.html#cb723-9" tabindex="-1"></a><span class="co"># Check it</span></span>
+<span id="cb723-10"><a href="workshop-useful-life-distributions-exponential.html#cb723-10" tabindex="-1"></a>c</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
 ##   lambda_hat     r k_upper k_lower   lower  upper
 ##        &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
@@ -1699,30 +1817,26 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 <ol start="4" style="list-style-type: decimal">
 <li><em>Using the cross-tabulated data</em>, do these masks’ lifespan distribution fit an exponential distribution, or does their distribution differ to a statistically significant degree from the exponential? How much? (eg. statistic and p-value).</li>
 </ol>
-<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb716-1"><a href="workshop-useful-life-distributions-exponential.html#cb716-1" tabindex="-1"></a><span class="co"># Get your &#39;model&#39; function</span></span>
-<span id="cb716-2"><a href="workshop-useful-life-distributions-exponential.html#cb716-2" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>lambda<span class="sc">*</span>t) }</span>
-<span id="cb716-3"><a href="workshop-useful-life-distributions-exponential.html#cb716-3" tabindex="-1"></a><span class="co"># Get lambda-hat from b$lambda_hat</span></span>
-<span id="cb716-4"><a href="workshop-useful-life-distributions-exponential.html#cb716-4" tabindex="-1"></a></span>
-<span id="cb716-5"><a href="workshop-useful-life-distributions-exponential.html#cb716-5" tabindex="-1"></a><span class="co"># Step 3: Calculate Observed vs. Expected</span></span>
-<span id="cb716-6"><a href="workshop-useful-life-distributions-exponential.html#cb716-6" tabindex="-1"></a>d <span class="ot">&lt;-</span> a <span class="sc">%&gt;%</span></span>
-<span id="cb716-7"><a href="workshop-useful-life-distributions-exponential.html#cb716-7" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb716-8"><a href="workshop-useful-life-distributions-exponential.html#cb716-8" tabindex="-1"></a>    <span class="at">total =</span> <span class="fu">sum</span>(count),</span>
-<span id="cb716-9"><a href="workshop-useful-life-distributions-exponential.html#cb716-9" tabindex="-1"></a>    <span class="at">o =</span> <span class="fu">cumsum</span>(count),</span>
-<span id="cb716-10"><a href="workshop-useful-life-distributions-exponential.html#cb716-10" tabindex="-1"></a>    <span class="at">e =</span> <span class="fu">f</span>(<span class="at">t =</span> midpoint, <span class="at">lambda =</span> b<span class="sc">$</span>lambda_hat) <span class="sc">*</span> total) <span class="sc">%&gt;%</span></span>
-<span id="cb716-11"><a href="workshop-useful-life-distributions-exponential.html#cb716-11" tabindex="-1"></a> <span class="co"># Calculate Chi-squared statistic and p-value</span></span>
-<span id="cb716-12"><a href="workshop-useful-life-distributions-exponential.html#cb716-12" tabindex="-1"></a> <span class="fu">summarize</span>(</span>
-<span id="cb716-13"><a href="workshop-useful-life-distributions-exponential.html#cb716-13" tabindex="-1"></a>    <span class="at">chisq =</span> <span class="fu">sum</span>((o <span class="sc">-</span> e)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> e),</span>
-<span id="cb716-14"><a href="workshop-useful-life-distributions-exponential.html#cb716-14" tabindex="-1"></a>    <span class="at">nbin =</span> <span class="fu">n</span>(),</span>
-<span id="cb716-15"><a href="workshop-useful-life-distributions-exponential.html#cb716-15" tabindex="-1"></a>    <span class="at">np =</span> <span class="dv">1</span>,</span>
-<span id="cb716-16"><a href="workshop-useful-life-distributions-exponential.html#cb716-16" tabindex="-1"></a>    <span class="at">df =</span> nbin <span class="sc">-</span> np <span class="sc">-</span> <span class="dv">1</span>,</span>
-<span id="cb716-17"><a href="workshop-useful-life-distributions-exponential.html#cb716-17" tabindex="-1"></a>    <span class="at">p_value =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="at">q =</span> chisq, <span class="at">df =</span> df))</span>
-<span id="cb716-18"><a href="workshop-useful-life-distributions-exponential.html#cb716-18" tabindex="-1"></a></span>
-<span id="cb716-19"><a href="workshop-useful-life-distributions-exponential.html#cb716-19" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb716-20"><a href="workshop-useful-life-distributions-exponential.html#cb716-20" tabindex="-1"></a>d</span></code></pre></div>
+<div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb725-1"><a href="workshop-useful-life-distributions-exponential.html#cb725-1" tabindex="-1"></a><span class="co"># Get your &#39;model&#39; function</span></span>
+<span id="cb725-2"><a href="workshop-useful-life-distributions-exponential.html#cb725-2" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>lambda<span class="sc">*</span>t) }</span>
+<span id="cb725-3"><a href="workshop-useful-life-distributions-exponential.html#cb725-3" tabindex="-1"></a><span class="co"># Get lambda-hat from b$lambda_hat</span></span>
+<span id="cb725-4"><a href="workshop-useful-life-distributions-exponential.html#cb725-4" tabindex="-1"></a></span>
+<span id="cb725-5"><a href="workshop-useful-life-distributions-exponential.html#cb725-5" tabindex="-1"></a><span class="co"># Step 3a: Calculate Observed vs. Expected</span></span>
+<span id="cb725-6"><a href="workshop-useful-life-distributions-exponential.html#cb725-6" tabindex="-1"></a><span class="fu">get_chisq</span>(<span class="at">data =</span> a, <span class="at">n_total =</span> <span class="dv">25</span>, <span class="at">np =</span> <span class="dv">1</span>, <span class="at">f =</span> f, <span class="at">lambda =</span> b<span class="sc">$</span>lambda_hat)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 5
+##   chisq  nbin    np    df   p_value
+##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
+## 1  32.1     8     1     6 0.0000158</code></pre>
+<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb727-1"><a href="workshop-useful-life-distributions-exponential.html#cb727-1" tabindex="-1"></a><span class="co"># Step 3b: Calculate Chi-squared if we had received the vector supermasks all along, assuming that were the whole population</span></span>
+<span id="cb727-2"><a href="workshop-useful-life-distributions-exponential.html#cb727-2" tabindex="-1"></a><span class="co"># Get lambda from directly from the data</span></span>
+<span id="cb727-3"><a href="workshop-useful-life-distributions-exponential.html#cb727-3" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>lambda<span class="sc">*</span>t) }</span>
+<span id="cb727-4"><a href="workshop-useful-life-distributions-exponential.html#cb727-4" tabindex="-1"></a><span class="fu">get_chisq</span>(<span class="at">t =</span> supermasks, <span class="at">binwidth =</span> <span class="dv">7</span>,</span>
+<span id="cb727-5"><a href="workshop-useful-life-distributions-exponential.html#cb727-5" tabindex="-1"></a>          <span class="at">n_total =</span> <span class="dv">25</span>, <span class="at">np =</span> <span class="dv">1</span>, <span class="at">f =</span> f, </span>
+<span id="cb727-6"><a href="workshop-useful-life-distributions-exponential.html#cb727-6" tabindex="-1"></a>          <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(supermasks) )</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##   chisq  nbin    np    df p_value
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-## 1  169.     8     1     6       0</code></pre>
+## 1  9.72     8     1     6   0.137</code></pre>
 </details>
 <hr />
 <p><br>

@@ -749,8 +749,8 @@ We can write the time $T$ to critical failure (via either overstress OR degraded
 
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-7df1c0b11381a8445c32" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-7df1c0b11381a8445c32">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-025049ac49f59ce6ffc0" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-025049ac49f59ce6ffc0">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
 ```
 
 The total probability of a product being in any phase $a_{i \to n}$ equals 1.
@@ -974,62 +974,101 @@ Back in Workshop 2, we *visually* compared several distributions to an observed 
 ```r
 # Let's repeat our process from before!
 c1 <- data.frame(t = masks$left_earloop) %>%
-  # Part 1: Split into bins
-  mutate(label = cut_interval(t, length = 5)) %>%
-  # Part 2: Tally up by bin
-  group_by(label, .drop = FALSE) %>%
-  summarize(count = n()) %>%
+  # Part 1.1: Split into bins
+  mutate(interval = cut_interval(t, length = 5)) %>%
+  # Part 1.2: Tally up observed failures 'r_obs' by bin
+  group_by(interval, .drop = FALSE) %>%
+  summarize(r_obs = n()) %>%
   mutate(
-    bin = as.numeric(label),
+    bin = 1:n(), # give each bin a numeric id from 1 to inf
+    # bin = as.numeric(interval), # you could alternatively turn the factor numeric
     lower = (bin - 1) * 5, 
     upper = bin * 5,
     midpoint = (lower + upper) / 2)
 ```
 
-**Step 3**: Calculate Observed and Expected Values per Bin.
+**Step 2**: Calculate Observed and Expected Values per Bin.
 
-Sometimes you might only receive **tabulated data**, meaning a table of bins, not the original vector. In that case, start from **Step 3**!
+Sometimes you might only receive **tabulated data**, meaning a table of bins, not the original vector. In that case, start from **Step 2**!
 
 
 ```r
 # Get any parameters you need (might need to be provided if only tabulated data)
-mystat = masks %>% summarize(lambda = 1 / mean(left_earloop))
+mystat = masks %>% summarize(
+  # failure rate
+  lambda = 1 / mean(left_earloop),
+  # total number of units under test                        
+  n = n())
 # Get your 'model' function
 f = function(t, lambda){ 1 - exp(-1*lambda*t) }
+# Note: pexp(t, rate) is equivalent to f(t, lambda) for exponential distribution
 
-# Now calculate cumulatives
-c2 <- c1 %>% 
+# Now calculate expected units to fail per interval, r_exp
+c2 = c1 %>%
   mutate(
-    # Get total units in table
-    total = sum(count),
-    # Get cumulative OBSERVED in that bin
-    o = cumsum(count),
-    # Get cumulative EXPECTED in that bin due to model
-    e = f(t = midpoint, lambda = mystat$lambda) * total)
-    # Note: pexp(t) is equivalent to f(t) for exponential distribution
-    # e = pexp(midpoint, rate = mystat$lambda) * total
+    # Get probability of failure by time t = upper bound
+    p_upper = f(t = upper, lambda = mystat$lambda),
+    # Get probability of failure by time t = lower bound
+    p_lower = f(t = lower, lambda = mystat$lambda),
+    # Get probability of failure during the interval,
+    # i.e. between these thresholds
+    p_fail = p_upper - p_lower,
+    # Add in total units under test
+    n_total = mystat$n,
+    # Calculate expected units to fail in that interval
+    r_exp = n_total * p_fail)
 # Check it!
 c2
 ```
 
 ```
-## # A tibble: 11 × 9
-##    label   count   bin lower upper midpoint total     o     e
-##    <fct>   <int> <dbl> <dbl> <dbl>    <dbl> <int> <int> <dbl>
-##  1 [0,5]      17     1     0     5      2.5    50    17  8.53
-##  2 (5,10]     13     2     5    10      7.5    50    30 21.5 
-##  3 (10,15]     3     3    10    15     12.5    50    33 30.4 
-##  4 (15,20]     7     4    15    20     17.5    50    40 36.5 
-##  5 (20,25]     2     5    20    25     22.5    50    42 40.7 
-##  6 (25,30]     2     6    25    30     27.5    50    44 43.6 
-##  7 (30,35]     3     7    30    35     32.5    50    47 45.6 
-##  8 (35,40]     0     8    35    40     37.5    50    47 47.0 
-##  9 (40,45]     0     9    40    45     42.5    50    47 47.9 
-## 10 (45,50]     1    10    45    50     47.5    50    48 48.6 
-## 11 (50,55]     2    11    50    55     52.5    50    50 49.0
+## # A tibble: 11 × 11
+##    interval r_obs   bin lower upper midpoint p_upper p_lower  p_fail n_total
+##    <fct>    <int> <int> <dbl> <dbl>    <dbl>   <dbl>   <dbl>   <dbl>   <int>
+##  1 [0,5]       17     1     0     5      2.5   0.312   0     0.312        50
+##  2 (5,10]      13     2     5    10      7.5   0.527   0.312 0.215        50
+##  3 (10,15]      3     3    10    15     12.5   0.675   0.527 0.148        50
+##  4 (15,20]      7     4    15    20     17.5   0.776   0.675 0.102        50
+##  5 (20,25]      2     5    20    25     22.5   0.846   0.776 0.0699       50
+##  6 (25,30]      2     6    25    30     27.5   0.894   0.846 0.0481       50
+##  7 (30,35]      3     7    30    35     32.5   0.927   0.894 0.0331       50
+##  8 (35,40]      0     8    35    40     37.5   0.950   0.927 0.0227       50
+##  9 (40,45]      0     9    40    45     42.5   0.966   0.950 0.0156       50
+## 10 (45,50]      1    10    45    50     47.5   0.976   0.966 0.0108       50
+## 11 (50,55]      2    11    50    55     52.5   0.984   0.976 0.00740      50
+## # ℹ 1 more variable: r_exp <dbl>
 ```
 
-**Step 4**: Calculate Chi-squared Statistic
+
+```r
+# We only need a few of these columns; let's look at them:
+c2 %>%
+  # interval: get time interval in that bin
+  # r_obs: Get OBSERVED failures in that bin
+  # r_exp: Get EXPECTED failures in that bin
+  # n_total: Get TOTAL units, failed or not, overall
+  select(interval, r_obs, r_exp, n_total)
+```
+
+```
+## # A tibble: 11 × 4
+##    interval r_obs  r_exp n_total
+##    <fct>    <int>  <dbl>   <int>
+##  1 [0,5]       17 15.6        50
+##  2 (5,10]      13 10.7        50
+##  3 (10,15]      3  7.38       50
+##  4 (15,20]      7  5.08       50
+##  5 (20,25]      2  3.49       50
+##  6 (25,30]      2  2.40       50
+##  7 (30,35]      3  1.65       50
+##  8 (35,40]      0  1.14       50
+##  9 (40,45]      0  0.782      50
+## 10 (45,50]      1  0.538      50
+## 11 (50,55]      2  0.370      50
+```
+
+
+**Step 3**: Calculate Chi-squared Statistic
 
 - **Chi-squared** here represents the sum of ratios for each bin. Each ratio is the (1) squared difference between the observed and expected value over (2) the expected value. Ranges from 0 to infinity. The bigger (more positive) the statistic, the greater difference between the observed and expected data.
 
@@ -1042,7 +1081,7 @@ c2
 c3 <- c2 %>%
   summarize(
       # Calculate Chi-squared statistic
-    chisq = sum((o - e)^2 / e),
+    chisq = sum((r_obs - r_exp)^2 / r_exp),
     # Calculate number of bins (rows)
     nbin = n(),
     # Record number of parameters used (jjust lambda)
@@ -1057,10 +1096,10 @@ c3
 ## # A tibble: 1 × 4
 ##   chisq  nbin    np    df
 ##   <dbl> <int> <dbl> <dbl>
-## 1  12.5    11     1     9
+## 1  15.2    11     1     9
 ```
 
-**Step 5**: Calculate p-values and confidence intervals
+**Step 4**: Calculate p-values and confidence intervals
 
 Last, let's use the `pchisq()` function to evaluate the CDF of the Chi-squared distribution. We'll find out:
 
@@ -1081,65 +1120,179 @@ c4
 ## # A tibble: 1 × 5
 ##   chisq  nbin    np    df p_value
 ##   <dbl> <int> <dbl> <dbl>   <dbl>
-## 1  12.5    11     1     9   0.188
+## 1  15.2    11     1     9  0.0847
 ```
 
 For a visual representation:
 
-<img src="07_workshop_files/figure-html/unnamed-chunk-46-1.png" width="672" />
+<img src="07_workshop_files/figure-html/unnamed-chunk-47-1.png" width="672" />
 
-**Step 6**: Do it all in one step!
 
-Let's try this one more time, all in one code chunk:
+### Building a Chi-squared function
+
+That was a lot of work! It might be more helpful for us to build our own `function` doing all those steps. Here's a function I built, which should work pretty flexibly. You can improve it, tweak it, or use it for your own purposes. Our function `get_chisq()` is going to need several kinds of information.
+
+- Our exponential failure function `f`
+- Our parameters, eg. failure rate `lambda`
+- Total number of parameters (if exponential, 1)
+- Our total number of units under test `n`
+- Then, we'll need a observed vector of times to failure `t`, plus a constant `binwidth` (previously, 5). 
+- Or, if our data is pre-crosstabulated, we can ignore `t` and `binwidth` and just supply a data.frame `data` of crosstabulated vectors `lower`, `upper`, and `r_obs`.
+
+For example, these inputs might look like this:
 
 
 ```r
-# Get any parameters you need
-# Right now, we'll sub in our observed lambda value,
-mystat = masks %>% summarize(lambda = 1 / mean(left_earloop))
-# Note: if your data is crosstabulated and you DON'T have the observed lambda value,
-# you might need to use the methods described below in 'Estimating Lambda'
-
 # Get your 'model' function
 f = function(t, lambda){ 1 - exp(-1*lambda*t) }
+# Parameters
+# lambda = 1 / mean(masks$left_earloop)
+# number of parameters
+# np = 1
+# total number of units (sometimes provided, if the data is time-censored)
+# n_total = length(masks$left_earloop)
 
-data.frame(t = masks$left_earloop) %>%
-  # Step 1: Split into bins
-  mutate(label = cut_interval(t, length = 5)) %>%
-  # Step 2: Tally up by bin
-  group_by(label, .drop = FALSE) %>%
-  summarize(count = n()) %>%
-  mutate(
-    bin = as.numeric(label),
-    lower = (bin - 1) * 5, 
-    upper = bin * 5,
-    midpoint = (lower + upper) / 2)  %>%
-  # Step 3: Calculate Observed vs. Expected
-  mutate(
-    total = sum(count),
-    o = cumsum(count),
-    e = f(t = midpoint, lambda = mystat$lambda) * total) %>%
- # Calculate Chi-squared statistic and p-value
- summarize(
-    chisq = sum((o - e)^2 / e),
-    nbin = n(),
-    np = 1,
-    df = nbin - np - 1,
-    p_value = 1 - pchisq(q = chisq, df = df))
+# AND
+
+# Raw observed data + binwidth
+# t = masks$left_earloop
+# binwidth = 5
+# OR
+# Crosstabulated data (c1 is an example we made before)
+# data = c1 %>% select(lower, upper, r_obs)
+```
+
+Then, we could write out the function like this! I've added some fancy `@` tags below just for notation, but you can ditch them if you prefer. This is a fairly complex function! I've shared it with you as an example to help you build your own for your projects.
+
+
+```r
+#' @name get_chisq
+#' @title Function to Get Chi-Squared!
+#' @name Tim Fraser
+#' If observed vector...
+#' @param t a vector of times to failure
+#' @param binwidth size of intervals (eg. 5 hours) (Only if t is provided)
+#' If cross-tabulated data...
+#' @param data a data.frame with the vectors `lower`, `upper`, and `r_obs`
+#' Common Parameters:
+#' @param n_total total number of units.
+#' @param f specific failure function, such as `f = f(t, lambda)`
+#' @param np total number of parameters in your function (eg. if exponential, 1 (lambda))
+#' @param ... fill in here any named parameters you need, like `lambda = 2.4` or `rate = 2.3` or `mean = 0, sd = 2`
+get_chisq = function(t = NULL, binwidth = 5, data = NULL, 
+                     n_total, f, np = 1, ...){
+  
+  # If vector `t` is NOT NULL
+  # Do the raw data route
+  if(!is.null(t)){
+    # Make a tibble called 'tab'
+    tab = tibble(t = t) %>%
+      # Part 1.1: Split into bins
+      mutate(interval = cut_interval(t, length = binwidth)) %>%
+      # Part 1.2: Tally up observed failures 'r_obs' by bin
+      group_by(interval, .drop = FALSE) %>%
+      summarize(r_obs = n()) %>%
+      # Let's repeat our process from before!
+      mutate(
+        bin = 1:n(),
+        lower = (bin - 1) * binwidth, 
+        upper = bin * binwidth,
+        midpoint = (lower + upper) / 2) 
+    
+    # Otherwise, if data.frame `data` is NOT NULL
+    # Do the cross-tabulated data route
+  }else if(!is.null(data)){
+    tab = data %>%
+      mutate(bin = 1:n(),
+             midpoint = (lower + upper) / 2)
+  }
+  
+  # Part 2. Calculate probabilities by interval
+  output = tab %>% 
+    mutate(
+      p_upper = f(upper, ...), # supplied parameters
+      p_lower = f(lower, ...), # supplied parameters
+      p_fail = p_upper - p_lower,
+      n_total = n_total,
+      r_exp = n_total * p_fail) %>%
+    # Part 3-4: Calculate Chi-Squared statistic and p-value
+    summarize(
+      chisq = sum((r_obs - r_exp)^2 / r_exp),
+      nbin = n(),
+      np = np,
+      df = nbin - np - 1,
+      p_value = 1 - pchisq(q = chisq, df = df) )
+  
+  return(output)
+}
+```
+
+Finally, let's try using our function!
+
+Using a raw observed vector `t`:
+
+
+```r
+get_chisq(
+  t = masks$left_earloop, binwidth = 5, 
+  n_total = 50, f = f, np = 1, lambda = mystat$lambda)
 ```
 
 ```
 ## # A tibble: 1 × 5
 ##   chisq  nbin    np    df p_value
 ##   <dbl> <int> <dbl> <dbl>   <dbl>
-## 1  12.5    11     1     9   0.188
+## 1  15.2    11     1     9  0.0847
 ```
+Or using crosstabulated `data`:
+
 
 ```r
-# And if that's a lot to type every time, you could always code a function for it :)
+get_chisq(
+  data = c1,
+  n_total = 50, f = f, np = 1, lambda = mystat$lambda)
 ```
 
+```
+## # A tibble: 1 × 5
+##   chisq  nbin    np    df p_value
+##   <dbl> <int> <dbl> <dbl>   <dbl>
+## 1  15.2    11     1     9  0.0847
+```
+Using our `pexp` function instead of our homemade `f` function:
 
+
+```r
+get_chisq(
+  data = c1,
+  n_total = 50, f = pexp, np = 1, rate = mystat$lambda)
+```
+
+```
+## # A tibble: 1 × 5
+##   chisq  nbin    np    df p_value
+##   <dbl> <int> <dbl> <dbl>   <dbl>
+## 1  15.2    11     1     9  0.0847
+```
+
+Or using a different function that is not exponential!
+
+
+```r
+get_chisq(
+  data = c1,
+  n_total = 50, f = pweibull, np = 2, shape = 0.2, scale = 0.5)
+```
+
+```
+## # A tibble: 1 × 5
+##   chisq  nbin    np    df p_value
+##   <dbl> <int> <dbl> <dbl>   <dbl>
+## 1  171.    11     2     8       0
+```
+
+<br>
+<br>
 
 
 ### Estimating Lambda
@@ -1359,8 +1512,8 @@ supermasks <- c(1, 2, 2, 2, 3, 3, 4, 4, 5, 9, 13, 15, 17, 19,
 
 ```
 ## # A tibble: 8 × 6
-##   label   count   bin lower upper midpoint
-##   <fct>   <int> <dbl> <dbl> <dbl>    <dbl>
+##   label   r_obs   bin lower upper midpoint
+##   <fct>   <int> <int> <dbl> <dbl>    <dbl>
 ## 1 [0,7]       9     1     0     7      3.5
 ## 2 (7,14]      2     2     7    14     10.5
 ## 3 (14,21]     5     3    14    21     17.5
@@ -1378,8 +1531,8 @@ supermasks <- c(1, 2, 2, 2, 3, 3, 4, 4, 5, 9, 13, 15, 17, 19,
 # Let's estimate lambda!
 b <- a %>%
   summarize(
-    r = sum(count > 0), # total failures
-    days = sum(midpoint*count), # total failure-days
+    r = sum(r_obs > 0), # total failures
+    days = sum(midpoint*r_obs), # total failure-days
     n = r, # in this case, total failures = total obs
     tz = max(midpoint), # end of study period
     # Calculate lambda hat!
@@ -1426,29 +1579,32 @@ c
 f = function(t, lambda){ 1 - exp(-1*lambda*t) }
 # Get lambda-hat from b$lambda_hat
 
-# Step 3: Calculate Observed vs. Expected
-d <- a %>%
-  mutate(
-    total = sum(count),
-    o = cumsum(count),
-    e = f(t = midpoint, lambda = b$lambda_hat) * total) %>%
- # Calculate Chi-squared statistic and p-value
- summarize(
-    chisq = sum((o - e)^2 / e),
-    nbin = n(),
-    np = 1,
-    df = nbin - np - 1,
-    p_value = 1 - pchisq(q = chisq, df = df))
+# Step 3a: Calculate Observed vs. Expected
+get_chisq(data = a, n_total = 25, np = 1, f = f, lambda = b$lambda_hat)
+```
 
-# Check it!
-d
+```
+## # A tibble: 1 × 5
+##   chisq  nbin    np    df   p_value
+##   <dbl> <int> <dbl> <dbl>     <dbl>
+## 1  32.1     8     1     6 0.0000158
+```
+
+
+```r
+# Step 3b: Calculate Chi-squared if we had received the vector supermasks all along, assuming that were the whole population
+# Get lambda from directly from the data
+f = function(t, lambda){ 1 - exp(-1*lambda*t) }
+get_chisq(t = supermasks, binwidth = 7,
+          n_total = 25, np = 1, f = f, 
+          lambda = 1 / mean(supermasks) )
 ```
 
 ```
 ## # A tibble: 1 × 5
 ##   chisq  nbin    np    df p_value
 ##   <dbl> <int> <dbl> <dbl>   <dbl>
-## 1  169.     8     1     6       0
+## 1  9.72     8     1     6   0.137
 ```
 
 

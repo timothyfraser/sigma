@@ -157,6 +157,7 @@ statistical-techniques-for-exponential-distributions
 factors-in-r
 crosstabulation
 chi-squared
+building-a-chi-squared-function
 estimating-lambda
 planning-experiments
 conclusion-6

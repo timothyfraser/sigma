@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2023-09-06" />
+<meta name="date" content="2023-10-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -479,8 +479,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.5.1" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#factors-in-r"><i class="fa fa-check"></i><b>7.5.1</b> Factors in R</a></li>
 <li class="chapter" data-level="7.5.2" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#crosstabulation"><i class="fa fa-check"></i><b>7.5.2</b> Crosstabulation</a></li>
 <li class="chapter" data-level="7.5.3" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#chi-squared"><i class="fa fa-check"></i><b>7.5.3</b> Chi-squared</a></li>
-<li class="chapter" data-level="7.5.4" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#estimating-lambda"><i class="fa fa-check"></i><b>7.5.4</b> Estimating Lambda</a></li>
-<li class="chapter" data-level="7.5.5" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#planning-experiments"><i class="fa fa-check"></i><b>7.5.5</b> Planning Experiments</a></li>
+<li class="chapter" data-level="7.5.4" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#building-a-chi-squared-function"><i class="fa fa-check"></i><b>7.5.4</b> Building a Chi-squared function</a></li>
+<li class="chapter" data-level="7.5.5" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#estimating-lambda"><i class="fa fa-check"></i><b>7.5.5</b> Estimating Lambda</a></li>
+<li class="chapter" data-level="7.5.6" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#planning-experiments"><i class="fa fa-check"></i><b>7.5.6</b> Planning Experiments</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#LC4"><i class="fa fa-check"></i>Learning Check 4</a></li>
 <li class="chapter" data-level="7.6" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#conclusion-6"><i class="fa fa-check"></i><b>7.6</b> Conclusion</a></li>
@@ -1290,11 +1291,11 @@ We can see above the <em>latent distribution of 1000 statistics we could have go
 ## Columns: 6
 ## Groups: rep [1,000]
 ## $ rep    &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-## $ id     &lt;dbl&gt; 55, 127, 47, 23, 151, 30, 50, 92, 38, 111, 55, 48, 86, 133, 102…
-## $ time   &lt;dbl&gt; 5, 13, 5, 3, 15, 3, 5, 9, 3, 11, 5, 5, 9, 13, 11, 15, 9, 7, 7, …
-## $ temp   &lt;dbl&gt; 46.1, 41.6, 44.0, 44.0, 46.4, 46.7, 47.7, 45.0, 43.7, 43.7, 46.…
-## $ ph     &lt;dbl&gt; 5.3, 5.2, 6.1, 5.3, 5.3, 5.3, 4.9, 5.3, 6.3, 6.1, 5.3, 5.7, 5.6…
-## $ sulfur &lt;dbl&gt; 1.6, 1.1, 0.4, 0.0, 0.2, 1.0, 0.1, 0.4, 0.4, 0.4, 1.6, 0.1, 0.3…</code></pre>
+## $ id     &lt;dbl&gt; 77, 134, 159, 79, 26, 15, 92, 93, 31, 109, 88, 1, 49, 85, 140, …
+## $ time   &lt;dbl&gt; 7, 13, 15, 7, 3, 1, 9, 9, 3, 11, 9, 1, 5, 9, 13, 3, 5, 13, 15, …
+## $ temp   &lt;dbl&gt; 44.9, 41.5, 45.1, 44.0, 50.3, 46.0, 45.0, 51.1, 45.8, 45.9, 46.…
+## $ ph     &lt;dbl&gt; 5.1, 4.7, 5.6, 6.5, 5.8, 5.3, 5.3, 4.8, 6.3, 4.2, 4.9, 5.1, 5.8…
+## $ sulfur &lt;dbl&gt; 0.1, 0.8, 0.5, 0.2, 0.8, 0.2, 0.4, 0.0, 0.0, 0.4, 0.4, 0.0, 0.0…</code></pre>
 <p>This produces a very, very big data.frame!</p>
 <p>Let’s now, for each rep, calculate our statistics from before!</p>
 <div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="workshop-indices-and-confidence-intervals-for-statistical-process-control-in-r.html#cb584-1" tabindex="-1"></a>mybootstat <span class="ot">=</span> myboot <span class="sc">%&gt;%</span></span>
@@ -1354,7 +1355,7 @@ We can see above the <em>latent distribution of 1000 statistics we could have go
 <pre><code>## # A tibble: 1 × 4
 ##      cp lower upper     se
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-## 1 0.671 0.615 0.788 0.0444</code></pre>
+## 1 0.671 0.612 0.789 0.0461</code></pre>
 <p>This suggests a wider confidence interval that our normal distribution assumes by default - interesting!</p>
 <p>We can perform bootstrapping to estimate confidence intervals for <em>any</em> statistic, including <span class="math inline">\(C_{p}\)</span>, <span class="math inline">\(C_{pk}\)</span>, <span class="math inline">\(P_{p}\)</span>, or <span class="math inline">\(P_{pk}\)</span>. The only limit is your computational power! Wheee!</p>
 <p><em>Note</em>: Whenever you bootstrap, it’s important that you clear out your <code>R</code> environment to keep things running quickly, because you tend to accumulate a lot of really big data.frames. You can use <code>remove()</code> to do this.</p>
