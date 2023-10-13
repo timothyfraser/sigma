@@ -279,6 +279,7 @@ p_insufficient_vaccine_coverage
 p_event2 <- c(0.1, 0.15, 0.2)  # Probabilities for OR logic
 p_quarantine_measures <- sum(p_event2)
 p_quarantine_measures
+
 ```
 
 
@@ -291,58 +292,102 @@ p_pathogen_mutation <- prod(p_event3)
 p_pathogen_mutation
 ```
 
+To calculate the probability of the top event occurring when any of the events can occur (OR logic), we will find the probability that at least one of the events occurs. To do this, we need to consider the complementary probability that none of the events occur and subtract it from 1.
+
 ```{r}
-# Calculating the probability of widespread outbreak (top event) using the probabilities of intermediate events
-# Let's create a function that can calculate the probability of the top event using any number of intermediate events and any logic gate
 
-ftop = function(prob_a, prob_b, prob_c){
+# Let's create a function that can calculate the probability of the top event using any number of intermediate events 
 
-  # Try to lightly adapt what you below into something that...
-  # doesn't use any if-then statements
+# In this case, we are calculating the probability of the top event occurring when any of the events can occur
+ 
+probability_top_event <- function(intermediate_probabilities) {
   
+p_widespread_outbreak <- 1 - prod(1 - intermediate_probabilities) # Subtraction from 1 accounts for the scenario where none of the events occur.
   
-  
+  return(p_widespread_outbreak)
 }
 
-top_event <- function(intermediate_probability, logic) {
-  
-  if (logic == "AND") {
-    return(prod(intermediate_probability))
-  } else if (logic == "OR") {
-    return(1 - prod(1 - intermediate_probability))
-  } else {
-    stop("Unsupported logic operator. Use 'AND' or 'OR'.")
-  }
-}
+# Let's define probabilities of individual events that we obtained earlier
+intermediate_probabilities <- c(p_insufficient_vaccine_coverage, p_quarantine_measures, p_pathogen_mutation)
 
-# Define probabilities and logic gates as vector
-intermediate_probability<- c(p_insufficient_vaccine_coverage,p_quarantine_measures,p_pathogen_mutation)  # Probabilities for the intermediate events
-logic <- "OR"  # Logic gate for the top event ("AND" or "OR")
-
-# Calculate the probability of the top event - Widespread outbreak of disease: 
-p_widespread_outbreak <- top_event(intermediate_probability, logic)
-
-# Print the result
-cat("Probability of the top event:", p_widespread_outbreak, "\n")
 ```
 
+Let's see what the probability of widespread outbreak turns out to be:
 
-## Learning Check 2: Applying Exponential Distributions
+``` {r}
+# Using the function created above and intermediate probabilitues, we can determine the probability of widespread outbreak (top event)
+p_widespread_outbreak <- probability_top_event(intermediate_probabilities)
 
-What if each of these events had an exponential lifespan distribution? Could we see how the probability of the top event changes over time `t`, given a set of failure rates `lambda_a`, `lambda_b`, `lambda_c`, etc.?
+# Let's print the result
+cat("Probability of the widespread outbreak:", p_widespread_outbreak, "\n")
+
+
+```
+
+## Learning Check 2
+
+What is the probability that the top event, which depends on the combination of events A, B, and C with failure rates lambda_a = 0.05, lambda_b = 0.03, and lambda_c = 0.02 with t = 1 unit of time?
 
 ```{r}
-
+# Let's create a function calculate probability of the top event using failure rates and time period
 ftop2 = function(t, lambda_a, lambda_b, lambda_c){
   
+    # Let's define failure rates as given 
+lambda_a <- 0.05  # Failure rate for event A
+lambda_b <- 0.03  # Failure rate for event B
+lambda_c <- 0.02  # Failure rate for event C
+t = 1 # Time period we want to analyze the events for
+
+# As these events follow exponential distribution, we need to calculate intermediate probabilities accoridngly
   prob_a = pexp(t, rate = lambda_a)
   prob_b = pexp(t, rate = lambda_b)
   prob_c = pexp(t, rate = lambda_c)
-}
+} 
 
+# In the previous learning check, we created a function to calculate the top event 
+# The only change here is that events in this case follow exponential lifespan distribution, and the probabilities of intermediate are calculated accordingly 
+# Let's define probabilities of intermediate events in this case
+intermediate_probabilities <- c(prob_a, prob_b, prob_c) 
 
+p_widespread_outbreak <- probability_top_event(intermediate_probabilities)
+cat("Probability of the widespread outbreak, when events follow an exponential lifespan distribution:", p_widespread_outbreak, "\n")
 
 ```
 
 
+## Learning Check 3
+
+How do the probabilities of events A, B, and C change over the course of one year, with failure rates lambda_a = 0.05, lambda_b = 0.03, and lambda_c = 0.02, and can you visualize this change month by month?
+
+```{r}
+# Firstly, let's load necessary libraries for plotting
+library(ggplot2)
+
+# We need to define the time period in months to observe change as time progresses (1 year)
+months <- 1:12
+
+# Now, let's create a data frame for plotting
+df <- data.frame(
+  Month = months,
+  Probability_A = prob_a,
+  Probability_B = prob_b,
+  Probability_C = prob_c
+)
+
+# To visualise how the probabilities change over 12 months, let's create a plot  
+
+ggplot(df, aes(x = Month)) +
+  geom_line(aes(y = Probability_A, color = "Event A")) +
+  geom_line(aes(y = Probability_B, color = "Event B")) +
+  geom_line(aes(y = Probability_C, color = "Event C")) +
+   theme_classic() +
+  labs(
+    title = "Probability of Events Over 12 Months",
+    x = "Month",
+    y = "Probability"
+  ) +
+  labs(x = "Month", y = "Probability", color = "Type")
+  
+
+```
 
