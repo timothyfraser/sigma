@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2023-10-04" />
+<meta name="date" content="2023-10-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -539,22 +539,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#load-packages-5"><i class="fa fa-check"></i>Load Packages</a></li>
 </ul></li>
-<li class="chapter" data-level="9.1" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#fault-trees-in-r"><i class="fa fa-check"></i><b>9.1</b> Fault Trees in R</a>
+<li class="chapter" data-level="9.1" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#simulating-fault-trees"><i class="fa fa-check"></i><b>9.1</b> Simulating Fault Trees</a>
 <ul>
-<li class="chapter" data-level="9.1.1" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#making-a-nodelist"><i class="fa fa-check"></i><b>9.1.1</b> Making a Nodelist</a></li>
-<li class="chapter" data-level="9.1.2" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#making-an-edgelist"><i class="fa fa-check"></i><b>9.1.2</b> Making an Edgelist</a></li>
-<li class="chapter" data-level="9.1.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#our-data-3"><i class="fa fa-check"></i><b>9.1.3</b> Our Data</a></li>
-<li class="chapter" data-level="9.1.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#getting-a-fault-tree-layout"><i class="fa fa-check"></i><b>9.1.4</b> Getting a Fault Tree Layout</a></li>
-<li class="chapter" data-level="9.1.5" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#visualize-a-fault-tree"><i class="fa fa-check"></i><b>9.1.5</b> Visualize a Fault Tree</a></li>
+<li class="chapter" data-level="9.1.1" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#example-superman-fault-tree"><i class="fa fa-check"></i><b>9.1.1</b> Example: Superman Fault Tree</a></li>
+<li class="chapter" data-level="9.1.2" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#using-raw-probabilities"><i class="fa fa-check"></i><b>9.1.2</b> Using Raw Probabilities</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#cutsets"><i class="fa fa-check"></i><b>9.2</b> Cutsets</a>
+<li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#LC1"><i class="fa fa-check"></i>Learning Check 1</a>
 <ul>
-<li class="chapter" data-level="9.2.1" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#gates"><i class="fa fa-check"></i><b>9.2.1</b> Gates</a></li>
-<li class="chapter" data-level="9.2.2" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#equations"><i class="fa fa-check"></i><b>9.2.2</b> Equations</a></li>
-<li class="chapter" data-level="9.2.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#minimal-cutsets"><i class="fa fa-check"></i><b>9.2.3</b> Minimal Cutsets</a></li>
-<li class="chapter" data-level="9.2.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#coverage"><i class="fa fa-check"></i><b>9.2.4</b> Coverage</a></li>
+<li class="chapter" data-level="9.1.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#using-failure-rates-at-time-t"><i class="fa fa-check"></i><b>9.1.3</b> Using Failure Rates at Time <code>t</code></a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#simulate"><i class="fa fa-check"></i><b>9.3</b> Simulate</a></li>
+<li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#LC2"><i class="fa fa-check"></i>Learning Check 2</a>
+<ul>
+<li class="chapter" data-level="9.1.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#simulating-uncertainty-in-probabilities"><i class="fa fa-check"></i><b>9.1.4</b> Simulating Uncertainty in Probabilities</a></li>
+<li class="chapter" data-level="9.1.5" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#simulating-uncertainty-in-failure-rates"><i class="fa fa-check"></i><b>9.1.5</b> Simulating Uncertainty in Failure Rates</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#LC3"><i class="fa fa-check"></i>Learning Check 3</a></li>
+<li class="chapter" data-level="9.2" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#visualizing-fault-trees-in-r"><i class="fa fa-check"></i><b>9.2</b> Visualizing Fault Trees in R</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#making-a-nodelist"><i class="fa fa-check"></i><b>9.2.1</b> Making a Nodelist</a></li>
+<li class="chapter" data-level="9.2.2" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#making-an-edgelist"><i class="fa fa-check"></i><b>9.2.2</b> Making an Edgelist</a></li>
+<li class="chapter" data-level="9.2.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#our-data-3"><i class="fa fa-check"></i><b>9.2.3</b> Our Data</a></li>
+<li class="chapter" data-level="9.2.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#getting-a-fault-tree-layout"><i class="fa fa-check"></i><b>9.2.4</b> Getting a Fault Tree Layout</a></li>
+<li class="chapter" data-level="9.2.5" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#visualize-a-fault-tree"><i class="fa fa-check"></i><b>9.2.5</b> Visualize a Fault Tree</a></li>
+<li class="chapter" data-level="9.2.6" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#gates"><i class="fa fa-check"></i><b>9.2.6</b> Gates</a></li>
+<li class="chapter" data-level="9.2.7" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#equations"><i class="fa fa-check"></i><b>9.2.7</b> Equations</a></li>
+<li class="chapter" data-level="9.2.8" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#minimal-cutsets"><i class="fa fa-check"></i><b>9.2.8</b> Minimal Cutsets</a></li>
+<li class="chapter" data-level="9.2.9" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#coverage"><i class="fa fa-check"></i><b>9.2.9</b> Coverage</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="workshop-physical-acceleration-models.html"><a href="workshop-physical-acceleration-models.html"><i class="fa fa-check"></i><b>10</b> Workshop: Physical Acceleration Models</a>
 <ul>
@@ -850,8 +861,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Plus, several possible failure modes are involved, as discussed below.</p>
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-63206319b669208f7880" style="width:100%;height:384px;"></div>
-<script type="application/json" data-for="htmlwidget-63206319b669208f7880">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-ba3c3c792cffc7657470" style="width:100%;height:384px;"></div>
+<script type="application/json" data-for="htmlwidget-ba3c3c792cffc7657470">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figure 1.4: Ben &amp; Jerry’s Ice Cream Block Diagram
 </p>
