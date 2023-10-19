@@ -945,18 +945,69 @@ Finally, we can quickly calculate these quantities of interest too.
 
 $$ MTTF = T_{50} \times e^{\sigma^2 / 2} $$
 
-$$ Variance = T_{50} \times e^{\sigma^2} \times (e^{\sigma^2} - 1)$$
+$$ Variance = (T_{50})^{2} \times e^{\sigma^2} \times (e^{\sigma^2} - 1)$$
 ```{r}
 # We could code these up simply like so
-mttf = function(mu, sigma){  mu * exp(sigma^2  / 2)  }
+mttf = function(median, sigma){  median * exp(sigma^2  / 2)  }
 
 # We could code these up simply like so
-variance = function(mu, sigma){  mu * exp(sigma^2) * (exp(sigma^2) - 1)  }
+variance = function(median, sigma){  median^2 * exp(sigma^2) * (exp(sigma^2) - 1)  }
 ```
 
 
 <br>
 <br>
+
+### Using Other Parameters
+
+It's important to note that there are *other* ways to specify the log-normal distribution in R too.
+
+For example, these ways of writing the mean time to failure (MTTF) are all equivalent.
+
+```{r}
+# Using the median...
+mttf = function(median, sigma){ median * exp(sigma^2 / 2) }
+mttf(median = 1, sigma = 3)
+# Using the meanlog, which is equal to the log of the median
+mttf = function(meanlog, sigma){ exp(meanlog) *  exp(sigma^2 / 2) }
+mttf(meanlog = log(1), sigma = 3)
+# Using the meanlog, written a different way
+mttf = function(meanlog, sigma){ exp(meanlog + sigma^2 / 2) }
+mttf(meanlog = log(1), sigma = 3)
+```
+
+
+There are also multiple ways to calculate the `variance()`.
+
+```{r}
+# Requires the median, as well as sigma
+variance1 = function(median, sigma){ median^2 * exp( sigma^2 )  * (exp(sigma^2) - 1) }
+variance1(median = 2, sigma = 3)
+# Requires a statistic called the meanlog, as well as sigma
+variance2 = function(meanlog, sigma){ (exp(sigma^2) - 1) * exp(2*meanlog + sigma^2) }
+variance2(meanlog = log(2), sigma = 3)
+```
+
+You could also calculate your own `sigma()` function if you chose.
+
+```{r}
+# Let's write our own sigma function...
+sigma = function(t, t50, prob){
+  # Let's derive it...
+  #prob = pnorm(log(t/t50)/sigma)
+  #qnorm(prob) = log(t/t50) / sigma
+  sigma = log(t/t50) / qnorm(prob)
+  return(sigma)
+}
+
+```
+
+
+
+
+
+
+
 
 ---
 
@@ -1023,6 +1074,7 @@ variance(median = 50000, sigma = 0.8) %>% sqrt()
 
 <br>
 <br>
+
 
 ## Conclusion
 

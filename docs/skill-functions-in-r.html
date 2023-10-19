@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2023-10-15" />
+<meta name="date" content="2023-10-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -527,6 +527,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4.2" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#phi"><i class="fa fa-check"></i><b>8.4.2</b> <span class="math inline">\(\Phi\)</span></a></li>
 <li class="chapter" data-level="8.4.3" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#key-functions-1"><i class="fa fa-check"></i><b>8.4.3</b> Key Functions</a></li>
 <li class="chapter" data-level="8.4.4" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#mttf-and-variance-2"><i class="fa fa-check"></i><b>8.4.4</b> MTTF and Variance</a></li>
+<li class="chapter" data-level="8.4.5" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#using-other-parameters"><i class="fa fa-check"></i><b>8.4.5</b> Using Other Parameters</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#LC5"><i class="fa fa-check"></i>Learning Check 5</a></li>
 <li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#LC6"><i class="fa fa-check"></i>Learning Check 6</a></li>
@@ -561,10 +562,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.2.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#our-data-3"><i class="fa fa-check"></i><b>9.2.3</b> Our Data</a></li>
 <li class="chapter" data-level="9.2.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#getting-a-fault-tree-layout"><i class="fa fa-check"></i><b>9.2.4</b> Getting a Fault Tree Layout</a></li>
 <li class="chapter" data-level="9.2.5" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#visualize-a-fault-tree"><i class="fa fa-check"></i><b>9.2.5</b> Visualize a Fault Tree</a></li>
-<li class="chapter" data-level="9.2.6" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#gates"><i class="fa fa-check"></i><b>9.2.6</b> Gates</a></li>
-<li class="chapter" data-level="9.2.7" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#equations"><i class="fa fa-check"></i><b>9.2.7</b> Equations</a></li>
-<li class="chapter" data-level="9.2.8" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#minimal-cutsets"><i class="fa fa-check"></i><b>9.2.8</b> Minimal Cutsets</a></li>
-<li class="chapter" data-level="9.2.9" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#coverage"><i class="fa fa-check"></i><b>9.2.9</b> Coverage</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#cutsets"><i class="fa fa-check"></i><b>9.3</b> Cutsets</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#gates"><i class="fa fa-check"></i><b>9.3.1</b> Gates</a></li>
+<li class="chapter" data-level="9.3.2" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#equations"><i class="fa fa-check"></i><b>9.3.2</b> Equations</a></li>
+<li class="chapter" data-level="9.3.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#minimal-cutsets"><i class="fa fa-check"></i><b>9.3.3</b> Minimal Cutsets</a></li>
+<li class="chapter" data-level="9.3.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#coverage"><i class="fa fa-check"></i><b>9.3.4</b> Coverage</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="workshop-physical-acceleration-models.html"><a href="workshop-physical-acceleration-models.html"><i class="fa fa-check"></i><b>10</b> Workshop: Physical Acceleration Models</a>
@@ -826,8 +830,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="coding-your-own-function" class="section level2 unnumbered hasAnchor">
 <h2>Coding your own function!<a href="skill-functions-in-r.html#coding-your-own-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><code>Functions</code> are machines that do a specific <strong>calculation</strong> using an <strong>input</strong> to produce a specific <strong>output</strong>.</p>
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8b0e515a5dd274223987" style="width:100%;height:144px;"></div>
-<script type="application/json" data-for="htmlwidget-8b0e515a5dd274223987">{"x":{"diagram":"graph LR\n subgraph before\n i[input data <i>x<\/i>]\n end\n subgraph function\n c[calculation]\n end\n subgraph after\n o[output data <i>y<\/i>]\n end\n i --> c\n c --> o"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-1868d097390373c70450" style="width:100%;height:144px;"></div>
+<script type="application/json" data-for="htmlwidget-1868d097390373c70450">{"x":{"diagram":"graph LR\n subgraph before\n i[input data <i>x<\/i>]\n end\n subgraph function\n c[calculation]\n end\n subgraph after\n o[output data <i>y<\/i>]\n end\n i --> c\n c --> o"},"evals":[],"jsHooks":[]}</script>
 <p>Below, we’ll write an example function, called <code>add(a, b)</code>.</p>
 <ul>
 <li><p>This function takes two <code>numeric</code> values, <code>a</code> and <code>b</code>, as <code>inputs</code>, and adds them together.</p></li>

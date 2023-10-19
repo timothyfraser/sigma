@@ -187,6 +187,7 @@ ft-or-dt-pdf-1
 phi
 key-functions-1
 mttf-and-variance-2
+using-other-parameters
 conclusion-7
 workshop-fault-tree-analysis-in-r
 simulating-fault-trees
@@ -201,6 +202,7 @@ making-an-edgelist
 our-data-3
 getting-a-fault-tree-layout
 visualize-a-fault-tree
+cutsets
 gates
 equations
 minimal-cutsets

@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2023-10-15" />
+<meta name="date" content="2023-10-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -527,6 +527,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4.2" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#phi"><i class="fa fa-check"></i><b>8.4.2</b> <span class="math inline">\(\Phi\)</span></a></li>
 <li class="chapter" data-level="8.4.3" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#key-functions-1"><i class="fa fa-check"></i><b>8.4.3</b> Key Functions</a></li>
 <li class="chapter" data-level="8.4.4" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#mttf-and-variance-2"><i class="fa fa-check"></i><b>8.4.4</b> MTTF and Variance</a></li>
+<li class="chapter" data-level="8.4.5" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#using-other-parameters"><i class="fa fa-check"></i><b>8.4.5</b> Using Other Parameters</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#LC5"><i class="fa fa-check"></i>Learning Check 5</a></li>
 <li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#LC6"><i class="fa fa-check"></i>Learning Check 6</a></li>
@@ -561,10 +562,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.2.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#our-data-3"><i class="fa fa-check"></i><b>9.2.3</b> Our Data</a></li>
 <li class="chapter" data-level="9.2.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#getting-a-fault-tree-layout"><i class="fa fa-check"></i><b>9.2.4</b> Getting a Fault Tree Layout</a></li>
 <li class="chapter" data-level="9.2.5" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#visualize-a-fault-tree"><i class="fa fa-check"></i><b>9.2.5</b> Visualize a Fault Tree</a></li>
-<li class="chapter" data-level="9.2.6" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#gates"><i class="fa fa-check"></i><b>9.2.6</b> Gates</a></li>
-<li class="chapter" data-level="9.2.7" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#equations"><i class="fa fa-check"></i><b>9.2.7</b> Equations</a></li>
-<li class="chapter" data-level="9.2.8" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#minimal-cutsets"><i class="fa fa-check"></i><b>9.2.8</b> Minimal Cutsets</a></li>
-<li class="chapter" data-level="9.2.9" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#coverage"><i class="fa fa-check"></i><b>9.2.9</b> Coverage</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#cutsets"><i class="fa fa-check"></i><b>9.3</b> Cutsets</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#gates"><i class="fa fa-check"></i><b>9.3.1</b> Gates</a></li>
+<li class="chapter" data-level="9.3.2" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#equations"><i class="fa fa-check"></i><b>9.3.2</b> Equations</a></li>
+<li class="chapter" data-level="9.3.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#minimal-cutsets"><i class="fa fa-check"></i><b>9.3.3</b> Minimal Cutsets</a></li>
+<li class="chapter" data-level="9.3.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#coverage"><i class="fa fa-check"></i><b>9.3.4</b> Coverage</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="workshop-physical-acceleration-models.html"><a href="workshop-physical-acceleration-models.html"><i class="fa fa-check"></i><b>10</b> Workshop: Physical Acceleration Models</a>
@@ -1163,7 +1167,7 @@ How many times wider is the expected vs. observed range for the left/right side
 <pre><code>## # A tibble: 1 × 1
 ##    mean
 ##   &lt;dbl&gt;
-## 1  44.9</code></pre>
+## 1  44.8</code></pre>
 <p>Our bootstrapped <code>mean</code> is <em>very</em>, <em>very</em> close to the original mean - just slightly off due to sampling error! Bootstrapping is a very powerful tool, as it lets us circumvent many long formulas, as long as you take enough samples. Let’s take 1000 resamples below:</p>
 <div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="workshop-indices-and-confidence-intervals-for-statistical-process-control-in-r.html#cb574-1" tabindex="-1"></a><span class="co"># Get a vector of ids from 1 to 1000</span></span>
 <span id="cb574-2"><a href="workshop-indices-and-confidence-intervals-for-statistical-process-control-in-r.html#cb574-2" tabindex="-1"></a>myboot <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
@@ -1302,11 +1306,11 @@ We can see above the <em>latent distribution of 1000 statistics we could have go
 ## Columns: 6
 ## Groups: rep [1,000]
 ## $ rep    &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-## $ id     &lt;dbl&gt; 64, 98, 7, 30, 35, 119, 114, 106, 63, 108, 139, 48, 70, 64, 82,…
-## $ time   &lt;dbl&gt; 7, 9, 1, 3, 3, 11, 11, 11, 7, 11, 13, 5, 7, 7, 9, 13, 13, 1, 15…
-## $ temp   &lt;dbl&gt; 40.9, 44.7, 42.3, 46.7, 44.8, 41.1, 44.1, 48.4, 47.2, 45.9, 46.…
-## $ ph     &lt;dbl&gt; 5.5, 4.4, 5.5, 5.3, 6.0, 4.8, 4.6, 5.3, 6.5, 5.7, 5.1, 5.7, 4.8…
-## $ sulfur &lt;dbl&gt; 0.4, 0.5, 0.0, 1.0, 0.4, -0.1, 0.2, 0.2, 0.1, 0.6, 0.2, 0.1, 0.…</code></pre>
+## $ id     &lt;dbl&gt; 22, 160, 78, 128, 97, 147, 21, 9, 63, 86, 138, 47, 46, 144, 101…
+## $ time   &lt;dbl&gt; 3, 15, 7, 13, 9, 15, 3, 1, 7, 9, 13, 5, 5, 15, 11, 7, 7, 7, 15,…
+## $ temp   &lt;dbl&gt; 45.6, 44.3, 46.4, 42.4, 44.4, 47.4, 46.0, 42.2, 47.2, 49.4, 42.…
+## $ ph     &lt;dbl&gt; 6.2, 5.4, 5.6, 4.6, 5.9, 5.6, 6.3, 5.2, 6.5, 5.6, 5.7, 6.1, 5.7…
+## $ sulfur &lt;dbl&gt; 0.2, 2.0, 1.7, -0.1, 0.3, 0.9, 0.0, 0.0, 0.1, 0.3, 1.2, 0.4, 0.…</code></pre>
 <p>This produces a very, very big data.frame!</p>
 <p>Let’s now, for each rep, calculate our statistics from before!</p>
 <div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="workshop-indices-and-confidence-intervals-for-statistical-process-control-in-r.html#cb584-1" tabindex="-1"></a>mybootstat <span class="ot">=</span> myboot <span class="sc">%&gt;%</span></span>
@@ -1366,7 +1370,7 @@ We can see above the <em>latent distribution of 1000 statistics we could have go
 <pre><code>## # A tibble: 1 × 4
 ##      cp lower upper     se
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-## 1 0.671 0.614 0.777 0.0427</code></pre>
+## 1 0.671 0.616 0.785 0.0433</code></pre>
 <p>This suggests a wider confidence interval that our normal distribution assumes by default - interesting!</p>
 <p>We can perform bootstrapping to estimate confidence intervals for <em>any</em> statistic, including <span class="math inline">\(C_{p}\)</span>, <span class="math inline">\(C_{pk}\)</span>, <span class="math inline">\(P_{p}\)</span>, or <span class="math inline">\(P_{pk}\)</span>. The only limit is your computational power! Wheee!</p>
 <p><em>Note</em>: Whenever you bootstrap, it’s important that you clear out your <code>R</code> environment to keep things running quickly, because you tend to accumulate a lot of really big data.frames. You can use <code>remove()</code> to do this.</p>

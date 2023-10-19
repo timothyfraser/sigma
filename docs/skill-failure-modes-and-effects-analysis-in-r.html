@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2023-10-15" />
+<meta name="date" content="2023-10-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -527,6 +527,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4.2" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#phi"><i class="fa fa-check"></i><b>8.4.2</b> <span class="math inline">\(\Phi\)</span></a></li>
 <li class="chapter" data-level="8.4.3" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#key-functions-1"><i class="fa fa-check"></i><b>8.4.3</b> Key Functions</a></li>
 <li class="chapter" data-level="8.4.4" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#mttf-and-variance-2"><i class="fa fa-check"></i><b>8.4.4</b> MTTF and Variance</a></li>
+<li class="chapter" data-level="8.4.5" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#using-other-parameters"><i class="fa fa-check"></i><b>8.4.5</b> Using Other Parameters</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#LC5"><i class="fa fa-check"></i>Learning Check 5</a></li>
 <li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#LC6"><i class="fa fa-check"></i>Learning Check 6</a></li>
@@ -561,10 +562,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.2.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#our-data-3"><i class="fa fa-check"></i><b>9.2.3</b> Our Data</a></li>
 <li class="chapter" data-level="9.2.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#getting-a-fault-tree-layout"><i class="fa fa-check"></i><b>9.2.4</b> Getting a Fault Tree Layout</a></li>
 <li class="chapter" data-level="9.2.5" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#visualize-a-fault-tree"><i class="fa fa-check"></i><b>9.2.5</b> Visualize a Fault Tree</a></li>
-<li class="chapter" data-level="9.2.6" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#gates"><i class="fa fa-check"></i><b>9.2.6</b> Gates</a></li>
-<li class="chapter" data-level="9.2.7" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#equations"><i class="fa fa-check"></i><b>9.2.7</b> Equations</a></li>
-<li class="chapter" data-level="9.2.8" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#minimal-cutsets"><i class="fa fa-check"></i><b>9.2.8</b> Minimal Cutsets</a></li>
-<li class="chapter" data-level="9.2.9" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#coverage"><i class="fa fa-check"></i><b>9.2.9</b> Coverage</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#cutsets"><i class="fa fa-check"></i><b>9.3</b> Cutsets</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#gates"><i class="fa fa-check"></i><b>9.3.1</b> Gates</a></li>
+<li class="chapter" data-level="9.3.2" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#equations"><i class="fa fa-check"></i><b>9.3.2</b> Equations</a></li>
+<li class="chapter" data-level="9.3.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#minimal-cutsets"><i class="fa fa-check"></i><b>9.3.3</b> Minimal Cutsets</a></li>
+<li class="chapter" data-level="9.3.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#coverage"><i class="fa fa-check"></i><b>9.3.4</b> Coverage</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="workshop-physical-acceleration-models.html"><a href="workshop-physical-acceleration-models.html"><i class="fa fa-check"></i><b>10</b> Workshop: Physical Acceleration Models</a>
@@ -861,8 +865,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Plus, several possible failure modes are involved, as discussed below.</p>
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-ba3c3c792cffc7657470" style="width:100%;height:384px;"></div>
-<script type="application/json" data-for="htmlwidget-ba3c3c792cffc7657470">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-ae4a7e68c7ebe455686d" style="width:100%;height:384px;"></div>
+<script type="application/json" data-for="htmlwidget-ae4a7e68c7ebe455686d">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figure 1.4: Ben &amp; Jerry’s Ice Cream Block Diagram
 </p>

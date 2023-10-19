@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2023-10-15" />
+<meta name="date" content="2023-10-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -527,6 +527,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4.2" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#phi"><i class="fa fa-check"></i><b>8.4.2</b> <span class="math inline">\(\Phi\)</span></a></li>
 <li class="chapter" data-level="8.4.3" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#key-functions-1"><i class="fa fa-check"></i><b>8.4.3</b> Key Functions</a></li>
 <li class="chapter" data-level="8.4.4" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#mttf-and-variance-2"><i class="fa fa-check"></i><b>8.4.4</b> MTTF and Variance</a></li>
+<li class="chapter" data-level="8.4.5" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#using-other-parameters"><i class="fa fa-check"></i><b>8.4.5</b> Using Other Parameters</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#LC5"><i class="fa fa-check"></i>Learning Check 5</a></li>
 <li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#LC6"><i class="fa fa-check"></i>Learning Check 6</a></li>
@@ -561,10 +562,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.2.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#our-data-3"><i class="fa fa-check"></i><b>9.2.3</b> Our Data</a></li>
 <li class="chapter" data-level="9.2.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#getting-a-fault-tree-layout"><i class="fa fa-check"></i><b>9.2.4</b> Getting a Fault Tree Layout</a></li>
 <li class="chapter" data-level="9.2.5" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#visualize-a-fault-tree"><i class="fa fa-check"></i><b>9.2.5</b> Visualize a Fault Tree</a></li>
-<li class="chapter" data-level="9.2.6" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#gates"><i class="fa fa-check"></i><b>9.2.6</b> Gates</a></li>
-<li class="chapter" data-level="9.2.7" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#equations"><i class="fa fa-check"></i><b>9.2.7</b> Equations</a></li>
-<li class="chapter" data-level="9.2.8" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#minimal-cutsets"><i class="fa fa-check"></i><b>9.2.8</b> Minimal Cutsets</a></li>
-<li class="chapter" data-level="9.2.9" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#coverage"><i class="fa fa-check"></i><b>9.2.9</b> Coverage</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#cutsets"><i class="fa fa-check"></i><b>9.3</b> Cutsets</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#gates"><i class="fa fa-check"></i><b>9.3.1</b> Gates</a></li>
+<li class="chapter" data-level="9.3.2" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#equations"><i class="fa fa-check"></i><b>9.3.2</b> Equations</a></li>
+<li class="chapter" data-level="9.3.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#minimal-cutsets"><i class="fa fa-check"></i><b>9.3.3</b> Minimal Cutsets</a></li>
+<li class="chapter" data-level="9.3.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#coverage"><i class="fa fa-check"></i><b>9.3.4</b> Coverage</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="workshop-physical-acceleration-models.html"><a href="workshop-physical-acceleration-models.html"><i class="fa fa-check"></i><b>10</b> Workshop: Physical Acceleration Models</a>
@@ -1268,8 +1272,8 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 <h3><span class="header-section-number">7.4.2</span> Phase-Type Distributions<a href="workshop-useful-life-distributions-exponential.html#phase-type-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One way to more accurately model the lifespan of a product is to accept that its failure rate may remain constant, but it might change between failure rates as it passes through <strong>phases</strong>. Let’s model that!</p>
 <p>We can write the time <span class="math inline">\(T\)</span> to critical failure (via either overstress OR degraded failure) as <span class="math inline">\(T = min(T_c, T_d+T_{dc})\)</span>.</p>
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-e5216ba8a0f034b1535c" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-e5216ba8a0f034b1535c">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-dc295c3dc137d87aeaf5" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-dc295c3dc137d87aeaf5">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
 <p>The total probability of a product being in any phase <span class="math inline">\(a_{i \to n}\)</span> equals 1.</p>
 <ul>
 <li><p><span class="math inline">\(a_c = 25\%\)</span></p></li>

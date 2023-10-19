@@ -142,6 +142,7 @@ f(a = 0.2, b = 0.15, c = 0.3, d = 0.1, e = 0.15, f = 0.2, g = 0.05, h = 0.1)
 
 </details>
 
+
 ---
 
 
@@ -189,6 +190,7 @@ ggplot() +
 
 <img src="09_workshop_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
+---
 
 ## Learning Check 2 {.unnumbered #LC2}
 
@@ -199,6 +201,7 @@ Suppose we have a small fault tree, where the top event T depends on either [A a
 - `lambda_a = 0.05`
 - `lambda_b = 0.03`
 - `lambda_c = 0.02`
+
 
 <details><summary>**[View Answer!]**</summary>
 
@@ -249,7 +252,6 @@ f(t = 10, lambda_a = 0.05, lambda_b = 0.03, lambda_c = 0.02)
 ---
 
 
-
 ### Simulating Uncertainty in Probabilities
 
 We can use simulation to answer several important questions about variation. For example, we can simulate how the probability of the top event would change if the probability of each event varies ever so slightly across 1000 simulations. 
@@ -278,7 +280,7 @@ probs3 %>%
 ## # A tibble: 1 × 2
 ##   mu_top sigma_top
 ##    <dbl>     <dbl>
-## 1  0.475     0.502
+## 1  0.495     0.502
 ```
 
 ### Simulating Uncertainty in Failure Rates
@@ -329,11 +331,11 @@ probs5 %>% head(3)
 
 ```
 ## # A tibble: 3 × 3
-##    reps     t   prob
-##   <int> <int>  <dbl>
-## 1     1     1 0.0100
-## 2     1     2 0.0200
-## 3     1     3 0.0298
+##    reps     t    prob
+##   <int> <int>   <dbl>
+## 1     1     1 0.00992
+## 2     1     2 0.0197 
+## 3     1     3 0.0295
 ```
 
 
@@ -356,11 +358,11 @@ probs6 %>% head(3)
 
 ```
 ## # A tibble: 3 × 7
-##       t      mu     sigma   lower  upper lower_approx upper_approx
-##   <int>   <dbl>     <dbl>   <dbl>  <dbl>        <dbl>        <dbl>
-## 1     1 0.00995 0.0000967 0.00976 0.0101       0.0101       0.0101
-## 2     2 0.0198  0.000191  0.0194  0.0202       0.0202       0.0202
-## 3     3 0.0295  0.000284  0.0290  0.0301       0.0301       0.0301
+##       t      mu    sigma   lower  upper lower_approx upper_approx
+##   <int>   <dbl>    <dbl>   <dbl>  <dbl>        <dbl>        <dbl>
+## 1     1 0.00996 0.000102 0.00976 0.0102       0.0102       0.0102
+## 2     2 0.0198  0.000202 0.0194  0.0202       0.0202       0.0202
+## 3     3 0.0296  0.000300 0.0290  0.0301       0.0302       0.0302
 ```
 
 Let's visualize that confidence interval over time!
@@ -378,6 +380,7 @@ The sky is the limit! Happy fault tree simulating!
 
 
 
+---
 
 
 <br>
@@ -388,6 +391,8 @@ The sky is the limit! Happy fault tree simulating!
 
 Suppose we have some fault tree involving 3 key events, A, B, and C. Suppose these events have the following failure rates: lambda_a = 0.05, lambda_b = 0.03, and lambda_c = 0.02. 
 Simulate the 95% confidence interval for the probability of each event, for each hour from 0 to 100 hours, assuming a standard error for each of 0.001. Then visualize these confidence intervals as a `ribbon` plot.
+
+<details><summary>**[View Answer!]**</summary>
 
 
 ```r
@@ -433,9 +438,9 @@ stat %>% head(3)
 ## # A tibble: 3 × 7
 ##       t lower_a upper_a lower_b upper_b lower_c upper_c
 ##   <int>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-## 1     1  0.0470  0.0506  0.0275  0.0314  0.0178  0.0217
-## 2     2  0.0918  0.0987  0.0542  0.0618  0.0353  0.0430
-## 3     3  0.134   0.144   0.0802  0.0913  0.0525  0.0638
+## 1     1  0.0471  0.0506  0.0277  0.0315  0.0180  0.0218
+## 2     2  0.0919  0.0986  0.0546  0.0620  0.0356  0.0431
+## 3     3  0.135   0.144   0.0808  0.0916  0.0529  0.0639
 ```
 
 
@@ -673,6 +678,9 @@ ggplot() +
 
 <br>
 <br>
+
+---
+
 ## Cutsets
 
 Fault Trees are *big* - and some `events` are more critical than others. We want to identify two kinds of information.
@@ -717,6 +725,7 @@ g %>% equate()
 ```
 ## [1] " ( ( (B *  (C + D) )  *  (A +  (B * C) ) ) ) "
 ```
+
 We can format it as a function too!
 
 
@@ -768,10 +777,4 @@ m %>%
 
 
 
-
-
-
-
-
-
-
+Happy Fault Tree analysis!

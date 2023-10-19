@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2023-10-15" />
+<meta name="date" content="2023-10-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -527,6 +527,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4.2" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#phi"><i class="fa fa-check"></i><b>8.4.2</b> <span class="math inline">\(\Phi\)</span></a></li>
 <li class="chapter" data-level="8.4.3" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#key-functions-1"><i class="fa fa-check"></i><b>8.4.3</b> Key Functions</a></li>
 <li class="chapter" data-level="8.4.4" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#mttf-and-variance-2"><i class="fa fa-check"></i><b>8.4.4</b> MTTF and Variance</a></li>
+<li class="chapter" data-level="8.4.5" data-path="workshop-useful-life-distributions-weibull-gamma-lognormal.html"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#using-other-parameters"><i class="fa fa-check"></i><b>8.4.5</b> Using Other Parameters</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#LC5"><i class="fa fa-check"></i>Learning Check 5</a></li>
 <li class="chapter" data-level="" data-path="skill-visualization-with-ggplot-in-r.html"><a href="skill-visualization-with-ggplot-in-r.html#LC6"><i class="fa fa-check"></i>Learning Check 6</a></li>
@@ -561,10 +562,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.2.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#our-data-3"><i class="fa fa-check"></i><b>9.2.3</b> Our Data</a></li>
 <li class="chapter" data-level="9.2.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#getting-a-fault-tree-layout"><i class="fa fa-check"></i><b>9.2.4</b> Getting a Fault Tree Layout</a></li>
 <li class="chapter" data-level="9.2.5" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#visualize-a-fault-tree"><i class="fa fa-check"></i><b>9.2.5</b> Visualize a Fault Tree</a></li>
-<li class="chapter" data-level="9.2.6" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#gates"><i class="fa fa-check"></i><b>9.2.6</b> Gates</a></li>
-<li class="chapter" data-level="9.2.7" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#equations"><i class="fa fa-check"></i><b>9.2.7</b> Equations</a></li>
-<li class="chapter" data-level="9.2.8" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#minimal-cutsets"><i class="fa fa-check"></i><b>9.2.8</b> Minimal Cutsets</a></li>
-<li class="chapter" data-level="9.2.9" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#coverage"><i class="fa fa-check"></i><b>9.2.9</b> Coverage</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#cutsets"><i class="fa fa-check"></i><b>9.3</b> Cutsets</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#gates"><i class="fa fa-check"></i><b>9.3.1</b> Gates</a></li>
+<li class="chapter" data-level="9.3.2" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#equations"><i class="fa fa-check"></i><b>9.3.2</b> Equations</a></li>
+<li class="chapter" data-level="9.3.3" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#minimal-cutsets"><i class="fa fa-check"></i><b>9.3.3</b> Minimal Cutsets</a></li>
+<li class="chapter" data-level="9.3.4" data-path="workshop-fault-tree-analysis-in-r.html"><a href="workshop-fault-tree-analysis-in-r.html#coverage"><i class="fa fa-check"></i><b>9.3.4</b> Coverage</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="workshop-physical-acceleration-models.html"><a href="workshop-physical-acceleration-models.html"><i class="fa fa-check"></i><b>10</b> Workshop: Physical Acceleration Models</a>
@@ -1664,14 +1668,49 @@ The log-normal distribution is quite similar. Here, <span class="math inline">\(
 <h3><span class="header-section-number">8.4.4</span> MTTF and Variance<a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#mttf-and-variance-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Finally, we can quickly calculate these quantities of interest too.</p>
 <p><span class="math display">\[ MTTF = T_{50} \times e^{\sigma^2 / 2} \]</span></p>
-<p><span class="math display">\[ Variance = T_{50} \times e^{\sigma^2} \times (e^{\sigma^2} - 1)\]</span></p>
+<p><span class="math display">\[ Variance = (T_{50})^{2} \times e^{\sigma^2} \times (e^{\sigma^2} - 1)\]</span></p>
 <div class="sourceCode" id="cb834"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb834-1"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb834-1" tabindex="-1"></a><span class="co"># We could code these up simply like so</span></span>
-<span id="cb834-2"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb834-2" tabindex="-1"></a>mttf <span class="ot">=</span> <span class="cf">function</span>(mu, sigma){  mu <span class="sc">*</span> <span class="fu">exp</span>(sigma<span class="sc">^</span><span class="dv">2</span>  <span class="sc">/</span> <span class="dv">2</span>)  }</span>
+<span id="cb834-2"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb834-2" tabindex="-1"></a>mttf <span class="ot">=</span> <span class="cf">function</span>(median, sigma){  median <span class="sc">*</span> <span class="fu">exp</span>(sigma<span class="sc">^</span><span class="dv">2</span>  <span class="sc">/</span> <span class="dv">2</span>)  }</span>
 <span id="cb834-3"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb834-3" tabindex="-1"></a></span>
 <span id="cb834-4"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb834-4" tabindex="-1"></a><span class="co"># We could code these up simply like so</span></span>
-<span id="cb834-5"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb834-5" tabindex="-1"></a>variance <span class="ot">=</span> <span class="cf">function</span>(mu, sigma){  mu <span class="sc">*</span> <span class="fu">exp</span>(sigma<span class="sc">^</span><span class="dv">2</span>) <span class="sc">*</span> (<span class="fu">exp</span>(sigma<span class="sc">^</span><span class="dv">2</span>) <span class="sc">-</span> <span class="dv">1</span>)  }</span></code></pre></div>
+<span id="cb834-5"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb834-5" tabindex="-1"></a>variance <span class="ot">=</span> <span class="cf">function</span>(median, sigma){  median<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">exp</span>(sigma<span class="sc">^</span><span class="dv">2</span>) <span class="sc">*</span> (<span class="fu">exp</span>(sigma<span class="sc">^</span><span class="dv">2</span>) <span class="sc">-</span> <span class="dv">1</span>)  }</span></code></pre></div>
 <p><br>
 <br></p>
+</div>
+<div id="using-other-parameters" class="section level3 hasAnchor" number="8.4.5">
+<h3><span class="header-section-number">8.4.5</span> Using Other Parameters<a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#using-other-parameters" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>It’s important to note that there are <em>other</em> ways to specify the log-normal distribution in R too.</p>
+<p>For example, these ways of writing the mean time to failure (MTTF) are all equivalent.</p>
+<div class="sourceCode" id="cb835"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb835-1"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb835-1" tabindex="-1"></a><span class="co"># Using the median...</span></span>
+<span id="cb835-2"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb835-2" tabindex="-1"></a>mttf <span class="ot">=</span> <span class="cf">function</span>(median, sigma){ median <span class="sc">*</span> <span class="fu">exp</span>(sigma<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="dv">2</span>) }</span>
+<span id="cb835-3"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb835-3" tabindex="-1"></a><span class="fu">mttf</span>(<span class="at">median =</span> <span class="dv">1</span>, <span class="at">sigma =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 90.01713</code></pre>
+<div class="sourceCode" id="cb837"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb837-1"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb837-1" tabindex="-1"></a><span class="co"># Using the meanlog, which is equal to the log of the median</span></span>
+<span id="cb837-2"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb837-2" tabindex="-1"></a>mttf <span class="ot">=</span> <span class="cf">function</span>(meanlog, sigma){ <span class="fu">exp</span>(meanlog) <span class="sc">*</span>  <span class="fu">exp</span>(sigma<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="dv">2</span>) }</span>
+<span id="cb837-3"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb837-3" tabindex="-1"></a><span class="fu">mttf</span>(<span class="at">meanlog =</span> <span class="fu">log</span>(<span class="dv">1</span>), <span class="at">sigma =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 90.01713</code></pre>
+<div class="sourceCode" id="cb839"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb839-1"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb839-1" tabindex="-1"></a><span class="co"># Using the meanlog, written a different way</span></span>
+<span id="cb839-2"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb839-2" tabindex="-1"></a>mttf <span class="ot">=</span> <span class="cf">function</span>(meanlog, sigma){ <span class="fu">exp</span>(meanlog <span class="sc">+</span> sigma<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="dv">2</span>) }</span>
+<span id="cb839-3"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb839-3" tabindex="-1"></a><span class="fu">mttf</span>(<span class="at">meanlog =</span> <span class="fu">log</span>(<span class="dv">1</span>), <span class="at">sigma =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 90.01713</code></pre>
+<p>There are also multiple ways to calculate the <code>variance()</code>.</p>
+<div class="sourceCode" id="cb841"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb841-1"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb841-1" tabindex="-1"></a><span class="co"># Requires the median, as well as sigma</span></span>
+<span id="cb841-2"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb841-2" tabindex="-1"></a>variance1 <span class="ot">=</span> <span class="cf">function</span>(median, sigma){ median<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">exp</span>( sigma<span class="sc">^</span><span class="dv">2</span> )  <span class="sc">*</span> (<span class="fu">exp</span>(sigma<span class="sc">^</span><span class="dv">2</span>) <span class="sc">-</span> <span class="dv">1</span>) }</span>
+<span id="cb841-3"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb841-3" tabindex="-1"></a><span class="fu">variance1</span>(<span class="at">median =</span> <span class="dv">2</span>, <span class="at">sigma =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 262607464</code></pre>
+<div class="sourceCode" id="cb843"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb843-1"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb843-1" tabindex="-1"></a><span class="co"># Requires a statistic called the meanlog, as well as sigma</span></span>
+<span id="cb843-2"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb843-2" tabindex="-1"></a>variance2 <span class="ot">=</span> <span class="cf">function</span>(meanlog, sigma){ (<span class="fu">exp</span>(sigma<span class="sc">^</span><span class="dv">2</span>) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">exp</span>(<span class="dv">2</span><span class="sc">*</span>meanlog <span class="sc">+</span> sigma<span class="sc">^</span><span class="dv">2</span>) }</span>
+<span id="cb843-3"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb843-3" tabindex="-1"></a><span class="fu">variance2</span>(<span class="at">meanlog =</span> <span class="fu">log</span>(<span class="dv">2</span>), <span class="at">sigma =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 262607464</code></pre>
+<p>You could also calculate your own <code>sigma()</code> function if you chose.</p>
+<div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb845-1"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb845-1" tabindex="-1"></a><span class="co"># Let&#39;s write our own sigma function...</span></span>
+<span id="cb845-2"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb845-2" tabindex="-1"></a>sigma <span class="ot">=</span> <span class="cf">function</span>(t, t50, prob){</span>
+<span id="cb845-3"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb845-3" tabindex="-1"></a>  <span class="co"># Let&#39;s derive it...</span></span>
+<span id="cb845-4"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb845-4" tabindex="-1"></a>  <span class="co">#prob = pnorm(log(t/t50)/sigma)</span></span>
+<span id="cb845-5"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb845-5" tabindex="-1"></a>  <span class="co">#qnorm(prob) = log(t/t50) / sigma</span></span>
+<span id="cb845-6"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb845-6" tabindex="-1"></a>  sigma <span class="ot">=</span> <span class="fu">log</span>(t<span class="sc">/</span>t50) <span class="sc">/</span> <span class="fu">qnorm</span>(prob)</span>
+<span id="cb845-7"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb845-7" tabindex="-1"></a>  <span class="fu">return</span>(sigma)</span>
+<span id="cb845-8"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb845-8" tabindex="-1"></a>}</span></code></pre></div>
 <hr />
 </div>
 </div>
@@ -1683,14 +1722,14 @@ The log-normal distribution is quite similar. Here, <span class="math inline">\(
 <summary>
 <strong>[View Answer!]</strong>
 </summary>
-<div class="sourceCode" id="cb835"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb835-1"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb835-1" tabindex="-1"></a><span class="co"># Get percent under 1.5 feet</span></span>
-<span id="cb835-2"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb835-2" tabindex="-1"></a>below <span class="ot">&lt;-</span> <span class="fu">f</span>(<span class="fl">1.5</span>, <span class="at">t50 =</span> <span class="dv">2</span>, <span class="at">sigma =</span> <span class="fl">0.2</span>)</span>
-<span id="cb835-3"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb835-3" tabindex="-1"></a></span>
-<span id="cb835-4"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb835-4" tabindex="-1"></a><span class="co"># Get percentage over 8 feet</span></span>
-<span id="cb835-5"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb835-5" tabindex="-1"></a>above <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">f</span>(<span class="dv">8</span>, <span class="at">t50 =</span> <span class="dv">2</span>, <span class="at">sigma =</span> <span class="fl">0.2</span>)</span>
-<span id="cb835-6"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb835-6" tabindex="-1"></a></span>
-<span id="cb835-7"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb835-7" tabindex="-1"></a><span class="co"># Get total percentage outside of these bounds</span></span>
-<span id="cb835-8"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb835-8" tabindex="-1"></a>below <span class="sc">+</span> above</span></code></pre></div>
+<div class="sourceCode" id="cb846"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb846-1"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb846-1" tabindex="-1"></a><span class="co"># Get percent under 1.5 feet</span></span>
+<span id="cb846-2"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb846-2" tabindex="-1"></a>below <span class="ot">&lt;-</span> <span class="fu">f</span>(<span class="fl">1.5</span>, <span class="at">t50 =</span> <span class="dv">2</span>, <span class="at">sigma =</span> <span class="fl">0.2</span>)</span>
+<span id="cb846-3"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb846-3" tabindex="-1"></a></span>
+<span id="cb846-4"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb846-4" tabindex="-1"></a><span class="co"># Get percentage over 8 feet</span></span>
+<span id="cb846-5"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb846-5" tabindex="-1"></a>above <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">f</span>(<span class="dv">8</span>, <span class="at">t50 =</span> <span class="dv">2</span>, <span class="at">sigma =</span> <span class="fl">0.2</span>)</span>
+<span id="cb846-6"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb846-6" tabindex="-1"></a></span>
+<span id="cb846-7"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb846-7" tabindex="-1"></a><span class="co"># Get total percentage outside of these bounds</span></span>
+<span id="cb846-8"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb846-8" tabindex="-1"></a>below <span class="sc">+</span> above</span></code></pre></div>
 <pre><code>## [1] 0.07515883</code></pre>
 </details>
 <table style="width:6%;">
@@ -1713,21 +1752,21 @@ The log-normal distribution is quite similar. Here, <span class="math inline">\(
 <summary>
 <strong>[View Answer!]</strong>
 </summary>
-<div class="sourceCode" id="cb837"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb837-1"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb837-1" tabindex="-1"></a><span class="co"># Let&#39;s write a mean time to failure function</span></span>
-<span id="cb837-2"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb837-2" tabindex="-1"></a>mttf <span class="ot">=</span> <span class="cf">function</span>(median, sigma){  median <span class="sc">*</span> <span class="fu">exp</span>(sigma<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="dv">2</span>)  }</span>
-<span id="cb837-3"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb837-3" tabindex="-1"></a></span>
-<span id="cb837-4"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb837-4" tabindex="-1"></a><span class="fu">mttf</span>(<span class="at">median =</span> <span class="dv">50000</span>, <span class="at">sigma =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb848"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb848-1"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb848-1" tabindex="-1"></a><span class="co"># Let&#39;s write a mean time to failure function</span></span>
+<span id="cb848-2"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb848-2" tabindex="-1"></a>mttf <span class="ot">=</span> <span class="cf">function</span>(median, sigma){  median <span class="sc">*</span> <span class="fu">exp</span>(sigma<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="dv">2</span>)  }</span>
+<span id="cb848-3"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb848-3" tabindex="-1"></a></span>
+<span id="cb848-4"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb848-4" tabindex="-1"></a><span class="fu">mttf</span>(<span class="at">median =</span> <span class="dv">50000</span>, <span class="at">sigma =</span> <span class="fl">0.8</span>)</span></code></pre></div>
 <pre><code>## [1] 68856.39</code></pre>
-<div class="sourceCode" id="cb839"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb839-1"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb839-1" tabindex="-1"></a><span class="co"># Looks like the MTTF is ~69,000 hours</span></span></code></pre></div>
-<div class="sourceCode" id="cb840"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb840-1"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb840-1" tabindex="-1"></a><span class="co"># Let&#39;s write the variance function</span></span>
-<span id="cb840-2"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb840-2" tabindex="-1"></a>variance <span class="ot">=</span> <span class="cf">function</span>(median, sigma){</span>
-<span id="cb840-3"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb840-3" tabindex="-1"></a>  median<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">exp</span>(sigma<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="dv">2</span>)  <span class="sc">*</span> (<span class="fu">exp</span>(sigma<span class="sc">^</span><span class="dv">2</span>) <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb840-4"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb840-4" tabindex="-1"></a>}</span>
-<span id="cb840-5"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb840-5" tabindex="-1"></a></span>
-<span id="cb840-6"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb840-6" tabindex="-1"></a><span class="co"># Now calculate variance, and take square root to get sd</span></span>
-<span id="cb840-7"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb840-7" tabindex="-1"></a><span class="fu">variance</span>(<span class="at">median =</span> <span class="dv">50000</span>, <span class="at">sigma =</span> <span class="fl">0.8</span>) <span class="sc">%&gt;%</span> <span class="fu">sqrt</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb850"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb850-1"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb850-1" tabindex="-1"></a><span class="co"># Looks like the MTTF is ~69,000 hours</span></span></code></pre></div>
+<div class="sourceCode" id="cb851"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb851-1"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb851-1" tabindex="-1"></a><span class="co"># Let&#39;s write the variance function</span></span>
+<span id="cb851-2"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb851-2" tabindex="-1"></a>variance <span class="ot">=</span> <span class="cf">function</span>(median, sigma){</span>
+<span id="cb851-3"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb851-3" tabindex="-1"></a>  median<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">exp</span>(sigma<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="dv">2</span>)  <span class="sc">*</span> (<span class="fu">exp</span>(sigma<span class="sc">^</span><span class="dv">2</span>) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb851-4"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb851-4" tabindex="-1"></a>}</span>
+<span id="cb851-5"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb851-5" tabindex="-1"></a></span>
+<span id="cb851-6"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb851-6" tabindex="-1"></a><span class="co"># Now calculate variance, and take square root to get sd</span></span>
+<span id="cb851-7"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb851-7" tabindex="-1"></a><span class="fu">variance</span>(<span class="at">median =</span> <span class="dv">50000</span>, <span class="at">sigma =</span> <span class="fl">0.8</span>) <span class="sc">%&gt;%</span> <span class="fu">sqrt</span>()</span></code></pre></div>
 <pre><code>## [1] 55555.57</code></pre>
-<div class="sourceCode" id="cb842"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb842-1"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb842-1" tabindex="-1"></a><span class="co"># with a very wide standard deviation</span></span></code></pre></div>
+<div class="sourceCode" id="cb853"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb853-1"><a href="workshop-useful-life-distributions-weibull-gamma-lognormal.html#cb853-1" tabindex="-1"></a><span class="co"># with a very wide standard deviation</span></span></code></pre></div>
 </details>
 <hr />
 <p><br>
