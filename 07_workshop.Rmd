@@ -735,7 +735,7 @@ d2 <- d1 %>%
   group_by(label, .drop = FALSE) %>%
   # Get total observed rows in each bin
   # .drop = FALSE records factor levels in label that have 0 cases
-  summarize(count = n())
+  summarize(r_obs = n())
 
 d2 %>% glimpse()
 ```
@@ -1047,11 +1047,11 @@ Depending on whether we have *complete* data or not, we may need to estimate $\l
 
 For example, if we receive just the `d3` data.frame we made above, how do we estimate $\lambda$ from it? We will need:
 
-- $r$: total failures (`sum(count > 0)`)
+- $r$: total failures (`sum(r_obs)`)
 
 - $n$: total observations (failed or not) (provided; otherwise, $n = r$)
 
-- $\sum_{i=1}^{r}{t_i}$: total unit-hours (`sum(midpoint*count)`)
+- $\sum_{i=1}^{r}{t_i}$: total unit-hours (`sum(midpoint*r_obs)`)
 
 - $T$: timestep of (1) last failure observed (sometimes written $t_r$)  or (2) last timestep recorded; usually obtained by `max(midpoint)`.
 
@@ -1060,10 +1060,11 @@ For example, if we receive just the `d3` data.frame we made above, how do we est
 $$ \hat{\lambda} = \frac{ r  }{ \sum_{i=1}^{r}{t_i}  +  (n - r)t_z} $$
 ```{r}
 # Let's calculate it!
+
 d4 <- d3 %>%
   summarize(
-    r = sum(count > 0), # total failures
-    hours = sum(midpoint*count), # total failure-hours
+    r = sum(r_obs), # total failures
+    hours = sum(midpoint*r_obs), # total failure-hours
     n = r, # in this case, total failures = total obs
     tz = max(midpoint), # end of study period
     # Calculate lambda hat!
@@ -1222,7 +1223,7 @@ a
 # Let's estimate lambda!
 b <- a %>%
   summarize(
-    r = sum(r_obs > 0), # total failures
+    r = sum(r_obs), # total failures
     days = sum(midpoint*r_obs), # total failure-days
     n = r, # in this case, total failures = total obs
     tz = max(midpoint), # end of study period
@@ -1266,6 +1267,8 @@ get_chisq(t = supermasks, binwidth = 7,
           n_total = 25, np = 1, f = f, 
           lambda = 1 / mean(supermasks) )
 ```
+
+The slight difference in results is due to `b$lambda_hat` being slightly different from `1 / mean(supermasks)`, the true empirical failure rate.
 
 
 </details>

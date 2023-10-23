@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2023-10-19" />
+<meta name="date" content="2023-10-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1272,8 +1272,8 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 <h3><span class="header-section-number">7.4.2</span> Phase-Type Distributions<a href="workshop-useful-life-distributions-exponential.html#phase-type-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One way to more accurately model the lifespan of a product is to accept that its failure rate may remain constant, but it might change between failure rates as it passes through <strong>phases</strong>. Let’s model that!</p>
 <p>We can write the time <span class="math inline">\(T\)</span> to critical failure (via either overstress OR degraded failure) as <span class="math inline">\(T = min(T_c, T_d+T_{dc})\)</span>.</p>
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-dc295c3dc137d87aeaf5" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-dc295c3dc137d87aeaf5">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-7856f88a2d5a1fb9821a" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-7856f88a2d5a1fb9821a">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
 <p>The total probability of a product being in any phase <span class="math inline">\(a_{i \to n}\)</span> equals 1.</p>
 <ul>
 <li><p><span class="math inline">\(a_c = 25\%\)</span></p></li>
@@ -1369,13 +1369,13 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 <span id="cb680-3"><a href="workshop-useful-life-distributions-exponential.html#cb680-3" tabindex="-1"></a>  <span class="fu">group_by</span>(label, <span class="at">.drop =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb680-4"><a href="workshop-useful-life-distributions-exponential.html#cb680-4" tabindex="-1"></a>  <span class="co"># Get total observed rows in each bin</span></span>
 <span id="cb680-5"><a href="workshop-useful-life-distributions-exponential.html#cb680-5" tabindex="-1"></a>  <span class="co"># .drop = FALSE records factor levels in label that have 0 cases</span></span>
-<span id="cb680-6"><a href="workshop-useful-life-distributions-exponential.html#cb680-6" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">n</span>())</span>
+<span id="cb680-6"><a href="workshop-useful-life-distributions-exponential.html#cb680-6" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">r_obs =</span> <span class="fu">n</span>())</span>
 <span id="cb680-7"><a href="workshop-useful-life-distributions-exponential.html#cb680-7" tabindex="-1"></a></span>
 <span id="cb680-8"><a href="workshop-useful-life-distributions-exponential.html#cb680-8" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
 <pre><code>## Rows: 11
 ## Columns: 2
 ## $ label &lt;fct&gt; &quot;[0,5]&quot;, &quot;(5,10]&quot;, &quot;(10,15]&quot;, &quot;(15,20]&quot;, &quot;(20,25]&quot;, &quot;(25,30]&quot;, &quot;…
-## $ count &lt;int&gt; 17, 13, 3, 7, 2, 2, 3, 0, 0, 1, 2</code></pre>
+## $ r_obs &lt;int&gt; 17, 13, 3, 7, 2, 2, 3, 0, 0, 1, 2</code></pre>
 <p><strong>Step 3</strong>: Get bounds and midpoint of Bins</p>
 <p>Last, we might need the bounds (upper and lower value), or the midpoint. Here’s how!</p>
 <div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb682-1"><a href="workshop-useful-life-distributions-exponential.html#cb682-1" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> d2 <span class="sc">%&gt;%</span></span>
@@ -1388,7 +1388,7 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 <span id="cb682-8"><a href="workshop-useful-life-distributions-exponential.html#cb682-8" tabindex="-1"></a><span class="co"># Check it!</span></span>
 <span id="cb682-9"><a href="workshop-useful-life-distributions-exponential.html#cb682-9" tabindex="-1"></a>d3</span></code></pre></div>
 <pre><code>## # A tibble: 11 × 6
-##    label   count   bin lower upper midpoint
+##    label   r_obs   bin lower upper midpoint
 ##    &lt;fct&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
 ##  1 [0,5]      17     1     0     5      2.5
 ##  2 (5,10]     13     2     5    10      7.5
@@ -1670,22 +1670,23 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 </ul>
 <p>For example, if we receive just the <code>d3</code> data.frame we made above, how do we estimate <span class="math inline">\(\lambda\)</span> from it? We will need:</p>
 <ul>
-<li><p><span class="math inline">\(r\)</span>: total failures (<code>sum(count &gt; 0)</code>)</p></li>
+<li><p><span class="math inline">\(r\)</span>: total failures (<code>sum(r_obs)</code>)</p></li>
 <li><p><span class="math inline">\(n\)</span>: total observations (failed or not) (provided; otherwise, <span class="math inline">\(n = r\)</span>)</p></li>
-<li><p><span class="math inline">\(\sum_{i=1}^{r}{t_i}\)</span>: total unit-hours (<code>sum(midpoint*count)</code>)</p></li>
+<li><p><span class="math inline">\(\sum_{i=1}^{r}{t_i}\)</span>: total unit-hours (<code>sum(midpoint*r_obs)</code>)</p></li>
 <li><p><span class="math inline">\(T\)</span>: timestep of (1) last failure observed (sometimes written <span class="math inline">\(t_r\)</span>) or (2) last timestep recorded; usually obtained by <code>max(midpoint)</code>.</p></li>
 <li><p>Unless some cases do not fail, <span class="math inline">\((n - r)t_z\)</span> will cancel out as <code>0</code>.</p></li>
 </ul>
 <p><span class="math display">\[ \hat{\lambda} = \frac{ r  }{ \sum_{i=1}^{r}{t_i}  +  (n - r)t_z} \]</span></p>
 <div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb705-1"><a href="workshop-useful-life-distributions-exponential.html#cb705-1" tabindex="-1"></a><span class="co"># Let&#39;s calculate it!</span></span>
-<span id="cb705-2"><a href="workshop-useful-life-distributions-exponential.html#cb705-2" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> d3 <span class="sc">%&gt;%</span></span>
-<span id="cb705-3"><a href="workshop-useful-life-distributions-exponential.html#cb705-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb705-4"><a href="workshop-useful-life-distributions-exponential.html#cb705-4" tabindex="-1"></a>    <span class="at">r =</span> <span class="fu">sum</span>(count <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="co"># total failures</span></span>
-<span id="cb705-5"><a href="workshop-useful-life-distributions-exponential.html#cb705-5" tabindex="-1"></a>    <span class="at">hours =</span> <span class="fu">sum</span>(midpoint<span class="sc">*</span>count), <span class="co"># total failure-hours</span></span>
-<span id="cb705-6"><a href="workshop-useful-life-distributions-exponential.html#cb705-6" tabindex="-1"></a>    <span class="at">n =</span> r, <span class="co"># in this case, total failures = total obs</span></span>
-<span id="cb705-7"><a href="workshop-useful-life-distributions-exponential.html#cb705-7" tabindex="-1"></a>    <span class="at">tz =</span> <span class="fu">max</span>(midpoint), <span class="co"># end of study period</span></span>
-<span id="cb705-8"><a href="workshop-useful-life-distributions-exponential.html#cb705-8" tabindex="-1"></a>    <span class="co"># Calculate lambda hat!</span></span>
-<span id="cb705-9"><a href="workshop-useful-life-distributions-exponential.html#cb705-9" tabindex="-1"></a>    <span class="at">lambda_hat =</span> r <span class="sc">/</span> (hours <span class="sc">+</span> (n <span class="sc">-</span> r)<span class="sc">*</span>tz))</span></code></pre></div>
+<span id="cb705-2"><a href="workshop-useful-life-distributions-exponential.html#cb705-2" tabindex="-1"></a></span>
+<span id="cb705-3"><a href="workshop-useful-life-distributions-exponential.html#cb705-3" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> d3 <span class="sc">%&gt;%</span></span>
+<span id="cb705-4"><a href="workshop-useful-life-distributions-exponential.html#cb705-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb705-5"><a href="workshop-useful-life-distributions-exponential.html#cb705-5" tabindex="-1"></a>    <span class="at">r =</span> <span class="fu">sum</span>(r_obs), <span class="co"># total failures</span></span>
+<span id="cb705-6"><a href="workshop-useful-life-distributions-exponential.html#cb705-6" tabindex="-1"></a>    <span class="at">hours =</span> <span class="fu">sum</span>(midpoint<span class="sc">*</span>r_obs), <span class="co"># total failure-hours</span></span>
+<span id="cb705-7"><a href="workshop-useful-life-distributions-exponential.html#cb705-7" tabindex="-1"></a>    <span class="at">n =</span> r, <span class="co"># in this case, total failures = total obs</span></span>
+<span id="cb705-8"><a href="workshop-useful-life-distributions-exponential.html#cb705-8" tabindex="-1"></a>    <span class="at">tz =</span> <span class="fu">max</span>(midpoint), <span class="co"># end of study period</span></span>
+<span id="cb705-9"><a href="workshop-useful-life-distributions-exponential.html#cb705-9" tabindex="-1"></a>    <span class="co"># Calculate lambda hat!</span></span>
+<span id="cb705-10"><a href="workshop-useful-life-distributions-exponential.html#cb705-10" tabindex="-1"></a>    <span class="at">lambda_hat =</span> r <span class="sc">/</span> (hours <span class="sc">+</span> (n <span class="sc">-</span> r)<span class="sc">*</span>tz))</span></code></pre></div>
 <div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb706-1"><a href="workshop-useful-life-distributions-exponential.html#cb706-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(masks<span class="sc">$</span>left_earloop)</span></code></pre></div>
 <pre><code>## [1] 0.0748503</code></pre>
 <p>Also, our estimate of lambda might be slightly off due to random sampling error. (Every time you take a random sample, there’s a little change, right?) So, let’s build a <strong>confidence interval</strong> around our estimate.</p>
@@ -1727,9 +1728,9 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 <span id="cb716-7"><a href="workshop-useful-life-distributions-exponential.html#cb716-7" tabindex="-1"></a>    <span class="at">lower =</span> lambda_hat <span class="sc">*</span> k_lower,</span>
 <span id="cb716-8"><a href="workshop-useful-life-distributions-exponential.html#cb716-8" tabindex="-1"></a>    <span class="at">upper =</span> lambda_hat <span class="sc">*</span> k_upper)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
-##   lambda_hat     r k_upper k_lower   lower  upper
-##        &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-## 1     0.0138     9    1.60   0.522 0.00722 0.0222</code></pre>
+##   lambda_hat     r k_upper k_lower  lower  upper
+##        &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1     0.0769    50    1.24   0.779 0.0599 0.0956</code></pre>
 </div>
 <div id="planning-experiments" class="section level3 hasAnchor" number="7.5.6">
 <h3><span class="header-section-number">7.5.6</span> Planning Experiments<a href="workshop-useful-life-distributions-exponential.html#planning-experiments" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1802,7 +1803,7 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 <div class="sourceCode" id="cb722"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb722-1"><a href="workshop-useful-life-distributions-exponential.html#cb722-1" tabindex="-1"></a><span class="co"># Let&#39;s estimate lambda!</span></span>
 <span id="cb722-2"><a href="workshop-useful-life-distributions-exponential.html#cb722-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> a <span class="sc">%&gt;%</span></span>
 <span id="cb722-3"><a href="workshop-useful-life-distributions-exponential.html#cb722-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb722-4"><a href="workshop-useful-life-distributions-exponential.html#cb722-4" tabindex="-1"></a>    <span class="at">r =</span> <span class="fu">sum</span>(r_obs <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="co"># total failures</span></span>
+<span id="cb722-4"><a href="workshop-useful-life-distributions-exponential.html#cb722-4" tabindex="-1"></a>    <span class="at">r =</span> <span class="fu">sum</span>(r_obs), <span class="co"># total failures</span></span>
 <span id="cb722-5"><a href="workshop-useful-life-distributions-exponential.html#cb722-5" tabindex="-1"></a>    <span class="at">days =</span> <span class="fu">sum</span>(midpoint<span class="sc">*</span>r_obs), <span class="co"># total failure-days</span></span>
 <span id="cb722-6"><a href="workshop-useful-life-distributions-exponential.html#cb722-6" tabindex="-1"></a>    <span class="at">n =</span> r, <span class="co"># in this case, total failures = total obs</span></span>
 <span id="cb722-7"><a href="workshop-useful-life-distributions-exponential.html#cb722-7" tabindex="-1"></a>    <span class="at">tz =</span> <span class="fu">max</span>(midpoint), <span class="co"># end of study period</span></span>
@@ -1813,7 +1814,7 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 <pre><code>## # A tibble: 1 × 5
 ##       r  days     n    tz lambda_hat
 ##   &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;      &lt;dbl&gt;
-## 1     6  416.     6  52.5     0.0144</code></pre>
+## 1    25  416.    25  52.5     0.0600</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Estimate a 95% confidence interval for <span class="math inline">\(\hat{\lambda}\)</span>.</li>
 </ol>
@@ -1828,9 +1829,9 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 <span id="cb724-9"><a href="workshop-useful-life-distributions-exponential.html#cb724-9" tabindex="-1"></a><span class="co"># Check it</span></span>
 <span id="cb724-10"><a href="workshop-useful-life-distributions-exponential.html#cb724-10" tabindex="-1"></a>c</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
-##   lambda_hat     r k_upper k_lower   lower  upper
-##        &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-## 1     0.0144     6    1.94   0.367 0.00529 0.0280</code></pre>
+##   lambda_hat     r k_upper k_lower  lower  upper
+##        &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1     0.0600    25    1.43   0.647 0.0388 0.0857</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li><em>Using the cross-tabulated data</em>, do these masks’ lifespan distribution fit an exponential distribution, or does their distribution differ to a statistically significant degree from the exponential? How much? (eg. statistic and p-value).</li>
 </ol>
@@ -1841,9 +1842,9 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 <span id="cb726-5"><a href="workshop-useful-life-distributions-exponential.html#cb726-5" tabindex="-1"></a><span class="co"># Step 3a: Calculate Observed vs. Expected</span></span>
 <span id="cb726-6"><a href="workshop-useful-life-distributions-exponential.html#cb726-6" tabindex="-1"></a><span class="fu">get_chisq</span>(<span class="at">data =</span> a, <span class="at">n_total =</span> <span class="dv">25</span>, <span class="at">np =</span> <span class="dv">1</span>, <span class="at">f =</span> f, <span class="at">lambda =</span> b<span class="sc">$</span>lambda_hat)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
-##   chisq  nbin    np    df   p_value
-##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-## 1  32.1     8     1     6 0.0000158</code></pre>
+##   chisq  nbin    np    df p_value
+##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+## 1  9.85     8     1     6   0.131</code></pre>
 <div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb728-1"><a href="workshop-useful-life-distributions-exponential.html#cb728-1" tabindex="-1"></a><span class="co"># Step 3b: Calculate Chi-squared if we had received the vector supermasks all along, assuming that were the whole population</span></span>
 <span id="cb728-2"><a href="workshop-useful-life-distributions-exponential.html#cb728-2" tabindex="-1"></a><span class="co"># Get lambda from directly from the data</span></span>
 <span id="cb728-3"><a href="workshop-useful-life-distributions-exponential.html#cb728-3" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>lambda<span class="sc">*</span>t) }</span>
@@ -1854,6 +1855,7 @@ So, for the mask component we’ve been working with, <code>left_earloop</code>,
 ##   chisq  nbin    np    df p_value
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
 ## 1  9.72     8     1     6   0.137</code></pre>
+<p>The slight difference in results is due to <code>b$lambda_hat</code> being slightly different from <code>1 / mean(supermasks)</code>, the true empirical failure rate.</p>
 </details>
 <hr />
 <p><br>

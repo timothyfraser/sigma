@@ -280,7 +280,7 @@ probs3 %>%
 ## # A tibble: 1 × 2
 ##   mu_top sigma_top
 ##    <dbl>     <dbl>
-## 1  0.495     0.502
+## 1  0.524     0.502
 ```
 
 ### Simulating Uncertainty in Failure Rates
@@ -331,11 +331,11 @@ probs5 %>% head(3)
 
 ```
 ## # A tibble: 3 × 3
-##    reps     t    prob
-##   <int> <int>   <dbl>
-## 1     1     1 0.00992
-## 2     1     2 0.0197 
-## 3     1     3 0.0295
+##    reps     t   prob
+##   <int> <int>  <dbl>
+## 1     1     1 0.0101
+## 2     1     2 0.0201
+## 3     1     3 0.0301
 ```
 
 
@@ -358,11 +358,11 @@ probs6 %>% head(3)
 
 ```
 ## # A tibble: 3 × 7
-##       t      mu    sigma   lower  upper lower_approx upper_approx
-##   <int>   <dbl>    <dbl>   <dbl>  <dbl>        <dbl>        <dbl>
-## 1     1 0.00996 0.000102 0.00976 0.0102       0.0102       0.0102
-## 2     2 0.0198  0.000202 0.0194  0.0202       0.0202       0.0202
-## 3     3 0.0296  0.000300 0.0290  0.0301       0.0302       0.0302
+##       t      mu     sigma   lower  upper lower_approx upper_approx
+##   <int>   <dbl>     <dbl>   <dbl>  <dbl>        <dbl>        <dbl>
+## 1     1 0.00995 0.0000998 0.00976 0.0102       0.0101       0.0101
+## 2     2 0.0198  0.000198  0.0194  0.0202       0.0202       0.0202
+## 3     3 0.0296  0.000293  0.0290  0.0301       0.0301       0.0301
 ```
 
 Let's visualize that confidence interval over time!
@@ -438,9 +438,9 @@ stat %>% head(3)
 ## # A tibble: 3 × 7
 ##       t lower_a upper_a lower_b upper_b lower_c upper_c
 ##   <int>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-## 1     1  0.0471  0.0506  0.0277  0.0315  0.0180  0.0218
-## 2     2  0.0919  0.0986  0.0546  0.0620  0.0356  0.0431
-## 3     3  0.135   0.144   0.0808  0.0916  0.0529  0.0639
+## 1     1  0.0470  0.0506  0.0277  0.0314  0.0179  0.0218
+## 2     2  0.0919  0.0986  0.0546  0.0619  0.0355  0.0430
+## 3     3  0.135   0.144   0.0807  0.0913  0.0528  0.0639
 ```
 
 

@@ -754,8 +754,8 @@ We can write the time $T$ to critical failure (via either overstress OR degraded
 
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-dc295c3dc137d87aeaf5" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-dc295c3dc137d87aeaf5">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-7856f88a2d5a1fb9821a" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-7856f88a2d5a1fb9821a">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
 ```
 
 The total probability of a product being in any phase $a_{i \to n}$ equals 1.
@@ -918,7 +918,7 @@ d2 <- d1 %>%
   group_by(label, .drop = FALSE) %>%
   # Get total observed rows in each bin
   # .drop = FALSE records factor levels in label that have 0 cases
-  summarize(count = n())
+  summarize(r_obs = n())
 
 d2 %>% glimpse()
 ```
@@ -927,7 +927,7 @@ d2 %>% glimpse()
 ## Rows: 11
 ## Columns: 2
 ## $ label <fct> "[0,5]", "(5,10]", "(10,15]", "(15,20]", "(20,25]", "(25,30]", "…
-## $ count <int> 17, 13, 3, 7, 2, 2, 3, 0, 0, 1, 2
+## $ r_obs <int> 17, 13, 3, 7, 2, 2, 3, 0, 0, 1, 2
 ```
 
 **Step 3**: Get bounds and midpoint of Bins
@@ -949,7 +949,7 @@ d3
 
 ```
 ## # A tibble: 11 × 6
-##    label   count   bin lower upper midpoint
+##    label   r_obs   bin lower upper midpoint
 ##    <fct>   <int> <dbl> <dbl> <dbl>    <dbl>
 ##  1 [0,5]      17     1     0     5      2.5
 ##  2 (5,10]     13     2     5    10      7.5
@@ -1326,11 +1326,11 @@ Depending on whether we have *complete* data or not, we may need to estimate $\l
 
 For example, if we receive just the `d3` data.frame we made above, how do we estimate $\lambda$ from it? We will need:
 
-- $r$: total failures (`sum(count > 0)`)
+- $r$: total failures (`sum(r_obs)`)
 
 - $n$: total observations (failed or not) (provided; otherwise, $n = r$)
 
-- $\sum_{i=1}^{r}{t_i}$: total unit-hours (`sum(midpoint*count)`)
+- $\sum_{i=1}^{r}{t_i}$: total unit-hours (`sum(midpoint*r_obs)`)
 
 - $T$: timestep of (1) last failure observed (sometimes written $t_r$)  or (2) last timestep recorded; usually obtained by `max(midpoint)`.
 
@@ -1340,10 +1340,11 @@ $$ \hat{\lambda} = \frac{ r  }{ \sum_{i=1}^{r}{t_i}  +  (n - r)t_z} $$
 
 ```r
 # Let's calculate it!
+
 d4 <- d3 %>%
   summarize(
-    r = sum(count > 0), # total failures
-    hours = sum(midpoint*count), # total failure-hours
+    r = sum(r_obs), # total failures
+    hours = sum(midpoint*r_obs), # total failure-hours
     n = r, # in this case, total failures = total obs
     tz = max(midpoint), # end of study period
     # Calculate lambda hat!
@@ -1433,9 +1434,9 @@ d4 %>%
 
 ```
 ## # A tibble: 1 × 6
-##   lambda_hat     r k_upper k_lower   lower  upper
-##        <dbl> <int>   <dbl>   <dbl>   <dbl>  <dbl>
-## 1     0.0138     9    1.60   0.522 0.00722 0.0222
+##   lambda_hat     r k_upper k_lower  lower  upper
+##        <dbl> <int>   <dbl>   <dbl>  <dbl>  <dbl>
+## 1     0.0769    50    1.24   0.779 0.0599 0.0956
 ```
 
 ### Planning Experiments
@@ -1536,7 +1537,7 @@ supermasks <- c(1, 2, 2, 2, 3, 3, 4, 4, 5, 9, 13, 15, 17, 19,
 # Let's estimate lambda!
 b <- a %>%
   summarize(
-    r = sum(r_obs > 0), # total failures
+    r = sum(r_obs), # total failures
     days = sum(midpoint*r_obs), # total failure-days
     n = r, # in this case, total failures = total obs
     tz = max(midpoint), # end of study period
@@ -1550,7 +1551,7 @@ b
 ## # A tibble: 1 × 5
 ##       r  days     n    tz lambda_hat
 ##   <int> <dbl> <int> <dbl>      <dbl>
-## 1     6  416.     6  52.5     0.0144
+## 1    25  416.    25  52.5     0.0600
 ```
 
 3. Estimate a 95% confidence interval for $\hat{\lambda}$.
@@ -1571,9 +1572,9 @@ c
 
 ```
 ## # A tibble: 1 × 6
-##   lambda_hat     r k_upper k_lower   lower  upper
-##        <dbl> <int>   <dbl>   <dbl>   <dbl>  <dbl>
-## 1     0.0144     6    1.94   0.367 0.00529 0.0280
+##   lambda_hat     r k_upper k_lower  lower  upper
+##        <dbl> <int>   <dbl>   <dbl>  <dbl>  <dbl>
+## 1     0.0600    25    1.43   0.647 0.0388 0.0857
 ```
 
 4. *Using the cross-tabulated data*, do these masks' lifespan distribution fit an exponential distribution, or does their distribution differ to a statistically significant degree from the exponential? How much? (eg. statistic and p-value).
@@ -1590,9 +1591,9 @@ get_chisq(data = a, n_total = 25, np = 1, f = f, lambda = b$lambda_hat)
 
 ```
 ## # A tibble: 1 × 5
-##   chisq  nbin    np    df   p_value
-##   <dbl> <int> <dbl> <dbl>     <dbl>
-## 1  32.1     8     1     6 0.0000158
+##   chisq  nbin    np    df p_value
+##   <dbl> <int> <dbl> <dbl>   <dbl>
+## 1  9.85     8     1     6   0.131
 ```
 
 
@@ -1611,6 +1612,8 @@ get_chisq(t = supermasks, binwidth = 7,
 ##   <dbl> <int> <dbl> <dbl>   <dbl>
 ## 1  9.72     8     1     6   0.137
 ```
+
+The slight difference in results is due to `b$lambda_hat` being slightly different from `1 / mean(supermasks)`, the true empirical failure rate.
 
 
 </details>
