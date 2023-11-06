@@ -149,7 +149,6 @@ modal-time-to-fail
 quantities-of-interest-continued
 conditional-reliability-survival-function
 mut-mean-residual-life
-gt-mrl-as-of-mttf
 system-failure-with-independent-failure-rates
 reliability-functions-with-multiple-inputs
 phase-type-distributions

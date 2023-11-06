@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2023-10-23" />
+<meta name="date" content="2023-11-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -466,7 +466,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="7.3.1" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#conditional-reliability-survival-function"><i class="fa fa-check"></i><b>7.3.1</b> Conditional Reliability (Survival) Function</a></li>
 <li class="chapter" data-level="7.3.2" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#mut-mean-residual-life"><i class="fa fa-check"></i><b>7.3.2</b> <span class="math inline">\(\mu(t)\)</span>: Mean Residual Life</a></li>
-<li class="chapter" data-level="7.3.3" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#gt-mrl-as-of-mttf"><i class="fa fa-check"></i><b>7.3.3</b> <span class="math inline">\(g(t)\)</span>: MRL as % of MTTF</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="workshop-coding-in-r.html"><a href="workshop-coding-in-r.html#LC3"><i class="fa fa-check"></i>Learning Check 3</a></li>
 <li class="chapter" data-level="7.4" data-path="workshop-useful-life-distributions-exponential.html"><a href="workshop-useful-life-distributions-exponential.html#system-failure-with-independent-failure-rates"><i class="fa fa-check"></i><b>7.4</b> System Failure with Independent Failure Rates</a>
@@ -854,8 +853,8 @@ will fail by time</em> <span class="math inline">\(t\)</span>.</p>
 <span id="cb415-3"><a href="workshop-system-reliability.html#cb415-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">cumsum</span>(y) <span class="sc">/</span> <span class="fu">sum</span>(y)) <span class="sc">%&gt;%</span> <span class="fu">approxfun</span>()</span></code></pre></div>
 <p>Having built these functions for our cars, we can generate the
 probability (PDF) and cumulative probability (CDF) of failure across our
-observed vector of car lifespans, from ~2.45
-to ~7.91.</p>
+observed vector of car lifespans, from ~2.82
+to ~8.16.</p>
 <p>Reliability or Survival Analysis is concerned with <em>the probability</em>
 that a unit (our car) will still be operating by a specific time <span class="math inline">\(t\)</span>,
 representing the percentage of all cars that will survive to that point
@@ -1449,8 +1448,8 @@ formula below.</p>
 <p><span class="math display">\[ Series \ System \ Reliability = R_{S} = \prod^{n}_{i = 1}R_{i} = R_1 \times R_2 \times ... \times R_n \]</span>
 We can also visualize it below, where each labelled node is a component.</p>
 <div class="figure">
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-ffa3f8660d224896cdf7" style="width:672px;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-ffa3f8660d224896cdf7">{"x":{"diagram":"graph LR\n sstart(( ))\n send(( ))\n subgraph Series System\n 1\n 2\n 3\n end\n 1---2\n 2---3\n sstart---1\n 3---send"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-22d4ee97bd4f1b0b154e" style="width:672px;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-22d4ee97bd4f1b0b154e">{"x":{"diagram":"graph LR\n sstart(( ))\n send(( ))\n subgraph Series System\n 1\n 2\n 3\n end\n 1---2\n 2---3\n sstart---1\n 3---send"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 (#fig:mermaid_series)Figure 6. Example Series System
 </p>
@@ -1479,8 +1478,8 @@ component. (Unlabelled nodes are just junctions for relationships, so
 they don’t get a probability. Some diagrams will not have these; you
 need them in <code>mermaid</code>.)</p>
 <div class="figure">
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-dc48f2c641064b71590a" style="width:100%;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-dc48f2c641064b71590a">{"x":{"diagram":"graph LR\n ostart(( ))\n oend(( ))\n subgraph Parallel System\n pstart(( ))\n 1\n 2\n 3\n pend(( ))\n pstart---1\n pstart---2\n pstart---3\n 1---pend\n 2---pend\n 3---pend\n end\n ostart---pstart\n pend---oend"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-49f09822528acd6d43c8" style="width:100%;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-49f09822528acd6d43c8">{"x":{"diagram":"graph LR\n ostart(( ))\n oend(( ))\n subgraph Parallel System\n pstart(( ))\n 1\n 2\n 3\n pend(( ))\n pstart---1\n pstart---2\n pstart---3\n 1---pend\n 2---pend\n 3---pend\n end\n ostart---pstart\n pend---oend"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 (#fig:mermaid_parallel)Figure 7. Example Parallel System
 </p>
@@ -1497,8 +1496,8 @@ system.</p>
 <li><strong>Series System with Nested Parallel System:</strong></li>
 </ol>
 <div class="figure"><span style="display:block;" id="fig:nested1"></span>
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-4a91ea0acf393df2516b" style="width:672px;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-4a91ea0acf393df2516b">{"x":{"diagram":"graph LR\n subgraph Series System\n 1[1<br>R=0.80]\n 5[5<br>R=0.95]\n subgraph Parallel System\n pstart(( ))\n 2[2<br>R=0.98]\n 3[3<br>R=0.99]\n 4[4<br>R=0.90]\n pend(( ))\n pstart---2\n pstart---3\n pstart---4\n 2---pend\n 3---pend\n 4---pend\n end\n 1---pstart\n pend---5\n end"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-71bbc08d29712e15db0a" style="width:672px;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-71bbc08d29712e15db0a">{"x":{"diagram":"graph LR\n subgraph Series System\n 1[1<br>R=0.80]\n 5[5<br>R=0.95]\n subgraph Parallel System\n pstart(( ))\n 2[2<br>R=0.98]\n 3[3<br>R=0.99]\n 4[4<br>R=0.90]\n pend(( ))\n pstart---2\n pstart---3\n pstart---4\n 2---pend\n 3---pend\n 4---pend\n end\n 1---pstart\n pend---5\n end"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figure 4.3: Figure 8. Series System with Nested Parallel System
 </p>
@@ -1510,8 +1509,8 @@ Figure 4.3: Figure 8. Series System with Nested Parallel System
 <li><strong>Parallel System with Nested Series Systems (Right Diagram):</strong></li>
 </ol>
 <div class="figure"><span style="display:block;" id="fig:nestedb"></span>
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-4aab8cdd19657a694603" style="width:672px;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-4aab8cdd19657a694603">{"x":{"diagram":"graph LR\n subgraph Parallel System\n pbstart(( ))\n pbend(( ))\n subgraph Series System A\n 6[6<br>R=0.80]\n 7[7<br>R=0.90]\n end\n subgraph Series System B\n 8[8<br>R=0.95]\n 9[9<br>R=0.99]\n end\n pbstart---6\n 6---7\n 7---pbend\n pbstart---8\n 8---9\n 9---pbend\n end"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-11cf032a6b3aa8fa6bc4" style="width:672px;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-11cf032a6b3aa8fa6bc4">{"x":{"diagram":"graph LR\n subgraph Parallel System\n pbstart(( ))\n pbend(( ))\n subgraph Series System A\n 6[6<br>R=0.80]\n 7[7<br>R=0.90]\n end\n subgraph Series System B\n 8[8<br>R=0.95]\n 9[9<br>R=0.99]\n end\n pbstart---6\n 6---7\n 7---pbend\n pbstart---8\n 8---9\n 9---pbend\n end"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figure 4.4: Figure 9. Parallel System with Nested Series Systems
 </p>
@@ -1544,8 +1543,8 @@ change (Failed 5 times in the 3 months).</p></li>
 </ol>
 <p>We can represent this in a system diagram below.</p>
 <div class="figure">
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-a7d0fd5c334cf1ce8f9c" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-a7d0fd5c334cf1ce8f9c">{"x":{"diagram":"graph LR\n subgraph Coffee Shop Series System\n a[Water]\n b[Coffee Grounds]\n c[Refrigerator]\n d[Dishwasher]\n e[Register]\n end\n a---b\n b---c\n c---d\n d---e"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-7e07be5ef3656149a6dc" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-7e07be5ef3656149a6dc">{"x":{"diagram":"graph LR\n subgraph Coffee Shop Series System\n a[Water]\n b[Coffee Grounds]\n c[Refrigerator]\n d[Dishwasher]\n e[Register]\n end\n a---b\n b---c\n c---d\n d---e"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 (#fig:coffee_series)Figure 10. Example Series System in a Coffeeshop
 </p>

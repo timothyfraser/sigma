@@ -446,76 +446,92 @@ If we were to visualize our conditional reliability function `cr` below as x ran
 
 The Conditional Reliability Function $R(x|t)$ also allows us to calculate the Mean Residual Life (MRL, a.k.a. $\mu$) at time $t$, in this case referring to the average $x$ more years the product is expected to survive *after* time $t$. We can calculate it using the distribution below.
 
-$$MRL(t) = \mu(t) = \int_{0}^{\infty}{ R(x|t)dx} = \frac{1}{R(t)} \int_{0}^{\infty}{ R(x) dx} $$
-Technically, the Mean Residual Life at time $t$ represents **how many times greater** is the MTTF expected than the probability of survival at time t (proportion of cases not yet failed). It shows the mean expected remaining life years, for however $x$ many more time steps come after $t$.
-
-
-```r
-# Calculate the probability of survival R(t = 10)
-prob_survival_t = r(t = 10, lambda = stat$lambda)
-# Calculate the MTTF for +x more years
-mttf_inf = mttf(t = Inf, lambda = stat$lambda)
-
-# calculate the Mean Residual Life for t=10
-mttf_inf / prob_survival_t
-```
-
-```
-## [1] 28.24081
-```
+$$MRL(t) = \mu(t) = \int_{t}^{\infty}{ R(x|t)dx} = \frac{1}{R(t)} \int_{t}^{\infty}{ R(x) dx} $$
+It shows the mean expected remaining life years, for however $x$ many more time steps come after $t$.
 
 We can formalize this as function `mu(t, lambda)`. (Since the Greek letter $\mu$ is pronounced `mu`.)
 
 
 ```r
+# Conditional Reliability
+library(mosaicCalc)
+library(dplyr)
+
 # Calculate Mean Residual Life
-mu = function(t, lambda){
-  
+mu = function(t = 5, lambda = 0.001){
+  #t = 5
+  #lambda = 0.001
   # Get the Reliability Function for exponential distribution
   r = function(t, lambda){ exp(-1*t*lambda)}
   
-  # Get the MTTF (integral of reliability function)
-  mttf = antiD(tilde = r(t, lambda) ~ t)
+  # Get the integral of R(t), from t (time already spent) to infinity
+  integral = antiD(tilde = r(t, lambda) ~ t, lower.bound = t)
 
   # Now calculate mu(), the Mean Residual Life function at time t
-  output <- mttf(t = Inf, lambda = lambda) / r(t = t, lambda = lambda)
+  output <- integral(t = Inf, lambda = lambda) / r(t = t, lambda = lambda)
+  integral(t = Inf, lambda = lambda) / r(t = t, lambda = lambda)
   
   return(output)
 }
+# Let's try it. 
+mu(t = 500, lambda = 0.001)
 ```
 
-Let's test it out and compare to our previous version.
+```
+## [1] 1000
+```
+
+```r
+mu(t = 501, lambda = 0.001)
+```
+
+```
+## [1] 1000
+```
+
+```r
+# Interesting - the MRL remains constant, 
+# perhaps because lambda is fixed in the exponential
+# [Note: mu is NOT vectorized]
+```
+
+Its value will become clearer in later chapters, when using distributions like the Weibull, whose failure rate function $z(t)$ is *not* constant but varies over time $t$. For example, here's a exmaple using the Weibull's reliability function `r(t, m, c)`.
 
 
 ```r
-mu(t = 10, lambda = stat$lambda)
+muw = function(t = 5, m = 2, c = 20000){
+  #t = 5
+  #lambda = 0.001
+  # Get the Reliability Function for exponential distribution
+  r = function(t, m, c){ exp(-1*(t/c)^m) }
+  
+  # Get the integral of R(t), from t (time already spent) to infinity
+  integral = antiD(tilde = r(t, m, c) ~ t, lower.bound = t)
+  
+  # Now calculate mu(), the Mean Residual Life function at time t
+  output <- integral(t = Inf, m = m, c = c) / r(t = t, m = m, c= c)
+  integral(t = Inf, m = m, c= c) / r(t = t, m = m, c= c)
+  
+  return(output)
+}
+# Try it!
+muw(t = 500, m = 2, c = 20000)
 ```
 
 ```
-## [1] 28.24081
+## [1] 17235.41
 ```
-Works perfectly!
-
-
-<br>
-<br>
-
-### $g(t)$: MRL as % of MTTF
-
-We can also estimate $g(t)$, which describes, how *large* is the MRL $\mu(t)$, relative to the MTTF?
-
-When $t = 0$, $\mu(t) = \mu = MTTF$, so we can write $g(t)$ as follows:
-
-$$g(t) = \frac{MRL(t)}{MTTF} = \frac{\mu(t)}{\mu(t = 0)}$$
-So, for the mask component we've been working with, `left_earloop`, we can calculate the MRL-to-MTTF ratio `g(t)` after `t = 10` hours as follows:
-
 
 ```r
-mu(t = 10, lambda = stat$lambda) / mu(t = 0, lambda = stat$lambda)
+muw(t = 501, m = 2, c = 20000)
 ```
 
 ```
-## [1] 2.113833
+## [1] 17234.45
+```
+
+```r
+# See how the MRL changes over time, now that the failure rate can change over time?
 ```
 
 <br>
@@ -754,8 +770,8 @@ We can write the time $T$ to critical failure (via either overstress OR degraded
 
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-7856f88a2d5a1fb9821a" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-7856f88a2d5a1fb9821a">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-0c7e09c69880d9a230df" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-0c7e09c69880d9a230df">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
 ```
 
 The total probability of a product being in any phase $a_{i \to n}$ equals 1.
@@ -1130,7 +1146,7 @@ c4
 
 For a visual representation:
 
-<img src="07_workshop_files/figure-html/unnamed-chunk-47-1.png" width="672" />
+<img src="07_workshop_files/figure-html/unnamed-chunk-45-1.png" width="672" />
 
 
 ### Building a Chi-squared function

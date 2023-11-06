@@ -163,9 +163,9 @@ perm %>% head(3)
 ## # A tibble: 3 × 4
 ##     rep xbar_a xbar_b   dbar
 ##   <int>  <dbl>  <dbl>  <dbl>
-## 1     1   30.3   29.8 -0.504
-## 2     2   29.8   30.3  0.504
-## 3     3   29.7   30.4  0.776
+## 1     1   29.8   30.3  0.536
+## 2     2   29.8   30.2  0.384
+## 3     3   30.2   29.8 -0.392
 ```
 Now, let's calculate - what percentage of random statistics were more extreme than than our observed statistic?
 
@@ -186,7 +186,7 @@ perm %>%
 ## # A tibble: 1 × 2
 ##   estimate p_value
 ##      <dbl>   <dbl>
-## 1     3.35       0
+## 1     3.35   0.001
 ```
 Wow! That is a super statistically significant difference of means!
 
@@ -288,12 +288,12 @@ stat_boot %>% head()
 ## # A tibble: 6 × 4
 ##     rep xbar_a xbar_b  dbar
 ##   <int>  <dbl>  <dbl> <dbl>
-## 1     1   28.2   31.3  3.12
-## 2     2   28.1   32.0  3.83
-## 3     3   28.1   33.0  4.91
-## 4     4   27.9   31.7  3.82
-## 5     5   28.3   30.2  1.95
-## 6     6   27.9   31.4  3.45
+## 1     1   28.0   31.4  3.44
+## 2     2   28.0   31.5  3.51
+## 3     3   27.2   31.3  4.11
+## 4     4   28.8   30.6  1.86
+## 5     5   28.2   32.9  4.78
+## 6     6   27.9   30.4  2.48
 ```
 
 We can then use `summarize()` to compute quantities of interest from our bootstrapped sampling distribution of `dbar` in `stat_boot`, like the standard deviation (which would be the literal standard error, in this case), and confidence intervals.
@@ -316,7 +316,7 @@ stat_boot %>%
 ## # A tibble: 1 × 4
 ##   estimate    se lower upper
 ##      <dbl> <dbl> <dbl> <dbl>
-## 1     3.35 0.795  1.83  4.98
+## 1     3.35 0.766  1.91  4.92
 ```
 
 <br>
