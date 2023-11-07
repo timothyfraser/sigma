@@ -184,7 +184,7 @@ remove(af, median_s, median_u, q, d)
 
 ---
 
-## Learning Check 1 {.unnumbered #LC1}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
   
@@ -239,7 +239,7 @@ remove(af, f)
 
 ---
 
-## Learning Check 2 {.unnumbered #LC2}
+## Learning Check 2 {.unnumbered .LC}
 
 **Question**
   

@@ -251,7 +251,7 @@ Pretty powerful!
 
 ---
 
-## Learning Check 1 {.unnumbered #LC1}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
 
@@ -579,7 +579,7 @@ afr(1000, 10000) %>% ppmk()
 
 ---
 
-## Learning Check 2 {.unnumbered #LC2}
+## Learning Check 2 {.unnumbered .LC}
 
 **Question**
   

@@ -123,7 +123,7 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + # same as 
 
 ---
 
-## Learning Check 1 {.unnumbered #LC1}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
   
@@ -143,7 +143,7 @@ The graph above shows that as average wealth (GDP per capita) in a country incre
 
 ---
 
-## Learning Check 2 {.unnumbered #LC2}
+## Learning Check 2 {.unnumbered .LC}
 
 **Question**
   
@@ -188,7 +188,7 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
                        
 ---
 
-## Learning Check 3 {.unnumbered #LC3}
+## Learning Check 3 {.unnumbered .LC}
 
 **Question**
   
@@ -270,7 +270,7 @@ Next, let's try a few more learning check that will ask you to try our ways to i
 
 ---
 
-## Learning Check 4 {.unnumbered #LC4}
+## Learning Check 4 {.unnumbered .LC}
 
 **Question**
   
@@ -295,7 +295,7 @@ When you save a ggplot to an `object`, eg. naming it `myviz`, you can call up th
 
 ---
 
-## Learning Check 5 {.unnumbered #LC5}
+## Learning Check 5 {.unnumbered .LC}
 
 **Question**
 
@@ -411,7 +411,7 @@ We can see lots of outliers at the top - really expensive diamonds for that cut.
 
 ---
 
-## Learning Check 6 {.unnumbered #LC6}
+## Learning Check 6 {.unnumbered .LC}
 
 **Question**
  
@@ -448,7 +448,7 @@ In the first visual, we assigned all the boxplots to have the same fill (`fill =
 
 ---
 
-## Learning Check 7 {.unnumbered #LC7}
+## Learning Check 7 {.unnumbered .LC}
 
 **Question**
  
@@ -477,7 +477,7 @@ We used `coord_flip()` to **flip** the coordinates of the `x` and `y` axis, whic
 
 ---
 
-## Learning Check 8 {.unnumbered #LC8}
+## Learning Check 8 {.unnumbered .LC}
 
 **Question**
 
@@ -544,7 +544,7 @@ ggplot(data = diamonds, mapping = aes(x = price, group = cut, fill = cut)) +
 
 ---
 
-## Learning Check 9 {.unnumbered #LC9}
+## Learning Check 9 {.unnumbered .LC}
 
 **Question**
   
@@ -578,7 +578,7 @@ Finally, we might want to break up our visual into multiple parts. We can use `f
 
 ---
 
-## Learning Check 10 {.unnumbered #LC10}
+## Learning Check 10 {.unnumbered .LC}
 
 **Question**
 

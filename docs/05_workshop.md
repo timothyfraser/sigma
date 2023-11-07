@@ -264,7 +264,7 @@ We can tell from this visual several things!
 
 ---
 
-## Learning Check 1 {.unnumbered #LC1}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
 
@@ -448,7 +448,7 @@ This tells us that excitingly, our *onsen* temperatures are quite firmly within 
 
 ---
 
-## Learning Check 2 {.unnumbered #LC2}
+## Learning Check 2 {.unnumbered .LC}
 
 **Question**
   
@@ -589,7 +589,7 @@ mrsim %>% mean()
 ```
 
 ```
-## [1] 1.149531
+## [1] 1.126582
 ```
 
 
@@ -599,7 +599,7 @@ mrsim %>% sd()
 ```
 
 ```
-## [1] 0.870289
+## [1] 0.8419088
 ```
 
 But why stop there? We can calculate loads of other interesting statistics!
@@ -614,7 +614,7 @@ mrsim %>%
 
 ```
 ##   50%   90%   95% 
-## 0.964 2.367 2.867
+## 0.945 2.306 2.734
 ```
 
 <br>
@@ -726,7 +726,7 @@ dn(n = 2)
 ## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   <dbl> <dbl> <dbl> <dbl>
-## 1  1.13 0.842     0  3.23
+## 1  1.11 0.838     0  3.27
 ```
 
 
@@ -743,7 +743,7 @@ d
 ## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   <dbl> <dbl> <dbl> <dbl>
-## 1  3.74 0.744 0.402  1.60
+## 1  3.74 0.731 0.413  1.59
 ```
 
 <br>
@@ -913,7 +913,7 @@ mybstat
 ## # A tibble: 1 × 6
 ##      b2    b3    C4    A3    B3    B4
 ##   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-## 1 0.987 0.162 0.987 0.680 0.508  1.49
+## 1 0.988 0.162 0.988 0.679 0.508  1.49
 ```
 
 Finally, let's calculate our control limits!
@@ -946,7 +946,7 @@ Now you're all ready to make a control chart showing variation in the standard d
 
 ---
 
-## Learning Check 3 {.unnumbered #LC3}
+## Learning Check 3 {.unnumbered .LC}
 
 **Question**
 
@@ -971,14 +971,14 @@ dx
 ## # A tibble: 9 × 3
 ##       n    d2    d3
 ##   <int> <dbl> <dbl>
-## 1     2  1.13 0.856
-## 2     3  1.70 0.882
-## 3     4  2.07 0.874
-## 4     5  2.33 0.864
-## 5     6  2.53 0.856
-## 6     7  2.71 0.837
-## 7     8  2.86 0.825
-## 8     9  2.97 0.796
+## 1     2  1.14 0.860
+## 2     3  1.69 0.887
+## 3     4  2.05 0.874
+## 4     5  2.32 0.867
+## 5     6  2.53 0.847
+## 6     7  2.71 0.835
+## 7     8  2.86 0.815
+## 8     9  2.96 0.810
 ## 9    10  3.09 0.802
 ```
 

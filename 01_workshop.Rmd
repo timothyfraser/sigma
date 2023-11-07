@@ -138,7 +138,7 @@ Use Parentheses!
 
 ---
 
-## Learning Check 1 {.unnumbered #LC1}
+## Learning Check 1 {.unnumbered .LC}
 
 **Learning Checks (LC)** are short questions that appear throughout this book, providing short coding challenges to try and work through.
 
@@ -399,7 +399,7 @@ We can also update values, like the following:
 
 ---
 
-## Learning Check 2 {.unnumbered #LC2}
+## Learning Check 2 {.unnumbered .LC}
 
 **Question**
 
@@ -511,7 +511,7 @@ Each function is unique, often made by different people, so only these functions
 
 ---
 
-## Learning Check 3 {.unnumbered #LC3}
+## Learning Check 3 {.unnumbered .LC}
 
 **Question**
 
@@ -741,7 +741,7 @@ Massachusetts (MA) has lower seawalls, evenly distributed around 5.5 m. Maine (M
 
 ---
 
-## Learning Check 4 {.unnumbered #LC4}
+## Learning Check 4 {.unnumbered .LC}
 
 **Question**
 

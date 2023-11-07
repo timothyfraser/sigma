@@ -253,7 +253,7 @@ masks %>%
 
 ---
 
-## Learning Check 1 {.unnumbered #LC1}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
   
@@ -335,7 +335,7 @@ f(t = 20, lambda = 0.08)^2
 ---
 
 
-## Learning Check 2 {.unnumbered #LC2}
+## Learning Check 2 {.unnumbered .LC}
 
 **Question**
   
@@ -539,7 +539,7 @@ muw(t = 501, m = 2, c = 20000)
 
 ---
 
-## Learning Check 3 {.unnumbered #LC3}
+## Learning Check 3 {.unnumbered .LC}
 
 **Question**
   
@@ -770,8 +770,8 @@ We can write the time $T$ to critical failure (via either overstress OR degraded
 
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-0c7e09c69880d9a230df" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-0c7e09c69880d9a230df">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-ce4e8ef4ff825269fd9c" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-ce4e8ef4ff825269fd9c">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
 ```
 
 The total probability of a product being in any phase $a_{i \to n}$ equals 1.
@@ -1505,7 +1505,7 @@ Looks like you'll need a sample of about 1541 masks to be able to fit those cons
 
 ---
 
-## Learning Check 4 {.unnumbered #LC4}
+## Learning Check 4 {.unnumbered .LC}
 
 **Question**
   

@@ -392,7 +392,7 @@ Photo by Noelle Otto</p>
 
 ---
 
-## Learning Check 1 {.unnumbered #LC1}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
   
@@ -743,7 +743,7 @@ Ta-da! Now we have much more reasonable predictions, even though we lost 2% pred
 
 ---
 
-## Learning Check 2 {.unnumbered #LC2}
+## Learning Check 2 {.unnumbered .LC}
 
 Suppose we expanded our factorial experiment based on this contour plot, adding more permutations of `molasses` and `ginger`, such that we now have `1280` cookies under test! We've saved this data in `workshops/gingerbread_test2.csv`. 
 
@@ -1075,7 +1075,7 @@ What can we learn from this plot?
 
 <br>
 
-## Learning Check 3 {.unnumbered #LC3}
+## Learning Check 3 {.unnumbered .LC}
 
 Suppose we want to examine *other* interactions! Design your own `ggplot` to test how `butter` shapes the `yum` factor as `molasses` and `flour` vary. 
 

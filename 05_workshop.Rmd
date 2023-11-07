@@ -264,7 +264,7 @@ We can tell from this visual several things!
 
 ---
 
-## Learning Check 1 {.unnumbered #LC1}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
 
@@ -432,7 +432,7 @@ This tells us that excitingly, our *onsen* temperatures are quite firmly within 
 
 ---
 
-## Learning Check 2 {.unnumbered #LC2}
+## Learning Check 2 {.unnumbered .LC}
 
 **Question**
   
@@ -805,7 +805,7 @@ Now you're all ready to make a control chart showing variation in the standard d
 
 ---
 
-## Learning Check 3 {.unnumbered #LC3}
+## Learning Check 3 {.unnumbered .LC}
 
 **Question**
 

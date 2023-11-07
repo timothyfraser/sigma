@@ -1,7 +1,7 @@
 ---
 title: "System Reliability and Six Sigma in R"
 author: "Timothy Fraser, PhD"
-date: "2023-11-06"
+date: "2023-11-07"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]

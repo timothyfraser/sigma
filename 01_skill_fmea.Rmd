@@ -290,7 +290,7 @@ Well, that's not good! Looks like the new factory will need to figure out a way 
 
 ---
 
-## Learning Check 1 {.unnumbered #LC1}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
 

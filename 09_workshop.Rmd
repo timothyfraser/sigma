@@ -112,7 +112,7 @@ probs1 = f1(m = 0.50, c = 0.99, d = 0.25, k = 0.01)
 probs1 
 ```
 
-## Learning Check 1 {.unnumbered #LC1}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
 
@@ -216,7 +216,7 @@ ggplot() +
 
 ---
 
-## Learning Check 2 {.unnumbered #LC2}
+## Learning Check 2 {.unnumbered .LC}
 
 **Question**
 
@@ -370,7 +370,7 @@ rm(list = ls())
 <br>
 
 
-## Learning Check 3 {.unnumbered  #LC3}
+## Learning Check 3 {.unnumbered .LC}
 
 Suppose we have some fault tree involving 3 key events, A, B, and C. Suppose these events have the following failure rates: lambda_a = 0.05, lambda_b = 0.03, and lambda_c = 0.02. 
 Simulate the 95% confidence interval for the probability of each event, for each hour from 0 to 100 hours, assuming a standard error for each of 0.001. Then visualize these confidence intervals as a `ribbon` plot.

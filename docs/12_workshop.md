@@ -160,7 +160,7 @@ Instead of a line of best fit, for 2 variables, this regression model now essent
 
 ---
 
-## Learning Check 1 {.unnumbered #LC1}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
 
@@ -263,7 +263,7 @@ We can now interpret our results as: As the damage rate increases by 1 standard 
 
 ---
 
-## Learning Check 2 {.unnumbered #LC2}
+## Learning Check 2 {.unnumbered .LC}
 
 **Question**
 
@@ -491,7 +491,7 @@ Pretty nice, right? The ```bold = 0.05``` says, if your p-value is below p < 0.0
 
 ---
 
-## Learning Check 3 {.unnumbered #LC3}
+## Learning Check 3 {.unnumbered .LC}
 
 **Question**
 
@@ -1173,7 +1173,7 @@ htmlreg(
 
 ---
 
-## Learning Check 4 {.unnumbered #LC4}
+## Learning Check 4 {.unnumbered .LC}
 
 **Question**
 

@@ -70,7 +70,7 @@ probs1
 ## [1] 0.502475
 ```
 
-## Learning Check 1 {.unnumbered #LC1}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
 
@@ -192,7 +192,7 @@ ggplot() +
 
 ---
 
-## Learning Check 2 {.unnumbered #LC2}
+## Learning Check 2 {.unnumbered .LC}
 
 **Question**
 
@@ -280,7 +280,7 @@ probs3 %>%
 ## # A tibble: 1 × 2
 ##   mu_top sigma_top
 ##    <dbl>     <dbl>
-## 1  0.501     0.500
+## 1   0.49     0.504
 ```
 
 ### Simulating Uncertainty in Failure Rates
@@ -331,11 +331,11 @@ probs5 %>% head(3)
 
 ```
 ## # A tibble: 3 × 3
-##    reps     t    prob
-##   <int> <int>   <dbl>
-## 1     1     1 0.00987
-## 2     1     2 0.0196 
-## 3     1     3 0.0293
+##    reps     t   prob
+##   <int> <int>  <dbl>
+## 1     1     1 0.0101
+## 2     1     2 0.0201
+## 3     1     3 0.0300
 ```
 
 
@@ -360,9 +360,9 @@ probs6 %>% head(3)
 ## # A tibble: 3 × 7
 ##       t      mu     sigma   lower  upper lower_approx upper_approx
 ##   <int>   <dbl>     <dbl>   <dbl>  <dbl>        <dbl>        <dbl>
-## 1     1 0.00995 0.0000975 0.00977 0.0101       0.0101       0.0101
-## 2     2 0.0198  0.000193  0.0195  0.0202       0.0202       0.0202
-## 3     3 0.0296  0.000287  0.0290  0.0301       0.0301       0.0301
+## 1     1 0.00995 0.0000985 0.00975 0.0101       0.0101       0.0101
+## 2     2 0.0198  0.000195  0.0194  0.0202       0.0202       0.0202
+## 3     3 0.0296  0.000290  0.0290  0.0301       0.0301       0.0301
 ```
 
 Let's visualize that confidence interval over time!
@@ -387,7 +387,7 @@ The sky is the limit! Happy fault tree simulating!
 <br>
 
 
-## Learning Check 3 {.unnumbered  #LC3}
+## Learning Check 3 {.unnumbered .LC}
 
 Suppose we have some fault tree involving 3 key events, A, B, and C. Suppose these events have the following failure rates: lambda_a = 0.05, lambda_b = 0.03, and lambda_c = 0.02. 
 Simulate the 95% confidence interval for the probability of each event, for each hour from 0 to 100 hours, assuming a standard error for each of 0.001. Then visualize these confidence intervals as a `ribbon` plot.
@@ -438,9 +438,9 @@ stat %>% head(3)
 ## # A tibble: 3 × 7
 ##       t lower_a upper_a lower_b upper_b lower_c upper_c
 ##   <int>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-## 1     1  0.0469  0.0507  0.0275  0.0313  0.0178  0.0217
-## 2     2  0.0915  0.0989  0.0542  0.0616  0.0353  0.0430
-## 3     3  0.134   0.145   0.0802  0.0909  0.0525  0.0638
+## 1     1  0.0466  0.0506  0.0277  0.0314  0.0180  0.0217
+## 2     2  0.0911  0.0987  0.0546  0.0618  0.0357  0.0429
+## 3     3  0.133   0.144   0.0808  0.0913  0.0530  0.0637
 ```
 
 

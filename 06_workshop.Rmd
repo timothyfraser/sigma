@@ -241,7 +241,7 @@ mypp * mycpk == myppk * mycp
 
 ---
 
-## Learning Check 1 {.unnumbered #LC1}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
 

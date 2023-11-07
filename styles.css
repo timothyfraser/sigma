@@ -11,3 +11,8 @@
 #LC1 > details *, #LC2 > details *, #LC3 > details *, #LC4 > details *, #LC5 > details *, #LC6 > details *, #LC7 > details *, #LC8 > details *, #LC9 > details *, #LC10 > details * { 
   color: #ad1a19; 
 }
+
+/* ----- */ 
+.LC * {color: #648FFF; }
+.LC > h2 { color: #3861CE; }
+.LC > details * {  color: #ad1a19; }

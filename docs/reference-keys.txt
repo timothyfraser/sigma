@@ -230,7 +230,6 @@ review
 scatterplots
 correlation
 example
-hide
 cor.test-and-tidy
 regression-and-the-line-of-best-fit
 model-equation

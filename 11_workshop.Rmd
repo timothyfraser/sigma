@@ -1,7 +1,7 @@
 # Workshop: Bivariate Regression: Modeling Diamond Pricing
 
 ```{r setup_workshop_11, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, cache = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = FALSE, cache = FALSE, message = FALSE, warning = FALSE)
 
 library(tidyverse)
 library(rmdformats)
@@ -187,14 +187,6 @@ animate(p, rewind = TRUE, duration = 20, fps = 20,
 anim_save(filename = "correlation.gif", animation = last_animation())
 ```
 
-### Hide
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 ---
 
@@ -310,7 +302,7 @@ $$ Price_{predicted} = `r alpha` + Carats_{observed} \times `r beta` $$
 
 ---
 
-## Learning Check 1 {.unnumbered #LC1}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
 
@@ -423,7 +415,7 @@ The table above outputs several columns of importance to us!
 
 ---
 
-## Learning Check 2 {.unnumbered #LC2}
+## Learning Check 2 {.unnumbered .LC}
 
 **Question**
 
@@ -483,7 +475,7 @@ mydiamonds %>%
 
 ---
 
-## Learning Check 3 {.unnumbered #LC3}
+## Learning Check 3 {.unnumbered .LC}
 
 **Question**
 
@@ -844,7 +836,7 @@ anim_save(filename = "R2.gif", animation = last_animation())
 
 ---
 
-## Learning Check 4 {.unnumbered #LC4}
+## Learning Check 4 {.unnumbered .LC}
 
 **Question**
 
@@ -989,7 +981,7 @@ So what can you find in the `summary()` output?
 
 ---
 
-## Learning Check 5 {.unnumbered #LC5}
+## Learning Check 5 {.unnumbered .LC}
 
 **Question**
 

@@ -450,7 +450,7 @@ The estimate provided is a little different than the one above, but it's still i
 
 ---
 
-## Learning Check 1 {.unnumbered #LC1}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
 
@@ -880,7 +880,7 @@ variance(k = 1, lambda = 0.1)
 
 ---
 
-## Learning Check 2 {.unnumbered #LC2}
+## Learning Check 2 {.unnumbered .LC}
 
 **Question**
 
@@ -1080,7 +1080,7 @@ variance = function(c, m){  c^2 * gamma( 1 + 2/m ) - ( c * gamma( 1 + 1/m) )^2  
 
 ---
 
-## Learning Check 3 {.unnumbered #LC3}
+## Learning Check 3 {.unnumbered .LC}
 
 **Question**
   
@@ -1121,7 +1121,7 @@ get_c = function(t,f,m){
 
 ---
 
-## Learning Check 4 {.unnumbered #LC4}
+## Learning Check 4 {.unnumbered .LC}
 
 **Question**
 
@@ -1424,7 +1424,7 @@ sigma = function(t, t50, prob){
 
 ---
 
-## Learning Check 5 {.unnumbered #LC5}
+## Learning Check 5 {.unnumbered .LC}
 
 **Question**
 
@@ -1458,7 +1458,7 @@ below + above
 
 ---
 
-## Learning Check 6 {.unnumbered #LC6}
+## Learning Check 6 {.unnumbered .LC}
 
 **Question**
   

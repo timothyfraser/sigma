@@ -77,14 +77,6 @@ We can measure the relationship between two numeric variables using Pearson's r,
 
 
 
-### Hide
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 ---
 
@@ -187,7 +179,7 @@ $$ Price_{predicted} = -2161 + Carats_{observed} \times 7559 $$
 
 ---
 
-## Learning Check 1 {.unnumbered #LC1}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
 
@@ -256,7 +248,7 @@ The table above outputs several columns of importance to us!
 
 ---
 
-## Learning Check 2 {.unnumbered #LC2}
+## Learning Check 2 {.unnumbered .LC}
 
 **Question**
 
@@ -302,7 +294,7 @@ Finally, visualizing the line of best fit is quite easy! We make a scatterplot i
 
 ---
 
-## Learning Check 3 {.unnumbered #LC3}
+## Learning Check 3 {.unnumbered .LC}
 
 **Question**
 
@@ -442,7 +434,7 @@ For example, the following animation shows how each of the possible lines plotte
 
 ---
 
-## Learning Check 4 {.unnumbered #LC4}
+## Learning Check 4 {.unnumbered .LC}
 
 **Question**
 
@@ -586,7 +578,7 @@ So what can you find in the `summary()` output?
 
 ---
 
-## Learning Check 5 {.unnumbered #LC5}
+## Learning Check 5 {.unnumbered .LC}
 
 **Question**
 

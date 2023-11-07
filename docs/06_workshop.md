@@ -321,7 +321,7 @@ mypp * mycpk == myppk * mycp
 
 ---
 
-## Learning Check 1 {.unnumbered #LC1}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
 
@@ -405,7 +405,7 @@ water %>%
 ## # A tibble: 1 × 1
 ##    mean
 ##   <dbl>
-## 1  45.1
+## 1  44.7
 ```
 
 Our bootstrapped `mean` is *very*, *very* close to the original mean - just slightly off due to sampling error! Bootstrapping is a very powerful tool, as it lets us circumvent many long formulas, as long as you take enough samples. Let's take 1000 resamples below:
@@ -598,11 +598,11 @@ myboot %>% glimpse()
 ## Columns: 6
 ## Groups: rep [1,000]
 ## $ rep    <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-## $ id     <dbl> 125, 68, 35, 89, 102, 41, 37, 136, 93, 74, 120, 71, 140, 142, 9…
-## $ time   <dbl> 13, 7, 3, 9, 11, 5, 3, 13, 9, 7, 11, 7, 13, 15, 1, 9, 9, 13, 1,…
-## $ temp   <dbl> 45.5, 44.1, 44.8, 44.2, 45.1, 46.6, 46.6, 44.7, 51.1, 45.5, 45.…
-## $ ph     <dbl> 5.4, 6.8, 6.0, 5.5, 4.4, 5.8, 5.1, 5.1, 4.8, 5.2, 5.3, 5.9, 5.0…
-## $ sulfur <dbl> 1.0, 0.1, 0.4, 0.0, 0.0, 0.2, 0.1, 1.0, 0.0, 0.4, 1.8, 0.0, 0.5…
+## $ id     <dbl> 146, 106, 15, 11, 5, 153, 100, 19, 19, 64, 103, 95, 30, 112, 11…
+## $ time   <dbl> 15, 11, 1, 1, 1, 15, 9, 1, 1, 7, 11, 9, 3, 11, 11, 13, 9, 15, 5…
+## $ temp   <dbl> 47.0, 48.4, 46.0, 46.4, 45.9, 44.1, 41.1, 45.9, 45.9, 40.9, 47.…
+## $ ph     <dbl> 5.6, 5.3, 5.3, 5.8, 5.1, 5.0, 6.1, 5.5, 5.5, 5.5, 5.4, 5.7, 5.3…
+## $ sulfur <dbl> 3.0, 0.2, 0.2, 0.7, 0.0, 2.5, 2.1, 1.5, 1.5, 0.4, 0.3, 0.0, 1.0…
 ```
 This produces a very, very big data.frame!
 
@@ -683,7 +683,7 @@ myqi
 ## # A tibble: 1 × 4
 ##      cp lower upper     se
 ##   <dbl> <dbl> <dbl>  <dbl>
-## 1 0.671 0.614 0.788 0.0445
+## 1 0.671 0.614 0.780 0.0423
 ```
 
 This suggests a wider confidence interval that our normal distribution assumes by default - interesting!

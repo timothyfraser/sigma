@@ -918,7 +918,7 @@ remove(mypd, pdf, pdf2, cdf, obs)
 
 ---
 
-## Learning Check 1 {.unnumbered #LC1}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
   
@@ -1202,7 +1202,7 @@ rm(visits, pd5, cd5, q5, dsim, psim, qsim)
 
 ---
 
-## Learning Check 2 {.unnumbered #LC2}
+## Learning Check 2 {.unnumbered .LC}
 
 **Question**
   

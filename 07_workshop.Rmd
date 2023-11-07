@@ -225,7 +225,7 @@ masks %>%
 
 ---
 
-## Learning Check 1 {.unnumbered #LC1}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
   
@@ -283,7 +283,7 @@ f(t = 20, lambda = 0.08)^2
 ---
 
 
-## Learning Check 2 {.unnumbered #LC2}
+## Learning Check 2 {.unnumbered .LC}
 
 **Question**
   
@@ -448,7 +448,7 @@ muw(t = 501, m = 2, c = 20000)
 
 ---
 
-## Learning Check 3 {.unnumbered #LC3}
+## Learning Check 3 {.unnumbered .LC}
 
 **Question**
   
@@ -1177,7 +1177,7 @@ Looks like you'll need a sample of about `r round(n,0)` masks to be able to fit 
 
 ---
 
-## Learning Check 4 {.unnumbered #LC4}
+## Learning Check 4 {.unnumbered .LC}
 
 **Question**
   
