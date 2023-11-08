@@ -1165,7 +1165,7 @@ How many times wider is the expected vs. observed range for the left/right side
 <pre><code>## # A tibble: 1 × 1
 ##    mean
 ##   &lt;dbl&gt;
-## 1  44.7</code></pre>
+## 1  44.8</code></pre>
 <p>Our bootstrapped <code>mean</code> is <em>very</em>, <em>very</em> close to the original mean - just slightly off due to sampling error! Bootstrapping is a very powerful tool, as it lets us circumvent many long formulas, as long as you take enough samples. Let’s take 1000 resamples below:</p>
 <div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="workshop-indices-and-confidence-intervals-for-statistical-process-control-in-r.html#cb574-1" tabindex="-1"></a><span class="co"># Get a vector of ids from 1 to 1000</span></span>
 <span id="cb574-2"><a href="workshop-indices-and-confidence-intervals-for-statistical-process-control-in-r.html#cb574-2" tabindex="-1"></a>myboot <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
@@ -1304,11 +1304,11 @@ We can see above the <em>latent distribution of 1000 statistics we could have go
 ## Columns: 6
 ## Groups: rep [1,000]
 ## $ rep    &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-## $ id     &lt;dbl&gt; 146, 106, 15, 11, 5, 153, 100, 19, 19, 64, 103, 95, 30, 112, 11…
-## $ time   &lt;dbl&gt; 15, 11, 1, 1, 1, 15, 9, 1, 1, 7, 11, 9, 3, 11, 11, 13, 9, 15, 5…
-## $ temp   &lt;dbl&gt; 47.0, 48.4, 46.0, 46.4, 45.9, 44.1, 41.1, 45.9, 45.9, 40.9, 47.…
-## $ ph     &lt;dbl&gt; 5.6, 5.3, 5.3, 5.8, 5.1, 5.0, 6.1, 5.5, 5.5, 5.5, 5.4, 5.7, 5.3…
-## $ sulfur &lt;dbl&gt; 3.0, 0.2, 0.2, 0.7, 0.0, 2.5, 2.1, 1.5, 1.5, 0.4, 0.3, 0.0, 1.0…</code></pre>
+## $ id     &lt;dbl&gt; 141, 41, 139, 31, 44, 150, 109, 91, 145, 29, 142, 136, 11, 75, …
+## $ time   &lt;dbl&gt; 15, 5, 13, 3, 5, 15, 11, 9, 15, 3, 15, 13, 1, 7, 1, 5, 9, 3, 15…
+## $ temp   &lt;dbl&gt; 45.9, 46.6, 46.3, 45.8, 46.7, 41.5, 45.9, 44.0, 42.7, 43.3, 44.…
+## $ ph     &lt;dbl&gt; 4.6, 5.8, 5.1, 6.3, 5.6, 4.6, 4.2, 5.4, 6.2, 5.0, 5.6, 5.1, 5.8…
+## $ sulfur &lt;dbl&gt; 0.4, 0.2, 0.2, 0.0, 0.4, 1.2, 0.4, 0.3, 0.4, 0.3, 0.6, 1.0, 0.7…</code></pre>
 <p>This produces a very, very big data.frame!</p>
 <p>Let’s now, for each rep, calculate our statistics from before!</p>
 <div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="workshop-indices-and-confidence-intervals-for-statistical-process-control-in-r.html#cb584-1" tabindex="-1"></a>mybootstat <span class="ot">=</span> myboot <span class="sc">%&gt;%</span></span>
@@ -1368,7 +1368,7 @@ We can see above the <em>latent distribution of 1000 statistics we could have go
 <pre><code>## # A tibble: 1 × 4
 ##      cp lower upper     se
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-## 1 0.671 0.614 0.780 0.0423</code></pre>
+## 1 0.671 0.619 0.784 0.0430</code></pre>
 <p>This suggests a wider confidence interval that our normal distribution assumes by default - interesting!</p>
 <p>We can perform bootstrapping to estimate confidence intervals for <em>any</em> statistic, including <span class="math inline">\(C_{p}\)</span>, <span class="math inline">\(C_{pk}\)</span>, <span class="math inline">\(P_{p}\)</span>, or <span class="math inline">\(P_{pk}\)</span>. The only limit is your computational power! Wheee!</p>
 <p><em>Note</em>: Whenever you bootstrap, it’s important that you clear out your <code>R</code> environment to keep things running quickly, because you tend to accumulate a lot of really big data.frames. You can use <code>remove()</code> to do this.</p>

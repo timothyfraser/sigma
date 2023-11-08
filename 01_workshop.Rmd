@@ -71,10 +71,10 @@ A few tips:
 
 To make a script, go to **File >> New File >> R Script,** then save it and name it.
 
-```{r, echo = FALSE, out.width = "49%", fig.align = 'center', fig.cap="Open New Script"}
+```{r image_1_1, echo = FALSE, out.width = "49%", fig.align = 'center', fig.cap="Open New Script"}
 knitr::include_graphics(path = "images/1_1.png")
 ```
-```{r, echo = FALSE, out.width = "49%", fig.align='center', fig.cap="Save New Script!"}
+```{r image_1_2, echo = FALSE, out.width = "49%", fig.align='center', fig.cap="Save New Script!"}
 knitr::include_graphics(path = "images/1_2.png")
 ```
 
@@ -86,37 +86,37 @@ Try highlighting the following with your cursor,  and then press **CTRL** and **
 
 Addition:
 
-```{r}
+```{r chunk_addition}
 1 + 5
 ```
 
 Subtraction:
  
-```{r}
+```{r chunk_subtraction}
 5 - 2
 ```
 
 Multiplication:
 
-```{r}
+```{r chunk_multiplication}
 2 * 3
 ```
 
 Division:
 
-```{r}
+```{r chunk_division}
 15 / 5
 ```
 
 Exponents:
 
-```{r}
+```{r chunk_exponents}
 2^2
 ```
 
 Square-Roots:
  
-```{r}
+```{r chunk_squareroots}
 sqrt(4)
 ```
 
@@ -124,12 +124,12 @@ Order of Operations:
 
 *Still applies! Like in math normally, R calculations are evaluated from left to right, prioritizing parentheses, then multiplication and division, then addition and subtraction.*
 
-```{r}
+```{r chunk_order}
 2 * 2 - 5
 ```
 Use Parentheses!
 
-```{r}
+```{r chunk_parentheses}
 2 * (2 - 5)
 ```
 
@@ -169,19 +169,19 @@ Here's how we coded it! How does yours compare? If your result is different, com
 
 1. \( x = \sqrt{  (\frac{2 - 5 }{5})^{4}  }   \)
 
-```{r}
+```{r chunk_statement1}
 sqrt( ((2 - 5) / 5)^4 )
 ```
 
 2. \( x = (1 - 7)^{2} \times 5  - \sqrt{49} \)
 
-```{r}
+```{r chunk_statement2}
 (1 - 7)^2 * 5 - sqrt(49)
 ```
 
 3. \( x = 2^{2} + 2^{2} \times 2^{2} - 2^{2} \div 2^{2} \)
 
-```{r}
+```{r chunk_statement3}
 2^2 + 2^2 * 2^2 - 2^2 / 2^2
 ```
 
@@ -197,7 +197,7 @@ sqrt( ((2 - 5) / 5)^4 )
 
 R accepts 2 type of data:
 
-```{r}
+```{r chunk_numeric}
 # Numeric Values
 15000
 0.0005
@@ -206,7 +206,7 @@ R accepts 2 type of data:
 
 and
 
-```{r}
+```{r chunk_character}
 # Character Strings
 "Coding!" # Uses quotation marks
 "Corgis!" # Can contain anything - numbers, characters, etc.
@@ -224,7 +224,7 @@ and
 
 First, R uses **values** - which are single numbers or characters.
 
-```{r}
+```{r chunk_values}
 2 # this is a value
 "x" # this is also a value
 ```
@@ -235,34 +235,34 @@ That means, we tell R to remember that whenever you use a certain name, it means
 
 To name something as an ```object```, use an arrow!
 
-```{r}
+```{r chunk_object}
 myvalue <- 2
 ```
 
 Now let's highlight and press **CTRL ENTER** on ```myvalue``` (or the Mac Equivalent).
 
-```{r}
+```{r chunk_enter}
 myvalue
 ```
 Notice how it's **listed in the R Environment** (upper right), and how it **outputs as ```2```** in the console?
 
 We can do operations too!
 
-```{r}
+```{r chunk_operations}
 secondvalue <- myvalue + 2 # add 2 to myvalue
 secondvalue # check new value - oooh, it's 4!
 ```
 
 We can also overwrite old objects with new objects.
 
-```{r}
+```{r chunk_overwrite}
 myvalue <- "I overwrote it!"
 myvalue
 ```
 
 And we can also remove objects from the Environment, with ```remove()```.
 
-```{r}
+```{r chunk_remove}
 remove(myvalue, secondvalue)
 ```
 
@@ -272,34 +272,34 @@ remove(myvalue, secondvalue)
 Second, R contains values in **vectors**, which are sets of values.
 
 
-```{r}
+```{r chunk_vector}
 # This is a numeric vector
 c(1, 4, 8) # is the same as 1, 4, 8
 ```
 
 and...
 
-```{r}
+```{r chunk_char_vector}
 # This is a character vector
 c("Boston", "New York", "Los Angeles")
 ```
 
 But if you combine numeric and character values in one vector...
 
-```{r}
+```{r chunk_vector_nope}
 # This doesn't work - R immediately makes it into a character vector
 c(1, "Boston", 2)
 ```
 
 Why do we use vectors? Because you can do mathematical operations on entire vectors of values, all at once!
-```{r}
+```{r chunk_vector_math}
 c(1,2,3,4) * 2 # this multiplies each value by 2!
 c(1,2,3,4) + 2 # this adds 2 to each value!
 ```
 
 We can save vectors as objects too!
 
-```{r}
+```{r chunk_vector_object}
 # Here's a vector of (hypothetical) seawall heights in 10 towns.
 myheights <- c(4, 4.5, 5, 5, 5, 5.5, 5.5, 6, 6.5, 6.5)
 
@@ -314,7 +314,7 @@ myyears <- c(1990, 1980, 1970, 1930, 1975, 1975, 1980, 1920, 1995, 2000)
 
 Plus, we can still do operations on entire vectors!
 
-```{r}
+```{r chunk_object_math}
 myyears + 1
 ```
 
@@ -322,7 +322,7 @@ myyears + 1
 
 Third, R bundles vectors into data.frames.
 
-```{r}
+```{r chunk_dataframe}
 # Using the data.frame command, we make a data.frame,
 data.frame(
   height = myheights, # length 10
@@ -342,7 +342,7 @@ And when it outputs in the console, it looks like a spreadsheet!
 
 Actually, we can make ```data.frames``` into objects too!
 
-```{r}
+```{r chunk_sw}
 # Let's name our data.frame about seawalls 'sw'
 sw <- data.frame(
   height = myheights,
@@ -355,7 +355,7 @@ sw
 
 Although, we could do this too, and it would be equivalent:
 
-```{r}
+```{r chunk_sw2}
 sw <- data.frame(
  # It's okay to split code across multiple lines.
  # It keeps things readable.
@@ -375,20 +375,20 @@ sw
 But what if we want to work with the vectors again?
 We can use the '$' sign to say, 'grab the following vector from inside this ```data.frame```.'
 
-```{r}
+```{r chunk_sw_height}
 sw$height
 ```
 
 We can also do operations on that vector from within the dataframe.
 
-```{r}
+```{r chunk_sw_height_plus_one}
 sw$height + 1
 ```
 
 
 We can also update values, like the following:
 
-```{r}
+```{r chunk_sw_height_update}
 # sw$height <- sw$height + 1
 # I've put this in comments, since I don't actually want to do it (it'll change our data)
 # but good to know, right?
@@ -410,7 +410,7 @@ Please make up a ```data.frame``` of with 3 vectors and 4 values each. Make 1 ve
 
 Here's my example!
 
-```{r}
+```{r chunk_mayhem}
 # Make a data.frame called 'mayhem'
 mayhem <- data.frame(
   # make a character vector of 4 dog by their names
@@ -438,14 +438,14 @@ We can also run ```functions``` that come pre-installed to analyze vectors.
 
 These include: ```mean()```, ```median()```, ```sum()```, ```min()```, ```max()```, ```range()```, ```quantile()```, ```sd()```, ```var()```, and ```length()```.
 
-```{r, echo = FALSE, out.width = "100%", fig.cap = "Descriptive Stats function Cheatsheet!"}
+```{r image_1_4, echo = FALSE, out.width = "100%", fig.cap = "Descriptive Stats function Cheatsheet!"}
 knitr::include_graphics(path = "images/1_4.png")
 ```
 
 
 ### Measures of Central Tendency
 
-```{r}
+```{r chunk_central_tendency}
 mean(sw$height) # the mean seawall height among these towns
 median(sw$height) # the median seawall height
 sum(sw$height) # total meters of seawall height! (weird number, but okay)
@@ -453,7 +453,7 @@ sum(sw$height) # total meters of seawall height! (weird number, but okay)
 
 ### Measures of Dispersion
 
-```{r}
+```{r chunk_dispersion}
 min(sw$height) # smallest seawall height
 max(sw$height) # tallest seawall height
 range(sw$height) # range of seawalls (min & max)

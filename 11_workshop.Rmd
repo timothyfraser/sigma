@@ -1,7 +1,7 @@
 # Workshop: Bivariate Regression: Modeling Diamond Pricing
 
 ```{r setup_workshop_11, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, cache = FALSE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 
 library(tidyverse)
 library(rmdformats)
@@ -128,7 +128,7 @@ We can measure the relationship between two numeric variables using Pearson's r,
 knitr::include_graphics(path="images/11_correlation.gif")
 ```
 
-```{r, eval = FALSE, echo = FALSE, gganimate = list(nframes = 50, fps = 20)}
+```{r, eval = FALSE, include = FALSE, echo = FALSE, gganimate = list(nframes = 50, fps = 20)}
 # Get summary statistics
 mysum <- mydiamonds %>%
   summarize_all(funs(mean(.)))
@@ -391,21 +391,21 @@ The table above outputs several columns of importance to us!
 
 <details><summary>**Click Here to See Definitions**</summary>
 
-- ```term```: the name of the intercept as well as the predictor whose be
+- `term`: the name of the intercept as well as the predictor whose be
 
-- ```estimate```: the value of the alpha coefficient (`r alpha`) and beta coefficient (`r beta`).
+- `estimate`: the value of the alpha coefficient (`r alpha`) and beta coefficient (`r beta`).
 
-- ```statistic```: a standardized 't-statistic' measuring how extreme each estimate is, based on sample size and variance in our data.
+- `statistic`: a standardized 't-statistic' measuring how extreme each estimate is, based on sample size and variance in our data.
 
-- ```se```: standard error for each beta coefficient, describing the standard deviation of that statistic's sampling distribution.
+- `se`: standard error for each beta coefficient, describing the standard deviation of that statistic's sampling distribution.
 
-- ```p_value```: the probability that our alpha or beta coefficients were that large just due to chance (eg. random sampling error). Our measure of statistical significance. When 4 or more decimal places, sometimes gets abbreviated to just '0' in R.
+- `p_value`: the probability that our alpha or beta coefficients were that large just due to chance (eg. random sampling error). Our measure of statistical significance. When 4 or more decimal places, sometimes gets abbreviated to just '0' in R.
 
-- ```stars```: shorthand for significance. p < 0.001 = `***`; p < 0.01 = `**`; p < 0.05 = `*`; p < 0.10 = `.`.
+- `stars`: shorthand for significance. p < 0.001 = `***`; p < 0.01 = `**`; p < 0.05 = `*`; p < 0.10 = `.`.
 
-- ```lower```: the lower bound for the range we're 95% sure the true estimate lies in.
+- `lower`: the lower bound for the range we're 95% sure the true estimate lies in.
 
-- ```upper```: the upper bound for the range we're 95% sure the true estimate lies in.
+- `upper`: the upper bound for the range we're 95% sure the true estimate lies in.
 
 </details>
 
