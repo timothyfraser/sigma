@@ -466,7 +466,7 @@ var(sw$height) # the variance of seawall heights (= standard deviation squared)
 
 ### Other Good Functions
 
-```{r}
+```{r chunk_length}
 length(sw$height) # the number of values in this vector
 length(sw) # the number of vectors in this data.frame
 ```
@@ -481,7 +481,7 @@ We'll learn more about these descriptive statistics in later lessons!
 
 Sometimes, data.frames include missing data for a case/observation. For example, let's say there is an 11th town, where the seawall height is unknown.
 
-```{r}
+```{r chunk_sw_missing}
 # We would write:
 mysw <- c(4, 4.5, 5, 5, 5,
           5.5, 5.5, 6, 6.5, 6.5, NA) # see the 'NA' for non-applicable
@@ -491,13 +491,13 @@ mysw <- c(4, 4.5, 5, 5, 5,
 If you run ```mean(mysw)``` now, R doesn't know how to add ```6.5 + NA```.
 The output will become ```NA``` instead of ```5.35```.
 
-```{r}
+```{r chunk_sw_missing_mean}
 mean(mysw)
 ```
 
 To fix this, we can add an 'argument' to the function, telling it to omit ```NA```s from the calculation.
 
-```{r}
+```{r chunk_sw_missing_mean2}
 mean(mysw, na.rm = TRUE) # short for, 'remove NAs'
 ```
 
@@ -517,7 +517,7 @@ Each function is unique, often made by different people, so only these functions
 
 Jun Kanda ([2015](http://dx.doi.org/10.1080/15732479.2015.1020497)) measured max seawall heights (```seawall_m```) in 13 Japanese towns (```town```) after the 2011 tsunami in Tohoku, Japan, compared against the height of the tsunami wave (```wave_m```). Using this table, please code and answer the questions below.
 
-```{r, echo = FALSE, fig.height=2}
+```{r chunk_lc_jp, echo = FALSE, fig.height=2}
 jp <- data.frame(
   town = c("Kuji South", "Fudai", "Taro", "Miyako", "Yamada", "Ohtsuchi", "Tohni", "Yoshihama", "Hirota", "Karakuwa East", "Onagawa", "Souma", "Nakoso"),
   seawall_m = c(12.0, 15.5, 13.7, 8.5, 6.6, 6.4, 11.8, 14.3, 6.5, 6.1, 5.8, 6.2, 6.2),
@@ -541,7 +541,7 @@ knitr::kable(jp) %>%
 
 1. Reproduce this table as a data.frame in R, and save it as an object named ```jp```.
 
-```{r}
+```{r chunk_lc_jp_1}
 # Make a dataframe named jp,
 jp <- data.frame(
   # containing a character vector of 13 town names,
@@ -559,19 +559,19 @@ jp
 
 2. How much greater was the mean height of the tsunami than the mean height of seawalls?
 
-```{r}
+```{r chunk_lc_jp_2}
 # Get mean of wave height
 mean(jp$wave_m)
 ```
 The average wave was `r round(mean(jp$wave_m), 2)` meters tall.
 
-```{r}
+```{r chunk_lc_jp_3}
 # Get mean of seawall height
 mean(jp$seawall_m)
 ```
 The average seawall was `r round(mean(jp$seawall_m), 2)` meters tall.
 
-```{r}
+```{r chunk_lc_jp_4}
 # Get difference in mean seawall height
 mean(jp$wave_m) - mean(jp$seawall_m)
 ```
@@ -579,20 +579,20 @@ The average wave was `r round(mean(jp$wave_m) - mean(jp$seawall_m), 2)` meters t
 
 3. Evaluate how much these heights varied on average among towns. Did seawall height vary *more* than tsunami height? How much more/less?
 
-```{r}
+```{r chunk_lc_jp_5}
 # Get standard deviation of wave height
 sd(jp$wave_m)
 ```
 On average, wave height varied by `r round(sd(jp$wave_m), 2)` meters.
 
-```{r}
+```{r chunk_lc_jp_6}
 # Get standard deviation of seawall height
 sd(jp$seawall_m)
 ```
 On average, seawall height varied by `r round(sd(jp$seawall_m), 2)` meters.
 
 
-```{r}
+```{r chunk_lc_jp_7}
 # Get difference
 sd(jp$wave_m) - sd(jp$seawall_m)
 ```
@@ -618,7 +618,7 @@ We can use the ```library()``` function to load a package (like fipping an 'on' 
 
 But if you try to load a package that has never been installed on your computer, you might get this error:
 
-```{r, eval = FALSE}
+```{r chunk_packages1, eval = FALSE}
 library(ggplot2)
 ```
 
@@ -626,7 +626,7 @@ library(ggplot2)
 
 In this case, we need to install those packages (only necessary once), using ```install.packages()```. (If a message pops up, just accept 'Yes'.)
 
-```{r, eval = FALSE}
+```{r chunk_packages2, eval = FALSE}
 install.packages(c("ggplot2", "dplyr"))
 ```
 
@@ -649,7 +649,7 @@ The downloaded source packages are in
 
 Finally, we can load our packages with ```library()```.
 
-```{r}
+```{r chunk_packages3}
 library(ggplot2)
 library(dplyr)
 ```
@@ -670,7 +670,7 @@ The power of R is that you can process data, calculate statistics, and visualize
 For example, let's imagine that we had seawall height data from cities in several states. 
 We might want to compare those states.
 
-```{r}
+```{r chunk_allsw}
 # Create 30 cities, ten per state (MA, RI, ME)
 allsw <- data.frame(
   height = c(4, 4.5, 5, 5, 5.5, 5.5, 5.5, 6, 6, 6.5,
@@ -686,7 +686,7 @@ allsw
 
 Every vector is a distribution - a range of low to high values. We can use the ```hist()``` function to quickly visualize a vector's distribution.
 
-```{r}
+```{r chunk_allsw2}
 hist(allsw$height)
 ```
 
@@ -803,7 +803,7 @@ Be sure to clear your environment often.
 
 That means, using ```remove()``` or the broom tool in the upper right hand corner. 
 
-```{r}
+```{r chunk_remove_allsw}
 remove(allsw, mysw, sw, myheights, mytowns, myyears)
 ```
 
