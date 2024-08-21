@@ -39,6 +39,11 @@ rmd_files:
     "13_workshop.Rmd", # T-tests / Anova (Null Distributions)
     "14_workshop.Rmd", # factorial / interactions
     "15_workshop.Rmd" # rsm
+
+    ###################################
+    # Appendix 
+    "00_part_appendix.Rmd"
+    "99_appendix.Rmd" # Appendix Exercises
     # 
     # ##################################
     # #"99_references.Rmd"

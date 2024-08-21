@@ -112,6 +112,11 @@ probs1 = f1(m = 0.50, c = 0.99, d = 0.25, k = 0.01)
 probs1 
 ```
 
+---
+
+<br>
+<br>
+
 ## Learning Check 1 {.unnumbered .LC}
 
 **Question**
@@ -370,10 +375,90 @@ rm(list = ls())
 <br>
 
 
+## Example 1 {-}
+
+You are tasked with assessing the risk of a widespread outbreak of a contagious disease in a population. The top event is defined as the "Widespread outbreak of a contagious disease in a population." This top event can occur based on the following intermediate events:
+
+**Insufficient Vaccination Coverage:**
+
+*All of the following must occur for this event to happen.*
+
+**Causes and Probabilities:**
+
+- Lack of public awareness: P(Lack of public awareness) = 0.2 (20%)
+- Limited access to vaccines: P(Limited access) = 0.15 (15%)
+- Vaccine hesitancy due to misinformation: P(Vaccine hesitancy) = 0.3 (30%)
+
+**Ineffective Quarantine Measures:**
+
+*Any of the following can lead to this event*
+
+**Causes and Probabilities:**
+
+- Inadequate quarantine protocols: P(Inadequate protocols) = 0.1 (10%)
+- Non-compliance with quarantine rules: P(Non-compliance) = 0.15 (15%)
+- Inefficient monitoring of quarantined individuals: P(Inefficient monitoring) = 0.2 (20%)
+
+**Mutation of the Pathogen:**
+*This event itself can lead to the top event*
+
+**Causes and Probabilities:**
+
+- High mutation rate of the pathogen: P(High mutation rate) = 0.05 (5%)
+- Inadequate monitoring of the pathogen mutations: P(Inadequate monitoring) = 0.1 (10%)
+
+```{r}
+# Calculating probabilities of intermediate events using probabilities based on available data:
+# Probability of Insufficient Vaccination Coverage:
+# All of the sub-events must occur for this intermediate event to happen:
+p_event1<- c(0.2, 0.15, 0.3)  # Probabilities for AND logic
+p_insufficient_vaccine_coverage <- prod(p_event1)
+p_insufficient_vaccine_coverage
+# Probability of Ineffective Quarantine Measures:
+# Any of the sub-event event can lead to this intermediate event:
+p_event2 <- c(0.1, 0.15, 0.2)  # Probabilities for OR logic
+p_quarantine_measures <- sum(p_event2)
+p_quarantine_measures
+# Probability of Mutation of the Pathogen:
+# Both conditions need to be present in order for pathogen to mutate:
+p_event3 <- c(0.05, 0.1)  # Probabilities for AND logic
+logic_mutation <- "AND"
+p_pathogen_mutation <- prod(p_event3)
+p_pathogen_mutation
+# Calculating the probability of widespread outbreak (top event) using the probabilities of intermediate events
+# Let's create a function that can calculate the probability of the top event using any number of intermediate events and any logic gate
+top_event <- function(intermediate_probability, logic) {
+  
+  if (logic == "AND") {
+    return(prod(intermediate_probability))
+  } else if (logic == "OR") {
+    return(1 - prod(1 - intermediate_probability))
+  } else {
+    stop("Unsupported logic operator. Use 'AND' or 'OR'.")
+  }
+}
+# Define probabilities and logic gates as vector
+intermediate_probability<- c(p_insufficient_vaccine_coverage,p_quarantine_measures,p_pathogen_mutation)  # Probabilities for the intermediate events
+logic <- "OR"  # Logic gate for the top event ("AND" or "OR")
+# Calculate the probability of the top event - Widespread outbreak of disease: 
+p_widespread_outbreak <- top_event(intermediate_probability, logic)
+# Print the result
+cat("Probability of the top event:", p_widespread_outbreak, "\n")
+```
+
+---
+
+
+<br>
+<br>
+
+
+
 ## Learning Check 3 {.unnumbered .LC}
 
-Suppose we have some fault tree involving 3 key events, A, B, and C. Suppose these events have the following failure rates: lambda_a = 0.05, lambda_b = 0.03, and lambda_c = 0.02. 
-Simulate the 95% confidence interval for the probability of each event, for each hour from 0 to 100 hours, assuming a standard error for each of 0.001. Then visualize these confidence intervals as a `ribbon` plot.
+Suppose we have some fault tree involving 3 key events, A, B, and C. Suppose these events have the following failure rates: `lambda_a = 0.05`, `lambda_b = 0.03`, and `lambda_c = 0.02`. 
+
+Simulate the 95% confidence interval for the probability of each event, for each hour from `0` to `100` hours, assuming a standard error for each of `0.001`. Then visualize these confidence intervals as a `ribbon` plot.
 
 <details><summary>**[View Answer!]**</summary>
 
