@@ -402,22 +402,25 @@ mu = function(t = 5, lambda = 0.001){
   # Get the Reliability Function for exponential distribution
   r = function(t, lambda){ exp(-1*t*lambda)}
   
-  # Get the integral of R(t), from t (time already spent) to infinity
+  # Get the MTTF, the integral of R(t), from t (time already spent) to infinity
   integral = antiD(tilde = r(t, lambda) ~ t, lower.bound = t)
 
   # Now calculate mu(), the Mean Residual Life function at time t
   output <- integral(t = Inf, lambda = lambda) / r(t = t, lambda = lambda)
-  integral(t = Inf, lambda = lambda) / r(t = t, lambda = lambda)
   
   return(output)
 }
-# Let's try it. 
+```
+
+```{r}
+# Let's test it out and compare to our prevision version.
 mu(t = 500, lambda = 0.001)
 mu(t = 501, lambda = 0.001)
 # Interesting - the MRL remains constant, 
 # perhaps because lambda is fixed in the exponential
 # [Note: mu is NOT vectorized]
 ```
+Works perfectly!
 
 Its value will become clearer in later chapters, when using distributions like the Weibull, whose failure rate function $z(t)$ is *not* constant but varies over time $t$. For example, here's a exmaple using the Weibull's reliability function `r(t, m, c)`.
 
