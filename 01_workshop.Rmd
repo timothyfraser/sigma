@@ -690,6 +690,36 @@ Every vector is a distribution - a range of low to high values. We can use the `
 hist(allsw$height)
 ```
 
+
+
+---
+
+## Learning Check 3 {.unnumbered .LC}
+
+**Question**
+  
+Using the ```hist()``` function we just learned, draw the histogram of a vector of seawalls, naming the vector ```sw```!  The vector should include the following seawall heights (in meters): `4.5 m`, `5 m`, `5.5 m`, `5 m`, `5.5 m`, `6.5 m`, `6.5 m`, `6 m`, `5 m`, and `4 m`.
+
+
+<details><summary>**[View Answer!]**</summary>
+  
+Using the ```hist()``` function we just learned, draw the histogram of a vector of seawalls, naming the vector ```sw```!  The vector should include the following seawall heights (in meters): `4.5 m`, `5 m`, `5.5 m`, `5 m`, `5.5 m`, `6.5 m`, `6.5 m`, `6 m`, `5 m`, and `4 m`.
+
+```{r}
+# Many options!
+
+# You could code it as a vector, save it as an object, then use your functions!
+sw <- c(4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4)
+sw %>% hist()
+# or you could do it like this!
+# hist(sw)
+```
+
+</details>
+  
+---
+
+
 ### ```geom_histogram()``` in ```ggplot2```
 
 ```hist()``` is great for a quick check, but for anything more complex, we're going to use ```ggplot2```, the most popular visualization package in R. 

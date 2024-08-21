@@ -3,11 +3,11 @@ rmd_files:
     ###################################
     "index.Rmd", 
     ###################################
-    # Coding for Six Sigma
+    # Failure Mode & Effecst Analysis
     "00_part1.Rmd",
     "01_workshop.Rmd", # Coding in R
-    "01_skill_ggplot.Rmd", # ggplot
     "01_skill_fmea.Rmd", # Failure Mode and Effects Analysis
+    "01_skill_ggplot.Rmd", # ggplot
 
     ##################################
     # Statistics & Reliability
@@ -28,15 +28,27 @@ rmd_files:
     "00_part4.Rmd",
     "07_workshop.Rmd", # Life Distributions I
     "08_workshop.Rmd", # Life Distributions II
+    
+    ##################################
+    # Physical Acceleration Models
+    "00_part5.Rmd",
     "09_workshop.Rmd", # Fault Trees (eg. application of life distributions, etc.)
     "10_workshop.Rmd", # Acceleration Factors
     
-    ##################################
-    # Design of Experiments / RSM
-    "00_part5.Rmd",
+    ####################################
+    # Regression
+    "00_part6.Rmd",
     "11_workshop.Rmd", # Regression I
     "12_workshop.Rmd", # Regression II
+    
+    ####################################
+    # Comparing Groups & ANOVA
+    "00_part7.Rmd",
     "13_workshop.Rmd", # T-tests / Anova (Null Distributions)
+    
+    ####################################
+    # Factorial Design & RSM
+    "00_part8.Rmd",
     "14_workshop.Rmd", # factorial / interactions
     "15_workshop.Rmd" # rsm
 

@@ -1,6 +1,6 @@
-# Appendix A: Visualization
+# Appendix A: Visualization {.unnumbered}
 
-Looking for extra information on making the perfect visualization? See below for extra
+Looking for extra information on making the perfect visualization? See below for extra Learning Checks!
 
 ## Learning Check 7 {.unnumbered #LC7}
 

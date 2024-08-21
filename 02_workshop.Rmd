@@ -87,34 +87,6 @@ ggplot() +
 
 Any distribution can be described with 4 traits, shown above in part **C**. These include: **Size** (how many values are in it), **Location** (eg. where is it clumped), **Spread** (how much do values vary?), and **Shape** (eg. bell curve).
 
-
----
-
-## Learning Check 1 {.unnumbered .LC}
-
-**Question**
-  
-Using the ```hist()``` function we learned before, draw the histogram of this vector of seawalls, naming the vector ```sw```!
-
-
-<details><summary>**[View Answer!]**</summary>
-  
-Using the ```hist()``` function we learned before, draw the histogram of this vector of seawalls, naming the vector ```sw```!
-
-```{r}
-# Many options!
-
-# You could code it as a vector, save it as an object, then use your functions!
-sw <- c(4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4)
-sw %>% hist()
-# or you could do it like this!
-# hist(sw)
-```
-
-</details>
-  
----
-
 <br>
 <br>
 
@@ -139,6 +111,8 @@ Click on the tabs below to review our functions for Size, Location, and Spread f
 
 ### Size
 
+#### Length
+
 *How big is our sample?* Use ```length()``` on a vector to find the number of values in the vector ```sw``` we made in **LC1.**
 
 ```{r}
@@ -153,15 +127,21 @@ length(sw)
 knitr::include_graphics("images/2_distribution_location.png")
 ```
 
+#### Mean
+
 Use ```mean()``` and ```median()``` to find the most central values. 
 
 ```{r}
 sw %>% mean()
 ```
 
+#### Median
+
 ```{r}
 sw %>% median()
 ```
+
+#### Mode
 
 Fun fact: ```mode()``` doesn't work in R; it's huge pain. You have to use this code instead.
 
@@ -177,12 +157,65 @@ sw %>% table() %>% sort(decreasing = TRUE)
 knitr::include_graphics("images/2_distribution_spread.png")
 ```
 
+#### Percentile
+
 Use ```quantile()``` to check for any percentile in a vector, from 0 (min) to 0.5 (median) to 1 (max). If you have ```quantile()```, you don't need to remember ```min()```, ```max()```, ```range()```, or even ```median()```.
 
 ```{r}
 sw %>% quantile(probs = 0) # min
 sw %>% quantile(probs = 1) # max
 ```
+
+---
+
+<br>
+<br>
+
+## Learning Check 1 {.unnumbered .LC}
+
+**Question**
+
+Your team took a series of air quality measurements from a sample of sensors across Ithaca. While there are 100 sensors in Ithaca, due to time limitations, you accessed just a random sample of sensors.
+
+Air Quality Index scores: `12`, `24`, `50`, `35`, `36`, `37`, `40`, `25`, `28`, `30`, `32`, `28`
+
+1. Please convert the following values into a **vector** named ```aqi```! 
+
+2. What was the sample size of the vector?
+
+3. What was the interquartile range of air quality measurements, meaning the 25th to 75th percentiles??
+
+<details><summary>**[View Answer!]**</summary>
+  
+1. Please convert the following values into a **vector** named ```aqi```! 
+
+```{r}
+# Make a vector of air quality index scores...
+aqi = c(12, 24, 50, 35, 36, 37, 40, 25, 28, 30, 32, 28)
+```
+
+2. What was the sample size of the vector?
+
+```{r}
+# Get the length of the vector...
+length(aqi)
+```
+
+3. What was the interquartile range of air quality measurements, meaning the 25th to 75th percentiles??
+
+```{r}
+# 25% of air quality measurements were at or below this value
+quantile(aqi, probs = 0.25)
+# 75% of air quality measurements were at or below this value:
+quantile(aqi, probs = 0.75)
+```
+
+</details>
+
+---
+
+<br>
+<br>
 
 ### Spread (2)
 
@@ -262,26 +295,42 @@ se
   
 Suppose we collected data on 10 randomly selected chunks of cheese from a production line! We measured their **moisture in grams (g) in each product** We want to make sure we're making some quality cheesy goodness, so let's find out how much those moisture (cheesiness) levels vary! 
 
-The moisture in our cheese weighed 5.52 g, 5.71 g, 5.06 g, 5.10 g, 4.98 g, 5.50 g, 4.81 g, 5.55 g, 4.74 g, & 5.39 g.
+The moisture in our cheese weighed `5.52 g`, `5.71 g`, `5.06 g`, `5.10 g`, `4.98 g`, `5.50 g`, `4.81 g`, `5.55 g`, `4.74 g`, & `5.39 g`.
 
-1. Please convert the following values into a vector named ```cheese```! 
+1. Please convert the following values into a **vector** named ```cheese```! 
 
-2. How much did moisture levels vary, on average?
+2. What was the **average** moisture level in the sample?
 
-3. We need to compare these levels with cheese produced in Vermont, France, and elsewhere. What's the coefficient of variance and standard error for these moisture levels?
+3. How much did moisture levels **vary, on average?**
+
+4. We need to compare these levels with cheese produced in Vermont, France, and elsewhere. What's the **coefficient of variance** and **standard error** for these moisture levels?
 
 
 <details><summary>**[View Answer!]**</summary>
   
-1. Please convert the following values into a vector named ```cheese```! 
+1. Please convert the following values into a **vector** named ```cheese```! 
 
 ```{r}
 cheese <- c(5.52, 5.71, 5.06, 5.10, 4.98, 5.50, 4.81, 5.55, 4.74, 5.39)
 ```
 
-2. How much did moisture levels vary, on average?
 
-3. We need to compare these levels with cheese produced in Vermont, France, and elsewhere. What's the coefficient of variance and standard error for these moisture levels?
+2. What was the **average** moisture level in the sample?
+
+```{r}
+# Get mean of values
+mean(cheese)
+```
+
+3. How much did moisture levels **vary, on average?**
+
+```{r}
+# Get standard deviation of values. 
+# Fun fact: this is how much they varied on average FROM THE AVERAGE
+sd(cheese)
+```
+
+4. We need to compare these levels with cheese produced in Vermont, France, and elsewhere. What's the **coefficient of variance** and **standard error** for these moisture levels?
 
 ```{r}
 # Coefficient of variation
@@ -703,7 +752,11 @@ sw <- c(4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4)
 
 To simulate, you feed your simulator function (1) ```n``` values to draw and (2) any required statistics necessary for computing draws from that distribution. (For example, ```rnorm()``` requires the mean and standard deviation.) 
 
-Fortunately, statisticians have figured out for us 2 ways to figure out what statistics to provide. First, there are a few equations called **method of moments estimators** that do a great job of estimating those statistics. Alternatively, we can ask ```R``` to compute the values of those statistics using the ```MASS``` package's ```fitdistr()```. We'll show both below.
+Fortunately, statisticians have figured out for us 2 ways to figure out what statistics to provide. 
+
+1. There are a few equations called **method of moments estimators** that do a great job of estimating those statistics. 
+
+2. Alternatively, we can ask ```R``` to compute the values of those statistics using the ```MASS``` package's ```fitdistr()```. We'll show both below.
 
 ### Normal Distribution
 

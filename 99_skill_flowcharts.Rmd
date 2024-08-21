@@ -1,16 +1,6 @@
----
-title: "Skill: Making `mermaid` Block Diagrams (Flowcharts) in R"
-subtitle: "R Companion Code"
-author: "Timothy Fraser"
-date: "`r Sys.Date()`"
-output:
-  rmdformats::downcute:
-    self_contained: true
-    default_style: "light"
-    downcute_theme: "default"
----
+# Skill: Making `mermaid` Block Diagrams (Flowcharts) in R
 
-```{r setup, include=FALSE}
+```{r setup_skill_flowcharts, include=FALSE}
 ## Global options
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 library(knitr)
@@ -18,25 +8,24 @@ library(kableExtra)
 library(magick)
 library(tidyverse)
 library(DiagrammeR)
-
 ```
 
 <br>
 
-# 0. Getting Started
+## Getting Started {-}
 
 To describe and communicate the structure of social systems, we need good visuals! Failure Modes and Effects Analyses particularly rely on **block diagrams** (a fancy word for **flowchart**), so in this tutorial, we're going to learn how to make flowcharts in `R` using `mermaid`.
 
 <br>
 
-## 0.1 Block Diagrams
+### Block Diagrams {-}
 
 A **block diagram** shows how a series of components are connected in a social, physical, or technological system. Together, they visualize a *network*, where the blocks/components are *nodes* with lines, sometimes called *edges*, connecting them.
 
 
 <br>
 
-## 0.2 Load Packages
+### Load Packages {-}
 
 Let's load our packages, and then go through a few examples!
 
@@ -46,7 +35,7 @@ library(tidyverse) # for data management
 library(DiagrammeR) # for speedy mermaid plotting in R
 ```
 
-# 1. Mermaid
+## Mermaid
 
 We can do this using the `mermaid` function from the `DiagrammeR` package. `mermaid` is a popular language for coding small diagrams, and `DiagrammeR` lets us draw them in `R`! `mermaid` will help you map out exactly what is happening in your six sigma case studies.
 
@@ -97,17 +86,14 @@ example %>%
 
 Whohoo! You made your first `mermaid` plot!
 
-##
+---
 
 <br>
-
 <br>
 
-<br>
+### Learning Check 1 {.unnumbered .LC}
 
-# LC #1 {.tabset .tabset-pills}
-
-## Question
+**Question**
 
 Try making your own `mermaid` plot now, which tells the following tragedy, which I hope will not happen to you:
 
@@ -115,7 +101,7 @@ Try making your own `mermaid` plot now, which tells the following tragedy, which
 
 -   Make sure to include at least 1 subgraph and 3 relationships.
 
-## Answer
+<details><summary>**[View Answer!]**</summary>
 
 ```{r}
 # Here's one of several ways you could draw that!
@@ -165,13 +151,13 @@ mystory %>%
 knitr::include_graphics("images/3_image_mermaid.png")
 ```
 
-
+</details>
 
 <br>
 <br>
 
 
-# 2. Diagram of Ice Cream Shipment
+## Diagram of Ice Cream Shipment
 
 Let's try and visualize what the process of shipping out ice cream looks like once it has been made, using `mermaid`. To make this easier, we can do it piecemeal, a few lines at a time, saved into logically named vectors.
 
@@ -250,7 +236,7 @@ c(intro,
 
 ```
 
-# 3. Diagram Failures
+## Diagram Failures
 
 Now, we could imagine that there are several potential failure modes here. Let's add them to our drawing!
 
@@ -315,3 +301,11 @@ c("graph LR",
 There's so much you can do with `mermaid`, but for now, this will do. Hooray! 
 
 You're ready to use `mermaid`!
+
+<br>
+<br>
+
+```{include = FALSE}
+rm(list = ls())
+```
+
