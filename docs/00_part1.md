@@ -1,1 +1,0 @@
-# (PART) Part 1: Coding for Six Sigma {.unnumbered #part_1} 
