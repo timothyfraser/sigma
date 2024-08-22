@@ -39,6 +39,7 @@ loading-packages
 visualizing-data-with-histograms
 hist
 geom_histogram-in-ggplot2
+fmea-in-r
 example-ben-and-jerrys-ice-cream
 scope-resolution
 measuring-criticality

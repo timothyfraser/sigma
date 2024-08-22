@@ -774,8 +774,8 @@ We can write the time $T$ to critical failure (via either overstress OR degraded
 
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-7594e96f84ec59fc23b5" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-7594e96f84ec59fc23b5">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-3f40f5f8cd8716c5e4a6" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-3f40f5f8cd8716c5e4a6">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
 ```
 
 The total probability of a product being in any phase $a_{i \to n}$ equals 1.

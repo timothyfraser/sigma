@@ -1,4 +1,4 @@
-# FMEA in `R` {.unnumbered}
+# FMEA in `R`
 
 ```{r setup_skill_fmea, include=FALSE}
 ## Global options
