@@ -2,7 +2,7 @@
 
 
 
-Fault trees are visual representation of boolean probability equations, typically depicting the *minimal cut sets* of necessary events leading to system failure. We're going to learn how to make calculations about fault trees in `R`!
+Fault trees are visual representation of boolean probability equations, typically depicting the sets of necessary events leading to system failure. We're going to learn how to make calculations about fault trees in `R`!
 
 ## Getting Started {-}
 
@@ -69,6 +69,11 @@ probs1
 ```
 ## [1] 0.502475
 ```
+
+---
+
+<br>
+<br>
 
 ## Learning Check 1 {.unnumbered .LC}
 
@@ -280,7 +285,7 @@ probs3 %>%
 ## # A tibble: 1 × 2
 ##   mu_top sigma_top
 ##    <dbl>     <dbl>
-## 1  0.523     0.504
+## 1  0.516     0.504
 ```
 
 ### Simulating Uncertainty in Failure Rates
@@ -333,9 +338,9 @@ probs5 %>% head(3)
 ## # A tibble: 3 × 3
 ##    reps     t    prob
 ##   <int> <int>   <dbl>
-## 1     1     1 0.00970
-## 2     1     2 0.0193 
-## 3     1     3 0.0288
+## 1     1     1 0.00982
+## 2     1     2 0.0195 
+## 3     1     3 0.0292
 ```
 
 
@@ -358,11 +363,11 @@ probs6 %>% head(3)
 
 ```
 ## # A tibble: 3 × 7
-##       t      mu     sigma   lower  upper lower_approx upper_approx
-##   <int>   <dbl>     <dbl>   <dbl>  <dbl>        <dbl>        <dbl>
-## 1     1 0.00995 0.0000977 0.00976 0.0101       0.0101       0.0101
-## 2     2 0.0198  0.000194  0.0194  0.0202       0.0202       0.0202
-## 3     3 0.0295  0.000287  0.0290  0.0301       0.0301       0.0301
+##       t      mu    sigma   lower  upper lower_approx upper_approx
+##   <int>   <dbl>    <dbl>   <dbl>  <dbl>        <dbl>        <dbl>
+## 1     1 0.00995 0.000101 0.00975 0.0101       0.0101       0.0101
+## 2     2 0.0198  0.000199 0.0194  0.0202       0.0202       0.0202
+## 3     3 0.0296  0.000296 0.0290  0.0301       0.0301       0.0301
 ```
 
 Let's visualize that confidence interval over time!
@@ -387,10 +392,116 @@ The sky is the limit! Happy fault tree simulating!
 <br>
 
 
+## Example 1 {-}
+
+You are tasked with assessing the risk of a widespread outbreak of a contagious disease in a population. The top event is defined as the "Widespread outbreak of a contagious disease in a population." This top event can occur based on the following intermediate events:
+
+**Insufficient Vaccination Coverage:**
+
+*All of the following must occur for this event to happen.*
+
+**Causes and Probabilities:**
+
+- Lack of public awareness: P(Lack of public awareness) = 0.2 (20%)
+- Limited access to vaccines: P(Limited access) = 0.15 (15%)
+- Vaccine hesitancy due to misinformation: P(Vaccine hesitancy) = 0.3 (30%)
+
+**Ineffective Quarantine Measures:**
+
+*Any of the following can lead to this event*
+
+**Causes and Probabilities:**
+
+- Inadequate quarantine protocols: P(Inadequate protocols) = 0.1 (10%)
+- Non-compliance with quarantine rules: P(Non-compliance) = 0.15 (15%)
+- Inefficient monitoring of quarantined individuals: P(Inefficient monitoring) = 0.2 (20%)
+
+**Mutation of the Pathogen:**
+*This event itself can lead to the top event*
+
+**Causes and Probabilities:**
+
+- High mutation rate of the pathogen: P(High mutation rate) = 0.05 (5%)
+- Inadequate monitoring of the pathogen mutations: P(Inadequate monitoring) = 0.1 (10%)
+
+
+```r
+# Calculating probabilities of intermediate events using probabilities based on available data:
+# Probability of Insufficient Vaccination Coverage:
+# All of the sub-events must occur for this intermediate event to happen:
+p_event1<- c(0.2, 0.15, 0.3)  # Probabilities for AND logic
+p_insufficient_vaccine_coverage <- prod(p_event1)
+p_insufficient_vaccine_coverage
+```
+
+```
+## [1] 0.009
+```
+
+```r
+# Probability of Ineffective Quarantine Measures:
+# Any of the sub-event event can lead to this intermediate event:
+p_event2 <- c(0.1, 0.15, 0.2)  # Probabilities for OR logic
+p_quarantine_measures <- sum(p_event2)
+p_quarantine_measures
+```
+
+```
+## [1] 0.45
+```
+
+```r
+# Probability of Mutation of the Pathogen:
+# Both conditions need to be present in order for pathogen to mutate:
+p_event3 <- c(0.05, 0.1)  # Probabilities for AND logic
+logic_mutation <- "AND"
+p_pathogen_mutation <- prod(p_event3)
+p_pathogen_mutation
+```
+
+```
+## [1] 0.005
+```
+
+```r
+# Calculating the probability of widespread outbreak (top event) using the probabilities of intermediate events
+# Let's create a function that can calculate the probability of the top event using any number of intermediate events and any logic gate
+top_event <- function(intermediate_probability, logic) {
+  
+  if (logic == "AND") {
+    return(prod(intermediate_probability))
+  } else if (logic == "OR") {
+    return(1 - prod(1 - intermediate_probability))
+  } else {
+    stop("Unsupported logic operator. Use 'AND' or 'OR'.")
+  }
+}
+# Define probabilities and logic gates as vector
+intermediate_probability<- c(p_insufficient_vaccine_coverage,p_quarantine_measures,p_pathogen_mutation)  # Probabilities for the intermediate events
+logic <- "OR"  # Logic gate for the top event ("AND" or "OR")
+# Calculate the probability of the top event - Widespread outbreak of disease: 
+p_widespread_outbreak <- top_event(intermediate_probability, logic)
+# Print the result
+cat("Probability of the top event:", p_widespread_outbreak, "\n")
+```
+
+```
+## Probability of the top event: 0.4576752
+```
+
+---
+
+
+<br>
+<br>
+
+
+
 ## Learning Check 3 {.unnumbered .LC}
 
-Suppose we have some fault tree involving 3 key events, A, B, and C. Suppose these events have the following failure rates: lambda_a = 0.05, lambda_b = 0.03, and lambda_c = 0.02. 
-Simulate the 95% confidence interval for the probability of each event, for each hour from 0 to 100 hours, assuming a standard error for each of 0.001. Then visualize these confidence intervals as a `ribbon` plot.
+Suppose we have some fault tree involving 3 key events, A, B, and C. Suppose these events have the following failure rates: `lambda_a = 0.05`, `lambda_b = 0.03`, and `lambda_c = 0.02`. 
+
+Simulate the 95% confidence interval for the probability of each event, for each hour from `0` to `100` hours, assuming a standard error for each of `0.001`. Then visualize these confidence intervals as a `ribbon` plot.
 
 <details><summary>**[View Answer!]**</summary>
 
@@ -438,9 +549,9 @@ stat %>% head(3)
 ## # A tibble: 3 × 7
 ##       t lower_a upper_a lower_b upper_b lower_c upper_c
 ##   <int>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-## 1     1  0.0469  0.0508  0.0276  0.0315  0.0179  0.0216
-## 2     2  0.0916  0.0991  0.0544  0.0620  0.0354  0.0428
-## 3     3  0.134   0.145   0.0804  0.0915  0.0526  0.0635
+## 1     1  0.0471  0.0506  0.0277  0.0315  0.0179  0.0218
+## 2     2  0.0920  0.0986  0.0545  0.0620  0.0354  0.0430
+## 3     3  0.135   0.144   0.0807  0.0916  0.0527  0.0639
 ```
 
 
@@ -467,7 +578,7 @@ ggplot() +
        x = "Hours", y = "Probability (95% CI)", fill = "Event Type")
 ```
 
-<img src="09_workshop_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="09_workshop_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 </details>
 
@@ -674,7 +785,7 @@ ggplot() +
   theme(legend.position = "bottom")
 ```
 
-<img src="09_workshop_files/figure-html/unnamed-chunk-28-1.png" width="672" />
+<img src="09_workshop_files/figure-html/unnamed-chunk-29-1.png" width="672" />
 
 <br>
 <br>

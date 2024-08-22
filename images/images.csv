@@ -1,6 +1,11 @@
-id,chunks,file,author,author_link,source,source_url,type,caption,license
-1,img_cover,dice.jpg,Naser Tamimi,https://unsplash.com/ja/@tamiminaser?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText,Unsplash,https://unsplash.com/s/photos/statistics?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText,photo,Photo by <a href='https://unsplash.com/ja/@tamiminaser?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Naser Tamimi</a> on <a href='https://unsplash.com/s/photos/statistics?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a>,public
-2,img_1_0,1_0.png,,,,,plot,Figure 1: Visual Intro to Using RStudio.Cloud,mine
-3,img_1_1,1_1.png,,,,,,Figure 2: Open New Script and Save it!,
-4,img_1_2,1_2.png,,,,,,Figure 2: Open New Script and Save it!,
+id,chunks,file,author,author_link,source,source_url,type,caption,license
+
+1,img_cover,dice.jpg,Naser Tamimi,https://unsplash.com/ja/@tamiminaser?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText,Unsplash,https://unsplash.com/s/photos/statistics?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText,photo,Photo by <a href='https://unsplash.com/ja/@tamiminaser?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Naser Tamimi</a> on <a href='https://unsplash.com/s/photos/statistics?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a>,public
+
+2,img_1_0,1_0.png,,,,,plot,Figure 1: Visual Intro to Using Posit.Cloud,mine
+
+3,img_1_1,1_1.png,,,,,,Figure 2: Open New Script and Save it!,
+
+4,img_1_2,1_2.png,,,,,,Figure 2: Open New Script and Save it!,
+
 5,img_1_4,1_4.png,,,,,,Figure 3: Descriptive Stats function Cheatsheet!,

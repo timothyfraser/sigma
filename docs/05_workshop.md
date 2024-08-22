@@ -589,7 +589,7 @@ mrsim %>% mean()
 ```
 
 ```
-## [1] 1.132594
+## [1] 1.129779
 ```
 
 
@@ -599,7 +599,7 @@ mrsim %>% sd()
 ```
 
 ```
-## [1] 0.8453874
+## [1] 0.8622315
 ```
 
 But why stop there? We can calculate loads of other interesting statistics!
@@ -614,7 +614,7 @@ mrsim %>%
 
 ```
 ##   50%   90%   95% 
-## 0.960 2.333 2.770
+## 0.948 2.350 2.795
 ```
 
 <br>
@@ -726,7 +726,7 @@ dn(n = 2)
 ## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   <dbl> <dbl> <dbl> <dbl>
-## 1  1.13 0.859     0  3.29
+## 1  1.13 0.845     0  3.24
 ```
 
 
@@ -743,7 +743,7 @@ d
 ## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   <dbl> <dbl> <dbl> <dbl>
-## 1  3.73 0.723 0.419  1.58
+## 1  3.73 0.724 0.419  1.58
 ```
 
 <br>
@@ -786,7 +786,7 @@ mydstat
 ## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   <dbl> <dbl> <dbl> <dbl>
-## 1  3.73 0.732 0.412  1.59
+## 1  3.72 0.719 0.420  1.58
 ```
 
 And use these constants to estimate the upper and lower CI for $\bar{r}$!
@@ -803,7 +803,7 @@ stat %>%
 ## # A tibble: 1 × 3
 ##    rbar rbar_lower rbar_upper
 ##   <dbl>      <dbl>      <dbl>
-## 1  7.26       2.99       11.5
+## 1  7.26       3.05       11.5
 ```
 
 So quick! You could use these values to make a *range* chart now.
@@ -913,7 +913,7 @@ mybstat
 ## # A tibble: 1 × 6
 ##      b2    b3    C4    A3    B3    B4
 ##   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-## 1 0.987 0.161 0.987 0.680 0.511  1.49
+## 1 0.986 0.161 0.986 0.680 0.511  1.49
 ```
 
 Finally, let's calculate our control limits!
@@ -971,15 +971,15 @@ dx
 ## # A tibble: 9 × 3
 ##       n    d2    d3
 ##   <int> <dbl> <dbl>
-## 1     2  1.13 0.847
+## 1     2  1.14 0.860
 ## 2     3  1.69 0.885
-## 3     4  2.05 0.881
-## 4     5  2.32 0.870
-## 5     6  2.53 0.842
-## 6     7  2.71 0.841
-## 7     8  2.83 0.812
-## 8     9  2.98 0.815
-## 9    10  3.06 0.785
+## 3     4  2.05 0.882
+## 4     5  2.32 0.864
+## 5     6  2.53 0.847
+## 6     7  2.70 0.823
+## 7     8  2.84 0.818
+## 8     9  2.98 0.805
+## 9    10  3.07 0.802
 ```
 
 </details>

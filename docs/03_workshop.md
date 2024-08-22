@@ -9,7 +9,7 @@ This tutorial will introduce you to **probability** and how to code and visualiz
 
 ## Getting Started {-}
 
-Please open up your RStudio.Cloud project. Start a new R script (File >> New >> R Script). Save the R script as ```workshop_3.R```. And let's get started!
+Please open up your Posit.Cloud project. Start a new R script (File >> New >> R Script). Save the R script as ```workshop_3.R```. And let's get started!
 
 ### Load Packages {-}
 
@@ -226,8 +226,8 @@ If we look at the ties to the marbles, you'll see I labeled each tie to a red ma
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-86a5ac258f72d83b6a1d" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-86a5ac258f72d83b6a1d">{"x":{"diagram":"graph TD\n you[You]\n subgraph Bags\n b1[Bag 1]\n b2[Bag 2]\n b3[Bag 3]\n end\n subgraph Marbles\n b1m1((Marble <i>a<\/i>))\n b1m2((Marble <i>b<\/i>))\n b1m3((Marble <i>c<\/i>))\n style b1m1 fill:#FB52A5\n style b1m2 fill:#FB52A5\n style b1m3 fill:#FB52A5\n b2m1((Marble <i>d<\/i>))\n b2m2((Marble <i>e<\/i>))\n b2m3((Marble <i>f<\/i>))\n style b2m1 fill:#FB52A5\n style b2m2 fill:#84A3F5\n style b2m3 fill:#84A3F5\n b3m1((Marble <i>g<\/i>))\n b3m2((Marble <i>h<\/i>))\n b3m3((Marble <i>j<\/i>))\n style b3m1 fill:#84A3F5\n style b3m2 fill:#FB52A5\n style b3m3 fill:#FB52A5\n end\n you--> b1\n you--> b2\n you--> b3\n b1-->|1|b1m1\n b1-->|1|b1m2\n b1-->|1|b1m3\n b2-->|1|b2m1\n b2-->|0|b2m2\n b2-->|0|b2m3\n b3-->|0|b3m1\n b3-->|1|b3m2\n b3-->|1|b3m3"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-6252c1a8b2c9b9f60b2d" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-6252c1a8b2c9b9f60b2d">{"x":{"diagram":"graph TD\n you[You]\n subgraph Bags\n b1[Bag 1]\n b2[Bag 2]\n b3[Bag 3]\n end\n subgraph Marbles\n b1m1((Marble <i>a<\/i>))\n b1m2((Marble <i>b<\/i>))\n b1m3((Marble <i>c<\/i>))\n style b1m1 fill:#FB52A5\n style b1m2 fill:#FB52A5\n style b1m3 fill:#FB52A5\n b2m1((Marble <i>d<\/i>))\n b2m2((Marble <i>e<\/i>))\n b2m3((Marble <i>f<\/i>))\n style b2m1 fill:#FB52A5\n style b2m2 fill:#84A3F5\n style b2m3 fill:#84A3F5\n b3m1((Marble <i>g<\/i>))\n b3m2((Marble <i>h<\/i>))\n b3m3((Marble <i>j<\/i>))\n style b3m1 fill:#84A3F5\n style b3m2 fill:#FB52A5\n style b3m3 fill:#FB52A5\n end\n you--> b1\n you--> b2\n you--> b3\n b1-->|1|b1m1\n b1-->|1|b1m2\n b1-->|1|b1m3\n b2-->|1|b2m1\n b2-->|0|b2m2\n b2-->|0|b2m3\n b3-->|0|b3m1\n b3-->|1|b3m2\n b3-->|1|b3m3"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:img_mermaid)Drawing Probability Diagrams</p>
@@ -554,6 +554,110 @@ orders %>%
 
 ```r
 # It should! And it does! Tada!
+```
+
+
+### Example: Movie Theatre Popularity {-}
+
+You are the manager of a movie theatre, and you want to determine the popularity of different genres of movies among your customers. 
+
+You have collected data on the genres of movies that customers choose to watch 
+
+- Probability of a customer choosing an Action movie, P(Action) = `0.25`.
+- Similarly, P(Comedy) = `0.30`.
+- P(Drama) = `0.20`.
+- P(Sci-Fi) = `0.15`.
+- P(Horror) = `0.10`.
+
+You also have information about the overall popularity of each genre in the market:
+
+- Out of the customers who chose an Action movie, 60% also bought tickets for Comedy.
+- Out of the customers who chose a Comedy movie, 40% also bought tickets for Drama.
+- Out of the customers who chose a Drama movie, 25% also bought tickets for Sci-Fi.
+- Out of the customers who chose a Science Fiction movie, 70% also bought tickets for Action.
+- Out of the customers who chose a Horror movie, 20% also bought tickets for Drama.
+
+You want to calculate the probability that a customer chooses a Drama movie given that they have already purchased a ticket.
+
+
+```r
+# We define the prior probabilities of customers choosing each genre based on the given problem statement.
+P_action <- 0.25
+P_comedy <- 0.30
+P_drama <- 0.20
+P_scifi <- 0.15
+P_horror <- 0.10
+# We define conditional probabilities that represent the likelihood of crossover purchases. 
+# For example, the probability of choosing Action given that the customer chose Comedy is 60%.
+conP_action_given_drama <- 0.00
+conP_comedy_given_drama <- 0.25
+conP_drama_given_drama <- 0.00
+conP_scifi_given_drama <- 0.00
+conP_horror_given_drama <- 0.20
+# Specify the target genre
+# Our target genre is Drama and we want to calculate the probability that a customer chooses a Drama movie given that they have already purchased a ticket.
+target_genre <- "Drama"  # We can change this to our desired target genre
+```
+
+
+To calculate the probability that a customer chooses the target genre given a ticket purchase, let's use Bayes Rule!
+
+
+```r
+# We will be using Bayes' rule: P(Target Genre | Ticket Purchase) = P(Ticket Purchase | Target Genre) * P(Target Genre) / P(Ticket Purchase)
+# We calculate P(Ticket Purchase | Target Genre) * P(Target Genre) as probability_given_purchase
+# If target_genre is "Comedy," the switch function will select the conditional probability for choosing Comedy given a ticket purchase 
+probability_given_purchase <- switch(
+  target_genre,
+  "Action" = conP_action_given_drama * P_action,
+  "Comedy" = conP_comedy_given_drama * P_comedy,
+  "Drama" = conP_drama_given_drama * P_drama,
+  "SciFi" = conP_scifi_given_drama * P_scifi,
+  "Horror" = conP_horror_given_drama * P_horror
+)
+# View it!
+probability_given_purchase
+```
+
+```
+## [1] 0
+```
+Next...
+
+
+```r
+# We will further calculate the total probability of a ticket purchase P(Ticket Purchase) as total_probability_purchase:
+total_probability_purchase <- sum(
+  conP_action_given_drama * P_action,
+  conP_comedy_given_drama * P_comedy,
+  conP_drama_given_drama * P_drama,
+  conP_scifi_given_drama * P_scifi,
+  conP_horror_given_drama * P_horror
+)
+# View it!
+total_probability_purchase
+```
+
+```
+## [1] 0.095
+```
+
+We want to calculate the probability that a customer chooses a Drama movie given that they have already purchased a ticket, thus target genre is Drama.
+
+
+```r
+# P(Target Genre | Ticket Purchase) <- P(Ticket Purchase | Target Genre) * P(Target Genre) / P(Ticket Purchase)
+probability_target_genre_given_purchase <- probability_given_purchase / total_probability_purchase
+# Let's print that using paste!
+paste(
+  "Probability that a customer chooses a", 
+    target_genre, 
+  "movie given a ticket purchase:", 
+  probability_target_genre_given_purchase)
+```
+
+```
+## [1] "Probability that a customer chooses a Drama movie given a ticket purchase: 0"
 ```
 
 
@@ -996,7 +1100,7 @@ ggplot() +
   labs(x = "Cost", y = "Probability", color = "Type")
 ```
 
-<img src="03_workshop_files/figure-html/unnamed-chunk-40-1.png" width="672" />
+<img src="03_workshop_files/figure-html/unnamed-chunk-44-1.png" width="672" />
 
 So how do we generate the cumulative density function? The `mosaicCalc` package can help us with its functions `D()` and `antiD()`. 
 
@@ -1184,7 +1288,7 @@ ggplot() +
        fill = "Deter Future Visits")
 ```
 
-<img src="03_workshop_files/figure-html/unnamed-chunk-48-1.png" width="672" />
+<img src="03_workshop_files/figure-html/unnamed-chunk-52-1.png" width="672" />
 
 
 </details>
@@ -1206,7 +1310,7 @@ The Ithaca Farmers Market is a vendor-owned cooperative that runs a massive Satu
 
 <div class="figure">
 <img src="https://i0.wp.com/ithacamarket.com/wp-content/uploads/2019/04/IMG_3407-900px.jpg?w=900&ssl=1" alt="[Ithaca Farmers Market!](https://ithacamarket.com/markets/saturday-at-the-pavilion/)" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-49)[Ithaca Farmers Market!](https://ithacamarket.com/markets/saturday-at-the-pavilion/)</p>
+<p class="caption">(\#fig:unnamed-chunk-53)[Ithaca Farmers Market!](https://ithacamarket.com/markets/saturday-at-the-pavilion/)</p>
 </div>
 
 Market operators wants to know: 
@@ -1244,7 +1348,7 @@ visits <- rpois(n = 500, lambda = 5.5)
 visits %>% hist()
 ```
 
-<img src="03_workshop_files/figure-html/unnamed-chunk-50-1.png" width="672" />
+<img src="03_workshop_files/figure-html/unnamed-chunk-54-1.png" width="672" />
 
 <br>
 <br>
@@ -1256,7 +1360,7 @@ Much like `rpois()` randomly generates poisson distributed values, `dpois()` gen
 area under the curve (probability) of. See the Table below for several examples.
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
-<caption>(\#tab:unnamed-chunk-51)Table 1: Probability Functions (r, d, p, and q)</caption>
+<caption>(\#tab:unnamed-chunk-55)Table 1: Probability Functions (r, d, p, and q)</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Meaning </th>
@@ -1342,7 +1446,7 @@ dsim(5)
 ```
 
 ```
-## [1] 0.1665943
+## [1] 0.1910494
 ```
 
 ```r
@@ -1400,7 +1504,7 @@ psim(5)
 ```
 
 ```
-## [1] 0.4378613
+## [1] 0.4436051
 ```
 
 ```r
@@ -1546,5 +1650,7 @@ rate <- 1 / 5.5
 ## Conclusion {-}
 
 And that's a wrap! Nice work! You can now figure out *a lot* of things about the world if you (a) can guess their distribution and (b) have one or two statistics about that distribution. Here we go! 
+
+
 
 

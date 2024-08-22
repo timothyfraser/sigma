@@ -2,7 +2,7 @@
 
 
 
-Welcome to RStudio Cloud! You made it! This document will introduce you to how to start coding in R, using RStudio Cloud. We will use the R statistical coding language frequently in class to conduct analyses and visualization.
+Welcome to Posit Cloud! You made it! This document will introduce you to how to start coding in R, using Posit Cloud. We will use the R statistical coding language frequently in class to conduct analyses and visualization.
 
 ```
 Hello world! We are coding in R!
@@ -14,9 +14,9 @@ Hello world! We are coding in R!
 
 ## Getting Started {-}
 
-### Making an RStudio.Cloud account {-}
+### Making an Posit.Cloud account {-}
 
-We'll be using RStudio.Cloud, a virtual version of R you can access from any computer with an internet browser (PC, Mac, Chromebook, anything). To get set up, please [follow the steps in this **short Video playlist**](https://vod.video.cornell.edu/playlist/dedicated/1_89xs9wbc/)!
+We'll be using Posit.Cloud, a virtual version of R you can access from any computer with an internet browser (PC, Mac, Chromebook, anything). To get set up, please [follow the steps in this **short Video playlist**](https://vod.video.cornell.edu/playlist/dedicated/1_89xs9wbc/)!
 
 
 ### Using R for the First Time {-}
@@ -26,8 +26,8 @@ We'll be using RStudio.Cloud, a virtual version of R you can access from any com
 2. Read and follow along with the instructions on the webpage! Read the tutorial code (below), and then type it in and run it in your R session!
 
 <div class="figure" style="text-align: center">
-<img src="images/1_0.png" alt="Visual Intro to Using RStudio.Cloud" width="100%" />
-<p class="caption">(\#fig:graphic_1)Visual Intro to Using RStudio.Cloud</p>
+<img src="images/1_0.png" alt="Visual Intro to Using Posit.Cloud" width="100%" />
+<p class="caption">(\#fig:graphic_1)Visual Intro to Using Posit.Cloud</p>
 </div>
 
 <br>
@@ -36,7 +36,7 @@ We'll be using RStudio.Cloud, a virtual version of R you can access from any com
 
 ## Introduction to `R`
 
-The document in your RStudio Cloud project document is an 'R script.' (its name ends in .R).
+The document in your Posit Cloud project document is an 'R script.' (its name ends in .R).
 
 It contains two kinds of text:
 
@@ -70,11 +70,11 @@ To make a script, go to **File >> New File >> R Script,** then save it and name 
 
 <div class="figure" style="text-align: center">
 <img src="images/1_1.png" alt="Open New Script" width="49%" />
-<p class="caption">(\#fig:unnamed-chunk-1)Open New Script</p>
+<p class="caption">(\#fig:image_1_1)Open New Script</p>
 </div>
 <div class="figure" style="text-align: center">
 <img src="images/1_2.png" alt="Save New Script!" width="49%" />
-<p class="caption">(\#fig:unnamed-chunk-2)Save New Script!</p>
+<p class="caption">(\#fig:image_1_2)Save New Script!</p>
 </div>
 
 Let's learn to use R!
@@ -659,7 +659,7 @@ These include: ```mean()```, ```median()```, ```sum()```, ```min()```, ```max()`
 
 <div class="figure">
 <img src="images/1_4.png" alt="Descriptive Stats function Cheatsheet!" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-35)Descriptive Stats function Cheatsheet!</p>
+<p class="caption">(\#fig:image_1_4)Descriptive Stats function Cheatsheet!</p>
 </div>
 
 
@@ -1089,6 +1089,69 @@ Tada! You have turned on your packages!
 <br>
 <br>
 
+
+
+## The Pipeline {-}
+
+In much of this course, we're going to use a coding symbol `%>%`, called a **pipeline**. The pipeline is not built into base `R`, so you always need the `dplyr` package loaded in order to use it. Fortunately, we just loaded `dplyr`, our data wrangling toolkit, above using `library(dplyr)`, so we're good to go! 
+
+Pipelines let us connect **data** to **functions**, with fewer parentheses! It helps more clearly show and code a **process** of input data to function A to function B to output data (for example).
+
+<div class="figure" style="text-align: center">
+<img src="images/2_pipe.gif" alt="Old-School Pipeline"  />
+<p class="caption">(\#fig:unnamed-chunk-1)Old-School Pipeline</p>
+</div>
+
+For example:
+
+
+```r
+#  let's make a vector ```x``` and do some operations on it.
+x <- c(1,2,3)
+
+# These are the same!
+mean(x)
+```
+
+```
+## [1] 2
+```
+
+```r
+x %>% mean()
+```
+
+```
+## [1] 2
+```
+
+Using pipelines keeps our code neat and tidy. It lets us run long sequences of code without saving it bit by bit as objects. For example, we can take them ```mean()`` of ```x``` *and* then get the ```length()``` of the resulting vector, all in one sequence. Without a pipeline, you end up in parenthesis hell very quickly.
+
+
+```r
+# without pipe
+length(mean(x))
+```
+
+```
+## [1] 1
+```
+
+```r
+# with pipe
+x %>% mean() %>% length()
+```
+
+```
+## [1] 1
+```
+
+Handy, right? To simplify things, there's a special 'hotkey' shortcut for making pipelines too. In Windows and Linux, use ```Ctrl Shift M```. In Mac, use ```Cmd Shift M```.
+
+<br>
+<br>
+
+
 ## Visualizing Data with Histograms
 
 
@@ -1155,7 +1218,43 @@ Every vector is a distribution - a range of low to high values. We can use the `
 hist(allsw$height)
 ```
 
-<img src="01_workshop_files/figure-html/unnamed-chunk-54-1.png" width="672" />
+<img src="01_workshop_files/figure-html/chunk_allsw2-1.png" width="672" />
+
+
+
+---
+
+## Learning Check 3 {.unnumbered .LC}
+
+**Question**
+  
+Using the ```hist()``` function we just learned, draw the histogram of a vector of seawalls, naming the vector ```sw```!  The vector should include the following seawall heights (in meters): `4.5 m`, `5 m`, `5.5 m`, `5 m`, `5.5 m`, `6.5 m`, `6.5 m`, `6 m`, `5 m`, and `4 m`.
+
+
+<details><summary>**[View Answer!]**</summary>
+  
+Using the ```hist()``` function we just learned, draw the histogram of a vector of seawalls, naming the vector ```sw```!  The vector should include the following seawall heights (in meters): `4.5 m`, `5 m`, `5.5 m`, `5 m`, `5.5 m`, `6.5 m`, `6.5 m`, `6 m`, `5 m`, and `4 m`.
+
+
+```r
+# Many options!
+
+# You could code it as a vector, save it as an object, then use your functions!
+sw <- c(4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4)
+sw %>% hist()
+```
+
+<img src="01_workshop_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+
+```r
+# or you could do it like this!
+# hist(sw)
+```
+
+</details>
+  
+---
+
 
 ### ```geom_histogram()``` in ```ggplot2```
 

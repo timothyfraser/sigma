@@ -1,1 +1,1 @@
-# (PART) Part 1: Coding for Six Sigma {.unnumbered #part_1} 
+# (PART) Part 1: Failure Mode and Effects Analysis {.unnumbered #part_1} 

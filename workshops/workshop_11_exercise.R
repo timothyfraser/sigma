@@ -5,7 +5,7 @@ library(tidyverse)
 library(broom)
 library(texreg)
 
-# You can download the data from github, upload it to RStudio Cloud, and then read it in like this
+# You can download the data from github, upload it to Posit Cloud, and then read it in like this
 read_csv("/cloud/project/workshops/jp_matching_experiment.csv") %>%
   head()
 

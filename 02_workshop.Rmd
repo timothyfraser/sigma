@@ -17,7 +17,7 @@ This tutorial will introduce you to how to code and analyses distributions in R,
 
 ## Getting Started {-}
 
-Please open up last week's [RStudio.Cloud project](https://rstudio.cloud/project/2812893). Start a new R script (File >> New >> R Script). Save the R script as ```workshop_2.R```. And let's get started!
+Please open up your Posit.Cloud project. Start a new R script (File >> New >> R Script). Save the R script as ```workshop_2.R```. And let's get started!
 
 ### Load Packages {-}
 
@@ -28,41 +28,6 @@ library(ggplot2) # for visualization
 library(dplyr) # for pipelines!
 library(MASS) # for fitting distributions
 ```
-
-### The Pipeline {-}
-
-We'll also be using a new coding symbol today, ```%>%```, called a **pipeline**. Pipelines let us connect **data** to **functions**, with fewer parentheses! 
-
-```{r, fig.align='center', fig.cap="Old-School Pipeline", echo= FALSE}
-knitr::include_graphics("images/2_pipe.gif")
-```
-
-For example:
-
-```{r}
-#  let's make a vector ```x``` and do some operations on it.
-x <- c(1,2,3)
-
-# These are the same!
-mean(x)
-x %>% mean()
-```
-
-Using pipelines keeps our code neat and tidy. It lets us run long sequences of code without saving it bit by bit as objects. For example, we can take them ```mean()`` of ```x``` *and* then get the ```length()``` of the resulting vector, all in one sequence. Without a pipeline, you end up in parenthesis hell very quickly.
-
-```{r}
-# without pipe
-length(mean(x))
-
-# with pipe
-x %>% mean() %>% length()
-```
-
-Handy, right? To simplify things, there's a special 'hotkey' shortcut for making pipelines too. In Windows and Linux, use ```Ctrl Shift M```. In Mac, use ```Cmd Shift M```.
-
-<br>
-<br>
-
 
 ## Distributions
 
@@ -92,6 +57,8 @@ Any distribution can be described with 4 traits, shown above in part **C**. Thes
 
 ## Descriptive Statistics {.tabset .tabset-pills}
 
+### What's a statistic?
+
 What's a statistic? A statistic is a **single number** that **summarizes something about a sample**. That's it! No magic! Statistics is the process of making statistics (eg. many single numbers) so we can understand samples of data! They help people make decisions when faced with uncertainty. We'll learn several functions to make statistics that describe our distributions.
 
 ```{r, echo = FALSE, fig.cap = "Table 1: Functions for Describing Distributions"}
@@ -107,7 +74,16 @@ data.frame(
   kable_classic(full_width = FALSE, lightable_options = c("striped", "condensed"))
 ```
 
-Click on the tabs below to review our functions for Size, Location, and Spread from Workshop 1. (We'll get to shape in a minute.)
+### Data
+
+Below, we will learn several functions for describing Size, Location, and Spread in a distribution. (We'll get to shape in a minute.) To do this, we're going to use a data sample of seawalls, describing the height in meters of several cities' seawalls. Let's encode that vector below.
+
+```{r}
+# You could code it as a vector, save it as an object, then use your functions!
+sw <- c(4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4)
+# View it
+sw
+```
 
 ### Size
 
@@ -171,7 +147,7 @@ sw %>% quantile(probs = 1) # max
 <br>
 <br>
 
-## Learning Check 1 {.unnumbered .LC}
+### Learning Check 1 {.unnumbered .LC}
 
 **Question**
 
@@ -289,7 +265,7 @@ se
 
 ---
 
-## Learning Check 2 {.unnumbered .LC}
+### Learning Check 2 {.unnumbered .LC}
 
 **Question**
   
@@ -358,11 +334,11 @@ remove(cheese, se, cv)
 <br>
 <br>
 
-## Describing Shape
+### Shape
 
 How then do we describe the *shape* of a distribution? We can use **skewness** and **kurtosis** for this. There's no direct function for skewness or kurtosis in `R`, but as you'll see below, we can quickly calculate it using the functions we already know.
 
-### Skewness
+#### Skewness
 
 Skewness describes whether the bulk of the distribution sits to the left or right of the center, and its formula are written out below. It is commonly estimated using the formula on the left, while the formula on the right closely approximates it. (We're going to use the right-hand formula below, since it's a little cleaner.)
 
@@ -530,7 +506,7 @@ remove(ex, exlong, exstat, mylines)
 <br>
 <br>
 
-### Kurtosis
+#### Kurtosis
 
 Kurtosis describes how tightly bound the distribution is around the mean. Is it extremely pointy, with a narrow distribution (high kurtosis), or does it span wide (low kurtosis)? We can estimate it using the formula on the left, and the formula on the right is approximately the same.
 
@@ -653,7 +629,7 @@ Finally, just a heads up: As mentioned above, there are a few different formulas
 
 ---
 
-## Learning Check 3 {.unnumbered .LC}
+### Learning Check 3 {.unnumbered .LC}
 
 A contractor is concerned that the majority of seawalls in her region might skew lower than their region's vulnerability to storms requires. Assume (hypothetically) that our sample's seawalls are the appropriate height for our level of vulnerability, and that both regions share the same level of vulnerability. 
 
@@ -743,6 +719,8 @@ data.frame(
 
 To determine what kind of distribution our vector has, we can visually compare it using **simulation**. We can compare our real observed distribution against random distributions to determine whether our data matches the shape of a normal vs. poisson distribution, for example.
 
+### Finding Parameters for your Distribution
+
 To do so, let's get some statistics from our data to help us visualize what a distribution with those traits would look like. As our raw data, let's use our vector of seawall heights ```sw```.
 
 ```{r}
@@ -754,11 +732,16 @@ To simulate, you feed your simulator function (1) ```n``` values to draw and (2)
 
 Fortunately, statisticians have figured out for us 2 ways to figure out what statistics to provide. 
 
-1. There are a few equations called **method of moments estimators** that do a great job of estimating those statistics. 
+1. There are a few equations called **method of moments estimators** that do a great job of estimating those statistics. We'll learn these below.
 
-2. Alternatively, we can ask ```R``` to compute the values of those statistics using the ```MASS``` package's ```fitdistr()```. We'll show both below.
+2. Alternatively, we can ask ```R``` to compute the values of those statistics using the ```MASS``` package's ```fitdistr()```. You can learn more about this optional add-on function in the **Appendix.**
 
-### Normal Distribution
+<br>
+<br>
+
+### Common Distributions
+
+#### Normal Distribution
 
 ```rnorm()``` randomly generates for us any number of values randomly sampled from a normal distribution. We just need to supply: (1) ```n``` values to draw, (2) the ```mean``` of that distribution, and (3) the ```sd``` of that distribution.
 
@@ -774,25 +757,19 @@ mynorm <- rnorm(n = 1000, mean = mymean, sd = mysd)
 mynorm %>% hist()
 ```
 
-How do ```mymean``` and ```mysd``` compare to the ```fitdistr()``` estimates?
+What were our mean and standard deviation?
 
 ```{r}
 mymean
 ```
-
 ```{r}
 mysd
 ```
-Let's compare with ```fitdistr()```!
 
-```{r}
-sw %>% fitdistr(densfun = "normal")
-```
-
-Pretty darn close! Great!
+Neat!
 
 
-### Poisson Distribution
+#### Poisson Distribution
 
 ```rpois()``` randomly samples integers (eg. 0, 1, 2, 3) from a poisson distribution, based on ```lambda```, the average rate of occurrence. We can approximate that by taking the mean of ```sw```.
 
@@ -803,18 +780,17 @@ mypois %>% hist()
 ```
 Results in a somewhat skewed distribution, bounded at zero.
 
-So how well did ```mymean``` match up with the 'best' estimate of ```lambda``` from ```fitdistr()```?
+Where's the mean `lambda`?
 
 ```{r}
 mymean
 ```
-```{r}
-sw %>% fitdistr(densfun = "Poisson")
-```
+
+
 Excellent!
 
 
-### Gamma Distribution
+#### Gamma Distribution
 
 ```rgamma()``` randomly samples positive real numbers greater than zero from a gamma distribution. It's like the continuous version of ```rpois()```. It requires 2 paramters, ```shape``` and ```rate```. You can estimate these a couple of different ways, but a simple one is to use the **method of moments**, which says that: 
 
@@ -835,7 +811,8 @@ mygamma <- rgamma(1000, shape = myshape, rate = myrate)
 ## View it!
 mygamma %>% hist()
 ```
-So how well did ```myshape``` and ```myrate``` match up with the 'best-fit' estimates from ```fitdistr()```?
+
+So what are the parameter values for this distribution?
 
 ```{r}
 myshape
@@ -843,13 +820,11 @@ myshape
 ```{r}
 myrate
 ```
-```{r}
-sw %>% fitdistr(densfun = "gamma")
-```
-Pretty good! In the same ballpark.
+
+Neat!
 
 
-### Exponential Distribution
+#### Exponential Distribution
 
 ```rexp()``` randomly simulates positive real numbers over zero from an [exponential distribution](https://en.wikipedia.org/wiki/Exponential_distribution). Here, the **method of moments** says:
 
@@ -866,22 +841,22 @@ myexp <- rexp(n = 1000, rate = myrate_e)
 myexp %>% hist()
 ```
 
-How then did ```myrate_e``` match up with the estimates from ```fitdistr()```?
+So what's the rate `lambda` for our data, assuming an exponential distribution?
 
 ```{r}
 myrate_e
 ```
-```{r}
-sw %>% fitdistr(densfun = "exponential")
-```
+
+
 Pretty solid!
 
 
-### Weibull Distribution
+#### Weibull Distribution
 
-```rweibull()``` randomly samples positive real numbers over zero too, but from a [Weibull distribution](https://en.wikipedia.org/wiki/Weibull_distribution). It requires a ```shape``` and ```scale``` parameter, but its **method of moments** equation is pretty complex. Once we get into Weibull distribution territory, it's better to just use ```fitdistr()```. 
+```rweibull()``` randomly samples positive real numbers over zero too, but from a [Weibull distribution](https://en.wikipedia.org/wiki/Weibull_distribution). It requires a ```shape``` and ```scale``` parameter, but its **method of moments** equation is pretty complex. Once we get into Weibull distribution territory, we'll need to use an advanced concept called maximum likelihood estimation, with the `fitdistr()` from the `MASS` package. You can read more about it in the apppendix.
 
 ```{r}
+# Estimate the shape and scale parameters for a weibull distribution
 mystats <- sw %>% fitdistr(densfun = "weibull")
 
 # Here, we're going to extract the estimate for shape
@@ -897,10 +872,11 @@ myweibull <- rweibull(n = 1000, shape = myshape_w, scale = myscale_w)
 myweibull %>% hist()
 ```
 
+### Special Distributions
 
-### Binomial Distribution
+#### Binomial Distribution
 
-Next, the binomial distribution is a bit of a special case, in that it's mostly only helpful for binary variables (with values 0 and 1). But let's try an example anyways. ```rbinom()``` randomly draws ```n``` simulated values from a set of provided values at a given probability (```prob```). It's usually used for drawing binary variables (0 and 1); a coin flip would have ```prob = 0.5```, or a 50-50 chance. (This time we can't use ```fitdistr()```.)
+Next, the binomial distribution is a bit of a special case, in that it's mostly only helpful for binary variables (with values 0 and 1). But let's try an example anyways. ```rbinom()``` randomly draws ```n``` simulated values from a set of provided values at a given probability (```prob```). It's usually used for drawing binary variables (0 and 1); a coin flip would have ```prob = 0.5```, or a 50-50 chance.
 
 ```{r}
 rbinom(n = 10, size = 1, prob = 0.5)
@@ -919,7 +895,7 @@ mybinom %>% hist()
 ```
 
 
-### Uniform Distribution
+#### Uniform Distribution
 
 Finally, the uniform distribution is also a special case. The frequency of values in a uniform distribution is *more-or-less* **uniform**. It also *only spans the length of a specified interval* $a \to b$. A common range is `a = 0` to `b = 1`. So, the frequency of `1.5` in that interval would be... *zero*.
 
@@ -968,6 +944,7 @@ g1 <- ggplot(data = mysim, mapping = aes(x = x, fill = type)) +
 # Then view it!
 g1
 ```
+
 Personally, I can't read much out of that, so it would be helpful to narrow in the x-axis a bit. We can do that with ```xlim()```, narrowing to just between values ```0``` and ```10```.
 
 ```{r}
@@ -986,7 +963,7 @@ Beautiful! Wow! It looks like the **Normal**, **Gamma**, and **Weibull** distrib
 
 ---
 
-## Learning Check 4 {.unnumbered .LC}
+### Learning Check 4 {.unnumbered .LC}
 
 **Question**
   

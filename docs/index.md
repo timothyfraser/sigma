@@ -1,7 +1,7 @@
 ---
 title: "System Reliability and Six Sigma in R"
 author: "Timothy Fraser, PhD"
-date: "2023-11-07"
+date: "2024-08-22"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -14,7 +14,7 @@ description: "Your online textbook for learning reliability and six sigma techni
 
 # Introduction {.unnumbered}
 
-Your online textbook for learning reliability and six sigma techniques in R! These coding workshops were made for Cornell University Course SYSEN 5300. Follow along with RStudio.Cloud to learn to apply six sigma techniques in R!
+Your online textbook for learning reliability and six sigma techniques in R! These coding workshops were made for Cornell University Course SYSEN 5300. Follow along with Posit.Cloud to learn to apply six sigma techniques in R!
 
 <div class="figure">
 <img src="images/dice.jpg" alt="Photo by &lt;a href='https://unsplash.com/ja/@tamiminaser?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'&gt;Naser Tamimi&lt;/a&gt; on &lt;a href='https://unsplash.com/s/photos/statistics?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'&gt;Unsplash&lt;/a&gt;" width="100%" />

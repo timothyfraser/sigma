@@ -1,0 +1,111 @@
+# Appendix A: Visualization {.unnumbered}
+
+Looking for extra information on making the perfect visualization? See below for extra Learning Checks!
+
+## Learning Check 7 {.unnumbered #LC7}
+
+**Question**
+
+Sometimes, the names of categories won't fit well. We can try the following. Compare these two plots. What did we do?
+
+
+```r
+library(ggplot2)
+diamonds = ggplot2::diamonds
+# Plot 1
+gg1 = gg1 = ggplot(data = diamonds, mapping = aes(x = cut, y = price, 
+                                      group = cut, fill = cut)) +
+  geom_boxplot()
+# Plot2
+ggplot(data = diamonds, mapping = aes(x = cut, y = price, 
+                                      group = cut, fill = cut)) +
+  geom_boxplot() + 
+  coord_flip()
+```
+
+
+<details><summary>**[View Answer!]**</summary>
+
+We used `coord_flip()` to **flip** the coordinates of the `x` and `y` axis, which gives our `cut` labels more room!
+
+</details>
+
+---
+
+<br>
+<br>
+<br>
+
+---
+
+## Learning Check 8 {.unnumbered #LC8}
+
+**Question**
+
+Sometimes, the legend doesn't fit well. We can try this:
+
+What happens when you change `legend.position` from `"right"` to `"bottom"` to `"left"` to `"top"`?
+
+
+```r
+library(ggplot2)
+diamonds = ggplot2::diamonds
+ggplot(data = diamonds, mapping = aes(x = cut, y = price,
+  group = cut, fill = cut)) +
+  geom_boxplot() + coord_flip() +
+  theme(legend.position = "bottom")
+ggplot(data = diamonds, mapping = aes(x = cut, y = price,
+  group = cut, fill = cut)) +
+  geom_boxplot() + coord_flip() +
+  theme(legend.position = "right")
+ggplot(data = diamonds, mapping = aes(x = cut, y = price, 
+  group = cut, fill = cut)) +
+  geom_boxplot() + coord_flip() +
+  theme(legend.position = "left")
+ggplot(data = diamonds, mapping = aes(x = cut, y = price, 
+  group = cut, fill = cut)) +
+  geom_boxplot() + coord_flip() +
+  theme(legend.position = "top")
+```
+
+
+<details><summary>**[View Answer!]**</summary>
+
+These four values for `legend.position` will relocate the `fill` legend (and any other legends) to be at the top, bottom, left, or right of the visual!
+
+</details>
+
+---
+
+
+## Breaking Up a Visual {-}
+
+Finally, we might want to break up our visual into multiple parts. We can use `facet_wrap` to do this, but how exactly does it work? Let's test it out in the **Learning Check** below.
+
+---
+
+## Learning Check 10 {.unnumbered #LC10}
+
+**Question**
+
+What changed in the code below, and what did it result in?
+
+
+```r
+library(ggplot2)
+diamonds = ggplot2::diamonds
+ggplot(data = diamonds, mapping = aes(x = price, fill = cut)) +
+  geom_histogram(color = "white") + 
+  facet_wrap(~cut) + # must be categorical variable
+  labs(x = "Price (USD)",
+       y = "Frequency of Price (Count)",
+       title = "US Diamond Sales")
+```
+
+<details><summary>**[View Answer!]**</summary>
+
+This visual split up our histograms into separate panels (making it much more readable), and easier to compare distributions. We write `facet_wrap(~` before the variable name (eg. `cut`) to specify that we want to split up the data by the values of `cut`. This sorts our rows of data into 5 different piles (since there are 5 different categories in `cut`) and makes a panel out of each.
+
+</details>
+
+---

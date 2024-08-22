@@ -1,11 +1,9 @@
-This is a minimal bookdown example. Although you see a few files here, only `index.Rmd` is required. All other files are optional, but `bookdown-minimal.Rproj` can make it much easier to build the book.
+# `sigma`
 
-The key is the `site` setting in `index.Rmd`. If you want to build the book in RStudio, just click the `Build Book` button in the `Build` pane, otherwise call the function in R:
+Welcome to Your online textbook for learning reliability and six sigma techniques in R! These coding workshops were made for Cornell University Course SYSEN 5300. 
 
-```r
-bookdown::render_book('index.Rmd', 'all')
-```
+- Follow along with [Posit.Cloud](https://posit.cloud) to learn to apply six sigma techniques in R!
 
-# Issue Log:
+- To read this textbook, go to https://www.timothyfraser.com/sigma
 
-- 13_workshop.Rmd, lines 634 ish --> oneway.test() doesn't work.
+- To access the data for this textbook, download a copy from https://github.com/timothyfraser/sysen

@@ -16,7 +16,7 @@ This tutorial will introduce you to **Failure Modes and Effects Analysis (FMEA)*
 
 ## Getting Started {-}
 
-Please open up your project on RStudio.Cloud, for our [Github class repository](https://github.com/timothyfraser/sysen). Start a new R script (File \>\> New \>\> R Script). Save the R script as `lesson_3.R`. And let's get started!
+Please open up your project on Posit.Cloud, for our [Github class repository](https://github.com/timothyfraser/sysen). Start a new R script (File \>\> New \>\> R Script). Save the R script as `lesson_3.R`. And let's get started!
 
 ### Load Packages  {-}
 

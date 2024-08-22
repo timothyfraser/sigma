@@ -44,7 +44,7 @@ This tutorial will introduce you to **probability** and how to code and visualiz
 
 ## Getting Started {-}
 
-Please open up your RStudio.Cloud project. Start a new R script (File >> New >> R Script). Save the R script as ```workshop_3.R```. And let's get started!
+Please open up your Posit.Cloud project. Start a new R script (File >> New >> R Script). Save the R script as ```workshop_3.R```. And let's get started!
 
 ### Load Packages {-}
 
