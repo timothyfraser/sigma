@@ -1,1 +1,1 @@
-# (PART) Part 6: Regression {.unnumbered #part_6} 
+# (PART) Regression {.unnumbered #part_6} 

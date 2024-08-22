@@ -26,8 +26,8 @@ library(tidyverse)
 
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-928edeb8cc9de145fb8c" style="width:100%;height:144px;"></div>
-<script type="application/json" data-for="htmlwidget-928edeb8cc9de145fb8c">{"x":{"diagram":"graph LR\n subgraph before\n i[input data <i>x<\/i>]\n end\n subgraph function\n c[calculation]\n end\n subgraph after\n o[output data <i>y<\/i>]\n end\n i --> c\n c --> o"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-3369f1be264526cd70b9" style="width:100%;height:144px;"></div>
+<script type="application/json" data-for="htmlwidget-3369f1be264526cd70b9">{"x":{"diagram":"graph LR\n subgraph before\n i[input data <i>x<\/i>]\n end\n subgraph function\n c[calculation]\n end\n subgraph after\n o[output data <i>y<\/i>]\n end\n i --> c\n c --> o"},"evals":[],"jsHooks":[]}</script>
 ```
 
 Below, we'll write an example function, called `add(a, b)`. 

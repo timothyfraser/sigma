@@ -607,7 +607,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="12.7" data-path="workshop-physical-acceleration-models.html"><a href="workshop-physical-acceleration-models.html#conclusion-9"><i class="fa fa-check"></i><b>12.7</b> Conclusion</a></li>
 </ul></li>
-<li class="part"><span><b>VI Part 6: Regression</b></span></li>
+<li class="part"><span><b>VI Regression</b></span></li>
 <li class="chapter" data-level="13" data-path="workshop-bivariate-regression-modeling-diamond-pricing.html"><a href="workshop-bivariate-regression-modeling-diamond-pricing.html"><i class="fa fa-check"></i><b>13</b> Workshop: Bivariate Regression: Modeling Diamond Pricing</a>
 <ul>
 <li class="chapter" data-level="" data-path="workshop-bivariate-regression-modeling-diamond-pricing.html"><a href="workshop-bivariate-regression-modeling-diamond-pricing.html#getting-started-14"><i class="fa fa-check"></i>Getting Started</a>
@@ -1099,7 +1099,7 @@ Causes and Probabilities:
 <pre><code>## # A tibble: 1 × 2
 ##   mu_top sigma_top
 ##    &lt;dbl&gt;     &lt;dbl&gt;
-## 1  0.509     0.500</code></pre>
+## 1  0.497     0.500</code></pre>
 </div>
 <div id="simulating-uncertainty-in-failure-rates" class="section level2 hasAnchor" number="11.6">
 <h2><span class="header-section-number">11.6</span> Simulating Uncertainty in Failure Rates<a href="fault-tree-analysis-in-r.html#simulating-uncertainty-in-failure-rates" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -1140,9 +1140,9 @@ Causes and Probabilities:
 <pre><code>## # A tibble: 3 × 3
 ##    reps     t    prob
 ##   &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;
-## 1     1     1 0.00998
-## 2     1     2 0.0199 
-## 3     1     3 0.0297</code></pre>
+## 1     1     1 0.00984
+## 2     1     2 0.0196 
+## 3     1     3 0.0292</code></pre>
 <div class="sourceCode" id="cb906"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb906-1"><a href="fault-tree-analysis-in-r.html#cb906-1" tabindex="-1"></a><span class="co"># And then we could get quantities of interest for each time period!</span></span>
 <span id="cb906-2"><a href="fault-tree-analysis-in-r.html#cb906-2" tabindex="-1"></a>probs6 <span class="ot">=</span> probs5 <span class="sc">%&gt;%</span></span>
 <span id="cb906-3"><a href="fault-tree-analysis-in-r.html#cb906-3" tabindex="-1"></a>  <span class="fu">group_by</span>(t) <span class="sc">%&gt;%</span></span>
@@ -1160,9 +1160,9 @@ Causes and Probabilities:
 <pre><code>## # A tibble: 3 × 7
 ##       t      mu     sigma   lower  upper lower_approx upper_approx
 ##   &lt;int&gt;   &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-## 1     1 0.00995 0.0000960 0.00975 0.0101       0.0101       0.0101
-## 2     2 0.0198  0.000190  0.0194  0.0202       0.0202       0.0202
-## 3     3 0.0296  0.000282  0.0290  0.0301       0.0301       0.0301</code></pre>
+## 1     1 0.00995 0.0000986 0.00976 0.0101       0.0101       0.0101
+## 2     2 0.0198  0.000195  0.0194  0.0202       0.0202       0.0202
+## 3     3 0.0295  0.000290  0.0290  0.0301       0.0301       0.0301</code></pre>
 <p>Let’s visualize that confidence interval over time!</p>
 <div class="sourceCode" id="cb908"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb908-1"><a href="fault-tree-analysis-in-r.html#cb908-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb908-2"><a href="fault-tree-analysis-in-r.html#cb908-2" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> probs6, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper))</span></code></pre></div>
@@ -1289,9 +1289,9 @@ Causes and Probabilities:
 <pre><code>## # A tibble: 3 × 7
 ##       t lower_a upper_a lower_b upper_b lower_c upper_c
 ##   &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-## 1     1  0.0469  0.0507  0.0277  0.0315  0.0179  0.0217
-## 2     2  0.0916  0.0988  0.0547  0.0620  0.0355  0.0429
-## 3     3  0.134   0.145   0.0809  0.0915  0.0527  0.0636</code></pre>
+## 1     1  0.0470  0.0506  0.0276  0.0314  0.0178  0.0219
+## 2     2  0.0918  0.0986  0.0545  0.0618  0.0353  0.0432
+## 3     3  0.135   0.144   0.0806  0.0913  0.0525  0.0642</code></pre>
 <div class="sourceCode" id="cb919"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb919-1"><a href="fault-tree-analysis-in-r.html#cb919-1" tabindex="-1"></a><span class="co"># Let&#39;s make the plot!</span></span>
 <span id="cb919-2"><a href="fault-tree-analysis-in-r.html#cb919-2" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb919-3"><a href="fault-tree-analysis-in-r.html#cb919-3" tabindex="-1"></a>  <span class="co"># Plot bands for event a</span></span>

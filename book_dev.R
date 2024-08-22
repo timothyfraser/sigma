@@ -31,9 +31,9 @@ getwd()
 
 bookdown::render_book(input = "index.Rmd", new_session = TRUE, output_format = "bookdown::gitbook")
 # Assuming we're happy, commit it!
-# gert::git_add(files = dir(all.files = TRUE, recursive = TRUE))
-# gert::git_commit_all(message = "...")
-# gert::git_push() # Push to Github!
+gert::git_add(files = dir(all.files = TRUE, recursive = TRUE))
+gert::git_commit_all(message = "...")
+gert::git_push() # Push to Github!
 
 # Clear environment
 rm(list = ls())
