@@ -1,4 +1,4 @@
-# Skill: Functions in `R` {.unnumbered}
+# Functions in `R` {.unnumbered}
 
 
 
@@ -20,14 +20,14 @@ library(tidyverse)
 
 <br>
 
-## Coding your own function! {-}
+## Coding your own function! 
 
 `Functions` are machines that do a specific **calculation** using an **input** to produce a specific **output**.
 
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-3369f1be264526cd70b9" style="width:100%;height:144px;"></div>
-<script type="application/json" data-for="htmlwidget-3369f1be264526cd70b9">{"x":{"diagram":"graph LR\n subgraph before\n i[input data <i>x<\/i>]\n end\n subgraph function\n c[calculation]\n end\n subgraph after\n o[output data <i>y<\/i>]\n end\n i --> c\n c --> o"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-070cde5fa44bf85642dc" style="width:100%;height:144px;"></div>
+<script type="application/json" data-for="htmlwidget-070cde5fa44bf85642dc">{"x":{"diagram":"graph LR\n subgraph before\n i[input data <i>x<\/i>]\n end\n subgraph function\n c[calculation]\n end\n subgraph after\n o[output data <i>y<\/i>]\n end\n i --> c\n c --> o"},"evals":[],"jsHooks":[]}</script>
 ```
 
 Below, we'll write an example function, called `add(a, b)`. 
@@ -74,7 +74,7 @@ add(1, 2)
 <br>
 <br>
 
-## Functions with Default Inputs {-}
+## Functions with Default Inputs
 
 - You can also assign default `input` values to your `function`. Below, we write that by default, `b = 2`. If we supply a different `b`, the default will get overwritten, but otherwise, we won't need to supply `b`.
 
@@ -124,6 +124,8 @@ add(1, 3)
 # clear data
 remove(add)
 ```
+
+## Conclusion {-}
 
 Great! Let's go make some functions!
 

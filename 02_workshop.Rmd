@@ -74,7 +74,7 @@ data.frame(
   kable_classic(full_width = FALSE, lightable_options = c("striped", "condensed"))
 ```
 
-### Data
+## Our Data
 
 Below, we will learn several functions for describing Size, Location, and Spread in a distribution. (We'll get to shape in a minute.) To do this, we're going to use a data sample of seawalls, describing the height in meters of several cities' seawalls. Let's encode that vector below.
 
@@ -85,9 +85,9 @@ sw <- c(4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4)
 sw
 ```
 
-### Size
+## Size
 
-#### Length
+### Length
 
 *How big is our sample?* Use ```length()``` on a vector to find the number of values in the vector ```sw``` we made in **LC1.**
 
@@ -95,7 +95,7 @@ sw
 length(sw)
 ```
 
-### Location
+## Location
 
 **Where is our sample clumped?**
 
@@ -103,7 +103,7 @@ length(sw)
 knitr::include_graphics("images/2_distribution_location.png")
 ```
 
-#### Mean
+### Mean
 
 Use ```mean()``` and ```median()``` to find the most central values. 
 
@@ -111,13 +111,13 @@ Use ```mean()``` and ```median()``` to find the most central values.
 sw %>% mean()
 ```
 
-#### Median
+### Median
 
 ```{r}
 sw %>% median()
 ```
 
-#### Mode
+### Mode
 
 Fun fact: ```mode()``` doesn't work in R; it's huge pain. You have to use this code instead.
 
@@ -125,7 +125,7 @@ Fun fact: ```mode()``` doesn't work in R; it's huge pain. You have to use this c
 sw %>% table() %>% sort(decreasing = TRUE)
 ```
 
-### Spread (1)
+## Spread (1)
 
 **How much does our sample vary?**
 
@@ -133,7 +133,7 @@ sw %>% table() %>% sort(decreasing = TRUE)
 knitr::include_graphics("images/2_distribution_spread.png")
 ```
 
-#### Percentile
+### Percentile
 
 Use ```quantile()``` to check for any percentile in a vector, from 0 (min) to 0.5 (median) to 1 (max). If you have ```quantile()```, you don't need to remember ```min()```, ```max()```, ```range()```, or even ```median()```.
 
@@ -193,9 +193,9 @@ quantile(aqi, probs = 0.75)
 <br>
 <br>
 
-### Spread (2)
+## Spread (2)
 
-#### Standard Deviation
+### Standard Deviation
 
 But we can also evaluate how much our values vary from the mean *on average* - the standard deviation, often abbreviated as \( \sigma \) (sigma). This is written as:
 
@@ -215,7 +215,7 @@ sqrt( sum((sw - mean(sw))^2) / (length(sw) - 1) )
 sw %>% sd()
 ```
 
-#### Variance
+### Variance
 
 Sometimes, we might want the variance, which is the standard deviation *squared*. This accentuates large deviations in a sample.
 
@@ -226,7 +226,7 @@ sd(sw)^2
 # See? var = sd^2!
 ```
 
-#### Coefficient of Variation (CV)
+### Coefficient of Variation (CV)
 
 We could also calculate the coefficient of variation (CV), meaning how great a share of the mean does that average variation constitute? (Also put, how many times does the mean fit into the standard deviation.)
 
@@ -236,7 +236,7 @@ sd(sw) / mean(sw)
 
 The standard deviation constitutes `r round(sd(sw) / mean(sw), 2)*100`% of the size of the mean seawall height.
 
-#### Standard Error (SE)
+### Standard Error (SE)
 
 But these numbers don't have much meaning to us, unless we know seawalls *really well*. Wouldn't it be nice if we had a kind of uniform measure, that told us *how big is the variation in the data*, given how big the data is itself? Good news! We do! We can calculate the *sample size-adjusted variance* like so:
 
@@ -334,11 +334,11 @@ remove(cheese, se, cv)
 <br>
 <br>
 
-### Shape
+## Shape
 
 How then do we describe the *shape* of a distribution? We can use **skewness** and **kurtosis** for this. There's no direct function for skewness or kurtosis in `R`, but as you'll see below, we can quickly calculate it using the functions we already know.
 
-#### Skewness
+### Skewness
 
 Skewness describes whether the bulk of the distribution sits to the left or right of the center, and its formula are written out below. It is commonly estimated using the formula on the left, while the formula on the right closely approximates it. (We're going to use the right-hand formula below, since it's a little cleaner.)
 
@@ -506,7 +506,7 @@ remove(ex, exlong, exstat, mylines)
 <br>
 <br>
 
-#### Kurtosis
+### Kurtosis
 
 Kurtosis describes how tightly bound the distribution is around the mean. Is it extremely pointy, with a narrow distribution (high kurtosis), or does it span wide (low kurtosis)? We can estimate it using the formula on the left, and the formula on the right is approximately the same.
 
@@ -719,7 +719,7 @@ data.frame(
 
 To determine what kind of distribution our vector has, we can visually compare it using **simulation**. We can compare our real observed distribution against random distributions to determine whether our data matches the shape of a normal vs. poisson distribution, for example.
 
-### Finding Parameters for your Distribution
+## Finding Parameters for your Distribution
 
 To do so, let's get some statistics from our data to help us visualize what a distribution with those traits would look like. As our raw data, let's use our vector of seawall heights ```sw```.
 
@@ -739,9 +739,9 @@ Fortunately, statisticians have figured out for us 2 ways to figure out what sta
 <br>
 <br>
 
-### Common Distributions
+## Common Distributions
 
-#### Normal Distribution
+### Normal Distribution
 
 ```rnorm()``` randomly generates for us any number of values randomly sampled from a normal distribution. We just need to supply: (1) ```n``` values to draw, (2) the ```mean``` of that distribution, and (3) the ```sd``` of that distribution.
 
@@ -769,7 +769,7 @@ mysd
 Neat!
 
 
-#### Poisson Distribution
+### Poisson Distribution
 
 ```rpois()``` randomly samples integers (eg. 0, 1, 2, 3) from a poisson distribution, based on ```lambda```, the average rate of occurrence. We can approximate that by taking the mean of ```sw```.
 
@@ -790,7 +790,36 @@ mymean
 Excellent!
 
 
-#### Gamma Distribution
+
+
+
+### Exponential Distribution
+
+```rexp()``` randomly simulates positive real numbers over zero from an [exponential distribution](https://en.wikipedia.org/wiki/Exponential_distribution). Here, the **method of moments** says:
+
+- ```rate``` \( \approx \frac{ 1 }{ mean }) \)
+
+```{r}
+# We'll name this myrate2!
+myrate_e <- 1 / mean(sw)
+
+# Simulate it!
+myexp <- rexp(n = 1000, rate = myrate_e)
+
+# Visualize it!
+myexp %>% hist()
+```
+
+So what's the rate `lambda` for our data, assuming an exponential distribution?
+
+```{r}
+myrate_e
+```
+
+
+Pretty solid!
+
+### Gamma Distribution
 
 ```rgamma()``` randomly samples positive real numbers greater than zero from a gamma distribution. It's like the continuous version of ```rpois()```. It requires 2 paramters, ```shape``` and ```rate```. You can estimate these a couple of different ways, but a simple one is to use the **method of moments**, which says that: 
 
@@ -823,35 +852,7 @@ myrate
 
 Neat!
 
-
-#### Exponential Distribution
-
-```rexp()``` randomly simulates positive real numbers over zero from an [exponential distribution](https://en.wikipedia.org/wiki/Exponential_distribution). Here, the **method of moments** says:
-
-- ```rate``` \( \approx \frac{ 1 }{ mean }) \)
-
-```{r}
-# We'll name this myrate2!
-myrate_e <- 1 / mean(sw)
-
-# Simulate it!
-myexp <- rexp(n = 1000, rate = myrate_e)
-
-# Visualize it!
-myexp %>% hist()
-```
-
-So what's the rate `lambda` for our data, assuming an exponential distribution?
-
-```{r}
-myrate_e
-```
-
-
-Pretty solid!
-
-
-#### Weibull Distribution
+### Weibull Distribution
 
 ```rweibull()``` randomly samples positive real numbers over zero too, but from a [Weibull distribution](https://en.wikipedia.org/wiki/Weibull_distribution). It requires a ```shape``` and ```scale``` parameter, but its **method of moments** equation is pretty complex. Once we get into Weibull distribution territory, we'll need to use an advanced concept called maximum likelihood estimation, with the `fitdistr()` from the `MASS` package. You can read more about it in the apppendix.
 
@@ -872,9 +873,9 @@ myweibull <- rweibull(n = 1000, shape = myshape_w, scale = myscale_w)
 myweibull %>% hist()
 ```
 
-### Special Distributions
+## Special Distributions
 
-#### Binomial Distribution
+### Binomial Distribution
 
 Next, the binomial distribution is a bit of a special case, in that it's mostly only helpful for binary variables (with values 0 and 1). But let's try an example anyways. ```rbinom()``` randomly draws ```n``` simulated values from a set of provided values at a given probability (```prob```). It's usually used for drawing binary variables (0 and 1); a coin flip would have ```prob = 0.5```, or a 50-50 chance.
 
@@ -895,7 +896,7 @@ mybinom %>% hist()
 ```
 
 
-#### Uniform Distribution
+### Uniform Distribution
 
 Finally, the uniform distribution is also a special case. The frequency of values in a uniform distribution is *more-or-less* **uniform**. It also *only spans the length of a specified interval* $a \to b$. A common range is `a = 0` to `b = 1`. So, the frequency of `1.5` in that interval would be... *zero*.
 

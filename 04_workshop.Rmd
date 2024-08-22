@@ -371,9 +371,37 @@ breaks within a year is...
 1 - rcup(days = 365.25)^5
 ```
 
-## Types of Failure Rates
+## Table of Failure-Related Functions
 
-### Hazard Rate Function
+```{r tab_functions, echo = FALSE}
+tibble(
+  Function = c("$F(t)$", "$R(t)$", "$f(t)$", "$z(t)$","$H(t)$", "$AFR(t_1,t_2)$"),
+  Name = c("Failure Function", "Reliability Distribution", 
+              "Change in Failure Function", "Failure Rate (Hazard Rate)", 
+              "Accumulative Hazard Rate", "Average Failure Rate"),
+  `Formula` = c("$1 - e^{-\\lambda t}$", 
+             "$e^{-\\lambda t}$",
+             "$\\frac{F(t + \\Delta t) - F(t)}{\\Delta t}$",
+             "$\\frac{f(t)}{R(t)}$",
+             "$-log( R(t) )$",
+             "$\\frac{H(t_{2}) - H(t_{1})}{t_{2} - t_{1}}$"),
+  `Equivalency` = c("$1 - e^{-H(t)}$", "$e^{-H(t)}$", "$-R'(t)$",
+                    "$\\lambda = \\frac{1}{m}$",  "$\\lambda t$",
+                    "$\\frac{log(R(t_{1})) -log(R(t_{2})}{t_{2} - t_{1}}$"),
+  `Meaning` = c("Cumulative Distribution Function (CDF) of Lifespans",
+                "Remainder of CDF for Lifespans",
+                "Change in CDF at time $t_{2}$ $-$ at $t_{1}$, per extra timestep",
+                "Mean Failure Rate $\\lambda$; Inverse of Mean Time to Fail $m$",
+                "Total Risk of Failure gained from time 0 to $t$",
+                "Average failures per timestep between times $t_{1}$ and $t_{2}$")
+) %>%
+  kable(escape = FALSE,
+        caption = tabcap("Failure and Reliability Functions")) %>%
+  kable_styling() %>%
+  column_spec(1, bold = TRUE, color = c("#DC267F", "#648FFF", "#785EF0", "#EA5A00", "#C99728", "#E0712B"))
+```
+
+## Hazard Rate Function
 
 But if a unit has survived up until now, shouldn't its odds of failing
 change? We can express this as:
@@ -392,7 +420,7 @@ zcup = function(days, plus = 1){
 
 ```
 
-### Accumulative Hazard Function
+## Accumulative Hazard Function
 
 -   $H(t)$: total accumulated risk of experiencing the event of interest
     that has been gained by progressing from 0 to time $t$.
@@ -406,7 +434,7 @@ hcup = function(days){ -1*log( rcup(days) ) }
 hcup(100)
 ```
 
-### Average Failure Rate
+## Average Failure Rate
 
 The hazard rate $z(t)$ varies over time, so let's generate a single
 statistic to summarize the distribution of hazard rates that $z(t)$ can
@@ -442,35 +470,6 @@ afrcup(5)
 
 ```
 
-### Table of Functions
-
-```{r tab_functions, echo = FALSE}
-tibble(
-  Function = c("$F(t)$", "$R(t)$", "$f(t)$", "$z(t)$","$H(t)$", "$AFR(t_1,t_2)$"),
-  Name = c("Failure Function", "Reliability Distribution", 
-              "Change in Failure Function", "Failure Rate (Hazard Rate)", 
-              "Accumulative Hazard Rate", "Average Failure Rate"),
-  `Formula` = c("$1 - e^{-\\lambda t}$", 
-             "$e^{-\\lambda t}$",
-             "$\\frac{F(t + \\Delta t) - F(t)}{\\Delta t}$",
-             "$\\frac{f(t)}{R(t)}$",
-             "$-log( R(t) )$",
-             "$\\frac{H(t_{2}) - H(t_{1})}{t_{2} - t_{1}}$"),
-  `Equivalency` = c("$1 - e^{-H(t)}$", "$e^{-H(t)}$", "$-R'(t)$",
-                    "$\\lambda = \\frac{1}{m}$",  "$\\lambda t$",
-                    "$\\frac{log(R(t_{1})) -log(R(t_{2})}{t_{2} - t_{1}}$"),
-  `Meaning` = c("Cumulative Distribution Function (CDF) of Lifespans",
-                "Remainder of CDF for Lifespans",
-                "Change in CDF at time $t_{2}$ $-$ at $t_{1}$, per extra timestep",
-                "Mean Failure Rate $\\lambda$; Inverse of Mean Time to Fail $m$",
-                "Total Risk of Failure gained from time 0 to $t$",
-                "Average failures per timestep between times $t_{1}$ and $t_{2}$")
-) %>%
-  kable(escape = FALSE,
-        caption = tabcap("Failure and Reliability Functions")) %>%
-  kable_styling() %>%
-  column_spec(1, bold = TRUE, color = c("#DC267F", "#648FFF", "#785EF0", "#EA5A00", "#C99728", "#E0712B"))
-```
 
 ## Units
 

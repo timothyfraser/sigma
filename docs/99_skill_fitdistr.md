@@ -48,7 +48,7 @@ Let's use the exponential distribution as a helpful example. It has one paramete
 
 Let's calculate the `rate` parameter a few ways, using (1) the method of moments, (2) maximum likelihood estimation (MLE) using `fitdistr()`, and (3) maximum likelihood estimation (MLE) using `optim()`.
 
-### Method of Moments
+## Method of Moments
 
 
 ```r
@@ -69,7 +69,7 @@ Let's calculate the `rate` parameter a few ways, using (1) the method of moments
 ## [1] 0.1869159
 ```
 
-### Maximum Likelihood Estimation with `fitdistr()`
+## MLE with `fitdistr()`
 
 Let's ask `fitdistr` to run maximum likelihood estimation.
 
@@ -88,7 +88,7 @@ sw %>% MASS::fitdistr(densfun = "exponential")
 
 Pretty darn similar to the value we got from the method of moments, right?
 
-### Maximum Likelihood Estimation with `optim()`
+## MLE with `optim()`
 
 Alternatively, we could run maximum likelihood estimation manually, using `optim()`. `optim()` is `R`'s built in optimization function. We'll learn maximum likelihood estimation a little more later in the book. The key idea is this:
 

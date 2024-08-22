@@ -589,7 +589,7 @@ mrsim %>% mean()
 ```
 
 ```
-## [1] 1.123763
+## [1] 1.107239
 ```
 
 
@@ -599,7 +599,7 @@ mrsim %>% sd()
 ```
 
 ```
-## [1] 0.8481172
+## [1] 0.8391074
 ```
 
 But why stop there? We can calculate loads of other interesting statistics!
@@ -614,7 +614,7 @@ mrsim %>%
 
 ```
 ##   50%   90%   95% 
-## 0.945 2.330 2.768
+## 0.935 2.283 2.716
 ```
 
 <br>
@@ -726,7 +726,7 @@ dn(n = 2)
 ## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   <dbl> <dbl> <dbl> <dbl>
-## 1  1.14 0.847     0  3.24
+## 1  1.12 0.843     0  3.27
 ```
 
 
@@ -743,7 +743,7 @@ d
 ## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   <dbl> <dbl> <dbl> <dbl>
-## 1  3.74 0.727 0.417  1.58
+## 1  3.74 0.728 0.416  1.58
 ```
 
 <br>
@@ -786,7 +786,7 @@ mydstat
 ## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   <dbl> <dbl> <dbl> <dbl>
-## 1  3.74 0.732 0.412  1.59
+## 1  3.73 0.731 0.412  1.59
 ```
 
 And use these constants to estimate the upper and lower CI for $\bar{r}$!
@@ -913,7 +913,7 @@ mybstat
 ## # A tibble: 1 × 6
 ##      b2    b3    C4    A3    B3    B4
 ##   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-## 1 0.987 0.162 0.987 0.680 0.507  1.49
+## 1 0.987 0.161 0.987 0.680 0.510  1.49
 ```
 
 Finally, let's calculate our control limits!
@@ -936,7 +936,7 @@ stat %>%
 ## # A tibble: 1 × 3
 ##    sbar sbar_lower sbar_upper
 ##   <dbl>      <dbl>      <dbl>
-## 1  1.94      0.981       2.89
+## 1  1.94      0.988       2.88
 ```
 
 Now you're all ready to make a control chart showing variation in the standard deviation!
@@ -971,15 +971,15 @@ dx
 ## # A tibble: 9 × 3
 ##       n    d2    d3
 ##   <int> <dbl> <dbl>
-## 1     2  1.13 0.854
-## 2     3  1.68 0.886
-## 3     4  2.07 0.875
-## 4     5  2.32 0.867
-## 5     6  2.53 0.841
-## 6     7  2.71 0.838
-## 7     8  2.84 0.819
-## 8     9  2.96 0.795
-## 9    10  3.07 0.795
+## 1     2  1.13 0.850
+## 2     3  1.71 0.890
+## 3     4  2.06 0.878
+## 4     5  2.33 0.863
+## 5     6  2.54 0.863
+## 6     7  2.71 0.845
+## 7     8  2.85 0.816
+## 8     9  2.98 0.804
+## 9    10  3.07 0.798
 ```
 
 </details>

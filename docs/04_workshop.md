@@ -60,8 +60,8 @@ plife <- lifespan %>% density() %>% tidy() %>%
 
 Having built these functions for our cars, we can generate the
 probability (PDF) and cumulative probability (CDF) of failure across our
-observed vector of car lifespans, from \~2.44
-to \~7.68.
+observed vector of car lifespans, from \~3.08
+to \~7.41.
 
 Reliability or Survival Analysis is concerned with *the probability*
 that a unit (our car) will still be operating by a specific time $t$,
@@ -394,9 +394,66 @@ breaks within a year is...
 ## [1] 0.9937359
 ```
 
-## Types of Failure Rates
+## Table of Failure-Related Functions
 
-### Hazard Rate Function
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>(\#tab:tab_functions)Table 1. Failure and Reliability Functions</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Function </th>
+   <th style="text-align:left;"> Name </th>
+   <th style="text-align:left;"> Formula </th>
+   <th style="text-align:left;"> Equivalency </th>
+   <th style="text-align:left;"> Meaning </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;color: #DC267F !important;"> $F(t)$ </td>
+   <td style="text-align:left;"> Failure Function </td>
+   <td style="text-align:left;"> $1 - e^{-\lambda t}$ </td>
+   <td style="text-align:left;"> $1 - e^{-H(t)}$ </td>
+   <td style="text-align:left;"> Cumulative Distribution Function (CDF) of Lifespans </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;color: #648FFF !important;"> $R(t)$ </td>
+   <td style="text-align:left;"> Reliability Distribution </td>
+   <td style="text-align:left;"> $e^{-\lambda t}$ </td>
+   <td style="text-align:left;"> $e^{-H(t)}$ </td>
+   <td style="text-align:left;"> Remainder of CDF for Lifespans </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;color: #785EF0 !important;"> $f(t)$ </td>
+   <td style="text-align:left;"> Change in Failure Function </td>
+   <td style="text-align:left;"> $\frac{F(t + \Delta t) - F(t)}{\Delta t}$ </td>
+   <td style="text-align:left;"> $-R'(t)$ </td>
+   <td style="text-align:left;"> Change in CDF at time $t_{2}$ $-$ at $t_{1}$, per extra timestep </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;color: #EA5A00 !important;"> $z(t)$ </td>
+   <td style="text-align:left;"> Failure Rate (Hazard Rate) </td>
+   <td style="text-align:left;"> $\frac{f(t)}{R(t)}$ </td>
+   <td style="text-align:left;"> $\lambda = \frac{1}{m}$ </td>
+   <td style="text-align:left;"> Mean Failure Rate $\lambda$; Inverse of Mean Time to Fail $m$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;color: #C99728 !important;"> $H(t)$ </td>
+   <td style="text-align:left;"> Accumulative Hazard Rate </td>
+   <td style="text-align:left;"> $-log( R(t) )$ </td>
+   <td style="text-align:left;"> $\lambda t$ </td>
+   <td style="text-align:left;"> Total Risk of Failure gained from time 0 to $t$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;color: #E0712B !important;"> $AFR(t_1,t_2)$ </td>
+   <td style="text-align:left;"> Average Failure Rate </td>
+   <td style="text-align:left;"> $\frac{H(t_{2}) - H(t_{1})}{t_{2} - t_{1}}$ </td>
+   <td style="text-align:left;"> $\frac{log(R(t_{1})) -log(R(t_{2})}{t_{2} - t_{1}}$ </td>
+   <td style="text-align:left;"> Average failures per timestep between times $t_{1}$ and $t_{2}$ </td>
+  </tr>
+</tbody>
+</table>
+
+## Hazard Rate Function
 
 But if a unit has survived up until now, shouldn't its odds of failing
 change? We can express this as:
@@ -415,7 +472,7 @@ zcup = function(days, plus = 1){
 }
 ```
 
-### Accumulative Hazard Function
+## Accumulative Hazard Function
 
 -   $H(t)$: total accumulated risk of experiencing the event of interest
     that has been gained by progressing from 0 to time $t$.
@@ -434,7 +491,7 @@ hcup(100)
 ## [1] 0.2777778
 ```
 
-### Average Failure Rate
+## Average Failure Rate
 
 The hazard rate $z(t)$ varies over time, so let's generate a single
 statistic to summarize the distribution of hazard rates that $z(t)$ can
@@ -500,64 +557,6 @@ afrcup(5)
 # and this is approximately....
 ```
 
-### Table of Functions
-
-<table class="table" style="margin-left: auto; margin-right: auto;">
-<caption>(\#tab:tab_functions)Table 1. Failure and Reliability Functions</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Function </th>
-   <th style="text-align:left;"> Name </th>
-   <th style="text-align:left;"> Formula </th>
-   <th style="text-align:left;"> Equivalency </th>
-   <th style="text-align:left;"> Meaning </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;color: #DC267F !important;"> $F(t)$ </td>
-   <td style="text-align:left;"> Failure Function </td>
-   <td style="text-align:left;"> $1 - e^{-\lambda t}$ </td>
-   <td style="text-align:left;"> $1 - e^{-H(t)}$ </td>
-   <td style="text-align:left;"> Cumulative Distribution Function (CDF) of Lifespans </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;color: #648FFF !important;"> $R(t)$ </td>
-   <td style="text-align:left;"> Reliability Distribution </td>
-   <td style="text-align:left;"> $e^{-\lambda t}$ </td>
-   <td style="text-align:left;"> $e^{-H(t)}$ </td>
-   <td style="text-align:left;"> Remainder of CDF for Lifespans </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;color: #785EF0 !important;"> $f(t)$ </td>
-   <td style="text-align:left;"> Change in Failure Function </td>
-   <td style="text-align:left;"> $\frac{F(t + \Delta t) - F(t)}{\Delta t}$ </td>
-   <td style="text-align:left;"> $-R'(t)$ </td>
-   <td style="text-align:left;"> Change in CDF at time $t_{2}$ $-$ at $t_{1}$, per extra timestep </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;color: #EA5A00 !important;"> $z(t)$ </td>
-   <td style="text-align:left;"> Failure Rate (Hazard Rate) </td>
-   <td style="text-align:left;"> $\frac{f(t)}{R(t)}$ </td>
-   <td style="text-align:left;"> $\lambda = \frac{1}{m}$ </td>
-   <td style="text-align:left;"> Mean Failure Rate $\lambda$; Inverse of Mean Time to Fail $m$ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;color: #C99728 !important;"> $H(t)$ </td>
-   <td style="text-align:left;"> Accumulative Hazard Rate </td>
-   <td style="text-align:left;"> $-log( R(t) )$ </td>
-   <td style="text-align:left;"> $\lambda t$ </td>
-   <td style="text-align:left;"> Total Risk of Failure gained from time 0 to $t$ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;color: #E0712B !important;"> $AFR(t_1,t_2)$ </td>
-   <td style="text-align:left;"> Average Failure Rate </td>
-   <td style="text-align:left;"> $\frac{H(t_{2}) - H(t_{1})}{t_{2} - t_{1}}$ </td>
-   <td style="text-align:left;"> $\frac{log(R(t_{1})) -log(R(t_{2})}{t_{2} - t_{1}}$ </td>
-   <td style="text-align:left;"> Average failures per timestep between times $t_{1}$ and $t_{2}$ </td>
-  </tr>
-</tbody>
-</table>
 
 ## Units
 
@@ -869,8 +868,8 @@ We can also visualize it below, where each labelled node is a component.
 <div class="figure">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-23dc0d53aed9b47c9455" style="width:672px;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-23dc0d53aed9b47c9455">{"x":{"diagram":"graph LR\n sstart(( ))\n send(( ))\n subgraph Series System\n 1\n 2\n 3\n end\n 1---2\n 2---3\n sstart---1\n 3---send"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-4164ab52830d8d1f1491" style="width:672px;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-4164ab52830d8d1f1491">{"x":{"diagram":"graph LR\n sstart(( ))\n send(( ))\n subgraph Series System\n 1\n 2\n 3\n end\n 1---2\n 2---3\n sstart---1\n 3---send"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:mermaid_series)Figure 6. Example Series System</p>
@@ -904,8 +903,8 @@ need them in `mermaid`.)
 <div class="figure">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-3f961f3e1476caba5832" style="width:100%;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-3f961f3e1476caba5832">{"x":{"diagram":"graph LR\n ostart(( ))\n oend(( ))\n subgraph Parallel System\n pstart(( ))\n 1\n 2\n 3\n pend(( ))\n pstart---1\n pstart---2\n pstart---3\n 1---pend\n 2---pend\n 3---pend\n end\n ostart---pstart\n pend---oend"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-94d1dbe40e8c02a9dfea" style="width:100%;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-94d1dbe40e8c02a9dfea">{"x":{"diagram":"graph LR\n ostart(( ))\n oend(( ))\n subgraph Parallel System\n pstart(( ))\n 1\n 2\n 3\n pend(( ))\n pstart---1\n pstart---2\n pstart---3\n 1---pend\n 2---pend\n 3---pend\n end\n ostart---pstart\n pend---oend"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:mermaid_parallel)Figure 7. Example Parallel System</p>
@@ -925,8 +924,8 @@ system.
 <div class="figure">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-f4c31600165f489f91ce" style="width:672px;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-f4c31600165f489f91ce">{"x":{"diagram":"graph LR\n subgraph Series System\n 1[1<br>R=0.80]\n 5[5<br>R=0.95]\n subgraph Parallel System\n pstart(( ))\n 2[2<br>R=0.98]\n 3[3<br>R=0.99]\n 4[4<br>R=0.90]\n pend(( ))\n pstart---2\n pstart---3\n pstart---4\n 2---pend\n 3---pend\n 4---pend\n end\n 1---pstart\n pend---5\n end"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-ff3ba6be4ade81917894" style="width:672px;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-ff3ba6be4ade81917894">{"x":{"diagram":"graph LR\n subgraph Series System\n 1[1<br>R=0.80]\n 5[5<br>R=0.95]\n subgraph Parallel System\n pstart(( ))\n 2[2<br>R=0.98]\n 3[3<br>R=0.99]\n 4[4<br>R=0.90]\n pend(( ))\n pstart---2\n pstart---3\n pstart---4\n 2---pend\n 3---pend\n 4---pend\n end\n 1---pstart\n pend---5\n end"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:nested1)Figure 8. Series System with Nested Parallel System</p>
@@ -945,8 +944,8 @@ In the Figure above, we calculate the reliability rate for the parallel system, 
 <div class="figure">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-98010dc16176cf910a66" style="width:672px;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-98010dc16176cf910a66">{"x":{"diagram":"graph LR\n subgraph Parallel System\n pbstart(( ))\n pbend(( ))\n subgraph Series System A\n 6[6<br>R=0.80]\n 7[7<br>R=0.90]\n end\n subgraph Series System B\n 8[8<br>R=0.95]\n 9[9<br>R=0.99]\n end\n pbstart---6\n 6---7\n 7---pbend\n pbstart---8\n 8---9\n 9---pbend\n end"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-2d2ab105aa7f6debd315" style="width:672px;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-2d2ab105aa7f6debd315">{"x":{"diagram":"graph LR\n subgraph Parallel System\n pbstart(( ))\n pbend(( ))\n subgraph Series System A\n 6[6<br>R=0.80]\n 7[7<br>R=0.90]\n end\n subgraph Series System B\n 8[8<br>R=0.95]\n 9[9<br>R=0.99]\n end\n pbstart---6\n 6---7\n 7---pbend\n pbstart---8\n 8---9\n 9---pbend\n end"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:nestedb)Figure 9. Parallel System with Nested Series Systems</p>
@@ -990,8 +989,8 @@ We can represent this in a system diagram below.
 <div class="figure">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-17aacf2948d6fba40891" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-17aacf2948d6fba40891">{"x":{"diagram":"graph LR\n subgraph Coffee Shop Series System\n a[Water]\n b[Coffee Grounds]\n c[Refrigerator]\n d[Dishwasher]\n e[Register]\n end\n a---b\n b---c\n c---d\n d---e"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-1f18fbb176348545db08" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-1f18fbb176348545db08">{"x":{"diagram":"graph LR\n subgraph Coffee Shop Series System\n a[Water]\n b[Coffee Grounds]\n c[Refrigerator]\n d[Dishwasher]\n e[Register]\n end\n a---b\n b---c\n c---d\n d---e"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:coffee_series)Figure 10. Example Series System in a Coffeeshop</p>

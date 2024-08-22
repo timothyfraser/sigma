@@ -91,7 +91,7 @@ tribble(
   "G2", "G5") 
 ```
 
-### Our Data
+## Our Data
 
 In this example, we're going to use the default data in `tidyfault`, called `fakenodes` and `fakeedges`. You can download it like this:
 
@@ -112,7 +112,7 @@ fakeedges
 <br>
 <br>
 
-### Getting a Fault Tree Layout
+## Getting a Fault Tree Layout
 
 Using `tidyfault`'s `illustrate()` function, we can quickly assign `x` and `y` coordinates for a 'tree' layout to to our `fakenodes` and `fakeedges`. We say `type = "both"` because we want to receive coordinates for *both* the nodes and edges.
 
@@ -133,7 +133,7 @@ gg$edges %>% head(3)
 ```
 
 
-### Visualize a Fault Tree
+## Visualize a Fault Tree
 
 ```{r}
 ggplot() +
@@ -170,7 +170,7 @@ Fault Trees are *big* - and some `events` are more critical than others. We want
 
 To do this, we're going to use an algorithm, called the MOCUS top-down algorithm. I wrote it in `R` for you! Yay!
 
-### Gates
+## Gates
 
 ```{r}
 # To get a data.frame of gates, use curate()!
@@ -179,7 +179,7 @@ g = curate(fakenodes, fakeedges)
 g
 ```
 
-### Equations
+## Equations
 
 To get the full boolean equation of the fault tree, use `equate()`!
 
@@ -197,7 +197,7 @@ f = g %>% equate() %>% formulate()
 f(A = 0.3, B = 0.5, C = 0.1, D = 0.5)
 ```
 
-### Minimal Cutsets
+## Minimal Cutsets
 
 To simplify down to the minimal cutsets, use `concentrate()`! It's pretty quick for small graphs, but gets exponentially longer the more nodes you add. (Especially with `OR` statements.) That's MOCUS's value as well as its tradeoff.
 
@@ -208,7 +208,7 @@ m = g %>%
 m
 ```
 
-### Coverage
+## Coverage
 
 We might want to know, *how important* are each of my minimal cutsets? We can compute the total number of cutsets that include the minimal cutset, the total cutsets leading to failure in general, and the percentage (`coverage`) of cutsets containing your minimal cutset out of all total cutsets leading to failure. It's basically a measure of the explanatory power of your cutsets!
 
@@ -218,7 +218,7 @@ m %>%
 ```
 
 
-# Conclusion
+## Conclusion {-}
 
 Happy Fault Tree analysis!
 
