@@ -1,4 +1,4 @@
-# Workshop: Indices and Confidence Intervals for Statistical Process Control in `R`
+# Indices and Confidence Intervals for Statistical Process Control in `R`
 
 ```{r setup_workshop_10, include = FALSE, echo = FALSE}
 library(tidyverse)

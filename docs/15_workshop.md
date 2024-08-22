@@ -1,4 +1,4 @@
-# Workshop: Response Surface Methodology in `R`
+# Response Surface Methodology in `R`
 
 
 

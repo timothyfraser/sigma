@@ -1,4 +1,4 @@
-# Workshop: Factorial Design and Interaction Effects in `R`
+# Factorial Design and Interaction Effects in `R`
 
 
 <div class="figure">

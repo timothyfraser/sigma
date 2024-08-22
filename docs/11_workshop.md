@@ -1,4 +1,4 @@
-# Workshop: Bivariate Regression: Modeling Diamond Pricing
+# Bivariate Regression: Modeling Diamond Pricing
 
 
 

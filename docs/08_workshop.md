@@ -1,4 +1,4 @@
-# Workshop: Useful Life Distributions (Weibull, Gamma, & Lognormal)
+# Useful Life Distributions (Weibull, Gamma, & Lognormal)
 
 
 

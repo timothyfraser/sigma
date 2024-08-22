@@ -1,4 +1,4 @@
-# Workshop: Useful Life Distributions (Weibull, Gamma, & Lognormal)
+# Useful Life Distributions (Weibull, Gamma, & Lognormal)
 
 ```{r setup_workshop_6, include = FALSE}
 library(tidyverse)

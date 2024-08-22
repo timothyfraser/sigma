@@ -1,4 +1,4 @@
-# Workshop: Physical Acceleration Models
+# Physical Acceleration Models
 
 
 

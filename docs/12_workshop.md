@@ -1,4 +1,4 @@
-# Workshop: Multivariate Regression: Modeling Effects of Disaster on Social Capital
+# Multivariate Regression: Modeling Effects of Disaster on Social Capital
 
 
 

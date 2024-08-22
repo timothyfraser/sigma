@@ -1,4 +1,4 @@
-# Workshop: Statistical Techniques for Exponential Distributions
+# Statistical Techniques for Exponential Distributions
 
 
 

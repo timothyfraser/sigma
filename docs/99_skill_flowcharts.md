@@ -91,8 +91,8 @@ example %>%
 ```
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-dd6530abe1e6abab23c5" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-dd6530abe1e6abab23c5">{"x":{"diagram":"graph LR\na[Tim]\nz[Coffee]\nsubgraph Process\nb[Froth Milk]\nc[Brew Coffee]\nd[Pour in Milk]\nend\na-->b\nb-->c\nc-->d\nd-->z"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-eb278428148e71756147" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-eb278428148e71756147">{"x":{"diagram":"graph LR\na[Tim]\nz[Coffee]\nsubgraph Process\nb[Froth Milk]\nc[Brew Coffee]\nd[Pour in Milk]\nend\na-->b\nb-->c\nc-->d\nd-->z"},"evals":[],"jsHooks":[]}</script>
 ```
 
 Whohoo! You made your first `mermaid` plot!
@@ -251,8 +251,8 @@ c(intro,
 ```
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-427e178d4a471a026ce6" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-427e178d4a471a026ce6">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-b65e6267059bfb0995cd" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-b65e6267059bfb0995cd">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ## Diagram Failures
@@ -320,8 +320,8 @@ c("graph LR",
 ```
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-2aacbaf0a4a6f55b8a16" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-2aacbaf0a4a6f55b8a16">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-de45f710a0f653ac6f90" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-de45f710a0f653ac6f90">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
 ```
 
 There's so much you can do with `mermaid`, but for now, this will do. Hooray! 
