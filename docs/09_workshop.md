@@ -1,4 +1,4 @@
-# Workshop: Fault Tree Analysis in R
+# Fault Tree Analysis in R
 
 
 
@@ -9,24 +9,14 @@ Fault trees are visual representation of boolean probability equations, typicall
 ### Prerequisites {-}
 
 As a prerequisite for this workshop, be sure to have read our class reading on Fault Trees! 
-You'll need to install a few packages real quick below. Here they are.
-
-
-```r
-install.packages(c("devtools", "admisc", "tidygraph", "ggraph", "QCA"))
-# Install the tidyfault package!
-devtools::install_github("timothyfraser/tidyfault")
-# Select, 'install all packages'
-# on the menu that will pop up in your console
-```
-
 
 ### Load Packages {-}
 
 
 ```r
-library(tidyverse)
-library(tidyfault)
+library(dplyr)
+library(readr)
+library(ggplot2)
 ```
 
 ## Simulating Fault Trees
@@ -35,7 +25,7 @@ Fault Trees are a powerful way of modeling the probability of a top event, eg. a
 
 Fortunately, fault trees are extremely flexible. You can apply all of our past simulation approaches, probability rules, lifespan distribution concepts, and reliability analysis tools to them. 
 
-### Example: Superman Fault Tree
+## Example: Superman Fault Tree
 
 A favorite simple fault tree example of mine is the 'Superman Turns Evil' fault tree. It consists of a few events:
 
@@ -45,12 +35,12 @@ A favorite simple fault tree example of mine is the 'Superman Turns Evil' fault 
 - `D`: Lois Lane Dumps Superman
 - `K`: Steps on Kryptonite Lego in the middle of the night
 
-<img src="09_workshop_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+<img src="09_workshop_files/figure-html/unnamed-chunk-2-1.png" width="672" />
 
 In this fault tree, it looks like Superman could turn evil if (A) Superman Movies do poorly at the box office OR (B) if all 3 other conditions happen (boring childhood, dumped by Lois Lane, steps on Kryptonite Lego). 
 
 
-### Using Raw Probabilities
+## Using Raw Probabilities
 
 We could represent that using boolean logic. So if we know the probability of events `m`, `c`, `d`, and `k`, we can calculate the probability of the top event `top`.
 
@@ -152,7 +142,7 @@ f(a = 0.2, b = 0.15, c = 0.3, d = 0.1, e = 0.15, f = 0.2, g = 0.05, h = 0.1)
 
 
 
-### Using Failure Rates at Time `t`
+## Using Failure Rates at Time `t`
 
 But if we knew the failure rate of each event, we could calculate the probability of the top event at any time `t`!
 
@@ -193,7 +183,7 @@ ggplot() +
   geom_area(data = probs2, mapping = aes(x = t, y = prob))
 ```
 
-<img src="09_workshop_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="09_workshop_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 ---
 
@@ -257,7 +247,7 @@ f(t = 10, lambda_a = 0.05, lambda_b = 0.03, lambda_c = 0.02)
 ---
 
 
-### Simulating Uncertainty in Probabilities
+## Simulating Uncertainty in Probabilities
 
 We can use simulation to answer several important questions about variation. For example, we can simulate how the probability of the top event would change if the probability of each event varies ever so slightly across 1000 simulations. 
 
@@ -285,10 +275,10 @@ probs3 %>%
 ## # A tibble: 1 × 2
 ##   mu_top sigma_top
 ##    <dbl>     <dbl>
-## 1  0.516     0.504
+## 1  0.509     0.500
 ```
 
-### Simulating Uncertainty in Failure Rates
+## Simulating Uncertainty in Failure Rates
 
 Usually, we go a few steps further, saying, **suppose the probability of each failure $/lambda$ might vary slightly, according to a normal distribution.** What would be the average probability of failure for the top event? How much should we expect that average to vary, on average? 
 
@@ -338,9 +328,9 @@ probs5 %>% head(3)
 ## # A tibble: 3 × 3
 ##    reps     t    prob
 ##   <int> <int>   <dbl>
-## 1     1     1 0.00982
-## 2     1     2 0.0195 
-## 3     1     3 0.0292
+## 1     1     1 0.00998
+## 2     1     2 0.0199 
+## 3     1     3 0.0297
 ```
 
 
@@ -363,11 +353,11 @@ probs6 %>% head(3)
 
 ```
 ## # A tibble: 3 × 7
-##       t      mu    sigma   lower  upper lower_approx upper_approx
-##   <int>   <dbl>    <dbl>   <dbl>  <dbl>        <dbl>        <dbl>
-## 1     1 0.00995 0.000101 0.00975 0.0101       0.0101       0.0101
-## 2     2 0.0198  0.000199 0.0194  0.0202       0.0202       0.0202
-## 3     3 0.0296  0.000296 0.0290  0.0301       0.0301       0.0301
+##       t      mu     sigma   lower  upper lower_approx upper_approx
+##   <int>   <dbl>     <dbl>   <dbl>  <dbl>        <dbl>        <dbl>
+## 1     1 0.00995 0.0000960 0.00975 0.0101       0.0101       0.0101
+## 2     2 0.0198  0.000190  0.0194  0.0202       0.0202       0.0202
+## 3     3 0.0296  0.000282  0.0290  0.0301       0.0301       0.0301
 ```
 
 Let's visualize that confidence interval over time!
@@ -378,7 +368,7 @@ ggplot() +
   geom_ribbon(data = probs6, mapping = aes(x = t, ymin = lower, ymax = upper))
 ```
 
-<img src="09_workshop_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<img src="09_workshop_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 
 The sky is the limit! Happy fault tree simulating!
 
@@ -392,7 +382,7 @@ The sky is the limit! Happy fault tree simulating!
 <br>
 
 
-## Example 1 {-}
+## Example: Contagion
 
 You are tasked with assessing the risk of a widespread outbreak of a contagious disease in a population. The top event is defined as the "Widespread outbreak of a contagious disease in a population." This top event can occur based on the following intermediate events:
 
@@ -417,6 +407,7 @@ You are tasked with assessing the risk of a widespread outbreak of a contagious 
 - Inefficient monitoring of quarantined individuals: P(Inefficient monitoring) = 0.2 (20%)
 
 **Mutation of the Pathogen:**
+
 *This event itself can lead to the top event*
 
 **Causes and Probabilities:**
@@ -549,9 +540,9 @@ stat %>% head(3)
 ## # A tibble: 3 × 7
 ##       t lower_a upper_a lower_b upper_b lower_c upper_c
 ##   <int>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-## 1     1  0.0471  0.0506  0.0277  0.0315  0.0179  0.0218
-## 2     2  0.0920  0.0986  0.0545  0.0620  0.0354  0.0430
-## 3     3  0.135   0.144   0.0807  0.0916  0.0527  0.0639
+## 1     1  0.0469  0.0507  0.0277  0.0315  0.0179  0.0217
+## 2     2  0.0916  0.0988  0.0547  0.0620  0.0355  0.0429
+## 3     3  0.134   0.145   0.0809  0.0915  0.0527  0.0636
 ```
 
 
@@ -578,314 +569,9 @@ ggplot() +
        x = "Hours", y = "Probability (95% CI)", fill = "Event Type")
 ```
 
-<img src="09_workshop_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+<img src="09_workshop_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 </details>
 
 ---
 
-## Visualizing Fault Trees in R
-
-We can *draw* fault trees easily enough by hand, but how do we record their data in a machine readable format? We can use conventions from *network science* to record these data in two lists: (1) an 'edgelist' of edges connecting nodes, and (2) a 'nodelist' of nodes, connected by edges. 
-
-<br>
-<br>
-
-### Making a Nodelist
-
-We can use the `tribble()` function available when loading the `tidyverse` package to write out small data.frames row by row. In `nodes`, our nodelist:
-
-- every node must have a unique ID, called `name`.
-
-- some events reappear multiple times in the same tree; we must give these nodes *different* `name` but the *same* `event` name.
-
-- each node should be classified by `type` as (1) an `and` gate, (2) an `or` gate, or (3) `not` a gate. We can use `factor()` to tell R to always remember `"and"`, `"or"`, and `"not"` in that order (useful for `ggplot` legends).
-
-- classic fault trees sometimes write events and the gates that condition them as separate nodes, but as far as the graph is concerned, they are really the *same node*. So, remember to combine them for analysis.
-
-
-```r
-# Let's make a data.frame of nodes!
-tribble(
-  # Make the headers, using a tilde
-  ~id, ~event, ~type,
-  # Add the value entries
-  "T",   "T",   "top",
-  "G1",  "G1",  "and",
-  # Notice how event 'B' appears twice,
-  # so it has a logical but differentiated `name` "B1" and "B2"?
-  "B1",  "B",   "not",
-  "B2",  "B",   "not",
-  "C1",  "C",   "not") %>%
-  # Classify 'type' as a factor, with specific levels
-  mutate(type = factor(type, levels = c("top", "and", "or", "not")))
-```
-
-```
-## # A tibble: 5 × 3
-##   id    event type 
-##   <chr> <chr> <fct>
-## 1 T     T     top  
-## 2 G1    G1    and  
-## 3 B1    B     not  
-## 4 B2    B     not  
-## 5 C1    C     not
-```
-
-<br>
-<br>
-
-### Making an Edgelist
-
-Next, we can use `tribble()` to make an edgelist of our fault tree (or use `read_csv()` to read in an edgelist). Edgelists should follow these conventions:
-
-- each row shows a unique edge between nodes, recording their node `id`s from the top-down in the `from` and `to` columns.
-
-
-```r
-# For example....
-tribble(
-  ~from, ~to,
-  "T",   "G1",
-  "G1", "G2",
-  "G2", "B1",
-  "G2", "G5") 
-```
-
-```
-## # A tibble: 4 × 2
-##   from  to   
-##   <chr> <chr>
-## 1 T     G1   
-## 2 G1    G2   
-## 3 G2    B1   
-## 4 G2    G5
-```
-
-### Our Data
-
-In this example, we're going to use the default data in `tidyfault`, called `fakenodes` and `fakeedges`. You can download it like this:
-
-
-```r
-data("fakenodes")
-data("fakeedges")
-```
-
-
-```r
-fakenodes
-```
-
-```
-## # A tibble: 12 × 3
-##       id event type 
-##    <dbl> <chr> <fct>
-##  1     1 T     top  
-##  2     2 G1    and  
-##  3     3 G2    and  
-##  4     4 G3    or   
-##  5     5 G4    and  
-##  6     6 G5    or   
-##  7     7 A     not  
-##  8     8 B     not  
-##  9     9 B     not  
-## 10    10 C     not  
-## 11    11 C     not  
-## 12    12 D     not
-```
-
-
-```r
-fakeedges
-```
-
-```
-## # A tibble: 11 × 2
-##     from    to
-##    <dbl> <dbl>
-##  1     1     2
-##  2     2     3
-##  3     3     8
-##  4     3     6
-##  5     6    10
-##  6     6    12
-##  7     2     4
-##  8     4     7
-##  9     4     5
-## 10     5     9
-## 11     5    11
-```
-
-
-<br>
-<br>
-
-### Getting a Fault Tree Layout
-
-Using `tidyfault`'s `illustrate()` function, we can quickly assign `x` and `y` coordinates for a 'tree' layout to to our `fakenodes` and `fakeedges`. We say `type = "both"` because we want to receive coordinates for *both* the nodes and edges.
-
-
-```r
-gg = illustrate(nodes = fakenodes, edges = fakeedges, 
-                type = "both", node_key = "id")
-```
-
-This returns a `list()` object. `list()` objects are collections of data.frames - sort of like a vector whose values are entire data.frames. We can query the values inside lists by using the `$`, just like a data.frame.
-
-
-```r
-# see the nodes
-gg$nodes %>% head(3)
-```
-
-```
-##    x y id event type
-## 1  0 4  1     T  top
-## 2  0 3  2    G1  and
-## 3 -1 2  3    G2  and
-```
-
-```r
-# see the edges
-gg$edges %>% head(3)
-```
-
-```
-## # A tibble: 3 × 5
-## # Groups:   edge_id [2]
-##   edge_id direction    id     x     y
-##     <int> <chr>     <dbl> <dbl> <dbl>
-## 1       1 from          1     0     4
-## 2       1 to            2     0     3
-## 3       2 from          2     0     3
-```
-
-
-### Visualize a Fault Tree
-
-
-```r
-ggplot() +
-  # Plot each line corresponding to the unique edge id, used to group them
-  geom_line(data = gg$edges, mapping = aes(x = x, y = y, group = edge_id)) +
-  # Plot each point
-  geom_point(data = gg$nodes, 
-             mapping = aes(x = x, y = y, shape = type, fill = type),
-             size = 10) +
-  # Plot labels!
-  geom_text(data = gg$nodes, mapping = aes(x = x, y = y, label = event)) +
-  # We can also assign shapes!
-  # (shapes 21, 22, 23, 24, and 25 have fill and color)
-  scale_shape_manual(values = c(22, 24, 25, 21)) +
-  # And assign some poppy colors here
-  scale_fill_manual(values = c("darkgrey", "cyan", "coral", "lightgrey")) +
-  # Finally, we can make a clean void theme, with the legend below.
-  theme_void(base_size = 14) +
-  theme(legend.position = "bottom")
-```
-
-<img src="09_workshop_files/figure-html/unnamed-chunk-29-1.png" width="672" />
-
-<br>
-<br>
-
----
-
-## Cutsets
-
-Fault Trees are *big* - and some `events` are more critical than others. We want to identify two kinds of information.
-
-1. **cutsets**: all the possible sets of events which together trigger failure, called **cutsets**.
-
-2. **minimal cutsets**: the most reduced set of events which trigger failure.
-
-To do this, we're going to use an algorithm, called the MOCUS top-down algorithm. I wrote it in `R` for you! Yay!
-
-### Gates
-
-
-```r
-# To get a data.frame of gates, use curate()!
-g = curate(fakenodes, fakeedges)
-# Check it
-g
-```
-
-```
-## # A tibble: 6 × 6
-##   gate  type  class     n set           items    
-##   <chr> <fct> <fct> <int> <chr>         <list>   
-## 1 T     top   top       1 " (G1) "      <chr [1]>
-## 2 G1    and   gate      2 " (G2 * G3) " <chr [2]>
-## 3 G2    and   gate      2 " (B * G5) "  <chr [2]>
-## 4 G3    or    gate      2 " (A + G4) "  <chr [2]>
-## 5 G4    and   gate      2 " (B * C) "   <chr [2]>
-## 6 G5    or    gate      2 " (C + D) "   <chr [2]>
-```
-
-### Equations
-
-To get the full boolean equation of the fault tree, use `equate()`!
-
-
-```r
-g %>% equate() 
-```
-
-```
-## [1] " ( ( (B *  (C + D) )  *  (A +  (B * C) ) ) ) "
-```
-
-We can format it as a function too!
-
-
-```r
-f = g %>% equate() %>% formulate()
-
-# Suppose there is each of these probabilities that A, B, C, and D occur
-# what's the probability of the top event?
-f(A = 0.3, B = 0.5, C = 0.1, D = 0.5)
-```
-
-```
-## [1] 0.105
-```
-
-### Minimal Cutsets
-
-To simplify down to the minimal cutsets, use `concentrate()`! It's pretty quick for small graphs, but gets exponentially longer the more nodes you add. (Especially with `OR` statements.) That's MOCUS's value as well as its tradeoff.
-
-
-```r
-m = g %>% 
-  concentrate(method = "mocus")
-# 
-m
-```
-
-```
-## [1] "B*C"   "A*B*D"
-```
-
-### Coverage
-
-We might want to know, *how important* are each of my minimal cutsets? We can compute the total number of cutsets that include the minimal cutset, the total cutsets leading to failure in general, and the percentage (`coverage`) of cutsets containing your minimal cutset out of all total cutsets leading to failure. It's basically a measure of the explanatory power of your cutsets!
-
-
-```r
-m %>% 
-  tabulate(formula = f)
-```
-
-```
-## # A tibble: 2 × 5
-##   mincut query                                        cutsets failures coverage
-##   <chr>  <chr>                                          <int>    <int>    <dbl>
-## 1 A*B*D  filter(A == 1, B == 1, D == 1, outcome == 1)       2        5      0.4
-## 2 B*C    filter(B == 1, C == 1, outcome == 1)               4        5      0.8
-```
-
-
-
-Happy Fault Tree analysis!

@@ -1,1 +1,1 @@
-# (PART) Part 3: Statistical Process Control {.unnumbered #part_3} 
+# (PART) Statistical Process Control {.unnumbered #part_3} 

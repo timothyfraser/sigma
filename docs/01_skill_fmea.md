@@ -1,4 +1,4 @@
-# Skill: Failure Modes and Effects Analysis in R {.unnumbered}
+# FMEA in `R` {.unnumbered}
 
 
 
@@ -18,7 +18,7 @@ library(tidyverse)
 library(DiagrammeR) 
 ```
 
-## Example: Ben and Jerry's Ice Cream {-}
+## Example: Ben and Jerry's Ice Cream
 
 Ben and Jerry's main headquarters is in Waterbury, VT, just outside of Burlington, where it makes *a lot* of ice cream. (It's also fun to visit.) Their staff likely has to take considerable care to make sure that all that ice cream stays refrigerated! Suppose Ben and Jerry's has decided to build a new ice cream production plant in Ithaca, NY.
 
@@ -26,14 +26,14 @@ For the sake of Ben and Jerry's (nay, the world!) let's use Failure Modes and Ef
 
 <img src="https://www.benjerry.com/files/live/sites/systemsite/files/flavors/category-refresh/header_mobile_0019_our_flavors_US.jpg" style="display: block; margin: auto;" />
 
-### Scope & Resolution {-}
+### Scope & Resolution
 
 As our scope, we're going to just focus on **melting**. What are all the possible ways that ice cream could melt during this process? Melting would have several negative impacts, such as getting exposed to heat, bacteria, and, worst of all, melting the ice cream! This example is primarily people-centric, because it's important to remember that *people* are part of our technological systems!
 
 <br>
 <br>
 
-### Measuring Criticality {-}
+### Measuring Criticality
 
 FMEA includes uses 3 measures to calculate a **criticality** index, meaning the *overall risk of each combination of severity and underlying conditions.*
 
@@ -54,7 +54,7 @@ So, let's analyze them!
 <br>
 <br>
 
-### Block Diagram {-}
+### Block Diagram
 
 Below, we've visualized what the process of shipping out ice cream looks like once it has been made. This involves the following several steps:
 
@@ -73,8 +73,8 @@ Plus, several possible failure modes are involved, as discussed below.
 <div class="figure">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-26106401d7f36690a51d" style="width:100%;height:384px;"></div>
-<script type="application/json" data-for="htmlwidget-26106401d7f36690a51d">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-8574de4e1735804c0716" style="width:100%;height:384px;"></div>
+<script type="application/json" data-for="htmlwidget-8574de4e1735804c0716">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:unnamed-chunk-3)Ben & Jerry's Ice Cream Block Diagram</p>
@@ -83,7 +83,7 @@ Plus, several possible failure modes are involved, as discussed below.
 <br>
 <br>
 
-### Failure Modes {-}
+### Failure Modes
 
 We'll make a tidy `data.frame()` of each of the ways our `block diagram` above could fail, which were contained above in `failures`. We'll call this data.frame `f`.
 
@@ -105,14 +105,14 @@ f <- tibble(
   # Worker 3 could eat the ice cream in transit
 ```
 
-## Calculating Criticality {-}
+## Calculating Criticality
 
 Next, we're going to make a few judgement calls, to calculate the overall risk for this FMEA.
 
 <br>
 <br>
 
-### Estimate Severity {-}
+### Estimate Severity
 
 What's the `severity` of the effects of these failures, on a scale from 1 (low) to 10 (high)? We'll `mutate()` the `data.frame` to include a new column `severity`, and save it as a new data.frame `f1`.
 
@@ -144,7 +144,7 @@ f1
 <br>
 <br>
 
-### Estimate Occurrence {-}
+### Estimate Occurrence
 
 How often does this occur, from 1 (almost never) to 10 (almost always)? Let's rank `occurrence` as follows:
 
@@ -163,7 +163,7 @@ f2 <- f1 %>%
 <br>
 <br>
 
-### Estimate Detection {-}
+### Estimate Detection
 
 Finally, how likely is it that we would detect the occurrence? If very likely, that's a `1`. If very unlikely, that's a `10`.
 
@@ -182,7 +182,7 @@ f3 <- f2 %>%
 <br>
 <br>
 
-### Estimate Criticality (RPN) {-}
+### Estimate Criticality (RPN)
 
 Using our data in `f3`, let's estimate `criticality` (aka RPN, the risk priority number).
 

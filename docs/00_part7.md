@@ -1,1 +1,1 @@
-# (PART) Part 7: Comparing Groups and ANOVA {.unnumbered #part_7} 
+# (PART) Comparing Groups and ANOVA {.unnumbered #part_7} 

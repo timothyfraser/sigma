@@ -58,7 +58,8 @@ rmd_files:
     "00_partappendix.Rmd",
     "99_skill_viz.Rmd", # Appendix Exercises
     "99_skill_flowcharts.Rmd", # Appendix Exercises
-    "99_skill_fitdistr.Rmd" # Appendix Exercises
+    "99_skill_fitdistr.Rmd", # Appendix Exercises
+    "99_skill_tidyfault.Rmd"
     # 
     # ##################################
     # #"99_references.Rmd"

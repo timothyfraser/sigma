@@ -182,7 +182,7 @@ d3
 <br>
 
 
-### Learning Check 1 {.unnumbered .LC}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
   
@@ -379,7 +379,7 @@ d4 <- d3 %>%
 <br>
 
 
-### Learning Check 2 {.unnumbered .LC}
+## Learning Check 2 {.unnumbered .LC}
 
 **Question**
   
@@ -529,7 +529,7 @@ d4 %>%
 <br>
 
 
-### Learning Check 3 {.unnumbered .LC}
+## Learning Check 3 {.unnumbered .LC}
 
 **Question**
   
@@ -976,7 +976,7 @@ get_chisq(
 
 ---
 
-### Learning Check 4 {.unnumbered .LC}
+## Learning Check 4 {.unnumbered .LC}
 
 **Question**
   

@@ -1,4 +1,4 @@
-# Skill: Visualization with `ggplot` in `R` {.unnumbered}
+# Visualization with `ggplot` in `R`
 
 
 
@@ -91,7 +91,7 @@ Our data has six variables. Great!
 <br>
 <br>
 
-## Your first scatterplot {-}
+## Your first scatterplot
 
 Using the `gapminder` data, let's map a series of vectors to become aesthetic features in the visualization (point, colors, fills, etc.).
                           
@@ -226,7 +226,7 @@ To assign multiple colors, you need to put the `color` *inside* the `aes(...)` p
 <br>
 <br>
 
-## Improving our Visualizations {-}
+## Improving our Visualizations
 
 We can (and should!) make our visualizations much more readable by adding appropriate labels.
 
@@ -348,7 +348,7 @@ I personally really like the default theme or `theme_bw()`. Sometimes `theme_cla
 <br>
 <br>
 
-## Visualizing `diamonds` data {-}
+## Visualizing `diamonds` data
 
 Next, let's use the `diamonds` dataset, which comes with the `ggplot2` package
 This is a dataset of over 50,000 diamond sales. 
@@ -447,7 +447,7 @@ In the first visual, we assigned all the boxplots to have the same fill (`fill =
 <br>
 
 
-## Visualizing Distributions {-}
+## Visualizing Distributions
 
 Different `geom_` functions use colors in different ways, but this is a good example.
 

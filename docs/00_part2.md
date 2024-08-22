@@ -1,1 +1,1 @@
-# (PART) Part 2: Statistics & Reliability {.unnumbered #part_2} 
+# (PART) Statistics & Reliability {.unnumbered #part_2} 

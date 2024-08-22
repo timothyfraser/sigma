@@ -147,7 +147,7 @@ sw %>% quantile(probs = 1) # max
 <br>
 <br>
 
-### Learning Check 1 {.unnumbered .LC}
+## Learning Check 1 {.unnumbered .LC}
 
 **Question**
 
@@ -265,7 +265,7 @@ se
 
 ---
 
-### Learning Check 2 {.unnumbered .LC}
+## Learning Check 2 {.unnumbered .LC}
 
 **Question**
   
@@ -629,7 +629,7 @@ Finally, just a heads up: As mentioned above, there are a few different formulas
 
 ---
 
-### Learning Check 3 {.unnumbered .LC}
+## Learning Check 3 {.unnumbered .LC}
 
 A contractor is concerned that the majority of seawalls in her region might skew lower than their region's vulnerability to storms requires. Assume (hypothetically) that our sample's seawalls are the appropriate height for our level of vulnerability, and that both regions share the same level of vulnerability. 
 
@@ -963,7 +963,7 @@ Beautiful! Wow! It looks like the **Normal**, **Gamma**, and **Weibull** distrib
 
 ---
 
-### Learning Check 4 {.unnumbered .LC}
+## Learning Check 4 {.unnumbered .LC}
 
 **Question**
   

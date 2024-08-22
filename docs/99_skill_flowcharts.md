@@ -1,4 +1,4 @@
-# Skill: Making `mermaid` Block Diagrams (Flowcharts) in R
+# Appendix: `mermaid` Block Diagrams (Flowcharts) in R
 
 
 
@@ -91,8 +91,8 @@ example %>%
 ```
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-0459534800b5dd8e8512" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-0459534800b5dd8e8512">{"x":{"diagram":"graph LR\na[Tim]\nz[Coffee]\nsubgraph Process\nb[Froth Milk]\nc[Brew Coffee]\nd[Pour in Milk]\nend\na-->b\nb-->c\nc-->d\nd-->z"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-9dd5bd30efcb68a84ff4" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-9dd5bd30efcb68a84ff4">{"x":{"diagram":"graph LR\na[Tim]\nz[Coffee]\nsubgraph Process\nb[Froth Milk]\nc[Brew Coffee]\nd[Pour in Milk]\nend\na-->b\nb-->c\nc-->d\nd-->z"},"evals":[],"jsHooks":[]}</script>
 ```
 
 Whohoo! You made your first `mermaid` plot!
@@ -251,8 +251,8 @@ c(intro,
 ```
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-787129cd477f52772dd5" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-787129cd477f52772dd5">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-299c9ad61a53a1ba2b01" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-299c9ad61a53a1ba2b01">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ## Diagram Failures
@@ -320,8 +320,8 @@ c("graph LR",
 ```
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-c6bb9f9b18800c960dfe" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-c6bb9f9b18800c960dfe">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-41ff0d2b9ccd0281e297" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-41ff0d2b9ccd0281e297">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
 ```
 
 There's so much you can do with `mermaid`, but for now, this will do. Hooray! 

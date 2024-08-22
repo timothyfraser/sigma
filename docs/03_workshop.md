@@ -1,4 +1,4 @@
-# Workshop: Probability
+# Probability
 
 
 
@@ -226,8 +226,8 @@ If we look at the ties to the marbles, you'll see I labeled each tie to a red ma
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-6252c1a8b2c9b9f60b2d" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-6252c1a8b2c9b9f60b2d">{"x":{"diagram":"graph TD\n you[You]\n subgraph Bags\n b1[Bag 1]\n b2[Bag 2]\n b3[Bag 3]\n end\n subgraph Marbles\n b1m1((Marble <i>a<\/i>))\n b1m2((Marble <i>b<\/i>))\n b1m3((Marble <i>c<\/i>))\n style b1m1 fill:#FB52A5\n style b1m2 fill:#FB52A5\n style b1m3 fill:#FB52A5\n b2m1((Marble <i>d<\/i>))\n b2m2((Marble <i>e<\/i>))\n b2m3((Marble <i>f<\/i>))\n style b2m1 fill:#FB52A5\n style b2m2 fill:#84A3F5\n style b2m3 fill:#84A3F5\n b3m1((Marble <i>g<\/i>))\n b3m2((Marble <i>h<\/i>))\n b3m3((Marble <i>j<\/i>))\n style b3m1 fill:#84A3F5\n style b3m2 fill:#FB52A5\n style b3m3 fill:#FB52A5\n end\n you--> b1\n you--> b2\n you--> b3\n b1-->|1|b1m1\n b1-->|1|b1m2\n b1-->|1|b1m3\n b2-->|1|b2m1\n b2-->|0|b2m2\n b2-->|0|b2m3\n b3-->|0|b3m1\n b3-->|1|b3m2\n b3-->|1|b3m3"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-d3c84aa702358d061210" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-d3c84aa702358d061210">{"x":{"diagram":"graph TD\n you[You]\n subgraph Bags\n b1[Bag 1]\n b2[Bag 2]\n b3[Bag 3]\n end\n subgraph Marbles\n b1m1((Marble <i>a<\/i>))\n b1m2((Marble <i>b<\/i>))\n b1m3((Marble <i>c<\/i>))\n style b1m1 fill:#FB52A5\n style b1m2 fill:#FB52A5\n style b1m3 fill:#FB52A5\n b2m1((Marble <i>d<\/i>))\n b2m2((Marble <i>e<\/i>))\n b2m3((Marble <i>f<\/i>))\n style b2m1 fill:#FB52A5\n style b2m2 fill:#84A3F5\n style b2m3 fill:#84A3F5\n b3m1((Marble <i>g<\/i>))\n b3m2((Marble <i>h<\/i>))\n b3m3((Marble <i>j<\/i>))\n style b3m1 fill:#84A3F5\n style b3m2 fill:#FB52A5\n style b3m3 fill:#FB52A5\n end\n you--> b1\n you--> b2\n you--> b3\n b1-->|1|b1m1\n b1-->|1|b1m2\n b1-->|1|b1m3\n b2-->|1|b2m1\n b2-->|0|b2m2\n b2-->|0|b2m3\n b3-->|0|b3m1\n b3-->|1|b3m2\n b3-->|1|b3m3"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:img_mermaid)Drawing Probability Diagrams</p>
@@ -669,7 +669,370 @@ paste(
 
 How then do we use probability in our statistical analyses of risk, performance, and other systems engineering concepts? 
 
-Probability allows us to measure for any statistic (or parameter) `mu`, how **extreme** is that statistic? This is called *type II error*, measured by a `p`-value, the probability that a **more** extreme value occurred than our statistic. It's an extremely helpful benchmark. In order to evaluate how **extreme** it is, we need values to compare it to. We can do this using (1) an observed distribution, (2) making a probability function curve of the observed distribution, or (3) assuming the probability function of a hypothetical distribution.
+Probability allows us to measure for any statistic (or parameter) `mu`, how **extreme** is that statistic? This is called *type II error*, measured by a `p`-value, the probability that a **more** extreme value occurred than our statistic. It's an extremely helpful benchmark. In order to evaluate how **extreme** it is, we need values to compare it to. We can do this by:
+
+1. assuming the probability function of an unobserved, hypothetical distribution, or;
+2. making a probability function curve of the observed distribution.
+
+
+<br>
+<br>
+
+
+## Hypothetical Probability Functions
+
+Often, our sample of data is just one of the many samples we could have possibly gotten. For example, say we are examining customer behavior at storefronts. Had we looked at a different firm location (by chance), or a different sample of customers come in by chance, we might have gotten slightly different distribution of purchase value made by these customers. 
+
+The problem is, we almost never can see the distribution of the **true** population of all observations (eg. all purchases). But, if we can approximately guess *what type of distribution that population has*, we can very easily compute the probability density functions and cumulative distribution functions of several of the most well known distributions in `R` (eg. Normal, Poisson, Gamma, etc.)
+
+### Example: Farmers Market {-}
+
+The Ithaca Farmers Market is a vendor-owned cooperative that runs a massive Saturday-and-Sunday morning market for local produce, street food, and hand-made goods, on the waterfront of Cayuga Lake. In markets and street fairs, some stalls' brands are often better known than others, so businesses new to the market might worry that people won't come to their stalls without specific prompting. This past Saturday, a volunteer tracked 500 customers and recorded how many stalls each customers visited during their stay. They calculated the following statistics.
+
+- The average customer visited a `mean` of `5.5` stalls and a `median` of `5` stalls, with a standard deviation of `2.5` stalls.
+
+<div class="figure">
+<img src="https://i0.wp.com/ithacamarket.com/wp-content/uploads/2019/04/IMG_3407-900px.jpg?w=900&ssl=1" alt="[Ithaca Farmers Market!](https://ithacamarket.com/markets/saturday-at-the-pavilion/)" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-28)[Ithaca Farmers Market!](https://ithacamarket.com/markets/saturday-at-the-pavilion/)</p>
+</div>
+
+Market operators wants to know: 
+
+1. What's the probability that customers will stop by *5 stalls*?
+
+2. What's the probability that customers will stop by *at max 5 stalls*?
+
+3. What's the probability that customers will stop by *over 5 stalls*?
+
+4. How many visits did people *usually* make? Estimate the interquartile range (25th-75th percentiles).
+
+Unfortunately, the wind blew the raw data away into Cayuga Lake before they could finish their analysis. How can we approximate the unobserved distribution of visits and compute these probabilities?
+
+Below, we will (1) use these statistics to guess which of several possible archetypal hypothetical distributions it most resembles, and then (2) compute probabilities based off of the shape of that hypothetical distribution.
+
+<br>
+<br>
+
+### Unobserved Distributions {-}
+
+We don't have the actual data, but we know several basic features of our distribution!
+
+- Our variable is `visits`, a count ranging from 0 to infinity. (Can't have -5 visits, can't have 1.3 visits.)
+
+- The median (`5`) is less than the mean (`5.5`), so our distribution is **right-skewed**.
+
+This sounds like a classic Poisson distribution! Let's simulate some poisson-distributed data to demonstrate.
+
+
+```r
+# Randomly sample 500 visits from a poisson distribution with a mean of 5.5
+visits <- rpois(n = 500, lambda = 5.5)
+# Check out the distribution!
+visits %>% hist()
+```
+
+<img src="03_workshop_files/figure-html/unnamed-chunk-29-1.png" width="672" />
+
+<br>
+<br>
+
+### Using Hypothetical Probability Functions {-}
+
+Much like `rpois()` randomly generates poisson distributed values, `dpois()`,  `ppois()`, and `qpois()` can help you get other quantities of interest from the Poisson distribution.
+
+- `dpois()` generates the density of any value on a poisson distribution centered on a given mean (PDF).
+- `ppois()` returns for any percentile in the distribution the cumulative probability (percentage of the area under the density curve) up until that point (CDF).
+- `qpois()` returns for any percentile in the distribution the raw value.
+
+See the Table below for several examples.
+
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>(\#tab:unnamed-chunk-30)Table 1: Probability Functions (r, d, p, and q)</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Meaning </th>
+   <th style="text-align:left;"> Purpose </th>
+   <th style="text-align:left;"> Main Input </th>
+   <th style="text-align:left;"> Normal </th>
+   <th style="text-align:left;"> Poisson </th>
+   <th style="text-align:left;"> Gamma </th>
+   <th style="text-align:left;"> Exponential </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Random Draws from Distribution </td>
+   <td style="text-align:left;"> Simulate a distribution </td>
+   <td style="text-align:left;"> n = # of simulations </td>
+   <td style="text-align:left;"> rnorm() </td>
+   <td style="text-align:left;"> rpois() </td>
+   <td style="text-align:left;"> rgamma() </td>
+   <td style="text-align:left;"> rexp() </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Probability Density Function </td>
+   <td style="text-align:left;"> Get Probability of Value in Distribution </td>
+   <td style="text-align:left;"> x = value in distribution </td>
+   <td style="text-align:left;"> dnorm() </td>
+   <td style="text-align:left;"> dpois() </td>
+   <td style="text-align:left;"> dgamma() </td>
+   <td style="text-align:left;"> dexp() </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Cumulative Distribution Function </td>
+   <td style="text-align:left;"> Get % of Distribution LESS than Value </td>
+   <td style="text-align:left;"> q = a cumulative probability </td>
+   <td style="text-align:left;"> pnorm() </td>
+   <td style="text-align:left;"> ppois() </td>
+   <td style="text-align:left;"> pgamma() </td>
+   <td style="text-align:left;"> pexp() </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Quantiles Function </td>
+   <td style="text-align:left;"> Get Value of any Percentile in Distribution </td>
+   <td style="text-align:left;"> p = percentile </td>
+   <td style="text-align:left;"> qnorm() </td>
+   <td style="text-align:left;"> qpois() </td>
+   <td style="text-align:left;"> qgamma() </td>
+   <td style="text-align:left;"> qexp() </td>
+  </tr>
+</tbody>
+</table>
+
+<br>
+<br>
+
+### Density (PDF)
+
+So, what percentage of customers stopped by 1 stall?
+
+Below, `dpois()` tells us the `density()` or frequency of your value, given a distribution where the `mean = 5.5`.
+
+
+```r
+# Get the frequency for 5 visits in the distribution
+pd5 <- dpois(5, lambda = 5.5)
+# Check it!
+pd5
+```
+
+```
+## [1] 0.1714007
+```
+
+Looks like 17.1% of customers stopped by 5 stalls.
+
+We can validate this using our simulated `visits` from above. We can calculate the `density()` function, extract it using `approxfun()`, and then assign it to `dsim()`, our own exact probability density function for our data. It works just like `dpois()`, but you don't need to specify `lambda`, because it only works for this exact distribution!
+
+
+```r
+# Approximate the PDF of our simulated visits
+dsim <- visits %>% density() %>% approxfun()
+# Try our density function for our simulated data!
+dsim(5)
+```
+
+```
+## [1] 0.1549059
+```
+
+```r
+# Pretty close to our results from dpois()!
+```
+
+
+<br>
+<br>
+
+### Cumulative Probabilities (CDF)
+
+What percentage of customers stopped by *at max 5 stalls?*
+
+
+```r
+# Get the cumulative frequency for a value (5) in the distribution
+cd5 <- ppois(q = 5, lambda = 5.5)
+# Check it!
+cd5
+```
+
+```
+## [1] 0.5289187
+```
+
+Looks like just 52.9% of customers stopped by 1 stall or fewer.
+
+What percentage of customers stopped by *over 5 stalls?*
+
+
+```r
+# Get the probability they will NOT stop at 5 or fewer stalls
+1 - cd5
+```
+
+```
+## [1] 0.4710813
+```
+
+
+We can validate our results against our simulated distribution.
+
+
+```r
+psim <- visits %>% density() %>% tidy() %>% 
+  # Get cumulative probability distribution
+  arrange(x) %>% 
+  # Get cumulative probabilities
+  mutate(y = cumsum(y) / sum(y)) %>% 
+  # Turn it into a literal function!
+  approxfun()
+# Check it!
+psim(5)
+```
+
+```
+## [1] 0.4291974
+```
+
+```r
+# Pretty close to cdf5!
+```
+
+<br>
+<br>
+
+### Quantiles
+
+How many visits did people *usually* make? Estimate the interquartile range (25th-75th percentiles) of the unobserved distribution.
+
+
+```r
+q5 <- qpois(p = c(.25, .75), lambda = 5.5)
+# Check it!
+q5
+```
+
+```
+## [1] 4 7
+```
+
+Looks like 50% of folks visited between 4 and 7 stalls
+
+We can compare against our simulated data using `quantile()`.
+
+
+```r
+# Approximate the quantile function of this distribution
+qsim <- tibble(
+  # Get a vector of percentiles from 0 to 1, in units of 0.001
+  x = seq(0, 1, by = 0.001),
+  # Using our simulated distribution, 
+  # get the quantiles (values) at those points from this distribution
+  y = visits %>% quantile(probs = x)) %>%
+  # Approximate function!
+  approxfun()
+
+# Check it!
+qsim(c(.25, .75))
+```
+
+```
+## [1] 4 7
+```
+
+<br>
+<br>
+
+
+```r
+rm(visits, pd5, cd5, q5, dsim, psim, qsim)
+```
+
+<br>
+<br>
+
+---
+
+## Learning Check 1 {.unnumbered .LC}
+
+**Question**
+  
+What if we are not certain whether our unobserved vector of visits has a Poisson distribution or not? To give you more practice, please calculate the probability that customers will stop *at more than 5 stalls*, using appropriate functions for the (1) Normal, (2) Gamma, and (3) Exponential distribution! (See our table above for the list of function names.)
+
+<details><summary>**[View Answer!]**</summary>
+
+We know there were `n = 500` customers, with a mean of `5.5` visits, a median of `5` visits, and a standard deviation of `2.5` visits.
+
+For a Normal Distribution:
+
+We learned in Workshop 2 that `rnorm()` requires a `mean` and `sd` (standard deviation); we conveniently have both!
+
+
+```r
+1 - pnorm(5, mean = 5.5, sd = 2.5)
+```
+
+```
+## [1] 0.5792597
+```
+
+For a Gamma Distribution:
+
+We learned in Workshop 2 that `rgamma()` requires a `shape` and `scale` (or `rate`); we can calculate these from the `mean` and `sd` (standard deviation).
+ 
+
+```r
+# shape = mean^2 / variance = mean^2 / sd^2
+shape <- 5.5^2 / 2.5^2
+# scale = variance / mean
+scale <- 2.5^2 / 5.5
+# AND
+# rate = 1 / scale
+rate <- 1 / scale
+
+# So...
+# Get 1 - cumulative probability up to 5
+1 - pgamma(5, shape = shape, scale = scale)
+```
+
+```
+## [1] 0.5211581
+```
+
+```r
+# OR (same)
+1 - pgamma(5, shape = shape, rate = rate)
+```
+
+```
+## [1] 0.5211581
+```
+
+For an Exponential Distribution:
+
+We learned in Workshop 2 that `rexp()` requires a `rate`; we can calculate this from the `mean`.
+
+
+```r
+# For exponential distribution,
+# rate = 1 / mean
+rate <- 1 / 5.5
+
+# So...
+# Get 1 - cumulative probability up to 5
+1 - pexp(5, rate = rate)
+```
+
+```
+## [1] 0.4028903
+```
+
+</details>
+  
+---
+
+
+## Observed Probability Functions
 
 ### Example: Observed Distributions
 
@@ -733,7 +1096,7 @@ Unfortunately, this only takes into account the exact values we observed (eg. \$
 <br>
 
 
-### Observed Probability Density Functions
+### Observed PDFs (Probability Density Functions)
 
 Above, we calculated the probability of getting a **more** extreme hospital bill based on a limited sample of points, but for more *precise* probabilities, we need to fill in the gaps between our observed data points.
 
@@ -742,6 +1105,8 @@ Above, we calculated the probability of getting a **more** extreme hospital bill
 - It shows the **relative frequency** (probability) of each *possible* value in the range. 
 
 <br>
+
+### `density()`
 
 We can ask R to estimate the probability density function for any observed vector using `density()`. This returns the density (`y`) of a bunch of hypothetical values (`x`) matching our distribution's curve. We can access those results using the `broom` package, by `tidy()`-ing it into a data.frame.
 
@@ -844,7 +1209,7 @@ mypd %>%
 <br>
 <br>
 
-### Applying Probability Density Functions
+### Using PDFs (Probability Density Functions)
 
 Great! We can *view* the probability density function now above. But how do we translate that into **a single probability** that measures how extreme Patient 16's bill is?
 
@@ -903,7 +1268,7 @@ ggplot() +
 <br>
 <br>
 
-### Observed Cumulative Distribution Functions
+### Observed CDFs (Cumulative Distribution Functions)
 
 Alternatively, we can calculate that `p`-value for `prob_extreme` a different way, by looking at the **cumulative probability**. 
 
@@ -1100,7 +1465,7 @@ ggplot() +
   labs(x = "Cost", y = "Probability", color = "Type")
 ```
 
-<img src="03_workshop_files/figure-html/unnamed-chunk-44-1.png" width="672" />
+<img src="03_workshop_files/figure-html/unnamed-chunk-58-1.png" width="672" />
 
 So how do we generate the cumulative density function? The `mosaicCalc` package can help us with its functions `D()` and `antiD()`. 
 
@@ -1174,7 +1539,7 @@ remove(mypd, pdf, pdf2, cdf, obs)
 
 ---
 
-## Learning Check 1 {.unnumbered .LC}
+## Learning Check 2 {.unnumbered .LC}
 
 **Question**
   
@@ -1288,7 +1653,7 @@ ggplot() +
        fill = "Deter Future Visits")
 ```
 
-<img src="03_workshop_files/figure-html/unnamed-chunk-52-1.png" width="672" />
+<img src="03_workshop_files/figure-html/unnamed-chunk-66-1.png" width="672" />
 
 
 </details>
@@ -1297,352 +1662,6 @@ ggplot() +
 
 <br>
 <br>
-
-## Hypothetical Probability Functions {-}
-
-Often, though, our sample of data is just one of the many samples we could have possibly gotten; had we looked at a different hospital (by chance), or a different sample of patients come in by chance, we might have gotten slightly different hospital bills. The problem is, we almost never can see the distribution of the **true** population of all observations (eg. all hospital bills). But, if we can approximately guess *what type of distribution that population has*, we can very easily compute the probability density functions and cumulative distribution functions of several of the most well known distributions in `R` (eg. Normal, Poisson, Gamma, etc.)
-
-### Example: Farmers Market {-}
-
-The Ithaca Farmers Market is a vendor-owned cooperative that runs a massive Saturday-and-Sunday morning market for local produce, street food, and hand-made goods, on the waterfront of Cayuga Lake. In markets and street fairs, some stalls' brands are often better known than others, so businesses new to the market might worry that people won't come to their stalls without specific prompting. This past Saturday, a volunteer tracked 500 customers and recorded how many stalls each customers visited during their stay. They calculated the following statistics.
-
-- The average customer visited a `mean` of `5.5` stalls and a `median` of `5` stalls, with a standard deviation of `2.5` stalls.
-
-<div class="figure">
-<img src="https://i0.wp.com/ithacamarket.com/wp-content/uploads/2019/04/IMG_3407-900px.jpg?w=900&ssl=1" alt="[Ithaca Farmers Market!](https://ithacamarket.com/markets/saturday-at-the-pavilion/)" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-53)[Ithaca Farmers Market!](https://ithacamarket.com/markets/saturday-at-the-pavilion/)</p>
-</div>
-
-Market operators wants to know: 
-
-1. What's the probability that customers will stop by *5 stalls*?
-
-2. What's the probability that customers will stop by *at max 5 stalls*?
-
-3. What's the probability that customers will stop by *over 5 stalls*?
-
-4. How many visits did people *usually* make? Estimate the interquartile range (25th-75th percentiles).
-
-Unfortunately, the wind blew the raw data away into Cayuga Lake before they could finish their analysis. How can we approximate the unobserved distribution of visits and compute these probabilities?
-
-Below, we will (1) use these statistics to guess which of several possible archetypal hypothetical distributions it most resembles, and then (2) compute probabilities based off of the shape of that hypothetical distribution.
-
-<br>
-<br>
-
-### Guessing the Shape of an Unobserved Distribution {-}
-
-We don't have the actual data, but we know several basic features of our distribution!
-
-- Our variable is `visits`, a count ranging from 0 to infinity. (Can't have -5 visits, can't have 1.3 visits.)
-
-- The median (`5`) is less than the mean (`5.5`), so our distribution is **right-skewed**.
-
-This sounds like a classic Poisson distribution! Let's simulate some poisson-distributed data to demonstrate.
-
-
-```r
-# Randomly sample 500 visits from a poisson distribution with a mean of 5.5
-visits <- rpois(n = 500, lambda = 5.5)
-# Check out the distribution!
-visits %>% hist()
-```
-
-<img src="03_workshop_files/figure-html/unnamed-chunk-54-1.png" width="672" />
-
-<br>
-<br>
-
-### Compute Probabilities using Hypothetical Distributions {-}
-
-Much like `rpois()` randomly generates poisson distributed values, `dpois()` generates the density of any value on a poisson distribution centered on a given mean, while `ppois()` returns for any percentile in the distribution the cumulative probability (percentage of the area under the density curve) up until that point.
-
-area under the curve (probability) of. See the Table below for several examples.
-
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
-<caption>(\#tab:unnamed-chunk-55)Table 1: Probability Functions (r, d, p, and q)</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Meaning </th>
-   <th style="text-align:left;"> Purpose </th>
-   <th style="text-align:left;"> Main Input </th>
-   <th style="text-align:left;"> Normal </th>
-   <th style="text-align:left;"> Poisson </th>
-   <th style="text-align:left;"> Gamma </th>
-   <th style="text-align:left;"> Exponential </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> Random Draws from Distribution </td>
-   <td style="text-align:left;"> Simulate a distribution </td>
-   <td style="text-align:left;"> n = # of simulations </td>
-   <td style="text-align:left;"> rnorm() </td>
-   <td style="text-align:left;"> rpois() </td>
-   <td style="text-align:left;"> rgamma() </td>
-   <td style="text-align:left;"> rexp() </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Probability Density Function </td>
-   <td style="text-align:left;"> Get Probability of Value in Distribution </td>
-   <td style="text-align:left;"> x = value in distribution </td>
-   <td style="text-align:left;"> dnorm() </td>
-   <td style="text-align:left;"> dpois() </td>
-   <td style="text-align:left;"> dgamma() </td>
-   <td style="text-align:left;"> dexp() </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Cumulative Distribution Function </td>
-   <td style="text-align:left;"> Get % of Distribution LESS than Value </td>
-   <td style="text-align:left;"> q = a cumulative probability </td>
-   <td style="text-align:left;"> pnorm() </td>
-   <td style="text-align:left;"> ppois() </td>
-   <td style="text-align:left;"> pgamma() </td>
-   <td style="text-align:left;"> pexp() </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Quantiles Function </td>
-   <td style="text-align:left;"> Get Value of any Percentile in Distribution </td>
-   <td style="text-align:left;"> p = percentile </td>
-   <td style="text-align:left;"> qnorm() </td>
-   <td style="text-align:left;"> qpois() </td>
-   <td style="text-align:left;"> qgamma() </td>
-   <td style="text-align:left;"> qexp() </td>
-  </tr>
-</tbody>
-</table>
-
-<br>
-<br>
-
-### Density {-}
-
-So, what percentage of customers stopped by 1 stall?
-
-Below, `dpois()` tells us the `density()` or frequency of your value, given a distribution where the `mean = 5.5`.
-
-
-```r
-# Get the frequency for 5 visits in the distribution
-pd5 <- dpois(5, lambda = 5.5)
-# Check it!
-pd5
-```
-
-```
-## [1] 0.1714007
-```
-
-Looks like 17.1% of customers stopped by 5 stalls.
-
-We can validate this using our simulated `visits` from above. We can calculate the `density()` function, extract it using `approxfun()`, and then assign it to `dsim()`, our own exact probability density function for our data. It works just like `dpois()`, but you don't need to specify `lambda`, because it only works for this exact distribution!
-
-
-```r
-# Approximate the PDF of our simulated visits
-dsim <- visits %>% density() %>% approxfun()
-# Try our density function for our simulated data!
-dsim(5)
-```
-
-```
-## [1] 0.1910494
-```
-
-```r
-# Pretty close to our results from dpois()!
-```
-
-
-<br>
-<br>
-
-### Cumulative Probabilities {-}
-
-What percentage of customers stopped by *at max 5 stalls?*
-
-
-```r
-# Get the cumulative frequency for a value (5) in the distribution
-cd5 <- ppois(q = 5, lambda = 5.5)
-# Check it!
-cd5
-```
-
-```
-## [1] 0.5289187
-```
-
-Looks like just 52.9% of customers stopped by 1 stall or fewer.
-
-What percentage of customers stopped by *over 5 stalls?*
-
-
-```r
-# Get the probability they will NOT stop at 5 or fewer stalls
-1 - cd5
-```
-
-```
-## [1] 0.4710813
-```
-
-
-We can validate our results against our simulated distribution.
-
-
-```r
-psim <- visits %>% density() %>% tidy() %>% 
-  # Get cumulative probability distribution
-  arrange(x) %>% 
-  # Get cumulative probabilities
-  mutate(y = cumsum(y) / sum(y)) %>% 
-  # Turn it into a literal function!
-  approxfun()
-# Check it!
-psim(5)
-```
-
-```
-## [1] 0.4436051
-```
-
-```r
-# Pretty close to cdf5!
-```
-
-<br>
-<br>
-
-### Quantiles {-}
-
-How many visits did people *usually* make? Estimate the interquartile range (25th-75th percentiles) of the unobserved distribution.
-
-
-```r
-q5 <- qpois(p = c(.25, .75), lambda = 5.5)
-# Check it!
-q5
-```
-
-```
-## [1] 4 7
-```
-
-Looks like 50% of folks visited between 4 and 7 stalls
-
-We can compare against our simulated data using `quantile()`.
-
-
-```r
-# Approximate the quantile function of this distribution
-qsim <- tibble(
-  # Get a vector of percentiles from 0 to 1, in units of 0.001
-  x = seq(0, 1, by = 0.001),
-  # Using our simulated distribution, 
-  # get the quantiles (values) at those points from this distribution
-  y = visits %>% quantile(probs = x)) %>%
-  # Approximate function!
-  approxfun()
-
-# Check it!
-qsim(c(.25, .75))
-```
-
-```
-## [1] 4 7
-```
-
-<br>
-<br>
-
-
-```r
-rm(visits, pd5, cd5, q5, dsim, psim, qsim)
-```
-
-<br>
-<br>
-
----
-
-## Learning Check 2 {.unnumbered .LC}
-
-**Question**
-  
-What if we are not certain whether our unobserved vector of visits has a Poisson distribution or not? To give you more practice, please calculate the probability that customers will stop *at more than 5 stalls*, using appropriate functions for the (1) Normal, (2) Gamma, and (3) Exponential distribution! (See our table above for the list of function names.)
-
-<details><summary>**[View Answer!]**</summary>
-
-We know there were `n = 500` customers, with a mean of `5.5` visits, a median of `5` visits, and a standard deviation of `2.5` visits.
-
-For a Normal Distribution:
-
-We learned in Workshop 2 that `rnorm()` requires a `mean` and `sd` (standard deviation); we conveniently have both!
-
-
-```r
-1 - pnorm(5, mean = 5.5, sd = 2.5)
-```
-
-```
-## [1] 0.5792597
-```
-
-For a Gamma Distribution:
-
-We learned in Workshop 2 that `rgamma()` requires a `shape` and `scale` (or `rate`); we can calculate these from the `mean` and `sd` (standard deviation).
- 
-
-```r
-# shape = mean^2 / variance = mean^2 / sd^2
-shape <- 5.5^2 / 2.5^2
-# scale = variance / mean
-scale <- 2.5^2 / 5.5
-# AND
-# rate = 1 / scale
-rate <- 1 / scale
-
-# So...
-# Get 1 - cumulative probability up to 5
-1 - pgamma(5, shape = shape, scale = scale)
-```
-
-```
-## [1] 0.5211581
-```
-
-```r
-# OR (same)
-1 - pgamma(5, shape = shape, rate = rate)
-```
-
-```
-## [1] 0.5211581
-```
-
-For an Exponential Distribution:
-
-We learned in Workshop 2 that `rexp()` requires a `rate`; we can calculate this from the `mean`.
-
-
-```r
-# For exponential distribution,
-# rate = 1 / mean
-rate <- 1 / 5.5
-
-# So...
-# Get 1 - cumulative probability up to 5
-1 - pexp(5, rate = rate)
-```
-
-```
-## [1] 0.4028903
-```
-
-</details>
-  
----
 
 <br>
 <br>

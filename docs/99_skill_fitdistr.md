@@ -1,16 +1,16 @@
-# Skill: Fitting Distribution Parameters in `R` with `fitdistr` {.unnumbered}
+# Appendix: Using `fitdistr` to Fitting Distribution Parameters
 
 
 
-This tutorial will introduce you to **Fitting Distribution Parameters in `R`, teaching you how to use the `fitdistr()` function from the `MASS` package in R.
+This tutorial will introduce you to \*\*Fitting Distribution Parameters in `R`, teaching you how to use the `fitdistr()` function from the `MASS` package in R.
 
-This training continues on our previous work on Descriptive Statistics. Often, we might want to approximate statistics describing the shape of distributions, but there may not be a clear analytical method (eg. method of moments) to do so. We can use the power of optimization to help us instead, using a brute-force method to find the value most likely to be the statistic that actually fits our distribution. We can ask ```R``` to compute the values of those statistics using the ```MASS``` package's ```fitdistr()```.
+This training continues on our previous work on Descriptive Statistics. Often, we might want to approximate statistics describing the shape of distributions, but there may not be a clear analytical method (eg. method of moments) to do so. We can use the power of optimization to help us instead, using a brute-force method to find the value most likely to be the statistic that actually fits our distribution. We can ask `R` to compute the values of those statistics using the `MASS` package's `fitdistr()`.
 
-## Getting Started {-}
+## Getting Started {.unnumbered}
 
 Please open up your project on Posit.Cloud, for our [Github class repository](https://github.com/timothyfraser/sysen). Start a new R script (File \>\> New \>\> R Script). Save the R script as `appendix_fitdistr.R`. And let's get started!
 
-### Load Packages  {-}
+### Load Packages {.unnumbered}
 
 
 ```r
@@ -23,7 +23,7 @@ fitdistr = MASS::fitdistr
 
 ### Our Data
 
-As our raw data, let's use our vector of seawall heights ```sw```. Its raw distribution can be visualized with `hist(sw)`.
+As our raw data, let's use our vector of seawall heights `sw`. Its raw distribution can be visualized with `hist(sw)`.
 
 
 ```r
@@ -36,11 +36,11 @@ hist(sw)
 
 ## Example: Exponential Distribution
 
-We have our vector of seawall heights `sw`. We have 2 main ways of calculating statistics that describe the distribution of `sw`. These include an analytical approach (method of moments) and a brute-force approach (maximum likelihood estimation). 
+We have our vector of seawall heights `sw`. We have 2 main ways of calculating statistics that describe the distribution of `sw`. These include an analytical approach (method of moments) and a brute-force approach (maximum likelihood estimation).
 
-- In the **analytical approach** (method of moments), which we learned in the main textbook, we use formula that have been derived by mathematicians to describe the parameters of a particular distribution.
+-   In the **analytical approach** (method of moments), which we learned in the main textbook, we use formula that have been derived by mathematicians to describe the parameters of a particular distribution.
 
-- In the **brute-force approach** (maximum likelihood estimation), we use a secondary parameter called **likelihood** to find the parameter values most likely to fit your data. We say, **if** the parameter had value A (for example), what's the joint probability (likelihood) of finding your observed values (`sw`) in a distribution with that trait A? We use maximum likelihood estimation to iteratively test various different values for parameter A, and choose the value that provides the *highest* likelihood - a.k.a. the *maximum likelihood*.
+-   In the **brute-force approach** (maximum likelihood estimation), we use a secondary parameter called **likelihood** to find the parameter values most likely to fit your data. We say, **if** the parameter had value A (for example), what's the joint probability (likelihood) of finding your observed values (`sw`) in a distribution with that trait A? We use maximum likelihood estimation to iteratively test various different values for parameter A, and choose the value that provides the *highest* likelihood - a.k.a. the *maximum likelihood*.
 
 *Note: Remember: a parameter is a single number that describes a full population. A statistic is a single number that describes a sample. This key difference aside, the terms are largely interchangeable.*
 
@@ -71,7 +71,7 @@ Let's calculate the `rate` parameter a few ways, using (1) the method of moments
 
 ### Maximum Likelihood Estimation with `fitdistr()`
 
-Let's ask `fitdistr` to run maximum likelihood estimation. 
+Let's ask `fitdistr` to run maximum likelihood estimation.
 
 Maximum likelihood estimation requires a benchmark distribution to compare against, so we need to specify the distribution type as `densfun = [type name]`. In this case, let's do `exponential`. (See a list of supported distributions using `?MASS::fitdistr`)
 
@@ -115,6 +115,7 @@ sw %>% dexp(rate = 0.1)
 ##  [1] 0.06376282 0.06065307 0.05769498 0.06065307 0.05769498 0.05220458
 ##  [7] 0.05220458 0.05488116 0.06065307 0.06703200
 ```
+
 The **joint probability** of these values of x occurring together is called the **likelihood**. We can take the product using `prod()`.
 
 
@@ -126,6 +127,7 @@ sw %>% dexp(rate = 0.1) %>% prod()
 ```
 ## [1] 4.748151e-13
 ```
+
 Likelihood tend to be very small numbers, so a helpful trick is to calculate the `log-likelihood` instead, meaning the sum of logged probabilities.
 
 
@@ -151,6 +153,7 @@ sw %>% dexp(rate = 0.1) %>% log() %>% sum()
 ```r
 # They're equivalent
 ```
+
 Then, we write up a short `function` called `loglikelihood()`, including two inputs (1) `par` and (2) our data `x`. I added an example value `0.1` to `par` just as a reminder for what it means.
 
 
@@ -163,6 +166,7 @@ loglikelihood(par = 0.1, x = sw)
 ```
 ## [1] -28.37585
 ```
+
 Finally, we run an optimizer using `optim()`, supplying a starting value for search `par = 0.1`, our raw data `x`, and our function `loglikelihood`. We want to **maximize** the loglikelihood, but `optim()` minimizes by default, so we'll say, `control = list(fnscale = -1)` to flip the scale.
 
 
@@ -187,6 +191,7 @@ optim(par = c(0.1), x = sw, fn = loglikelihood, control = list(fnscale = -1))
 ## $message
 ## NULL
 ```
+
 Compare the final parameter value against `fitdistr`'s results! They're about the same.
 
 
@@ -199,6 +204,7 @@ fitdistr(x = sw, densfun = "exponential")
 ##   0.18691589 
 ##  (0.05910799)
 ```
+
 Voila! You made your own maximum likelihood estimator manually. Certainly, `optim()` was a little more time consuming, but now you know how `fitdistr` truly works inside!
 
 ## Applications
@@ -237,6 +243,7 @@ sw %>% fitdistr(densfun = "normal")
 ##   5.3500000   0.7762087 
 ##  (0.2454588) (0.1735655)
 ```
+
 ### Poisson Distribution
 
 What parameter values would best describe our distribution's shape, if this data were from a Poisson distribution? Remember, poisson distributions have a `lambda` parameter describing the `mean`.
@@ -261,9 +268,10 @@ sw %>% fitdistr(densfun = "poisson")
 ##   5.3500000 
 ##  (0.7314369)
 ```
+
 ### Gamma Distribution
 
-What parameter values would best describe our distribution's shape, if this data were from a Gamma distribution? Remember, gamma distributions have a `shape` parameter ` \( \approx \frac{mean^{2}}{ variance} \) and a ```scale``` parameter  \( \approx \frac{variance}{ mean } \).
+What parameter values would best describe our distribution's shape, if this data were from a Gamma distribution? Remember, gamma distributions have a `shape` parameter \` $\approx \frac{mean^{2}}{ variance}$ and a `scale` parameter $\approx \frac{variance}{ mean }$.
 
 
 ```r
@@ -296,10 +304,9 @@ sw %>% fitdistr(densfun = "gamma")
 ##  (20.815512) ( 3.911664)
 ```
 
-
 ### Weibull Distribution
 
-What parameter values would best describe our distribution's shape, if this data were from a Weibull distribution? Remember, gamma distributions have a `shape` parameter and a ```scale``` parameter. (But we can't easily use the method of moments here right now.)
+What parameter values would best describe our distribution's shape, if this data were from a Weibull distribution? Remember, gamma distributions have a `shape` parameter and a `scale` parameter. (But we can't easily use the method of moments here right now.)
 
 
 ```r
@@ -313,17 +320,18 @@ sw %>% fitdistr(densfun = "weibull")
 ##  (1.9038045) (0.2461222)
 ```
 
-
 ## Learning Check 1 {.unnumbered .LC}
 
 **Question**
-  
+
 You've been recruited to evaluate the frequency of Corgi sightings in the Ithaca Downtown. A sample of 10 students each reported the number of corgis they saw last Tuesday in town. Calculate the statistics summarizing each distribution, if it were a normal, poisson, exponential, gamma, or weibull distribution. Please use `fitdistr` for all your calculations.
 
 Beth saw 5, Javier saw 1, June saw 10(!), Tim saw 3, Melanie saw 4, Mohammad saw 3, Jenny say 6, Yosuke saw 4, Jimena saw 5, and David saw 2.
 
-<details><summary>**[View Answer!]**</summary>
-  
+<details>
+
+<summary>**[View Answer!]**</summary>
+
 First, let's make the data.
 
 
@@ -333,6 +341,7 @@ corgi <- c(5, 1, 10, 3, 4, 3, 6, 4, 5, 2)
 ```
 
 Next, let's compute the estimated statistics using maximum likelihood estimation.
+
 
 ```r
 # Compute statistics for each distributions
@@ -386,11 +395,11 @@ corgi %>% fitdistr(densfun = "weibull")
 ```
 
 </details>
-  
----
+
+------------------------------------------------------------------------
+
 ## Conclusion
 
 Congratulations! You now know how to use `fitdistr()` to approximate the parameters for a dataset, assuming various different types of distributions. You also learned maximum likelihood estimation, the core technique underneath `fitdistr()`, and how to perform it manually using `optim()`. Great work!
-
 
 

@@ -1,4 +1,4 @@
-# Workshop: Coding in R
+# Coding in R
 
 
 

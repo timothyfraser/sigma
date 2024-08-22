@@ -1,4 +1,4 @@
-# Skill: Making `mermaid` Block Diagrams (Flowcharts) in R
+# Appendix: `mermaid` Block Diagrams (Flowcharts) in R
 
 ```{r setup_skill_flowcharts, include=FALSE}
 ## Global options
