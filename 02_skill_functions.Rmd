@@ -1,4 +1,4 @@
-# Functions in `R` {.unnumbered}
+# Functions in `R`
 
 ```{r setup_skill_functions, include = FALSE}
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)

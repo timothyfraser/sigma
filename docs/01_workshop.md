@@ -1224,7 +1224,7 @@ hist(allsw$height)
 
 ---
 
-## Learning Check 3 {.unnumbered .LC}
+## Learning Check 4 {.unnumbered .LC}
 
 **Question**
   
@@ -1313,7 +1313,7 @@ Massachusetts (MA) has lower seawalls, evenly distributed around 5.5 m. Maine (M
 
 ---
 
-## Learning Check 4 {.unnumbered .LC}
+## Learning Check 5 {.unnumbered .LC}
 
 **Question**
 

@@ -55,7 +55,7 @@ your-first-scatterplot
 improving-our-visualizations
 visualizing-diamonds-data
 visualizing-distributions
-workshop-distributions-and-descriptive-statistics
+distributions-and-descriptive-statistics
 distributions
 descriptive-statistics
 whats-a-statistic
@@ -88,6 +88,7 @@ special-distributions
 binomial-distribution
 uniform-distribution
 comparing-distributions
+functions-in-r
 coding-your-own-function
 functions-with-default-inputs
 probability
