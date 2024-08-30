@@ -20,14 +20,17 @@ library(credentials)
 getwd()
 
 # Delete any existing copy of the book
-unlink("_main.Rmd")
-unlink("_book", recursive = TRUE)
-unlink("docs", recursive = TRUE)
+# unlink("_main.Rmd")
+# unlink("_book", recursive = TRUE)
+# unlink("docs", recursive = TRUE)
 # Render the book!
 #bookdown::render_book(input = "index.Rmd", new_session = TRUE, output_format = "bookdown::gitbook")
 #browseURL("docs/introduction.html")
 
 #serve_book(dir = ".", output_dir = "docs", preview = FALSE, in_session = FALSE)
+
+# rmarkdown::render("99_test.Rmd")
+
 
 bookdown::render_book(input = "index.Rmd", new_session = TRUE, output_format = "bookdown::gitbook")
 # Assuming we're happy, commit it!

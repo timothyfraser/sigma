@@ -1,3 +1,4 @@
+
 /* Apply red color to text inside the LC1, LC2, LC3, and LC4 sections */
 
 #LC1 *, #LC2 *, #LC3 *, #LC4 *, #LC5 *, #LC6 *, #LC7 *, #LC8 *, #LC9 *, #LC10 * { 
@@ -16,3 +17,29 @@
 .LC * {color: #648FFF; }
 .LC > h2 { color: #3861CE; }
 .LC > details * {  color: #ad1a19; }
+
+
+/* ----- */ 
+
+.button-container {
+  display: inline-block;
+  gap: 10px; /* Space between buttons */
+}
+
+.button {
+  background-color: #648FFF; /* Blue */
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.button-python {
+  background-color: ##FFB000; /* Yellow */
+}
