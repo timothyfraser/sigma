@@ -305,7 +305,7 @@ You're ready to use `mermaid`!
 <br>
 <br>
 
-```{include = FALSE}
+```{r include = FALSE}
 rm(list = ls())
 ```
 

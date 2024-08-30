@@ -589,7 +589,7 @@ mrsim %>% mean()
 ```
 
 ```
-## [1] 1.118869
+## [1] 1.149155
 ```
 
 
@@ -599,7 +599,7 @@ mrsim %>% sd()
 ```
 
 ```
-## [1] 0.8559777
+## [1] 0.8691357
 ```
 
 But why stop there? We can calculate loads of other interesting statistics!
@@ -614,7 +614,7 @@ mrsim %>%
 
 ```
 ##   50%   90%   95% 
-## 0.946 2.317 2.772
+## 0.971 2.382 2.826
 ```
 
 <br>
@@ -726,7 +726,7 @@ dn(n = 2)
 ## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   <dbl> <dbl> <dbl> <dbl>
-## 1  1.13 0.850     0  3.25
+## 1  1.12 0.854     0  3.28
 ```
 
 
@@ -743,7 +743,7 @@ d
 ## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   <dbl> <dbl> <dbl> <dbl>
-## 1  3.73 0.729 0.414  1.59
+## 1  3.73 0.736 0.408  1.59
 ```
 
 <br>
@@ -786,7 +786,7 @@ mydstat
 ## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   <dbl> <dbl> <dbl> <dbl>
-## 1  3.74 0.736 0.410  1.59
+## 1  3.75 0.733 0.414  1.59
 ```
 
 And use these constants to estimate the upper and lower CI for $\bar{r}$!
@@ -803,7 +803,7 @@ stat %>%
 ## # A tibble: 1 × 3
 ##    rbar rbar_lower rbar_upper
 ##   <dbl>      <dbl>      <dbl>
-## 1  7.26       2.97       11.6
+## 1  7.26       3.01       11.5
 ```
 
 So quick! You could use these values to make a *range* chart now.
@@ -913,7 +913,7 @@ mybstat
 ## # A tibble: 1 × 6
 ##      b2    b3    C4    A3    B3    B4
 ##   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-## 1 0.988 0.160 0.988 0.679 0.516  1.48
+## 1 0.987 0.160 0.987 0.679 0.513  1.49
 ```
 
 Finally, let's calculate our control limits!
@@ -936,7 +936,7 @@ stat %>%
 ## # A tibble: 1 × 3
 ##    sbar sbar_lower sbar_upper
 ##   <dbl>      <dbl>      <dbl>
-## 1  1.94      0.998       2.87
+## 1  1.94      0.993       2.88
 ```
 
 Now you're all ready to make a control chart showing variation in the standard deviation!
@@ -971,15 +971,15 @@ dx
 ## # A tibble: 9 × 3
 ##       n    d2    d3
 ##   <int> <dbl> <dbl>
-## 1     2  1.12 0.843
-## 2     3  1.69 0.886
-## 3     4  2.04 0.875
-## 4     5  2.32 0.874
-## 5     6  2.54 0.853
-## 6     7  2.72 0.839
-## 7     8  2.85 0.830
-## 8     9  2.97 0.812
-## 9    10  3.07 0.792
+## 1     2  1.15 0.865
+## 2     3  1.69 0.889
+## 3     4  2.07 0.875
+## 4     5  2.32 0.853
+## 5     6  2.53 0.844
+## 6     7  2.70 0.834
+## 7     8  2.84 0.817
+## 8     9  2.96 0.813
+## 9    10  3.08 0.794
 ```
 
 </details>

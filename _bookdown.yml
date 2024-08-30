@@ -14,7 +14,8 @@ rmd_files:
     "00_part2.Rmd",
     "02_workshop.Rmd", # Descriptives
     "02_skill_functions.Rmd",
-    "03_workshop.Rmd", # Probability
+    "03a_workshop.Rmd", # Probability
+    "03b_workshop.Rmd", # Probability
     "04_workshop.Rmd", # Reliability
 
     ##################################
@@ -59,7 +60,8 @@ rmd_files:
     "99_skill_viz.Rmd", # Appendix Exercises
     "99_skill_flowcharts.Rmd", # Appendix Exercises
     "99_skill_fitdistr.Rmd", # Appendix Exercises
-    "99_skill_tidyfault.Rmd"
+    "99_skill_tidyfault.Rmd",
+    "99_test.Rmd" # test section
     # 
     # ##################################
     # #"99_references.Rmd"

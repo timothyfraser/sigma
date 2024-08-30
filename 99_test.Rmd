@@ -1,0 +1,39 @@
+# Appendix: test
+
+```{r setup_test, include=FALSE}
+## Global options
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+library(knitr)
+library(kableExtra)
+library(magick)
+library(dplyr)
+library(ggplot2)
+```
+
+## Getting Started {-}
+
+This is just a test document, placed at the end of the book.
+```{r, message = FALSE, warning = FALSE}
+library(dplyr)
+```
+
+::: {.tabset}
+
+### R
+```{r}
+# R code
+mtcars$hp %>% mean()
+```
+
+### Python
+```{python}
+# Python code
+import pandas as pd
+data = pd.DataFrame({'hello': [1,2,3]})
+print(data.hello.mean())
+```
+
+:::
+
+Did it work?
+
