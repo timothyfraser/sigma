@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2024-08-29" />
+<meta name="date" content="2024-10-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,7 @@
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="assets/kePrint-0.0.1/kePrint.js"></script>
 <link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="assets/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
 <script src="assets/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <script src="assets/d3-3.3.8/d3.min.js"></script>
 <script src="assets/dagre-0.4.0/dagre-d3.min.js"></script>
@@ -76,7 +77,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -921,7 +922,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="25" data-path="appendix-test.html"><a href="appendix-test.html"><i class="fa fa-check"></i><b>25</b> Appendix: test</a>
 <ul>
-<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-24"><i class="fa fa-check"></i>Getting Started</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-24"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-1"><i class="fa fa-check"></i>Version 1</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-2"><i class="fa fa-check"></i>Version 2</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -949,18 +954,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="load-data-1" class="section level3 unnumbered hasAnchor">
 <h3>Load Data<a href="bivariate-regression-modeling-diamond-pricing.html#load-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In this dataset, each row is a diamond!</p>
-<div class="sourceCode" id="cb991"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb991-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb991-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data wrangling</span></span>
-<span id="cb991-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb991-2" tabindex="-1"></a><span class="fu">library</span>(viridis) <span class="co"># for colors</span></span>
-<span id="cb991-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb991-3" tabindex="-1"></a><span class="fu">library</span>(broom) <span class="co"># for regression</span></span>
-<span id="cb991-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb991-4" tabindex="-1"></a><span class="fu">library</span>(gtools) <span class="co"># for statistical significance</span></span>
-<span id="cb991-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb991-5" tabindex="-1"></a></span>
-<span id="cb991-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb991-6" tabindex="-1"></a><span class="co"># Save the diamonds dataset as an object in my environment</span></span>
-<span id="cb991-7"><a href="bivariate-regression-modeling-diamond-pricing.html#cb991-7" tabindex="-1"></a>mydiamonds <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;workshops/mydiamonds.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1001"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1001-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1001-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data wrangling</span></span>
+<span id="cb1001-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1001-2" tabindex="-1"></a><span class="fu">library</span>(viridis) <span class="co"># for colors</span></span>
+<span id="cb1001-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1001-3" tabindex="-1"></a><span class="fu">library</span>(broom) <span class="co"># for regression</span></span>
+<span id="cb1001-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1001-4" tabindex="-1"></a><span class="fu">library</span>(gtools) <span class="co"># for statistical significance</span></span>
+<span id="cb1001-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1001-5" tabindex="-1"></a></span>
+<span id="cb1001-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1001-6" tabindex="-1"></a><span class="co"># Save the diamonds dataset as an object in my environment</span></span>
+<span id="cb1001-7"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1001-7" tabindex="-1"></a>mydiamonds <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;workshops/mydiamonds.csv&quot;</span>)</span></code></pre></div>
 </div>
 <div id="view-data" class="section level3 unnumbered hasAnchor">
 <h3>View Data<a href="bivariate-regression-modeling-diamond-pricing.html#view-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb992"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb992-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb992-1" tabindex="-1"></a><span class="co"># View first 3 rows of dataset</span></span>
-<span id="cb992-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb992-2" tabindex="-1"></a>mydiamonds <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1002"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1002-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1002-1" tabindex="-1"></a><span class="co"># View first 3 rows of dataset</span></span>
+<span id="cb1002-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1002-2" tabindex="-1"></a>mydiamonds <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1007,23 +1012,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">16.1.1</span> Scatterplots<a href="bivariate-regression-modeling-diamond-pricing.html#scatterplots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>First, we can visualize the relationship between 2 numeric variables using a scatterplot, putting one on the x-axis and one on the y-axis. In a scatterplot, each dot represents a row in our dataset.</p>
 <p>So, we can visualize just five randomly selected dots, like this:</p>
-<div class="sourceCode" id="cb993"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb993-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb993-1" tabindex="-1"></a>mydiamonds <span class="sc">%&gt;%</span> <span class="co"># pipe from dataframe</span></span>
-<span id="cb993-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb993-2" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="co"># take a random sample</span></span>
-<span id="cb993-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb993-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
-<span id="cb993-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb993-4" tabindex="-1"></a>  <span class="co"># Pro-tip: if you say, shape = 21, </span></span>
-<span id="cb993-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb993-5" tabindex="-1"></a>  <span class="co"># this lets us change both the fill and the outline color of the dot</span></span>
-<span id="cb993-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb993-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>, <span class="at">shape =</span> <span class="dv">21</span>, </span>
-<span id="cb993-7"><a href="bivariate-regression-modeling-diamond-pricing.html#cb993-7" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
-<span id="cb993-8"><a href="bivariate-regression-modeling-diamond-pricing.html#cb993-8" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">30</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1003"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1003-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1003-1" tabindex="-1"></a>mydiamonds <span class="sc">%&gt;%</span> <span class="co"># pipe from dataframe</span></span>
+<span id="cb1003-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1003-2" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="co"># take a random sample</span></span>
+<span id="cb1003-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1003-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb1003-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1003-4" tabindex="-1"></a>  <span class="co"># Pro-tip: if you say, shape = 21, </span></span>
+<span id="cb1003-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1003-5" tabindex="-1"></a>  <span class="co"># this lets us change both the fill and the outline color of the dot</span></span>
+<span id="cb1003-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1003-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>, <span class="at">shape =</span> <span class="dv">21</span>, </span>
+<span id="cb1003-7"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1003-7" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1003-8"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1003-8" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">30</span>)</span></code></pre></div>
 <p><img src="11_workshop_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>Or we can visualize all the dots, like this:</p>
-<div class="sourceCode" id="cb994"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb994-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb994-1" tabindex="-1"></a>mydiamonds <span class="sc">%&gt;%</span> <span class="co"># just pipe directly from data.frame</span></span>
-<span id="cb994-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb994-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
-<span id="cb994-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb994-3" tabindex="-1"></a>  <span class="co"># Pro-tip: if you say, shape = 21, </span></span>
-<span id="cb994-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb994-4" tabindex="-1"></a>  <span class="co"># this lets us change both the fill and the outline color of the dot</span></span>
-<span id="cb994-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb994-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">21</span>, </span>
-<span id="cb994-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb994-6" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb994-7"><a href="bivariate-regression-modeling-diamond-pricing.html#cb994-7" tabindex="-1"></a>  <span class="fu">theme_classic</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb1004"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1004-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1004-1" tabindex="-1"></a>mydiamonds <span class="sc">%&gt;%</span> <span class="co"># just pipe directly from data.frame</span></span>
+<span id="cb1004-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1004-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb1004-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1004-3" tabindex="-1"></a>  <span class="co"># Pro-tip: if you say, shape = 21, </span></span>
+<span id="cb1004-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1004-4" tabindex="-1"></a>  <span class="co"># this lets us change both the fill and the outline color of the dot</span></span>
+<span id="cb1004-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1004-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">21</span>, </span>
+<span id="cb1004-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1004-6" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1004-7"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1004-7" tabindex="-1"></a>  <span class="fu">theme_classic</span>() </span></code></pre></div>
 <p><img src="11_workshop_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>We can see that there’s a strong, positive relationship. As carat increases, price increases to!</p>
 <p><br></p>
@@ -1047,11 +1052,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>To extract <code>cor.test()</code>’s output, we can use the <code>broom</code> package’s <code>tidy()</code> function. This takes the output of the <code>cor.test()</code> function and puts it in a nice tidy data.frame, which we can then give to <code>summarize()</code>, allowing us to still use <code>group_by()</code>.</p>
 <p>Then, the correlation is reported in the <code>estimate</code> column, a standardized t-statistic is calculated in the <code>statistic</code> column, significance is given in the <code>p.value</code> column, and the upper (97.5%) and lower (2.5%) 95% confidence intervals are reported in <code>conf.low</code> and <code>conf.high</code>.</p>
-<div class="sourceCode" id="cb995"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb995-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb995-1" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb995-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb995-2" tabindex="-1"></a></span>
-<span id="cb995-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb995-3" tabindex="-1"></a>mydiamonds <span class="sc">%&gt;%</span></span>
-<span id="cb995-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb995-4" tabindex="-1"></a>  <span class="fu">group_by</span>(cut) <span class="sc">%&gt;%</span></span>
-<span id="cb995-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb995-5" tabindex="-1"></a>  <span class="fu">summarize</span>( <span class="fu">cor.test</span>(<span class="at">x =</span> price, <span class="at">y =</span> carat) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() )<span class="co"># convert to dataframe</span></span></code></pre></div>
+<div class="sourceCode" id="cb1005"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1005-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1005-1" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1005-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1005-2" tabindex="-1"></a></span>
+<span id="cb1005-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1005-3" tabindex="-1"></a>mydiamonds <span class="sc">%&gt;%</span></span>
+<span id="cb1005-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1005-4" tabindex="-1"></a>  <span class="fu">group_by</span>(cut) <span class="sc">%&gt;%</span></span>
+<span id="cb1005-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1005-5" tabindex="-1"></a>  <span class="fu">summarize</span>( <span class="fu">cor.test</span>(<span class="at">x =</span> price, <span class="at">y =</span> carat) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() )<span class="co"># convert to dataframe</span></span></code></pre></div>
 <table>
 <colgroup>
 <col width="11%" />
@@ -1173,10 +1178,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="lm" class="section level3 hasAnchor" number="16.2.3">
 <h3><span class="header-section-number">16.2.3</span> lm()<a href="bivariate-regression-modeling-diamond-pricing.html#lm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can use the <code>lm()</code> function in R to estimate the model equation for our line of best fit.</p>
-<div class="sourceCode" id="cb996"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb996-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb996-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> mydiamonds <span class="sc">%&gt;%</span> <span class="co"># save output as object &#39;m&#39;</span></span>
-<span id="cb996-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb996-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> price <span class="sc">~</span> carat)</span>
-<span id="cb996-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb996-3" tabindex="-1"></a><span class="co"># And display its contents here!</span></span>
-<span id="cb996-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb996-4" tabindex="-1"></a>m</span></code></pre></div>
+<div class="sourceCode" id="cb1006"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1006-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> mydiamonds <span class="sc">%&gt;%</span> <span class="co"># save output as object &#39;m&#39;</span></span>
+<span id="cb1006-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> price <span class="sc">~</span> carat)</span>
+<span id="cb1006-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-3" tabindex="-1"></a><span class="co"># And display its contents here!</span></span>
+<span id="cb1006-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-4" tabindex="-1"></a>m</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = price ~ carat, data = .)
@@ -1207,35 +1212,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="statistical-significance" class="section level2 hasAnchor" number="16.3">
 <h2><span class="header-section-number">16.3</span> Statistical Significance<a href="bivariate-regression-modeling-diamond-pricing.html#statistical-significance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can even assess statistical significance for our alpha and beta coefficients. We can use <code>tidy()</code> from the <code>broom</code> package.</p>
-<div class="sourceCode" id="cb998"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb998-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb998-1" tabindex="-1"></a>mydiamonds <span class="sc">%&gt;%</span></span>
-<span id="cb998-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb998-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> price <span class="sc">~</span> carat) <span class="sc">%&gt;%</span></span>
-<span id="cb998-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb998-3" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1008"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1008-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1008-1" tabindex="-1"></a>mydiamonds <span class="sc">%&gt;%</span></span>
+<span id="cb1008-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1008-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> price <span class="sc">~</span> carat) <span class="sc">%&gt;%</span></span>
+<span id="cb1008-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1008-3" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code></pre></div>
 <p>And if you’re not satisfied with that layout, we can write our own function <code>tidier()</code> to get even tidier formatting! Copy and run the <code>tidier()</code> function, and compare your output to <code>tidy()</code> above.</p>
-<div class="sourceCode" id="cb999"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb999-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-1" tabindex="-1"></a><span class="co"># Let&#39;s write a little tidier function..</span></span>
-<span id="cb999-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-2" tabindex="-1"></a>tidier <span class="ot">=</span> <span class="cf">function</span>(model, <span class="at">ci =</span> <span class="fl">0.95</span>, <span class="at">digits =</span> <span class="dv">3</span>){</span>
-<span id="cb999-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-3" tabindex="-1"></a>  model <span class="sc">%&gt;%</span> <span class="co"># for a model object</span></span>
-<span id="cb999-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-4" tabindex="-1"></a>    <span class="co"># get data.frame of coefficients</span></span>
-<span id="cb999-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-5" tabindex="-1"></a>    <span class="co"># ask for a confidence interval matching the &#39;ci&#39; above! </span></span>
-<span id="cb999-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-6" tabindex="-1"></a>    broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">conf.level =</span> ci) <span class="sc">%&gt;%</span> </span>
-<span id="cb999-7"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-7" tabindex="-1"></a>    <span class="co"># And round and relabel them</span></span>
-<span id="cb999-8"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-8" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
-<span id="cb999-9"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-9" tabindex="-1"></a>      <span class="at">term =</span> term,  </span>
-<span id="cb999-10"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-10" tabindex="-1"></a>      <span class="co"># Round numbers to a certain number of &#39;digits&#39;</span></span>
-<span id="cb999-11"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-11" tabindex="-1"></a>      <span class="at">estimate =</span> estimate <span class="sc">%&gt;%</span> <span class="fu">round</span>(digits),</span>
-<span id="cb999-12"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-12" tabindex="-1"></a>      <span class="at">se =</span> statistic <span class="sc">%&gt;%</span> <span class="fu">round</span>(digits),</span>
-<span id="cb999-13"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-13" tabindex="-1"></a>      <span class="at">statistic =</span> statistic <span class="sc">%&gt;%</span> <span class="fu">round</span>(digits),</span>
-<span id="cb999-14"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-14" tabindex="-1"></a>      <span class="at">p_value =</span> p.value <span class="sc">%&gt;%</span> <span class="fu">round</span>(digits),</span>
-<span id="cb999-15"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-15" tabindex="-1"></a>      <span class="co"># Get stars to show statistical significance</span></span>
-<span id="cb999-16"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-16" tabindex="-1"></a>      <span class="at">stars =</span> p.value <span class="sc">%&gt;%</span> gtools<span class="sc">::</span><span class="fu">stars.pval</span>(),</span>
-<span id="cb999-17"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-17" tabindex="-1"></a>      <span class="co"># Get better names</span></span>
-<span id="cb999-18"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-18" tabindex="-1"></a>      <span class="at">upper =</span> conf.high <span class="sc">%&gt;%</span> <span class="fu">round</span>(digits),</span>
-<span id="cb999-19"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-19" tabindex="-1"></a>      <span class="at">lower =</span> conf.low <span class="sc">%&gt;%</span> <span class="fu">round</span>(digits))</span>
-<span id="cb999-20"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-20" tabindex="-1"></a>}</span>
-<span id="cb999-21"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-21" tabindex="-1"></a></span>
-<span id="cb999-22"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-22" tabindex="-1"></a><span class="co"># Let&#39;s try it out!</span></span>
-<span id="cb999-23"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-23" tabindex="-1"></a>mydiamonds <span class="sc">%&gt;%</span></span>
-<span id="cb999-24"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-24" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> price <span class="sc">~</span> carat) <span class="sc">%&gt;%</span></span>
-<span id="cb999-25"><a href="bivariate-regression-modeling-diamond-pricing.html#cb999-25" tabindex="-1"></a>  <span class="fu">tidier</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1009"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1009-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-1" tabindex="-1"></a><span class="co"># Let&#39;s write a little tidier function..</span></span>
+<span id="cb1009-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-2" tabindex="-1"></a>tidier <span class="ot">=</span> <span class="cf">function</span>(model, <span class="at">ci =</span> <span class="fl">0.95</span>, <span class="at">digits =</span> <span class="dv">3</span>){</span>
+<span id="cb1009-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-3" tabindex="-1"></a>  model <span class="sc">%&gt;%</span> <span class="co"># for a model object</span></span>
+<span id="cb1009-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-4" tabindex="-1"></a>    <span class="co"># get data.frame of coefficients</span></span>
+<span id="cb1009-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-5" tabindex="-1"></a>    <span class="co"># ask for a confidence interval matching the &#39;ci&#39; above! </span></span>
+<span id="cb1009-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-6" tabindex="-1"></a>    broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">conf.level =</span> ci) <span class="sc">%&gt;%</span> </span>
+<span id="cb1009-7"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-7" tabindex="-1"></a>    <span class="co"># And round and relabel them</span></span>
+<span id="cb1009-8"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-8" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb1009-9"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-9" tabindex="-1"></a>      <span class="at">term =</span> term,  </span>
+<span id="cb1009-10"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-10" tabindex="-1"></a>      <span class="co"># Round numbers to a certain number of &#39;digits&#39;</span></span>
+<span id="cb1009-11"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-11" tabindex="-1"></a>      <span class="at">estimate =</span> estimate <span class="sc">%&gt;%</span> <span class="fu">round</span>(digits),</span>
+<span id="cb1009-12"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-12" tabindex="-1"></a>      <span class="at">se =</span> statistic <span class="sc">%&gt;%</span> <span class="fu">round</span>(digits),</span>
+<span id="cb1009-13"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-13" tabindex="-1"></a>      <span class="at">statistic =</span> statistic <span class="sc">%&gt;%</span> <span class="fu">round</span>(digits),</span>
+<span id="cb1009-14"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-14" tabindex="-1"></a>      <span class="at">p_value =</span> p.value <span class="sc">%&gt;%</span> <span class="fu">round</span>(digits),</span>
+<span id="cb1009-15"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-15" tabindex="-1"></a>      <span class="co"># Get stars to show statistical significance</span></span>
+<span id="cb1009-16"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-16" tabindex="-1"></a>      <span class="at">stars =</span> p.value <span class="sc">%&gt;%</span> gtools<span class="sc">::</span><span class="fu">stars.pval</span>(),</span>
+<span id="cb1009-17"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-17" tabindex="-1"></a>      <span class="co"># Get better names</span></span>
+<span id="cb1009-18"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-18" tabindex="-1"></a>      <span class="at">upper =</span> conf.high <span class="sc">%&gt;%</span> <span class="fu">round</span>(digits),</span>
+<span id="cb1009-19"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-19" tabindex="-1"></a>      <span class="at">lower =</span> conf.low <span class="sc">%&gt;%</span> <span class="fu">round</span>(digits))</span>
+<span id="cb1009-20"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-20" tabindex="-1"></a>}</span>
+<span id="cb1009-21"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-21" tabindex="-1"></a></span>
+<span id="cb1009-22"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-22" tabindex="-1"></a><span class="co"># Let&#39;s try it out!</span></span>
+<span id="cb1009-23"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-23" tabindex="-1"></a>mydiamonds <span class="sc">%&gt;%</span></span>
+<span id="cb1009-24"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-24" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> price <span class="sc">~</span> carat) <span class="sc">%&gt;%</span></span>
+<span id="cb1009-25"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-25" tabindex="-1"></a>  <span class="fu">tidier</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 8
 ##   term        estimate    se statistic p_value stars  upper  lower
 ##   &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -1336,12 +1341,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="visualization" class="section level2 hasAnchor" number="16.4">
 <h2><span class="header-section-number">16.4</span> Visualization<a href="bivariate-regression-modeling-diamond-pricing.html#visualization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Finally, visualizing the line of best fit is quite easy! We make a scatterplot in using the <code>ggplot2</code> package’s <code>ggplot()</code> function. Then, we add <code>geom_smooth(method = "lm")</code>. This uses the <code>lm()</code> function internally to make a line of best fit between our <code>x</code> and <code>y</code> variables in the <code>aes()</code> section of our plot.</p>
-<div class="sourceCode" id="cb1001"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1001-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1001-1" tabindex="-1"></a>mydiamonds <span class="sc">%&gt;%</span></span>
-<span id="cb1001-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1001-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
-<span id="cb1001-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1001-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">21</span>, </span>
-<span id="cb1001-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1001-4" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb1001-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1001-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> <span class="co"># se = FALSE removes extra stuff</span></span>
-<span id="cb1001-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1001-6" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1011"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1011-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-1" tabindex="-1"></a>mydiamonds <span class="sc">%&gt;%</span></span>
+<span id="cb1011-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb1011-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">21</span>, </span>
+<span id="cb1011-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-4" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1011-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> <span class="co"># se = FALSE removes extra stuff</span></span>
+<span id="cb1011-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-6" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
 <p><img src="11_workshop_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p><br>
 <br>
@@ -1358,12 +1363,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <strong>[View Answer!]</strong>
 </summary>
 <p><code>ggplot</code> generates 5 different lines of best fit, one for each level of <code>cut</code>. The slope of the line differs for each cut. As carats increase, price increases at a faster rate for <code>"Ideal"</code> cut diamonds than for <code>"Fair"</code> cut diamonds.</p>
-<div class="sourceCode" id="cb1002"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1002-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1002-1" tabindex="-1"></a>mydiamonds <span class="sc">%&gt;%</span></span>
-<span id="cb1002-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1002-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price, <span class="at">color =</span> cut)) <span class="sc">+</span></span>
-<span id="cb1002-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1002-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">21</span>, </span>
-<span id="cb1002-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1002-4" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb1002-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1002-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> <span class="co"># se = FALSE removes extra stuff</span></span>
-<span id="cb1002-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1002-6" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1012"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1012-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1012-1" tabindex="-1"></a>mydiamonds <span class="sc">%&gt;%</span></span>
+<span id="cb1012-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1012-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price, <span class="at">color =</span> cut)) <span class="sc">+</span></span>
+<span id="cb1012-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1012-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">21</span>, </span>
+<span id="cb1012-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1012-4" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1012-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1012-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> <span class="co"># se = FALSE removes extra stuff</span></span>
+<span id="cb1012-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1012-6" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
 <p><img src="11_workshop_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 </details>
 <hr />
@@ -1380,9 +1385,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="predicted-values" class="section level3 hasAnchor" number="16.5.1">
 <h3><span class="header-section-number">16.5.1</span> Predicted Values<a href="bivariate-regression-modeling-diamond-pricing.html#predicted-values" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>All models have a lot of information stored inside them, which you can access using the $ sign. (Note: <code>select()</code> can’t extract them, because model objects are not data.frames)</p>
-<div class="sourceCode" id="cb1003"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1003-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1003-1" tabindex="-1"></a><span class="co"># This code gives you the original values put into your model (y ~ x...)</span></span>
-<span id="cb1003-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1003-2" tabindex="-1"></a><span class="co"># We&#39;re using head() here to show just the first few rows.</span></span>
-<span id="cb1003-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1003-3" tabindex="-1"></a>m<span class="sc">$</span>model <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1013"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1013-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1013-1" tabindex="-1"></a><span class="co"># This code gives you the original values put into your model (y ~ x...)</span></span>
+<span id="cb1013-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1013-2" tabindex="-1"></a><span class="co"># We&#39;re using head() here to show just the first few rows.</span></span>
+<span id="cb1013-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1013-3" tabindex="-1"></a>m<span class="sc">$</span>model <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1406,16 +1411,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>This code gives you the the predicted values for your outcome, dubbed <code>price_hat</code> (<span class="math inline">\(Y_{Predicted}\)</span>), and your <code>residuals</code> (<span class="math inline">\(Y_{Observed} − Y_{Predicted}\)</span>), given each row of data.</p>
-<div class="sourceCode" id="cb1004"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1004-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1004-1" tabindex="-1"></a>mdat <span class="ot">=</span> <span class="fu">tibble</span>(</span>
-<span id="cb1004-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1004-2" tabindex="-1"></a>  <span class="co"># We can also grab the data that went into our model</span></span>
-<span id="cb1004-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1004-3" tabindex="-1"></a>  m<span class="sc">$</span>model,</span>
-<span id="cb1004-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1004-4" tabindex="-1"></a>  <span class="co"># We can extract the predicted values for our outcome</span></span>
-<span id="cb1004-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1004-5" tabindex="-1"></a>  <span class="at">price_hat =</span> m <span class="sc">%&gt;%</span> <span class="fu">predict</span>(),</span>
-<span id="cb1004-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1004-6" tabindex="-1"></a>  <span class="co"># And our residuals</span></span>
-<span id="cb1004-7"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1004-7" tabindex="-1"></a>  <span class="at">residual =</span> m <span class="sc">%&gt;%</span> <span class="fu">residuals</span>(),</span>
-<span id="cb1004-8"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1004-8" tabindex="-1"></a>) </span>
-<span id="cb1004-9"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1004-9" tabindex="-1"></a><span class="co"># Check it out!</span></span>
-<span id="cb1004-10"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1004-10" tabindex="-1"></a>mdat <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1014"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1014-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1014-1" tabindex="-1"></a>mdat <span class="ot">=</span> <span class="fu">tibble</span>(</span>
+<span id="cb1014-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1014-2" tabindex="-1"></a>  <span class="co"># We can also grab the data that went into our model</span></span>
+<span id="cb1014-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1014-3" tabindex="-1"></a>  m<span class="sc">$</span>model,</span>
+<span id="cb1014-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1014-4" tabindex="-1"></a>  <span class="co"># We can extract the predicted values for our outcome</span></span>
+<span id="cb1014-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1014-5" tabindex="-1"></a>  <span class="at">price_hat =</span> m <span class="sc">%&gt;%</span> <span class="fu">predict</span>(),</span>
+<span id="cb1014-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1014-6" tabindex="-1"></a>  <span class="co"># And our residuals</span></span>
+<span id="cb1014-7"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1014-7" tabindex="-1"></a>  <span class="at">residual =</span> m <span class="sc">%&gt;%</span> <span class="fu">residuals</span>(),</span>
+<span id="cb1014-8"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1014-8" tabindex="-1"></a>) </span>
+<span id="cb1014-9"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1014-9" tabindex="-1"></a><span class="co"># Check it out!</span></span>
+<span id="cb1014-10"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1014-10" tabindex="-1"></a>mdat <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 4
 ##   price carat price_hat residual
 ##   &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
@@ -1438,29 +1443,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <summary>
 <strong>Extra: code this as a static visual! (optional)</strong>
 </summary>
-<div class="sourceCode" id="cb1006"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1006-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-1" tabindex="-1"></a><span class="co"># Visualize residuals, pulling from our new data.frame mdat</span></span>
-<span id="cb1006-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-2" tabindex="-1"></a>mdat <span class="sc">%&gt;%</span></span>
-<span id="cb1006-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(</span>
-<span id="cb1006-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-4" tabindex="-1"></a>    <span class="co"># Make x axis diamond carats,</span></span>
-<span id="cb1006-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-5" tabindex="-1"></a>    <span class="at">x =</span> carat,</span>
-<span id="cb1006-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-6" tabindex="-1"></a>    <span class="co"># Make y axis price of diamonds (outcome)</span></span>
-<span id="cb1006-7"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-7" tabindex="-1"></a>    <span class="at">y =</span> price,</span>
-<span id="cb1006-8"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-8" tabindex="-1"></a>    <span class="co"># Make the size of points how far away they are from predicted value</span></span>
-<span id="cb1006-9"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-9" tabindex="-1"></a>    <span class="at">size =</span> <span class="fu">abs</span>(residuals),</span>
-<span id="cb1006-10"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-10" tabindex="-1"></a>    <span class="co"># Draw a line whose starting point is the predicted value (line)</span></span>
-<span id="cb1006-11"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-11" tabindex="-1"></a>    <span class="at">ymin =</span> price_hat,</span>
-<span id="cb1006-12"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-12" tabindex="-1"></a>    <span class="co"># And whose end point is the observed value (dot)</span></span>
-<span id="cb1006-13"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-13" tabindex="-1"></a>    <span class="at">ymax =</span> price)) <span class="sc">+</span></span>
-<span id="cb1006-14"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-14" tabindex="-1"></a>  <span class="co"># Now draw the points</span></span>
-<span id="cb1006-15"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-15" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb1006-16"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-16" tabindex="-1"></a>  <span class="co"># Draw the line of best fit</span></span>
-<span id="cb1006-17"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-17" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb1006-18"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-18" tabindex="-1"></a>  <span class="co"># Draw the &#39;residuals&#39;, the distance between predicted and observed</span></span>
-<span id="cb1006-19"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-19" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb1006-20"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-20" tabindex="-1"></a>  <span class="co"># Add a classic theme</span></span>
-<span id="cb1006-21"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-21" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb1006-22"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-22" tabindex="-1"></a>  <span class="co"># Remove the size legend</span></span>
-<span id="cb1006-23"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1006-23" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">size =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1016"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1016-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-1" tabindex="-1"></a><span class="co"># Visualize residuals, pulling from our new data.frame mdat</span></span>
+<span id="cb1016-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-2" tabindex="-1"></a>mdat <span class="sc">%&gt;%</span></span>
+<span id="cb1016-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(</span>
+<span id="cb1016-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-4" tabindex="-1"></a>    <span class="co"># Make x axis diamond carats,</span></span>
+<span id="cb1016-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-5" tabindex="-1"></a>    <span class="at">x =</span> carat,</span>
+<span id="cb1016-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-6" tabindex="-1"></a>    <span class="co"># Make y axis price of diamonds (outcome)</span></span>
+<span id="cb1016-7"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-7" tabindex="-1"></a>    <span class="at">y =</span> price,</span>
+<span id="cb1016-8"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-8" tabindex="-1"></a>    <span class="co"># Make the size of points how far away they are from predicted value</span></span>
+<span id="cb1016-9"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-9" tabindex="-1"></a>    <span class="at">size =</span> <span class="fu">abs</span>(residuals),</span>
+<span id="cb1016-10"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-10" tabindex="-1"></a>    <span class="co"># Draw a line whose starting point is the predicted value (line)</span></span>
+<span id="cb1016-11"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-11" tabindex="-1"></a>    <span class="at">ymin =</span> price_hat,</span>
+<span id="cb1016-12"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-12" tabindex="-1"></a>    <span class="co"># And whose end point is the observed value (dot)</span></span>
+<span id="cb1016-13"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-13" tabindex="-1"></a>    <span class="at">ymax =</span> price)) <span class="sc">+</span></span>
+<span id="cb1016-14"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-14" tabindex="-1"></a>  <span class="co"># Now draw the points</span></span>
+<span id="cb1016-15"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-15" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;darkgrey&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb1016-16"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-16" tabindex="-1"></a>  <span class="co"># Draw the line of best fit</span></span>
+<span id="cb1016-17"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-17" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb1016-18"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-18" tabindex="-1"></a>  <span class="co"># Draw the &#39;residuals&#39;, the distance between predicted and observed</span></span>
+<span id="cb1016-19"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-19" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb1016-20"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-20" tabindex="-1"></a>  <span class="co"># Add a classic theme</span></span>
+<span id="cb1016-21"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-21" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb1016-22"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-22" tabindex="-1"></a>  <span class="co"># Remove the size legend</span></span>
+<span id="cb1016-23"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1016-23" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">size =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 </details>
 </div>
 <div id="r-squared" class="section level3 hasAnchor" number="16.5.3">
@@ -1497,16 +1502,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><span class="math inline">\(R^{2}\)</span>: percentage of variation in the outcome that was explained by the model.</p></li>
 </ul>
 <p>We can manually code this in R2!</p>
-<div class="sourceCode" id="cb1007"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1007-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1007-1" tabindex="-1"></a><span class="co"># Using our data.frame of model inputs and outputs,</span></span>
-<span id="cb1007-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1007-2" tabindex="-1"></a><span class="co"># let&#39;s create two summary statistics</span></span>
-<span id="cb1007-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1007-3" tabindex="-1"></a>mdat <span class="sc">%&gt;%</span></span>
-<span id="cb1007-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1007-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb1007-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1007-5" tabindex="-1"></a>    <span class="co"># get sum of each squared difference between observed and mean price</span></span>
-<span id="cb1007-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1007-6" tabindex="-1"></a>    <span class="at">tss =</span> <span class="fu">sum</span>((price <span class="sc">-</span> <span class="fu">mean</span>(price))<span class="sc">^</span><span class="dv">2</span>),</span>
-<span id="cb1007-7"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1007-7" tabindex="-1"></a>    <span class="co"># get sum of each squared difference between observed and predicted price</span></span>
-<span id="cb1007-8"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1007-8" tabindex="-1"></a>    <span class="at">rss =</span> <span class="fu">sum</span>((price <span class="sc">-</span> price_hat)<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb1007-9"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1007-9" tabindex="-1"></a>  <span class="co"># calculate R2 based on these stats</span></span>
-<span id="cb1007-10"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1007-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">R2 =</span> <span class="dv">1</span> <span class="sc">-</span> rss <span class="sc">/</span> tss)</span></code></pre></div>
+<div class="sourceCode" id="cb1017"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1017-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1017-1" tabindex="-1"></a><span class="co"># Using our data.frame of model inputs and outputs,</span></span>
+<span id="cb1017-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1017-2" tabindex="-1"></a><span class="co"># let&#39;s create two summary statistics</span></span>
+<span id="cb1017-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1017-3" tabindex="-1"></a>mdat <span class="sc">%&gt;%</span></span>
+<span id="cb1017-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1017-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1017-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1017-5" tabindex="-1"></a>    <span class="co"># get sum of each squared difference between observed and mean price</span></span>
+<span id="cb1017-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1017-6" tabindex="-1"></a>    <span class="at">tss =</span> <span class="fu">sum</span>((price <span class="sc">-</span> <span class="fu">mean</span>(price))<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb1017-7"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1017-7" tabindex="-1"></a>    <span class="co"># get sum of each squared difference between observed and predicted price</span></span>
+<span id="cb1017-8"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1017-8" tabindex="-1"></a>    <span class="at">rss =</span> <span class="fu">sum</span>((price <span class="sc">-</span> price_hat)<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1017-9"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1017-9" tabindex="-1"></a>  <span class="co"># calculate R2 based on these stats</span></span>
+<span id="cb1017-10"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1017-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">R2 =</span> <span class="dv">1</span> <span class="sc">-</span> rss <span class="sc">/</span> tss)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1557,8 +1562,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>If your F statistic is large, the model explains much, much more variation than the intercept.</p></li>
 <li><p>We can compare your F statistic to a null distribution of scores we’d get due to chance, and find the probability we got this statistic due to chance, our p-value. The <code>broom</code> package’s <code>glance()</code> function lets us do this below, giving us a <code>statistic</code> and <code>p.value</code>.</p></li>
 </ul>
-<div class="sourceCode" id="cb1008"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1008-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1008-1" tabindex="-1"></a>m <span class="sc">%&gt;%</span> </span>
-<span id="cb1008-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1008-2" tabindex="-1"></a>  <span class="fu">glance</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1018"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1018-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1018-1" tabindex="-1"></a>m <span class="sc">%&gt;%</span> </span>
+<span id="cb1018-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1018-2" tabindex="-1"></a>  <span class="fu">glance</span>()</span></code></pre></div>
 <table>
 <colgroup>
 <col width="9%" />
@@ -1619,23 +1624,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>The sample size (number of diamonds analyzed)</p></li>
 <li><p>Number of variables in the model (outcome + predictor = 2)</p></li>
 </ul>
-<div class="sourceCode" id="cb1009"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1009-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-1" tabindex="-1"></a>ingredients <span class="ot">&lt;-</span> mdat <span class="sc">%&gt;%</span></span>
-<span id="cb1009-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb1009-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-3" tabindex="-1"></a>    <span class="co"># Calculate residual sum of squares</span></span>
-<span id="cb1009-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-4" tabindex="-1"></a>    <span class="at">residual_sum_of_squares =</span> <span class="fu">sum</span>( (price <span class="sc">-</span> price_hat) <span class="sc">^</span><span class="dv">2</span>),</span>
-<span id="cb1009-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-5" tabindex="-1"></a>    <span class="co"># Calculate total sum of squares</span></span>
-<span id="cb1009-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-6" tabindex="-1"></a>    <span class="at">total_sum_of_squares =</span> <span class="fu">sum</span>( (price <span class="sc">-</span> <span class="fu">mean</span>(price))<span class="sc">^</span><span class="dv">2</span>),</span>
-<span id="cb1009-7"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-7" tabindex="-1"></a>    <span class="co"># Get sample size</span></span>
-<span id="cb1009-8"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-8" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb1009-9"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-9" tabindex="-1"></a>    <span class="co"># Calculate number of variables in your model</span></span>
-<span id="cb1009-10"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-10" tabindex="-1"></a>    <span class="co"># Here, I grabbed the model, asked it to give us the column names,</span></span>
-<span id="cb1009-11"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-11" tabindex="-1"></a>    <span class="co"># and calculated the length of that vector (2 names, so p = 2)</span></span>
-<span id="cb1009-12"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-12" tabindex="-1"></a>    <span class="at">p =</span> <span class="fu">length</span>(<span class="fu">c</span>(<span class="st">&quot;price&quot;</span>, <span class="st">&quot;carat&quot;</span>) )) <span class="sc">%&gt;%</span></span>
-<span id="cb1009-13"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-13" tabindex="-1"></a>  <span class="co"># Calculate explained sum of squares</span></span>
-<span id="cb1009-14"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-14" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">explained_sum_of_squares =</span> total_sum_of_squares <span class="sc">-</span> residual_sum_of_squares)</span>
-<span id="cb1009-15"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-15" tabindex="-1"></a></span>
-<span id="cb1009-16"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-16" tabindex="-1"></a><span class="co"># View our result!</span></span>
-<span id="cb1009-17"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1009-17" tabindex="-1"></a>ingredients <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1019"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1019-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1019-1" tabindex="-1"></a>ingredients <span class="ot">&lt;-</span> mdat <span class="sc">%&gt;%</span></span>
+<span id="cb1019-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1019-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1019-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1019-3" tabindex="-1"></a>    <span class="co"># Calculate residual sum of squares</span></span>
+<span id="cb1019-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1019-4" tabindex="-1"></a>    <span class="at">residual_sum_of_squares =</span> <span class="fu">sum</span>( (price <span class="sc">-</span> price_hat) <span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb1019-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1019-5" tabindex="-1"></a>    <span class="co"># Calculate total sum of squares</span></span>
+<span id="cb1019-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1019-6" tabindex="-1"></a>    <span class="at">total_sum_of_squares =</span> <span class="fu">sum</span>( (price <span class="sc">-</span> <span class="fu">mean</span>(price))<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb1019-7"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1019-7" tabindex="-1"></a>    <span class="co"># Get sample size</span></span>
+<span id="cb1019-8"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1019-8" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb1019-9"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1019-9" tabindex="-1"></a>    <span class="co"># Calculate number of variables in your model</span></span>
+<span id="cb1019-10"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1019-10" tabindex="-1"></a>    <span class="co"># Here, I grabbed the model, asked it to give us the column names,</span></span>
+<span id="cb1019-11"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1019-11" tabindex="-1"></a>    <span class="co"># and calculated the length of that vector (2 names, so p = 2)</span></span>
+<span id="cb1019-12"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1019-12" tabindex="-1"></a>    <span class="at">p =</span> <span class="fu">length</span>(<span class="fu">c</span>(<span class="st">&quot;price&quot;</span>, <span class="st">&quot;carat&quot;</span>) )) <span class="sc">%&gt;%</span></span>
+<span id="cb1019-13"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1019-13" tabindex="-1"></a>  <span class="co"># Calculate explained sum of squares</span></span>
+<span id="cb1019-14"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1019-14" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">explained_sum_of_squares =</span> total_sum_of_squares <span class="sc">-</span> residual_sum_of_squares)</span>
+<span id="cb1019-15"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1019-15" tabindex="-1"></a></span>
+<span id="cb1019-16"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1019-16" tabindex="-1"></a><span class="co"># View our result!</span></span>
+<span id="cb1019-17"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1019-17" tabindex="-1"></a>ingredients <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
 <pre><code>## Rows: 1
 ## Columns: 5
 ## $ residual_sum_of_squares  &lt;dbl&gt; 2321500034
@@ -1644,24 +1649,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## $ p                        &lt;int&gt; 2
 ## $ explained_sum_of_squares &lt;dbl&gt; 11901020061</code></pre>
 <p>What do we do with our ingredients to make the F-statistic then? We need to calculate on average, how much variation <strong><em>was</em></strong> explained, relative to the number of predictors, compared to on average, how much error was <strong><em>not</em></strong> explained, relative to the number of cases analyzed and variables used.</p>
-<div class="sourceCode" id="cb1011"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1011-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-1" tabindex="-1"></a>ingredients <span class="sc">%&gt;%</span></span>
-<span id="cb1011-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1011-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-3" tabindex="-1"></a>  <span class="co"># Mean Squares due to Regression, given the no. of predictors</span></span>
-<span id="cb1011-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-4" tabindex="-1"></a>  <span class="at">mean_squares_due_to_regression =</span> explained_sum_of_squares <span class="sc">/</span> (p <span class="sc">-</span> <span class="dv">1</span>),</span>
-<span id="cb1011-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-5" tabindex="-1"></a>  <span class="co"># Mean Squared Error</span></span>
-<span id="cb1011-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-6" tabindex="-1"></a>  <span class="co"># How much variation was NOT explained, given the sample size and no. of variables</span></span>
-<span id="cb1011-7"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-7" tabindex="-1"></a>  <span class="at">mean_squared_error =</span> residual_sum_of_squares <span class="sc">/</span> (n <span class="sc">-</span> p)) <span class="sc">%&gt;%</span></span>
-<span id="cb1011-8"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-8" tabindex="-1"></a>  <span class="co"># Compute the F-statistic, which is a ratio of explained vs. unexplained variation</span></span>
-<span id="cb1011-9"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">f_statistic =</span> mean_squares_due_to_regression <span class="sc">/</span> mean_squared_error) <span class="sc">%&gt;%</span></span>
-<span id="cb1011-10"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-10" tabindex="-1"></a>  <span class="co"># Finally, throw it into this pf function,</span></span>
-<span id="cb1011-11"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-11" tabindex="-1"></a>  <span class="co"># which plots a theoretical null distribution </span></span>
-<span id="cb1011-12"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-12" tabindex="-1"></a>  <span class="co"># based on the number of variables and sample size,</span></span>
-<span id="cb1011-13"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-13" tabindex="-1"></a>  <span class="co"># and identifies how extreme our F-statistic is compared to one we&#39;d get by chance</span></span>
-<span id="cb1011-14"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-14" tabindex="-1"></a>  <span class="co"># Computes p-value, from an F-statistic distribution, with 2 df statistics!</span></span>
-<span id="cb1011-15"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-15" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_value =</span> <span class="fu">pf</span>(f_statistic, <span class="at">df1 =</span> p <span class="sc">-</span> <span class="dv">1</span>, <span class="at">df2 =</span> n <span class="sc">-</span> p, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb1011-16"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-16" tabindex="-1"></a>  </span>
-<span id="cb1011-17"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-17" tabindex="-1"></a>  <span class="co"># View output</span></span>
-<span id="cb1011-18"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1011-18" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1021"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1021-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1021-1" tabindex="-1"></a>ingredients <span class="sc">%&gt;%</span></span>
+<span id="cb1021-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1021-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1021-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1021-3" tabindex="-1"></a>  <span class="co"># Mean Squares due to Regression, given the no. of predictors</span></span>
+<span id="cb1021-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1021-4" tabindex="-1"></a>  <span class="at">mean_squares_due_to_regression =</span> explained_sum_of_squares <span class="sc">/</span> (p <span class="sc">-</span> <span class="dv">1</span>),</span>
+<span id="cb1021-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1021-5" tabindex="-1"></a>  <span class="co"># Mean Squared Error</span></span>
+<span id="cb1021-6"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1021-6" tabindex="-1"></a>  <span class="co"># How much variation was NOT explained, given the sample size and no. of variables</span></span>
+<span id="cb1021-7"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1021-7" tabindex="-1"></a>  <span class="at">mean_squared_error =</span> residual_sum_of_squares <span class="sc">/</span> (n <span class="sc">-</span> p)) <span class="sc">%&gt;%</span></span>
+<span id="cb1021-8"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1021-8" tabindex="-1"></a>  <span class="co"># Compute the F-statistic, which is a ratio of explained vs. unexplained variation</span></span>
+<span id="cb1021-9"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1021-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">f_statistic =</span> mean_squares_due_to_regression <span class="sc">/</span> mean_squared_error) <span class="sc">%&gt;%</span></span>
+<span id="cb1021-10"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1021-10" tabindex="-1"></a>  <span class="co"># Finally, throw it into this pf function,</span></span>
+<span id="cb1021-11"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1021-11" tabindex="-1"></a>  <span class="co"># which plots a theoretical null distribution </span></span>
+<span id="cb1021-12"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1021-12" tabindex="-1"></a>  <span class="co"># based on the number of variables and sample size,</span></span>
+<span id="cb1021-13"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1021-13" tabindex="-1"></a>  <span class="co"># and identifies how extreme our F-statistic is compared to one we&#39;d get by chance</span></span>
+<span id="cb1021-14"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1021-14" tabindex="-1"></a>  <span class="co"># Computes p-value, from an F-statistic distribution, with 2 df statistics!</span></span>
+<span id="cb1021-15"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1021-15" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_value =</span> <span class="fu">pf</span>(f_statistic, <span class="at">df1 =</span> p <span class="sc">-</span> <span class="dv">1</span>, <span class="at">df2 =</span> n <span class="sc">-</span> p, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1021-16"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1021-16" tabindex="-1"></a>  </span>
+<span id="cb1021-17"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1021-17" tabindex="-1"></a>  <span class="co"># View output</span></span>
+<span id="cb1021-18"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1021-18" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
 <pre><code>## Rows: 1
 ## Columns: 9
 ## $ residual_sum_of_squares        &lt;dbl&gt; 2321500034
@@ -1684,8 +1689,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="get-all-stats-all-at-once-with-summary" class="section level3 hasAnchor" number="16.7.1">
 <h3><span class="header-section-number">16.7.1</span> Get all stats, all at once with <code>summary()</code><a href="bivariate-regression-modeling-diamond-pricing.html#get-all-stats-all-at-once-with-summary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Wouldn’t it be handy if there were a convenient function that let us see all of this in one place? Try the <code>summary()</code> function. It can be overwhelming - it outputs lots of information. However, we only need to look in 4 places for key information.</p>
-<div class="sourceCode" id="cb1013"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1013-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1013-1" tabindex="-1"></a><span class="co"># Take our model object and get the summary!</span></span>
-<span id="cb1013-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1013-2" tabindex="-1"></a>m <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1023"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1023-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1023-1" tabindex="-1"></a><span class="co"># Take our model object and get the summary!</span></span>
+<span id="cb1023-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1023-2" tabindex="-1"></a>m <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = price ~ carat, data = .)
@@ -1730,11 +1735,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <summary>
 <strong>[View Answer!]</strong>
 </summary>
-<div class="sourceCode" id="cb1015"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1015-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1015-1" tabindex="-1"></a>m_ideal <span class="ot">&lt;-</span> mydiamonds <span class="sc">%&gt;%</span></span>
-<span id="cb1015-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1015-2" tabindex="-1"></a>  <span class="fu">filter</span>(cut <span class="sc">==</span> <span class="st">&quot;Ideal&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1015-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1015-3" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> price <span class="sc">~</span> carat)</span>
-<span id="cb1015-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1015-4" tabindex="-1"></a></span>
-<span id="cb1015-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1015-5" tabindex="-1"></a>m_ideal <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1025"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1025-1"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1025-1" tabindex="-1"></a>m_ideal <span class="ot">&lt;-</span> mydiamonds <span class="sc">%&gt;%</span></span>
+<span id="cb1025-2"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1025-2" tabindex="-1"></a>  <span class="fu">filter</span>(cut <span class="sc">==</span> <span class="st">&quot;Ideal&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1025-3"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1025-3" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> price <span class="sc">~</span> carat)</span>
+<span id="cb1025-4"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1025-4" tabindex="-1"></a></span>
+<span id="cb1025-5"><a href="bivariate-regression-modeling-diamond-pricing.html#cb1025-5" tabindex="-1"></a>m_ideal <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = price ~ carat, data = .)

@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2024-08-29" />
+<meta name="date" content="2024-10-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,7 @@
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="assets/kePrint-0.0.1/kePrint.js"></script>
 <link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="assets/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
 <script src="assets/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <script src="assets/d3-3.3.8/d3.min.js"></script>
 <script src="assets/dagre-0.4.0/dagre-d3.min.js"></script>
@@ -76,7 +77,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -921,7 +922,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="25" data-path="appendix-test.html"><a href="appendix-test.html"><i class="fa fa-check"></i><b>25</b> Appendix: test</a>
 <ul>
-<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-24"><i class="fa fa-check"></i>Getting Started</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-24"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-1"><i class="fa fa-check"></i>Version 1</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-2"><i class="fa fa-check"></i>Version 2</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -951,21 +956,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="load-data-packages" class="section level3 unnumbered hasAnchor">
 <h3>Load Data &amp; Packages<a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#load-data-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In this dataset, each row is a city-year!</p>
-<div class="sourceCode" id="cb1017"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1017-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1017-1" tabindex="-1"></a><span class="co"># Load Packages</span></span>
-<span id="cb1017-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1017-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data manipulation</span></span>
-<span id="cb1017-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1017-3" tabindex="-1"></a><span class="fu">library</span>(broom) <span class="co"># for each model summaries</span></span>
-<span id="cb1017-4"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1017-4" tabindex="-1"></a><span class="fu">library</span>(texreg) <span class="co"># for nice model tables</span></span>
-<span id="cb1017-5"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1017-5" tabindex="-1"></a></span>
-<span id="cb1017-6"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1017-6" tabindex="-1"></a><span class="co"># Load Data</span></span>
-<span id="cb1017-7"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1017-7" tabindex="-1"></a>cities <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;workshops/jp_matching_experiment.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1017-8"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1017-8" tabindex="-1"></a>  <span class="co"># Tell R to treat year and pref as ordered categories</span></span>
-<span id="cb1017-9"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1017-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">factor</span>(year),</span>
-<span id="cb1017-10"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1017-10" tabindex="-1"></a>         <span class="at">pref =</span> <span class="fu">factor</span>(pref))</span></code></pre></div>
+<div class="sourceCode" id="cb1027"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1027-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1027-1" tabindex="-1"></a><span class="co"># Load Packages</span></span>
+<span id="cb1027-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1027-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data manipulation</span></span>
+<span id="cb1027-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1027-3" tabindex="-1"></a><span class="fu">library</span>(broom) <span class="co"># for each model summaries</span></span>
+<span id="cb1027-4"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1027-4" tabindex="-1"></a><span class="fu">library</span>(texreg) <span class="co"># for nice model tables</span></span>
+<span id="cb1027-5"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1027-5" tabindex="-1"></a></span>
+<span id="cb1027-6"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1027-6" tabindex="-1"></a><span class="co"># Load Data</span></span>
+<span id="cb1027-7"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1027-7" tabindex="-1"></a>cities <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;workshops/jp_matching_experiment.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1027-8"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1027-8" tabindex="-1"></a>  <span class="co"># Tell R to treat year and pref as ordered categories</span></span>
+<span id="cb1027-9"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1027-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">factor</span>(year),</span>
+<span id="cb1027-10"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1027-10" tabindex="-1"></a>         <span class="at">pref =</span> <span class="fu">factor</span>(pref))</span></code></pre></div>
 </div>
 <div id="view-data-1" class="section level3 unnumbered hasAnchor">
 <h3>View Data<a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#view-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb1018"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1018-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1018-1" tabindex="-1"></a><span class="co"># View first 3 rows of dataset</span></span>
-<span id="cb1018-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1018-2" tabindex="-1"></a>cities <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1028"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1028-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1028-1" tabindex="-1"></a><span class="co"># View first 3 rows of dataset</span></span>
+<span id="cb1028-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1028-2" tabindex="-1"></a>cities <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <table>
 <colgroup>
 <col width="6%" />
@@ -1084,8 +1089,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="beta-coefficients" class="section level3 hasAnchor" number="17.1.1">
 <h3><span class="header-section-number">17.1.1</span> Beta coefficients<a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#beta-coefficients" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can use a regression model to test the association between our <strong>outcome variable</strong> <code>social_capital</code> and our <strong>explanatory variable</strong> <code>by_tsunami</code>. Using the <code>lm()</code> function, we can get a <strong>beta</strong> coefficient estimating how much higher a social capital index score they received for every additional building damaged per million residents.</p>
-<div class="sourceCode" id="cb1019"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1019-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1019-1" tabindex="-1"></a>cities <span class="sc">%&gt;%</span></span>
-<span id="cb1019-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1019-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> social_capital <span class="sc">~</span> damage_rate)</span></code></pre></div>
+<div class="sourceCode" id="cb1029"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1029-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1029-1" tabindex="-1"></a>cities <span class="sc">%&gt;%</span></span>
+<span id="cb1029-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1029-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> social_capital <span class="sc">~</span> damage_rate)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = social_capital ~ damage_rate, data = .)
@@ -1100,8 +1105,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">17.1.2</span> Controls<a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#controls" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>But… many other things might affect social capital in a community, not just getting hit by the tsunami: For example, (1) population density, (2) wealth, (3) unemployment, (4) age, (5) government capacity, (6) disaster relief, (7) time, and even (8) regional differences. We need to add <strong>control variables</strong> to our model to <strong>control</strong> for these alternative explanations for variation in social capital. This will <strong>refine</strong> our beta coefficient for the effect of the tsunami, getting us closer to the truth.</p>
 <p>We can add extra control variables using <code>+</code> in the <code>lm()</code> function. For example, we test the effect of <code>damage_rate</code> below, controlling for <code>income_per_capita</code>.</p>
-<div class="sourceCode" id="cb1021"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1021-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1021-1" tabindex="-1"></a>cities <span class="sc">%&gt;%</span></span>
-<span id="cb1021-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1021-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> social_capital <span class="sc">~</span> damage_rate <span class="sc">+</span> income_per_capita)</span></code></pre></div>
+<div class="sourceCode" id="cb1031"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1031-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1031-1" tabindex="-1"></a>cities <span class="sc">%&gt;%</span></span>
+<span id="cb1031-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1031-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> social_capital <span class="sc">~</span> damage_rate <span class="sc">+</span> income_per_capita)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = social_capital ~ damage_rate + income_per_capita, 
@@ -1135,8 +1140,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <summary>
 <strong>[View Answer!]</strong>
 </summary>
-<div class="sourceCode" id="cb1023"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1023-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1023-1" tabindex="-1"></a>cities <span class="sc">%&gt;%</span></span>
-<span id="cb1023-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1023-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> social_capital <span class="sc">~</span> damage_rate <span class="sc">+</span> pop_density)</span></code></pre></div>
+<div class="sourceCode" id="cb1033"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1033-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1033-1" tabindex="-1"></a>cities <span class="sc">%&gt;%</span></span>
+<span id="cb1033-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1033-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> social_capital <span class="sc">~</span> damage_rate <span class="sc">+</span> pop_density)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = social_capital ~ damage_rate + pop_density, data = .)
@@ -1155,18 +1160,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">17.2</span> Effect Sizes<a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#effect-sizes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One big challenge with multiple regression is that it’s not really clear how to compare the size of our beta coefficients. Is 1 damaged building per million residents greater than or less than 1 square kilometer per 1000 residents, or 1 million yen per capita? To compare the size of our beta coefficients, our variables must have the same <em>units.</em> We can do this by turning our numeric variables into Z-scores.</p>
 <p>Remember that a Z-score is a measure of <em>how many standard deviations from the mean a specific value is for a given variable.</em> We can <code>mutate()</code> variables into Z-scores using the <code>scale()</code> function.</p>
-<div class="sourceCode" id="cb1025"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1025-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1025-1" tabindex="-1"></a>rescaled <span class="ot">&lt;-</span> cities <span class="sc">%&gt;%</span></span>
-<span id="cb1025-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1025-2" tabindex="-1"></a>  <span class="co"># For each numeric variable, rescale its values</span></span>
-<span id="cb1025-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1025-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">social_capital =</span> <span class="fu">scale</span>(social_capital),</span>
-<span id="cb1025-4"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1025-4" tabindex="-1"></a>         <span class="at">damage_rate =</span> <span class="fu">scale</span>(damage_rate),</span>
-<span id="cb1025-5"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1025-5" tabindex="-1"></a>         <span class="at">pop_density =</span> <span class="fu">scale</span>(pop_density),</span>
-<span id="cb1025-6"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1025-6" tabindex="-1"></a>         <span class="at">exp_dis_relief_per_capita =</span> <span class="fu">scale</span>(exp_dis_relief_per_capita),</span>
-<span id="cb1025-7"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1025-7" tabindex="-1"></a>         <span class="at">income_per_capita =</span> <span class="fu">scale</span>(income_per_capita),</span>
-<span id="cb1025-8"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1025-8" tabindex="-1"></a>         <span class="at">unemployment =</span> <span class="fu">scale</span>(unemployment),</span>
-<span id="cb1025-9"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1025-9" tabindex="-1"></a>         <span class="at">pop_women =</span> <span class="fu">scale</span>(pop_women),</span>
-<span id="cb1025-10"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1025-10" tabindex="-1"></a>         <span class="at">pop_over_age_65 =</span> <span class="fu">scale</span>(pop_over_age_65))</span></code></pre></div>
+<div class="sourceCode" id="cb1035"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1035-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1035-1" tabindex="-1"></a>rescaled <span class="ot">&lt;-</span> cities <span class="sc">%&gt;%</span></span>
+<span id="cb1035-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1035-2" tabindex="-1"></a>  <span class="co"># For each numeric variable, rescale its values</span></span>
+<span id="cb1035-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1035-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">social_capital =</span> <span class="fu">scale</span>(social_capital),</span>
+<span id="cb1035-4"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1035-4" tabindex="-1"></a>         <span class="at">damage_rate =</span> <span class="fu">scale</span>(damage_rate),</span>
+<span id="cb1035-5"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1035-5" tabindex="-1"></a>         <span class="at">pop_density =</span> <span class="fu">scale</span>(pop_density),</span>
+<span id="cb1035-6"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1035-6" tabindex="-1"></a>         <span class="at">exp_dis_relief_per_capita =</span> <span class="fu">scale</span>(exp_dis_relief_per_capita),</span>
+<span id="cb1035-7"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1035-7" tabindex="-1"></a>         <span class="at">income_per_capita =</span> <span class="fu">scale</span>(income_per_capita),</span>
+<span id="cb1035-8"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1035-8" tabindex="-1"></a>         <span class="at">unemployment =</span> <span class="fu">scale</span>(unemployment),</span>
+<span id="cb1035-9"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1035-9" tabindex="-1"></a>         <span class="at">pop_women =</span> <span class="fu">scale</span>(pop_women),</span>
+<span id="cb1035-10"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1035-10" tabindex="-1"></a>         <span class="at">pop_over_age_65 =</span> <span class="fu">scale</span>(pop_over_age_65))</span></code></pre></div>
 <p>Check out our new rescaled variables.</p>
-<div class="sourceCode" id="cb1026"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1026-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1026-1" tabindex="-1"></a>rescaled <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1036"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1036-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1036-1" tabindex="-1"></a>rescaled <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <table>
 <colgroup>
 <col width="6%" />
@@ -1249,10 +1254,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>Okay, let’s repeat our model, this time using our new data.frame <code>rescaled</code>, and save the model as <code>m0</code>.</p>
-<div class="sourceCode" id="cb1027"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1027-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1027-1" tabindex="-1"></a>m0 <span class="ot">&lt;-</span> rescaled <span class="sc">%&gt;%</span></span>
-<span id="cb1027-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1027-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> social_capital <span class="sc">~</span> damage_rate <span class="sc">+</span> pop_density)</span>
-<span id="cb1027-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1027-3" tabindex="-1"></a><span class="co"># View model</span></span>
-<span id="cb1027-4"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1027-4" tabindex="-1"></a>m0</span></code></pre></div>
+<div class="sourceCode" id="cb1037"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1037-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-1" tabindex="-1"></a>m0 <span class="ot">&lt;-</span> rescaled <span class="sc">%&gt;%</span></span>
+<span id="cb1037-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> social_capital <span class="sc">~</span> damage_rate <span class="sc">+</span> pop_density)</span>
+<span id="cb1037-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-3" tabindex="-1"></a><span class="co"># View model</span></span>
+<span id="cb1037-4"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-4" tabindex="-1"></a>m0</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = social_capital ~ damage_rate + pop_density, data = .)
@@ -1273,10 +1278,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <summary>
 <strong>[View Answer!]</strong>
 </summary>
-<div class="sourceCode" id="cb1029"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1029-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1029-1" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> cities <span class="sc">%&gt;%</span></span>
-<span id="cb1029-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1029-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> social_capital <span class="sc">~</span> damage_rate <span class="sc">+</span> pop_density <span class="sc">+</span> year)</span>
-<span id="cb1029-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1029-3" tabindex="-1"></a><span class="co"># View model</span></span>
-<span id="cb1029-4"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1029-4" tabindex="-1"></a>m1</span></code></pre></div>
+<div class="sourceCode" id="cb1039"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1039-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1039-1" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> cities <span class="sc">%&gt;%</span></span>
+<span id="cb1039-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1039-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> social_capital <span class="sc">~</span> damage_rate <span class="sc">+</span> pop_density <span class="sc">+</span> year)</span>
+<span id="cb1039-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1039-3" tabindex="-1"></a><span class="co"># View model</span></span>
+<span id="cb1039-4"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1039-4" tabindex="-1"></a>m1</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = social_capital ~ damage_rate + pop_density + year, 
@@ -1302,21 +1307,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Choose your explanatory variable whose effect you really want to test. For us, that’s disaster damage (<code>damage_rate</code>). Add choose your absolutely most essential control variables, without which the model isn’t very valid. For us, that’s <code>pop_density</code> and <code>year</code>. (Already done and saved as <code>m1</code>!)</li>
 </ul>
-<div class="sourceCode" id="cb1031"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1031-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1031-1" tabindex="-1"></a><span class="co"># For your reference</span></span>
-<span id="cb1031-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1031-2" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> rescaled <span class="sc">%&gt;%</span></span>
-<span id="cb1031-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1031-3" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> social_capital <span class="sc">~</span> damage_rate <span class="sc">+</span> pop_density <span class="sc">+</span> year)</span></code></pre></div>
+<div class="sourceCode" id="cb1041"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1041-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1041-1" tabindex="-1"></a><span class="co"># For your reference</span></span>
+<span id="cb1041-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1041-2" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> rescaled <span class="sc">%&gt;%</span></span>
+<span id="cb1041-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1041-3" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> social_capital <span class="sc">~</span> damage_rate <span class="sc">+</span> pop_density <span class="sc">+</span> year)</span></code></pre></div>
 <ul>
 <li>Add more controls, to wean out effects of other phenomena and get a more accurate beta coefficient for <code>damage_rate</code>. Let’s add <code>exp_dis_relief_per_capita</code>, to control for city government spending on disaster relief. Save that as <code>m2</code>.</li>
 </ul>
-<div class="sourceCode" id="cb1032"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1032-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1032-1" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> rescaled <span class="sc">%&gt;%</span></span>
-<span id="cb1032-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1032-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> social_capital <span class="sc">~</span> damage_rate <span class="sc">+</span> pop_density <span class="sc">+</span> year <span class="sc">+</span></span>
-<span id="cb1032-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1032-3" tabindex="-1"></a>       exp_dis_relief_per_capita)</span></code></pre></div>
+<div class="sourceCode" id="cb1042"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1042-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1042-1" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> rescaled <span class="sc">%&gt;%</span></span>
+<span id="cb1042-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1042-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> social_capital <span class="sc">~</span> damage_rate <span class="sc">+</span> pop_density <span class="sc">+</span> year <span class="sc">+</span></span>
+<span id="cb1042-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1042-3" tabindex="-1"></a>       exp_dis_relief_per_capita)</span></code></pre></div>
 <ul>
 <li>Examine our two tables, using the <code>texreg</code> package’s <code>htmlreg()</code> function. We’re going to <code>list()</code> our models <code>m1</code> and <code>m2</code>, and ask R to save a nice table in our files as <code>"table_1.html"</code>. Try it out, then go to your files in the right-hand corner and click <code>'View in Web Browser'</code>!</li>
 </ul>
-<div class="sourceCode" id="cb1033"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1033-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1033-1" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(m1,m2), </span>
-<span id="cb1033-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1033-2" tabindex="-1"></a>        <span class="at">bold =</span> <span class="fl">0.05</span>, <span class="at">include.fstat =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb1033-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1033-3" tabindex="-1"></a>        <span class="at">file =</span> <span class="st">&quot;workshops/workshop_11_table_1.html&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1043"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1043-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1043-1" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(m1,m2), </span>
+<span id="cb1043-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1043-2" tabindex="-1"></a>        <span class="at">bold =</span> <span class="fl">0.05</span>, <span class="at">include.fstat =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb1043-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1043-3" tabindex="-1"></a>        <span class="at">file =</span> <span class="st">&quot;workshops/workshop_11_table_1.html&quot;</span>)</span></code></pre></div>
 <details>
 <summary>
 <strong>[Click to view table!]</strong>
@@ -1475,20 +1480,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <strong>[View Answer!]</strong>
 </summary>
 <p>Adding controls <code>income_per_capita</code>, <code>unemployment</code>, <code>pop_women</code>, and <code>pop_over_age_65</code>…</p>
-<div class="sourceCode" id="cb1034"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1034-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1034-1" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> rescaled <span class="sc">%&gt;%</span></span>
-<span id="cb1034-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1034-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> social_capital <span class="sc">~</span> damage_rate <span class="sc">+</span> pop_density <span class="sc">+</span> year <span class="sc">+</span></span>
-<span id="cb1034-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1034-3" tabindex="-1"></a>       exp_dis_relief_per_capita <span class="sc">+</span></span>
-<span id="cb1034-4"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1034-4" tabindex="-1"></a>       income_per_capita <span class="sc">+</span> unemployment <span class="sc">+</span>  pop_women <span class="sc">+</span> pop_over_age_65)</span></code></pre></div>
+<div class="sourceCode" id="cb1044"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1044-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1044-1" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> rescaled <span class="sc">%&gt;%</span></span>
+<span id="cb1044-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1044-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> social_capital <span class="sc">~</span> damage_rate <span class="sc">+</span> pop_density <span class="sc">+</span> year <span class="sc">+</span></span>
+<span id="cb1044-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1044-3" tabindex="-1"></a>       exp_dis_relief_per_capita <span class="sc">+</span></span>
+<span id="cb1044-4"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1044-4" tabindex="-1"></a>       income_per_capita <span class="sc">+</span> unemployment <span class="sc">+</span>  pop_women <span class="sc">+</span> pop_over_age_65)</span></code></pre></div>
 <p>Adding prefectural controls…</p>
-<div class="sourceCode" id="cb1035"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1035-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1035-1" tabindex="-1"></a>m4 <span class="ot">&lt;-</span> rescaled <span class="sc">%&gt;%</span></span>
-<span id="cb1035-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1035-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> social_capital <span class="sc">~</span> damage_rate <span class="sc">+</span> year <span class="sc">+</span> pop_density <span class="sc">+</span> </span>
-<span id="cb1035-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1035-3" tabindex="-1"></a>       exp_dis_relief_per_capita <span class="sc">+</span></span>
-<span id="cb1035-4"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1035-4" tabindex="-1"></a>       income_per_capita <span class="sc">+</span> unemployment <span class="sc">+</span> pop_women <span class="sc">+</span> pop_over_age_65 <span class="sc">+</span></span>
-<span id="cb1035-5"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1035-5" tabindex="-1"></a>       pref)</span></code></pre></div>
+<div class="sourceCode" id="cb1045"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1045-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1045-1" tabindex="-1"></a>m4 <span class="ot">&lt;-</span> rescaled <span class="sc">%&gt;%</span></span>
+<span id="cb1045-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1045-2" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> social_capital <span class="sc">~</span> damage_rate <span class="sc">+</span> year <span class="sc">+</span> pop_density <span class="sc">+</span> </span>
+<span id="cb1045-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1045-3" tabindex="-1"></a>       exp_dis_relief_per_capita <span class="sc">+</span></span>
+<span id="cb1045-4"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1045-4" tabindex="-1"></a>       income_per_capita <span class="sc">+</span> unemployment <span class="sc">+</span> pop_women <span class="sc">+</span> pop_over_age_65 <span class="sc">+</span></span>
+<span id="cb1045-5"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1045-5" tabindex="-1"></a>       pref)</span></code></pre></div>
 <p>Making a nice table!</p>
-<div class="sourceCode" id="cb1036"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1036-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1036-1" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(m1,m2,m3,m4), </span>
-<span id="cb1036-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1036-2" tabindex="-1"></a>        <span class="at">bold =</span> <span class="fl">0.05</span>, <span class="at">include.fstat =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb1036-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1036-3" tabindex="-1"></a>        <span class="at">file =</span> <span class="st">&quot;workshops/workshop_11_table_2.html&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1046"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1046-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1046-1" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(m1,m2,m3,m4), </span>
+<span id="cb1046-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1046-2" tabindex="-1"></a>        <span class="at">bold =</span> <span class="fl">0.05</span>, <span class="at">include.fstat =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb1046-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1046-3" tabindex="-1"></a>        <span class="at">file =</span> <span class="st">&quot;workshops/workshop_11_table_2.html&quot;</span>)</span></code></pre></div>
 <p>Model 4 fits best, with an R<sup>2</sup> of 0.89. It explains 89% of the variation in social capital! That’s wild!</p>
 </details>
 <details>
@@ -1844,36 +1849,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>single.row = TRUE</code> puts everything on one row, which is helpful.</p></li>
 </ul>
 </details>
-<div class="sourceCode" id="cb1037"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1037-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-1" tabindex="-1"></a><span class="fu">htmlreg</span>(</span>
-<span id="cb1037-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-2" tabindex="-1"></a>  <span class="fu">list</span>(m1,m2,m3,m4),</span>
-<span id="cb1037-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-3" tabindex="-1"></a>  <span class="at">bold =</span> <span class="fl">0.05</span>, </span>
-<span id="cb1037-4"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-4" tabindex="-1"></a>  <span class="at">include.fstat =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1037-5"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-5" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">&quot;workshops/workshop_11_table_3.html&quot;</span>,</span>
-<span id="cb1037-6"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-6" tabindex="-1"></a>  <span class="co"># Add column labels</span></span>
-<span id="cb1037-7"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-7" tabindex="-1"></a>  <span class="at">custom.model.names =</span> <span class="fu">c</span>(</span>
-<span id="cb1037-8"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-8" tabindex="-1"></a>    <span class="st">&quot;Basic Model&quot;</span>, <span class="st">&quot;with Controls&quot;</span>, </span>
-<span id="cb1037-9"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-9" tabindex="-1"></a>    <span class="co"># You can split lines in two with &lt;br&gt;</span></span>
-<span id="cb1037-10"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-10" tabindex="-1"></a>    <span class="st">&quot;With Extended&lt;br&gt;Controls&quot;</span>, </span>
-<span id="cb1037-11"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-11" tabindex="-1"></a>    <span class="st">&quot;With Geographic&lt;br&gt;Controls&quot;</span>),</span>
-<span id="cb1037-12"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-12" tabindex="-1"></a>  <span class="co"># Add labels</span></span>
-<span id="cb1037-13"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-13" tabindex="-1"></a>  <span class="at">custom.coef.map =</span> <span class="fu">list</span>(</span>
-<span id="cb1037-14"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-14" tabindex="-1"></a>    <span class="st">&quot;damage_rate&quot;</span> <span class="ot">=</span> <span class="st">&quot;Damage Rate&quot;</span>, </span>
-<span id="cb1037-15"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-15" tabindex="-1"></a>    <span class="st">&quot;exp_dis_relief_per_capita&quot;</span> <span class="ot">=</span> <span class="st">&quot;Disaster Spending Rate&quot;</span>,</span>
-<span id="cb1037-16"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-16" tabindex="-1"></a>    <span class="st">&quot;income_per_capita&quot;</span> <span class="ot">=</span> <span class="st">&quot;Income per capita&quot;</span>,</span>
-<span id="cb1037-17"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-17" tabindex="-1"></a>    <span class="st">&quot;unemployment&quot;</span> <span class="ot">=</span> <span class="st">&quot;Unemployment Rate&quot;</span>, </span>
-<span id="cb1037-18"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-18" tabindex="-1"></a>    <span class="st">&quot;pop_women&quot;</span> <span class="ot">=</span> <span class="st">&quot;% Women&quot;</span>, </span>
-<span id="cb1037-19"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-19" tabindex="-1"></a>    <span class="st">&quot;pop_over_age_65&quot;</span> <span class="ot">=</span> <span class="st">&quot;% Over Age 65&quot;</span>,</span>
-<span id="cb1037-20"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-20" tabindex="-1"></a>    <span class="st">&quot;prefAomori&quot;</span> <span class="ot">=</span> <span class="st">&quot;Aomori&quot;</span>,</span>
-<span id="cb1037-21"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-21" tabindex="-1"></a>    <span class="st">&quot;prefChiba&quot;</span> <span class="ot">=</span> <span class="st">&quot;Chiba&quot;</span>,</span>
-<span id="cb1037-22"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-22" tabindex="-1"></a>    <span class="st">&quot;prefFukushima&quot;</span> <span class="ot">=</span> <span class="st">&quot;Fukushima&quot;</span>, </span>
-<span id="cb1037-23"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-23" tabindex="-1"></a>    <span class="st">&quot;prefIbaraki&quot;</span> <span class="ot">=</span> <span class="st">&quot;Ibaraki&quot;</span>,</span>
-<span id="cb1037-24"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-24" tabindex="-1"></a>    <span class="st">&quot;prefIwate&quot;</span> <span class="ot">=</span> <span class="st">&quot;Iwate&quot;</span>, </span>
-<span id="cb1037-25"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-25" tabindex="-1"></a>    <span class="st">&quot;prefMiyagi&quot;</span> <span class="ot">=</span> <span class="st">&quot;Miyagi&quot;</span>,</span>
-<span id="cb1037-26"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-26" tabindex="-1"></a>    <span class="st">&quot;(Intercept)&quot;</span> <span class="ot">=</span> <span class="st">&quot;Intercept&quot;</span>),</span>
-<span id="cb1037-27"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-27" tabindex="-1"></a>  <span class="co"># Add a table caption</span></span>
-<span id="cb1037-28"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-28" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;OLS Model of Social Capital in Japanese Cities over 7 years&quot;</span>,</span>
-<span id="cb1037-29"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-29" tabindex="-1"></a>  <span class="co"># You can still add a custom note too!</span></span>
-<span id="cb1037-30"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1037-30" tabindex="-1"></a>  <span class="at">custom.note =</span> <span class="st">&quot;Statistical Significance: *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05. Akita is the baseline prefecture. All models also control for each year (2011-2017) as a categorical variable.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1047"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1047-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-1" tabindex="-1"></a><span class="fu">htmlreg</span>(</span>
+<span id="cb1047-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-2" tabindex="-1"></a>  <span class="fu">list</span>(m1,m2,m3,m4),</span>
+<span id="cb1047-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-3" tabindex="-1"></a>  <span class="at">bold =</span> <span class="fl">0.05</span>, </span>
+<span id="cb1047-4"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-4" tabindex="-1"></a>  <span class="at">include.fstat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1047-5"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-5" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">&quot;workshops/workshop_11_table_3.html&quot;</span>,</span>
+<span id="cb1047-6"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-6" tabindex="-1"></a>  <span class="co"># Add column labels</span></span>
+<span id="cb1047-7"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-7" tabindex="-1"></a>  <span class="at">custom.model.names =</span> <span class="fu">c</span>(</span>
+<span id="cb1047-8"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-8" tabindex="-1"></a>    <span class="st">&quot;Basic Model&quot;</span>, <span class="st">&quot;with Controls&quot;</span>, </span>
+<span id="cb1047-9"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-9" tabindex="-1"></a>    <span class="co"># You can split lines in two with &lt;br&gt;</span></span>
+<span id="cb1047-10"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-10" tabindex="-1"></a>    <span class="st">&quot;With Extended&lt;br&gt;Controls&quot;</span>, </span>
+<span id="cb1047-11"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-11" tabindex="-1"></a>    <span class="st">&quot;With Geographic&lt;br&gt;Controls&quot;</span>),</span>
+<span id="cb1047-12"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-12" tabindex="-1"></a>  <span class="co"># Add labels</span></span>
+<span id="cb1047-13"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-13" tabindex="-1"></a>  <span class="at">custom.coef.map =</span> <span class="fu">list</span>(</span>
+<span id="cb1047-14"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-14" tabindex="-1"></a>    <span class="st">&quot;damage_rate&quot;</span> <span class="ot">=</span> <span class="st">&quot;Damage Rate&quot;</span>, </span>
+<span id="cb1047-15"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-15" tabindex="-1"></a>    <span class="st">&quot;exp_dis_relief_per_capita&quot;</span> <span class="ot">=</span> <span class="st">&quot;Disaster Spending Rate&quot;</span>,</span>
+<span id="cb1047-16"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-16" tabindex="-1"></a>    <span class="st">&quot;income_per_capita&quot;</span> <span class="ot">=</span> <span class="st">&quot;Income per capita&quot;</span>,</span>
+<span id="cb1047-17"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-17" tabindex="-1"></a>    <span class="st">&quot;unemployment&quot;</span> <span class="ot">=</span> <span class="st">&quot;Unemployment Rate&quot;</span>, </span>
+<span id="cb1047-18"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-18" tabindex="-1"></a>    <span class="st">&quot;pop_women&quot;</span> <span class="ot">=</span> <span class="st">&quot;% Women&quot;</span>, </span>
+<span id="cb1047-19"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-19" tabindex="-1"></a>    <span class="st">&quot;pop_over_age_65&quot;</span> <span class="ot">=</span> <span class="st">&quot;% Over Age 65&quot;</span>,</span>
+<span id="cb1047-20"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-20" tabindex="-1"></a>    <span class="st">&quot;prefAomori&quot;</span> <span class="ot">=</span> <span class="st">&quot;Aomori&quot;</span>,</span>
+<span id="cb1047-21"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-21" tabindex="-1"></a>    <span class="st">&quot;prefChiba&quot;</span> <span class="ot">=</span> <span class="st">&quot;Chiba&quot;</span>,</span>
+<span id="cb1047-22"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-22" tabindex="-1"></a>    <span class="st">&quot;prefFukushima&quot;</span> <span class="ot">=</span> <span class="st">&quot;Fukushima&quot;</span>, </span>
+<span id="cb1047-23"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-23" tabindex="-1"></a>    <span class="st">&quot;prefIbaraki&quot;</span> <span class="ot">=</span> <span class="st">&quot;Ibaraki&quot;</span>,</span>
+<span id="cb1047-24"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-24" tabindex="-1"></a>    <span class="st">&quot;prefIwate&quot;</span> <span class="ot">=</span> <span class="st">&quot;Iwate&quot;</span>, </span>
+<span id="cb1047-25"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-25" tabindex="-1"></a>    <span class="st">&quot;prefMiyagi&quot;</span> <span class="ot">=</span> <span class="st">&quot;Miyagi&quot;</span>,</span>
+<span id="cb1047-26"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-26" tabindex="-1"></a>    <span class="st">&quot;(Intercept)&quot;</span> <span class="ot">=</span> <span class="st">&quot;Intercept&quot;</span>),</span>
+<span id="cb1047-27"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-27" tabindex="-1"></a>  <span class="co"># Add a table caption</span></span>
+<span id="cb1047-28"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-28" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;OLS Model of Social Capital in Japanese Cities over 7 years&quot;</span>,</span>
+<span id="cb1047-29"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-29" tabindex="-1"></a>  <span class="co"># You can still add a custom note too!</span></span>
+<span id="cb1047-30"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1047-30" tabindex="-1"></a>  <span class="at">custom.note =</span> <span class="st">&quot;Statistical Significance: *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05. Akita is the baseline prefecture. All models also control for each year (2011-2017) as a categorical variable.&quot;</span>)</span></code></pre></div>
 <details>
 <summary>
 <strong>[Click to view table!]</strong>
@@ -2120,28 +2125,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <summary>
 <strong>[View Answer!]</strong>
 </summary>
-<div class="sourceCode" id="cb1038"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1038-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-1" tabindex="-1"></a><span class="fu">htmlreg</span>(</span>
-<span id="cb1038-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-2" tabindex="-1"></a>  <span class="fu">list</span>(m1,m2,m3,m4),</span>
-<span id="cb1038-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-3" tabindex="-1"></a>  <span class="at">bold =</span> <span class="fl">0.05</span>, </span>
-<span id="cb1038-4"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-4" tabindex="-1"></a>  <span class="at">include.fstat =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1038-5"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-5" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">&quot;workshops/workshop_11_table_4.html&quot;</span>,</span>
-<span id="cb1038-6"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-6" tabindex="-1"></a>  <span class="at">custom.model.names =</span> <span class="fu">c</span>(</span>
-<span id="cb1038-7"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-7" tabindex="-1"></a>    <span class="st">&quot;Basic Model&quot;</span>, <span class="st">&quot;with Controls&quot;</span>, </span>
-<span id="cb1038-8"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-8" tabindex="-1"></a>    <span class="st">&quot;With Extended&lt;br&gt;Controls&quot;</span>, </span>
-<span id="cb1038-9"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-9" tabindex="-1"></a>    <span class="st">&quot;With Geographic&lt;br&gt;Controls&quot;</span>),</span>
-<span id="cb1038-10"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-10" tabindex="-1"></a>  <span class="at">custom.coef.map =</span> <span class="fu">list</span>(</span>
-<span id="cb1038-11"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-11" tabindex="-1"></a>    <span class="st">&quot;damage_rate&quot;</span> <span class="ot">=</span> <span class="st">&quot;Damage Rate&quot;</span>, </span>
-<span id="cb1038-12"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-12" tabindex="-1"></a>    <span class="st">&quot;exp_dis_relief_per_capita&quot;</span> <span class="ot">=</span> <span class="st">&quot;Disaster Spending Rate&quot;</span>,</span>
-<span id="cb1038-13"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-13" tabindex="-1"></a>    <span class="st">&quot;income_per_capita&quot;</span> <span class="ot">=</span> <span class="st">&quot;Income per capita&quot;</span>,</span>
-<span id="cb1038-14"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-14" tabindex="-1"></a>    <span class="st">&quot;unemployment&quot;</span> <span class="ot">=</span> <span class="st">&quot;Unemployment Rate&quot;</span>, </span>
-<span id="cb1038-15"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-15" tabindex="-1"></a>    <span class="st">&quot;pop_women&quot;</span> <span class="ot">=</span> <span class="st">&quot;% Women&quot;</span>, </span>
-<span id="cb1038-16"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-16" tabindex="-1"></a>    <span class="st">&quot;pop_over_age_65&quot;</span> <span class="ot">=</span> <span class="st">&quot;% Over Age 65&quot;</span>,</span>
-<span id="cb1038-17"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-17" tabindex="-1"></a>    <span class="co"># Notice I removed the prefectures here</span></span>
-<span id="cb1038-18"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-18" tabindex="-1"></a>    <span class="st">&quot;(Intercept)&quot;</span> <span class="ot">=</span> <span class="st">&quot;Intercept&quot;</span>),</span>
-<span id="cb1038-19"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-19" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;OLS Model of Social Capital in Japanese Cities over 7 years&quot;</span>,</span>
-<span id="cb1038-20"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-20" tabindex="-1"></a>  <span class="co"># Notice I added more to the note.</span></span>
-<span id="cb1038-21"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-21" tabindex="-1"></a>  <span class="at">custom.note =</span> <span class="st">&quot;Statistical Significance: *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05.</span></span>
-<span id="cb1038-22"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1038-22" tabindex="-1"></a><span class="st">  All models also control for each year (2011-2017) as a categorical variable. Final model also controls for prefectures. Akita is the baseline prefecture.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1048"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1048-1"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-1" tabindex="-1"></a><span class="fu">htmlreg</span>(</span>
+<span id="cb1048-2"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-2" tabindex="-1"></a>  <span class="fu">list</span>(m1,m2,m3,m4),</span>
+<span id="cb1048-3"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-3" tabindex="-1"></a>  <span class="at">bold =</span> <span class="fl">0.05</span>, </span>
+<span id="cb1048-4"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-4" tabindex="-1"></a>  <span class="at">include.fstat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1048-5"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-5" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">&quot;workshops/workshop_11_table_4.html&quot;</span>,</span>
+<span id="cb1048-6"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-6" tabindex="-1"></a>  <span class="at">custom.model.names =</span> <span class="fu">c</span>(</span>
+<span id="cb1048-7"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-7" tabindex="-1"></a>    <span class="st">&quot;Basic Model&quot;</span>, <span class="st">&quot;with Controls&quot;</span>, </span>
+<span id="cb1048-8"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-8" tabindex="-1"></a>    <span class="st">&quot;With Extended&lt;br&gt;Controls&quot;</span>, </span>
+<span id="cb1048-9"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-9" tabindex="-1"></a>    <span class="st">&quot;With Geographic&lt;br&gt;Controls&quot;</span>),</span>
+<span id="cb1048-10"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-10" tabindex="-1"></a>  <span class="at">custom.coef.map =</span> <span class="fu">list</span>(</span>
+<span id="cb1048-11"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-11" tabindex="-1"></a>    <span class="st">&quot;damage_rate&quot;</span> <span class="ot">=</span> <span class="st">&quot;Damage Rate&quot;</span>, </span>
+<span id="cb1048-12"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-12" tabindex="-1"></a>    <span class="st">&quot;exp_dis_relief_per_capita&quot;</span> <span class="ot">=</span> <span class="st">&quot;Disaster Spending Rate&quot;</span>,</span>
+<span id="cb1048-13"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-13" tabindex="-1"></a>    <span class="st">&quot;income_per_capita&quot;</span> <span class="ot">=</span> <span class="st">&quot;Income per capita&quot;</span>,</span>
+<span id="cb1048-14"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-14" tabindex="-1"></a>    <span class="st">&quot;unemployment&quot;</span> <span class="ot">=</span> <span class="st">&quot;Unemployment Rate&quot;</span>, </span>
+<span id="cb1048-15"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-15" tabindex="-1"></a>    <span class="st">&quot;pop_women&quot;</span> <span class="ot">=</span> <span class="st">&quot;% Women&quot;</span>, </span>
+<span id="cb1048-16"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-16" tabindex="-1"></a>    <span class="st">&quot;pop_over_age_65&quot;</span> <span class="ot">=</span> <span class="st">&quot;% Over Age 65&quot;</span>,</span>
+<span id="cb1048-17"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-17" tabindex="-1"></a>    <span class="co"># Notice I removed the prefectures here</span></span>
+<span id="cb1048-18"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-18" tabindex="-1"></a>    <span class="st">&quot;(Intercept)&quot;</span> <span class="ot">=</span> <span class="st">&quot;Intercept&quot;</span>),</span>
+<span id="cb1048-19"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-19" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;OLS Model of Social Capital in Japanese Cities over 7 years&quot;</span>,</span>
+<span id="cb1048-20"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-20" tabindex="-1"></a>  <span class="co"># Notice I added more to the note.</span></span>
+<span id="cb1048-21"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-21" tabindex="-1"></a>  <span class="at">custom.note =</span> <span class="st">&quot;Statistical Significance: *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05.</span></span>
+<span id="cb1048-22"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#cb1048-22" tabindex="-1"></a><span class="st">  All models also control for each year (2011-2017) as a categorical variable. Final model also controls for prefectures. Akita is the baseline prefecture.&quot;</span>)</span></code></pre></div>
 </details>
 <p><br>
 <br></p>

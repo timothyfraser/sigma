@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2024-08-29" />
+<meta name="date" content="2024-10-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,7 @@
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="assets/kePrint-0.0.1/kePrint.js"></script>
 <link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="assets/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
 <script src="assets/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <script src="assets/d3-3.3.8/d3.min.js"></script>
 <script src="assets/dagre-0.4.0/dagre-d3.min.js"></script>
@@ -76,7 +77,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -921,7 +922,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="25" data-path="appendix-test.html"><a href="appendix-test.html"><i class="fa fa-check"></i><b>25</b> Appendix: test</a>
 <ul>
-<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-24"><i class="fa fa-check"></i>Getting Started</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-24"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-1"><i class="fa fa-check"></i>Version 1</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-2"><i class="fa fa-check"></i>Version 2</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -948,9 +953,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="load-packages-4" class="section level3 hasAnchor" number="11.1.1">
 <h3><span class="header-section-number">11.1.1</span> Load Packages<a href="useful-life-distributions-exponential.html#load-packages-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s start by loading the <code>tidyverse</code> package, which will let us <code>mutate()</code>, <code>filter()</code>, and <code>summarize()</code> data quickly. We’ll also load <code>mosaicCalc</code>, for taking derivatives and integrals (eg. <code>D()</code> and <code>antiD()</code>).</p>
-<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="useful-life-distributions-exponential.html#cb607-1" tabindex="-1"></a><span class="co"># Load packages</span></span>
-<span id="cb607-2"><a href="useful-life-distributions-exponential.html#cb607-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb607-3"><a href="useful-life-distributions-exponential.html#cb607-3" tabindex="-1"></a><span class="fu">library</span>(mosaicCalc)</span></code></pre></div>
+<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb610-1"><a href="useful-life-distributions-exponential.html#cb610-1" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb610-2"><a href="useful-life-distributions-exponential.html#cb610-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb610-3"><a href="useful-life-distributions-exponential.html#cb610-3" tabindex="-1"></a><span class="fu">library</span>(mosaicCalc)</span></code></pre></div>
 <p><br>
 <br></p>
 </div>
@@ -970,10 +975,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">11.1.3</span> Our Data<a href="useful-life-distributions-exponential.html#our-data-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In this workshop, we’re going to work with a data.frame called <code>masks</code>. An extremely annoying moment in the COVID-era is when a part of your mask snaps, requiring you to get a fresh mask. Let’s examine a (hypothetical) sample of <code>n = 50</code> masks produced by Company X to explore how often this happens!</p>
 <p>Please import the <code>masks.csv</code> data.frame below. Each row is a mask, with its own unique <code>id</code>. Columns describe how many hours it took for the <code>left_earloop</code> to snap, the <code>right_earloop</code> to snap, the nose <code>wire</code> to snap, and the <code>fabric</code> of the mask to tear.</p>
-<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="useful-life-distributions-exponential.html#cb608-1" tabindex="-1"></a>masks <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;workshops/masks.csv&quot;</span>)</span>
-<span id="cb608-2"><a href="useful-life-distributions-exponential.html#cb608-2" tabindex="-1"></a></span>
-<span id="cb608-3"><a href="useful-life-distributions-exponential.html#cb608-3" tabindex="-1"></a><span class="co"># Let&#39;s glimpse() its contents!</span></span>
-<span id="cb608-4"><a href="useful-life-distributions-exponential.html#cb608-4" tabindex="-1"></a>masks <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="useful-life-distributions-exponential.html#cb611-1" tabindex="-1"></a>masks <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;workshops/masks.csv&quot;</span>)</span>
+<span id="cb611-2"><a href="useful-life-distributions-exponential.html#cb611-2" tabindex="-1"></a></span>
+<span id="cb611-3"><a href="useful-life-distributions-exponential.html#cb611-3" tabindex="-1"></a><span class="co"># Let&#39;s glimpse() its contents!</span></span>
+<span id="cb611-4"><a href="useful-life-distributions-exponential.html#cb611-4" tabindex="-1"></a>masks <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
 <pre><code>## Rows: 50
 ## Columns: 5
 ## $ id            &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1…
@@ -995,25 +1000,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="mean-time-to-fail" class="section level3 hasAnchor" number="11.2.2">
 <h3><span class="header-section-number">11.2.2</span> Mean Time to Fail<a href="useful-life-distributions-exponential.html#mean-time-to-fail" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The Mean Time to Fail describes the <strong>mean</strong> of a lifespan distribution. For example, let’s calculate the mean time to fail (in hours) for a mask’s <code>left_earloop</code> in our sample.</p>
-<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb610-1"><a href="useful-life-distributions-exponential.html#cb610-1" tabindex="-1"></a>stat <span class="ot">&lt;-</span> masks <span class="sc">%&gt;%</span></span>
-<span id="cb610-2"><a href="useful-life-distributions-exponential.html#cb610-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb610-3"><a href="useful-life-distributions-exponential.html#cb610-3" tabindex="-1"></a>    <span class="co"># We can take the mean of this vector of time to fail in hours</span></span>
-<span id="cb610-4"><a href="useful-life-distributions-exponential.html#cb610-4" tabindex="-1"></a>    <span class="at">mttf =</span> <span class="fu">mean</span>(left_earloop),</span>
-<span id="cb610-5"><a href="useful-life-distributions-exponential.html#cb610-5" tabindex="-1"></a>    <span class="co"># Lambda is the reciprocal of the MTTF</span></span>
-<span id="cb610-6"><a href="useful-life-distributions-exponential.html#cb610-6" tabindex="-1"></a>    <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> mttf)</span>
-<span id="cb610-7"><a href="useful-life-distributions-exponential.html#cb610-7" tabindex="-1"></a></span>
-<span id="cb610-8"><a href="useful-life-distributions-exponential.html#cb610-8" tabindex="-1"></a><span class="co"># Check out the contents!</span></span>
-<span id="cb610-9"><a href="useful-life-distributions-exponential.html#cb610-9" tabindex="-1"></a>stat</span></code></pre></div>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="useful-life-distributions-exponential.html#cb613-1" tabindex="-1"></a>stat <span class="ot">&lt;-</span> masks <span class="sc">%&gt;%</span></span>
+<span id="cb613-2"><a href="useful-life-distributions-exponential.html#cb613-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb613-3"><a href="useful-life-distributions-exponential.html#cb613-3" tabindex="-1"></a>    <span class="co"># We can take the mean of this vector of time to fail in hours</span></span>
+<span id="cb613-4"><a href="useful-life-distributions-exponential.html#cb613-4" tabindex="-1"></a>    <span class="at">mttf =</span> <span class="fu">mean</span>(left_earloop),</span>
+<span id="cb613-5"><a href="useful-life-distributions-exponential.html#cb613-5" tabindex="-1"></a>    <span class="co"># Lambda is the reciprocal of the MTTF</span></span>
+<span id="cb613-6"><a href="useful-life-distributions-exponential.html#cb613-6" tabindex="-1"></a>    <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> mttf)</span>
+<span id="cb613-7"><a href="useful-life-distributions-exponential.html#cb613-7" tabindex="-1"></a></span>
+<span id="cb613-8"><a href="useful-life-distributions-exponential.html#cb613-8" tabindex="-1"></a><span class="co"># Check out the contents!</span></span>
+<span id="cb613-9"><a href="useful-life-distributions-exponential.html#cb613-9" tabindex="-1"></a>stat</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 2
 ##    mttf lambda
 ##   &lt;dbl&gt;  &lt;dbl&gt;
 ## 1  13.4 0.0749</code></pre>
 <p>In an exponential distribution, the MTTF <em>always</em> has a cumulative probability of <code>1 - 1 / e = 0.632</code>. (This can be coded in R like so:)</p>
-<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb612-1"><a href="useful-life-distributions-exponential.html#cb612-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">exp</span>(<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="useful-life-distributions-exponential.html#cb615-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">exp</span>(<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 0.6321206</code></pre>
 <p>Let’s assume our sample’s left earloops have an exponential lifespan distribution, and use <code>pexp()</code> to calculate the cumulative probability of getting an MTTF of 13.36. We’ll need to supply <code>pexp()</code> the benchmark in the distribution in question (<code>mttf</code>), plus the the <code>rate</code> parameter <span class="math inline">\(\lambda\)</span>, which we always need when simulating an exponential distribution.</p>
-<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="useful-life-distributions-exponential.html#cb614-1" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">pexp</span>(stat<span class="sc">$</span>mttf, <span class="at">rate =</span> stat<span class="sc">$</span>lambda)</span>
-<span id="cb614-2"><a href="useful-life-distributions-exponential.html#cb614-2" tabindex="-1"></a>prob</span></code></pre></div>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="useful-life-distributions-exponential.html#cb617-1" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">pexp</span>(stat<span class="sc">$</span>mttf, <span class="at">rate =</span> stat<span class="sc">$</span>lambda)</span>
+<span id="cb617-2"><a href="useful-life-distributions-exponential.html#cb617-2" tabindex="-1"></a>prob</span></code></pre></div>
 <pre><code>## [1] 0.6321206</code></pre>
 <p>Indeed, the figure below compares the observed PDF function (made using <code>density()</code>) to the assumed exponential PDF (made using <code>dexp()</code>), and we can see that that 63% of the distribution has failed by the Mean Time to Fail.</p>
 <p><img src="07_workshop_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
@@ -1029,16 +1034,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Assuming an exponential distribution, the failure rate <span class="math inline">\(F(t) = 1 - e^{-\lambda t}\)</span>.</p></li>
 <li><p>We know <span class="math inline">\(\lambda = \frac{1}{MTTF}\)</span>, and above, we found that lambda = 0.0748502994011976 for a left-earloop.</p></li>
 </ul>
-<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="useful-life-distributions-exponential.html#cb616-1" tabindex="-1"></a><span class="co"># Reliability Function for exponential distribution</span></span>
-<span id="cb616-2"><a href="useful-life-distributions-exponential.html#cb616-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda)}</span></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="useful-life-distributions-exponential.html#cb619-1" tabindex="-1"></a><span class="co"># Reliability Function for exponential distribution</span></span>
+<span id="cb619-2"><a href="useful-life-distributions-exponential.html#cb619-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda)}</span></code></pre></div>
 <p>We can calculate it below…</p>
-<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="useful-life-distributions-exponential.html#cb617-1" tabindex="-1"></a><span class="co"># Use mosaicCalc&#39;s antiD function</span></span>
-<span id="cb617-2"><a href="useful-life-distributions-exponential.html#cb617-2" tabindex="-1"></a><span class="co"># To get integral of r(t, lambda) as x goes from 0 to infinity</span></span>
-<span id="cb617-3"><a href="useful-life-distributions-exponential.html#cb617-3" tabindex="-1"></a>mttf <span class="ot">=</span> <span class="fu">antiD</span>(<span class="at">tilde =</span> <span class="fu">r</span>(t, lambda) <span class="sc">~</span> t)</span></code></pre></div>
+<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="useful-life-distributions-exponential.html#cb620-1" tabindex="-1"></a><span class="co"># Use mosaicCalc&#39;s antiD function</span></span>
+<span id="cb620-2"><a href="useful-life-distributions-exponential.html#cb620-2" tabindex="-1"></a><span class="co"># To get integral of r(t, lambda) as x goes from 0 to infinity</span></span>
+<span id="cb620-3"><a href="useful-life-distributions-exponential.html#cb620-3" tabindex="-1"></a>mttf <span class="ot">=</span> <span class="fu">antiD</span>(<span class="at">tilde =</span> <span class="fu">r</span>(t, lambda) <span class="sc">~</span> t)</span></code></pre></div>
 <p>Great! We have developed our own <code>mttf</code> function for an exponential distribution! If we feed <code>t</code> a suitably large value, like 1000 (approaching infinity), we will reach the original observed/estimated <code>mttf</code>.</p>
-<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="useful-life-distributions-exponential.html#cb618-1" tabindex="-1"></a><span class="fu">mttf</span>(<span class="at">t =</span> <span class="dv">1000</span>, <span class="at">lambda =</span> stat<span class="sc">$</span>lambda)</span></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="useful-life-distributions-exponential.html#cb621-1" tabindex="-1"></a><span class="fu">mttf</span>(<span class="at">t =</span> <span class="dv">1000</span>, <span class="at">lambda =</span> stat<span class="sc">$</span>lambda)</span></code></pre></div>
 <pre><code>## [1] 13.36</code></pre>
-<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="useful-life-distributions-exponential.html#cb620-1" tabindex="-1"></a><span class="fu">mttf</span>(<span class="at">t =</span> <span class="cn">Inf</span>, <span class="at">lambda =</span> stat<span class="sc">$</span>lambda)</span></code></pre></div>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="useful-life-distributions-exponential.html#cb623-1" tabindex="-1"></a><span class="fu">mttf</span>(<span class="at">t =</span> <span class="cn">Inf</span>, <span class="at">lambda =</span> stat<span class="sc">$</span>lambda)</span></code></pre></div>
 <pre><code>## [1] 13.36</code></pre>
 <p>This only helps you if you <em>know</em> <strong>lambda</strong>, the inverse of the MTTF, or have the reliability function but not the MTTF.</p>
 <p><br>
@@ -1050,25 +1055,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math inline">\(F(T_{50}) = 50\% = 0.5 = 1 - e^{-\lambda T_{50}}\)</span></p>
 <p>where:</p>
 <p><span class="math inline">\(T_{50} = \frac{log(2)}{ \lambda } = \frac{0.693}{\lambda}\)</span></p>
-<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="useful-life-distributions-exponential.html#cb622-1" tabindex="-1"></a><span class="co"># Let&#39;s update stat to include the observed &#39;median&#39; </span></span>
-<span id="cb622-2"><a href="useful-life-distributions-exponential.html#cb622-2" tabindex="-1"></a><span class="co"># and &#39;t50&#39;, the median assuming an exponential distribution </span></span>
-<span id="cb622-3"><a href="useful-life-distributions-exponential.html#cb622-3" tabindex="-1"></a></span>
-<span id="cb622-4"><a href="useful-life-distributions-exponential.html#cb622-4" tabindex="-1"></a>stat <span class="ot">&lt;-</span> masks <span class="sc">%&gt;%</span></span>
-<span id="cb622-5"><a href="useful-life-distributions-exponential.html#cb622-5" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb622-6"><a href="useful-life-distributions-exponential.html#cb622-6" tabindex="-1"></a>    <span class="co"># The literal mean time to fail </span></span>
-<span id="cb622-7"><a href="useful-life-distributions-exponential.html#cb622-7" tabindex="-1"></a>    <span class="co"># in our observed distribution is this</span></span>
-<span id="cb622-8"><a href="useful-life-distributions-exponential.html#cb622-8" tabindex="-1"></a>    <span class="at">mttf =</span> <span class="fu">mean</span>(left_earloop),</span>
-<span id="cb622-9"><a href="useful-life-distributions-exponential.html#cb622-9" tabindex="-1"></a>    <span class="co"># And lambda is this...</span></span>
-<span id="cb622-10"><a href="useful-life-distributions-exponential.html#cb622-10" tabindex="-1"></a>    <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> mttf,</span>
-<span id="cb622-11"><a href="useful-life-distributions-exponential.html#cb622-11" tabindex="-1"></a>    <span class="co"># The observed median is this....</span></span>
-<span id="cb622-12"><a href="useful-life-distributions-exponential.html#cb622-12" tabindex="-1"></a>    <span class="at">median =</span> <span class="fu">median</span>(left_earloop),</span>
-<span id="cb622-13"><a href="useful-life-distributions-exponential.html#cb622-13" tabindex="-1"></a>    <span class="co"># But if we assume it&#39;s an exponential distribution</span></span>
-<span id="cb622-14"><a href="useful-life-distributions-exponential.html#cb622-14" tabindex="-1"></a>    <span class="co"># and calculate the median from lambda,</span></span>
-<span id="cb622-15"><a href="useful-life-distributions-exponential.html#cb622-15" tabindex="-1"></a>    <span class="co"># we get t50, which is very close.</span></span>
-<span id="cb622-16"><a href="useful-life-distributions-exponential.html#cb622-16" tabindex="-1"></a>    <span class="at">t50 =</span> <span class="fu">log</span>(<span class="dv">2</span>) <span class="sc">/</span> lambda)</span>
-<span id="cb622-17"><a href="useful-life-distributions-exponential.html#cb622-17" tabindex="-1"></a></span>
-<span id="cb622-18"><a href="useful-life-distributions-exponential.html#cb622-18" tabindex="-1"></a><span class="co"># Check it out!</span></span>
-<span id="cb622-19"><a href="useful-life-distributions-exponential.html#cb622-19" tabindex="-1"></a>stat</span></code></pre></div>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="useful-life-distributions-exponential.html#cb625-1" tabindex="-1"></a><span class="co"># Let&#39;s update stat to include the observed &#39;median&#39; </span></span>
+<span id="cb625-2"><a href="useful-life-distributions-exponential.html#cb625-2" tabindex="-1"></a><span class="co"># and &#39;t50&#39;, the median assuming an exponential distribution </span></span>
+<span id="cb625-3"><a href="useful-life-distributions-exponential.html#cb625-3" tabindex="-1"></a></span>
+<span id="cb625-4"><a href="useful-life-distributions-exponential.html#cb625-4" tabindex="-1"></a>stat <span class="ot">&lt;-</span> masks <span class="sc">%&gt;%</span></span>
+<span id="cb625-5"><a href="useful-life-distributions-exponential.html#cb625-5" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb625-6"><a href="useful-life-distributions-exponential.html#cb625-6" tabindex="-1"></a>    <span class="co"># The literal mean time to fail </span></span>
+<span id="cb625-7"><a href="useful-life-distributions-exponential.html#cb625-7" tabindex="-1"></a>    <span class="co"># in our observed distribution is this</span></span>
+<span id="cb625-8"><a href="useful-life-distributions-exponential.html#cb625-8" tabindex="-1"></a>    <span class="at">mttf =</span> <span class="fu">mean</span>(left_earloop),</span>
+<span id="cb625-9"><a href="useful-life-distributions-exponential.html#cb625-9" tabindex="-1"></a>    <span class="co"># And lambda is this...</span></span>
+<span id="cb625-10"><a href="useful-life-distributions-exponential.html#cb625-10" tabindex="-1"></a>    <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> mttf,</span>
+<span id="cb625-11"><a href="useful-life-distributions-exponential.html#cb625-11" tabindex="-1"></a>    <span class="co"># The observed median is this....</span></span>
+<span id="cb625-12"><a href="useful-life-distributions-exponential.html#cb625-12" tabindex="-1"></a>    <span class="at">median =</span> <span class="fu">median</span>(left_earloop),</span>
+<span id="cb625-13"><a href="useful-life-distributions-exponential.html#cb625-13" tabindex="-1"></a>    <span class="co"># But if we assume it&#39;s an exponential distribution</span></span>
+<span id="cb625-14"><a href="useful-life-distributions-exponential.html#cb625-14" tabindex="-1"></a>    <span class="co"># and calculate the median from lambda,</span></span>
+<span id="cb625-15"><a href="useful-life-distributions-exponential.html#cb625-15" tabindex="-1"></a>    <span class="co"># we get t50, which is very close.</span></span>
+<span id="cb625-16"><a href="useful-life-distributions-exponential.html#cb625-16" tabindex="-1"></a>    <span class="at">t50 =</span> <span class="fu">log</span>(<span class="dv">2</span>) <span class="sc">/</span> lambda)</span>
+<span id="cb625-17"><a href="useful-life-distributions-exponential.html#cb625-17" tabindex="-1"></a></span>
+<span id="cb625-18"><a href="useful-life-distributions-exponential.html#cb625-18" tabindex="-1"></a><span class="co"># Check it out!</span></span>
+<span id="cb625-19"><a href="useful-life-distributions-exponential.html#cb625-19" tabindex="-1"></a>stat</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 4
 ##    mttf lambda median   t50
 ##   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
@@ -1077,24 +1082,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="modal-time-to-fail" class="section level3 hasAnchor" number="11.2.5">
 <h3><span class="header-section-number">11.2.5</span> Modal Time to Fail<a href="useful-life-distributions-exponential.html#modal-time-to-fail" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Finally, the modal time to fail is pretty easy to calculate. Its the most common time to fail, also known as the <strong>max</strong> probability in a PDF.</p>
-<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="useful-life-distributions-exponential.html#cb624-1" tabindex="-1"></a>masks <span class="sc">%&gt;%</span></span>
-<span id="cb624-2"><a href="useful-life-distributions-exponential.html#cb624-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb624-3"><a href="useful-life-distributions-exponential.html#cb624-3" tabindex="-1"></a>    <span class="co"># Let&#39;s get lambda, the reciprocal of the MTTF</span></span>
-<span id="cb624-4"><a href="useful-life-distributions-exponential.html#cb624-4" tabindex="-1"></a>    <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(left_earloop),</span>
-<span id="cb624-5"><a href="useful-life-distributions-exponential.html#cb624-5" tabindex="-1"></a>    <span class="co"># And let&#39;s estimate the PDF...</span></span>
-<span id="cb624-6"><a href="useful-life-distributions-exponential.html#cb624-6" tabindex="-1"></a>    <span class="at">t =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">max</span>(left_earloop),</span>
-<span id="cb624-7"><a href="useful-life-distributions-exponential.html#cb624-7" tabindex="-1"></a>    <span class="at">prob =</span> <span class="fu">dexp</span>(t, <span class="at">rate =</span> lambda)) <span class="sc">%&gt;%</span></span>
-<span id="cb624-8"><a href="useful-life-distributions-exponential.html#cb624-8" tabindex="-1"></a>  <span class="co"># And let&#39;s sort the data.frame from highest to lowest</span></span>
-<span id="cb624-9"><a href="useful-life-distributions-exponential.html#cb624-9" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prob)) <span class="sc">%&gt;%</span></span>
-<span id="cb624-10"><a href="useful-life-distributions-exponential.html#cb624-10" tabindex="-1"></a>  <span class="co"># Grab first 3 rows, for brevity</span></span>
-<span id="cb624-11"><a href="useful-life-distributions-exponential.html#cb624-11" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="useful-life-distributions-exponential.html#cb627-1" tabindex="-1"></a>masks <span class="sc">%&gt;%</span></span>
+<span id="cb627-2"><a href="useful-life-distributions-exponential.html#cb627-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb627-3"><a href="useful-life-distributions-exponential.html#cb627-3" tabindex="-1"></a>    <span class="co"># Let&#39;s get lambda, the reciprocal of the MTTF</span></span>
+<span id="cb627-4"><a href="useful-life-distributions-exponential.html#cb627-4" tabindex="-1"></a>    <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(left_earloop),</span>
+<span id="cb627-5"><a href="useful-life-distributions-exponential.html#cb627-5" tabindex="-1"></a>    <span class="co"># And let&#39;s estimate the PDF...</span></span>
+<span id="cb627-6"><a href="useful-life-distributions-exponential.html#cb627-6" tabindex="-1"></a>    <span class="at">t =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">max</span>(left_earloop),</span>
+<span id="cb627-7"><a href="useful-life-distributions-exponential.html#cb627-7" tabindex="-1"></a>    <span class="at">prob =</span> <span class="fu">dexp</span>(t, <span class="at">rate =</span> lambda)) <span class="sc">%&gt;%</span></span>
+<span id="cb627-8"><a href="useful-life-distributions-exponential.html#cb627-8" tabindex="-1"></a>  <span class="co"># And let&#39;s sort the data.frame from highest to lowest</span></span>
+<span id="cb627-9"><a href="useful-life-distributions-exponential.html#cb627-9" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(prob)) <span class="sc">%&gt;%</span></span>
+<span id="cb627-10"><a href="useful-life-distributions-exponential.html#cb627-10" tabindex="-1"></a>  <span class="co"># Grab first 3 rows, for brevity</span></span>
+<span id="cb627-11"><a href="useful-life-distributions-exponential.html#cb627-11" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 3
 ##   lambda     t   prob
 ##    &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;
 ## 1 0.0749     1 0.0695
 ## 2 0.0749     2 0.0644
 ## 3 0.0749     3 0.0598</code></pre>
-<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="useful-life-distributions-exponential.html#cb626-1" tabindex="-1"></a><span class="co"># This reveals that t = 1 is our mode</span></span></code></pre></div>
+<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="useful-life-distributions-exponential.html#cb629-1" tabindex="-1"></a><span class="co"># This reveals that t = 1 is our mode</span></span></code></pre></div>
 <p><br>
 <br></p>
 <hr />
@@ -1116,39 +1121,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: decimal">
 <li>What is the probability that 1 fails <em>before</em> 20 hours of use?</li>
 </ol>
-<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="useful-life-distributions-exponential.html#cb627-1" tabindex="-1"></a><span class="co"># Let&#39;s generate an expondential failure function,</span></span>
-<span id="cb627-2"><a href="useful-life-distributions-exponential.html#cb627-2" tabindex="-1"></a><span class="co"># because **constant** rate of failure</span></span>
-<span id="cb627-3"><a href="useful-life-distributions-exponential.html#cb627-3" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda)}</span>
-<span id="cb627-4"><a href="useful-life-distributions-exponential.html#cb627-4" tabindex="-1"></a></span>
-<span id="cb627-5"><a href="useful-life-distributions-exponential.html#cb627-5" tabindex="-1"></a><span class="co"># Use failure function (CDF) to get area under curve BEFORE 20 hours.</span></span>
-<span id="cb627-6"><a href="useful-life-distributions-exponential.html#cb627-6" tabindex="-1"></a><span class="fu">f</span>(<span class="at">t =</span> <span class="dv">20</span>, <span class="at">lambda =</span> <span class="fl">0.08</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="useful-life-distributions-exponential.html#cb630-1" tabindex="-1"></a><span class="co"># Let&#39;s generate an expondential failure function,</span></span>
+<span id="cb630-2"><a href="useful-life-distributions-exponential.html#cb630-2" tabindex="-1"></a><span class="co"># because **constant** rate of failure</span></span>
+<span id="cb630-3"><a href="useful-life-distributions-exponential.html#cb630-3" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda)}</span>
+<span id="cb630-4"><a href="useful-life-distributions-exponential.html#cb630-4" tabindex="-1"></a></span>
+<span id="cb630-5"><a href="useful-life-distributions-exponential.html#cb630-5" tabindex="-1"></a><span class="co"># Use failure function (CDF) to get area under curve BEFORE 20 hours.</span></span>
+<span id="cb630-6"><a href="useful-life-distributions-exponential.html#cb630-6" tabindex="-1"></a><span class="fu">f</span>(<span class="at">t =</span> <span class="dv">20</span>, <span class="at">lambda =</span> <span class="fl">0.08</span>)</span></code></pre></div>
 <pre><code>## [1] 0.7981035</code></pre>
-<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="useful-life-distributions-exponential.html#cb629-1" tabindex="-1"></a><span class="co"># There&#39;s a 79% chance 1 fails within 20 hours</span></span></code></pre></div>
+<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="useful-life-distributions-exponential.html#cb632-1" tabindex="-1"></a><span class="co"># There&#39;s a 79% chance 1 fails within 20 hours</span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>What is the probability that 2 fail <em>before</em> 20 hours of use?</li>
 </ol>
-<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="useful-life-distributions-exponential.html#cb630-1" tabindex="-1"></a><span class="co"># For n failures, take F(t) to the nth power</span></span>
-<span id="cb630-2"><a href="useful-life-distributions-exponential.html#cb630-2" tabindex="-1"></a><span class="fu">f</span>(<span class="at">t =</span> <span class="dv">20</span>, <span class="at">lambda =</span> <span class="fl">0.08</span>)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="useful-life-distributions-exponential.html#cb633-1" tabindex="-1"></a><span class="co"># For n failures, take F(t) to the nth power</span></span>
+<span id="cb633-2"><a href="useful-life-distributions-exponential.html#cb633-2" tabindex="-1"></a><span class="fu">f</span>(<span class="at">t =</span> <span class="dv">20</span>, <span class="at">lambda =</span> <span class="fl">0.08</span>)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 0.6369692</code></pre>
-<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="useful-life-distributions-exponential.html#cb632-1" tabindex="-1"></a><span class="co"># There&#39;s a 63% chance 2 fail within 20 hours.</span></span></code></pre></div>
+<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="useful-life-distributions-exponential.html#cb635-1" tabindex="-1"></a><span class="co"># There&#39;s a 63% chance 2 fail within 20 hours.</span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>After how long should we expect 1% failures?</li>
 </ol>
-<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="useful-life-distributions-exponential.html#cb633-1" tabindex="-1"></a><span class="co"># We can solve this using the failure function</span></span>
-<span id="cb633-2"><a href="useful-life-distributions-exponential.html#cb633-2" tabindex="-1"></a><span class="co"># f(t) = 1 - e^{-t*lambda}</span></span>
-<span id="cb633-3"><a href="useful-life-distributions-exponential.html#cb633-3" tabindex="-1"></a></span>
-<span id="cb633-4"><a href="useful-life-distributions-exponential.html#cb633-4" tabindex="-1"></a><span class="co"># But we need to invert it,</span></span>
-<span id="cb633-5"><a href="useful-life-distributions-exponential.html#cb633-5" tabindex="-1"></a><span class="co"># to solve for t</span></span>
-<span id="cb633-6"><a href="useful-life-distributions-exponential.html#cb633-6" tabindex="-1"></a><span class="co"># f(t) = 1 - e^{-t*lambda}</span></span>
-<span id="cb633-7"><a href="useful-life-distributions-exponential.html#cb633-7" tabindex="-1"></a><span class="co"># e^{-t*lambda} = 1 - f(t) </span></span>
-<span id="cb633-8"><a href="useful-life-distributions-exponential.html#cb633-8" tabindex="-1"></a><span class="co"># log(1 - f(t)) = -t*lambda</span></span>
-<span id="cb633-9"><a href="useful-life-distributions-exponential.html#cb633-9" tabindex="-1"></a><span class="co"># -log(1 - f(t)) / lambda = t</span></span>
-<span id="cb633-10"><a href="useful-life-distributions-exponential.html#cb633-10" tabindex="-1"></a></span>
-<span id="cb633-11"><a href="useful-life-distributions-exponential.html#cb633-11" tabindex="-1"></a><span class="co"># So if we set f(t) = 1%, and lambda = 0.08,</span></span>
-<span id="cb633-12"><a href="useful-life-distributions-exponential.html#cb633-12" tabindex="-1"></a><span class="co"># this will tell us at what time F(t) will equal 1%</span></span>
-<span id="cb633-13"><a href="useful-life-distributions-exponential.html#cb633-13" tabindex="-1"></a><span class="sc">-</span><span class="fu">log</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.01</span>) <span class="sc">/</span> <span class="fl">0.08</span></span></code></pre></div>
+<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="useful-life-distributions-exponential.html#cb636-1" tabindex="-1"></a><span class="co"># We can solve this using the failure function</span></span>
+<span id="cb636-2"><a href="useful-life-distributions-exponential.html#cb636-2" tabindex="-1"></a><span class="co"># f(t) = 1 - e^{-t*lambda}</span></span>
+<span id="cb636-3"><a href="useful-life-distributions-exponential.html#cb636-3" tabindex="-1"></a></span>
+<span id="cb636-4"><a href="useful-life-distributions-exponential.html#cb636-4" tabindex="-1"></a><span class="co"># But we need to invert it,</span></span>
+<span id="cb636-5"><a href="useful-life-distributions-exponential.html#cb636-5" tabindex="-1"></a><span class="co"># to solve for t</span></span>
+<span id="cb636-6"><a href="useful-life-distributions-exponential.html#cb636-6" tabindex="-1"></a><span class="co"># f(t) = 1 - e^{-t*lambda}</span></span>
+<span id="cb636-7"><a href="useful-life-distributions-exponential.html#cb636-7" tabindex="-1"></a><span class="co"># e^{-t*lambda} = 1 - f(t) </span></span>
+<span id="cb636-8"><a href="useful-life-distributions-exponential.html#cb636-8" tabindex="-1"></a><span class="co"># log(1 - f(t)) = -t*lambda</span></span>
+<span id="cb636-9"><a href="useful-life-distributions-exponential.html#cb636-9" tabindex="-1"></a><span class="co"># -log(1 - f(t)) / lambda = t</span></span>
+<span id="cb636-10"><a href="useful-life-distributions-exponential.html#cb636-10" tabindex="-1"></a></span>
+<span id="cb636-11"><a href="useful-life-distributions-exponential.html#cb636-11" tabindex="-1"></a><span class="co"># So if we set f(t) = 1%, and lambda = 0.08,</span></span>
+<span id="cb636-12"><a href="useful-life-distributions-exponential.html#cb636-12" tabindex="-1"></a><span class="co"># this will tell us at what time F(t) will equal 1%</span></span>
+<span id="cb636-13"><a href="useful-life-distributions-exponential.html#cb636-13" tabindex="-1"></a><span class="sc">-</span><span class="fu">log</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.01</span>) <span class="sc">/</span> <span class="fl">0.08</span></span></code></pre></div>
 <pre><code>## [1] 0.1256292</code></pre>
-<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="useful-life-distributions-exponential.html#cb635-1" tabindex="-1"></a><span class="co"># Looks like that time of interest is t = 0.1256 hours.</span></span></code></pre></div>
+<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="useful-life-distributions-exponential.html#cb638-1" tabindex="-1"></a><span class="co"># Looks like that time of interest is t = 0.1256 hours.</span></span></code></pre></div>
 </details>
 <hr />
 </div>
@@ -1164,18 +1169,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: decimal">
 <li>MTTF and Lambda</li>
 </ol>
-<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="useful-life-distributions-exponential.html#cb636-1" tabindex="-1"></a>compare <span class="ot">&lt;-</span> masks <span class="sc">%&gt;%</span></span>
-<span id="cb636-2"><a href="useful-life-distributions-exponential.html#cb636-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mttf_right =</span> <span class="fu">mean</span>(right_earloop),</span>
-<span id="cb636-3"><a href="useful-life-distributions-exponential.html#cb636-3" tabindex="-1"></a>            <span class="at">mttf_left =</span> <span class="fu">mean</span>(left_earloop),</span>
-<span id="cb636-4"><a href="useful-life-distributions-exponential.html#cb636-4" tabindex="-1"></a>            <span class="at">lambda_right =</span> <span class="dv">1</span> <span class="sc">/</span> mttf_right,</span>
-<span id="cb636-5"><a href="useful-life-distributions-exponential.html#cb636-5" tabindex="-1"></a>            <span class="at">lambda_left =</span> <span class="dv">1</span> <span class="sc">/</span> mttf_left)</span>
-<span id="cb636-6"><a href="useful-life-distributions-exponential.html#cb636-6" tabindex="-1"></a><span class="co"># Check it</span></span>
-<span id="cb636-7"><a href="useful-life-distributions-exponential.html#cb636-7" tabindex="-1"></a>compare</span></code></pre></div>
+<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="useful-life-distributions-exponential.html#cb639-1" tabindex="-1"></a>compare <span class="ot">&lt;-</span> masks <span class="sc">%&gt;%</span></span>
+<span id="cb639-2"><a href="useful-life-distributions-exponential.html#cb639-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mttf_right =</span> <span class="fu">mean</span>(right_earloop),</span>
+<span id="cb639-3"><a href="useful-life-distributions-exponential.html#cb639-3" tabindex="-1"></a>            <span class="at">mttf_left =</span> <span class="fu">mean</span>(left_earloop),</span>
+<span id="cb639-4"><a href="useful-life-distributions-exponential.html#cb639-4" tabindex="-1"></a>            <span class="at">lambda_right =</span> <span class="dv">1</span> <span class="sc">/</span> mttf_right,</span>
+<span id="cb639-5"><a href="useful-life-distributions-exponential.html#cb639-5" tabindex="-1"></a>            <span class="at">lambda_left =</span> <span class="dv">1</span> <span class="sc">/</span> mttf_left)</span>
+<span id="cb639-6"><a href="useful-life-distributions-exponential.html#cb639-6" tabindex="-1"></a><span class="co"># Check it</span></span>
+<span id="cb639-7"><a href="useful-life-distributions-exponential.html#cb639-7" tabindex="-1"></a>compare</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 4
 ##   mttf_right mttf_left lambda_right lambda_left
 ##        &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;
 ## 1       10.6      13.4       0.0943      0.0749</code></pre>
-<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="useful-life-distributions-exponential.html#cb638-1" tabindex="-1"></a><span class="co"># Looks like the left earloop fails less often.</span></span></code></pre></div>
+<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="useful-life-distributions-exponential.html#cb641-1" tabindex="-1"></a><span class="co"># Looks like the left earloop fails less often.</span></span></code></pre></div>
 </details>
 <hr />
 <p><br>
@@ -1189,27 +1194,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We want to know, what’s the probability that <span class="math inline">\(T_{Fail}\)</span> is greater than <span class="math inline">\(t + x\)</span>, given that we <em>already know</em> <span class="math inline">\(T_{Fail}\)</span> must be greater than <span class="math inline">\(t\)</span> (since it hasn’t failed yet as of time <span class="math inline">\(t\)</span>)? Fortunately, this can be simplified in terms of the reliability functions. As long as we can calculate <span class="math inline">\(R(x + t)\)</span> and <span class="math inline">\(R(t)\)</span>, we can find <span class="math inline">\(R(x|t)\)</span>, the conditional survival function.</p>
 <p><span class="math display">\[ R(x | t) = \frac{ R(x + t) }{ R(t) } = \frac{ P(T_{Fail} &gt; x + t) }{P(T_{Fail} &gt; t)} \]</span>
 So, let’s use our nice reliability function from before to help us calculate the conditional reliability function.</p>
-<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="useful-life-distributions-exponential.html#cb639-1" tabindex="-1"></a><span class="co"># Reliability Function for exponential distribution</span></span>
-<span id="cb639-2"><a href="useful-life-distributions-exponential.html#cb639-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda)}</span></code></pre></div>
+<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="useful-life-distributions-exponential.html#cb642-1" tabindex="-1"></a><span class="co"># Reliability Function for exponential distribution</span></span>
+<span id="cb642-2"><a href="useful-life-distributions-exponential.html#cb642-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda)}</span></code></pre></div>
 <p>So, what’s the probability that a left-earloop that has lasted 10 hours will last another 5 hours?</p>
-<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="useful-life-distributions-exponential.html#cb640-1" tabindex="-1"></a><span class="fu">r</span>(<span class="at">t =</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">5</span>, <span class="at">lambda =</span> stat<span class="sc">$</span>lambda) <span class="sc">/</span> </span>
-<span id="cb640-2"><a href="useful-life-distributions-exponential.html#cb640-2" tabindex="-1"></a>  <span class="fu">r</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">lambda =</span> stat<span class="sc">$</span>lambda)</span></code></pre></div>
+<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="useful-life-distributions-exponential.html#cb643-1" tabindex="-1"></a><span class="fu">r</span>(<span class="at">t =</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">5</span>, <span class="at">lambda =</span> stat<span class="sc">$</span>lambda) <span class="sc">/</span> </span>
+<span id="cb643-2"><a href="useful-life-distributions-exponential.html#cb643-2" tabindex="-1"></a>  <span class="fu">r</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">lambda =</span> stat<span class="sc">$</span>lambda)</span></code></pre></div>
 <pre><code>## [1] 0.6878039</code></pre>
 <p>Looks like there’s a 69% chance it will last another 5 hours, given that it has already lasted 10 hours.</p>
 <p>Let’s finish up by building ourselves a nice Conditional Reliability function <code>cr</code>, which which calculates the conditional probability of any item surviving <code>x</code> more hours given that it survived <code>t</code> hours and a mean failure rate of <code>lambda</code>.</p>
-<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="useful-life-distributions-exponential.html#cb642-1" tabindex="-1"></a>cr <span class="ot">=</span> <span class="cf">function</span>(t, x, lambda){</span>
-<span id="cb642-2"><a href="useful-life-distributions-exponential.html#cb642-2" tabindex="-1"></a>  <span class="co"># We can actually nest functions inside each other, </span></span>
-<span id="cb642-3"><a href="useful-life-distributions-exponential.html#cb642-3" tabindex="-1"></a>  <span class="co"># to make them easier to write</span></span>
-<span id="cb642-4"><a href="useful-life-distributions-exponential.html#cb642-4" tabindex="-1"></a>  r <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda)}</span>
-<span id="cb642-5"><a href="useful-life-distributions-exponential.html#cb642-5" tabindex="-1"></a>  </span>
-<span id="cb642-6"><a href="useful-life-distributions-exponential.html#cb642-6" tabindex="-1"></a>  <span class="co"># Calculate R(x + t) / R(t) </span></span>
-<span id="cb642-7"><a href="useful-life-distributions-exponential.html#cb642-7" tabindex="-1"></a>  output <span class="ot">&lt;-</span> <span class="fu">r</span>(<span class="at">t =</span> t <span class="sc">+</span> x, lambda) <span class="sc">/</span> <span class="fu">r</span>(<span class="at">t =</span> t, lambda)</span>
-<span id="cb642-8"><a href="useful-life-distributions-exponential.html#cb642-8" tabindex="-1"></a>  </span>
-<span id="cb642-9"><a href="useful-life-distributions-exponential.html#cb642-9" tabindex="-1"></a>  <span class="co"># and return the result!</span></span>
-<span id="cb642-10"><a href="useful-life-distributions-exponential.html#cb642-10" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
-<span id="cb642-11"><a href="useful-life-distributions-exponential.html#cb642-11" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="useful-life-distributions-exponential.html#cb643-1" tabindex="-1"></a><span class="co"># Let&#39;s compare our result to above! It&#39;s the same!</span></span>
-<span id="cb643-2"><a href="useful-life-distributions-exponential.html#cb643-2" tabindex="-1"></a><span class="fu">cr</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">x =</span> <span class="dv">5</span>, <span class="at">lambda =</span> stat<span class="sc">$</span>lambda)</span></code></pre></div>
+<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="useful-life-distributions-exponential.html#cb645-1" tabindex="-1"></a>cr <span class="ot">=</span> <span class="cf">function</span>(t, x, lambda){</span>
+<span id="cb645-2"><a href="useful-life-distributions-exponential.html#cb645-2" tabindex="-1"></a>  <span class="co"># We can actually nest functions inside each other, </span></span>
+<span id="cb645-3"><a href="useful-life-distributions-exponential.html#cb645-3" tabindex="-1"></a>  <span class="co"># to make them easier to write</span></span>
+<span id="cb645-4"><a href="useful-life-distributions-exponential.html#cb645-4" tabindex="-1"></a>  r <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda)}</span>
+<span id="cb645-5"><a href="useful-life-distributions-exponential.html#cb645-5" tabindex="-1"></a>  </span>
+<span id="cb645-6"><a href="useful-life-distributions-exponential.html#cb645-6" tabindex="-1"></a>  <span class="co"># Calculate R(x + t) / R(t) </span></span>
+<span id="cb645-7"><a href="useful-life-distributions-exponential.html#cb645-7" tabindex="-1"></a>  output <span class="ot">&lt;-</span> <span class="fu">r</span>(<span class="at">t =</span> t <span class="sc">+</span> x, lambda) <span class="sc">/</span> <span class="fu">r</span>(<span class="at">t =</span> t, lambda)</span>
+<span id="cb645-8"><a href="useful-life-distributions-exponential.html#cb645-8" tabindex="-1"></a>  </span>
+<span id="cb645-9"><a href="useful-life-distributions-exponential.html#cb645-9" tabindex="-1"></a>  <span class="co"># and return the result!</span></span>
+<span id="cb645-10"><a href="useful-life-distributions-exponential.html#cb645-10" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb645-11"><a href="useful-life-distributions-exponential.html#cb645-11" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="useful-life-distributions-exponential.html#cb646-1" tabindex="-1"></a><span class="co"># Let&#39;s compare our result to above! It&#39;s the same!</span></span>
+<span id="cb646-2"><a href="useful-life-distributions-exponential.html#cb646-2" tabindex="-1"></a><span class="fu">cr</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">x =</span> <span class="dv">5</span>, <span class="at">lambda =</span> stat<span class="sc">$</span>lambda)</span></code></pre></div>
 <pre><code>## [1] 0.6878039</code></pre>
 <p>If we were to visualize our conditional reliability function <code>cr</code> below as x ranges from 1 to 50, it would produce the following curve.</p>
 <p><img src="07_workshop_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
@@ -1218,60 +1223,73 @@ So, let’s use our nice reliability function from before to help us calculate t
 </div>
 <div id="mut-mean-residual-life" class="section level3 hasAnchor" number="11.3.2">
 <h3><span class="header-section-number">11.3.2</span> <span class="math inline">\(\mu(t)\)</span>: Mean Residual Life<a href="useful-life-distributions-exponential.html#mut-mean-residual-life" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The Conditional Reliability Function <span class="math inline">\(R(x|t)\)</span> also allows us to calculate the Mean Residual Life (MRL, a.k.a. <span class="math inline">\(\mu\)</span>) at time <span class="math inline">\(t\)</span>, in this case referring to the average <span class="math inline">\(x\)</span> more years the product is expected to survive <em>after</em> time <span class="math inline">\(t\)</span>. We can calculate it using the distribution below.</p>
-<p><span class="math display">\[MRL(t) = \mu(t) = \int_{t}^{\infty}{ R(x|t)dx} = \frac{1}{R(t)} \int_{t}^{\infty}{ R(x) dx} \]</span>
-It shows the mean expected remaining life years, for however <span class="math inline">\(x\)</span> many more time steps come after <span class="math inline">\(t\)</span>.</p>
+<p>The Conditional Reliability Function <span class="math inline">\(R(x|t)\)</span> also allows us to calculate the Mean Residual Life (MRL, a.k.a. <span class="math inline">\(\mu\)</span>) at time <span class="math inline">\(t\)</span>.</p>
+<p>The MRL at time <span class="math inline">\(t\)</span> refers to the average number of years the product is expected to survive <em>after</em> time <span class="math inline">\(t\)</span>. We can calculate it using the distribution below.</p>
+<p><span class="math display">\[MRL(t) = \mu(t) = \int_{0}^{\infty}{ R(x|t)dx} = \frac{1}{R(t)} \int_{0}^{\infty}{ R(x) dx} \]</span>
+It shows the mean expected remaining life years after <span class="math inline">\(t\)</span>.</p>
 <p>We can formalize this as function <code>mu(t, lambda)</code>. (Since the Greek letter <span class="math inline">\(\mu\)</span> is pronounced <code>mu</code>.)</p>
-<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="useful-life-distributions-exponential.html#cb645-1" tabindex="-1"></a><span class="co"># Conditional Reliability</span></span>
-<span id="cb645-2"><a href="useful-life-distributions-exponential.html#cb645-2" tabindex="-1"></a><span class="fu">library</span>(mosaicCalc)</span>
-<span id="cb645-3"><a href="useful-life-distributions-exponential.html#cb645-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb645-4"><a href="useful-life-distributions-exponential.html#cb645-4" tabindex="-1"></a></span>
-<span id="cb645-5"><a href="useful-life-distributions-exponential.html#cb645-5" tabindex="-1"></a><span class="co"># Calculate Mean Residual Life</span></span>
-<span id="cb645-6"><a href="useful-life-distributions-exponential.html#cb645-6" tabindex="-1"></a>mu <span class="ot">=</span> <span class="cf">function</span>(<span class="at">t =</span> <span class="dv">5</span>, <span class="at">lambda =</span> <span class="fl">0.001</span>){</span>
-<span id="cb645-7"><a href="useful-life-distributions-exponential.html#cb645-7" tabindex="-1"></a>  <span class="co">#t = 5</span></span>
-<span id="cb645-8"><a href="useful-life-distributions-exponential.html#cb645-8" tabindex="-1"></a>  <span class="co">#lambda = 0.001</span></span>
-<span id="cb645-9"><a href="useful-life-distributions-exponential.html#cb645-9" tabindex="-1"></a>  <span class="co"># Get the Reliability Function for exponential distribution</span></span>
-<span id="cb645-10"><a href="useful-life-distributions-exponential.html#cb645-10" tabindex="-1"></a>  r <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda)}</span>
-<span id="cb645-11"><a href="useful-life-distributions-exponential.html#cb645-11" tabindex="-1"></a>  </span>
-<span id="cb645-12"><a href="useful-life-distributions-exponential.html#cb645-12" tabindex="-1"></a>  <span class="co"># Get the MTTF, the integral of R(t), from t (time already spent) to infinity</span></span>
-<span id="cb645-13"><a href="useful-life-distributions-exponential.html#cb645-13" tabindex="-1"></a>  integral <span class="ot">=</span> <span class="fu">antiD</span>(<span class="at">tilde =</span> <span class="fu">r</span>(t, lambda) <span class="sc">~</span> t, <span class="at">lower.bound =</span> t)</span>
-<span id="cb645-14"><a href="useful-life-distributions-exponential.html#cb645-14" tabindex="-1"></a></span>
-<span id="cb645-15"><a href="useful-life-distributions-exponential.html#cb645-15" tabindex="-1"></a>  <span class="co"># Now calculate mu(), the Mean Residual Life function at time t</span></span>
-<span id="cb645-16"><a href="useful-life-distributions-exponential.html#cb645-16" tabindex="-1"></a>  output <span class="ot">&lt;-</span> <span class="fu">integral</span>(<span class="at">t =</span> <span class="cn">Inf</span>, <span class="at">lambda =</span> lambda) <span class="sc">/</span> <span class="fu">r</span>(<span class="at">t =</span> t, <span class="at">lambda =</span> lambda)</span>
-<span id="cb645-17"><a href="useful-life-distributions-exponential.html#cb645-17" tabindex="-1"></a>  </span>
-<span id="cb645-18"><a href="useful-life-distributions-exponential.html#cb645-18" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
-<span id="cb645-19"><a href="useful-life-distributions-exponential.html#cb645-19" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="useful-life-distributions-exponential.html#cb646-1" tabindex="-1"></a><span class="co"># Let&#39;s test it out and compare to our prevision version.</span></span>
-<span id="cb646-2"><a href="useful-life-distributions-exponential.html#cb646-2" tabindex="-1"></a><span class="fu">mu</span>(<span class="at">t =</span> <span class="dv">500</span>, <span class="at">lambda =</span> <span class="fl">0.001</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="useful-life-distributions-exponential.html#cb648-1" tabindex="-1"></a><span class="co"># Conditional Reliability</span></span>
+<span id="cb648-2"><a href="useful-life-distributions-exponential.html#cb648-2" tabindex="-1"></a><span class="fu">library</span>(mosaicCalc)</span>
+<span id="cb648-3"><a href="useful-life-distributions-exponential.html#cb648-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb648-4"><a href="useful-life-distributions-exponential.html#cb648-4" tabindex="-1"></a></span>
+<span id="cb648-5"><a href="useful-life-distributions-exponential.html#cb648-5" tabindex="-1"></a><span class="co"># Calculate Mean Residual Life</span></span>
+<span id="cb648-6"><a href="useful-life-distributions-exponential.html#cb648-6" tabindex="-1"></a>mu <span class="ot">=</span> <span class="cf">function</span>(<span class="at">t =</span> <span class="dv">5</span>, <span class="at">lambda =</span> <span class="fl">0.001</span>){</span>
+<span id="cb648-7"><a href="useful-life-distributions-exponential.html#cb648-7" tabindex="-1"></a>  <span class="co">#t = 5</span></span>
+<span id="cb648-8"><a href="useful-life-distributions-exponential.html#cb648-8" tabindex="-1"></a>  <span class="co">#lambda = 0.001</span></span>
+<span id="cb648-9"><a href="useful-life-distributions-exponential.html#cb648-9" tabindex="-1"></a>  <span class="co"># Get the Reliability Function for exponential distribution</span></span>
+<span id="cb648-10"><a href="useful-life-distributions-exponential.html#cb648-10" tabindex="-1"></a>  r <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda)}</span>
+<span id="cb648-11"><a href="useful-life-distributions-exponential.html#cb648-11" tabindex="-1"></a>  </span>
+<span id="cb648-12"><a href="useful-life-distributions-exponential.html#cb648-12" tabindex="-1"></a>  <span class="co"># Get the integral of R(x), the time remaining (mttf)</span></span>
+<span id="cb648-13"><a href="useful-life-distributions-exponential.html#cb648-13" tabindex="-1"></a>  integral <span class="ot">=</span> <span class="fu">antiD</span>(<span class="at">tilde =</span> <span class="fu">r</span>(x, lambda) <span class="sc">~</span> x, <span class="at">lower.bound =</span> <span class="dv">0</span>)</span>
+<span id="cb648-14"><a href="useful-life-distributions-exponential.html#cb648-14" tabindex="-1"></a></span>
+<span id="cb648-15"><a href="useful-life-distributions-exponential.html#cb648-15" tabindex="-1"></a>  <span class="co"># Now calculate mu(), the Mean Residual Life function</span></span>
+<span id="cb648-16"><a href="useful-life-distributions-exponential.html#cb648-16" tabindex="-1"></a>  <span class="co"># as of time t</span></span>
+<span id="cb648-17"><a href="useful-life-distributions-exponential.html#cb648-17" tabindex="-1"></a>  output <span class="ot">&lt;-</span> <span class="fu">integral</span>(<span class="at">x =</span> <span class="cn">Inf</span>, <span class="at">lambda =</span> lambda) <span class="sc">*</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">r</span>(<span class="at">t =</span> t, <span class="at">lambda =</span> lambda)</span>
+<span id="cb648-18"><a href="useful-life-distributions-exponential.html#cb648-18" tabindex="-1"></a>  </span>
+<span id="cb648-19"><a href="useful-life-distributions-exponential.html#cb648-19" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb648-20"><a href="useful-life-distributions-exponential.html#cb648-20" tabindex="-1"></a>}</span></code></pre></div>
+<p>Let’s test it out!</p>
+<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="useful-life-distributions-exponential.html#cb649-1" tabindex="-1"></a><span class="co"># Mean residual life given it&#39;s lasted 500 hours</span></span>
+<span id="cb649-2"><a href="useful-life-distributions-exponential.html#cb649-2" tabindex="-1"></a><span class="fu">mu</span>(<span class="at">t =</span> <span class="dv">500</span>, <span class="at">lambda =</span> <span class="fl">0.001</span>)</span></code></pre></div>
+<pre><code>## [1] 1648.721</code></pre>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="useful-life-distributions-exponential.html#cb651-1" tabindex="-1"></a><span class="co"># Mean residual life given it&#39;s lasted 2000 hours</span></span>
+<span id="cb651-2"><a href="useful-life-distributions-exponential.html#cb651-2" tabindex="-1"></a><span class="fu">mu</span>(<span class="at">t =</span> <span class="dv">2000</span>, <span class="at">lambda =</span> <span class="fl">0.001</span>)</span></code></pre></div>
+<pre><code>## [1] 7389.056</code></pre>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="useful-life-distributions-exponential.html#cb653-1" tabindex="-1"></a><span class="co"># Mean residual life given it&#39;s lasted 5000 hours</span></span>
+<span id="cb653-2"><a href="useful-life-distributions-exponential.html#cb653-2" tabindex="-1"></a><span class="fu">mu</span>(<span class="at">t =</span> <span class="dv">5000</span>, <span class="at">lambda =</span> <span class="fl">0.001</span>)</span></code></pre></div>
+<pre><code>## [1] 148413.2</code></pre>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="useful-life-distributions-exponential.html#cb655-1" tabindex="-1"></a><span class="co"># [Note: mu is NOT vectorized]</span></span></code></pre></div>
+<p>Notice also that when t = 0, we have a mu(0) which equals the MTTF.</p>
+<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="useful-life-distributions-exponential.html#cb656-1" tabindex="-1"></a><span class="co"># Mean residual life given it&#39;s lasted 0 hours...</span></span>
+<span id="cb656-2"><a href="useful-life-distributions-exponential.html#cb656-2" tabindex="-1"></a><span class="fu">mu</span>(<span class="at">t =</span> <span class="dv">0</span>, <span class="at">lambda =</span> <span class="fl">0.001</span>) <span class="co"># same as MTTF!</span></span></code></pre></div>
 <pre><code>## [1] 1000</code></pre>
-<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="useful-life-distributions-exponential.html#cb648-1" tabindex="-1"></a><span class="fu">mu</span>(<span class="at">t =</span> <span class="dv">501</span>, <span class="at">lambda =</span> <span class="fl">0.001</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="useful-life-distributions-exponential.html#cb658-1" tabindex="-1"></a><span class="co"># Get mean time to failure function...</span></span>
+<span id="cb658-2"><a href="useful-life-distributions-exponential.html#cb658-2" tabindex="-1"></a>mttf <span class="ot">=</span> <span class="fu">antiD</span>(<span class="at">tilde =</span> <span class="fu">r</span>(t, lambda) <span class="sc">~</span> t)</span>
+<span id="cb658-3"><a href="useful-life-distributions-exponential.html#cb658-3" tabindex="-1"></a><span class="fu">mttf</span>(<span class="at">t =</span> <span class="cn">Inf</span>, <span class="at">lambda =</span> <span class="fl">0.001</span>)</span></code></pre></div>
 <pre><code>## [1] 1000</code></pre>
-<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="useful-life-distributions-exponential.html#cb650-1" tabindex="-1"></a><span class="co"># Interesting - the MRL remains constant, </span></span>
-<span id="cb650-2"><a href="useful-life-distributions-exponential.html#cb650-2" tabindex="-1"></a><span class="co"># perhaps because lambda is fixed in the exponential</span></span>
-<span id="cb650-3"><a href="useful-life-distributions-exponential.html#cb650-3" tabindex="-1"></a><span class="co"># [Note: mu is NOT vectorized]</span></span></code></pre></div>
 <p>Works perfectly!</p>
-<p>Its value will become clearer in later chapters, when using distributions like the Weibull, whose failure rate function <span class="math inline">\(z(t)\)</span> is <em>not</em> constant but varies over time <span class="math inline">\(t\)</span>. For example, here’s a exmaple using the Weibull’s reliability function <code>r(t, m, c)</code>.</p>
-<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="useful-life-distributions-exponential.html#cb651-1" tabindex="-1"></a>muw <span class="ot">=</span> <span class="cf">function</span>(<span class="at">t =</span> <span class="dv">5</span>, <span class="at">m =</span> <span class="dv">2</span>, <span class="at">c =</span> <span class="dv">20000</span>){</span>
-<span id="cb651-2"><a href="useful-life-distributions-exponential.html#cb651-2" tabindex="-1"></a>  <span class="co">#t = 5</span></span>
-<span id="cb651-3"><a href="useful-life-distributions-exponential.html#cb651-3" tabindex="-1"></a>  <span class="co">#lambda = 0.001</span></span>
-<span id="cb651-4"><a href="useful-life-distributions-exponential.html#cb651-4" tabindex="-1"></a>  <span class="co"># Get the Reliability Function for exponential distribution</span></span>
-<span id="cb651-5"><a href="useful-life-distributions-exponential.html#cb651-5" tabindex="-1"></a>  r <span class="ot">=</span> <span class="cf">function</span>(t, m, c){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>(t<span class="sc">/</span>c)<span class="sc">^</span>m) }</span>
-<span id="cb651-6"><a href="useful-life-distributions-exponential.html#cb651-6" tabindex="-1"></a>  </span>
-<span id="cb651-7"><a href="useful-life-distributions-exponential.html#cb651-7" tabindex="-1"></a>  <span class="co"># Get the integral of R(t), from t (time already spent) to infinity</span></span>
-<span id="cb651-8"><a href="useful-life-distributions-exponential.html#cb651-8" tabindex="-1"></a>  integral <span class="ot">=</span> <span class="fu">antiD</span>(<span class="at">tilde =</span> <span class="fu">r</span>(t, m, c) <span class="sc">~</span> t, <span class="at">lower.bound =</span> t)</span>
-<span id="cb651-9"><a href="useful-life-distributions-exponential.html#cb651-9" tabindex="-1"></a>  </span>
-<span id="cb651-10"><a href="useful-life-distributions-exponential.html#cb651-10" tabindex="-1"></a>  <span class="co"># Now calculate mu(), the Mean Residual Life function at time t</span></span>
-<span id="cb651-11"><a href="useful-life-distributions-exponential.html#cb651-11" tabindex="-1"></a>  output <span class="ot">&lt;-</span> <span class="fu">integral</span>(<span class="at">t =</span> <span class="cn">Inf</span>, <span class="at">m =</span> m, <span class="at">c =</span> c) <span class="sc">/</span> <span class="fu">r</span>(<span class="at">t =</span> t, <span class="at">m =</span> m, <span class="at">c=</span> c)</span>
-<span id="cb651-12"><a href="useful-life-distributions-exponential.html#cb651-12" tabindex="-1"></a>  <span class="fu">integral</span>(<span class="at">t =</span> <span class="cn">Inf</span>, <span class="at">m =</span> m, <span class="at">c=</span> c) <span class="sc">/</span> <span class="fu">r</span>(<span class="at">t =</span> t, <span class="at">m =</span> m, <span class="at">c=</span> c)</span>
-<span id="cb651-13"><a href="useful-life-distributions-exponential.html#cb651-13" tabindex="-1"></a>  </span>
-<span id="cb651-14"><a href="useful-life-distributions-exponential.html#cb651-14" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
-<span id="cb651-15"><a href="useful-life-distributions-exponential.html#cb651-15" tabindex="-1"></a>}</span>
-<span id="cb651-16"><a href="useful-life-distributions-exponential.html#cb651-16" tabindex="-1"></a><span class="co"># Try it!</span></span>
-<span id="cb651-17"><a href="useful-life-distributions-exponential.html#cb651-17" tabindex="-1"></a><span class="fu">muw</span>(<span class="at">t =</span> <span class="dv">500</span>, <span class="at">m =</span> <span class="dv">2</span>, <span class="at">c =</span> <span class="dv">20000</span>)</span></code></pre></div>
-<pre><code>## [1] 17235.41</code></pre>
-<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="useful-life-distributions-exponential.html#cb653-1" tabindex="-1"></a><span class="fu">muw</span>(<span class="at">t =</span> <span class="dv">501</span>, <span class="at">m =</span> <span class="dv">2</span>, <span class="at">c =</span> <span class="dv">20000</span>)</span></code></pre></div>
-<pre><code>## [1] 17234.45</code></pre>
-<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="useful-life-distributions-exponential.html#cb655-1" tabindex="-1"></a><span class="co"># See how the MRL changes over time, now that the failure rate can change over time?</span></span></code></pre></div>
+<p>This can also be applied to other life distributions, which we explore in later chapters. For example, here’s a exmaple using the Weibull’s reliability function <code>r(t, m, c)</code>.</p>
+<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="useful-life-distributions-exponential.html#cb660-1" tabindex="-1"></a>muw <span class="ot">=</span> <span class="cf">function</span>(<span class="at">t =</span> <span class="dv">5</span>, <span class="at">m =</span> <span class="dv">2</span>, <span class="at">c =</span> <span class="dv">20000</span>){</span>
+<span id="cb660-2"><a href="useful-life-distributions-exponential.html#cb660-2" tabindex="-1"></a>  <span class="co">#t = 5; m = 2; c = 20000</span></span>
+<span id="cb660-3"><a href="useful-life-distributions-exponential.html#cb660-3" tabindex="-1"></a>  <span class="co"># Get the Reliability Function for exponential distribution</span></span>
+<span id="cb660-4"><a href="useful-life-distributions-exponential.html#cb660-4" tabindex="-1"></a>  r <span class="ot">=</span> <span class="cf">function</span>(t, m, c){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>(t<span class="sc">/</span>c)<span class="sc">^</span>m) }</span>
+<span id="cb660-5"><a href="useful-life-distributions-exponential.html#cb660-5" tabindex="-1"></a>  </span>
+<span id="cb660-6"><a href="useful-life-distributions-exponential.html#cb660-6" tabindex="-1"></a>  <span class="co"># Get the integral of R(x), from 0 to infinity</span></span>
+<span id="cb660-7"><a href="useful-life-distributions-exponential.html#cb660-7" tabindex="-1"></a>  integral <span class="ot">=</span> <span class="fu">antiD</span>(<span class="at">tilde =</span> <span class="fu">r</span>(x, m, c) <span class="sc">~</span> x, <span class="at">lower.bound =</span> <span class="dv">0</span>)</span>
+<span id="cb660-8"><a href="useful-life-distributions-exponential.html#cb660-8" tabindex="-1"></a></span>
+<span id="cb660-9"><a href="useful-life-distributions-exponential.html#cb660-9" tabindex="-1"></a>  <span class="co"># Now calculate mu(), the Mean Residual Life function at time t</span></span>
+<span id="cb660-10"><a href="useful-life-distributions-exponential.html#cb660-10" tabindex="-1"></a>  output <span class="ot">&lt;-</span> <span class="fu">integral</span>(<span class="at">x =</span> <span class="cn">Inf</span>, <span class="at">m =</span> m, <span class="at">c =</span> c) <span class="sc">*</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">r</span>(<span class="at">t =</span> t, <span class="at">m =</span> m, <span class="at">c=</span> c)</span>
+<span id="cb660-11"><a href="useful-life-distributions-exponential.html#cb660-11" tabindex="-1"></a>  </span>
+<span id="cb660-12"><a href="useful-life-distributions-exponential.html#cb660-12" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb660-13"><a href="useful-life-distributions-exponential.html#cb660-13" tabindex="-1"></a>}</span>
+<span id="cb660-14"><a href="useful-life-distributions-exponential.html#cb660-14" tabindex="-1"></a><span class="co"># Try it!</span></span>
+<span id="cb660-15"><a href="useful-life-distributions-exponential.html#cb660-15" tabindex="-1"></a><span class="co"># see how this mean residual time to failure gets a little bigger as we move forward?</span></span>
+<span id="cb660-16"><a href="useful-life-distributions-exponential.html#cb660-16" tabindex="-1"></a><span class="fu">muw</span>(<span class="at">t =</span> <span class="dv">500</span>, <span class="at">m =</span> <span class="dv">2</span>, <span class="at">c =</span> <span class="dv">20000</span>)</span></code></pre></div>
+<pre><code>## [1] 17735.62</code></pre>
+<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="useful-life-distributions-exponential.html#cb662-1" tabindex="-1"></a><span class="fu">muw</span>(<span class="at">t =</span> <span class="dv">501</span>, <span class="at">m =</span> <span class="dv">2</span>, <span class="at">c =</span> <span class="dv">20000</span>)</span></code></pre></div>
+<pre><code>## [1] 17735.66</code></pre>
+<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="useful-life-distributions-exponential.html#cb664-1" tabindex="-1"></a><span class="fu">muw</span>(<span class="at">t =</span> <span class="dv">502</span>, <span class="at">m =</span> <span class="dv">2</span>, <span class="at">c =</span> <span class="dv">20000</span>)</span></code></pre></div>
+<pre><code>## [1] 17735.71</code></pre>
 <p><br>
 <br></p>
 <hr />
@@ -1292,28 +1310,28 @@ It shows the mean expected remaining life years, for however <span class="math i
 <ol style="list-style-type: decimal">
 <li>The probability that the wire survives 1 week (<code>t = 168</code> hours) in continuous use is… (</li>
 </ol>
-<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="useful-life-distributions-exponential.html#cb656-1" tabindex="-1"></a><span class="co"># Write the reliability function</span></span>
-<span id="cb656-2"><a href="useful-life-distributions-exponential.html#cb656-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda)}</span>
-<span id="cb656-3"><a href="useful-life-distributions-exponential.html#cb656-3" tabindex="-1"></a></span>
-<span id="cb656-4"><a href="useful-life-distributions-exponential.html#cb656-4" tabindex="-1"></a><span class="co"># Probability it survives 1 month (760 hours) is...</span></span>
-<span id="cb656-5"><a href="useful-life-distributions-exponential.html#cb656-5" tabindex="-1"></a><span class="fu">r</span>(<span class="at">t =</span> <span class="dv">168</span>, <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">240</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="useful-life-distributions-exponential.html#cb666-1" tabindex="-1"></a><span class="co"># Write the reliability function</span></span>
+<span id="cb666-2"><a href="useful-life-distributions-exponential.html#cb666-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda)}</span>
+<span id="cb666-3"><a href="useful-life-distributions-exponential.html#cb666-3" tabindex="-1"></a></span>
+<span id="cb666-4"><a href="useful-life-distributions-exponential.html#cb666-4" tabindex="-1"></a><span class="co"># Probability it survives 1 month (760 hours) is...</span></span>
+<span id="cb666-5"><a href="useful-life-distributions-exponential.html#cb666-5" tabindex="-1"></a><span class="fu">r</span>(<span class="at">t =</span> <span class="dv">168</span>, <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">240</span>)</span></code></pre></div>
 <pre><code>## [1] 0.4965853</code></pre>
-<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="useful-life-distributions-exponential.html#cb658-1" tabindex="-1"></a><span class="co"># ~ 50%</span></span></code></pre></div>
+<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="useful-life-distributions-exponential.html#cb668-1" tabindex="-1"></a><span class="co"># ~ 50%</span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>You buy the mask, and it works without failure for 2 weeks (<code>t = 336</code> hours) The probability the wire will snap during the next week (<code>t = 504</code> hours) is…</li>
 </ol>
-<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="useful-life-distributions-exponential.html#cb659-1" tabindex="-1"></a><span class="co"># We can calculate it 2 ways.</span></span>
-<span id="cb659-2"><a href="useful-life-distributions-exponential.html#cb659-2" tabindex="-1"></a></span>
-<span id="cb659-3"><a href="useful-life-distributions-exponential.html#cb659-3" tabindex="-1"></a><span class="co"># First, we can take</span></span>
-<span id="cb659-4"><a href="useful-life-distributions-exponential.html#cb659-4" tabindex="-1"></a><span class="co"># R(t + x) / R(t)</span></span>
-<span id="cb659-5"><a href="useful-life-distributions-exponential.html#cb659-5" tabindex="-1"></a><span class="fu">r</span>(<span class="at">t =</span> <span class="dv">504</span>, <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">240</span>) <span class="sc">/</span> </span>
-<span id="cb659-6"><a href="useful-life-distributions-exponential.html#cb659-6" tabindex="-1"></a>  <span class="fu">r</span>(<span class="at">t =</span> <span class="dv">336</span>, <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">240</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb669-1"><a href="useful-life-distributions-exponential.html#cb669-1" tabindex="-1"></a><span class="co"># We can calculate it 2 ways.</span></span>
+<span id="cb669-2"><a href="useful-life-distributions-exponential.html#cb669-2" tabindex="-1"></a></span>
+<span id="cb669-3"><a href="useful-life-distributions-exponential.html#cb669-3" tabindex="-1"></a><span class="co"># First, we can take</span></span>
+<span id="cb669-4"><a href="useful-life-distributions-exponential.html#cb669-4" tabindex="-1"></a><span class="co"># R(t + x) / R(t)</span></span>
+<span id="cb669-5"><a href="useful-life-distributions-exponential.html#cb669-5" tabindex="-1"></a><span class="fu">r</span>(<span class="at">t =</span> <span class="dv">504</span>, <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">240</span>) <span class="sc">/</span> </span>
+<span id="cb669-6"><a href="useful-life-distributions-exponential.html#cb669-6" tabindex="-1"></a>  <span class="fu">r</span>(<span class="at">t =</span> <span class="dv">336</span>, <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">240</span>)</span></code></pre></div>
 <pre><code>## [1] 0.4965853</code></pre>
-<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="useful-life-distributions-exponential.html#cb661-1" tabindex="-1"></a><span class="co"># Or, we can calculate the failure function</span></span>
-<span id="cb661-2"><a href="useful-life-distributions-exponential.html#cb661-2" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda)}</span>
-<span id="cb661-3"><a href="useful-life-distributions-exponential.html#cb661-3" tabindex="-1"></a><span class="co"># And just calculate the rate of F(t = x)</span></span>
-<span id="cb661-4"><a href="useful-life-distributions-exponential.html#cb661-4" tabindex="-1"></a><span class="co"># Because lambda is a constant failure rate</span></span>
-<span id="cb661-5"><a href="useful-life-distributions-exponential.html#cb661-5" tabindex="-1"></a><span class="fu">f</span>(<span class="at">t =</span> <span class="dv">168</span>, <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">240</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb671-1"><a href="useful-life-distributions-exponential.html#cb671-1" tabindex="-1"></a><span class="co"># Or, we can calculate the failure function</span></span>
+<span id="cb671-2"><a href="useful-life-distributions-exponential.html#cb671-2" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda)}</span>
+<span id="cb671-3"><a href="useful-life-distributions-exponential.html#cb671-3" tabindex="-1"></a><span class="co"># And just calculate the rate of F(t = x)</span></span>
+<span id="cb671-4"><a href="useful-life-distributions-exponential.html#cb671-4" tabindex="-1"></a><span class="co"># Because lambda is a constant failure rate</span></span>
+<span id="cb671-5"><a href="useful-life-distributions-exponential.html#cb671-5" tabindex="-1"></a><span class="fu">f</span>(<span class="at">t =</span> <span class="dv">168</span>, <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">240</span>)</span></code></pre></div>
 <pre><code>## [1] 0.5034147</code></pre>
 </details>
 <hr />
@@ -1327,20 +1345,20 @@ It shows the mean expected remaining life years, for however <span class="math i
 <p><span class="math display">\[ P(j \ fails \ first) = \frac{ \lambda_{j}}{  \sum_{i=1}^{n}{ \lambda{i}} }\]</span></p>
 <p>In other words, the probability that component <span class="math inline">\(j\)</span> fails first reflects how <strong>big</strong> <span class="math inline">\(\lambda_{j}\)</span> is relative to all the other failure rates in total.</p>
 <p>Let’s test this out with our <code>masks</code> dataset.</p>
-<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="useful-life-distributions-exponential.html#cb663-1" tabindex="-1"></a>masks <span class="sc">%&gt;%</span></span>
-<span id="cb663-2"><a href="useful-life-distributions-exponential.html#cb663-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb663-3"><a href="useful-life-distributions-exponential.html#cb663-3" tabindex="-1"></a>    <span class="co"># Calculate failure rates of left and right loops</span></span>
-<span id="cb663-4"><a href="useful-life-distributions-exponential.html#cb663-4" tabindex="-1"></a>    <span class="at">lambda_left =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(left_earloop),</span>
-<span id="cb663-5"><a href="useful-life-distributions-exponential.html#cb663-5" tabindex="-1"></a>    <span class="at">lambda_right =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(right_earloop),</span>
-<span id="cb663-6"><a href="useful-life-distributions-exponential.html#cb663-6" tabindex="-1"></a>    <span class="co"># Calculate the total probability of either loop failing</span></span>
-<span id="cb663-7"><a href="useful-life-distributions-exponential.html#cb663-7" tabindex="-1"></a>    <span class="at">lambda_sum =</span> lambda_left <span class="sc">+</span> lambda_right,</span>
-<span id="cb663-8"><a href="useful-life-distributions-exponential.html#cb663-8" tabindex="-1"></a>    <span class="co"># Calculate probability the left loop fails first</span></span>
-<span id="cb663-9"><a href="useful-life-distributions-exponential.html#cb663-9" tabindex="-1"></a>    <span class="at">prob_left_first =</span> lambda_left <span class="sc">/</span> lambda_sum)</span></code></pre></div>
+<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb673-1"><a href="useful-life-distributions-exponential.html#cb673-1" tabindex="-1"></a>masks <span class="sc">%&gt;%</span></span>
+<span id="cb673-2"><a href="useful-life-distributions-exponential.html#cb673-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb673-3"><a href="useful-life-distributions-exponential.html#cb673-3" tabindex="-1"></a>    <span class="co"># Calculate failure rates of left and right loops</span></span>
+<span id="cb673-4"><a href="useful-life-distributions-exponential.html#cb673-4" tabindex="-1"></a>    <span class="at">lambda_left =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(left_earloop),</span>
+<span id="cb673-5"><a href="useful-life-distributions-exponential.html#cb673-5" tabindex="-1"></a>    <span class="at">lambda_right =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(right_earloop),</span>
+<span id="cb673-6"><a href="useful-life-distributions-exponential.html#cb673-6" tabindex="-1"></a>    <span class="co"># Calculate the total probability of either loop failing</span></span>
+<span id="cb673-7"><a href="useful-life-distributions-exponential.html#cb673-7" tabindex="-1"></a>    <span class="at">lambda_sum =</span> lambda_left <span class="sc">+</span> lambda_right,</span>
+<span id="cb673-8"><a href="useful-life-distributions-exponential.html#cb673-8" tabindex="-1"></a>    <span class="co"># Calculate probability the left loop fails first</span></span>
+<span id="cb673-9"><a href="useful-life-distributions-exponential.html#cb673-9" tabindex="-1"></a>    <span class="at">prob_left_first =</span> lambda_left <span class="sc">/</span> lambda_sum)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 4
 ##   lambda_left lambda_right lambda_sum prob_left_first
 ##         &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;           &lt;dbl&gt;
 ## 1      0.0749       0.0943      0.169           0.442</code></pre>
-<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="useful-life-distributions-exponential.html#cb665-1" tabindex="-1"></a><span class="co"># Looks like a probability of about 44% that left loop fails first.</span></span></code></pre></div>
+<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb675-1"><a href="useful-life-distributions-exponential.html#cb675-1" tabindex="-1"></a><span class="co"># Looks like a probability of about 44% that left loop fails first.</span></span></code></pre></div>
 <p><br>
 <br></p>
 <div id="reliability-functions-with-multiple-inputs" class="section level3 hasAnchor" number="11.4.1">
@@ -1353,57 +1371,57 @@ It shows the mean expected remaining life years, for however <span class="math i
 <p>It’s pretty messy, but powerful!</p>
 <p>Suppose we order 75% of our stock from a manufacturer with a failure rate of 1 fabric tear per 50 hours, but 25% from our stock from a manufacturer with a failure rate of 1 tear per 100 hours. What is the (1) overall mean time to failure and (2) overall failure rate at 100 hours for any random mask in your supply?</p>
 <p>We can tally this up in a <code>stock</code> data.frame.</p>
-<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="useful-life-distributions-exponential.html#cb666-1" tabindex="-1"></a>stock <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb666-2"><a href="useful-life-distributions-exponential.html#cb666-2" tabindex="-1"></a>  <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.75</span>, <span class="fl">0.25</span>),</span>
-<span id="cb666-3"><a href="useful-life-distributions-exponential.html#cb666-3" tabindex="-1"></a>  <span class="at">lambda =</span> <span class="fu">c</span>(<span class="dv">1</span> <span class="sc">/</span> <span class="dv">50</span>, <span class="dv">1</span> <span class="sc">/</span> <span class="dv">100</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="useful-life-distributions-exponential.html#cb676-1" tabindex="-1"></a>stock <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb676-2"><a href="useful-life-distributions-exponential.html#cb676-2" tabindex="-1"></a>  <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.75</span>, <span class="fl">0.25</span>),</span>
+<span id="cb676-3"><a href="useful-life-distributions-exponential.html#cb676-3" tabindex="-1"></a>  <span class="at">lambda =</span> <span class="fu">c</span>(<span class="dv">1</span> <span class="sc">/</span> <span class="dv">50</span>, <span class="dv">1</span> <span class="sc">/</span> <span class="dv">100</span>))</span></code></pre></div>
 <p>To calculate the MTTF, we just take the sum of the fraction of each proportion and each failure rate lambda.</p>
-<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb667-1"><a href="useful-life-distributions-exponential.html#cb667-1" tabindex="-1"></a>stock <span class="sc">%&gt;%</span></span>
-<span id="cb667-2"><a href="useful-life-distributions-exponential.html#cb667-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mttf =</span> <span class="fu">sum</span>(prob <span class="sc">/</span> lambda))</span></code></pre></div>
+<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="useful-life-distributions-exponential.html#cb677-1" tabindex="-1"></a>stock <span class="sc">%&gt;%</span></span>
+<span id="cb677-2"><a href="useful-life-distributions-exponential.html#cb677-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mttf =</span> <span class="fu">sum</span>(prob <span class="sc">/</span> lambda))</span></code></pre></div>
 <pre><code>##   mttf
 ## 1 62.5</code></pre>
 <p>To calculate the overall failure rate, we will generate the reliability function, take its derivative to get the PDF.</p>
-<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb669-1"><a href="useful-life-distributions-exponential.html#cb669-1" tabindex="-1"></a><span class="co"># Let&#39;s write an exponential reliability function</span></span>
-<span id="cb669-2"><a href="useful-life-distributions-exponential.html#cb669-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda) }</span>
-<span id="cb669-3"><a href="useful-life-distributions-exponential.html#cb669-3" tabindex="-1"></a></span>
-<span id="cb669-4"><a href="useful-life-distributions-exponential.html#cb669-4" tabindex="-1"></a><span class="co"># Let&#39;s derive an exponential PDF f(t), using mosaicCalc&#39;s D()</span></span>
-<span id="cb669-5"><a href="useful-life-distributions-exponential.html#cb669-5" tabindex="-1"></a>f <span class="ot">=</span> <span class="fu">D</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span><span class="fu">r</span>(t, lambda) <span class="sc">~</span> t)</span></code></pre></div>
+<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="useful-life-distributions-exponential.html#cb679-1" tabindex="-1"></a><span class="co"># Let&#39;s write an exponential reliability function</span></span>
+<span id="cb679-2"><a href="useful-life-distributions-exponential.html#cb679-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda) }</span>
+<span id="cb679-3"><a href="useful-life-distributions-exponential.html#cb679-3" tabindex="-1"></a></span>
+<span id="cb679-4"><a href="useful-life-distributions-exponential.html#cb679-4" tabindex="-1"></a><span class="co"># Let&#39;s derive an exponential PDF f(t), using mosaicCalc&#39;s D()</span></span>
+<span id="cb679-5"><a href="useful-life-distributions-exponential.html#cb679-5" tabindex="-1"></a>f <span class="ot">=</span> <span class="fu">D</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span><span class="fu">r</span>(t, lambda) <span class="sc">~</span> t)</span></code></pre></div>
 <p>Then, we use the PDFs <span class="math inline">\(f_i(t)\)</span> and the Reliability functions <span class="math inline">\(R_i(t)\)</span> to get calculate the overall failure rate <span class="math inline">\(z(t)\)</span>.</p>
-<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="useful-life-distributions-exponential.html#cb670-1" tabindex="-1"></a>stock <span class="sc">%&gt;%</span></span>
-<span id="cb670-2"><a href="useful-life-distributions-exponential.html#cb670-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb670-3"><a href="useful-life-distributions-exponential.html#cb670-3" tabindex="-1"></a>    <span class="at">total_f =</span> <span class="fu">sum</span>(prob <span class="sc">*</span> <span class="fu">f</span>(<span class="at">t =</span> <span class="dv">100</span>, <span class="at">lambda =</span> lambda)),</span>
-<span id="cb670-4"><a href="useful-life-distributions-exponential.html#cb670-4" tabindex="-1"></a>    <span class="at">total_r =</span> <span class="fu">sum</span>(prob <span class="sc">*</span> <span class="fu">r</span>(<span class="at">t =</span> <span class="dv">100</span>, <span class="at">lambda =</span> lambda)),</span>
-<span id="cb670-5"><a href="useful-life-distributions-exponential.html#cb670-5" tabindex="-1"></a>    <span class="at">z =</span> total_f <span class="sc">/</span> total_r)</span></code></pre></div>
+<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="useful-life-distributions-exponential.html#cb680-1" tabindex="-1"></a>stock <span class="sc">%&gt;%</span></span>
+<span id="cb680-2"><a href="useful-life-distributions-exponential.html#cb680-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb680-3"><a href="useful-life-distributions-exponential.html#cb680-3" tabindex="-1"></a>    <span class="at">total_f =</span> <span class="fu">sum</span>(prob <span class="sc">*</span> <span class="fu">f</span>(<span class="at">t =</span> <span class="dv">100</span>, <span class="at">lambda =</span> lambda)),</span>
+<span id="cb680-4"><a href="useful-life-distributions-exponential.html#cb680-4" tabindex="-1"></a>    <span class="at">total_r =</span> <span class="fu">sum</span>(prob <span class="sc">*</span> <span class="fu">r</span>(<span class="at">t =</span> <span class="dv">100</span>, <span class="at">lambda =</span> lambda)),</span>
+<span id="cb680-5"><a href="useful-life-distributions-exponential.html#cb680-5" tabindex="-1"></a>    <span class="at">z =</span> total_f <span class="sc">/</span> total_r)</span></code></pre></div>
 <pre><code>##       total_f   total_r          z
 ## 1 0.002949728 0.1934713 0.01524633</code></pre>
 <p>We could even write it as a function, where <code>p</code> and <code>lambda</code> are equal length vectors for plant 1, plant 2, plant 3, … plant <span class="math inline">\(n\)</span>.</p>
-<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb672-1"><a href="useful-life-distributions-exponential.html#cb672-1" tabindex="-1"></a>z <span class="ot">=</span> <span class="cf">function</span>(t){</span>
-<span id="cb672-2"><a href="useful-life-distributions-exponential.html#cb672-2" tabindex="-1"></a>  <span class="co"># Set the input percentages of products from plants 1 and 2</span></span>
-<span id="cb672-3"><a href="useful-life-distributions-exponential.html#cb672-3" tabindex="-1"></a>  p <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.75</span>, <span class="fl">0.25</span>)</span>
-<span id="cb672-4"><a href="useful-life-distributions-exponential.html#cb672-4" tabindex="-1"></a>  <span class="co"># Set the failure rates for each</span></span>
-<span id="cb672-5"><a href="useful-life-distributions-exponential.html#cb672-5" tabindex="-1"></a>  lambda <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.01</span>)</span>
-<span id="cb672-6"><a href="useful-life-distributions-exponential.html#cb672-6" tabindex="-1"></a>  </span>
-<span id="cb672-7"><a href="useful-life-distributions-exponential.html#cb672-7" tabindex="-1"></a>  </span>
-<span id="cb672-8"><a href="useful-life-distributions-exponential.html#cb672-8" tabindex="-1"></a>  <span class="co"># Let&#39;s write an exponential reliability function</span></span>
-<span id="cb672-9"><a href="useful-life-distributions-exponential.html#cb672-9" tabindex="-1"></a>  r <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda) }</span>
-<span id="cb672-10"><a href="useful-life-distributions-exponential.html#cb672-10" tabindex="-1"></a>  <span class="co"># Let&#39;s derive an exponential PDF f(t),</span></span>
-<span id="cb672-11"><a href="useful-life-distributions-exponential.html#cb672-11" tabindex="-1"></a>  f <span class="ot">=</span> <span class="fu">D</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span><span class="fu">r</span>(t, lambda) <span class="sc">~</span> t)</span>
-<span id="cb672-12"><a href="useful-life-distributions-exponential.html#cb672-12" tabindex="-1"></a></span>
-<span id="cb672-13"><a href="useful-life-distributions-exponential.html#cb672-13" tabindex="-1"></a>  <span class="co"># Calculate total probability</span></span>
-<span id="cb672-14"><a href="useful-life-distributions-exponential.html#cb672-14" tabindex="-1"></a>  total_f <span class="ot">=</span> <span class="fu">sum</span>( p <span class="sc">*</span> <span class="fu">f</span>(t, lambda) )</span>
-<span id="cb672-15"><a href="useful-life-distributions-exponential.html#cb672-15" tabindex="-1"></a>  <span class="co"># Calculate total reliability</span></span>
-<span id="cb672-16"><a href="useful-life-distributions-exponential.html#cb672-16" tabindex="-1"></a>  total_r <span class="ot">=</span> <span class="fu">sum</span>( p <span class="sc">*</span> <span class="fu">r</span>(t, lambda) )</span>
-<span id="cb672-17"><a href="useful-life-distributions-exponential.html#cb672-17" tabindex="-1"></a>  </span>
-<span id="cb672-18"><a href="useful-life-distributions-exponential.html#cb672-18" tabindex="-1"></a>  <span class="co"># Calculate overall failure rate</span></span>
-<span id="cb672-19"><a href="useful-life-distributions-exponential.html#cb672-19" tabindex="-1"></a>  z <span class="ot">=</span> total_f <span class="sc">/</span> total_r</span>
-<span id="cb672-20"><a href="useful-life-distributions-exponential.html#cb672-20" tabindex="-1"></a>  </span>
-<span id="cb672-21"><a href="useful-life-distributions-exponential.html#cb672-21" tabindex="-1"></a>  <span class="fu">return</span>(z)</span>
-<span id="cb672-22"><a href="useful-life-distributions-exponential.html#cb672-22" tabindex="-1"></a>}</span>
-<span id="cb672-23"><a href="useful-life-distributions-exponential.html#cb672-23" tabindex="-1"></a><span class="co"># Try it out!</span></span>
-<span id="cb672-24"><a href="useful-life-distributions-exponential.html#cb672-24" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb682-1"><a href="useful-life-distributions-exponential.html#cb682-1" tabindex="-1"></a>z <span class="ot">=</span> <span class="cf">function</span>(t){</span>
+<span id="cb682-2"><a href="useful-life-distributions-exponential.html#cb682-2" tabindex="-1"></a>  <span class="co"># Set the input percentages of products from plants 1 and 2</span></span>
+<span id="cb682-3"><a href="useful-life-distributions-exponential.html#cb682-3" tabindex="-1"></a>  p <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.75</span>, <span class="fl">0.25</span>)</span>
+<span id="cb682-4"><a href="useful-life-distributions-exponential.html#cb682-4" tabindex="-1"></a>  <span class="co"># Set the failure rates for each</span></span>
+<span id="cb682-5"><a href="useful-life-distributions-exponential.html#cb682-5" tabindex="-1"></a>  lambda <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.01</span>)</span>
+<span id="cb682-6"><a href="useful-life-distributions-exponential.html#cb682-6" tabindex="-1"></a>  </span>
+<span id="cb682-7"><a href="useful-life-distributions-exponential.html#cb682-7" tabindex="-1"></a>  </span>
+<span id="cb682-8"><a href="useful-life-distributions-exponential.html#cb682-8" tabindex="-1"></a>  <span class="co"># Let&#39;s write an exponential reliability function</span></span>
+<span id="cb682-9"><a href="useful-life-distributions-exponential.html#cb682-9" tabindex="-1"></a>  r <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda) }</span>
+<span id="cb682-10"><a href="useful-life-distributions-exponential.html#cb682-10" tabindex="-1"></a>  <span class="co"># Let&#39;s derive an exponential PDF f(t),</span></span>
+<span id="cb682-11"><a href="useful-life-distributions-exponential.html#cb682-11" tabindex="-1"></a>  f <span class="ot">=</span> <span class="fu">D</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span><span class="fu">r</span>(t, lambda) <span class="sc">~</span> t)</span>
+<span id="cb682-12"><a href="useful-life-distributions-exponential.html#cb682-12" tabindex="-1"></a></span>
+<span id="cb682-13"><a href="useful-life-distributions-exponential.html#cb682-13" tabindex="-1"></a>  <span class="co"># Calculate total probability</span></span>
+<span id="cb682-14"><a href="useful-life-distributions-exponential.html#cb682-14" tabindex="-1"></a>  total_f <span class="ot">=</span> <span class="fu">sum</span>( p <span class="sc">*</span> <span class="fu">f</span>(t, lambda) )</span>
+<span id="cb682-15"><a href="useful-life-distributions-exponential.html#cb682-15" tabindex="-1"></a>  <span class="co"># Calculate total reliability</span></span>
+<span id="cb682-16"><a href="useful-life-distributions-exponential.html#cb682-16" tabindex="-1"></a>  total_r <span class="ot">=</span> <span class="fu">sum</span>( p <span class="sc">*</span> <span class="fu">r</span>(t, lambda) )</span>
+<span id="cb682-17"><a href="useful-life-distributions-exponential.html#cb682-17" tabindex="-1"></a>  </span>
+<span id="cb682-18"><a href="useful-life-distributions-exponential.html#cb682-18" tabindex="-1"></a>  <span class="co"># Calculate overall failure rate</span></span>
+<span id="cb682-19"><a href="useful-life-distributions-exponential.html#cb682-19" tabindex="-1"></a>  z <span class="ot">=</span> total_f <span class="sc">/</span> total_r</span>
+<span id="cb682-20"><a href="useful-life-distributions-exponential.html#cb682-20" tabindex="-1"></a>  </span>
+<span id="cb682-21"><a href="useful-life-distributions-exponential.html#cb682-21" tabindex="-1"></a>  <span class="fu">return</span>(z)</span>
+<span id="cb682-22"><a href="useful-life-distributions-exponential.html#cb682-22" tabindex="-1"></a>}</span>
+<span id="cb682-23"><a href="useful-life-distributions-exponential.html#cb682-23" tabindex="-1"></a><span class="co"># Try it out!</span></span>
+<span id="cb682-24"><a href="useful-life-distributions-exponential.html#cb682-24" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 0.0174812</code></pre>
-<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="useful-life-distributions-exponential.html#cb674-1" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="useful-life-distributions-exponential.html#cb684-1" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## [1] 0.01730786</code></pre>
-<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="useful-life-distributions-exponential.html#cb676-1" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb686-1"><a href="useful-life-distributions-exponential.html#cb686-1" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">100</span>)</span></code></pre></div>
 <pre><code>## [1] 0.01524633</code></pre>
 <p><br>
 <br></p>
@@ -1412,8 +1430,8 @@ It shows the mean expected remaining life years, for however <span class="math i
 <h3><span class="header-section-number">11.4.2</span> Phase-Type Distributions<a href="useful-life-distributions-exponential.html#phase-type-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One way to more accurately model the lifespan of a product is to accept that its failure rate may remain constant, but it might change between failure rates as it passes through <strong>phases</strong>. Let’s model that!</p>
 <p>We can write the time <span class="math inline">\(T\)</span> to critical failure (via either overstress OR degraded failure) as <span class="math inline">\(T = min(T_c, T_d+T_{dc})\)</span>.</p>
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-ffaf4890ac0b8b835567" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-ffaf4890ac0b8b835567">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-c5b06e07c79cf19aedb3" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-c5b06e07c79cf19aedb3">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
 <p>The total probability of a product being in any phase <span class="math inline">\(a_{i \to n}\)</span> equals 1.</p>
 <ul>
 <li><p><span class="math inline">\(a_c = 25\%\)</span></p></li>
@@ -1421,34 +1439,34 @@ It shows the mean expected remaining life years, for however <span class="math i
 <li><p><span class="math inline">\(a_dc = 10\%\)</span></p></li>
 </ul>
 <p>We can represent it in a dataframe, like so:</p>
-<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb678-1"><a href="useful-life-distributions-exponential.html#cb678-1" tabindex="-1"></a>myphase <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb678-2"><a href="useful-life-distributions-exponential.html#cb678-2" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,</span>
-<span id="cb678-3"><a href="useful-life-distributions-exponential.html#cb678-3" tabindex="-1"></a>  <span class="at">phase =</span> <span class="fu">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;dc&quot;</span>),</span>
-<span id="cb678-4"><a href="useful-life-distributions-exponential.html#cb678-4" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.40</span>, <span class="fl">0.25</span>, <span class="fl">0.10</span>),</span>
-<span id="cb678-5"><a href="useful-life-distributions-exponential.html#cb678-5" tabindex="-1"></a>  <span class="at">lambda =</span> <span class="fu">c</span>(<span class="fl">0.50</span>, <span class="dv">1</span>, <span class="fl">0.50</span>, <span class="dv">3</span>)</span>
-<span id="cb678-6"><a href="useful-life-distributions-exponential.html#cb678-6" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb688-1"><a href="useful-life-distributions-exponential.html#cb688-1" tabindex="-1"></a>myphase <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb688-2"><a href="useful-life-distributions-exponential.html#cb688-2" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,</span>
+<span id="cb688-3"><a href="useful-life-distributions-exponential.html#cb688-3" tabindex="-1"></a>  <span class="at">phase =</span> <span class="fu">c</span>(<span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;dc&quot;</span>),</span>
+<span id="cb688-4"><a href="useful-life-distributions-exponential.html#cb688-4" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.40</span>, <span class="fl">0.25</span>, <span class="fl">0.10</span>),</span>
+<span id="cb688-5"><a href="useful-life-distributions-exponential.html#cb688-5" tabindex="-1"></a>  <span class="at">lambda =</span> <span class="fu">c</span>(<span class="fl">0.50</span>, <span class="dv">1</span>, <span class="fl">0.50</span>, <span class="dv">3</span>)</span>
+<span id="cb688-6"><a href="useful-life-distributions-exponential.html#cb688-6" tabindex="-1"></a>)</span></code></pre></div>
 <p>And, using the same tricks from the preceding section, we can calculate <code>z(t)</code>, the overall hazard rate of a phase-type exponential distribution, by taking the sum of the weighted probabilities.</p>
-<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="useful-life-distributions-exponential.html#cb679-1" tabindex="-1"></a>r <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda) }</span>
-<span id="cb679-2"><a href="useful-life-distributions-exponential.html#cb679-2" tabindex="-1"></a><span class="co"># Let&#39;s derive an exponential PDF f(t),</span></span>
-<span id="cb679-3"><a href="useful-life-distributions-exponential.html#cb679-3" tabindex="-1"></a>f <span class="ot">=</span> <span class="fu">D</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span><span class="fu">r</span>(t, lambda) <span class="sc">~</span> t)</span>
-<span id="cb679-4"><a href="useful-life-distributions-exponential.html#cb679-4" tabindex="-1"></a></span>
-<span id="cb679-5"><a href="useful-life-distributions-exponential.html#cb679-5" tabindex="-1"></a>z <span class="ot">=</span> <span class="cf">function</span>(t, data){</span>
-<span id="cb679-6"><a href="useful-life-distributions-exponential.html#cb679-6" tabindex="-1"></a>  output <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb679-7"><a href="useful-life-distributions-exponential.html#cb679-7" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
-<span id="cb679-8"><a href="useful-life-distributions-exponential.html#cb679-8" tabindex="-1"></a>      <span class="at">prob_f =</span> <span class="fu">sum</span>(alpha <span class="sc">*</span> <span class="fu">f</span>(<span class="at">t =</span> t, lambda)),</span>
-<span id="cb679-9"><a href="useful-life-distributions-exponential.html#cb679-9" tabindex="-1"></a>      <span class="at">prob_r =</span> <span class="fu">sum</span>(alpha <span class="sc">*</span> <span class="fu">r</span>(<span class="at">t =</span> t, lambda)),</span>
-<span id="cb679-10"><a href="useful-life-distributions-exponential.html#cb679-10" tabindex="-1"></a>      <span class="at">ratio_z =</span> prob_f <span class="sc">/</span> prob_r)</span>
-<span id="cb679-11"><a href="useful-life-distributions-exponential.html#cb679-11" tabindex="-1"></a>  output<span class="sc">$</span>ratio_z <span class="sc">%&gt;%</span> <span class="fu">return</span>()</span>
-<span id="cb679-12"><a href="useful-life-distributions-exponential.html#cb679-12" tabindex="-1"></a>}</span>
-<span id="cb679-13"><a href="useful-life-distributions-exponential.html#cb679-13" tabindex="-1"></a></span>
-<span id="cb679-14"><a href="useful-life-distributions-exponential.html#cb679-14" tabindex="-1"></a><span class="co"># Take a peek!</span></span>
-<span id="cb679-15"><a href="useful-life-distributions-exponential.html#cb679-15" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">1</span>, <span class="at">data =</span> myphase)</span></code></pre></div>
+<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb689-1"><a href="useful-life-distributions-exponential.html#cb689-1" tabindex="-1"></a>r <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>t<span class="sc">*</span>lambda) }</span>
+<span id="cb689-2"><a href="useful-life-distributions-exponential.html#cb689-2" tabindex="-1"></a><span class="co"># Let&#39;s derive an exponential PDF f(t),</span></span>
+<span id="cb689-3"><a href="useful-life-distributions-exponential.html#cb689-3" tabindex="-1"></a>f <span class="ot">=</span> <span class="fu">D</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span><span class="fu">r</span>(t, lambda) <span class="sc">~</span> t)</span>
+<span id="cb689-4"><a href="useful-life-distributions-exponential.html#cb689-4" tabindex="-1"></a></span>
+<span id="cb689-5"><a href="useful-life-distributions-exponential.html#cb689-5" tabindex="-1"></a>z <span class="ot">=</span> <span class="cf">function</span>(t, data){</span>
+<span id="cb689-6"><a href="useful-life-distributions-exponential.html#cb689-6" tabindex="-1"></a>  output <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb689-7"><a href="useful-life-distributions-exponential.html#cb689-7" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb689-8"><a href="useful-life-distributions-exponential.html#cb689-8" tabindex="-1"></a>      <span class="at">prob_f =</span> <span class="fu">sum</span>(alpha <span class="sc">*</span> <span class="fu">f</span>(<span class="at">t =</span> t, lambda)),</span>
+<span id="cb689-9"><a href="useful-life-distributions-exponential.html#cb689-9" tabindex="-1"></a>      <span class="at">prob_r =</span> <span class="fu">sum</span>(alpha <span class="sc">*</span> <span class="fu">r</span>(<span class="at">t =</span> t, lambda)),</span>
+<span id="cb689-10"><a href="useful-life-distributions-exponential.html#cb689-10" tabindex="-1"></a>      <span class="at">ratio_z =</span> prob_f <span class="sc">/</span> prob_r)</span>
+<span id="cb689-11"><a href="useful-life-distributions-exponential.html#cb689-11" tabindex="-1"></a>  output<span class="sc">$</span>ratio_z <span class="sc">%&gt;%</span> <span class="fu">return</span>()</span>
+<span id="cb689-12"><a href="useful-life-distributions-exponential.html#cb689-12" tabindex="-1"></a>}</span>
+<span id="cb689-13"><a href="useful-life-distributions-exponential.html#cb689-13" tabindex="-1"></a></span>
+<span id="cb689-14"><a href="useful-life-distributions-exponential.html#cb689-14" tabindex="-1"></a><span class="co"># Take a peek!</span></span>
+<span id="cb689-15"><a href="useful-life-distributions-exponential.html#cb689-15" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">1</span>, <span class="at">data =</span> myphase)</span></code></pre></div>
 <pre><code>## [1] 0.6888965</code></pre>
-<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb681-1"><a href="useful-life-distributions-exponential.html#cb681-1" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">2</span>, <span class="at">data =</span> myphase)</span></code></pre></div>
+<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb691-1"><a href="useful-life-distributions-exponential.html#cb691-1" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">2</span>, <span class="at">data =</span> myphase)</span></code></pre></div>
 <pre><code>## [1] 0.6161738</code></pre>
-<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb683-1"><a href="useful-life-distributions-exponential.html#cb683-1" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">5</span>, <span class="at">data =</span> myphase)</span></code></pre></div>
+<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb693-1"><a href="useful-life-distributions-exponential.html#cb693-1" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">5</span>, <span class="at">data =</span> myphase)</span></code></pre></div>
 <pre><code>## [1] 0.5308124</code></pre>
-<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb685-1"><a href="useful-life-distributions-exponential.html#cb685-1" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">data =</span> myphase)</span></code></pre></div>
+<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb695-1"><a href="useful-life-distributions-exponential.html#cb695-1" tabindex="-1"></a><span class="fu">z</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">data =</span> myphase)</span></code></pre></div>
 <pre><code>## [1] 0.5026807</code></pre>
 <p><br>
 <br></p>

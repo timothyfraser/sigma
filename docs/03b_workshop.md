@@ -179,7 +179,11 @@ pd5
 
 Looks like 17.1% of customers stopped by 5 stalls.
 
-We can validate this using our simulated `visits` from above. We can calculate the `density()` function, extract it using `approxfun()`, and then assign it to `dsim()`, our own exact probability density function for our data. It works just like `dpois()`, but you don't need to specify `lambda`, because it only works for this exact distribution!
+<details><summary>**[Optional] Validate This!**</summary>
+
+We can validate this using our simulated `visits` from above, if we use methods for Observed Probabilities, which we learn later in this tutorial. 
+
+We can calculate the `density()` function, extract it using `approxfun()`, and then assign it to `dsim()`, our own exact probability density function for our data. It works just like `dpois()`, but you don't need to specify `lambda`, because it only works for this exact distribution!
 
 
 ```r
@@ -190,13 +194,19 @@ dsim(5)
 ```
 
 ```
-## [1] 0.1724405
+## [1] 0.1615981
 ```
 
 ```r
 # Pretty close to our results from dpois()!
 ```
 
+
+```r
+remove(dsim)
+```
+
+</details>
 
 <br>
 <br>
@@ -232,6 +242,10 @@ What percentage of customers stopped by *over 5 stalls?*
 ```
 
 
+<details><summary>**[Optional] Validate This!**</summary>
+
+We can validate this using our simulated `visits` from above, if we use methods for Observed Probabilities, which we learn later in this tutorial. 
+
 We can validate our results against our simulated distribution.
 
 
@@ -248,12 +262,21 @@ psim(5)
 ```
 
 ```
-## [1] 0.4357708
+## [1] 0.4420252
 ```
 
 ```r
 # Pretty close to cdf5!
 ```
+
+
+```r
+remove(psim)
+```
+
+
+</details>
+
 
 <br>
 <br>
@@ -274,6 +297,10 @@ q5
 ```
 
 Looks like 50% of folks visited between 4 and 7 stalls
+
+
+<details><summary>**[Optional] Validate this!**</summary>
+We can validate this using our simulated `visits` from above, if we use methods for Observed Probabilities, which we learn later in this tutorial. 
 
 We can compare against our simulated data using `quantile()`.
 
@@ -297,12 +324,19 @@ qsim(c(.25, .75))
 ## [1] 4 7
 ```
 
+
+```r
+remove(qsim)
+```
+
+</details>
+
 <br>
 <br>
 
 
 ```r
-rm(visits, pd5, cd5, q5, dsim, psim, qsim)
+rm(visits, pd5, cd5, q5)
 ```
 
 <br>
@@ -822,7 +856,7 @@ ggplot() +
   labs(x = "Cost", y = "Probability", color = "Type")
 ```
 
-<img src="03b_workshop_files/figure-html/unnamed-chunk-32-1.png" width="672" />
+<img src="03b_workshop_files/figure-html/unnamed-chunk-35-1.png" width="672" />
 
 So how do we generate the cumulative density function? The `mosaicCalc` package can help us with its functions `D()` and `antiD()`. 
 
@@ -1010,7 +1044,7 @@ ggplot() +
        fill = "Deter Future Visits")
 ```
 
-<img src="03b_workshop_files/figure-html/unnamed-chunk-40-1.png" width="672" />
+<img src="03b_workshop_files/figure-html/unnamed-chunk-43-1.png" width="672" />
 
 
 </details>

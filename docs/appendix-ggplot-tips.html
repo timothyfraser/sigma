@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2024-08-29" />
+<meta name="date" content="2024-10-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,7 @@
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="assets/kePrint-0.0.1/kePrint.js"></script>
 <link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="assets/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
 <script src="assets/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <script src="assets/d3-3.3.8/d3.min.js"></script>
 <script src="assets/dagre-0.4.0/dagre-d3.min.js"></script>
@@ -76,7 +77,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -921,7 +922,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="25" data-path="appendix-test.html"><a href="appendix-test.html"><i class="fa fa-check"></i><b>25</b> Appendix: test</a>
 <ul>
-<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-24"><i class="fa fa-check"></i>Getting Started</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-24"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-1"><i class="fa fa-check"></i>Version 1</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-2"><i class="fa fa-check"></i>Version 2</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -957,16 +962,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="our-packages" class="section level3 hasAnchor" number="21.0.2">
 <h3><span class="header-section-number">21.0.2</span> Our Packages<a href="appendix-ggplot-tips.html#our-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Be sure to load these packages before proceeding!</p>
-<div class="sourceCode" id="cb1231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1231-1"><a href="appendix-ggplot-tips.html#cb1231-1" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># for data wrangling</span></span>
-<span id="cb1231-2"><a href="appendix-ggplot-tips.html#cb1231-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># for data visualization</span></span></code></pre></div>
+<div class="sourceCode" id="cb1241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1241-1"><a href="appendix-ggplot-tips.html#cb1241-1" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># for data wrangling</span></span>
+<span id="cb1241-2"><a href="appendix-ggplot-tips.html#cb1241-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># for data visualization</span></span></code></pre></div>
 </div>
 <div id="our-data-6" class="section level3 hasAnchor" number="21.0.3">
 <h3><span class="header-section-number">21.0.3</span> Our Data<a href="appendix-ggplot-tips.html#our-data-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>These exercises use the <code>diamonds</code> dataset from the <code>ggplot2</code> package.</p>
-<div class="sourceCode" id="cb1232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1232-1"><a href="appendix-ggplot-tips.html#cb1232-1" tabindex="-1"></a><span class="co"># Import the diamonds dataset from the ggplot2 package!</span></span>
-<span id="cb1232-2"><a href="appendix-ggplot-tips.html#cb1232-2" tabindex="-1"></a>diamonds <span class="ot">=</span> ggplot2<span class="sc">::</span>diamonds</span>
-<span id="cb1232-3"><a href="appendix-ggplot-tips.html#cb1232-3" tabindex="-1"></a><span class="co"># Let&#39;s glimpse it!</span></span>
-<span id="cb1232-4"><a href="appendix-ggplot-tips.html#cb1232-4" tabindex="-1"></a>diamonds <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1242-1"><a href="appendix-ggplot-tips.html#cb1242-1" tabindex="-1"></a><span class="co"># Import the diamonds dataset from the ggplot2 package!</span></span>
+<span id="cb1242-2"><a href="appendix-ggplot-tips.html#cb1242-2" tabindex="-1"></a>diamonds <span class="ot">=</span> ggplot2<span class="sc">::</span>diamonds</span>
+<span id="cb1242-3"><a href="appendix-ggplot-tips.html#cb1242-3" tabindex="-1"></a><span class="co"># Let&#39;s glimpse it!</span></span>
+<span id="cb1242-4"><a href="appendix-ggplot-tips.html#cb1242-4" tabindex="-1"></a>diamonds <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
 <pre><code>## Rows: 53,940
 ## Columns: 10
 ## $ carat   &lt;dbl&gt; 0.23, 0.21, 0.23, 0.29, 0.31, 0.24, 0.24, 0.26, 0.22, 0.23, 0.…
@@ -990,17 +995,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Learning Check 1<a href="appendix-ggplot-tips.html#learning-check-1-16" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Question</strong></p>
 <p>Sometimes, the names of categories won’t fit well. We can try the following. Compare these two plots. What did we do?</p>
-<div class="sourceCode" id="cb1234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1234-1"><a href="appendix-ggplot-tips.html#cb1234-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1234-2"><a href="appendix-ggplot-tips.html#cb1234-2" tabindex="-1"></a>diamonds <span class="ot">=</span> ggplot2<span class="sc">::</span>diamonds</span>
-<span id="cb1234-3"><a href="appendix-ggplot-tips.html#cb1234-3" tabindex="-1"></a><span class="co"># Plot 1</span></span>
-<span id="cb1234-4"><a href="appendix-ggplot-tips.html#cb1234-4" tabindex="-1"></a>gg1 <span class="ot">=</span> gg1 <span class="ot">=</span> <span class="fu">ggplot</span>(<span class="at">data =</span> diamonds, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price, </span>
-<span id="cb1234-5"><a href="appendix-ggplot-tips.html#cb1234-5" tabindex="-1"></a>                                      <span class="at">group =</span> cut, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
-<span id="cb1234-6"><a href="appendix-ggplot-tips.html#cb1234-6" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
-<span id="cb1234-7"><a href="appendix-ggplot-tips.html#cb1234-7" tabindex="-1"></a><span class="co"># Plot2</span></span>
-<span id="cb1234-8"><a href="appendix-ggplot-tips.html#cb1234-8" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price, </span>
-<span id="cb1234-9"><a href="appendix-ggplot-tips.html#cb1234-9" tabindex="-1"></a>                                      <span class="at">group =</span> cut, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
-<span id="cb1234-10"><a href="appendix-ggplot-tips.html#cb1234-10" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
-<span id="cb1234-11"><a href="appendix-ggplot-tips.html#cb1234-11" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1244-1"><a href="appendix-ggplot-tips.html#cb1244-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1244-2"><a href="appendix-ggplot-tips.html#cb1244-2" tabindex="-1"></a>diamonds <span class="ot">=</span> ggplot2<span class="sc">::</span>diamonds</span>
+<span id="cb1244-3"><a href="appendix-ggplot-tips.html#cb1244-3" tabindex="-1"></a><span class="co"># Plot 1</span></span>
+<span id="cb1244-4"><a href="appendix-ggplot-tips.html#cb1244-4" tabindex="-1"></a>gg1 <span class="ot">=</span> gg1 <span class="ot">=</span> <span class="fu">ggplot</span>(<span class="at">data =</span> diamonds, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price, </span>
+<span id="cb1244-5"><a href="appendix-ggplot-tips.html#cb1244-5" tabindex="-1"></a>                                      <span class="at">group =</span> cut, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
+<span id="cb1244-6"><a href="appendix-ggplot-tips.html#cb1244-6" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb1244-7"><a href="appendix-ggplot-tips.html#cb1244-7" tabindex="-1"></a><span class="co"># Plot2</span></span>
+<span id="cb1244-8"><a href="appendix-ggplot-tips.html#cb1244-8" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price, </span>
+<span id="cb1244-9"><a href="appendix-ggplot-tips.html#cb1244-9" tabindex="-1"></a>                                      <span class="at">group =</span> cut, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
+<span id="cb1244-10"><a href="appendix-ggplot-tips.html#cb1244-10" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb1244-11"><a href="appendix-ggplot-tips.html#cb1244-11" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
 <details>
 <summary>
 <strong>[View Answer!]</strong>
@@ -1020,24 +1025,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Question</strong></p>
 <p>Sometimes, the legend doesn’t fit well. We can try this:</p>
 <p>What happens when you change <code>legend.position</code> from <code>"right"</code> to <code>"bottom"</code> to <code>"left"</code> to <code>"top"</code>?</p>
-<div class="sourceCode" id="cb1235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1235-1"><a href="appendix-ggplot-tips.html#cb1235-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1235-2"><a href="appendix-ggplot-tips.html#cb1235-2" tabindex="-1"></a>diamonds <span class="ot">=</span> ggplot2<span class="sc">::</span>diamonds</span>
-<span id="cb1235-3"><a href="appendix-ggplot-tips.html#cb1235-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price,</span>
-<span id="cb1235-4"><a href="appendix-ggplot-tips.html#cb1235-4" tabindex="-1"></a>  <span class="at">group =</span> cut, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
-<span id="cb1235-5"><a href="appendix-ggplot-tips.html#cb1235-5" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb1235-6"><a href="appendix-ggplot-tips.html#cb1235-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb1235-7"><a href="appendix-ggplot-tips.html#cb1235-7" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price,</span>
-<span id="cb1235-8"><a href="appendix-ggplot-tips.html#cb1235-8" tabindex="-1"></a>  <span class="at">group =</span> cut, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
-<span id="cb1235-9"><a href="appendix-ggplot-tips.html#cb1235-9" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb1235-10"><a href="appendix-ggplot-tips.html#cb1235-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>)</span>
-<span id="cb1235-11"><a href="appendix-ggplot-tips.html#cb1235-11" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price, </span>
-<span id="cb1235-12"><a href="appendix-ggplot-tips.html#cb1235-12" tabindex="-1"></a>  <span class="at">group =</span> cut, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
-<span id="cb1235-13"><a href="appendix-ggplot-tips.html#cb1235-13" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb1235-14"><a href="appendix-ggplot-tips.html#cb1235-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;left&quot;</span>)</span>
-<span id="cb1235-15"><a href="appendix-ggplot-tips.html#cb1235-15" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price, </span>
-<span id="cb1235-16"><a href="appendix-ggplot-tips.html#cb1235-16" tabindex="-1"></a>  <span class="at">group =</span> cut, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
-<span id="cb1235-17"><a href="appendix-ggplot-tips.html#cb1235-17" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb1235-18"><a href="appendix-ggplot-tips.html#cb1235-18" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1245-1"><a href="appendix-ggplot-tips.html#cb1245-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1245-2"><a href="appendix-ggplot-tips.html#cb1245-2" tabindex="-1"></a>diamonds <span class="ot">=</span> ggplot2<span class="sc">::</span>diamonds</span>
+<span id="cb1245-3"><a href="appendix-ggplot-tips.html#cb1245-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price,</span>
+<span id="cb1245-4"><a href="appendix-ggplot-tips.html#cb1245-4" tabindex="-1"></a>  <span class="at">group =</span> cut, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
+<span id="cb1245-5"><a href="appendix-ggplot-tips.html#cb1245-5" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb1245-6"><a href="appendix-ggplot-tips.html#cb1245-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb1245-7"><a href="appendix-ggplot-tips.html#cb1245-7" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price,</span>
+<span id="cb1245-8"><a href="appendix-ggplot-tips.html#cb1245-8" tabindex="-1"></a>  <span class="at">group =</span> cut, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
+<span id="cb1245-9"><a href="appendix-ggplot-tips.html#cb1245-9" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb1245-10"><a href="appendix-ggplot-tips.html#cb1245-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>)</span>
+<span id="cb1245-11"><a href="appendix-ggplot-tips.html#cb1245-11" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price, </span>
+<span id="cb1245-12"><a href="appendix-ggplot-tips.html#cb1245-12" tabindex="-1"></a>  <span class="at">group =</span> cut, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
+<span id="cb1245-13"><a href="appendix-ggplot-tips.html#cb1245-13" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb1245-14"><a href="appendix-ggplot-tips.html#cb1245-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;left&quot;</span>)</span>
+<span id="cb1245-15"><a href="appendix-ggplot-tips.html#cb1245-15" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price, </span>
+<span id="cb1245-16"><a href="appendix-ggplot-tips.html#cb1245-16" tabindex="-1"></a>  <span class="at">group =</span> cut, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
+<span id="cb1245-17"><a href="appendix-ggplot-tips.html#cb1245-17" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb1245-18"><a href="appendix-ggplot-tips.html#cb1245-18" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
 <details>
 <summary>
 <strong>[View Answer!]</strong>
@@ -1055,14 +1060,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Learning Check 10<a href="appendix-ggplot-tips.html#learning-check-10" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Question</strong></p>
 <p>What changed in the code below, and what did it result in?</p>
-<div class="sourceCode" id="cb1236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1236-1"><a href="appendix-ggplot-tips.html#cb1236-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1236-2"><a href="appendix-ggplot-tips.html#cb1236-2" tabindex="-1"></a>diamonds <span class="ot">=</span> ggplot2<span class="sc">::</span>diamonds</span>
-<span id="cb1236-3"><a href="appendix-ggplot-tips.html#cb1236-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> price, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
-<span id="cb1236-4"><a href="appendix-ggplot-tips.html#cb1236-4" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb1236-5"><a href="appendix-ggplot-tips.html#cb1236-5" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>cut) <span class="sc">+</span> <span class="co"># must be categorical variable</span></span>
-<span id="cb1236-6"><a href="appendix-ggplot-tips.html#cb1236-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Price (USD)&quot;</span>,</span>
-<span id="cb1236-7"><a href="appendix-ggplot-tips.html#cb1236-7" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Frequency of Price (Count)&quot;</span>,</span>
-<span id="cb1236-8"><a href="appendix-ggplot-tips.html#cb1236-8" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;US Diamond Sales&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1246-1"><a href="appendix-ggplot-tips.html#cb1246-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1246-2"><a href="appendix-ggplot-tips.html#cb1246-2" tabindex="-1"></a>diamonds <span class="ot">=</span> ggplot2<span class="sc">::</span>diamonds</span>
+<span id="cb1246-3"><a href="appendix-ggplot-tips.html#cb1246-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> price, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
+<span id="cb1246-4"><a href="appendix-ggplot-tips.html#cb1246-4" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb1246-5"><a href="appendix-ggplot-tips.html#cb1246-5" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>cut) <span class="sc">+</span> <span class="co"># must be categorical variable</span></span>
+<span id="cb1246-6"><a href="appendix-ggplot-tips.html#cb1246-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Price (USD)&quot;</span>,</span>
+<span id="cb1246-7"><a href="appendix-ggplot-tips.html#cb1246-7" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Frequency of Price (Count)&quot;</span>,</span>
+<span id="cb1246-8"><a href="appendix-ggplot-tips.html#cb1246-8" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;US Diamond Sales&quot;</span>)</span></code></pre></div>
 <details>
 <summary>
 <strong>[View Answer!]</strong>

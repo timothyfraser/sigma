@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2024-08-29" />
+<meta name="date" content="2024-10-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,7 @@
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="assets/kePrint-0.0.1/kePrint.js"></script>
 <link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="assets/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
 <script src="assets/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <script src="assets/d3-3.3.8/d3.min.js"></script>
 <script src="assets/dagre-0.4.0/dagre-d3.min.js"></script>
@@ -76,7 +77,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -921,7 +922,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="25" data-path="appendix-test.html"><a href="appendix-test.html"><i class="fa fa-check"></i><b>25</b> Appendix: test</a>
 <ul>
-<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-24"><i class="fa fa-check"></i>Getting Started</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-24"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-1"><i class="fa fa-check"></i>Version 1</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-2"><i class="fa fa-check"></i>Version 2</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -975,19 +980,19 @@ Photo by Photo by <a href="https://unsplash.com/@nputra?utm_source=unsplash&utm_
 </p>
 </div>
 <p>They produce the following data, saved in <code>lattes.csv</code>, and available on Github at <a href="https://raw.githubusercontent.com/timothyfraser/sysen/main/workshops/lattes.csv"><strong>this link</strong></a>. Use the code below to load in our data!</p>
-<div class="sourceCode" id="cb1089"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1089-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1089-1" tabindex="-1"></a><span class="co"># Load packages</span></span>
-<span id="cb1089-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1089-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1089-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1089-3" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb1089-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1089-4" tabindex="-1"></a></span>
-<span id="cb1089-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1089-5" tabindex="-1"></a><span class="co"># Load in data!</span></span>
-<span id="cb1089-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1089-6" tabindex="-1"></a><span class="co"># If you upload it to your workshops folder, read it in like this...</span></span>
-<span id="cb1089-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1089-7" tabindex="-1"></a>lattes <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;workshops/lattes.csv&quot;</span>)</span>
-<span id="cb1089-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1089-8" tabindex="-1"></a><span class="co"># or </span></span>
-<span id="cb1089-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1089-9" tabindex="-1"></a><span class="co"># If you want to download it straight from github, read it in like this... </span></span>
-<span id="cb1089-10"><a href="factorial-design-and-interaction-effects-in-r.html#cb1089-10" tabindex="-1"></a>lattes <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/timothyfraser/sysen/main/workshops/lattes.csv&quot;</span>)</span>
-<span id="cb1089-11"><a href="factorial-design-and-interaction-effects-in-r.html#cb1089-11" tabindex="-1"></a></span>
-<span id="cb1089-12"><a href="factorial-design-and-interaction-effects-in-r.html#cb1089-12" tabindex="-1"></a><span class="co"># Check it out!</span></span>
-<span id="cb1089-13"><a href="factorial-design-and-interaction-effects-in-r.html#cb1089-13" tabindex="-1"></a>lattes <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1099"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1099-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1099-1" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb1099-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1099-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1099-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1099-3" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1099-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1099-4" tabindex="-1"></a></span>
+<span id="cb1099-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1099-5" tabindex="-1"></a><span class="co"># Load in data!</span></span>
+<span id="cb1099-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1099-6" tabindex="-1"></a><span class="co"># If you upload it to your workshops folder, read it in like this...</span></span>
+<span id="cb1099-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1099-7" tabindex="-1"></a>lattes <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;workshops/lattes.csv&quot;</span>)</span>
+<span id="cb1099-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1099-8" tabindex="-1"></a><span class="co"># or </span></span>
+<span id="cb1099-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1099-9" tabindex="-1"></a><span class="co"># If you want to download it straight from github, read it in like this... </span></span>
+<span id="cb1099-10"><a href="factorial-design-and-interaction-effects-in-r.html#cb1099-10" tabindex="-1"></a>lattes <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/timothyfraser/sysen/main/workshops/lattes.csv&quot;</span>)</span>
+<span id="cb1099-11"><a href="factorial-design-and-interaction-effects-in-r.html#cb1099-11" tabindex="-1"></a></span>
+<span id="cb1099-12"><a href="factorial-design-and-interaction-effects-in-r.html#cb1099-12" tabindex="-1"></a><span class="co"># Check it out!</span></span>
+<span id="cb1099-13"><a href="factorial-design-and-interaction-effects-in-r.html#cb1099-13" tabindex="-1"></a>lattes <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
 <pre><code>## Rows: 240
 ## Columns: 6
 ## $ id        &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…
@@ -1008,18 +1013,18 @@ Photo by Photo by <a href="https://unsplash.com/@nputra?utm_source=unsplash&utm_
 <h3><span class="header-section-number">19.1.1</span> Difference of Grand Means <span class="math inline">\(\bar{\bar{d}}\)</span><a href="factorial-design-and-interaction-effects-in-r.html#difference-of-grand-means-barbard" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To start, we have our raw data, where each row is a <code>latte</code> (1 observation), and for each group, we produced 10 <code>lattes</code>/observations (sometimes called 10 “replicates”).</p>
 <p>We need to compute for each unique set of treatment conditions, what was the <strong><em>within-group</em></strong> mean (<code>xbar</code>), standard deviation <code>sd</code>, and sample size <code>n</code>? To get all unique combinations of <code>machine</code>, <code>milk</code>, <code>syrup</code>, and <code>art</code> that were tested, we can <code>group_by()</code> these variables, and then <code>summarize()</code> the <code>mean()</code>, <code>sd()</code>, and <code>n()</code> to get back a single row of statistics for each ‘set’ of unique treatments. We’ll call this data.frame of summary statistics per set <code>groups</code>.</p>
-<div class="sourceCode" id="cb1091"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1091-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1091-1" tabindex="-1"></a><span class="co"># Let&#39;s make a data.frame &#39;groups&#39;</span></span>
-<span id="cb1091-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1091-2" tabindex="-1"></a>groups <span class="ot">=</span> lattes <span class="sc">%&gt;%</span> </span>
-<span id="cb1091-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1091-3" tabindex="-1"></a>  <span class="co"># For each unique pairing of treatments tested,</span></span>
-<span id="cb1091-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1091-4" tabindex="-1"></a>  <span class="fu">group_by</span>(machine, milk, syrup, art) <span class="sc">%&gt;%</span></span>
-<span id="cb1091-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1091-5" tabindex="-1"></a>  <span class="co"># Return one row containing these summary statistics</span></span>
-<span id="cb1091-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1091-6" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">xbar =</span> <span class="fu">mean</span>(tastiness),</span>
-<span id="cb1091-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1091-7" tabindex="-1"></a>            <span class="at">s =</span> <span class="fu">sd</span>(tastiness),</span>
-<span id="cb1091-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1091-8" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb1091-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1091-9" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span>
-<span id="cb1091-10"><a href="factorial-design-and-interaction-effects-in-r.html#cb1091-10" tabindex="-1"></a></span>
-<span id="cb1091-11"><a href="factorial-design-and-interaction-effects-in-r.html#cb1091-11" tabindex="-1"></a><span class="co"># Check it out!</span></span>
-<span id="cb1091-12"><a href="factorial-design-and-interaction-effects-in-r.html#cb1091-12" tabindex="-1"></a>groups <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1101-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1101-1" tabindex="-1"></a><span class="co"># Let&#39;s make a data.frame &#39;groups&#39;</span></span>
+<span id="cb1101-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1101-2" tabindex="-1"></a>groups <span class="ot">=</span> lattes <span class="sc">%&gt;%</span> </span>
+<span id="cb1101-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1101-3" tabindex="-1"></a>  <span class="co"># For each unique pairing of treatments tested,</span></span>
+<span id="cb1101-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1101-4" tabindex="-1"></a>  <span class="fu">group_by</span>(machine, milk, syrup, art) <span class="sc">%&gt;%</span></span>
+<span id="cb1101-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1101-5" tabindex="-1"></a>  <span class="co"># Return one row containing these summary statistics</span></span>
+<span id="cb1101-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1101-6" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">xbar =</span> <span class="fu">mean</span>(tastiness),</span>
+<span id="cb1101-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1101-7" tabindex="-1"></a>            <span class="at">s =</span> <span class="fu">sd</span>(tastiness),</span>
+<span id="cb1101-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1101-8" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb1101-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1101-9" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span>
+<span id="cb1101-10"><a href="factorial-design-and-interaction-effects-in-r.html#cb1101-10" tabindex="-1"></a></span>
+<span id="cb1101-11"><a href="factorial-design-and-interaction-effects-in-r.html#cb1101-11" tabindex="-1"></a><span class="co"># Check it out!</span></span>
+<span id="cb1101-12"><a href="factorial-design-and-interaction-effects-in-r.html#cb1101-12" tabindex="-1"></a>groups <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 7
 ##   machine milk  syrup  art    xbar     s     n
 ##   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
@@ -1035,15 +1040,15 @@ Photo by Photo by <a href="https://unsplash.com/@nputra?utm_source=unsplash&utm_
 </div>
 <div id="slower-but-clearer-method-of-getting-the-difference-of-grand-means-barbard" class="section level3 hasAnchor" number="19.1.2">
 <h3><span class="header-section-number">19.1.2</span> Slower-but-Clearer Method of Getting the Difference of Grand Means <span class="math inline">\(\bar{\bar{d}}\)</span><a href="factorial-design-and-interaction-effects-in-r.html#slower-but-clearer-method-of-getting-the-difference-of-grand-means-barbard" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb1093"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1093-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1093-1" tabindex="-1"></a><span class="co"># Suppose you&#39;ve got a series of means `xbar` across multiple treatment groups. We can....</span></span>
-<span id="cb1093-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1093-2" tabindex="-1"></a>step1 <span class="ot">=</span> groups <span class="sc">%&gt;%</span></span>
-<span id="cb1093-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1093-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb1093-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1093-4" tabindex="-1"></a>    <span class="co"># put all means for treatment groups where machine == &quot;b&quot; into one column</span></span>
-<span id="cb1093-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1093-5" tabindex="-1"></a>    <span class="at">xbar_machine_b =</span> xbar[machine <span class="sc">==</span> <span class="st">&quot;b&quot;</span>],</span>
-<span id="cb1093-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1093-6" tabindex="-1"></a>    <span class="co"># put all means for treatment groups where machine == &quot;a&quot; into another column</span></span>
-<span id="cb1093-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1093-7" tabindex="-1"></a>    <span class="at">xbar_machine_a =</span> xbar[machine <span class="sc">==</span> <span class="st">&quot;a&quot;</span>]) </span>
-<span id="cb1093-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1093-8" tabindex="-1"></a><span class="co"># View it</span></span>
-<span id="cb1093-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1093-9" tabindex="-1"></a>step1 <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1103-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1103-1" tabindex="-1"></a><span class="co"># Suppose you&#39;ve got a series of means `xbar` across multiple treatment groups. We can....</span></span>
+<span id="cb1103-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1103-2" tabindex="-1"></a>step1 <span class="ot">=</span> groups <span class="sc">%&gt;%</span></span>
+<span id="cb1103-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1103-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1103-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1103-4" tabindex="-1"></a>    <span class="co"># put all means for treatment groups where machine == &quot;b&quot; into one column</span></span>
+<span id="cb1103-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1103-5" tabindex="-1"></a>    <span class="at">xbar_machine_b =</span> xbar[machine <span class="sc">==</span> <span class="st">&quot;b&quot;</span>],</span>
+<span id="cb1103-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1103-6" tabindex="-1"></a>    <span class="co"># put all means for treatment groups where machine == &quot;a&quot; into another column</span></span>
+<span id="cb1103-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1103-7" tabindex="-1"></a>    <span class="at">xbar_machine_a =</span> xbar[machine <span class="sc">==</span> <span class="st">&quot;a&quot;</span>]) </span>
+<span id="cb1103-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1103-8" tabindex="-1"></a><span class="co"># View it</span></span>
+<span id="cb1103-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1103-9" tabindex="-1"></a>step1 <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 2
 ##   xbar_machine_b xbar_machine_a
 ##            &lt;dbl&gt;          &lt;dbl&gt;
@@ -1051,16 +1056,16 @@ Photo by Photo by <a href="https://unsplash.com/@nputra?utm_source=unsplash&utm_
 ## 2           30.1           57.4
 ## 3           31.8           65.3</code></pre>
 <p>Then…</p>
-<div class="sourceCode" id="cb1095"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1095-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1095-1" tabindex="-1"></a>step2 <span class="ot">=</span> step1 <span class="sc">%&gt;%</span></span>
-<span id="cb1095-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1095-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb1095-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1095-3" tabindex="-1"></a>    <span class="co"># Take the grand mean of each vector of means</span></span>
-<span id="cb1095-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1095-4" tabindex="-1"></a>    <span class="at">xbbar_machine_b =</span> <span class="fu">mean</span>(xbar_machine_b),</span>
-<span id="cb1095-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1095-5" tabindex="-1"></a>    <span class="at">xbbar_machine_a =</span> <span class="fu">mean</span>(xbar_machine_a),</span>
-<span id="cb1095-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1095-6" tabindex="-1"></a>    <span class="co"># Subtract the grand mean of a (control) from the grand mean of b (treatment)</span></span>
-<span id="cb1095-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1095-7" tabindex="-1"></a>    <span class="co"># It helps to record for yourself the variable and order of subtraction (eg. b_a = b - a)</span></span>
-<span id="cb1095-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1095-8" tabindex="-1"></a>    <span class="at">dbbar_machine_b_a =</span> xbbar_machine_b <span class="sc">-</span> xbbar_machine_a)</span>
-<span id="cb1095-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1095-9" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb1095-10"><a href="factorial-design-and-interaction-effects-in-r.html#cb1095-10" tabindex="-1"></a>step2</span></code></pre></div>
+<div class="sourceCode" id="cb1105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1105-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1105-1" tabindex="-1"></a>step2 <span class="ot">=</span> step1 <span class="sc">%&gt;%</span></span>
+<span id="cb1105-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1105-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1105-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1105-3" tabindex="-1"></a>    <span class="co"># Take the grand mean of each vector of means</span></span>
+<span id="cb1105-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1105-4" tabindex="-1"></a>    <span class="at">xbbar_machine_b =</span> <span class="fu">mean</span>(xbar_machine_b),</span>
+<span id="cb1105-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1105-5" tabindex="-1"></a>    <span class="at">xbbar_machine_a =</span> <span class="fu">mean</span>(xbar_machine_a),</span>
+<span id="cb1105-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1105-6" tabindex="-1"></a>    <span class="co"># Subtract the grand mean of a (control) from the grand mean of b (treatment)</span></span>
+<span id="cb1105-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1105-7" tabindex="-1"></a>    <span class="co"># It helps to record for yourself the variable and order of subtraction (eg. b_a = b - a)</span></span>
+<span id="cb1105-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1105-8" tabindex="-1"></a>    <span class="at">dbbar_machine_b_a =</span> xbbar_machine_b <span class="sc">-</span> xbbar_machine_a)</span>
+<span id="cb1105-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1105-9" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb1105-10"><a href="factorial-design-and-interaction-effects-in-r.html#cb1105-10" tabindex="-1"></a>step2</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 3
 ##   xbbar_machine_b xbbar_machine_a dbbar_machine_b_a
 ##             &lt;dbl&gt;           &lt;dbl&gt;             &lt;dbl&gt;
@@ -1071,15 +1076,15 @@ Photo by Photo by <a href="https://unsplash.com/@nputra?utm_source=unsplash&utm_
 <div id="faster-but-messier-method-of-getting-the-difference-of-grand-means-barbard" class="section level3 hasAnchor" number="19.1.3">
 <h3><span class="header-section-number">19.1.3</span> Faster-but-Messier Method of Getting the Difference of Grand Means <span class="math inline">\(\bar{\bar{d}}\)</span><a href="factorial-design-and-interaction-effects-in-r.html#faster-but-messier-method-of-getting-the-difference-of-grand-means-barbard" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The method discussed above is slower but clean and clear. On the other hand, if we need to make a lot of <code>dbbar</code> statistics for different groups, it could be helpful to speed this process up. Here’s a way to do that. We’ll use this below a bunch, so be sure to try both methods out yourself so you fully understand how they work.</p>
-<div class="sourceCode" id="cb1097"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1097-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1097-1" tabindex="-1"></a><span class="co"># Taking our group means xbar,</span></span>
-<span id="cb1097-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1097-2" tabindex="-1"></a>groups <span class="sc">%&gt;%</span></span>
-<span id="cb1097-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1097-3" tabindex="-1"></a>  <span class="co"># Take the grand mean of means from machine b and subtract the grand mean of means from machine a.</span></span>
-<span id="cb1097-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1097-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">dbar_machine_b_a =</span> <span class="fu">mean</span>(xbar[machine <span class="sc">==</span> <span class="st">&quot;b&quot;</span>]) <span class="sc">-</span> <span class="fu">mean</span>(xbar[machine <span class="sc">==</span> <span class="st">&quot;a&quot;</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb1107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1107-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1107-1" tabindex="-1"></a><span class="co"># Taking our group means xbar,</span></span>
+<span id="cb1107-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1107-2" tabindex="-1"></a>groups <span class="sc">%&gt;%</span></span>
+<span id="cb1107-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1107-3" tabindex="-1"></a>  <span class="co"># Take the grand mean of means from machine b and subtract the grand mean of means from machine a.</span></span>
+<span id="cb1107-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1107-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">dbar_machine_b_a =</span> <span class="fu">mean</span>(xbar[machine <span class="sc">==</span> <span class="st">&quot;b&quot;</span>]) <span class="sc">-</span> <span class="fu">mean</span>(xbar[machine <span class="sc">==</span> <span class="st">&quot;a&quot;</span>]))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##   dbar_machine_b_a
 ##              &lt;dbl&gt;
 ## 1            -30.4</code></pre>
-<div class="sourceCode" id="cb1099"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1099-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1099-1" tabindex="-1"></a><span class="co"># Boom! All in one line - Shazam!</span></span></code></pre></div>
+<div class="sourceCode" id="cb1109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1109-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1109-1" tabindex="-1"></a><span class="co"># Boom! All in one line - Shazam!</span></span></code></pre></div>
 <p><br>
 <br></p>
 </div>
@@ -1089,24 +1094,24 @@ Photo by Photo by <a href="https://unsplash.com/@nputra?utm_source=unsplash&utm_
 <p>We can estimate direct effects by type of (1) <code>machine</code>, (2) <code>milk</code>, (3) <code>syrup</code>, and (4) <code>art</code> on the quality of our lattes (<code>tastiness</code>) by calculating overall difference of means statistics for each possible pairing of <code>machine</code> (<code>a</code> vs. <code>b</code>), <code>milk</code> (<code>skim</code> vs. <code>oat</code>, <code>skim</code> vs. <code>whole</code>, and <code>whole</code> vs. <code>skim</code>), <code>syrup</code> (<code>torani</code> vs. <code>monin</code>), and <code>art</code> (<code>heart</code> vs. <code>foamy</code>).</p>
 <p>Notice also that when the number of treatments in a variable is 3 or greater (eg. <code>milk</code> contains <code>oat</code>, <code>skim</code>, and <code>whole</code>), it is no longer sufficient to just get the difference of grand means between 2 categories; we now can compute not just 1 <span class="math inline">\(\bar{\bar{d}}\)</span> statistic, but 3!</p>
 <p>Let’s do it!</p>
-<div class="sourceCode" id="cb1100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1100-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1100-1" tabindex="-1"></a>dbbar <span class="ot">=</span> groups <span class="sc">%&gt;%</span></span>
-<span id="cb1100-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1100-2" tabindex="-1"></a>  <span class="co"># Calculate a single line of summary statistics dbbar (d-double-bar, the difference of grand means)</span></span>
-<span id="cb1100-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1100-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb1100-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1100-4" tabindex="-1"></a>    <span class="co"># How much tastier is a latte from machine &quot;b&quot; than machine &quot;a&quot;, on average?</span></span>
-<span id="cb1100-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1100-5" tabindex="-1"></a>    <span class="at">machine_b_a =</span> <span class="fu">mean</span>(xbar[machine <span class="sc">==</span> <span class="st">&quot;b&quot;</span>]) <span class="sc">-</span> <span class="fu">mean</span>(xbar[machine <span class="sc">==</span> <span class="st">&quot;a&quot;</span>]),</span>
-<span id="cb1100-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1100-6" tabindex="-1"></a>    <span class="co"># How much tastier is an oat milk latte than a skim milk latte, on average?</span></span>
-<span id="cb1100-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1100-7" tabindex="-1"></a>    <span class="at">milk_oat_skim =</span> <span class="fu">mean</span>(xbar[milk <span class="sc">==</span> <span class="st">&quot;oat&quot;</span>]) <span class="sc">-</span> <span class="fu">mean</span>(xbar[milk <span class="sc">==</span> <span class="st">&quot;skim&quot;</span>]),</span>
-<span id="cb1100-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1100-8" tabindex="-1"></a>    <span class="co"># How much tastier is an oat milk latte than a whole milk latte, on average?</span></span>
-<span id="cb1100-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1100-9" tabindex="-1"></a>    <span class="at">milk_oat_whole =</span> <span class="fu">mean</span>(xbar[milk <span class="sc">==</span> <span class="st">&quot;oat&quot;</span>]) <span class="sc">-</span> <span class="fu">mean</span>(xbar[milk <span class="sc">==</span> <span class="st">&quot;whole&quot;</span>]),</span>
-<span id="cb1100-10"><a href="factorial-design-and-interaction-effects-in-r.html#cb1100-10" tabindex="-1"></a>    <span class="co"># How much tastier is a skim milk latte than a whole milk latte, on average? </span></span>
-<span id="cb1100-11"><a href="factorial-design-and-interaction-effects-in-r.html#cb1100-11" tabindex="-1"></a>    <span class="at">milk_skim_whole =</span> <span class="fu">mean</span>(xbar[milk <span class="sc">==</span> <span class="st">&quot;skim&quot;</span>]) <span class="sc">-</span> <span class="fu">mean</span>(xbar[milk <span class="sc">==</span> <span class="st">&quot;whole&quot;</span>]),</span>
-<span id="cb1100-12"><a href="factorial-design-and-interaction-effects-in-r.html#cb1100-12" tabindex="-1"></a>    <span class="co"># How much tastier is a latte with Torani brand syrup than with Monin brand syrup, on average?</span></span>
-<span id="cb1100-13"><a href="factorial-design-and-interaction-effects-in-r.html#cb1100-13" tabindex="-1"></a>    <span class="at">syrup_torani_monin =</span> <span class="fu">mean</span>(xbar[syrup <span class="sc">==</span> <span class="st">&quot;torani&quot;</span>]) <span class="sc">-</span> <span class="fu">mean</span>(xbar[syrup <span class="sc">==</span> <span class="st">&quot;monin&quot;</span>]),</span>
-<span id="cb1100-14"><a href="factorial-design-and-interaction-effects-in-r.html#cb1100-14" tabindex="-1"></a>    <span class="co"># How much tastier is a latte with a &#39;heart&#39; foam art, than just a normal foamy latte, on average?</span></span>
-<span id="cb1100-15"><a href="factorial-design-and-interaction-effects-in-r.html#cb1100-15" tabindex="-1"></a>    <span class="at">art_heart_foamy =</span> <span class="fu">mean</span>(xbar[art <span class="sc">==</span> <span class="st">&quot;heart&quot;</span>]) <span class="sc">-</span> <span class="fu">mean</span>(xbar[art <span class="sc">==</span> <span class="st">&quot;foamy&quot;</span>])  )</span>
-<span id="cb1100-16"><a href="factorial-design-and-interaction-effects-in-r.html#cb1100-16" tabindex="-1"></a></span>
-<span id="cb1100-17"><a href="factorial-design-and-interaction-effects-in-r.html#cb1100-17" tabindex="-1"></a><span class="co"># Glimpse the results!</span></span>
-<span id="cb1100-18"><a href="factorial-design-and-interaction-effects-in-r.html#cb1100-18" tabindex="-1"></a>dbbar <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1110-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-1" tabindex="-1"></a>dbbar <span class="ot">=</span> groups <span class="sc">%&gt;%</span></span>
+<span id="cb1110-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-2" tabindex="-1"></a>  <span class="co"># Calculate a single line of summary statistics dbbar (d-double-bar, the difference of grand means)</span></span>
+<span id="cb1110-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1110-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-4" tabindex="-1"></a>    <span class="co"># How much tastier is a latte from machine &quot;b&quot; than machine &quot;a&quot;, on average?</span></span>
+<span id="cb1110-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-5" tabindex="-1"></a>    <span class="at">machine_b_a =</span> <span class="fu">mean</span>(xbar[machine <span class="sc">==</span> <span class="st">&quot;b&quot;</span>]) <span class="sc">-</span> <span class="fu">mean</span>(xbar[machine <span class="sc">==</span> <span class="st">&quot;a&quot;</span>]),</span>
+<span id="cb1110-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-6" tabindex="-1"></a>    <span class="co"># How much tastier is an oat milk latte than a skim milk latte, on average?</span></span>
+<span id="cb1110-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-7" tabindex="-1"></a>    <span class="at">milk_oat_skim =</span> <span class="fu">mean</span>(xbar[milk <span class="sc">==</span> <span class="st">&quot;oat&quot;</span>]) <span class="sc">-</span> <span class="fu">mean</span>(xbar[milk <span class="sc">==</span> <span class="st">&quot;skim&quot;</span>]),</span>
+<span id="cb1110-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-8" tabindex="-1"></a>    <span class="co"># How much tastier is an oat milk latte than a whole milk latte, on average?</span></span>
+<span id="cb1110-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-9" tabindex="-1"></a>    <span class="at">milk_oat_whole =</span> <span class="fu">mean</span>(xbar[milk <span class="sc">==</span> <span class="st">&quot;oat&quot;</span>]) <span class="sc">-</span> <span class="fu">mean</span>(xbar[milk <span class="sc">==</span> <span class="st">&quot;whole&quot;</span>]),</span>
+<span id="cb1110-10"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-10" tabindex="-1"></a>    <span class="co"># How much tastier is a skim milk latte than a whole milk latte, on average? </span></span>
+<span id="cb1110-11"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-11" tabindex="-1"></a>    <span class="at">milk_skim_whole =</span> <span class="fu">mean</span>(xbar[milk <span class="sc">==</span> <span class="st">&quot;skim&quot;</span>]) <span class="sc">-</span> <span class="fu">mean</span>(xbar[milk <span class="sc">==</span> <span class="st">&quot;whole&quot;</span>]),</span>
+<span id="cb1110-12"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-12" tabindex="-1"></a>    <span class="co"># How much tastier is a latte with Torani brand syrup than with Monin brand syrup, on average?</span></span>
+<span id="cb1110-13"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-13" tabindex="-1"></a>    <span class="at">syrup_torani_monin =</span> <span class="fu">mean</span>(xbar[syrup <span class="sc">==</span> <span class="st">&quot;torani&quot;</span>]) <span class="sc">-</span> <span class="fu">mean</span>(xbar[syrup <span class="sc">==</span> <span class="st">&quot;monin&quot;</span>]),</span>
+<span id="cb1110-14"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-14" tabindex="-1"></a>    <span class="co"># How much tastier is a latte with a &#39;heart&#39; foam art, than just a normal foamy latte, on average?</span></span>
+<span id="cb1110-15"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-15" tabindex="-1"></a>    <span class="at">art_heart_foamy =</span> <span class="fu">mean</span>(xbar[art <span class="sc">==</span> <span class="st">&quot;heart&quot;</span>]) <span class="sc">-</span> <span class="fu">mean</span>(xbar[art <span class="sc">==</span> <span class="st">&quot;foamy&quot;</span>])  )</span>
+<span id="cb1110-16"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-16" tabindex="-1"></a></span>
+<span id="cb1110-17"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-17" tabindex="-1"></a><span class="co"># Glimpse the results!</span></span>
+<span id="cb1110-18"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-18" tabindex="-1"></a>dbbar <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
 <pre><code>## Rows: 1
 ## Columns: 6
 ## $ machine_b_a        &lt;dbl&gt; -30.37756
@@ -1135,14 +1140,14 @@ Photo Credit to <a href="https://unsplash.com/photos/R5RtlMOYgX8">Olivia Anne Sn
 <p>If we suppose that the variances of each group are <em>unequal</em> (they probably are), then we can calculate a single <strong>standard error</strong> by taking the sum of the <strong>average variance</strong> within each group, then taking the square root of that total average variance. To do so, we must know the variance <span class="math inline">\(s^2_i\)</span> for every treatment group <span class="math inline">\(i\)</span> in our dataset. That can be written as:</p>
 <p><span class="math display">\[ standard \ error \ \sigma  = \sqrt{ \sum_{i=1}^{n}{ \frac{ s^{2}_i }{n_{i} } } } =  \sqrt{ \frac{s^2_1}{n_1} + \frac{s^2_2}{n_2} +  ... \frac{s^2_n}{n_n} } \\ where \ i = group, \ n = group \ sample \ size, \\ s^2_i = variance \ of \ group \ i \]</span>
 We can code this extremely quickly as:</p>
-<div class="sourceCode" id="cb1102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1102-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1102-1" tabindex="-1"></a>error <span class="ot">=</span> groups <span class="sc">%&gt;%</span></span>
-<span id="cb1102-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1102-2" tabindex="-1"></a>  <span class="co"># calculate a single row of statistics overall</span></span>
-<span id="cb1102-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1102-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb1102-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1102-4" tabindex="-1"></a>    <span class="co"># If we know the standard deviation and sample size of each group</span></span>
-<span id="cb1102-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1102-5" tabindex="-1"></a>    <span class="co"># we can estimate the standard error directly</span></span>
-<span id="cb1102-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1102-6" tabindex="-1"></a>    <span class="at">se =</span> <span class="fu">sqrt</span>( <span class="fu">sum</span>(s<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n) ) )</span>
-<span id="cb1102-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1102-7" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb1102-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1102-8" tabindex="-1"></a>error</span></code></pre></div>
+<div class="sourceCode" id="cb1112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1112-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1112-1" tabindex="-1"></a>error <span class="ot">=</span> groups <span class="sc">%&gt;%</span></span>
+<span id="cb1112-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1112-2" tabindex="-1"></a>  <span class="co"># calculate a single row of statistics overall</span></span>
+<span id="cb1112-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1112-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1112-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1112-4" tabindex="-1"></a>    <span class="co"># If we know the standard deviation and sample size of each group</span></span>
+<span id="cb1112-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1112-5" tabindex="-1"></a>    <span class="co"># we can estimate the standard error directly</span></span>
+<span id="cb1112-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1112-6" tabindex="-1"></a>    <span class="at">se =</span> <span class="fu">sqrt</span>( <span class="fu">sum</span>(s<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n) ) )</span>
+<span id="cb1112-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1112-7" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb1112-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1112-8" tabindex="-1"></a>error</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##      se
 ##   &lt;dbl&gt;
@@ -1157,19 +1162,19 @@ We can code this extremely quickly as:</p>
 Then, we could calculate the standard error with need for even fewer statistics, as: $ = $.</p>
 <p>With <code>R</code>, the calculations are so quick for unequal variances that it is no longer especially helpful to assume equal variances. But, if you ever find yourself without the specific subgroup variances and need to estimate a standard error, you can use the equal variance formula for pooled variances to find a standard error.</p>
 <p>We could code it like this:</p>
-<div class="sourceCode" id="cb1104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1104-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1104-1" tabindex="-1"></a>error <span class="ot">=</span> groups <span class="sc">%&gt;%</span></span>
-<span id="cb1104-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1104-2" tabindex="-1"></a>  <span class="co"># Get degrees of freedom for each group...</span></span>
-<span id="cb1104-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1104-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1104-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1104-4" tabindex="-1"></a>  <span class="co"># then calculate a single row of statistics overall</span></span>
-<span id="cb1104-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1104-5" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb1104-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1104-6" tabindex="-1"></a>    <span class="co"># If we assume the variance is constant across groups (it probably isn&#39;t)</span></span>
-<span id="cb1104-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1104-7" tabindex="-1"></a>    <span class="co"># we can take the weighted average of variances, weighted by group degrees of freedom</span></span>
-<span id="cb1104-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1104-8" tabindex="-1"></a>    <span class="at">var_pooled =</span> <span class="fu">sum</span>(s<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> df) <span class="sc">/</span> <span class="fu">sum</span>(df),</span>
-<span id="cb1104-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1104-9" tabindex="-1"></a>    <span class="at">s_pooled =</span> var_pooled <span class="sc">%&gt;%</span> <span class="fu">sqrt</span>(),</span>
-<span id="cb1104-10"><a href="factorial-design-and-interaction-effects-in-r.html#cb1104-10" tabindex="-1"></a>    <span class="co"># Finally, get the standard error!</span></span>
-<span id="cb1104-11"><a href="factorial-design-and-interaction-effects-in-r.html#cb1104-11" tabindex="-1"></a>    <span class="at">se =</span> <span class="fu">sqrt</span>(s_pooled<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">sum</span>(<span class="dv">1</span> <span class="sc">/</span> n)) )</span>
-<span id="cb1104-12"><a href="factorial-design-and-interaction-effects-in-r.html#cb1104-12" tabindex="-1"></a><span class="co"># Take a peek!</span></span>
-<span id="cb1104-13"><a href="factorial-design-and-interaction-effects-in-r.html#cb1104-13" tabindex="-1"></a>error</span></code></pre></div>
+<div class="sourceCode" id="cb1114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1114-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1114-1" tabindex="-1"></a>error <span class="ot">=</span> groups <span class="sc">%&gt;%</span></span>
+<span id="cb1114-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1114-2" tabindex="-1"></a>  <span class="co"># Get degrees of freedom for each group...</span></span>
+<span id="cb1114-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1114-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1114-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1114-4" tabindex="-1"></a>  <span class="co"># then calculate a single row of statistics overall</span></span>
+<span id="cb1114-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1114-5" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1114-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1114-6" tabindex="-1"></a>    <span class="co"># If we assume the variance is constant across groups (it probably isn&#39;t)</span></span>
+<span id="cb1114-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1114-7" tabindex="-1"></a>    <span class="co"># we can take the weighted average of variances, weighted by group degrees of freedom</span></span>
+<span id="cb1114-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1114-8" tabindex="-1"></a>    <span class="at">var_pooled =</span> <span class="fu">sum</span>(s<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> df) <span class="sc">/</span> <span class="fu">sum</span>(df),</span>
+<span id="cb1114-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1114-9" tabindex="-1"></a>    <span class="at">s_pooled =</span> var_pooled <span class="sc">%&gt;%</span> <span class="fu">sqrt</span>(),</span>
+<span id="cb1114-10"><a href="factorial-design-and-interaction-effects-in-r.html#cb1114-10" tabindex="-1"></a>    <span class="co"># Finally, get the standard error!</span></span>
+<span id="cb1114-11"><a href="factorial-design-and-interaction-effects-in-r.html#cb1114-11" tabindex="-1"></a>    <span class="at">se =</span> <span class="fu">sqrt</span>(s_pooled<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">sum</span>(<span class="dv">1</span> <span class="sc">/</span> n)) )</span>
+<span id="cb1114-12"><a href="factorial-design-and-interaction-effects-in-r.html#cb1114-12" tabindex="-1"></a><span class="co"># Take a peek!</span></span>
+<span id="cb1114-13"><a href="factorial-design-and-interaction-effects-in-r.html#cb1114-13" tabindex="-1"></a>error</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 3
 ##   var_pooled s_pooled    se
 ##        &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
@@ -1185,8 +1190,8 @@ Then, we could calculate the standard error with need for even fewer statistics,
 <div id="contains" class="section level3 hasAnchor" number="19.3.1">
 <h3><span class="header-section-number">19.3.1</span> <code>contains()</code><a href="factorial-design-and-interaction-effects-in-r.html#contains" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><code>select(contains("string"))</code> in <code>dplyr</code> lets you grab all variables in a data.frame that <code>contain</code> the following <code>"string"</code>. For example:</p>
-<div class="sourceCode" id="cb1106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1106-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1106-1" tabindex="-1"></a>dbbar <span class="sc">%&gt;%</span> </span>
-<span id="cb1106-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1106-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;milk&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1116-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1116-1" tabindex="-1"></a>dbbar <span class="sc">%&gt;%</span> </span>
+<span id="cb1116-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1116-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;milk&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 3
 ##   milk_oat_skim milk_oat_whole milk_skim_whole
 ##           &lt;dbl&gt;          &lt;dbl&gt;           &lt;dbl&gt;
@@ -1199,20 +1204,20 @@ Then, we could calculate the standard error with need for even fewer statistics,
 <ul>
 <li><code>pivot_longer()</code> takes a set of column vectors <code>cols = c(column1, column2, etc.)</code>, then stacks them on top of each other, sending the names of these columns to a <code>names</code> vector and the values of these columns to a <code>values</code> vector. It pairs well with <code>contains("string")</code>.</li>
 </ul>
-<div class="sourceCode" id="cb1108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1108-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1108-1" tabindex="-1"></a>dbbar <span class="sc">%&gt;%</span></span>
-<span id="cb1108-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1108-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;milk&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb1108-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1108-3" tabindex="-1"></a>  <span class="co"># We can pivot these columns...</span></span>
-<span id="cb1108-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1108-4" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>( milk_oat_skim, milk_oat_whole, milk_skim_whole) )</span></code></pre></div>
+<div class="sourceCode" id="cb1118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1118-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1118-1" tabindex="-1"></a>dbbar <span class="sc">%&gt;%</span></span>
+<span id="cb1118-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1118-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;milk&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1118-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1118-3" tabindex="-1"></a>  <span class="co"># We can pivot these columns...</span></span>
+<span id="cb1118-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1118-4" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>( milk_oat_skim, milk_oat_whole, milk_skim_whole) )</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 2
 ##   name             value
 ##   &lt;chr&gt;            &lt;dbl&gt;
 ## 1 milk_oat_skim   -1.45 
 ## 2 milk_oat_whole   0.206
 ## 3 milk_skim_whole  1.65</code></pre>
-<div class="sourceCode" id="cb1110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1110-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-1" tabindex="-1"></a>dbbar <span class="sc">%&gt;%</span></span>
-<span id="cb1110-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;milk&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb1110-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-3" tabindex="-1"></a>  <span class="co"># We can also just use contains to write a short hand</span></span>
-<span id="cb1110-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1110-4" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>( <span class="fu">contains</span>(<span class="st">&quot;milk&quot;</span>)) )</span></code></pre></div>
+<div class="sourceCode" id="cb1120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1120-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-1" tabindex="-1"></a>dbbar <span class="sc">%&gt;%</span></span>
+<span id="cb1120-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;milk&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1120-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-3" tabindex="-1"></a>  <span class="co"># We can also just use contains to write a short hand</span></span>
+<span id="cb1120-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-4" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>( <span class="fu">contains</span>(<span class="st">&quot;milk&quot;</span>)) )</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 2
 ##   name             value
 ##   &lt;chr&gt;            &lt;dbl&gt;
@@ -1220,20 +1225,20 @@ Then, we could calculate the standard error with need for even fewer statistics,
 ## 2 milk_oat_whole   0.206
 ## 3 milk_skim_whole  1.65</code></pre>
 <p>Generally, I like to specify a set of column vectors <strong>NOT</strong> to pivot, which sends <strong>all other vectors</strong> to the names and values columns. This is much faster! We can write <code>cols = -c(whatever)</code>, which says send all variables except <code>whatever</code>. You could even write <code>cols = -c()</code>, which just sends all the columns.</p>
-<div class="sourceCode" id="cb1112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1112-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1112-1" tabindex="-1"></a><span class="co"># For example...</span></span>
-<span id="cb1112-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1112-2" tabindex="-1"></a>dbbar <span class="sc">%&gt;%</span></span>
-<span id="cb1112-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1112-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;milk&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb1112-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1112-4" tabindex="-1"></a>  <span class="co"># pivot all columns EXCEPT milk_oat_skim </span></span>
-<span id="cb1112-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1112-5" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(milk_oat_skim))</span></code></pre></div>
+<div class="sourceCode" id="cb1122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1122-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1122-1" tabindex="-1"></a><span class="co"># For example...</span></span>
+<span id="cb1122-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1122-2" tabindex="-1"></a>dbbar <span class="sc">%&gt;%</span></span>
+<span id="cb1122-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1122-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;milk&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1122-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1122-4" tabindex="-1"></a>  <span class="co"># pivot all columns EXCEPT milk_oat_skim </span></span>
+<span id="cb1122-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1122-5" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(milk_oat_skim))</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 3
 ##   milk_oat_skim name            value
 ##           &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
 ## 1         -1.45 milk_oat_whole  0.206
 ## 2         -1.45 milk_skim_whole 1.65</code></pre>
-<div class="sourceCode" id="cb1114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1114-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1114-1" tabindex="-1"></a><span class="co"># My favorite:</span></span>
-<span id="cb1114-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1114-2" tabindex="-1"></a>dbbar <span class="sc">%&gt;%</span></span>
-<span id="cb1114-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1114-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;milk&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb1114-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1114-4" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb1124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1124-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1124-1" tabindex="-1"></a><span class="co"># My favorite:</span></span>
+<span id="cb1124-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1124-2" tabindex="-1"></a>dbbar <span class="sc">%&gt;%</span></span>
+<span id="cb1124-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1124-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;milk&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1124-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1124-4" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>())</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 2
 ##   name             value
 ##   &lt;chr&gt;            &lt;dbl&gt;
@@ -1241,9 +1246,9 @@ Then, we could calculate the standard error with need for even fewer statistics,
 ## 2 milk_oat_whole   0.206
 ## 3 milk_skim_whole  1.65</code></pre>
 <p>Finally, if you don’t <code>select()</code> anything, you can pivot <strong>all</strong> the variables at once! (as long as they are <strong>all</strong> <code>numeric</code> or <strong>all</strong> character vectors).</p>
-<div class="sourceCode" id="cb1116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1116-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1116-1" tabindex="-1"></a><span class="co"># If you don&#39;t select, you can get **all** the variables too!</span></span>
-<span id="cb1116-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1116-2" tabindex="-1"></a>dbbar <span class="sc">%&gt;%</span></span>
-<span id="cb1116-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1116-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb1126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1126-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1126-1" tabindex="-1"></a><span class="co"># If you don&#39;t select, you can get **all** the variables too!</span></span>
+<span id="cb1126-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1126-2" tabindex="-1"></a>dbbar <span class="sc">%&gt;%</span></span>
+<span id="cb1126-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1126-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>())</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 2
 ##   name                 value
 ##   &lt;chr&gt;                &lt;dbl&gt;
@@ -1263,10 +1268,10 @@ Then, we could calculate the standard error with need for even fewer statistics,
 <p>When you use <code>pivot_wider()</code>, we need to provide a set of <code>id_cols</code>, which is a vector of unique id columns we will use to make the <strong>rows</strong> in our data.</p>
 <p>For example, if we want to pivot the <code>machine</code> and <code>xbar</code> columns into an <code>xbar_a</code> and <code>xbar_b</code> column, we need to tell <code>R</code> that each row should refer to an <code>xbar</code> value for lattes of a specific <code>milk</code>, <code>syrup</code>, and <code>art</code>, by saying <code>id_cols = c(milk, syrup, art)</code>.</p>
 <p>We then can tell <code>pivot_wider()</code>, grab the vector <code>names_from</code> the <code>machine</code> vector and the <code>values_from</code> the <code>xbar</code> vector.</p>
-<div class="sourceCode" id="cb1118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1118-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1118-1" tabindex="-1"></a><span class="co"># Check it out!</span></span>
-<span id="cb1118-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1118-2" tabindex="-1"></a>groups <span class="sc">%&gt;%</span> </span>
-<span id="cb1118-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1118-3" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(milk, syrup, art), <span class="at">names_from =</span> machine, <span class="at">values_from =</span> xbar) <span class="sc">%&gt;%</span> </span>
-<span id="cb1118-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1118-4" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1128-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1128-1" tabindex="-1"></a><span class="co"># Check it out!</span></span>
+<span id="cb1128-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1128-2" tabindex="-1"></a>groups <span class="sc">%&gt;%</span> </span>
+<span id="cb1128-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1128-3" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(milk, syrup, art), <span class="at">names_from =</span> machine, <span class="at">values_from =</span> xbar) <span class="sc">%&gt;%</span> </span>
+<span id="cb1128-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1128-4" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 5
 ##   milk  syrup  art       a     b
 ##   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1285,22 +1290,22 @@ Then, we could calculate the standard error with need for even fewer statistics,
 <p>Using the <code>dbbar</code> data.frame from section <code>1</code> and <code>error</code> data.frame from section <code>2</code> above, we can report and visualize the overall treatment effects.</p>
 <div id="building-a-table-of-direct-effects" class="section level3 hasAnchor" number="19.4.1">
 <h3><span class="header-section-number">19.4.1</span> Building a Table of Direct Effects<a href="factorial-design-and-interaction-effects-in-r.html#building-a-table-of-direct-effects" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb1120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1120-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-1" tabindex="-1"></a><span class="co"># Compile our direct effects of treatments</span></span>
-<span id="cb1120-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-2" tabindex="-1"></a>direct <span class="ot">=</span> dbbar <span class="sc">%&gt;%</span></span>
-<span id="cb1120-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-3" tabindex="-1"></a>  <span class="co"># let&#39;s pivot our data, </span></span>
-<span id="cb1120-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-4" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb1120-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-5" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(), </span>
-<span id="cb1120-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-6" tabindex="-1"></a>    <span class="co"># specifying names for our &#39;name&#39; and &#39;value&#39; columns</span></span>
-<span id="cb1120-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-7" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;term&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;dbbar&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1120-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-8" tabindex="-1"></a>  <span class="co"># Let&#39;s add in our singular standard error shared across experiments</span></span>
-<span id="cb1120-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">se =</span> error<span class="sc">$</span>se) <span class="sc">%&gt;%</span></span>
-<span id="cb1120-10"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-10" tabindex="-1"></a>  <span class="co"># And then estimate a 95% confidence interval!</span></span>
-<span id="cb1120-11"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lower =</span> dbbar <span class="sc">-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> se,</span>
-<span id="cb1120-12"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-12" tabindex="-1"></a>         <span class="at">upper =</span> dbbar <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> se) <span class="sc">%&gt;%</span></span>
-<span id="cb1120-13"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-13" tabindex="-1"></a>  <span class="co"># And then write up a nice label</span></span>
-<span id="cb1120-14"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-14" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">paste</span>(<span class="fu">round</span>(dbbar, <span class="dv">2</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">(&quot;</span>, <span class="fu">round</span>(se, <span class="dv">2</span>), <span class="st">&quot;)&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>))</span>
-<span id="cb1120-15"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-15" tabindex="-1"></a><span class="co"># Let&#39;s view them!</span></span>
-<span id="cb1120-16"><a href="factorial-design-and-interaction-effects-in-r.html#cb1120-16" tabindex="-1"></a>direct</span></code></pre></div>
+<div class="sourceCode" id="cb1130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1130-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-1" tabindex="-1"></a><span class="co"># Compile our direct effects of treatments</span></span>
+<span id="cb1130-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-2" tabindex="-1"></a>direct <span class="ot">=</span> dbbar <span class="sc">%&gt;%</span></span>
+<span id="cb1130-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-3" tabindex="-1"></a>  <span class="co"># let&#39;s pivot our data, </span></span>
+<span id="cb1130-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-4" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb1130-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-5" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(), </span>
+<span id="cb1130-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-6" tabindex="-1"></a>    <span class="co"># specifying names for our &#39;name&#39; and &#39;value&#39; columns</span></span>
+<span id="cb1130-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-7" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;term&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;dbbar&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1130-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-8" tabindex="-1"></a>  <span class="co"># Let&#39;s add in our singular standard error shared across experiments</span></span>
+<span id="cb1130-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">se =</span> error<span class="sc">$</span>se) <span class="sc">%&gt;%</span></span>
+<span id="cb1130-10"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-10" tabindex="-1"></a>  <span class="co"># And then estimate a 95% confidence interval!</span></span>
+<span id="cb1130-11"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lower =</span> dbbar <span class="sc">-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> se,</span>
+<span id="cb1130-12"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-12" tabindex="-1"></a>         <span class="at">upper =</span> dbbar <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> se) <span class="sc">%&gt;%</span></span>
+<span id="cb1130-13"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-13" tabindex="-1"></a>  <span class="co"># And then write up a nice label</span></span>
+<span id="cb1130-14"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-14" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">paste</span>(<span class="fu">round</span>(dbbar, <span class="dv">2</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">(&quot;</span>, <span class="fu">round</span>(se, <span class="dv">2</span>), <span class="st">&quot;)&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>))</span>
+<span id="cb1130-15"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-15" tabindex="-1"></a><span class="co"># Let&#39;s view them!</span></span>
+<span id="cb1130-16"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-16" tabindex="-1"></a>direct</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 6
 ##   term                 dbbar    se  lower upper label           
 ##   &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;           
@@ -1316,56 +1321,56 @@ Then, we could calculate the standard error with need for even fewer statistics,
 <div id="visualization-strategies" class="section level3 hasAnchor" number="19.4.2">
 <h3><span class="header-section-number">19.4.2</span> Visualization Strategies<a href="factorial-design-and-interaction-effects-in-r.html#visualization-strategies" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can visualize these using <code>geom_linerange()</code>, <code>geom_errorbar()</code>, or <code>geom_crossbar()</code>. Let’s take a peek.</p>
-<div class="sourceCode" id="cb1122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1122-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1122-1" tabindex="-1"></a><span class="co"># You could use geom_crossbar, which uses ymin, ymax, and y</span></span>
-<span id="cb1122-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1122-2" tabindex="-1"></a>direct <span class="sc">%&gt;%</span></span>
-<span id="cb1122-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1122-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> term, <span class="at">y =</span> dbbar, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper)) <span class="sc">+</span></span>
-<span id="cb1122-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1122-4" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
-<span id="cb1122-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1122-5" tabindex="-1"></a>  <span class="fu">geom_crossbar</span>(<span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1132-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1132-1" tabindex="-1"></a><span class="co"># You could use geom_crossbar, which uses ymin, ymax, and y</span></span>
+<span id="cb1132-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1132-2" tabindex="-1"></a>direct <span class="sc">%&gt;%</span></span>
+<span id="cb1132-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1132-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> term, <span class="at">y =</span> dbbar, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper)) <span class="sc">+</span></span>
+<span id="cb1132-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1132-4" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1132-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1132-5" tabindex="-1"></a>  <span class="fu">geom_crossbar</span>(<span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>)</span></code></pre></div>
 <p><img src="14_workshop_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
-<div class="sourceCode" id="cb1123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1123-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1123-1" tabindex="-1"></a><span class="co"># Or with geom_linerange(), which also uses ymin and ymax</span></span>
-<span id="cb1123-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1123-2" tabindex="-1"></a>direct <span class="sc">%&gt;%</span></span>
-<span id="cb1123-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1123-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> term, <span class="at">y =</span> dbbar, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper)) <span class="sc">+</span></span>
-<span id="cb1123-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1123-4" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
-<span id="cb1123-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1123-5" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1133-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1133-1" tabindex="-1"></a><span class="co"># Or with geom_linerange(), which also uses ymin and ymax</span></span>
+<span id="cb1133-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1133-2" tabindex="-1"></a>direct <span class="sc">%&gt;%</span></span>
+<span id="cb1133-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1133-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> term, <span class="at">y =</span> dbbar, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper)) <span class="sc">+</span></span>
+<span id="cb1133-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1133-4" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1133-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1133-5" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><img src="14_workshop_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 Or….</p>
-<div class="sourceCode" id="cb1124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1124-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1124-1" tabindex="-1"></a><span class="co"># You could use geom_errorbar, which uses ymin, ymax, plus an optional width</span></span>
-<span id="cb1124-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1124-2" tabindex="-1"></a>direct <span class="sc">%&gt;%</span></span>
-<span id="cb1124-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1124-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> term, <span class="at">y =</span> dbbar, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper)) <span class="sc">+</span></span>
-<span id="cb1124-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1124-4" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
-<span id="cb1124-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1124-5" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">width =</span> <span class="fl">0.25</span>) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1134-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1134-1" tabindex="-1"></a><span class="co"># You could use geom_errorbar, which uses ymin, ymax, plus an optional width</span></span>
+<span id="cb1134-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1134-2" tabindex="-1"></a>direct <span class="sc">%&gt;%</span></span>
+<span id="cb1134-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1134-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> term, <span class="at">y =</span> dbbar, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper)) <span class="sc">+</span></span>
+<span id="cb1134-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1134-4" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1134-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1134-5" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">width =</span> <span class="fl">0.25</span>) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="14_workshop_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 </div>
 <div id="an-excellent-visual" class="section level3 hasAnchor" number="19.4.3">
 <h3><span class="header-section-number">19.4.3</span> An Excellent Visual<a href="factorial-design-and-interaction-effects-in-r.html#an-excellent-visual" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>But it we wanted to make a prettier chart, we could add color and labels, like so!</p>
-<div class="sourceCode" id="cb1125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1125-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-1" tabindex="-1"></a>direct <span class="sc">%&gt;%</span></span>
-<span id="cb1125-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> term, <span class="at">y =</span> dbbar, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper,</span>
-<span id="cb1125-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-3" tabindex="-1"></a>                       <span class="co"># specify a label and fill variable</span></span>
-<span id="cb1125-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-4" tabindex="-1"></a>                       <span class="at">label =</span> label, <span class="at">fill =</span> dbbar)) <span class="sc">+</span></span>
-<span id="cb1125-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-5" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
-<span id="cb1125-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-6" tabindex="-1"></a>  <span class="fu">geom_crossbar</span>()  <span class="sc">+</span></span>
-<span id="cb1125-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-7" tabindex="-1"></a>  <span class="co"># Add labels</span></span>
-<span id="cb1125-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-8" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="at">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
-<span id="cb1125-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-9" tabindex="-1"></a>  <span class="co"># Add a color pallet</span></span>
-<span id="cb1125-10"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-10" tabindex="-1"></a>  <span class="fu">scale_fill_gradient2</span>(<span class="at">low =</span> <span class="st">&quot;red&quot;</span>, <span class="at">mid =</span> <span class="st">&quot;white&quot;</span>, <span class="at">high =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb1125-11"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-11" tabindex="-1"></a>  <span class="co"># Add x and y axis labels</span></span>
-<span id="cb1125-12"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Difference of Means across Groups&quot;</span>,</span>
-<span id="cb1125-13"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-13" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Treatment Groups&quot;</span>, </span>
-<span id="cb1125-14"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-14" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">&quot;Effect&quot;</span>) <span class="sc">+</span></span>
-<span id="cb1125-15"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-15" tabindex="-1"></a>  <span class="co"># Relabel our axis ticks</span></span>
-<span id="cb1125-16"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-16" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(</span>
-<span id="cb1125-17"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-17" tabindex="-1"></a>    <span class="co"># Each label should take the original value and map it to a new, more readable version</span></span>
-<span id="cb1125-18"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-18" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;syrup_torani_monin&quot;</span> <span class="ot">=</span> <span class="st">&quot;Torani vs. Monin&quot;</span>, </span>
-<span id="cb1125-19"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-19" tabindex="-1"></a>              <span class="st">&quot;milk_skim_whole&quot;</span> <span class="ot">=</span> <span class="st">&quot;Skim Milk - Whole Milk&quot;</span>, </span>
-<span id="cb1125-20"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-20" tabindex="-1"></a>              <span class="st">&quot;milk_oat_whole&quot;</span> <span class="ot">=</span> <span class="st">&quot;Oatmilk - Whole Milk&quot;</span>, </span>
-<span id="cb1125-21"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-21" tabindex="-1"></a>              <span class="st">&quot;milk_oat_skim&quot;</span> <span class="ot">=</span> <span class="st">&quot;Oatmilk - Skim Milk&quot;</span>,</span>
-<span id="cb1125-22"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-22" tabindex="-1"></a>              <span class="st">&quot;machine_b_a&quot;</span> <span class="ot">=</span> <span class="st">&quot;Machine B - A&quot;</span>,</span>
-<span id="cb1125-23"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-23" tabindex="-1"></a>              <span class="st">&quot;art_heart_foamy&quot;</span> <span class="ot">=</span> <span class="st">&quot;Heart - Foam Art&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb1125-24"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-24" tabindex="-1"></a>    <span class="co"># Flip the scale</span></span>
-<span id="cb1125-25"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-25" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb1125-26"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-26" tabindex="-1"></a>  <span class="co"># Add a theme</span></span>
-<span id="cb1125-27"><a href="factorial-design-and-interaction-effects-in-r.html#cb1125-27" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1135-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-1" tabindex="-1"></a>direct <span class="sc">%&gt;%</span></span>
+<span id="cb1135-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> term, <span class="at">y =</span> dbbar, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper,</span>
+<span id="cb1135-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-3" tabindex="-1"></a>                       <span class="co"># specify a label and fill variable</span></span>
+<span id="cb1135-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-4" tabindex="-1"></a>                       <span class="at">label =</span> label, <span class="at">fill =</span> dbbar)) <span class="sc">+</span></span>
+<span id="cb1135-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-5" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1135-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-6" tabindex="-1"></a>  <span class="fu">geom_crossbar</span>()  <span class="sc">+</span></span>
+<span id="cb1135-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-7" tabindex="-1"></a>  <span class="co"># Add labels</span></span>
+<span id="cb1135-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-8" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="at">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1135-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-9" tabindex="-1"></a>  <span class="co"># Add a color pallet</span></span>
+<span id="cb1135-10"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-10" tabindex="-1"></a>  <span class="fu">scale_fill_gradient2</span>(<span class="at">low =</span> <span class="st">&quot;red&quot;</span>, <span class="at">mid =</span> <span class="st">&quot;white&quot;</span>, <span class="at">high =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1135-11"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-11" tabindex="-1"></a>  <span class="co"># Add x and y axis labels</span></span>
+<span id="cb1135-12"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Difference of Means across Groups&quot;</span>,</span>
+<span id="cb1135-13"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-13" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Treatment Groups&quot;</span>, </span>
+<span id="cb1135-14"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-14" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">&quot;Effect&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1135-15"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-15" tabindex="-1"></a>  <span class="co"># Relabel our axis ticks</span></span>
+<span id="cb1135-16"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-16" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(</span>
+<span id="cb1135-17"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-17" tabindex="-1"></a>    <span class="co"># Each label should take the original value and map it to a new, more readable version</span></span>
+<span id="cb1135-18"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-18" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;syrup_torani_monin&quot;</span> <span class="ot">=</span> <span class="st">&quot;Torani vs. Monin&quot;</span>, </span>
+<span id="cb1135-19"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-19" tabindex="-1"></a>              <span class="st">&quot;milk_skim_whole&quot;</span> <span class="ot">=</span> <span class="st">&quot;Skim Milk - Whole Milk&quot;</span>, </span>
+<span id="cb1135-20"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-20" tabindex="-1"></a>              <span class="st">&quot;milk_oat_whole&quot;</span> <span class="ot">=</span> <span class="st">&quot;Oatmilk - Whole Milk&quot;</span>, </span>
+<span id="cb1135-21"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-21" tabindex="-1"></a>              <span class="st">&quot;milk_oat_skim&quot;</span> <span class="ot">=</span> <span class="st">&quot;Oatmilk - Skim Milk&quot;</span>,</span>
+<span id="cb1135-22"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-22" tabindex="-1"></a>              <span class="st">&quot;machine_b_a&quot;</span> <span class="ot">=</span> <span class="st">&quot;Machine B - A&quot;</span>,</span>
+<span id="cb1135-23"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-23" tabindex="-1"></a>              <span class="st">&quot;art_heart_foamy&quot;</span> <span class="ot">=</span> <span class="st">&quot;Heart - Foam Art&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb1135-24"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-24" tabindex="-1"></a>    <span class="co"># Flip the scale</span></span>
+<span id="cb1135-25"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-25" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb1135-26"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-26" tabindex="-1"></a>  <span class="co"># Add a theme</span></span>
+<span id="cb1135-27"><a href="factorial-design-and-interaction-effects-in-r.html#cb1135-27" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code></pre></div>
 <p><img src="14_workshop_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p><br>
 <br></p>
@@ -1378,13 +1383,13 @@ Or….</p>
 <div id="estimating-2-way-interactions" class="section level2 hasAnchor" number="19.6">
 <h2><span class="header-section-number">19.6</span> Estimating 2-way interactions<a href="factorial-design-and-interaction-effects-in-r.html#estimating-2-way-interactions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>For example, do these lattes tend to taste better specifically when <strong>both</strong> conditions are true? Eg. let’s test the effect of having a latte from Machine B with Torani syrup, by comparing it against lattes made from Machine A with Monin syrup. This demonstrates the value added of <strong>both</strong> conditions.</p>
-<div class="sourceCode" id="cb1126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1126-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1126-1" tabindex="-1"></a>groups <span class="sc">%&gt;%</span></span>
-<span id="cb1126-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1126-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb1126-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1126-3" tabindex="-1"></a>    <span class="at">xbbar_b_torani =</span> xbar[machine <span class="sc">==</span> <span class="st">&quot;b&quot;</span> <span class="sc">&amp;</span> syrup <span class="sc">==</span> <span class="st">&quot;torani&quot;</span>] <span class="sc">%&gt;%</span> <span class="fu">mean</span>(),</span>
-<span id="cb1126-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1126-4" tabindex="-1"></a>    <span class="at">xbbar_a_monin =</span> xbar[machine <span class="sc">==</span> <span class="st">&quot;a&quot;</span> <span class="sc">&amp;</span> syrup <span class="sc">==</span> <span class="st">&quot;monin&quot;</span>] <span class="sc">%&gt;%</span> <span class="fu">mean</span>(),</span>
-<span id="cb1126-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1126-5" tabindex="-1"></a>    <span class="at">dbbar =</span> xbbar_b_torani <span class="sc">-</span> xbbar_a_monin,</span>
-<span id="cb1126-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1126-6" tabindex="-1"></a>    <span class="co"># Finally, we would use the same shared standard error that we calculated before</span></span>
-<span id="cb1126-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1126-7" tabindex="-1"></a>    <span class="at">se =</span> error<span class="sc">$</span>se)</span></code></pre></div>
+<div class="sourceCode" id="cb1136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1136-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1136-1" tabindex="-1"></a>groups <span class="sc">%&gt;%</span></span>
+<span id="cb1136-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1136-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1136-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1136-3" tabindex="-1"></a>    <span class="at">xbbar_b_torani =</span> xbar[machine <span class="sc">==</span> <span class="st">&quot;b&quot;</span> <span class="sc">&amp;</span> syrup <span class="sc">==</span> <span class="st">&quot;torani&quot;</span>] <span class="sc">%&gt;%</span> <span class="fu">mean</span>(),</span>
+<span id="cb1136-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1136-4" tabindex="-1"></a>    <span class="at">xbbar_a_monin =</span> xbar[machine <span class="sc">==</span> <span class="st">&quot;a&quot;</span> <span class="sc">&amp;</span> syrup <span class="sc">==</span> <span class="st">&quot;monin&quot;</span>] <span class="sc">%&gt;%</span> <span class="fu">mean</span>(),</span>
+<span id="cb1136-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1136-5" tabindex="-1"></a>    <span class="at">dbbar =</span> xbbar_b_torani <span class="sc">-</span> xbbar_a_monin,</span>
+<span id="cb1136-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1136-6" tabindex="-1"></a>    <span class="co"># Finally, we would use the same shared standard error that we calculated before</span></span>
+<span id="cb1136-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1136-7" tabindex="-1"></a>    <span class="at">se =</span> error<span class="sc">$</span>se)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 4
 ##   xbbar_b_torani xbbar_a_monin dbbar    se
 ##            &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1393,14 +1398,14 @@ Or….</p>
 <div id="estimating-3-way-interactions" class="section level2 hasAnchor" number="19.7">
 <h2><span class="header-section-number">19.7</span> Estimating 3-way interactions<a href="factorial-design-and-interaction-effects-in-r.html#estimating-3-way-interactions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We could even calculate a three-way interaction between <code>machine</code> type, <code>syrup</code> brand, and latte <code>art</code>, like so:</p>
-<div class="sourceCode" id="cb1128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1128-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1128-1" tabindex="-1"></a>groups <span class="sc">%&gt;%</span></span>
-<span id="cb1128-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1128-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb1128-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1128-3" tabindex="-1"></a>    <span class="co"># This time, we just add `art == &quot;heart&quot;` as an extra condition, and vice versa below</span></span>
-<span id="cb1128-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1128-4" tabindex="-1"></a>    <span class="at">xbbar_b_torani_heart =</span> xbar[machine <span class="sc">==</span> <span class="st">&quot;b&quot;</span> <span class="sc">&amp;</span> syrup <span class="sc">==</span> <span class="st">&quot;torani&quot;</span> <span class="sc">&amp;</span> art <span class="sc">==</span> <span class="st">&quot;heart&quot;</span>] <span class="sc">%&gt;%</span> <span class="fu">mean</span>(),</span>
-<span id="cb1128-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1128-5" tabindex="-1"></a>    <span class="at">xbbar_a_monin_foamy =</span> xbar[machine <span class="sc">==</span> <span class="st">&quot;a&quot;</span> <span class="sc">&amp;</span> syrup <span class="sc">==</span> <span class="st">&quot;monin&quot;</span> <span class="sc">&amp;</span> art <span class="sc">==</span> <span class="st">&quot;foamy&quot;</span>] <span class="sc">%&gt;%</span> <span class="fu">mean</span>(),</span>
-<span id="cb1128-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1128-6" tabindex="-1"></a>    <span class="at">dbbar =</span> xbbar_b_torani_heart <span class="sc">-</span> xbbar_a_monin_foamy,</span>
-<span id="cb1128-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1128-7" tabindex="-1"></a>    <span class="co"># Finally, we would use the same shared standard error that we calculated before</span></span>
-<span id="cb1128-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1128-8" tabindex="-1"></a>    <span class="at">se =</span> error<span class="sc">$</span>se)</span></code></pre></div>
+<div class="sourceCode" id="cb1138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1138-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1138-1" tabindex="-1"></a>groups <span class="sc">%&gt;%</span></span>
+<span id="cb1138-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1138-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1138-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1138-3" tabindex="-1"></a>    <span class="co"># This time, we just add `art == &quot;heart&quot;` as an extra condition, and vice versa below</span></span>
+<span id="cb1138-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1138-4" tabindex="-1"></a>    <span class="at">xbbar_b_torani_heart =</span> xbar[machine <span class="sc">==</span> <span class="st">&quot;b&quot;</span> <span class="sc">&amp;</span> syrup <span class="sc">==</span> <span class="st">&quot;torani&quot;</span> <span class="sc">&amp;</span> art <span class="sc">==</span> <span class="st">&quot;heart&quot;</span>] <span class="sc">%&gt;%</span> <span class="fu">mean</span>(),</span>
+<span id="cb1138-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1138-5" tabindex="-1"></a>    <span class="at">xbbar_a_monin_foamy =</span> xbar[machine <span class="sc">==</span> <span class="st">&quot;a&quot;</span> <span class="sc">&amp;</span> syrup <span class="sc">==</span> <span class="st">&quot;monin&quot;</span> <span class="sc">&amp;</span> art <span class="sc">==</span> <span class="st">&quot;foamy&quot;</span>] <span class="sc">%&gt;%</span> <span class="fu">mean</span>(),</span>
+<span id="cb1138-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1138-6" tabindex="-1"></a>    <span class="at">dbbar =</span> xbbar_b_torani_heart <span class="sc">-</span> xbbar_a_monin_foamy,</span>
+<span id="cb1138-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1138-7" tabindex="-1"></a>    <span class="co"># Finally, we would use the same shared standard error that we calculated before</span></span>
+<span id="cb1138-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1138-8" tabindex="-1"></a>    <span class="at">se =</span> error<span class="sc">$</span>se)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 4
 ##   xbbar_b_torani_heart xbbar_a_monin_foamy  dbbar    se
 ##                  &lt;dbl&gt;               &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
@@ -1415,13 +1420,13 @@ Or….</p>
 <div id="modeling-interactions" class="section level3 hasAnchor" number="19.8.1">
 <h3><span class="header-section-number">19.8.1</span> Modeling Interactions<a href="factorial-design-and-interaction-effects-in-r.html#modeling-interactions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>While it uses a regression model, rather than the difference of means, to estimate these effects, it tends to be pretty brief and doesn’t require making our <code>groups</code>, <code>dbbar</code>, or <code>error</code> data.frames.</p>
-<div class="sourceCode" id="cb1130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1130-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-1" tabindex="-1"></a><span class="co"># Using our raw data of observed lattes</span></span>
-<span id="cb1130-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-2" tabindex="-1"></a>m <span class="ot">=</span> lattes <span class="sc">%&gt;%</span> </span>
-<span id="cb1130-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-3" tabindex="-1"></a>  <span class="co"># Make a linear model, showing interactions with the &#39;*&#39; sign</span></span>
-<span id="cb1130-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-4" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> tastiness <span class="sc">~</span> machine <span class="sc">*</span> milk <span class="sc">*</span> syrup <span class="sc">*</span> art)   </span>
-<span id="cb1130-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-5" tabindex="-1"></a></span>
-<span id="cb1130-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-6" tabindex="-1"></a><span class="co"># View our model!</span></span>
-<span id="cb1130-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1130-7" tabindex="-1"></a>m <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1140-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1140-1" tabindex="-1"></a><span class="co"># Using our raw data of observed lattes</span></span>
+<span id="cb1140-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1140-2" tabindex="-1"></a>m <span class="ot">=</span> lattes <span class="sc">%&gt;%</span> </span>
+<span id="cb1140-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1140-3" tabindex="-1"></a>  <span class="co"># Make a linear model, showing interactions with the &#39;*&#39; sign</span></span>
+<span id="cb1140-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1140-4" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> tastiness <span class="sc">~</span> machine <span class="sc">*</span> milk <span class="sc">*</span> syrup <span class="sc">*</span> art)   </span>
+<span id="cb1140-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1140-5" tabindex="-1"></a></span>
+<span id="cb1140-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1140-6" tabindex="-1"></a><span class="co"># View our model!</span></span>
+<span id="cb1140-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1140-7" tabindex="-1"></a>m <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 24 × 5
 ##    term                 estimate std.error statistic  p.value
 ##    &lt;chr&gt;                   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
@@ -1441,12 +1446,12 @@ Or….</p>
 <div id="using-predict-to-visualize-interaction-effects" class="section level3 hasAnchor" number="19.8.2">
 <h3><span class="header-section-number">19.8.2</span> Using <code>predict()</code> to visualize interaction effects<a href="factorial-design-and-interaction-effects-in-r.html#using-predict-to-visualize-interaction-effects" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The big power of <code>lm()</code> in factorial experiments is getting to visualize these effects.</p>
-<div class="sourceCode" id="cb1132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1132-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1132-1" tabindex="-1"></a><span class="co"># We can generate a set of all observed combinations of our treatments as &#39;newdata</span></span>
-<span id="cb1132-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1132-2" tabindex="-1"></a>newdata <span class="ot">=</span> lattes <span class="sc">%&gt;%</span></span>
-<span id="cb1132-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1132-3" tabindex="-1"></a>  <span class="fu">group_by</span>(machine, milk, syrup, art) <span class="sc">%&gt;%</span></span>
-<span id="cb1132-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1132-4" tabindex="-1"></a>  <span class="fu">summarize</span>()</span>
-<span id="cb1132-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1132-5" tabindex="-1"></a></span>
-<span id="cb1132-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1132-6" tabindex="-1"></a>newdata <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1142-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1142-1" tabindex="-1"></a><span class="co"># We can generate a set of all observed combinations of our treatments as &#39;newdata</span></span>
+<span id="cb1142-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1142-2" tabindex="-1"></a>newdata <span class="ot">=</span> lattes <span class="sc">%&gt;%</span></span>
+<span id="cb1142-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1142-3" tabindex="-1"></a>  <span class="fu">group_by</span>(machine, milk, syrup, art) <span class="sc">%&gt;%</span></span>
+<span id="cb1142-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1142-4" tabindex="-1"></a>  <span class="fu">summarize</span>()</span>
+<span id="cb1142-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1142-5" tabindex="-1"></a></span>
+<span id="cb1142-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1142-6" tabindex="-1"></a>newdata <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 4
 ## # Groups:   machine, milk, syrup [3]
 ##   machine milk  syrup  art  
@@ -1459,18 +1464,18 @@ Or….</p>
 ## 6 a       skim  monin  heart</code></pre>
 <p>Then, we can generate either <code>"confidence"</code> or <code>"prediction"</code> intervals - confidence intervals are a little narrower, used in estimating effects you’ve already observed, while prediction intervals are a little wider, used for estimating predicted quantities that you naturally want a little more caution around.</p>
 <p>I like to save this as an object <code>pred</code>, then extract the results in a second step.</p>
-<div class="sourceCode" id="cb1134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1134-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1134-1" tabindex="-1"></a><span class="co"># For confidence intervals</span></span>
-<span id="cb1134-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1134-2" tabindex="-1"></a>pred <span class="ot">=</span> <span class="fu">predict</span>(m, <span class="at">newdata =</span> newdata, </span>
-<span id="cb1134-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1134-3" tabindex="-1"></a>          <span class="at">se.fit =</span> <span class="cn">TRUE</span>, <span class="at">interval =</span> <span class="st">&quot;confidence&quot;</span>, <span class="at">level =</span> <span class="fl">0.95</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1134-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1134-4" tabindex="-1"></a>  <span class="co"># Extract just the fitted results and intervals</span></span>
-<span id="cb1134-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1134-5" tabindex="-1"></a>  <span class="fu">with</span>(fit) <span class="sc">%&gt;%</span></span>
-<span id="cb1134-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1134-6" tabindex="-1"></a>  <span class="co"># And convert it to a tibble</span></span>
-<span id="cb1134-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1134-7" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span>
-<span id="cb1134-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1134-8" tabindex="-1"></a><span class="co"># or for prediction intervals...</span></span>
-<span id="cb1134-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1134-9" tabindex="-1"></a><span class="co">#predict(m, newdata = newdata, </span></span>
-<span id="cb1134-10"><a href="factorial-design-and-interaction-effects-in-r.html#cb1134-10" tabindex="-1"></a><span class="co">#          se.fit = TRUE, interval = &quot;prediction&quot;, level = 0.95)</span></span>
-<span id="cb1134-11"><a href="factorial-design-and-interaction-effects-in-r.html#cb1134-11" tabindex="-1"></a><span class="co"># See? Not very tidy</span></span>
-<span id="cb1134-12"><a href="factorial-design-and-interaction-effects-in-r.html#cb1134-12" tabindex="-1"></a>pred <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1144-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1144-1" tabindex="-1"></a><span class="co"># For confidence intervals</span></span>
+<span id="cb1144-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1144-2" tabindex="-1"></a>pred <span class="ot">=</span> <span class="fu">predict</span>(m, <span class="at">newdata =</span> newdata, </span>
+<span id="cb1144-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1144-3" tabindex="-1"></a>          <span class="at">se.fit =</span> <span class="cn">TRUE</span>, <span class="at">interval =</span> <span class="st">&quot;confidence&quot;</span>, <span class="at">level =</span> <span class="fl">0.95</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1144-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1144-4" tabindex="-1"></a>  <span class="co"># Extract just the fitted results and intervals</span></span>
+<span id="cb1144-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1144-5" tabindex="-1"></a>  <span class="fu">with</span>(fit) <span class="sc">%&gt;%</span></span>
+<span id="cb1144-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1144-6" tabindex="-1"></a>  <span class="co"># And convert it to a tibble</span></span>
+<span id="cb1144-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1144-7" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span>
+<span id="cb1144-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1144-8" tabindex="-1"></a><span class="co"># or for prediction intervals...</span></span>
+<span id="cb1144-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1144-9" tabindex="-1"></a><span class="co">#predict(m, newdata = newdata, </span></span>
+<span id="cb1144-10"><a href="factorial-design-and-interaction-effects-in-r.html#cb1144-10" tabindex="-1"></a><span class="co">#          se.fit = TRUE, interval = &quot;prediction&quot;, level = 0.95)</span></span>
+<span id="cb1144-11"><a href="factorial-design-and-interaction-effects-in-r.html#cb1144-11" tabindex="-1"></a><span class="co"># See? Not very tidy</span></span>
+<span id="cb1144-12"><a href="factorial-design-and-interaction-effects-in-r.html#cb1144-12" tabindex="-1"></a>pred <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 3
 ##     fit   lwr   upr
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1481,22 +1486,22 @@ Or….</p>
 ## 5  45.0  41.6  48.3
 ## 6  56.9  53.5  60.2</code></pre>
 <p>Now, we can bind the two sets of values together, either using <code>tibble()</code> or <code>bind_col()</code>, because they share the same rows.</p>
-<div class="sourceCode" id="cb1136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1136-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1136-1" tabindex="-1"></a>cis <span class="ot">=</span> <span class="fu">tibble</span>(</span>
-<span id="cb1136-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1136-2" tabindex="-1"></a>  newdata,</span>
-<span id="cb1136-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1136-3" tabindex="-1"></a>  <span class="at">yhat =</span> pred<span class="sc">$</span>fit,</span>
-<span id="cb1136-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1136-4" tabindex="-1"></a>  <span class="at">lower =</span> pred<span class="sc">$</span>lwr,</span>
-<span id="cb1136-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1136-5" tabindex="-1"></a>  <span class="at">upper =</span> pred<span class="sc">$</span>upr</span>
-<span id="cb1136-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1136-6" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb1146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1146-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1146-1" tabindex="-1"></a>cis <span class="ot">=</span> <span class="fu">tibble</span>(</span>
+<span id="cb1146-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1146-2" tabindex="-1"></a>  newdata,</span>
+<span id="cb1146-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1146-3" tabindex="-1"></a>  <span class="at">yhat =</span> pred<span class="sc">$</span>fit,</span>
+<span id="cb1146-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1146-4" tabindex="-1"></a>  <span class="at">lower =</span> pred<span class="sc">$</span>lwr,</span>
+<span id="cb1146-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1146-5" tabindex="-1"></a>  <span class="at">upper =</span> pred<span class="sc">$</span>upr</span>
+<span id="cb1146-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1146-6" tabindex="-1"></a>)</span></code></pre></div>
 <p>To visual an interaction effect, we can now narrow into 4 predictions, showing all possible combinations of <code>machine</code> and <code>syrup</code>, while zooming into just one type of <code>milk</code> and <code>art</code>, to hold these other concepts constant.</p>
-<div class="sourceCode" id="cb1137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1137-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1137-1" tabindex="-1"></a>viz <span class="ot">=</span> cis <span class="sc">%&gt;%</span></span>
-<span id="cb1137-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1137-2" tabindex="-1"></a>  <span class="fu">filter</span>(machine <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>),</span>
-<span id="cb1137-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1137-3" tabindex="-1"></a>         syrup <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;torani&quot;</span>, <span class="st">&quot;monin&quot;</span>),</span>
-<span id="cb1137-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1137-4" tabindex="-1"></a>         milk <span class="sc">==</span> <span class="st">&quot;whole&quot;</span>,</span>
-<span id="cb1137-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1137-5" tabindex="-1"></a>         art <span class="sc">==</span> <span class="st">&quot;heart&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1137-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1137-6" tabindex="-1"></a>  <span class="co"># add a label!</span></span>
-<span id="cb1137-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1137-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">round</span>(yhat, <span class="dv">2</span>) )</span>
-<span id="cb1137-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1137-8" tabindex="-1"></a><span class="co"># view it!</span></span>
-<span id="cb1137-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1137-9" tabindex="-1"></a>viz</span></code></pre></div>
+<div class="sourceCode" id="cb1147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1147-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1147-1" tabindex="-1"></a>viz <span class="ot">=</span> cis <span class="sc">%&gt;%</span></span>
+<span id="cb1147-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1147-2" tabindex="-1"></a>  <span class="fu">filter</span>(machine <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>),</span>
+<span id="cb1147-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1147-3" tabindex="-1"></a>         syrup <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;torani&quot;</span>, <span class="st">&quot;monin&quot;</span>),</span>
+<span id="cb1147-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1147-4" tabindex="-1"></a>         milk <span class="sc">==</span> <span class="st">&quot;whole&quot;</span>,</span>
+<span id="cb1147-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1147-5" tabindex="-1"></a>         art <span class="sc">==</span> <span class="st">&quot;heart&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1147-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1147-6" tabindex="-1"></a>  <span class="co"># add a label!</span></span>
+<span id="cb1147-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1147-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">round</span>(yhat, <span class="dv">2</span>) )</span>
+<span id="cb1147-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1147-8" tabindex="-1"></a><span class="co"># view it!</span></span>
+<span id="cb1147-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1147-9" tabindex="-1"></a>viz</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 8
 ##   machine milk  syrup  art    yhat lower upper label
 ##   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1505,17 +1510,17 @@ Or….</p>
 ## 3 b       whole monin  heart  27.9  24.5  31.2  27.9
 ## 4 b       whole torani heart  43.2  39.8  46.6  43.2</code></pre>
 <p>And last, we can visualize the effect with <code>geom_ribbon()</code> or any other technique that accepts <code>ymin</code> and <code>ymax</code>. We just have to remember to put one variable on the x axis (eg. <code>machine</code>) and one variable as the <code>group</code> and <code>fill</code>, to distinguish our two lines.</p>
-<div class="sourceCode" id="cb1139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1139-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1139-1" tabindex="-1"></a>viz <span class="sc">%&gt;%</span></span>
-<span id="cb1139-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1139-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> machine, <span class="at">group =</span> syrup, <span class="at">fill =</span> syrup, </span>
-<span id="cb1139-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1139-3" tabindex="-1"></a>                       <span class="at">y =</span> yhat, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper, <span class="at">label =</span> label)) <span class="sc">+</span></span>
-<span id="cb1139-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1139-4" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>() <span class="sc">+</span></span>
-<span id="cb1139-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1139-5" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb1139-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1139-6" tabindex="-1"></a>  <span class="co"># Plot the labels, bumping the text upwards!</span></span>
-<span id="cb1139-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1139-7" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">nudge_y =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb1139-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1139-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Espresso Machine Type&quot;</span>,</span>
-<span id="cb1139-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1139-9" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Predicted Tastiness (0-100) with 95% CIs&quot;</span>,</span>
-<span id="cb1139-10"><a href="factorial-design-and-interaction-effects-in-r.html#cb1139-10" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">&quot;Syrup Brand&quot;</span>) <span class="sc">+</span></span>
-<span id="cb1139-11"><a href="factorial-design-and-interaction-effects-in-r.html#cb1139-11" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1149-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1149-1" tabindex="-1"></a>viz <span class="sc">%&gt;%</span></span>
+<span id="cb1149-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1149-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> machine, <span class="at">group =</span> syrup, <span class="at">fill =</span> syrup, </span>
+<span id="cb1149-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1149-3" tabindex="-1"></a>                       <span class="at">y =</span> yhat, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper, <span class="at">label =</span> label)) <span class="sc">+</span></span>
+<span id="cb1149-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1149-4" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>() <span class="sc">+</span></span>
+<span id="cb1149-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1149-5" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb1149-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1149-6" tabindex="-1"></a>  <span class="co"># Plot the labels, bumping the text upwards!</span></span>
+<span id="cb1149-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1149-7" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">nudge_y =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb1149-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1149-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Espresso Machine Type&quot;</span>,</span>
+<span id="cb1149-9"><a href="factorial-design-and-interaction-effects-in-r.html#cb1149-9" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Predicted Tastiness (0-100) with 95% CIs&quot;</span>,</span>
+<span id="cb1149-10"><a href="factorial-design-and-interaction-effects-in-r.html#cb1149-10" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">&quot;Syrup Brand&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1149-11"><a href="factorial-design-and-interaction-effects-in-r.html#cb1149-11" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code></pre></div>
 <p><img src="14_workshop_files/figure-html/unnamed-chunk-31-1.png" width="672" />
 How should we interpret this visual? Well, let’s just describe what we see! More descriptive language is always better than less, when it comes to explaining results for new viewers. Here’s an example descriptive!</p>
 <ul>
@@ -1530,14 +1535,14 @@ How should we interpret this visual? Well, let’s just describe what we see! Mo
 <h3><span class="header-section-number">19.8.3</span> Finding the best model with <code>anova()</code><a href="factorial-design-and-interaction-effects-in-r.html#finding-the-best-model-with-anova" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can even use the <code>anova()</code> function (not to be confused with <code>aov()</code>) to find the best fitting model from a set of model objects. Here, we compare the second model against the first (as opposed to the model against an intercept, as in traditional anova).</p>
 <p>Then, we calculate the residual sum of squares in both, calculate the extra explained sum of squares in the second model, and estimate an F statistic. If the F statistic is statistically significant <em>and</em> the RSS has decreased, we would say that our second model fits better.</p>
-<div class="sourceCode" id="cb1140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1140-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1140-1" tabindex="-1"></a><span class="co"># Let&#39;s make a second model for comparison against the first.</span></span>
-<span id="cb1140-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1140-2" tabindex="-1"></a>m2 <span class="ot">=</span> lattes <span class="sc">%&gt;%</span> </span>
-<span id="cb1140-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1140-3" tabindex="-1"></a>  <span class="co"># Make a linear model, showing interactions with the &#39;*&#39; sign</span></span>
-<span id="cb1140-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1140-4" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> tastiness <span class="sc">~</span> machine <span class="sc">*</span> milk <span class="sc">*</span> syrup)</span>
-<span id="cb1140-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1140-5" tabindex="-1"></a></span>
-<span id="cb1140-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1140-6" tabindex="-1"></a><span class="co"># Here, for instance, there is a significant difference, but the RSS increased,</span></span>
-<span id="cb1140-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1140-7" tabindex="-1"></a><span class="co"># so we know that model 1 is better than model 2</span></span>
-<span id="cb1140-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1140-8" tabindex="-1"></a><span class="fu">anova</span>(m, m2)</span></code></pre></div>
+<div class="sourceCode" id="cb1150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1150-1"><a href="factorial-design-and-interaction-effects-in-r.html#cb1150-1" tabindex="-1"></a><span class="co"># Let&#39;s make a second model for comparison against the first.</span></span>
+<span id="cb1150-2"><a href="factorial-design-and-interaction-effects-in-r.html#cb1150-2" tabindex="-1"></a>m2 <span class="ot">=</span> lattes <span class="sc">%&gt;%</span> </span>
+<span id="cb1150-3"><a href="factorial-design-and-interaction-effects-in-r.html#cb1150-3" tabindex="-1"></a>  <span class="co"># Make a linear model, showing interactions with the &#39;*&#39; sign</span></span>
+<span id="cb1150-4"><a href="factorial-design-and-interaction-effects-in-r.html#cb1150-4" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> tastiness <span class="sc">~</span> machine <span class="sc">*</span> milk <span class="sc">*</span> syrup)</span>
+<span id="cb1150-5"><a href="factorial-design-and-interaction-effects-in-r.html#cb1150-5" tabindex="-1"></a></span>
+<span id="cb1150-6"><a href="factorial-design-and-interaction-effects-in-r.html#cb1150-6" tabindex="-1"></a><span class="co"># Here, for instance, there is a significant difference, but the RSS increased,</span></span>
+<span id="cb1150-7"><a href="factorial-design-and-interaction-effects-in-r.html#cb1150-7" tabindex="-1"></a><span class="co"># so we know that model 1 is better than model 2</span></span>
+<span id="cb1150-8"><a href="factorial-design-and-interaction-effects-in-r.html#cb1150-8" tabindex="-1"></a><span class="fu">anova</span>(m, m2)</span></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: tastiness ~ machine * milk * syrup * art

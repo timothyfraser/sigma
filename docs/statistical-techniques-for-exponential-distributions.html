@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2024-08-29" />
+<meta name="date" content="2024-10-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,7 @@
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="assets/kePrint-0.0.1/kePrint.js"></script>
 <link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="assets/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
 <script src="assets/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <script src="assets/d3-3.3.8/d3.min.js"></script>
 <script src="assets/dagre-0.4.0/dagre-d3.min.js"></script>
@@ -76,7 +77,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -921,7 +922,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="25" data-path="appendix-test.html"><a href="appendix-test.html"><i class="fa fa-check"></i><b>25</b> Appendix: test</a>
 <ul>
-<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-24"><i class="fa fa-check"></i>Getting Started</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-24"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-1"><i class="fa fa-check"></i>Version 1</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-2"><i class="fa fa-check"></i>Version 2</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -948,20 +953,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="load-packages-5" class="section level3 hasAnchor" number="12.1.1">
 <h3><span class="header-section-number">12.1.1</span> Load Packages<a href="statistical-techniques-for-exponential-distributions.html#load-packages-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s start by loading the <code>dplyr</code> package, which will let us <code>mutate()</code>, <code>filter()</code>, and <code>summarize()</code> data quickly. We’ll also load <code>mosaicCalc</code>, for taking derivatives and integrals (eg. <code>D()</code> and <code>antiD()</code>).</p>
-<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb687-1"><a href="statistical-techniques-for-exponential-distributions.html#cb687-1" tabindex="-1"></a><span class="co"># Load packages</span></span>
-<span id="cb687-2"><a href="statistical-techniques-for-exponential-distributions.html#cb687-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb687-3"><a href="statistical-techniques-for-exponential-distributions.html#cb687-3" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb687-4"><a href="statistical-techniques-for-exponential-distributions.html#cb687-4" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb687-5"><a href="statistical-techniques-for-exponential-distributions.html#cb687-5" tabindex="-1"></a><span class="fu">library</span>(mosaicCalc)</span></code></pre></div>
+<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb697-1"><a href="statistical-techniques-for-exponential-distributions.html#cb697-1" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb697-2"><a href="statistical-techniques-for-exponential-distributions.html#cb697-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb697-3"><a href="statistical-techniques-for-exponential-distributions.html#cb697-3" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb697-4"><a href="statistical-techniques-for-exponential-distributions.html#cb697-4" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb697-5"><a href="statistical-techniques-for-exponential-distributions.html#cb697-5" tabindex="-1"></a><span class="fu">library</span>(mosaicCalc)</span></code></pre></div>
 </div>
 <div id="our-data-4" class="section level3 hasAnchor" number="12.1.2">
 <h3><span class="header-section-number">12.1.2</span> Our Data<a href="statistical-techniques-for-exponential-distributions.html#our-data-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In this workshop, we’re going to continue working with a data.frame called <code>masks</code>. Let’s examine a hypothetical sample of <code>n = 50</code> masks produced by Company X to measure how many hours it took for each part of the mask to break.</p>
 <p>Please import the <code>masks.csv</code> data.frame below. Each row is a mask, with its own unique <code>id</code>. Columns describe how many hours it took for the <code>left_earloop</code> to snap, the <code>right_earloop</code> to snap, the nose <code>wire</code> to snap, and the <code>fabric</code> of the mask to tear.</p>
-<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb688-1"><a href="statistical-techniques-for-exponential-distributions.html#cb688-1" tabindex="-1"></a>masks <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;workshops/masks.csv&quot;</span>)</span>
-<span id="cb688-2"><a href="statistical-techniques-for-exponential-distributions.html#cb688-2" tabindex="-1"></a></span>
-<span id="cb688-3"><a href="statistical-techniques-for-exponential-distributions.html#cb688-3" tabindex="-1"></a><span class="co"># Let&#39;s glimpse() its contents!</span></span>
-<span id="cb688-4"><a href="statistical-techniques-for-exponential-distributions.html#cb688-4" tabindex="-1"></a>masks <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb698-1"><a href="statistical-techniques-for-exponential-distributions.html#cb698-1" tabindex="-1"></a>masks <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;workshops/masks.csv&quot;</span>)</span>
+<span id="cb698-2"><a href="statistical-techniques-for-exponential-distributions.html#cb698-2" tabindex="-1"></a></span>
+<span id="cb698-3"><a href="statistical-techniques-for-exponential-distributions.html#cb698-3" tabindex="-1"></a><span class="co"># Let&#39;s glimpse() its contents!</span></span>
+<span id="cb698-4"><a href="statistical-techniques-for-exponential-distributions.html#cb698-4" tabindex="-1"></a>masks <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
 <pre><code>## Rows: 50
 ## Columns: 5
 ## $ id            &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1…
@@ -980,67 +985,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Factors are ordered vectors. They are helpful in <code>ggplot</code> and elsewhere for telling <code>R</code> what order to interpret things in.</p></li>
 <li><p>You can make your own vector into a <code>factor</code> using <code>factor(vector, levels = c("first", "second", "etc"))</code>.</p></li>
 </ul>
-<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb690-1"><a href="statistical-techniques-for-exponential-distributions.html#cb690-1" tabindex="-1"></a><span class="co"># Make character vector</span></span>
-<span id="cb690-2"><a href="statistical-techniques-for-exponential-distributions.html#cb690-2" tabindex="-1"></a>myvector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;surgical&quot;</span>, <span class="st">&quot;KN-95&quot;</span>, <span class="st">&quot;KN-95&quot;</span>, <span class="st">&quot;N-95&quot;</span>, <span class="st">&quot;surgical&quot;</span>)</span>
-<span id="cb690-3"><a href="statistical-techniques-for-exponential-distributions.html#cb690-3" tabindex="-1"></a><span class="co"># Turn it into a factor</span></span>
-<span id="cb690-4"><a href="statistical-techniques-for-exponential-distributions.html#cb690-4" tabindex="-1"></a>myfactor <span class="ot">&lt;-</span> <span class="fu">factor</span>(myvector, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;N-95&quot;</span>, <span class="st">&quot;KN-95&quot;</span>, <span class="st">&quot;surgical&quot;</span>))</span>
-<span id="cb690-5"><a href="statistical-techniques-for-exponential-distributions.html#cb690-5" tabindex="-1"></a><span class="co"># check it</span></span>
-<span id="cb690-6"><a href="statistical-techniques-for-exponential-distributions.html#cb690-6" tabindex="-1"></a>myfactor</span></code></pre></div>
+<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb700-1"><a href="statistical-techniques-for-exponential-distributions.html#cb700-1" tabindex="-1"></a><span class="co"># Make character vector</span></span>
+<span id="cb700-2"><a href="statistical-techniques-for-exponential-distributions.html#cb700-2" tabindex="-1"></a>myvector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;surgical&quot;</span>, <span class="st">&quot;KN-95&quot;</span>, <span class="st">&quot;KN-95&quot;</span>, <span class="st">&quot;N-95&quot;</span>, <span class="st">&quot;surgical&quot;</span>)</span>
+<span id="cb700-3"><a href="statistical-techniques-for-exponential-distributions.html#cb700-3" tabindex="-1"></a><span class="co"># Turn it into a factor</span></span>
+<span id="cb700-4"><a href="statistical-techniques-for-exponential-distributions.html#cb700-4" tabindex="-1"></a>myfactor <span class="ot">&lt;-</span> <span class="fu">factor</span>(myvector, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;N-95&quot;</span>, <span class="st">&quot;KN-95&quot;</span>, <span class="st">&quot;surgical&quot;</span>))</span>
+<span id="cb700-5"><a href="statistical-techniques-for-exponential-distributions.html#cb700-5" tabindex="-1"></a><span class="co"># check it</span></span>
+<span id="cb700-6"><a href="statistical-techniques-for-exponential-distributions.html#cb700-6" tabindex="-1"></a>myfactor</span></code></pre></div>
 <pre><code>## [1] surgical KN-95    KN-95    N-95     surgical
 ## Levels: N-95 KN-95 surgical</code></pre>
 <p><code>factor</code>s can be reduced to <code>numeric</code> vectors using <code>as.numeric()</code>. This returns the level for each value in the factor.</p>
-<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb692-1"><a href="statistical-techniques-for-exponential-distributions.html#cb692-1" tabindex="-1"></a><span class="co"># Turn the factor numeric</span></span>
-<span id="cb692-2"><a href="statistical-techniques-for-exponential-distributions.html#cb692-2" tabindex="-1"></a>mynum <span class="ot">&lt;-</span> myfactor <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>()</span>
-<span id="cb692-3"><a href="statistical-techniques-for-exponential-distributions.html#cb692-3" tabindex="-1"></a><span class="co"># Compare</span></span>
-<span id="cb692-4"><a href="statistical-techniques-for-exponential-distributions.html#cb692-4" tabindex="-1"></a><span class="fu">data.frame</span>(myfactor, mynum)</span></code></pre></div>
+<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb702-1"><a href="statistical-techniques-for-exponential-distributions.html#cb702-1" tabindex="-1"></a><span class="co"># Turn the factor numeric</span></span>
+<span id="cb702-2"><a href="statistical-techniques-for-exponential-distributions.html#cb702-2" tabindex="-1"></a>mynum <span class="ot">&lt;-</span> myfactor <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>()</span>
+<span id="cb702-3"><a href="statistical-techniques-for-exponential-distributions.html#cb702-3" tabindex="-1"></a><span class="co"># Compare</span></span>
+<span id="cb702-4"><a href="statistical-techniques-for-exponential-distributions.html#cb702-4" tabindex="-1"></a><span class="fu">data.frame</span>(myfactor, mynum)</span></code></pre></div>
 <pre><code>##   myfactor mynum
 ## 1 surgical     3
 ## 2    KN-95     2
 ## 3    KN-95     2
 ## 4     N-95     1
 ## 5 surgical     3</code></pre>
-<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb694-1"><a href="statistical-techniques-for-exponential-distributions.html#cb694-1" tabindex="-1"></a><span class="co"># for example, N-95, which was ranked first in the factor, receives a 1 anytime the value N-95 appears</span></span></code></pre></div>
+<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb704-1"><a href="statistical-techniques-for-exponential-distributions.html#cb704-1" tabindex="-1"></a><span class="co"># for example, N-95, which was ranked first in the factor, receives a 1 anytime the value N-95 appears</span></span></code></pre></div>
 <p><br>
 <br></p>
 </div>
 <div id="crosstabulation" class="section level2 hasAnchor" number="12.3">
 <h2><span class="header-section-number">12.3</span> Crosstabulation<a href="statistical-techniques-for-exponential-distributions.html#crosstabulation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Sometimes, we might want to tabulate failures in terms of meaningful units of time, counting the total failures every 5 hours, every 24 hours, etc. Let’s learn how!</p>
-<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb695-1"><a href="statistical-techniques-for-exponential-distributions.html#cb695-1" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">t =</span> masks<span class="sc">$</span>left_earloop) <span class="sc">%&gt;%</span></span>
-<span id="cb695-2"><a href="statistical-techniques-for-exponential-distributions.html#cb695-2" tabindex="-1"></a>  <span class="co"># classify each value into 5-point width bins (0 to 5, 6-10, 11-15, etc.)</span></span>
-<span id="cb695-3"><a href="statistical-techniques-for-exponential-distributions.html#cb695-3" tabindex="-1"></a>  <span class="co"># then convert it to a numeric ranking of categories from 1  to n bins</span></span>
-<span id="cb695-4"><a href="statistical-techniques-for-exponential-distributions.html#cb695-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">cut_interval</span>(t, <span class="at">length =</span> <span class="dv">5</span>))</span>
-<span id="cb695-5"><a href="statistical-techniques-for-exponential-distributions.html#cb695-5" tabindex="-1"></a></span>
-<span id="cb695-6"><a href="statistical-techniques-for-exponential-distributions.html#cb695-6" tabindex="-1"></a><span class="co"># Let&#39;s take a peek</span></span>
-<span id="cb695-7"><a href="statistical-techniques-for-exponential-distributions.html#cb695-7" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb705-1"><a href="statistical-techniques-for-exponential-distributions.html#cb705-1" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">t =</span> masks<span class="sc">$</span>left_earloop) <span class="sc">%&gt;%</span></span>
+<span id="cb705-2"><a href="statistical-techniques-for-exponential-distributions.html#cb705-2" tabindex="-1"></a>  <span class="co"># classify each value into 5-point width bins (0 to 5, 6-10, 11-15, etc.)</span></span>
+<span id="cb705-3"><a href="statistical-techniques-for-exponential-distributions.html#cb705-3" tabindex="-1"></a>  <span class="co"># then convert it to a numeric ranking of categories from 1  to n bins</span></span>
+<span id="cb705-4"><a href="statistical-techniques-for-exponential-distributions.html#cb705-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">cut_interval</span>(t, <span class="at">length =</span> <span class="dv">5</span>))</span>
+<span id="cb705-5"><a href="statistical-techniques-for-exponential-distributions.html#cb705-5" tabindex="-1"></a></span>
+<span id="cb705-6"><a href="statistical-techniques-for-exponential-distributions.html#cb705-6" tabindex="-1"></a><span class="co"># Let&#39;s take a peek</span></span>
+<span id="cb705-7"><a href="statistical-techniques-for-exponential-distributions.html#cb705-7" tabindex="-1"></a>d1 <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
 <pre><code>## Rows: 50
 ## Columns: 2
 ## $ t     &lt;dbl&gt; 6, 16, 46, 4, 1, 5, 32, 35, 27, 3, 4, 7, 1, 20, 22, 17, 8, 18, 1…
 ## $ label &lt;fct&gt; &quot;(5,10]&quot;, &quot;(15,20]&quot;, &quot;(45,50]&quot;, &quot;[0,5]&quot;, &quot;[0,5]&quot;, &quot;[0,5]&quot;, &quot;(30,…</code></pre>
 <p><strong>Step 2</strong>: Tabulate Observations per Bin.</p>
-<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb697-1"><a href="statistical-techniques-for-exponential-distributions.html#cb697-1" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d1 <span class="sc">%&gt;%</span></span>
-<span id="cb697-2"><a href="statistical-techniques-for-exponential-distributions.html#cb697-2" tabindex="-1"></a>  <span class="co"># For each bin label</span></span>
-<span id="cb697-3"><a href="statistical-techniques-for-exponential-distributions.html#cb697-3" tabindex="-1"></a>  <span class="fu">group_by</span>(label, <span class="at">.drop =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb697-4"><a href="statistical-techniques-for-exponential-distributions.html#cb697-4" tabindex="-1"></a>  <span class="co"># Get total observed rows in each bin</span></span>
-<span id="cb697-5"><a href="statistical-techniques-for-exponential-distributions.html#cb697-5" tabindex="-1"></a>  <span class="co"># .drop = FALSE records factor levels in label that have 0 cases</span></span>
-<span id="cb697-6"><a href="statistical-techniques-for-exponential-distributions.html#cb697-6" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">r_obs =</span> <span class="fu">n</span>())</span>
-<span id="cb697-7"><a href="statistical-techniques-for-exponential-distributions.html#cb697-7" tabindex="-1"></a></span>
-<span id="cb697-8"><a href="statistical-techniques-for-exponential-distributions.html#cb697-8" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb707-1"><a href="statistical-techniques-for-exponential-distributions.html#cb707-1" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d1 <span class="sc">%&gt;%</span></span>
+<span id="cb707-2"><a href="statistical-techniques-for-exponential-distributions.html#cb707-2" tabindex="-1"></a>  <span class="co"># For each bin label</span></span>
+<span id="cb707-3"><a href="statistical-techniques-for-exponential-distributions.html#cb707-3" tabindex="-1"></a>  <span class="fu">group_by</span>(label, <span class="at">.drop =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb707-4"><a href="statistical-techniques-for-exponential-distributions.html#cb707-4" tabindex="-1"></a>  <span class="co"># Get total observed rows in each bin</span></span>
+<span id="cb707-5"><a href="statistical-techniques-for-exponential-distributions.html#cb707-5" tabindex="-1"></a>  <span class="co"># .drop = FALSE records factor levels in label that have 0 cases</span></span>
+<span id="cb707-6"><a href="statistical-techniques-for-exponential-distributions.html#cb707-6" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">r_obs =</span> <span class="fu">n</span>())</span>
+<span id="cb707-7"><a href="statistical-techniques-for-exponential-distributions.html#cb707-7" tabindex="-1"></a></span>
+<span id="cb707-8"><a href="statistical-techniques-for-exponential-distributions.html#cb707-8" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
 <pre><code>## Rows: 11
 ## Columns: 2
 ## $ label &lt;fct&gt; &quot;[0,5]&quot;, &quot;(5,10]&quot;, &quot;(10,15]&quot;, &quot;(15,20]&quot;, &quot;(20,25]&quot;, &quot;(25,30]&quot;, &quot;…
 ## $ r_obs &lt;int&gt; 17, 13, 3, 7, 2, 2, 3, 0, 0, 1, 2</code></pre>
 <p><strong>Step 3</strong>: Get bounds and midpoint of Bins</p>
 <p>Last, we might need the bounds (upper and lower value), or the midpoint. Here’s how!</p>
-<div class="sourceCode" id="cb699"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb699-1"><a href="statistical-techniques-for-exponential-distributions.html#cb699-1" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> d2 <span class="sc">%&gt;%</span></span>
-<span id="cb699-2"><a href="statistical-techniques-for-exponential-distributions.html#cb699-2" tabindex="-1"></a>  <span class="co"># Get bin ranking, lower and upper bounds, and midpoint</span></span>
-<span id="cb699-3"><a href="statistical-techniques-for-exponential-distributions.html#cb699-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb699-4"><a href="statistical-techniques-for-exponential-distributions.html#cb699-4" tabindex="-1"></a>    <span class="at">bin =</span> <span class="fu">as.numeric</span>(label),</span>
-<span id="cb699-5"><a href="statistical-techniques-for-exponential-distributions.html#cb699-5" tabindex="-1"></a>    <span class="at">lower =</span> (bin <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">5</span>, </span>
-<span id="cb699-6"><a href="statistical-techniques-for-exponential-distributions.html#cb699-6" tabindex="-1"></a>    <span class="at">upper =</span> bin <span class="sc">*</span> <span class="dv">5</span>,</span>
-<span id="cb699-7"><a href="statistical-techniques-for-exponential-distributions.html#cb699-7" tabindex="-1"></a>    <span class="at">midpoint =</span> (lower <span class="sc">+</span> upper) <span class="sc">/</span> <span class="dv">2</span>) </span>
-<span id="cb699-8"><a href="statistical-techniques-for-exponential-distributions.html#cb699-8" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb699-9"><a href="statistical-techniques-for-exponential-distributions.html#cb699-9" tabindex="-1"></a>d3</span></code></pre></div>
+<div class="sourceCode" id="cb709"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb709-1"><a href="statistical-techniques-for-exponential-distributions.html#cb709-1" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> d2 <span class="sc">%&gt;%</span></span>
+<span id="cb709-2"><a href="statistical-techniques-for-exponential-distributions.html#cb709-2" tabindex="-1"></a>  <span class="co"># Get bin ranking, lower and upper bounds, and midpoint</span></span>
+<span id="cb709-3"><a href="statistical-techniques-for-exponential-distributions.html#cb709-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb709-4"><a href="statistical-techniques-for-exponential-distributions.html#cb709-4" tabindex="-1"></a>    <span class="at">bin =</span> <span class="fu">as.numeric</span>(label),</span>
+<span id="cb709-5"><a href="statistical-techniques-for-exponential-distributions.html#cb709-5" tabindex="-1"></a>    <span class="at">lower =</span> (bin <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">5</span>, </span>
+<span id="cb709-6"><a href="statistical-techniques-for-exponential-distributions.html#cb709-6" tabindex="-1"></a>    <span class="at">upper =</span> bin <span class="sc">*</span> <span class="dv">5</span>,</span>
+<span id="cb709-7"><a href="statistical-techniques-for-exponential-distributions.html#cb709-7" tabindex="-1"></a>    <span class="at">midpoint =</span> (lower <span class="sc">+</span> upper) <span class="sc">/</span> <span class="dv">2</span>) </span>
+<span id="cb709-8"><a href="statistical-techniques-for-exponential-distributions.html#cb709-8" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb709-9"><a href="statistical-techniques-for-exponential-distributions.html#cb709-9" tabindex="-1"></a>d3</span></code></pre></div>
 <pre><code>## # A tibble: 11 × 6
 ##    label   r_obs   bin lower upper midpoint
 ##    &lt;fct&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
@@ -1063,9 +1068,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Learning Check 1<a href="statistical-techniques-for-exponential-distributions.html#learning-check-1-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Question</strong></p>
 <p>A small start-up is product testing a new super-effective mask. They product tested 25 masks over 60 days. They contract you to analyze the masks’ lifespan data, recorded below as the number of days to failure.</p>
-<div class="sourceCode" id="cb701"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb701-1"><a href="statistical-techniques-for-exponential-distributions.html#cb701-1" tabindex="-1"></a><span class="co"># Lifespan in days</span></span>
-<span id="cb701-2"><a href="statistical-techniques-for-exponential-distributions.html#cb701-2" tabindex="-1"></a>supermasks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">13</span>, <span class="dv">15</span>, <span class="dv">17</span>, <span class="dv">19</span>, </span>
-<span id="cb701-3"><a href="statistical-techniques-for-exponential-distributions.html#cb701-3" tabindex="-1"></a>            <span class="dv">20</span>, <span class="dv">21</span>, <span class="dv">23</span>, <span class="dv">24</span>, <span class="dv">24</span>, <span class="dv">24</span>, <span class="dv">32</span>, <span class="dv">33</span>, <span class="dv">33</span>, <span class="dv">34</span>, <span class="dv">54</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb711"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb711-1"><a href="statistical-techniques-for-exponential-distributions.html#cb711-1" tabindex="-1"></a><span class="co"># Lifespan in days</span></span>
+<span id="cb711-2"><a href="statistical-techniques-for-exponential-distributions.html#cb711-2" tabindex="-1"></a>supermasks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">13</span>, <span class="dv">15</span>, <span class="dv">17</span>, <span class="dv">19</span>, </span>
+<span id="cb711-3"><a href="statistical-techniques-for-exponential-distributions.html#cb711-3" tabindex="-1"></a>            <span class="dv">20</span>, <span class="dv">21</span>, <span class="dv">23</span>, <span class="dv">24</span>, <span class="dv">24</span>, <span class="dv">24</span>, <span class="dv">32</span>, <span class="dv">33</span>, <span class="dv">33</span>, <span class="dv">34</span>, <span class="dv">54</span>)</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>Cross-tabulate the lifespan distribution in intervals of <code>7 days</code>.</p></li>
 <li><p>What’s the last 7-day interval?</p></li>
@@ -1093,21 +1098,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol start="2" style="list-style-type: decimal">
 <li>What’s the last 7-day interval?</li>
 </ol>
-<div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb703-1"><a href="statistical-techniques-for-exponential-distributions.html#cb703-1" tabindex="-1"></a><span class="co"># Find the bin with the highest bin id...</span></span>
-<span id="cb703-2"><a href="statistical-techniques-for-exponential-distributions.html#cb703-2" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">filter</span>(bin <span class="sc">==</span> <span class="fu">max</span>(bin))</span></code></pre></div>
+<div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb713-1"><a href="statistical-techniques-for-exponential-distributions.html#cb713-1" tabindex="-1"></a><span class="co"># Find the bin with the highest bin id...</span></span>
+<span id="cb713-2"><a href="statistical-techniques-for-exponential-distributions.html#cb713-2" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">filter</span>(bin <span class="sc">==</span> <span class="fu">max</span>(bin))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
 ##   label   r_obs   bin lower upper midpoint
 ##   &lt;fct&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
 ## 1 (49,56]     1     8    49    56     52.5</code></pre>
-<div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb705-1"><a href="statistical-techniques-for-exponential-distributions.html#cb705-1" tabindex="-1"></a><span class="co"># or</span></span>
-<span id="cb705-2"><a href="statistical-techniques-for-exponential-distributions.html#cb705-2" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb715"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb715-1"><a href="statistical-techniques-for-exponential-distributions.html#cb715-1" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb715-2"><a href="statistical-techniques-for-exponential-distributions.html#cb715-2" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
 ##   label   r_obs   bin lower upper midpoint
 ##   &lt;fct&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
 ## 1 (49,56]     1     8    49    56     52.5</code></pre>
-<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb707-1"><a href="statistical-techniques-for-exponential-distributions.html#cb707-1" tabindex="-1"></a><span class="co"># or </span></span>
-<span id="cb707-2"><a href="statistical-techniques-for-exponential-distributions.html#cb707-2" tabindex="-1"></a><span class="co"># Find the bin with the highest midpoint</span></span>
-<span id="cb707-3"><a href="statistical-techniques-for-exponential-distributions.html#cb707-3" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">filter</span>(midpoint <span class="sc">==</span> <span class="fu">max</span>(midpoint))</span></code></pre></div>
+<div class="sourceCode" id="cb717"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb717-1"><a href="statistical-techniques-for-exponential-distributions.html#cb717-1" tabindex="-1"></a><span class="co"># or </span></span>
+<span id="cb717-2"><a href="statistical-techniques-for-exponential-distributions.html#cb717-2" tabindex="-1"></a><span class="co"># Find the bin with the highest midpoint</span></span>
+<span id="cb717-3"><a href="statistical-techniques-for-exponential-distributions.html#cb717-3" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">filter</span>(midpoint <span class="sc">==</span> <span class="fu">max</span>(midpoint))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
 ##   label   r_obs   bin lower upper midpoint
 ##   &lt;fct&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
@@ -1115,8 +1120,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol start="3" style="list-style-type: decimal">
 <li>How many masks are expected to fail within that interval?</li>
 </ol>
-<div class="sourceCode" id="cb709"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb709-1"><a href="statistical-techniques-for-exponential-distributions.html#cb709-1" tabindex="-1"></a><span class="co"># Find the count of masks to fail `r_obs` within that interval</span></span>
-<span id="cb709-2"><a href="statistical-techniques-for-exponential-distributions.html#cb709-2" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">filter</span>(bin <span class="sc">==</span> <span class="fu">max</span>(bin)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(label, r_obs)</span></code></pre></div>
+<div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb719-1"><a href="statistical-techniques-for-exponential-distributions.html#cb719-1" tabindex="-1"></a><span class="co"># Find the count of masks to fail `r_obs` within that interval</span></span>
+<span id="cb719-2"><a href="statistical-techniques-for-exponential-distributions.html#cb719-2" tabindex="-1"></a>a <span class="sc">%&gt;%</span> <span class="fu">filter</span>(bin <span class="sc">==</span> <span class="fu">max</span>(bin)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(label, r_obs)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 2
 ##   label   r_obs
 ##   &lt;fct&gt;   &lt;int&gt;
@@ -1124,13 +1129,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol start="4" style="list-style-type: decimal">
 <li>What percentage of masks are expected to fail <em>within 28 days</em>?</li>
 </ol>
-<div class="sourceCode" id="cb711"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb711-1"><a href="statistical-techniques-for-exponential-distributions.html#cb711-1" tabindex="-1"></a>a <span class="sc">%&gt;%</span> </span>
-<span id="cb711-2"><a href="statistical-techniques-for-exponential-distributions.html#cb711-2" tabindex="-1"></a>  <span class="co"># Calculate cumulative failures...</span></span>
-<span id="cb711-3"><a href="statistical-techniques-for-exponential-distributions.html#cb711-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">r_cumulative =</span> <span class="fu">cumsum</span>(r_obs)) <span class="sc">%&gt;%</span></span>
-<span id="cb711-4"><a href="statistical-techniques-for-exponential-distributions.html#cb711-4" tabindex="-1"></a>  <span class="co"># Calculate percent of cumulative failures, divided by total failures</span></span>
-<span id="cb711-5"><a href="statistical-techniques-for-exponential-distributions.html#cb711-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> <span class="fu">cumsum</span>(r_obs) <span class="sc">/</span> <span class="fu">sum</span>(r_obs)) <span class="sc">%&gt;%</span></span>
-<span id="cb711-6"><a href="statistical-techniques-for-exponential-distributions.html#cb711-6" tabindex="-1"></a>  <span class="co"># Filter to just our failures within 28 days</span></span>
-<span id="cb711-7"><a href="statistical-techniques-for-exponential-distributions.html#cb711-7" tabindex="-1"></a>  <span class="fu">filter</span>(midpoint <span class="sc">&lt;=</span> <span class="dv">28</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb721"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb721-1"><a href="statistical-techniques-for-exponential-distributions.html#cb721-1" tabindex="-1"></a>a <span class="sc">%&gt;%</span> </span>
+<span id="cb721-2"><a href="statistical-techniques-for-exponential-distributions.html#cb721-2" tabindex="-1"></a>  <span class="co"># Calculate cumulative failures...</span></span>
+<span id="cb721-3"><a href="statistical-techniques-for-exponential-distributions.html#cb721-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">r_cumulative =</span> <span class="fu">cumsum</span>(r_obs)) <span class="sc">%&gt;%</span></span>
+<span id="cb721-4"><a href="statistical-techniques-for-exponential-distributions.html#cb721-4" tabindex="-1"></a>  <span class="co"># Calculate percent of cumulative failures, divided by total failures</span></span>
+<span id="cb721-5"><a href="statistical-techniques-for-exponential-distributions.html#cb721-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> <span class="fu">cumsum</span>(r_obs) <span class="sc">/</span> <span class="fu">sum</span>(r_obs)) <span class="sc">%&gt;%</span></span>
+<span id="cb721-6"><a href="statistical-techniques-for-exponential-distributions.html#cb721-6" tabindex="-1"></a>  <span class="co"># Filter to just our failures within 28 days</span></span>
+<span id="cb721-7"><a href="statistical-techniques-for-exponential-distributions.html#cb721-7" tabindex="-1"></a>  <span class="fu">filter</span>(midpoint <span class="sc">&lt;=</span> <span class="dv">28</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 8
 ##   label   r_obs   bin lower upper midpoint r_cumulative percent
 ##   &lt;fct&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;        &lt;int&gt;   &lt;dbl&gt;
@@ -1149,8 +1154,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="lambda-from-complete-sample" class="section level3 hasAnchor" number="12.4.1">
 <h3><span class="header-section-number">12.4.1</span> Lambda from Complete Sample<a href="statistical-techniques-for-exponential-distributions.html#lambda-from-complete-sample" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If we have a complete sample of data (eg. not censored), then we can just calculate: $ = $.</p>
-<div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb713-1"><a href="statistical-techniques-for-exponential-distributions.html#cb713-1" tabindex="-1"></a><span class="co"># Eg. </span></span>
-<span id="cb713-2"><a href="statistical-techniques-for-exponential-distributions.html#cb713-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(masks<span class="sc">$</span>left_earloop)</span></code></pre></div>
+<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb723-1"><a href="statistical-techniques-for-exponential-distributions.html#cb723-1" tabindex="-1"></a><span class="co"># Eg. </span></span>
+<span id="cb723-2"><a href="statistical-techniques-for-exponential-distributions.html#cb723-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(masks<span class="sc">$</span>left_earloop)</span></code></pre></div>
 <pre><code>## [1] 0.0748503</code></pre>
 </div>
 <div id="hatlambda-from-cross-tabulation" class="section level3 hasAnchor" number="12.4.2">
@@ -1171,18 +1176,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Unless some cases do not fail, <span class="math inline">\((n - r)t_z\)</span> will cancel out as <code>0</code>.</p></li>
 </ul>
 <p><span class="math display">\[ \hat{\lambda} = \frac{ r  }{ \sum_{i=1}^{r}{t_i}  +  (n - r)t_z} \]</span></p>
-<div class="sourceCode" id="cb715"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb715-1"><a href="statistical-techniques-for-exponential-distributions.html#cb715-1" tabindex="-1"></a><span class="co"># Let&#39;s calculate it!</span></span>
-<span id="cb715-2"><a href="statistical-techniques-for-exponential-distributions.html#cb715-2" tabindex="-1"></a></span>
-<span id="cb715-3"><a href="statistical-techniques-for-exponential-distributions.html#cb715-3" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> d3 <span class="sc">%&gt;%</span></span>
-<span id="cb715-4"><a href="statistical-techniques-for-exponential-distributions.html#cb715-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb715-5"><a href="statistical-techniques-for-exponential-distributions.html#cb715-5" tabindex="-1"></a>    <span class="at">r =</span> <span class="fu">sum</span>(r_obs), <span class="co"># total failures</span></span>
-<span id="cb715-6"><a href="statistical-techniques-for-exponential-distributions.html#cb715-6" tabindex="-1"></a>    <span class="at">hours =</span> <span class="fu">sum</span>(midpoint<span class="sc">*</span>r_obs), <span class="co"># total failure-hours</span></span>
-<span id="cb715-7"><a href="statistical-techniques-for-exponential-distributions.html#cb715-7" tabindex="-1"></a>    <span class="at">n =</span> r, <span class="co"># in this case, total failures = total obs</span></span>
-<span id="cb715-8"><a href="statistical-techniques-for-exponential-distributions.html#cb715-8" tabindex="-1"></a>    <span class="at">tz =</span> <span class="fu">max</span>(midpoint), <span class="co"># end of study period</span></span>
-<span id="cb715-9"><a href="statistical-techniques-for-exponential-distributions.html#cb715-9" tabindex="-1"></a>    <span class="co"># Calculate lambda hat!</span></span>
-<span id="cb715-10"><a href="statistical-techniques-for-exponential-distributions.html#cb715-10" tabindex="-1"></a>    <span class="at">lambda_hat =</span> r <span class="sc">/</span> (hours <span class="sc">+</span> (n <span class="sc">-</span> r)<span class="sc">*</span>tz))</span></code></pre></div>
-<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb716-1"><a href="statistical-techniques-for-exponential-distributions.html#cb716-1" tabindex="-1"></a><span class="co"># Let&#39;s compare</span></span>
-<span id="cb716-2"><a href="statistical-techniques-for-exponential-distributions.html#cb716-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(masks<span class="sc">$</span>left_earloop)</span></code></pre></div>
+<div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb725-1"><a href="statistical-techniques-for-exponential-distributions.html#cb725-1" tabindex="-1"></a><span class="co"># Let&#39;s calculate it!</span></span>
+<span id="cb725-2"><a href="statistical-techniques-for-exponential-distributions.html#cb725-2" tabindex="-1"></a></span>
+<span id="cb725-3"><a href="statistical-techniques-for-exponential-distributions.html#cb725-3" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> d3 <span class="sc">%&gt;%</span></span>
+<span id="cb725-4"><a href="statistical-techniques-for-exponential-distributions.html#cb725-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb725-5"><a href="statistical-techniques-for-exponential-distributions.html#cb725-5" tabindex="-1"></a>    <span class="at">r =</span> <span class="fu">sum</span>(r_obs), <span class="co"># total failures</span></span>
+<span id="cb725-6"><a href="statistical-techniques-for-exponential-distributions.html#cb725-6" tabindex="-1"></a>    <span class="at">hours =</span> <span class="fu">sum</span>(midpoint<span class="sc">*</span>r_obs), <span class="co"># total failure-hours</span></span>
+<span id="cb725-7"><a href="statistical-techniques-for-exponential-distributions.html#cb725-7" tabindex="-1"></a>    <span class="at">n =</span> r, <span class="co"># in this case, total failures = total obs</span></span>
+<span id="cb725-8"><a href="statistical-techniques-for-exponential-distributions.html#cb725-8" tabindex="-1"></a>    <span class="at">tz =</span> <span class="fu">max</span>(midpoint), <span class="co"># end of study period</span></span>
+<span id="cb725-9"><a href="statistical-techniques-for-exponential-distributions.html#cb725-9" tabindex="-1"></a>    <span class="co"># Calculate lambda hat!</span></span>
+<span id="cb725-10"><a href="statistical-techniques-for-exponential-distributions.html#cb725-10" tabindex="-1"></a>    <span class="at">lambda_hat =</span> r <span class="sc">/</span> (hours <span class="sc">+</span> (n <span class="sc">-</span> r)<span class="sc">*</span>tz))</span></code></pre></div>
+<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb726-1"><a href="statistical-techniques-for-exponential-distributions.html#cb726-1" tabindex="-1"></a><span class="co"># Let&#39;s compare</span></span>
+<span id="cb726-2"><a href="statistical-techniques-for-exponential-distributions.html#cb726-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(masks<span class="sc">$</span>left_earloop)</span></code></pre></div>
 <pre><code>## [1] 0.0748503</code></pre>
 <hr />
 <p><br>
@@ -1194,19 +1199,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Question</strong></p>
 <p>The same startup testing that super-effective mask needs to estimate their failure rate, but they only have crosstabulated data. They’ve provided it to you below, using a <code>tribble()</code> (another <code>dplyr</code> way to write a data.frame).</p>
 <p>Estimate <span class="math inline">\(\hat{\lambda}\)</span> from the cross-tabulated data, knowing that they tested 25 masks over 60 days.</p>
-<div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb718-1"><a href="statistical-techniques-for-exponential-distributions.html#cb718-1" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">tribble</span>(</span>
-<span id="cb718-2"><a href="statistical-techniques-for-exponential-distributions.html#cb718-2" tabindex="-1"></a>  <span class="sc">~</span>bin, <span class="sc">~</span>label,     <span class="sc">~</span>r_obs, <span class="sc">~</span>lower, <span class="sc">~</span>upper,</span>
-<span id="cb718-3"><a href="statistical-techniques-for-exponential-distributions.html#cb718-3" tabindex="-1"></a>  <span class="dv">1</span>,    <span class="st">&#39;[0,7]&#39;</span>,    <span class="dv">9</span>,      <span class="dv">0</span>,     <span class="dv">7</span>,</span>
-<span id="cb718-4"><a href="statistical-techniques-for-exponential-distributions.html#cb718-4" tabindex="-1"></a>  <span class="dv">2</span>,    <span class="st">&#39;(7,14]&#39;</span>,   <span class="dv">2</span>,      <span class="dv">7</span>,     <span class="dv">14</span>,</span>
-<span id="cb718-5"><a href="statistical-techniques-for-exponential-distributions.html#cb718-5" tabindex="-1"></a>  <span class="dv">3</span>,    <span class="st">&#39;(14,21]&#39;</span>,  <span class="dv">5</span>,      <span class="dv">14</span>,    <span class="dv">21</span>,</span>
-<span id="cb718-6"><a href="statistical-techniques-for-exponential-distributions.html#cb718-6" tabindex="-1"></a>  <span class="dv">4</span>,    <span class="st">&#39;(21,28]&#39;</span>,  <span class="dv">4</span>,      <span class="dv">28</span>,    <span class="dv">35</span>,</span>
-<span id="cb718-7"><a href="statistical-techniques-for-exponential-distributions.html#cb718-7" tabindex="-1"></a>  <span class="dv">5</span>,    <span class="st">&#39;(28,35]&#39;</span>,  <span class="dv">4</span>,      <span class="dv">28</span>,    <span class="dv">35</span>,</span>
-<span id="cb718-8"><a href="statistical-techniques-for-exponential-distributions.html#cb718-8" tabindex="-1"></a>  <span class="dv">6</span>,    <span class="st">&#39;(35,42]&#39;</span>,  <span class="dv">0</span>,      <span class="dv">35</span>,    <span class="dv">42</span>,</span>
-<span id="cb718-9"><a href="statistical-techniques-for-exponential-distributions.html#cb718-9" tabindex="-1"></a>  <span class="dv">7</span>,    <span class="st">&#39;(42,49]&#39;</span>,  <span class="dv">0</span>,      <span class="dv">42</span>,    <span class="dv">49</span>,</span>
-<span id="cb718-10"><a href="statistical-techniques-for-exponential-distributions.html#cb718-10" tabindex="-1"></a>  <span class="dv">8</span>,    <span class="st">&#39;(49,56]&#39;</span>,  <span class="dv">1</span>,      <span class="dv">49</span>,    <span class="dv">56</span>  </span>
-<span id="cb718-11"><a href="statistical-techniques-for-exponential-distributions.html#cb718-11" tabindex="-1"></a>)</span>
-<span id="cb718-12"><a href="statistical-techniques-for-exponential-distributions.html#cb718-12" tabindex="-1"></a></span>
-<span id="cb718-13"><a href="statistical-techniques-for-exponential-distributions.html#cb718-13" tabindex="-1"></a>a</span></code></pre></div>
+<div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb728-1"><a href="statistical-techniques-for-exponential-distributions.html#cb728-1" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">tribble</span>(</span>
+<span id="cb728-2"><a href="statistical-techniques-for-exponential-distributions.html#cb728-2" tabindex="-1"></a>  <span class="sc">~</span>bin, <span class="sc">~</span>label,     <span class="sc">~</span>r_obs, <span class="sc">~</span>lower, <span class="sc">~</span>upper,</span>
+<span id="cb728-3"><a href="statistical-techniques-for-exponential-distributions.html#cb728-3" tabindex="-1"></a>  <span class="dv">1</span>,    <span class="st">&#39;[0,7]&#39;</span>,    <span class="dv">9</span>,      <span class="dv">0</span>,     <span class="dv">7</span>,</span>
+<span id="cb728-4"><a href="statistical-techniques-for-exponential-distributions.html#cb728-4" tabindex="-1"></a>  <span class="dv">2</span>,    <span class="st">&#39;(7,14]&#39;</span>,   <span class="dv">2</span>,      <span class="dv">7</span>,     <span class="dv">14</span>,</span>
+<span id="cb728-5"><a href="statistical-techniques-for-exponential-distributions.html#cb728-5" tabindex="-1"></a>  <span class="dv">3</span>,    <span class="st">&#39;(14,21]&#39;</span>,  <span class="dv">5</span>,      <span class="dv">14</span>,    <span class="dv">21</span>,</span>
+<span id="cb728-6"><a href="statistical-techniques-for-exponential-distributions.html#cb728-6" tabindex="-1"></a>  <span class="dv">4</span>,    <span class="st">&#39;(21,28]&#39;</span>,  <span class="dv">4</span>,      <span class="dv">28</span>,    <span class="dv">35</span>,</span>
+<span id="cb728-7"><a href="statistical-techniques-for-exponential-distributions.html#cb728-7" tabindex="-1"></a>  <span class="dv">5</span>,    <span class="st">&#39;(28,35]&#39;</span>,  <span class="dv">4</span>,      <span class="dv">28</span>,    <span class="dv">35</span>,</span>
+<span id="cb728-8"><a href="statistical-techniques-for-exponential-distributions.html#cb728-8" tabindex="-1"></a>  <span class="dv">6</span>,    <span class="st">&#39;(35,42]&#39;</span>,  <span class="dv">0</span>,      <span class="dv">35</span>,    <span class="dv">42</span>,</span>
+<span id="cb728-9"><a href="statistical-techniques-for-exponential-distributions.html#cb728-9" tabindex="-1"></a>  <span class="dv">7</span>,    <span class="st">&#39;(42,49]&#39;</span>,  <span class="dv">0</span>,      <span class="dv">42</span>,    <span class="dv">49</span>,</span>
+<span id="cb728-10"><a href="statistical-techniques-for-exponential-distributions.html#cb728-10" tabindex="-1"></a>  <span class="dv">8</span>,    <span class="st">&#39;(49,56]&#39;</span>,  <span class="dv">1</span>,      <span class="dv">49</span>,    <span class="dv">56</span>  </span>
+<span id="cb728-11"><a href="statistical-techniques-for-exponential-distributions.html#cb728-11" tabindex="-1"></a>)</span>
+<span id="cb728-12"><a href="statistical-techniques-for-exponential-distributions.html#cb728-12" tabindex="-1"></a></span>
+<span id="cb728-13"><a href="statistical-techniques-for-exponential-distributions.html#cb728-13" tabindex="-1"></a>a</span></code></pre></div>
 <pre><code>## # A tibble: 8 × 5
 ##     bin label   r_obs lower upper
 ##   &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1241,13 +1246,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Like any statistic, our estimate <span class="math inline">\(\hat{\lambda}\)</span> has a full <em>sampling distribution</em> of <span class="math inline">\(\hat{\lambda}\)</span> values we could get due to random sampling error, with some of them occurring more frequently than others.</p></li>
 <li><p>We want to find the upper and lower bounds around the 90%, 95%, or perhaps 99% <em>most common</em> (middle-most) values in that sampling distribution. So, if <span class="math inline">\(alpha = 0.10\)</span>, we’re going to get a 90% confidence interval (dubbed <span class="math inline">\(interval\)</span>) spanning from the 5%~95% of that sampling distribution.</p></li>
 </ul>
-<div class="sourceCode" id="cb721"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb721-1"><a href="statistical-techniques-for-exponential-distributions.html#cb721-1" tabindex="-1"></a><span class="co"># To calculate a &#39;one-tailed&#39; 90% CI (eg. we only care if above 90%)</span></span>
-<span id="cb721-2"><a href="statistical-techniques-for-exponential-distributions.html#cb721-2" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.10</span></span>
-<span id="cb721-3"><a href="statistical-techniques-for-exponential-distributions.html#cb721-3" tabindex="-1"></a>ci <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> alpha</span></code></pre></div>
-<div class="sourceCode" id="cb722"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb722-1"><a href="statistical-techniques-for-exponential-distributions.html#cb722-1" tabindex="-1"></a><span class="co"># To adjust this to be &#39;two-tailed&#39; 90% CI (eg. we care if below 5% or above 95%)...</span></span>
-<span id="cb722-2"><a href="statistical-techniques-for-exponential-distributions.html#cb722-2" tabindex="-1"></a><span class="fl">0.5</span> <span class="sc">+</span> (ci <span class="sc">/</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb731-1"><a href="statistical-techniques-for-exponential-distributions.html#cb731-1" tabindex="-1"></a><span class="co"># To calculate a &#39;one-tailed&#39; 90% CI (eg. we only care if above 90%)</span></span>
+<span id="cb731-2"><a href="statistical-techniques-for-exponential-distributions.html#cb731-2" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.10</span></span>
+<span id="cb731-3"><a href="statistical-techniques-for-exponential-distributions.html#cb731-3" tabindex="-1"></a>ci <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> alpha</span></code></pre></div>
+<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb732-1"><a href="statistical-techniques-for-exponential-distributions.html#cb732-1" tabindex="-1"></a><span class="co"># To adjust this to be &#39;two-tailed&#39; 90% CI (eg. we care if below 5% or above 95%)...</span></span>
+<span id="cb732-2"><a href="statistical-techniques-for-exponential-distributions.html#cb732-2" tabindex="-1"></a><span class="fl">0.5</span> <span class="sc">+</span> (ci <span class="sc">/</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 0.95</code></pre>
-<div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb724-1"><a href="statistical-techniques-for-exponential-distributions.html#cb724-1" tabindex="-1"></a><span class="fl">0.5</span> <span class="sc">-</span> ci <span class="sc">/</span> <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb734-1"><a href="statistical-techniques-for-exponential-distributions.html#cb734-1" tabindex="-1"></a><span class="fl">0.5</span> <span class="sc">-</span> ci <span class="sc">/</span> <span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 0.05</code></pre>
 </div>
 <div id="k-factor-by-type-of-data" class="section level4 hasAnchor" number="12.4.3.2">
@@ -1255,26 +1260,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><strong>No Censoring</strong>: If we have complete data (all observations failed!), using this formula to calculate factor <span class="math inline">\(k\)</span>:</li>
 </ul>
-<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb726-1"><a href="statistical-techniques-for-exponential-distributions.html#cb726-1" tabindex="-1"></a><span class="co"># For example, let&#39;s say r = 50</span></span>
-<span id="cb726-2"><a href="statistical-techniques-for-exponential-distributions.html#cb726-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="dv">50</span></span>
-<span id="cb726-3"><a href="statistical-techniques-for-exponential-distributions.html#cb726-3" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">qchisq</span>(ci, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r)</span></code></pre></div>
+<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb736-1"><a href="statistical-techniques-for-exponential-distributions.html#cb736-1" tabindex="-1"></a><span class="co"># For example, let&#39;s say r = 50</span></span>
+<span id="cb736-2"><a href="statistical-techniques-for-exponential-distributions.html#cb736-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="dv">50</span></span>
+<span id="cb736-3"><a href="statistical-techniques-for-exponential-distributions.html#cb736-3" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">qchisq</span>(ci, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r)</span></code></pre></div>
 <ul>
 <li><strong>Time-Censoring</strong>: If we only record up to a specific time (eg. planning an experiment), use <strong>this</strong> formula to calculate factor <span class="math inline">\(k\)</span>, setting as the degrees of freedom <span class="math inline">\(df = 2(r+1)\)</span>.</li>
 </ul>
-<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb727-1"><a href="statistical-techniques-for-exponential-distributions.html#cb727-1" tabindex="-1"></a><span class="co"># For example, let&#39;s say r = 50</span></span>
-<span id="cb727-2"><a href="statistical-techniques-for-exponential-distributions.html#cb727-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="dv">50</span></span>
-<span id="cb727-3"><a href="statistical-techniques-for-exponential-distributions.html#cb727-3" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">qchisq</span>(ci, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>(r<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r)</span></code></pre></div>
-<div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb728-1"><a href="statistical-techniques-for-exponential-distributions.html#cb728-1" tabindex="-1"></a><span class="co"># Clear these</span></span>
-<span id="cb728-2"><a href="statistical-techniques-for-exponential-distributions.html#cb728-2" tabindex="-1"></a><span class="fu">remove</span>(r, k)</span></code></pre></div>
+<div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb737-1"><a href="statistical-techniques-for-exponential-distributions.html#cb737-1" tabindex="-1"></a><span class="co"># For example, let&#39;s say r = 50</span></span>
+<span id="cb737-2"><a href="statistical-techniques-for-exponential-distributions.html#cb737-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="dv">50</span></span>
+<span id="cb737-3"><a href="statistical-techniques-for-exponential-distributions.html#cb737-3" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">qchisq</span>(ci, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>(r<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r)</span></code></pre></div>
+<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb738-1"><a href="statistical-techniques-for-exponential-distributions.html#cb738-1" tabindex="-1"></a><span class="co"># Clear these</span></span>
+<span id="cb738-2"><a href="statistical-techniques-for-exponential-distributions.html#cb738-2" tabindex="-1"></a><span class="fu">remove</span>(r, k)</span></code></pre></div>
 <p>So, since we do not have time censoring in our <code>d4</code> dataset, we can go ahead an calculate the <code>df = 2*r</code> and compute the 90% <code>lower</code> and <code>upper</code> confidence intervals.</p>
-<div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb729-1"><a href="statistical-techniques-for-exponential-distributions.html#cb729-1" tabindex="-1"></a>d4 <span class="sc">%&gt;%</span></span>
-<span id="cb729-2"><a href="statistical-techniques-for-exponential-distributions.html#cb729-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb729-3"><a href="statistical-techniques-for-exponential-distributions.html#cb729-3" tabindex="-1"></a>    <span class="at">lambda_hat =</span> lambda_hat,</span>
-<span id="cb729-4"><a href="statistical-techniques-for-exponential-distributions.html#cb729-4" tabindex="-1"></a>    <span class="at">r =</span> r,</span>
-<span id="cb729-5"><a href="statistical-techniques-for-exponential-distributions.html#cb729-5" tabindex="-1"></a>    <span class="at">k_upper =</span> <span class="fu">qchisq</span>(<span class="fl">0.95</span>, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r),</span>
-<span id="cb729-6"><a href="statistical-techniques-for-exponential-distributions.html#cb729-6" tabindex="-1"></a>    <span class="at">k_lower =</span> <span class="fu">qchisq</span>(<span class="fl">0.05</span>, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r),</span>
-<span id="cb729-7"><a href="statistical-techniques-for-exponential-distributions.html#cb729-7" tabindex="-1"></a>    <span class="at">lower =</span> lambda_hat <span class="sc">*</span> k_lower,</span>
-<span id="cb729-8"><a href="statistical-techniques-for-exponential-distributions.html#cb729-8" tabindex="-1"></a>    <span class="at">upper =</span> lambda_hat <span class="sc">*</span> k_upper)</span></code></pre></div>
+<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb739-1"><a href="statistical-techniques-for-exponential-distributions.html#cb739-1" tabindex="-1"></a>d4 <span class="sc">%&gt;%</span></span>
+<span id="cb739-2"><a href="statistical-techniques-for-exponential-distributions.html#cb739-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb739-3"><a href="statistical-techniques-for-exponential-distributions.html#cb739-3" tabindex="-1"></a>    <span class="at">lambda_hat =</span> lambda_hat,</span>
+<span id="cb739-4"><a href="statistical-techniques-for-exponential-distributions.html#cb739-4" tabindex="-1"></a>    <span class="at">r =</span> r,</span>
+<span id="cb739-5"><a href="statistical-techniques-for-exponential-distributions.html#cb739-5" tabindex="-1"></a>    <span class="at">k_upper =</span> <span class="fu">qchisq</span>(<span class="fl">0.95</span>, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r),</span>
+<span id="cb739-6"><a href="statistical-techniques-for-exponential-distributions.html#cb739-6" tabindex="-1"></a>    <span class="at">k_lower =</span> <span class="fu">qchisq</span>(<span class="fl">0.05</span>, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r),</span>
+<span id="cb739-7"><a href="statistical-techniques-for-exponential-distributions.html#cb739-7" tabindex="-1"></a>    <span class="at">lower =</span> lambda_hat <span class="sc">*</span> k_lower,</span>
+<span id="cb739-8"><a href="statistical-techniques-for-exponential-distributions.html#cb739-8" tabindex="-1"></a>    <span class="at">upper =</span> lambda_hat <span class="sc">*</span> k_upper)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
 ##   lambda_hat     r k_upper k_lower  lower  upper
 ##        &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -1289,28 +1294,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Learning Check 3<a href="statistical-techniques-for-exponential-distributions.html#learning-check-3-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Question</strong></p>
 <p>A small start-up is product testing a new super-effective mask. They product tested 25 masks over 60 days. They contracted you to analyze the cross-tabulated data, tabulated in intervals of 7 days. You have an estimate for <span class="math inline">\(\hat{\lambda}\)</span>, provided below.</p>
-<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb731-1"><a href="statistical-techniques-for-exponential-distributions.html#cb731-1" tabindex="-1"></a><span class="co"># Your estimate</span></span>
-<span id="cb731-2"><a href="statistical-techniques-for-exponential-distributions.html#cb731-2" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">r =</span> <span class="dv">25</span>, <span class="at">days =</span> <span class="fl">416.5</span>, <span class="at">n =</span> <span class="dv">25</span>, <span class="at">tz =</span> <span class="fl">52.5</span>,  <span class="at">lambda_hat =</span> <span class="fl">0.06002401</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb741"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb741-1"><a href="statistical-techniques-for-exponential-distributions.html#cb741-1" tabindex="-1"></a><span class="co"># Your estimate</span></span>
+<span id="cb741-2"><a href="statistical-techniques-for-exponential-distributions.html#cb741-2" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">r =</span> <span class="dv">25</span>, <span class="at">days =</span> <span class="fl">416.5</span>, <span class="at">n =</span> <span class="dv">25</span>, <span class="at">tz =</span> <span class="fl">52.5</span>,  <span class="at">lambda_hat =</span> <span class="fl">0.06002401</span> )</span></code></pre></div>
 <p>Estimate a 95% confidence interval for <span class="math inline">\(\hat{\lambda}\)</span>.</p>
 <details>
 <summary>
 <strong>[View Answer!]</strong>
 </summary>
 <p>Estimate a 95% confidence interval for <span class="math inline">\(\hat{\lambda}\)</span>.</p>
-<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb732-1"><a href="statistical-techniques-for-exponential-distributions.html#cb732-1" tabindex="-1"></a><span class="co"># Get data...</span></span>
-<span id="cb732-2"><a href="statistical-techniques-for-exponential-distributions.html#cb732-2" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">r =</span> <span class="dv">25</span>, <span class="at">days =</span> <span class="fl">416.5</span>, <span class="at">n =</span> <span class="dv">25</span>, <span class="at">tz =</span> <span class="fl">52.5</span>,  <span class="at">lambda_hat =</span> <span class="fl">0.06002401</span> )</span>
-<span id="cb732-3"><a href="statistical-techniques-for-exponential-distributions.html#cb732-3" tabindex="-1"></a></span>
-<span id="cb732-4"><a href="statistical-techniques-for-exponential-distributions.html#cb732-4" tabindex="-1"></a><span class="co"># And estimate lambda hat!</span></span>
-<span id="cb732-5"><a href="statistical-techniques-for-exponential-distributions.html#cb732-5" tabindex="-1"></a>c <span class="ot">&lt;-</span> b <span class="sc">%&gt;%</span></span>
-<span id="cb732-6"><a href="statistical-techniques-for-exponential-distributions.html#cb732-6" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb732-7"><a href="statistical-techniques-for-exponential-distributions.html#cb732-7" tabindex="-1"></a>    <span class="at">lambda_hat =</span> lambda_hat,</span>
-<span id="cb732-8"><a href="statistical-techniques-for-exponential-distributions.html#cb732-8" tabindex="-1"></a>    <span class="at">r =</span> r,</span>
-<span id="cb732-9"><a href="statistical-techniques-for-exponential-distributions.html#cb732-9" tabindex="-1"></a>    <span class="at">k_upper =</span> <span class="fu">qchisq</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r),</span>
-<span id="cb732-10"><a href="statistical-techniques-for-exponential-distributions.html#cb732-10" tabindex="-1"></a>    <span class="at">k_lower =</span> <span class="fu">qchisq</span>(<span class="fl">0.025</span>, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r),</span>
-<span id="cb732-11"><a href="statistical-techniques-for-exponential-distributions.html#cb732-11" tabindex="-1"></a>    <span class="at">lower =</span> lambda_hat <span class="sc">*</span> k_lower,</span>
-<span id="cb732-12"><a href="statistical-techniques-for-exponential-distributions.html#cb732-12" tabindex="-1"></a>    <span class="at">upper =</span> lambda_hat <span class="sc">*</span> k_upper)</span>
-<span id="cb732-13"><a href="statistical-techniques-for-exponential-distributions.html#cb732-13" tabindex="-1"></a><span class="co"># Check it</span></span>
-<span id="cb732-14"><a href="statistical-techniques-for-exponential-distributions.html#cb732-14" tabindex="-1"></a>c</span></code></pre></div>
+<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb742-1"><a href="statistical-techniques-for-exponential-distributions.html#cb742-1" tabindex="-1"></a><span class="co"># Get data...</span></span>
+<span id="cb742-2"><a href="statistical-techniques-for-exponential-distributions.html#cb742-2" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">r =</span> <span class="dv">25</span>, <span class="at">days =</span> <span class="fl">416.5</span>, <span class="at">n =</span> <span class="dv">25</span>, <span class="at">tz =</span> <span class="fl">52.5</span>,  <span class="at">lambda_hat =</span> <span class="fl">0.06002401</span> )</span>
+<span id="cb742-3"><a href="statistical-techniques-for-exponential-distributions.html#cb742-3" tabindex="-1"></a></span>
+<span id="cb742-4"><a href="statistical-techniques-for-exponential-distributions.html#cb742-4" tabindex="-1"></a><span class="co"># And estimate lambda hat!</span></span>
+<span id="cb742-5"><a href="statistical-techniques-for-exponential-distributions.html#cb742-5" tabindex="-1"></a>c <span class="ot">&lt;-</span> b <span class="sc">%&gt;%</span></span>
+<span id="cb742-6"><a href="statistical-techniques-for-exponential-distributions.html#cb742-6" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb742-7"><a href="statistical-techniques-for-exponential-distributions.html#cb742-7" tabindex="-1"></a>    <span class="at">lambda_hat =</span> lambda_hat,</span>
+<span id="cb742-8"><a href="statistical-techniques-for-exponential-distributions.html#cb742-8" tabindex="-1"></a>    <span class="at">r =</span> r,</span>
+<span id="cb742-9"><a href="statistical-techniques-for-exponential-distributions.html#cb742-9" tabindex="-1"></a>    <span class="at">k_upper =</span> <span class="fu">qchisq</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r),</span>
+<span id="cb742-10"><a href="statistical-techniques-for-exponential-distributions.html#cb742-10" tabindex="-1"></a>    <span class="at">k_lower =</span> <span class="fu">qchisq</span>(<span class="fl">0.025</span>, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>r) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r),</span>
+<span id="cb742-11"><a href="statistical-techniques-for-exponential-distributions.html#cb742-11" tabindex="-1"></a>    <span class="at">lower =</span> lambda_hat <span class="sc">*</span> k_lower,</span>
+<span id="cb742-12"><a href="statistical-techniques-for-exponential-distributions.html#cb742-12" tabindex="-1"></a>    <span class="at">upper =</span> lambda_hat <span class="sc">*</span> k_upper)</span>
+<span id="cb742-13"><a href="statistical-techniques-for-exponential-distributions.html#cb742-13" tabindex="-1"></a><span class="co"># Check it</span></span>
+<span id="cb742-14"><a href="statistical-techniques-for-exponential-distributions.html#cb742-14" tabindex="-1"></a>c</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
 ##   lambda_hat     r k_upper k_lower  lower  upper
 ##        &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -1331,26 +1336,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">12.5.1</span> Example: Minimum Sample Size<a href="statistical-techniques-for-exponential-distributions.html#example-minimum-sample-size" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s try an example. Imagine a company wants to test a new line of masks. Your company can budget <code>500</code> hours to test these masks’ elastic bands, and they accept that up to <code>10</code> of these masks may break in the process. Company policy anticipates a failure rate of just <code>0.00002</code> masks per hour, and we want to be <code>90</code>% confidence that the failure rate will not <em>exceed</em> this level. (But it’s fine if it goes below that level.)</p>
 <p>If we aim to fit within these constraints, how many masks need to be tested in this product trial?</p>
-<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb734-1"><a href="statistical-techniques-for-exponential-distributions.html#cb734-1" tabindex="-1"></a><span class="co"># Max failures</span></span>
-<span id="cb734-2"><a href="statistical-techniques-for-exponential-distributions.html#cb734-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="dv">10</span></span>
-<span id="cb734-3"><a href="statistical-techniques-for-exponential-distributions.html#cb734-3" tabindex="-1"></a><span class="co"># Number of hours</span></span>
-<span id="cb734-4"><a href="statistical-techniques-for-exponential-distributions.html#cb734-4" tabindex="-1"></a>t <span class="ot">=</span> <span class="dv">500</span></span>
-<span id="cb734-5"><a href="statistical-techniques-for-exponential-distributions.html#cb734-5" tabindex="-1"></a><span class="co"># Max acceptable failure rate</span></span>
-<span id="cb734-6"><a href="statistical-techniques-for-exponential-distributions.html#cb734-6" tabindex="-1"></a>lambda <span class="ot">=</span> <span class="fl">0.00002</span></span>
-<span id="cb734-7"><a href="statistical-techniques-for-exponential-distributions.html#cb734-7" tabindex="-1"></a></span>
-<span id="cb734-8"><a href="statistical-techniques-for-exponential-distributions.html#cb734-8" tabindex="-1"></a><span class="co"># Calcuate a one-tailed confidence interval</span></span>
-<span id="cb734-9"><a href="statistical-techniques-for-exponential-distributions.html#cb734-9" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.10</span></span>
-<span id="cb734-10"><a href="statistical-techniques-for-exponential-distributions.html#cb734-10" tabindex="-1"></a>ci <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> alpha</span>
-<span id="cb734-11"><a href="statistical-techniques-for-exponential-distributions.html#cb734-11" tabindex="-1"></a></span>
-<span id="cb734-12"><a href="statistical-techniques-for-exponential-distributions.html#cb734-12" tabindex="-1"></a><span class="co"># Use these ingredients to calculate the factor k, using time-censored rule df = 2*(r+1)</span></span>
-<span id="cb734-13"><a href="statistical-techniques-for-exponential-distributions.html#cb734-13" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">qchisq</span>(ci, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>(r<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r)</span>
-<span id="cb734-14"><a href="statistical-techniques-for-exponential-distributions.html#cb734-14" tabindex="-1"></a></span>
-<span id="cb734-15"><a href="statistical-techniques-for-exponential-distributions.html#cb734-15" tabindex="-1"></a><span class="co"># Reformat </span></span>
-<span id="cb734-16"><a href="statistical-techniques-for-exponential-distributions.html#cb734-16" tabindex="-1"></a><span class="co"># r / (t*n) * k = lambda</span></span>
-<span id="cb734-17"><a href="statistical-techniques-for-exponential-distributions.html#cb734-17" tabindex="-1"></a>n <span class="ot">=</span> k <span class="sc">*</span> r  <span class="sc">/</span> (lambda <span class="sc">*</span> t)</span>
-<span id="cb734-18"><a href="statistical-techniques-for-exponential-distributions.html#cb734-18" tabindex="-1"></a></span>
-<span id="cb734-19"><a href="statistical-techniques-for-exponential-distributions.html#cb734-19" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb734-20"><a href="statistical-techniques-for-exponential-distributions.html#cb734-20" tabindex="-1"></a>n</span></code></pre></div>
+<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb744-1"><a href="statistical-techniques-for-exponential-distributions.html#cb744-1" tabindex="-1"></a><span class="co"># Max failures</span></span>
+<span id="cb744-2"><a href="statistical-techniques-for-exponential-distributions.html#cb744-2" tabindex="-1"></a>r <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb744-3"><a href="statistical-techniques-for-exponential-distributions.html#cb744-3" tabindex="-1"></a><span class="co"># Number of hours</span></span>
+<span id="cb744-4"><a href="statistical-techniques-for-exponential-distributions.html#cb744-4" tabindex="-1"></a>t <span class="ot">=</span> <span class="dv">500</span></span>
+<span id="cb744-5"><a href="statistical-techniques-for-exponential-distributions.html#cb744-5" tabindex="-1"></a><span class="co"># Max acceptable failure rate</span></span>
+<span id="cb744-6"><a href="statistical-techniques-for-exponential-distributions.html#cb744-6" tabindex="-1"></a>lambda <span class="ot">=</span> <span class="fl">0.00002</span></span>
+<span id="cb744-7"><a href="statistical-techniques-for-exponential-distributions.html#cb744-7" tabindex="-1"></a></span>
+<span id="cb744-8"><a href="statistical-techniques-for-exponential-distributions.html#cb744-8" tabindex="-1"></a><span class="co"># Calcuate a one-tailed confidence interval</span></span>
+<span id="cb744-9"><a href="statistical-techniques-for-exponential-distributions.html#cb744-9" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.10</span></span>
+<span id="cb744-10"><a href="statistical-techniques-for-exponential-distributions.html#cb744-10" tabindex="-1"></a>ci <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> alpha</span>
+<span id="cb744-11"><a href="statistical-techniques-for-exponential-distributions.html#cb744-11" tabindex="-1"></a></span>
+<span id="cb744-12"><a href="statistical-techniques-for-exponential-distributions.html#cb744-12" tabindex="-1"></a><span class="co"># Use these ingredients to calculate the factor k, using time-censored rule df = 2*(r+1)</span></span>
+<span id="cb744-13"><a href="statistical-techniques-for-exponential-distributions.html#cb744-13" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">qchisq</span>(ci, <span class="at">df =</span> <span class="dv">2</span><span class="sc">*</span>(r<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>r)</span>
+<span id="cb744-14"><a href="statistical-techniques-for-exponential-distributions.html#cb744-14" tabindex="-1"></a></span>
+<span id="cb744-15"><a href="statistical-techniques-for-exponential-distributions.html#cb744-15" tabindex="-1"></a><span class="co"># Reformat </span></span>
+<span id="cb744-16"><a href="statistical-techniques-for-exponential-distributions.html#cb744-16" tabindex="-1"></a><span class="co"># r / (t*n) * k = lambda</span></span>
+<span id="cb744-17"><a href="statistical-techniques-for-exponential-distributions.html#cb744-17" tabindex="-1"></a>n <span class="ot">=</span> k <span class="sc">*</span> r  <span class="sc">/</span> (lambda <span class="sc">*</span> t)</span>
+<span id="cb744-18"><a href="statistical-techniques-for-exponential-distributions.html#cb744-18" tabindex="-1"></a></span>
+<span id="cb744-19"><a href="statistical-techniques-for-exponential-distributions.html#cb744-19" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb744-20"><a href="statistical-techniques-for-exponential-distributions.html#cb744-20" tabindex="-1"></a>n</span></code></pre></div>
 <pre><code>## [1] 1540.664</code></pre>
 <p>Looks like you’ll need a sample of about 1541 masks to be able to fit those constraints.</p>
 <p><br>
@@ -1364,47 +1369,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">12.6.1</span> Compute Chi-squared from scratch<a href="statistical-techniques-for-exponential-distributions.html#compute-chi-squared-from-scratch" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Back in Workshop 2, we <em>visually</em> compared several distributions to an observed distribution, to determine which fits best. But can we do that statistically? One way to do this is to chop our observed data into bins of <code>length</code> equal width using <code>cut_interval()</code> from <code>ggplot2</code>. We must specify:</p>
 <p><strong>Step 1</strong> Crosstabulate Observed Values into Bins.</p>
-<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb736-1"><a href="statistical-techniques-for-exponential-distributions.html#cb736-1" tabindex="-1"></a><span class="co"># Let&#39;s repeat our process from before!</span></span>
-<span id="cb736-2"><a href="statistical-techniques-for-exponential-distributions.html#cb736-2" tabindex="-1"></a>c1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">t =</span> masks<span class="sc">$</span>left_earloop) <span class="sc">%&gt;%</span></span>
-<span id="cb736-3"><a href="statistical-techniques-for-exponential-distributions.html#cb736-3" tabindex="-1"></a>  <span class="co"># Part 1.1: Split into bins</span></span>
-<span id="cb736-4"><a href="statistical-techniques-for-exponential-distributions.html#cb736-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">interval =</span> <span class="fu">cut_interval</span>(t, <span class="at">length =</span> <span class="dv">5</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb736-5"><a href="statistical-techniques-for-exponential-distributions.html#cb736-5" tabindex="-1"></a>  <span class="co"># Part 1.2: Tally up observed failures &#39;r_obs&#39; by bin</span></span>
-<span id="cb736-6"><a href="statistical-techniques-for-exponential-distributions.html#cb736-6" tabindex="-1"></a>  <span class="fu">group_by</span>(interval, <span class="at">.drop =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb736-7"><a href="statistical-techniques-for-exponential-distributions.html#cb736-7" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">r_obs =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb736-8"><a href="statistical-techniques-for-exponential-distributions.html#cb736-8" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb736-9"><a href="statistical-techniques-for-exponential-distributions.html#cb736-9" tabindex="-1"></a>    <span class="at">bin =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(), <span class="co"># give each bin a numeric id from 1 to inf</span></span>
-<span id="cb736-10"><a href="statistical-techniques-for-exponential-distributions.html#cb736-10" tabindex="-1"></a>    <span class="co"># bin = as.numeric(interval), # you could alternatively turn the factor numeric</span></span>
-<span id="cb736-11"><a href="statistical-techniques-for-exponential-distributions.html#cb736-11" tabindex="-1"></a>    <span class="at">lower =</span> (bin <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">5</span>, </span>
-<span id="cb736-12"><a href="statistical-techniques-for-exponential-distributions.html#cb736-12" tabindex="-1"></a>    <span class="at">upper =</span> bin <span class="sc">*</span> <span class="dv">5</span>,</span>
-<span id="cb736-13"><a href="statistical-techniques-for-exponential-distributions.html#cb736-13" tabindex="-1"></a>    <span class="at">midpoint =</span> (lower <span class="sc">+</span> upper) <span class="sc">/</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb746-1"><a href="statistical-techniques-for-exponential-distributions.html#cb746-1" tabindex="-1"></a><span class="co"># Let&#39;s repeat our process from before!</span></span>
+<span id="cb746-2"><a href="statistical-techniques-for-exponential-distributions.html#cb746-2" tabindex="-1"></a>c1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">t =</span> masks<span class="sc">$</span>left_earloop) <span class="sc">%&gt;%</span></span>
+<span id="cb746-3"><a href="statistical-techniques-for-exponential-distributions.html#cb746-3" tabindex="-1"></a>  <span class="co"># Part 1.1: Split into bins</span></span>
+<span id="cb746-4"><a href="statistical-techniques-for-exponential-distributions.html#cb746-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">interval =</span> <span class="fu">cut_interval</span>(t, <span class="at">length =</span> <span class="dv">5</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb746-5"><a href="statistical-techniques-for-exponential-distributions.html#cb746-5" tabindex="-1"></a>  <span class="co"># Part 1.2: Tally up observed failures &#39;r_obs&#39; by bin</span></span>
+<span id="cb746-6"><a href="statistical-techniques-for-exponential-distributions.html#cb746-6" tabindex="-1"></a>  <span class="fu">group_by</span>(interval, <span class="at">.drop =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb746-7"><a href="statistical-techniques-for-exponential-distributions.html#cb746-7" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">r_obs =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb746-8"><a href="statistical-techniques-for-exponential-distributions.html#cb746-8" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb746-9"><a href="statistical-techniques-for-exponential-distributions.html#cb746-9" tabindex="-1"></a>    <span class="at">bin =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(), <span class="co"># give each bin a numeric id from 1 to inf</span></span>
+<span id="cb746-10"><a href="statistical-techniques-for-exponential-distributions.html#cb746-10" tabindex="-1"></a>    <span class="co"># bin = as.numeric(interval), # you could alternatively turn the factor numeric</span></span>
+<span id="cb746-11"><a href="statistical-techniques-for-exponential-distributions.html#cb746-11" tabindex="-1"></a>    <span class="at">lower =</span> (bin <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">5</span>, </span>
+<span id="cb746-12"><a href="statistical-techniques-for-exponential-distributions.html#cb746-12" tabindex="-1"></a>    <span class="at">upper =</span> bin <span class="sc">*</span> <span class="dv">5</span>,</span>
+<span id="cb746-13"><a href="statistical-techniques-for-exponential-distributions.html#cb746-13" tabindex="-1"></a>    <span class="at">midpoint =</span> (lower <span class="sc">+</span> upper) <span class="sc">/</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><strong>Step 2</strong>: Calculate Observed and Expected Values per Bin.</p>
 <p>Sometimes you might only receive <strong>tabulated data</strong>, meaning a table of bins, not the original vector. In that case, start from <strong>Step 2</strong>!</p>
-<div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb737-1"><a href="statistical-techniques-for-exponential-distributions.html#cb737-1" tabindex="-1"></a><span class="co"># Get any parameters you need (might need to be provided if only tabulated data)</span></span>
-<span id="cb737-2"><a href="statistical-techniques-for-exponential-distributions.html#cb737-2" tabindex="-1"></a>mystat <span class="ot">=</span> masks <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(</span>
-<span id="cb737-3"><a href="statistical-techniques-for-exponential-distributions.html#cb737-3" tabindex="-1"></a>  <span class="co"># failure rate</span></span>
-<span id="cb737-4"><a href="statistical-techniques-for-exponential-distributions.html#cb737-4" tabindex="-1"></a>  <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(left_earloop),</span>
-<span id="cb737-5"><a href="statistical-techniques-for-exponential-distributions.html#cb737-5" tabindex="-1"></a>  <span class="co"># total number of units under test                        </span></span>
-<span id="cb737-6"><a href="statistical-techniques-for-exponential-distributions.html#cb737-6" tabindex="-1"></a>  <span class="at">n =</span> <span class="fu">n</span>())</span>
-<span id="cb737-7"><a href="statistical-techniques-for-exponential-distributions.html#cb737-7" tabindex="-1"></a><span class="co"># Get your &#39;model&#39; function</span></span>
-<span id="cb737-8"><a href="statistical-techniques-for-exponential-distributions.html#cb737-8" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>lambda<span class="sc">*</span>t) }</span>
-<span id="cb737-9"><a href="statistical-techniques-for-exponential-distributions.html#cb737-9" tabindex="-1"></a><span class="co"># Note: pexp(t, rate) is equivalent to f(t, lambda) for exponential distribution</span></span>
-<span id="cb737-10"><a href="statistical-techniques-for-exponential-distributions.html#cb737-10" tabindex="-1"></a></span>
-<span id="cb737-11"><a href="statistical-techniques-for-exponential-distributions.html#cb737-11" tabindex="-1"></a><span class="co"># Now calculate expected units to fail per interval, r_exp</span></span>
-<span id="cb737-12"><a href="statistical-techniques-for-exponential-distributions.html#cb737-12" tabindex="-1"></a>c2 <span class="ot">=</span> c1 <span class="sc">%&gt;%</span></span>
-<span id="cb737-13"><a href="statistical-techniques-for-exponential-distributions.html#cb737-13" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb737-14"><a href="statistical-techniques-for-exponential-distributions.html#cb737-14" tabindex="-1"></a>    <span class="co"># Get probability of failure by time t = upper bound</span></span>
-<span id="cb737-15"><a href="statistical-techniques-for-exponential-distributions.html#cb737-15" tabindex="-1"></a>    <span class="at">p_upper =</span> <span class="fu">f</span>(<span class="at">t =</span> upper, <span class="at">lambda =</span> mystat<span class="sc">$</span>lambda),</span>
-<span id="cb737-16"><a href="statistical-techniques-for-exponential-distributions.html#cb737-16" tabindex="-1"></a>    <span class="co"># Get probability of failure by time t = lower bound</span></span>
-<span id="cb737-17"><a href="statistical-techniques-for-exponential-distributions.html#cb737-17" tabindex="-1"></a>    <span class="at">p_lower =</span> <span class="fu">f</span>(<span class="at">t =</span> lower, <span class="at">lambda =</span> mystat<span class="sc">$</span>lambda),</span>
-<span id="cb737-18"><a href="statistical-techniques-for-exponential-distributions.html#cb737-18" tabindex="-1"></a>    <span class="co"># Get probability of failure during the interval,</span></span>
-<span id="cb737-19"><a href="statistical-techniques-for-exponential-distributions.html#cb737-19" tabindex="-1"></a>    <span class="co"># i.e. between these thresholds</span></span>
-<span id="cb737-20"><a href="statistical-techniques-for-exponential-distributions.html#cb737-20" tabindex="-1"></a>    <span class="at">p_fail =</span> p_upper <span class="sc">-</span> p_lower,</span>
-<span id="cb737-21"><a href="statistical-techniques-for-exponential-distributions.html#cb737-21" tabindex="-1"></a>    <span class="co"># Add in total units under test</span></span>
-<span id="cb737-22"><a href="statistical-techniques-for-exponential-distributions.html#cb737-22" tabindex="-1"></a>    <span class="at">n_total =</span> mystat<span class="sc">$</span>n,</span>
-<span id="cb737-23"><a href="statistical-techniques-for-exponential-distributions.html#cb737-23" tabindex="-1"></a>    <span class="co"># Calculate expected units to fail in that interval</span></span>
-<span id="cb737-24"><a href="statistical-techniques-for-exponential-distributions.html#cb737-24" tabindex="-1"></a>    <span class="at">r_exp =</span> n_total <span class="sc">*</span> p_fail)</span>
-<span id="cb737-25"><a href="statistical-techniques-for-exponential-distributions.html#cb737-25" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb737-26"><a href="statistical-techniques-for-exponential-distributions.html#cb737-26" tabindex="-1"></a>c2</span></code></pre></div>
+<div class="sourceCode" id="cb747"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb747-1"><a href="statistical-techniques-for-exponential-distributions.html#cb747-1" tabindex="-1"></a><span class="co"># Get any parameters you need (might need to be provided if only tabulated data)</span></span>
+<span id="cb747-2"><a href="statistical-techniques-for-exponential-distributions.html#cb747-2" tabindex="-1"></a>mystat <span class="ot">=</span> masks <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(</span>
+<span id="cb747-3"><a href="statistical-techniques-for-exponential-distributions.html#cb747-3" tabindex="-1"></a>  <span class="co"># failure rate</span></span>
+<span id="cb747-4"><a href="statistical-techniques-for-exponential-distributions.html#cb747-4" tabindex="-1"></a>  <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(left_earloop),</span>
+<span id="cb747-5"><a href="statistical-techniques-for-exponential-distributions.html#cb747-5" tabindex="-1"></a>  <span class="co"># total number of units under test                        </span></span>
+<span id="cb747-6"><a href="statistical-techniques-for-exponential-distributions.html#cb747-6" tabindex="-1"></a>  <span class="at">n =</span> <span class="fu">n</span>())</span>
+<span id="cb747-7"><a href="statistical-techniques-for-exponential-distributions.html#cb747-7" tabindex="-1"></a><span class="co"># Get your &#39;model&#39; function</span></span>
+<span id="cb747-8"><a href="statistical-techniques-for-exponential-distributions.html#cb747-8" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>lambda<span class="sc">*</span>t) }</span>
+<span id="cb747-9"><a href="statistical-techniques-for-exponential-distributions.html#cb747-9" tabindex="-1"></a><span class="co"># Note: pexp(t, rate) is equivalent to f(t, lambda) for exponential distribution</span></span>
+<span id="cb747-10"><a href="statistical-techniques-for-exponential-distributions.html#cb747-10" tabindex="-1"></a></span>
+<span id="cb747-11"><a href="statistical-techniques-for-exponential-distributions.html#cb747-11" tabindex="-1"></a><span class="co"># Now calculate expected units to fail per interval, r_exp</span></span>
+<span id="cb747-12"><a href="statistical-techniques-for-exponential-distributions.html#cb747-12" tabindex="-1"></a>c2 <span class="ot">=</span> c1 <span class="sc">%&gt;%</span></span>
+<span id="cb747-13"><a href="statistical-techniques-for-exponential-distributions.html#cb747-13" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb747-14"><a href="statistical-techniques-for-exponential-distributions.html#cb747-14" tabindex="-1"></a>    <span class="co"># Get probability of failure by time t = upper bound</span></span>
+<span id="cb747-15"><a href="statistical-techniques-for-exponential-distributions.html#cb747-15" tabindex="-1"></a>    <span class="at">p_upper =</span> <span class="fu">f</span>(<span class="at">t =</span> upper, <span class="at">lambda =</span> mystat<span class="sc">$</span>lambda),</span>
+<span id="cb747-16"><a href="statistical-techniques-for-exponential-distributions.html#cb747-16" tabindex="-1"></a>    <span class="co"># Get probability of failure by time t = lower bound</span></span>
+<span id="cb747-17"><a href="statistical-techniques-for-exponential-distributions.html#cb747-17" tabindex="-1"></a>    <span class="at">p_lower =</span> <span class="fu">f</span>(<span class="at">t =</span> lower, <span class="at">lambda =</span> mystat<span class="sc">$</span>lambda),</span>
+<span id="cb747-18"><a href="statistical-techniques-for-exponential-distributions.html#cb747-18" tabindex="-1"></a>    <span class="co"># Get probability of failure during the interval,</span></span>
+<span id="cb747-19"><a href="statistical-techniques-for-exponential-distributions.html#cb747-19" tabindex="-1"></a>    <span class="co"># i.e. between these thresholds</span></span>
+<span id="cb747-20"><a href="statistical-techniques-for-exponential-distributions.html#cb747-20" tabindex="-1"></a>    <span class="at">p_fail =</span> p_upper <span class="sc">-</span> p_lower,</span>
+<span id="cb747-21"><a href="statistical-techniques-for-exponential-distributions.html#cb747-21" tabindex="-1"></a>    <span class="co"># Add in total units under test</span></span>
+<span id="cb747-22"><a href="statistical-techniques-for-exponential-distributions.html#cb747-22" tabindex="-1"></a>    <span class="at">n_total =</span> mystat<span class="sc">$</span>n,</span>
+<span id="cb747-23"><a href="statistical-techniques-for-exponential-distributions.html#cb747-23" tabindex="-1"></a>    <span class="co"># Calculate expected units to fail in that interval</span></span>
+<span id="cb747-24"><a href="statistical-techniques-for-exponential-distributions.html#cb747-24" tabindex="-1"></a>    <span class="at">r_exp =</span> n_total <span class="sc">*</span> p_fail)</span>
+<span id="cb747-25"><a href="statistical-techniques-for-exponential-distributions.html#cb747-25" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb747-26"><a href="statistical-techniques-for-exponential-distributions.html#cb747-26" tabindex="-1"></a>c2</span></code></pre></div>
 <pre><code>## # A tibble: 11 × 11
 ##    interval r_obs   bin lower upper midpoint p_upper p_lower  p_fail n_total
 ##    &lt;fct&gt;    &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;
@@ -1420,13 +1425,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 (45,50]      1    10    45    50     47.5   0.976   0.966 0.0108       50
 ## 11 (50,55]      2    11    50    55     52.5   0.984   0.976 0.00740      50
 ## # ℹ 1 more variable: r_exp &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb739-1"><a href="statistical-techniques-for-exponential-distributions.html#cb739-1" tabindex="-1"></a><span class="co"># We only need a few of these columns; let&#39;s look at them:</span></span>
-<span id="cb739-2"><a href="statistical-techniques-for-exponential-distributions.html#cb739-2" tabindex="-1"></a>c2 <span class="sc">%&gt;%</span></span>
-<span id="cb739-3"><a href="statistical-techniques-for-exponential-distributions.html#cb739-3" tabindex="-1"></a>  <span class="co"># interval: get time interval in that bin</span></span>
-<span id="cb739-4"><a href="statistical-techniques-for-exponential-distributions.html#cb739-4" tabindex="-1"></a>  <span class="co"># r_obs: Get OBSERVED failures in that bin</span></span>
-<span id="cb739-5"><a href="statistical-techniques-for-exponential-distributions.html#cb739-5" tabindex="-1"></a>  <span class="co"># r_exp: Get EXPECTED failures in that bin</span></span>
-<span id="cb739-6"><a href="statistical-techniques-for-exponential-distributions.html#cb739-6" tabindex="-1"></a>  <span class="co"># n_total: Get TOTAL units, failed or not, overall</span></span>
-<span id="cb739-7"><a href="statistical-techniques-for-exponential-distributions.html#cb739-7" tabindex="-1"></a>  <span class="fu">select</span>(interval, r_obs, r_exp, n_total)</span></code></pre></div>
+<div class="sourceCode" id="cb749"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb749-1"><a href="statistical-techniques-for-exponential-distributions.html#cb749-1" tabindex="-1"></a><span class="co"># We only need a few of these columns; let&#39;s look at them:</span></span>
+<span id="cb749-2"><a href="statistical-techniques-for-exponential-distributions.html#cb749-2" tabindex="-1"></a>c2 <span class="sc">%&gt;%</span></span>
+<span id="cb749-3"><a href="statistical-techniques-for-exponential-distributions.html#cb749-3" tabindex="-1"></a>  <span class="co"># interval: get time interval in that bin</span></span>
+<span id="cb749-4"><a href="statistical-techniques-for-exponential-distributions.html#cb749-4" tabindex="-1"></a>  <span class="co"># r_obs: Get OBSERVED failures in that bin</span></span>
+<span id="cb749-5"><a href="statistical-techniques-for-exponential-distributions.html#cb749-5" tabindex="-1"></a>  <span class="co"># r_exp: Get EXPECTED failures in that bin</span></span>
+<span id="cb749-6"><a href="statistical-techniques-for-exponential-distributions.html#cb749-6" tabindex="-1"></a>  <span class="co"># n_total: Get TOTAL units, failed or not, overall</span></span>
+<span id="cb749-7"><a href="statistical-techniques-for-exponential-distributions.html#cb749-7" tabindex="-1"></a>  <span class="fu">select</span>(interval, r_obs, r_exp, n_total)</span></code></pre></div>
 <pre><code>## # A tibble: 11 × 4
 ##    interval r_obs  r_exp n_total
 ##    &lt;fct&gt;    &lt;int&gt;  &lt;dbl&gt;   &lt;int&gt;
@@ -1447,18 +1452,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><strong>Degrees of Freedom (df)</strong> is used as the standard deviation in the chi-squared distribution, to help evaluate <em>how extreme is our chi-squared statistic?</em></p></li>
 <li><p><strong>Chi-squared Distribution</strong> is a distribution of squared deviations from a normal distribution centered at 0. This means it only has positive values.</p></li>
 </ul>
-<div class="sourceCode" id="cb741"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb741-1"><a href="statistical-techniques-for-exponential-distributions.html#cb741-1" tabindex="-1"></a>c3 <span class="ot">&lt;-</span> c2 <span class="sc">%&gt;%</span></span>
-<span id="cb741-2"><a href="statistical-techniques-for-exponential-distributions.html#cb741-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb741-3"><a href="statistical-techniques-for-exponential-distributions.html#cb741-3" tabindex="-1"></a>      <span class="co"># Calculate Chi-squared statistic</span></span>
-<span id="cb741-4"><a href="statistical-techniques-for-exponential-distributions.html#cb741-4" tabindex="-1"></a>    <span class="at">chisq =</span> <span class="fu">sum</span>((r_obs <span class="sc">-</span> r_exp)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> r_exp),</span>
-<span id="cb741-5"><a href="statistical-techniques-for-exponential-distributions.html#cb741-5" tabindex="-1"></a>    <span class="co"># Calculate number of bins (rows)</span></span>
-<span id="cb741-6"><a href="statistical-techniques-for-exponential-distributions.html#cb741-6" tabindex="-1"></a>    <span class="at">nbin =</span> <span class="fu">n</span>(),</span>
-<span id="cb741-7"><a href="statistical-techniques-for-exponential-distributions.html#cb741-7" tabindex="-1"></a>    <span class="co"># Record number of parameters used (jjust lambda)</span></span>
-<span id="cb741-8"><a href="statistical-techniques-for-exponential-distributions.html#cb741-8" tabindex="-1"></a>    <span class="at">np =</span> <span class="dv">1</span>,</span>
-<span id="cb741-9"><a href="statistical-techniques-for-exponential-distributions.html#cb741-9" tabindex="-1"></a>    <span class="co"># Calculate degree of freedom</span></span>
-<span id="cb741-10"><a href="statistical-techniques-for-exponential-distributions.html#cb741-10" tabindex="-1"></a>    <span class="at">df =</span> nbin <span class="sc">-</span> np <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb741-11"><a href="statistical-techniques-for-exponential-distributions.html#cb741-11" tabindex="-1"></a><span class="co"># Check it!</span></span>
-<span id="cb741-12"><a href="statistical-techniques-for-exponential-distributions.html#cb741-12" tabindex="-1"></a>c3</span></code></pre></div>
+<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb751-1"><a href="statistical-techniques-for-exponential-distributions.html#cb751-1" tabindex="-1"></a>c3 <span class="ot">&lt;-</span> c2 <span class="sc">%&gt;%</span></span>
+<span id="cb751-2"><a href="statistical-techniques-for-exponential-distributions.html#cb751-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb751-3"><a href="statistical-techniques-for-exponential-distributions.html#cb751-3" tabindex="-1"></a>      <span class="co"># Calculate Chi-squared statistic</span></span>
+<span id="cb751-4"><a href="statistical-techniques-for-exponential-distributions.html#cb751-4" tabindex="-1"></a>    <span class="at">chisq =</span> <span class="fu">sum</span>((r_obs <span class="sc">-</span> r_exp)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> r_exp),</span>
+<span id="cb751-5"><a href="statistical-techniques-for-exponential-distributions.html#cb751-5" tabindex="-1"></a>    <span class="co"># Calculate number of bins (rows)</span></span>
+<span id="cb751-6"><a href="statistical-techniques-for-exponential-distributions.html#cb751-6" tabindex="-1"></a>    <span class="at">nbin =</span> <span class="fu">n</span>(),</span>
+<span id="cb751-7"><a href="statistical-techniques-for-exponential-distributions.html#cb751-7" tabindex="-1"></a>    <span class="co"># Record number of parameters used (jjust lambda)</span></span>
+<span id="cb751-8"><a href="statistical-techniques-for-exponential-distributions.html#cb751-8" tabindex="-1"></a>    <span class="at">np =</span> <span class="dv">1</span>,</span>
+<span id="cb751-9"><a href="statistical-techniques-for-exponential-distributions.html#cb751-9" tabindex="-1"></a>    <span class="co"># Calculate degree of freedom</span></span>
+<span id="cb751-10"><a href="statistical-techniques-for-exponential-distributions.html#cb751-10" tabindex="-1"></a>    <span class="at">df =</span> nbin <span class="sc">-</span> np <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb751-11"><a href="statistical-techniques-for-exponential-distributions.html#cb751-11" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb751-12"><a href="statistical-techniques-for-exponential-distributions.html#cb751-12" tabindex="-1"></a>c3</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 4
 ##   chisq  nbin    np    df
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1469,11 +1474,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>p_value</code>: what’s the probability of getting a value <strong>greater than or equal to</strong> (more extreme than) our observed chi-squared statistic?</p></li>
 <li><p><strong>“statistically significant”</strong>: if our observed statistic is more extreme than most possible chi-squared statistics (eg. &gt;95% of the distribution), it’s probably not due to chance! We call it ‘statistically significant.’</p></li>
 </ul>
-<div class="sourceCode" id="cb743"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb743-1"><a href="statistical-techniques-for-exponential-distributions.html#cb743-1" tabindex="-1"></a><span class="co"># Calculate area remaining under the curve</span></span>
-<span id="cb743-2"><a href="statistical-techniques-for-exponential-distributions.html#cb743-2" tabindex="-1"></a>c4 <span class="ot">&lt;-</span> c3 <span class="sc">%&gt;%</span></span>
-<span id="cb743-3"><a href="statistical-techniques-for-exponential-distributions.html#cb743-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_value =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="at">q =</span> chisq, <span class="at">df =</span> df))</span>
-<span id="cb743-4"><a href="statistical-techniques-for-exponential-distributions.html#cb743-4" tabindex="-1"></a><span class="co"># Check</span></span>
-<span id="cb743-5"><a href="statistical-techniques-for-exponential-distributions.html#cb743-5" tabindex="-1"></a>c4</span></code></pre></div>
+<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb753-1"><a href="statistical-techniques-for-exponential-distributions.html#cb753-1" tabindex="-1"></a><span class="co"># Calculate area remaining under the curve</span></span>
+<span id="cb753-2"><a href="statistical-techniques-for-exponential-distributions.html#cb753-2" tabindex="-1"></a>c4 <span class="ot">&lt;-</span> c3 <span class="sc">%&gt;%</span></span>
+<span id="cb753-3"><a href="statistical-techniques-for-exponential-distributions.html#cb753-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_value =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="at">q =</span> chisq, <span class="at">df =</span> df))</span>
+<span id="cb753-4"><a href="statistical-techniques-for-exponential-distributions.html#cb753-4" tabindex="-1"></a><span class="co"># Check</span></span>
+<span id="cb753-5"><a href="statistical-techniques-for-exponential-distributions.html#cb753-5" tabindex="-1"></a>c4</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##   chisq  nbin    np    df p_value
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
@@ -1495,112 +1500,112 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Or, if our data is pre-crosstabulated, we can ignore <code>t</code> and <code>binwidth</code> and just supply a data.frame <code>data</code> of crosstabulated vectors <code>lower</code>, <code>upper</code>, and <code>r_obs</code>.</li>
 </ul>
 <p>For example, these inputs might look like this:</p>
-<div class="sourceCode" id="cb745"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb745-1"><a href="statistical-techniques-for-exponential-distributions.html#cb745-1" tabindex="-1"></a><span class="co"># Get your &#39;model&#39; function</span></span>
-<span id="cb745-2"><a href="statistical-techniques-for-exponential-distributions.html#cb745-2" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>lambda<span class="sc">*</span>t) }</span>
-<span id="cb745-3"><a href="statistical-techniques-for-exponential-distributions.html#cb745-3" tabindex="-1"></a><span class="co"># Parameters</span></span>
-<span id="cb745-4"><a href="statistical-techniques-for-exponential-distributions.html#cb745-4" tabindex="-1"></a><span class="co"># lambda = 1 / mean(masks$left_earloop)</span></span>
-<span id="cb745-5"><a href="statistical-techniques-for-exponential-distributions.html#cb745-5" tabindex="-1"></a><span class="co"># number of parameters</span></span>
-<span id="cb745-6"><a href="statistical-techniques-for-exponential-distributions.html#cb745-6" tabindex="-1"></a><span class="co"># np = 1</span></span>
-<span id="cb745-7"><a href="statistical-techniques-for-exponential-distributions.html#cb745-7" tabindex="-1"></a><span class="co"># total number of units (sometimes provided, if the data is time-censored)</span></span>
-<span id="cb745-8"><a href="statistical-techniques-for-exponential-distributions.html#cb745-8" tabindex="-1"></a><span class="co"># n_total = length(masks$left_earloop)</span></span>
-<span id="cb745-9"><a href="statistical-techniques-for-exponential-distributions.html#cb745-9" tabindex="-1"></a></span>
-<span id="cb745-10"><a href="statistical-techniques-for-exponential-distributions.html#cb745-10" tabindex="-1"></a><span class="co"># AND</span></span>
-<span id="cb745-11"><a href="statistical-techniques-for-exponential-distributions.html#cb745-11" tabindex="-1"></a></span>
-<span id="cb745-12"><a href="statistical-techniques-for-exponential-distributions.html#cb745-12" tabindex="-1"></a><span class="co"># Raw observed data + binwidth</span></span>
-<span id="cb745-13"><a href="statistical-techniques-for-exponential-distributions.html#cb745-13" tabindex="-1"></a><span class="co"># t = masks$left_earloop</span></span>
-<span id="cb745-14"><a href="statistical-techniques-for-exponential-distributions.html#cb745-14" tabindex="-1"></a><span class="co"># binwidth = 5</span></span>
-<span id="cb745-15"><a href="statistical-techniques-for-exponential-distributions.html#cb745-15" tabindex="-1"></a><span class="co"># OR</span></span>
-<span id="cb745-16"><a href="statistical-techniques-for-exponential-distributions.html#cb745-16" tabindex="-1"></a><span class="co"># Crosstabulated data (c1 is an example we made before)</span></span>
-<span id="cb745-17"><a href="statistical-techniques-for-exponential-distributions.html#cb745-17" tabindex="-1"></a><span class="co"># data = c1 %&gt;% select(lower, upper, r_obs)</span></span></code></pre></div>
+<div class="sourceCode" id="cb755"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb755-1"><a href="statistical-techniques-for-exponential-distributions.html#cb755-1" tabindex="-1"></a><span class="co"># Get your &#39;model&#39; function</span></span>
+<span id="cb755-2"><a href="statistical-techniques-for-exponential-distributions.html#cb755-2" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>lambda<span class="sc">*</span>t) }</span>
+<span id="cb755-3"><a href="statistical-techniques-for-exponential-distributions.html#cb755-3" tabindex="-1"></a><span class="co"># Parameters</span></span>
+<span id="cb755-4"><a href="statistical-techniques-for-exponential-distributions.html#cb755-4" tabindex="-1"></a><span class="co"># lambda = 1 / mean(masks$left_earloop)</span></span>
+<span id="cb755-5"><a href="statistical-techniques-for-exponential-distributions.html#cb755-5" tabindex="-1"></a><span class="co"># number of parameters</span></span>
+<span id="cb755-6"><a href="statistical-techniques-for-exponential-distributions.html#cb755-6" tabindex="-1"></a><span class="co"># np = 1</span></span>
+<span id="cb755-7"><a href="statistical-techniques-for-exponential-distributions.html#cb755-7" tabindex="-1"></a><span class="co"># total number of units (sometimes provided, if the data is time-censored)</span></span>
+<span id="cb755-8"><a href="statistical-techniques-for-exponential-distributions.html#cb755-8" tabindex="-1"></a><span class="co"># n_total = length(masks$left_earloop)</span></span>
+<span id="cb755-9"><a href="statistical-techniques-for-exponential-distributions.html#cb755-9" tabindex="-1"></a></span>
+<span id="cb755-10"><a href="statistical-techniques-for-exponential-distributions.html#cb755-10" tabindex="-1"></a><span class="co"># AND</span></span>
+<span id="cb755-11"><a href="statistical-techniques-for-exponential-distributions.html#cb755-11" tabindex="-1"></a></span>
+<span id="cb755-12"><a href="statistical-techniques-for-exponential-distributions.html#cb755-12" tabindex="-1"></a><span class="co"># Raw observed data + binwidth</span></span>
+<span id="cb755-13"><a href="statistical-techniques-for-exponential-distributions.html#cb755-13" tabindex="-1"></a><span class="co"># t = masks$left_earloop</span></span>
+<span id="cb755-14"><a href="statistical-techniques-for-exponential-distributions.html#cb755-14" tabindex="-1"></a><span class="co"># binwidth = 5</span></span>
+<span id="cb755-15"><a href="statistical-techniques-for-exponential-distributions.html#cb755-15" tabindex="-1"></a><span class="co"># OR</span></span>
+<span id="cb755-16"><a href="statistical-techniques-for-exponential-distributions.html#cb755-16" tabindex="-1"></a><span class="co"># Crosstabulated data (c1 is an example we made before)</span></span>
+<span id="cb755-17"><a href="statistical-techniques-for-exponential-distributions.html#cb755-17" tabindex="-1"></a><span class="co"># data = c1 %&gt;% select(lower, upper, r_obs)</span></span></code></pre></div>
 <p>Then, we could write out the function like this! I’ve added some fancy <code>@</code> tags below just for notation, but you can ditch them if you prefer. This is a fairly complex function! I’ve shared it with you as an example to help you build your own for your projects.</p>
-<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb746-1"><a href="statistical-techniques-for-exponential-distributions.html#cb746-1" tabindex="-1"></a><span class="co">#&#39; @name get_chisq</span></span>
-<span id="cb746-2"><a href="statistical-techniques-for-exponential-distributions.html#cb746-2" tabindex="-1"></a><span class="co">#&#39; @title Function to Get Chi-Squared!</span></span>
-<span id="cb746-3"><a href="statistical-techniques-for-exponential-distributions.html#cb746-3" tabindex="-1"></a><span class="co">#&#39; @name Tim Fraser</span></span>
-<span id="cb746-4"><a href="statistical-techniques-for-exponential-distributions.html#cb746-4" tabindex="-1"></a><span class="co">#&#39; If observed vector...</span></span>
-<span id="cb746-5"><a href="statistical-techniques-for-exponential-distributions.html#cb746-5" tabindex="-1"></a><span class="co">#&#39; @param t a vector of times to failure</span></span>
-<span id="cb746-6"><a href="statistical-techniques-for-exponential-distributions.html#cb746-6" tabindex="-1"></a><span class="co">#&#39; @param binwidth size of intervals (eg. 5 hours) (Only if t is provided)</span></span>
-<span id="cb746-7"><a href="statistical-techniques-for-exponential-distributions.html#cb746-7" tabindex="-1"></a><span class="co">#&#39; If cross-tabulated data...</span></span>
-<span id="cb746-8"><a href="statistical-techniques-for-exponential-distributions.html#cb746-8" tabindex="-1"></a><span class="co">#&#39; @param data a data.frame with the vectors `lower`, `upper`, and `r_obs`</span></span>
-<span id="cb746-9"><a href="statistical-techniques-for-exponential-distributions.html#cb746-9" tabindex="-1"></a><span class="co">#&#39; Common Parameters:</span></span>
-<span id="cb746-10"><a href="statistical-techniques-for-exponential-distributions.html#cb746-10" tabindex="-1"></a><span class="co">#&#39; @param n_total total number of units.</span></span>
-<span id="cb746-11"><a href="statistical-techniques-for-exponential-distributions.html#cb746-11" tabindex="-1"></a><span class="co">#&#39; @param f specific failure function, such as `f = f(t, lambda)`</span></span>
-<span id="cb746-12"><a href="statistical-techniques-for-exponential-distributions.html#cb746-12" tabindex="-1"></a><span class="co">#&#39; @param np total number of parameters in your function (eg. if exponential, 1 (lambda))</span></span>
-<span id="cb746-13"><a href="statistical-techniques-for-exponential-distributions.html#cb746-13" tabindex="-1"></a><span class="co">#&#39; @param ... fill in here any named parameters you need, like `lambda = 2.4` or `rate = 2.3` or `mean = 0, sd = 2`</span></span>
-<span id="cb746-14"><a href="statistical-techniques-for-exponential-distributions.html#cb746-14" tabindex="-1"></a>get_chisq <span class="ot">=</span> <span class="cf">function</span>(<span class="at">t =</span> <span class="cn">NULL</span>, <span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">data =</span> <span class="cn">NULL</span>, </span>
-<span id="cb746-15"><a href="statistical-techniques-for-exponential-distributions.html#cb746-15" tabindex="-1"></a>                     n_total, f, <span class="at">np =</span> <span class="dv">1</span>, ...){</span>
-<span id="cb746-16"><a href="statistical-techniques-for-exponential-distributions.html#cb746-16" tabindex="-1"></a>  </span>
-<span id="cb746-17"><a href="statistical-techniques-for-exponential-distributions.html#cb746-17" tabindex="-1"></a>  <span class="co"># If vector `t` is NOT NULL</span></span>
-<span id="cb746-18"><a href="statistical-techniques-for-exponential-distributions.html#cb746-18" tabindex="-1"></a>  <span class="co"># Do the raw data route</span></span>
-<span id="cb746-19"><a href="statistical-techniques-for-exponential-distributions.html#cb746-19" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(t)){</span>
-<span id="cb746-20"><a href="statistical-techniques-for-exponential-distributions.html#cb746-20" tabindex="-1"></a>    <span class="co"># Make a tibble called &#39;tab&#39;</span></span>
-<span id="cb746-21"><a href="statistical-techniques-for-exponential-distributions.html#cb746-21" tabindex="-1"></a>    tab <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">t =</span> t) <span class="sc">%&gt;%</span></span>
-<span id="cb746-22"><a href="statistical-techniques-for-exponential-distributions.html#cb746-22" tabindex="-1"></a>      <span class="co"># Part 1.1: Split into bins</span></span>
-<span id="cb746-23"><a href="statistical-techniques-for-exponential-distributions.html#cb746-23" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">interval =</span> <span class="fu">cut_interval</span>(t, <span class="at">length =</span> binwidth)) <span class="sc">%&gt;%</span></span>
-<span id="cb746-24"><a href="statistical-techniques-for-exponential-distributions.html#cb746-24" tabindex="-1"></a>      <span class="co"># Part 1.2: Tally up observed failures &#39;r_obs&#39; by bin</span></span>
-<span id="cb746-25"><a href="statistical-techniques-for-exponential-distributions.html#cb746-25" tabindex="-1"></a>      <span class="fu">group_by</span>(interval, <span class="at">.drop =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb746-26"><a href="statistical-techniques-for-exponential-distributions.html#cb746-26" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">r_obs =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb746-27"><a href="statistical-techniques-for-exponential-distributions.html#cb746-27" tabindex="-1"></a>      <span class="co"># Let&#39;s repeat our process from before!</span></span>
-<span id="cb746-28"><a href="statistical-techniques-for-exponential-distributions.html#cb746-28" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
-<span id="cb746-29"><a href="statistical-techniques-for-exponential-distributions.html#cb746-29" tabindex="-1"></a>        <span class="at">bin =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(),</span>
-<span id="cb746-30"><a href="statistical-techniques-for-exponential-distributions.html#cb746-30" tabindex="-1"></a>        <span class="at">lower =</span> (bin <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> binwidth, </span>
-<span id="cb746-31"><a href="statistical-techniques-for-exponential-distributions.html#cb746-31" tabindex="-1"></a>        <span class="at">upper =</span> bin <span class="sc">*</span> binwidth,</span>
-<span id="cb746-32"><a href="statistical-techniques-for-exponential-distributions.html#cb746-32" tabindex="-1"></a>        <span class="at">midpoint =</span> (lower <span class="sc">+</span> upper) <span class="sc">/</span> <span class="dv">2</span>) </span>
-<span id="cb746-33"><a href="statistical-techniques-for-exponential-distributions.html#cb746-33" tabindex="-1"></a>    </span>
-<span id="cb746-34"><a href="statistical-techniques-for-exponential-distributions.html#cb746-34" tabindex="-1"></a>    <span class="co"># Otherwise, if data.frame `data` is NOT NULL</span></span>
-<span id="cb746-35"><a href="statistical-techniques-for-exponential-distributions.html#cb746-35" tabindex="-1"></a>    <span class="co"># Do the cross-tabulated data route</span></span>
-<span id="cb746-36"><a href="statistical-techniques-for-exponential-distributions.html#cb746-36" tabindex="-1"></a>  }<span class="cf">else</span> <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(data)){</span>
-<span id="cb746-37"><a href="statistical-techniques-for-exponential-distributions.html#cb746-37" tabindex="-1"></a>    tab <span class="ot">=</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb746-38"><a href="statistical-techniques-for-exponential-distributions.html#cb746-38" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">bin =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(),</span>
-<span id="cb746-39"><a href="statistical-techniques-for-exponential-distributions.html#cb746-39" tabindex="-1"></a>             <span class="at">midpoint =</span> (lower <span class="sc">+</span> upper) <span class="sc">/</span> <span class="dv">2</span>)</span>
-<span id="cb746-40"><a href="statistical-techniques-for-exponential-distributions.html#cb746-40" tabindex="-1"></a>  }</span>
-<span id="cb746-41"><a href="statistical-techniques-for-exponential-distributions.html#cb746-41" tabindex="-1"></a>  </span>
-<span id="cb746-42"><a href="statistical-techniques-for-exponential-distributions.html#cb746-42" tabindex="-1"></a>  <span class="co"># Part 2. Calculate probabilities by interval</span></span>
-<span id="cb746-43"><a href="statistical-techniques-for-exponential-distributions.html#cb746-43" tabindex="-1"></a>  output <span class="ot">=</span> tab <span class="sc">%&gt;%</span> </span>
-<span id="cb746-44"><a href="statistical-techniques-for-exponential-distributions.html#cb746-44" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb746-45"><a href="statistical-techniques-for-exponential-distributions.html#cb746-45" tabindex="-1"></a>      <span class="at">p_upper =</span> <span class="fu">f</span>(upper, ...), <span class="co"># supplied parameters</span></span>
-<span id="cb746-46"><a href="statistical-techniques-for-exponential-distributions.html#cb746-46" tabindex="-1"></a>      <span class="at">p_lower =</span> <span class="fu">f</span>(lower, ...), <span class="co"># supplied parameters</span></span>
-<span id="cb746-47"><a href="statistical-techniques-for-exponential-distributions.html#cb746-47" tabindex="-1"></a>      <span class="at">p_fail =</span> p_upper <span class="sc">-</span> p_lower,</span>
-<span id="cb746-48"><a href="statistical-techniques-for-exponential-distributions.html#cb746-48" tabindex="-1"></a>      <span class="at">n_total =</span> n_total,</span>
-<span id="cb746-49"><a href="statistical-techniques-for-exponential-distributions.html#cb746-49" tabindex="-1"></a>      <span class="at">r_exp =</span> n_total <span class="sc">*</span> p_fail) <span class="sc">%&gt;%</span></span>
-<span id="cb746-50"><a href="statistical-techniques-for-exponential-distributions.html#cb746-50" tabindex="-1"></a>    <span class="co"># Part 3-4: Calculate Chi-Squared statistic and p-value</span></span>
-<span id="cb746-51"><a href="statistical-techniques-for-exponential-distributions.html#cb746-51" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
-<span id="cb746-52"><a href="statistical-techniques-for-exponential-distributions.html#cb746-52" tabindex="-1"></a>      <span class="at">chisq =</span> <span class="fu">sum</span>((r_obs <span class="sc">-</span> r_exp)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> r_exp),</span>
-<span id="cb746-53"><a href="statistical-techniques-for-exponential-distributions.html#cb746-53" tabindex="-1"></a>      <span class="at">nbin =</span> <span class="fu">n</span>(),</span>
-<span id="cb746-54"><a href="statistical-techniques-for-exponential-distributions.html#cb746-54" tabindex="-1"></a>      <span class="at">np =</span> np,</span>
-<span id="cb746-55"><a href="statistical-techniques-for-exponential-distributions.html#cb746-55" tabindex="-1"></a>      <span class="at">df =</span> nbin <span class="sc">-</span> np <span class="sc">-</span> <span class="dv">1</span>,</span>
-<span id="cb746-56"><a href="statistical-techniques-for-exponential-distributions.html#cb746-56" tabindex="-1"></a>      <span class="at">p_value =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="at">q =</span> chisq, <span class="at">df =</span> df) )</span>
-<span id="cb746-57"><a href="statistical-techniques-for-exponential-distributions.html#cb746-57" tabindex="-1"></a>  </span>
-<span id="cb746-58"><a href="statistical-techniques-for-exponential-distributions.html#cb746-58" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
-<span id="cb746-59"><a href="statistical-techniques-for-exponential-distributions.html#cb746-59" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb756-1"><a href="statistical-techniques-for-exponential-distributions.html#cb756-1" tabindex="-1"></a><span class="co">#&#39; @name get_chisq</span></span>
+<span id="cb756-2"><a href="statistical-techniques-for-exponential-distributions.html#cb756-2" tabindex="-1"></a><span class="co">#&#39; @title Function to Get Chi-Squared!</span></span>
+<span id="cb756-3"><a href="statistical-techniques-for-exponential-distributions.html#cb756-3" tabindex="-1"></a><span class="co">#&#39; @name Tim Fraser</span></span>
+<span id="cb756-4"><a href="statistical-techniques-for-exponential-distributions.html#cb756-4" tabindex="-1"></a><span class="co">#&#39; If observed vector...</span></span>
+<span id="cb756-5"><a href="statistical-techniques-for-exponential-distributions.html#cb756-5" tabindex="-1"></a><span class="co">#&#39; @param t a vector of times to failure</span></span>
+<span id="cb756-6"><a href="statistical-techniques-for-exponential-distributions.html#cb756-6" tabindex="-1"></a><span class="co">#&#39; @param binwidth size of intervals (eg. 5 hours) (Only if t is provided)</span></span>
+<span id="cb756-7"><a href="statistical-techniques-for-exponential-distributions.html#cb756-7" tabindex="-1"></a><span class="co">#&#39; If cross-tabulated data...</span></span>
+<span id="cb756-8"><a href="statistical-techniques-for-exponential-distributions.html#cb756-8" tabindex="-1"></a><span class="co">#&#39; @param data a data.frame with the vectors `lower`, `upper`, and `r_obs`</span></span>
+<span id="cb756-9"><a href="statistical-techniques-for-exponential-distributions.html#cb756-9" tabindex="-1"></a><span class="co">#&#39; Common Parameters:</span></span>
+<span id="cb756-10"><a href="statistical-techniques-for-exponential-distributions.html#cb756-10" tabindex="-1"></a><span class="co">#&#39; @param n_total total number of units.</span></span>
+<span id="cb756-11"><a href="statistical-techniques-for-exponential-distributions.html#cb756-11" tabindex="-1"></a><span class="co">#&#39; @param f specific failure function, such as `f = f(t, lambda)`</span></span>
+<span id="cb756-12"><a href="statistical-techniques-for-exponential-distributions.html#cb756-12" tabindex="-1"></a><span class="co">#&#39; @param np total number of parameters in your function (eg. if exponential, 1 (lambda))</span></span>
+<span id="cb756-13"><a href="statistical-techniques-for-exponential-distributions.html#cb756-13" tabindex="-1"></a><span class="co">#&#39; @param ... fill in here any named parameters you need, like `lambda = 2.4` or `rate = 2.3` or `mean = 0, sd = 2`</span></span>
+<span id="cb756-14"><a href="statistical-techniques-for-exponential-distributions.html#cb756-14" tabindex="-1"></a>get_chisq <span class="ot">=</span> <span class="cf">function</span>(<span class="at">t =</span> <span class="cn">NULL</span>, <span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">data =</span> <span class="cn">NULL</span>, </span>
+<span id="cb756-15"><a href="statistical-techniques-for-exponential-distributions.html#cb756-15" tabindex="-1"></a>                     n_total, f, <span class="at">np =</span> <span class="dv">1</span>, ...){</span>
+<span id="cb756-16"><a href="statistical-techniques-for-exponential-distributions.html#cb756-16" tabindex="-1"></a>  </span>
+<span id="cb756-17"><a href="statistical-techniques-for-exponential-distributions.html#cb756-17" tabindex="-1"></a>  <span class="co"># If vector `t` is NOT NULL</span></span>
+<span id="cb756-18"><a href="statistical-techniques-for-exponential-distributions.html#cb756-18" tabindex="-1"></a>  <span class="co"># Do the raw data route</span></span>
+<span id="cb756-19"><a href="statistical-techniques-for-exponential-distributions.html#cb756-19" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(t)){</span>
+<span id="cb756-20"><a href="statistical-techniques-for-exponential-distributions.html#cb756-20" tabindex="-1"></a>    <span class="co"># Make a tibble called &#39;tab&#39;</span></span>
+<span id="cb756-21"><a href="statistical-techniques-for-exponential-distributions.html#cb756-21" tabindex="-1"></a>    tab <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">t =</span> t) <span class="sc">%&gt;%</span></span>
+<span id="cb756-22"><a href="statistical-techniques-for-exponential-distributions.html#cb756-22" tabindex="-1"></a>      <span class="co"># Part 1.1: Split into bins</span></span>
+<span id="cb756-23"><a href="statistical-techniques-for-exponential-distributions.html#cb756-23" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">interval =</span> <span class="fu">cut_interval</span>(t, <span class="at">length =</span> binwidth)) <span class="sc">%&gt;%</span></span>
+<span id="cb756-24"><a href="statistical-techniques-for-exponential-distributions.html#cb756-24" tabindex="-1"></a>      <span class="co"># Part 1.2: Tally up observed failures &#39;r_obs&#39; by bin</span></span>
+<span id="cb756-25"><a href="statistical-techniques-for-exponential-distributions.html#cb756-25" tabindex="-1"></a>      <span class="fu">group_by</span>(interval, <span class="at">.drop =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb756-26"><a href="statistical-techniques-for-exponential-distributions.html#cb756-26" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">r_obs =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb756-27"><a href="statistical-techniques-for-exponential-distributions.html#cb756-27" tabindex="-1"></a>      <span class="co"># Let&#39;s repeat our process from before!</span></span>
+<span id="cb756-28"><a href="statistical-techniques-for-exponential-distributions.html#cb756-28" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
+<span id="cb756-29"><a href="statistical-techniques-for-exponential-distributions.html#cb756-29" tabindex="-1"></a>        <span class="at">bin =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(),</span>
+<span id="cb756-30"><a href="statistical-techniques-for-exponential-distributions.html#cb756-30" tabindex="-1"></a>        <span class="at">lower =</span> (bin <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> binwidth, </span>
+<span id="cb756-31"><a href="statistical-techniques-for-exponential-distributions.html#cb756-31" tabindex="-1"></a>        <span class="at">upper =</span> bin <span class="sc">*</span> binwidth,</span>
+<span id="cb756-32"><a href="statistical-techniques-for-exponential-distributions.html#cb756-32" tabindex="-1"></a>        <span class="at">midpoint =</span> (lower <span class="sc">+</span> upper) <span class="sc">/</span> <span class="dv">2</span>) </span>
+<span id="cb756-33"><a href="statistical-techniques-for-exponential-distributions.html#cb756-33" tabindex="-1"></a>    </span>
+<span id="cb756-34"><a href="statistical-techniques-for-exponential-distributions.html#cb756-34" tabindex="-1"></a>    <span class="co"># Otherwise, if data.frame `data` is NOT NULL</span></span>
+<span id="cb756-35"><a href="statistical-techniques-for-exponential-distributions.html#cb756-35" tabindex="-1"></a>    <span class="co"># Do the cross-tabulated data route</span></span>
+<span id="cb756-36"><a href="statistical-techniques-for-exponential-distributions.html#cb756-36" tabindex="-1"></a>  }<span class="cf">else</span> <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(data)){</span>
+<span id="cb756-37"><a href="statistical-techniques-for-exponential-distributions.html#cb756-37" tabindex="-1"></a>    tab <span class="ot">=</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb756-38"><a href="statistical-techniques-for-exponential-distributions.html#cb756-38" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">bin =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(),</span>
+<span id="cb756-39"><a href="statistical-techniques-for-exponential-distributions.html#cb756-39" tabindex="-1"></a>             <span class="at">midpoint =</span> (lower <span class="sc">+</span> upper) <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb756-40"><a href="statistical-techniques-for-exponential-distributions.html#cb756-40" tabindex="-1"></a>  }</span>
+<span id="cb756-41"><a href="statistical-techniques-for-exponential-distributions.html#cb756-41" tabindex="-1"></a>  </span>
+<span id="cb756-42"><a href="statistical-techniques-for-exponential-distributions.html#cb756-42" tabindex="-1"></a>  <span class="co"># Part 2. Calculate probabilities by interval</span></span>
+<span id="cb756-43"><a href="statistical-techniques-for-exponential-distributions.html#cb756-43" tabindex="-1"></a>  output <span class="ot">=</span> tab <span class="sc">%&gt;%</span> </span>
+<span id="cb756-44"><a href="statistical-techniques-for-exponential-distributions.html#cb756-44" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb756-45"><a href="statistical-techniques-for-exponential-distributions.html#cb756-45" tabindex="-1"></a>      <span class="at">p_upper =</span> <span class="fu">f</span>(upper, ...), <span class="co"># supplied parameters</span></span>
+<span id="cb756-46"><a href="statistical-techniques-for-exponential-distributions.html#cb756-46" tabindex="-1"></a>      <span class="at">p_lower =</span> <span class="fu">f</span>(lower, ...), <span class="co"># supplied parameters</span></span>
+<span id="cb756-47"><a href="statistical-techniques-for-exponential-distributions.html#cb756-47" tabindex="-1"></a>      <span class="at">p_fail =</span> p_upper <span class="sc">-</span> p_lower,</span>
+<span id="cb756-48"><a href="statistical-techniques-for-exponential-distributions.html#cb756-48" tabindex="-1"></a>      <span class="at">n_total =</span> n_total,</span>
+<span id="cb756-49"><a href="statistical-techniques-for-exponential-distributions.html#cb756-49" tabindex="-1"></a>      <span class="at">r_exp =</span> n_total <span class="sc">*</span> p_fail) <span class="sc">%&gt;%</span></span>
+<span id="cb756-50"><a href="statistical-techniques-for-exponential-distributions.html#cb756-50" tabindex="-1"></a>    <span class="co"># Part 3-4: Calculate Chi-Squared statistic and p-value</span></span>
+<span id="cb756-51"><a href="statistical-techniques-for-exponential-distributions.html#cb756-51" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb756-52"><a href="statistical-techniques-for-exponential-distributions.html#cb756-52" tabindex="-1"></a>      <span class="at">chisq =</span> <span class="fu">sum</span>((r_obs <span class="sc">-</span> r_exp)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> r_exp),</span>
+<span id="cb756-53"><a href="statistical-techniques-for-exponential-distributions.html#cb756-53" tabindex="-1"></a>      <span class="at">nbin =</span> <span class="fu">n</span>(),</span>
+<span id="cb756-54"><a href="statistical-techniques-for-exponential-distributions.html#cb756-54" tabindex="-1"></a>      <span class="at">np =</span> np,</span>
+<span id="cb756-55"><a href="statistical-techniques-for-exponential-distributions.html#cb756-55" tabindex="-1"></a>      <span class="at">df =</span> nbin <span class="sc">-</span> np <span class="sc">-</span> <span class="dv">1</span>,</span>
+<span id="cb756-56"><a href="statistical-techniques-for-exponential-distributions.html#cb756-56" tabindex="-1"></a>      <span class="at">p_value =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="at">q =</span> chisq, <span class="at">df =</span> df) )</span>
+<span id="cb756-57"><a href="statistical-techniques-for-exponential-distributions.html#cb756-57" tabindex="-1"></a>  </span>
+<span id="cb756-58"><a href="statistical-techniques-for-exponential-distributions.html#cb756-58" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb756-59"><a href="statistical-techniques-for-exponential-distributions.html#cb756-59" tabindex="-1"></a>}</span></code></pre></div>
 <p>Finally, let’s try using our function!</p>
 <p>Using a raw observed vector <code>t</code>:</p>
-<div class="sourceCode" id="cb747"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb747-1"><a href="statistical-techniques-for-exponential-distributions.html#cb747-1" tabindex="-1"></a><span class="fu">get_chisq</span>(</span>
-<span id="cb747-2"><a href="statistical-techniques-for-exponential-distributions.html#cb747-2" tabindex="-1"></a>  <span class="at">t =</span> masks<span class="sc">$</span>left_earloop, <span class="at">binwidth =</span> <span class="dv">5</span>, </span>
-<span id="cb747-3"><a href="statistical-techniques-for-exponential-distributions.html#cb747-3" tabindex="-1"></a>  <span class="at">n_total =</span> <span class="dv">50</span>, <span class="at">f =</span> f, <span class="at">np =</span> <span class="dv">1</span>, <span class="at">lambda =</span> mystat<span class="sc">$</span>lambda)</span></code></pre></div>
+<div class="sourceCode" id="cb757"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb757-1"><a href="statistical-techniques-for-exponential-distributions.html#cb757-1" tabindex="-1"></a><span class="fu">get_chisq</span>(</span>
+<span id="cb757-2"><a href="statistical-techniques-for-exponential-distributions.html#cb757-2" tabindex="-1"></a>  <span class="at">t =</span> masks<span class="sc">$</span>left_earloop, <span class="at">binwidth =</span> <span class="dv">5</span>, </span>
+<span id="cb757-3"><a href="statistical-techniques-for-exponential-distributions.html#cb757-3" tabindex="-1"></a>  <span class="at">n_total =</span> <span class="dv">50</span>, <span class="at">f =</span> f, <span class="at">np =</span> <span class="dv">1</span>, <span class="at">lambda =</span> mystat<span class="sc">$</span>lambda)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##   chisq  nbin    np    df p_value
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
 ## 1  15.2    11     1     9  0.0847</code></pre>
 <p>Or using crosstabulated <code>data</code>:</p>
-<div class="sourceCode" id="cb749"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb749-1"><a href="statistical-techniques-for-exponential-distributions.html#cb749-1" tabindex="-1"></a><span class="fu">get_chisq</span>(</span>
-<span id="cb749-2"><a href="statistical-techniques-for-exponential-distributions.html#cb749-2" tabindex="-1"></a>  <span class="at">data =</span> c1,</span>
-<span id="cb749-3"><a href="statistical-techniques-for-exponential-distributions.html#cb749-3" tabindex="-1"></a>  <span class="at">n_total =</span> <span class="dv">50</span>, <span class="at">f =</span> f, <span class="at">np =</span> <span class="dv">1</span>, <span class="at">lambda =</span> mystat<span class="sc">$</span>lambda)</span></code></pre></div>
+<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb759-1"><a href="statistical-techniques-for-exponential-distributions.html#cb759-1" tabindex="-1"></a><span class="fu">get_chisq</span>(</span>
+<span id="cb759-2"><a href="statistical-techniques-for-exponential-distributions.html#cb759-2" tabindex="-1"></a>  <span class="at">data =</span> c1,</span>
+<span id="cb759-3"><a href="statistical-techniques-for-exponential-distributions.html#cb759-3" tabindex="-1"></a>  <span class="at">n_total =</span> <span class="dv">50</span>, <span class="at">f =</span> f, <span class="at">np =</span> <span class="dv">1</span>, <span class="at">lambda =</span> mystat<span class="sc">$</span>lambda)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##   chisq  nbin    np    df p_value
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
 ## 1  15.2    11     1     9  0.0847</code></pre>
 <p>Using our <code>pexp</code> function instead of our homemade <code>f</code> function:</p>
-<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb751-1"><a href="statistical-techniques-for-exponential-distributions.html#cb751-1" tabindex="-1"></a><span class="fu">get_chisq</span>(</span>
-<span id="cb751-2"><a href="statistical-techniques-for-exponential-distributions.html#cb751-2" tabindex="-1"></a>  <span class="at">data =</span> c1,</span>
-<span id="cb751-3"><a href="statistical-techniques-for-exponential-distributions.html#cb751-3" tabindex="-1"></a>  <span class="at">n_total =</span> <span class="dv">50</span>, <span class="at">f =</span> pexp, <span class="at">np =</span> <span class="dv">1</span>, <span class="at">rate =</span> mystat<span class="sc">$</span>lambda)</span></code></pre></div>
+<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb761-1"><a href="statistical-techniques-for-exponential-distributions.html#cb761-1" tabindex="-1"></a><span class="fu">get_chisq</span>(</span>
+<span id="cb761-2"><a href="statistical-techniques-for-exponential-distributions.html#cb761-2" tabindex="-1"></a>  <span class="at">data =</span> c1,</span>
+<span id="cb761-3"><a href="statistical-techniques-for-exponential-distributions.html#cb761-3" tabindex="-1"></a>  <span class="at">n_total =</span> <span class="dv">50</span>, <span class="at">f =</span> pexp, <span class="at">np =</span> <span class="dv">1</span>, <span class="at">rate =</span> mystat<span class="sc">$</span>lambda)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##   chisq  nbin    np    df p_value
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
 ## 1  15.2    11     1     9  0.0847</code></pre>
 <p>Or using a different function that is not exponential!</p>
-<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb753-1"><a href="statistical-techniques-for-exponential-distributions.html#cb753-1" tabindex="-1"></a><span class="fu">get_chisq</span>(</span>
-<span id="cb753-2"><a href="statistical-techniques-for-exponential-distributions.html#cb753-2" tabindex="-1"></a>  <span class="at">data =</span> c1,</span>
-<span id="cb753-3"><a href="statistical-techniques-for-exponential-distributions.html#cb753-3" tabindex="-1"></a>  <span class="at">n_total =</span> <span class="dv">50</span>, <span class="at">f =</span> pweibull, <span class="at">np =</span> <span class="dv">2</span>, <span class="at">shape =</span> <span class="fl">0.2</span>, <span class="at">scale =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb763"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb763-1"><a href="statistical-techniques-for-exponential-distributions.html#cb763-1" tabindex="-1"></a><span class="fu">get_chisq</span>(</span>
+<span id="cb763-2"><a href="statistical-techniques-for-exponential-distributions.html#cb763-2" tabindex="-1"></a>  <span class="at">data =</span> c1,</span>
+<span id="cb763-3"><a href="statistical-techniques-for-exponential-distributions.html#cb763-3" tabindex="-1"></a>  <span class="at">n_total =</span> <span class="dv">50</span>, <span class="at">f =</span> pweibull, <span class="at">np =</span> <span class="dv">2</span>, <span class="at">shape =</span> <span class="fl">0.2</span>, <span class="at">scale =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##   chisq  nbin    np    df p_value
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
@@ -1614,9 +1619,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Learning Check 4<a href="statistical-techniques-for-exponential-distributions.html#learning-check-4-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Question</strong></p>
 <p>A small start-up is product testing a new super-effective mask. They product tested 25 masks over 60 days. They contracted you to analyze the masks’ lifespan data, recorded below as the number of days to failure. If you were to make projections from this data, you’d want to be sure that you know the lifespan distribution of this data with confidence. Do these masks’ lifespan distribution fit an exponential distribution? Follow the steps below to find out.</p>
-<div class="sourceCode" id="cb755"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb755-1"><a href="statistical-techniques-for-exponential-distributions.html#cb755-1" tabindex="-1"></a><span class="co"># Lifespan in days</span></span>
-<span id="cb755-2"><a href="statistical-techniques-for-exponential-distributions.html#cb755-2" tabindex="-1"></a>supermasks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">13</span>, <span class="dv">15</span>, <span class="dv">17</span>, <span class="dv">19</span>, </span>
-<span id="cb755-3"><a href="statistical-techniques-for-exponential-distributions.html#cb755-3" tabindex="-1"></a>            <span class="dv">20</span>, <span class="dv">21</span>, <span class="dv">23</span>, <span class="dv">24</span>, <span class="dv">24</span>, <span class="dv">24</span>, <span class="dv">32</span>, <span class="dv">33</span>, <span class="dv">33</span>, <span class="dv">34</span>, <span class="dv">54</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb765"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb765-1"><a href="statistical-techniques-for-exponential-distributions.html#cb765-1" tabindex="-1"></a><span class="co"># Lifespan in days</span></span>
+<span id="cb765-2"><a href="statistical-techniques-for-exponential-distributions.html#cb765-2" tabindex="-1"></a>supermasks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">13</span>, <span class="dv">15</span>, <span class="dv">17</span>, <span class="dv">19</span>, </span>
+<span id="cb765-3"><a href="statistical-techniques-for-exponential-distributions.html#cb765-3" tabindex="-1"></a>            <span class="dv">20</span>, <span class="dv">21</span>, <span class="dv">23</span>, <span class="dv">24</span>, <span class="dv">24</span>, <span class="dv">24</span>, <span class="dv">32</span>, <span class="dv">33</span>, <span class="dv">33</span>, <span class="dv">34</span>, <span class="dv">54</span>)</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>Cross-tabulate the lifespan distribution in intervals of <code>7 days</code>.</p></li>
 <li><p>Estimate <span class="math inline">\(\hat{\lambda}\)</span> from the cross-tabulated data, knowing that they tested 25 masks over 60 days.</p></li>
@@ -1629,19 +1634,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: decimal">
 <li>Cross-tabulate the lifespan distribution in intervals of <code>7 days</code>.</li>
 </ol>
-<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb756-1"><a href="statistical-techniques-for-exponential-distributions.html#cb756-1" tabindex="-1"></a><span class="co"># Days to failure</span></span>
-<span id="cb756-2"><a href="statistical-techniques-for-exponential-distributions.html#cb756-2" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">t =</span> supermasks) <span class="sc">%&gt;%</span></span>
-<span id="cb756-3"><a href="statistical-techniques-for-exponential-distributions.html#cb756-3" tabindex="-1"></a>  <span class="co"># Step 1: Split into bins</span></span>
-<span id="cb756-4"><a href="statistical-techniques-for-exponential-distributions.html#cb756-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">cut_interval</span>(t, <span class="at">length =</span> <span class="dv">7</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb756-5"><a href="statistical-techniques-for-exponential-distributions.html#cb756-5" tabindex="-1"></a>  <span class="co"># Step 2: Tally up by bin</span></span>
-<span id="cb756-6"><a href="statistical-techniques-for-exponential-distributions.html#cb756-6" tabindex="-1"></a>  <span class="fu">group_by</span>(label, <span class="at">.drop =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb756-7"><a href="statistical-techniques-for-exponential-distributions.html#cb756-7" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">r_obs =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb756-8"><a href="statistical-techniques-for-exponential-distributions.html#cb756-8" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb756-9"><a href="statistical-techniques-for-exponential-distributions.html#cb756-9" tabindex="-1"></a>    <span class="at">bin =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(),</span>
-<span id="cb756-10"><a href="statistical-techniques-for-exponential-distributions.html#cb756-10" tabindex="-1"></a>    <span class="at">lower =</span> (bin <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">7</span>, </span>
-<span id="cb756-11"><a href="statistical-techniques-for-exponential-distributions.html#cb756-11" tabindex="-1"></a>    <span class="at">upper =</span> bin <span class="sc">*</span> <span class="dv">7</span>,</span>
-<span id="cb756-12"><a href="statistical-techniques-for-exponential-distributions.html#cb756-12" tabindex="-1"></a>    <span class="at">midpoint =</span> (lower <span class="sc">+</span> upper) <span class="sc">/</span> <span class="dv">2</span>)</span>
-<span id="cb756-13"><a href="statistical-techniques-for-exponential-distributions.html#cb756-13" tabindex="-1"></a>a</span></code></pre></div>
+<div class="sourceCode" id="cb766"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb766-1"><a href="statistical-techniques-for-exponential-distributions.html#cb766-1" tabindex="-1"></a><span class="co"># Days to failure</span></span>
+<span id="cb766-2"><a href="statistical-techniques-for-exponential-distributions.html#cb766-2" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">t =</span> supermasks) <span class="sc">%&gt;%</span></span>
+<span id="cb766-3"><a href="statistical-techniques-for-exponential-distributions.html#cb766-3" tabindex="-1"></a>  <span class="co"># Step 1: Split into bins</span></span>
+<span id="cb766-4"><a href="statistical-techniques-for-exponential-distributions.html#cb766-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">cut_interval</span>(t, <span class="at">length =</span> <span class="dv">7</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb766-5"><a href="statistical-techniques-for-exponential-distributions.html#cb766-5" tabindex="-1"></a>  <span class="co"># Step 2: Tally up by bin</span></span>
+<span id="cb766-6"><a href="statistical-techniques-for-exponential-distributions.html#cb766-6" tabindex="-1"></a>  <span class="fu">group_by</span>(label, <span class="at">.drop =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb766-7"><a href="statistical-techniques-for-exponential-distributions.html#cb766-7" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">r_obs =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb766-8"><a href="statistical-techniques-for-exponential-distributions.html#cb766-8" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb766-9"><a href="statistical-techniques-for-exponential-distributions.html#cb766-9" tabindex="-1"></a>    <span class="at">bin =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(),</span>
+<span id="cb766-10"><a href="statistical-techniques-for-exponential-distributions.html#cb766-10" tabindex="-1"></a>    <span class="at">lower =</span> (bin <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">7</span>, </span>
+<span id="cb766-11"><a href="statistical-techniques-for-exponential-distributions.html#cb766-11" tabindex="-1"></a>    <span class="at">upper =</span> bin <span class="sc">*</span> <span class="dv">7</span>,</span>
+<span id="cb766-12"><a href="statistical-techniques-for-exponential-distributions.html#cb766-12" tabindex="-1"></a>    <span class="at">midpoint =</span> (lower <span class="sc">+</span> upper) <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb766-13"><a href="statistical-techniques-for-exponential-distributions.html#cb766-13" tabindex="-1"></a>a</span></code></pre></div>
 <pre><code>## # A tibble: 8 × 6
 ##   label   r_obs   bin lower upper midpoint
 ##   &lt;fct&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
@@ -1656,21 +1661,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol start="2" style="list-style-type: decimal">
 <li>Estimate <span class="math inline">\(\hat{\lambda}\)</span> from the cross-tabulated data, knowing that they tested 25 masks over 60 days.</li>
 </ol>
-<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb758-1"><a href="statistical-techniques-for-exponential-distributions.html#cb758-1" tabindex="-1"></a><span class="co"># Let&#39;s estimate lambda-hat!</span></span>
-<span id="cb758-2"><a href="statistical-techniques-for-exponential-distributions.html#cb758-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> a <span class="sc">%&gt;%</span></span>
-<span id="cb758-3"><a href="statistical-techniques-for-exponential-distributions.html#cb758-3" tabindex="-1"></a>  <span class="co"># Get the midpoint...</span></span>
-<span id="cb758-4"><a href="statistical-techniques-for-exponential-distributions.html#cb758-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">midpoint =</span> (upper <span class="sc">-</span> lower)<span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> lower) <span class="sc">%&gt;%</span></span>
-<span id="cb758-5"><a href="statistical-techniques-for-exponential-distributions.html#cb758-5" tabindex="-1"></a>  <span class="co"># Estimate lambda</span></span>
-<span id="cb758-6"><a href="statistical-techniques-for-exponential-distributions.html#cb758-6" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb758-7"><a href="statistical-techniques-for-exponential-distributions.html#cb758-7" tabindex="-1"></a>    <span class="at">r =</span> <span class="fu">sum</span>(r_obs), <span class="co"># total failures</span></span>
-<span id="cb758-8"><a href="statistical-techniques-for-exponential-distributions.html#cb758-8" tabindex="-1"></a>    <span class="at">days =</span> <span class="fu">sum</span>(midpoint<span class="sc">*</span>r_obs), <span class="co"># total failure-days</span></span>
-<span id="cb758-9"><a href="statistical-techniques-for-exponential-distributions.html#cb758-9" tabindex="-1"></a>    <span class="at">n =</span> r, <span class="co"># in this case, total failures = total obs</span></span>
-<span id="cb758-10"><a href="statistical-techniques-for-exponential-distributions.html#cb758-10" tabindex="-1"></a>    <span class="at">tz =</span> <span class="fu">max</span>(midpoint), <span class="co"># end of study period</span></span>
-<span id="cb758-11"><a href="statistical-techniques-for-exponential-distributions.html#cb758-11" tabindex="-1"></a>    <span class="co"># Calculate lambda hat!</span></span>
-<span id="cb758-12"><a href="statistical-techniques-for-exponential-distributions.html#cb758-12" tabindex="-1"></a>    <span class="at">lambda_hat =</span> r <span class="sc">/</span> (days <span class="sc">+</span> (n <span class="sc">-</span> r)<span class="sc">*</span>tz)) </span>
-<span id="cb758-13"><a href="statistical-techniques-for-exponential-distributions.html#cb758-13" tabindex="-1"></a></span>
-<span id="cb758-14"><a href="statistical-techniques-for-exponential-distributions.html#cb758-14" tabindex="-1"></a><span class="co"># view it</span></span>
-<span id="cb758-15"><a href="statistical-techniques-for-exponential-distributions.html#cb758-15" tabindex="-1"></a>b</span></code></pre></div>
+<div class="sourceCode" id="cb768"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb768-1"><a href="statistical-techniques-for-exponential-distributions.html#cb768-1" tabindex="-1"></a><span class="co"># Let&#39;s estimate lambda-hat!</span></span>
+<span id="cb768-2"><a href="statistical-techniques-for-exponential-distributions.html#cb768-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> a <span class="sc">%&gt;%</span></span>
+<span id="cb768-3"><a href="statistical-techniques-for-exponential-distributions.html#cb768-3" tabindex="-1"></a>  <span class="co"># Get the midpoint...</span></span>
+<span id="cb768-4"><a href="statistical-techniques-for-exponential-distributions.html#cb768-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">midpoint =</span> (upper <span class="sc">-</span> lower)<span class="sc">/</span><span class="dv">2</span> <span class="sc">+</span> lower) <span class="sc">%&gt;%</span></span>
+<span id="cb768-5"><a href="statistical-techniques-for-exponential-distributions.html#cb768-5" tabindex="-1"></a>  <span class="co"># Estimate lambda</span></span>
+<span id="cb768-6"><a href="statistical-techniques-for-exponential-distributions.html#cb768-6" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb768-7"><a href="statistical-techniques-for-exponential-distributions.html#cb768-7" tabindex="-1"></a>    <span class="at">r =</span> <span class="fu">sum</span>(r_obs), <span class="co"># total failures</span></span>
+<span id="cb768-8"><a href="statistical-techniques-for-exponential-distributions.html#cb768-8" tabindex="-1"></a>    <span class="at">days =</span> <span class="fu">sum</span>(midpoint<span class="sc">*</span>r_obs), <span class="co"># total failure-days</span></span>
+<span id="cb768-9"><a href="statistical-techniques-for-exponential-distributions.html#cb768-9" tabindex="-1"></a>    <span class="at">n =</span> r, <span class="co"># in this case, total failures = total obs</span></span>
+<span id="cb768-10"><a href="statistical-techniques-for-exponential-distributions.html#cb768-10" tabindex="-1"></a>    <span class="at">tz =</span> <span class="fu">max</span>(midpoint), <span class="co"># end of study period</span></span>
+<span id="cb768-11"><a href="statistical-techniques-for-exponential-distributions.html#cb768-11" tabindex="-1"></a>    <span class="co"># Calculate lambda hat!</span></span>
+<span id="cb768-12"><a href="statistical-techniques-for-exponential-distributions.html#cb768-12" tabindex="-1"></a>    <span class="at">lambda_hat =</span> r <span class="sc">/</span> (days <span class="sc">+</span> (n <span class="sc">-</span> r)<span class="sc">*</span>tz)) </span>
+<span id="cb768-13"><a href="statistical-techniques-for-exponential-distributions.html#cb768-13" tabindex="-1"></a></span>
+<span id="cb768-14"><a href="statistical-techniques-for-exponential-distributions.html#cb768-14" tabindex="-1"></a><span class="co"># view it</span></span>
+<span id="cb768-15"><a href="statistical-techniques-for-exponential-distributions.html#cb768-15" tabindex="-1"></a>b</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##       r  days     n    tz lambda_hat
 ##   &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;      &lt;dbl&gt;
@@ -1678,22 +1683,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol start="3" style="list-style-type: decimal">
 <li><em>Using the cross-tabulated data</em>, do these masks’ lifespan distribution fit an exponential distribution, or does their distribution differ to a statistically significant degree from the exponential? How much? (eg. statistic and p-value).</li>
 </ol>
-<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb760-1"><a href="statistical-techniques-for-exponential-distributions.html#cb760-1" tabindex="-1"></a><span class="co"># Get your &#39;model&#39; function</span></span>
-<span id="cb760-2"><a href="statistical-techniques-for-exponential-distributions.html#cb760-2" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>lambda<span class="sc">*</span>t) }</span>
-<span id="cb760-3"><a href="statistical-techniques-for-exponential-distributions.html#cb760-3" tabindex="-1"></a><span class="co"># Get lambda-hat from b$lambda_hat</span></span>
-<span id="cb760-4"><a href="statistical-techniques-for-exponential-distributions.html#cb760-4" tabindex="-1"></a></span>
-<span id="cb760-5"><a href="statistical-techniques-for-exponential-distributions.html#cb760-5" tabindex="-1"></a><span class="co"># Step 3a: Calculate Observed vs. Expected</span></span>
-<span id="cb760-6"><a href="statistical-techniques-for-exponential-distributions.html#cb760-6" tabindex="-1"></a><span class="fu">get_chisq</span>(<span class="at">data =</span> a, <span class="at">n_total =</span> <span class="dv">25</span>, <span class="at">np =</span> <span class="dv">1</span>, <span class="at">f =</span> f, <span class="at">lambda =</span> b<span class="sc">$</span>lambda_hat)</span></code></pre></div>
+<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb770-1"><a href="statistical-techniques-for-exponential-distributions.html#cb770-1" tabindex="-1"></a><span class="co"># Get your &#39;model&#39; function</span></span>
+<span id="cb770-2"><a href="statistical-techniques-for-exponential-distributions.html#cb770-2" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>lambda<span class="sc">*</span>t) }</span>
+<span id="cb770-3"><a href="statistical-techniques-for-exponential-distributions.html#cb770-3" tabindex="-1"></a><span class="co"># Get lambda-hat from b$lambda_hat</span></span>
+<span id="cb770-4"><a href="statistical-techniques-for-exponential-distributions.html#cb770-4" tabindex="-1"></a></span>
+<span id="cb770-5"><a href="statistical-techniques-for-exponential-distributions.html#cb770-5" tabindex="-1"></a><span class="co"># Step 3a: Calculate Observed vs. Expected</span></span>
+<span id="cb770-6"><a href="statistical-techniques-for-exponential-distributions.html#cb770-6" tabindex="-1"></a><span class="fu">get_chisq</span>(<span class="at">data =</span> a, <span class="at">n_total =</span> <span class="dv">25</span>, <span class="at">np =</span> <span class="dv">1</span>, <span class="at">f =</span> f, <span class="at">lambda =</span> b<span class="sc">$</span>lambda_hat)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##   chisq  nbin    np    df p_value
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
 ## 1  9.85     8     1     6   0.131</code></pre>
-<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb762-1"><a href="statistical-techniques-for-exponential-distributions.html#cb762-1" tabindex="-1"></a><span class="co"># Step 3b: Calculate Chi-squared if we had received the vector supermasks all along, assuming that were the whole population</span></span>
-<span id="cb762-2"><a href="statistical-techniques-for-exponential-distributions.html#cb762-2" tabindex="-1"></a><span class="co"># Get lambda from directly from the data</span></span>
-<span id="cb762-3"><a href="statistical-techniques-for-exponential-distributions.html#cb762-3" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>lambda<span class="sc">*</span>t) }</span>
-<span id="cb762-4"><a href="statistical-techniques-for-exponential-distributions.html#cb762-4" tabindex="-1"></a><span class="fu">get_chisq</span>(<span class="at">t =</span> supermasks, <span class="at">binwidth =</span> <span class="dv">7</span>,</span>
-<span id="cb762-5"><a href="statistical-techniques-for-exponential-distributions.html#cb762-5" tabindex="-1"></a>          <span class="at">n_total =</span> <span class="dv">25</span>, <span class="at">np =</span> <span class="dv">1</span>, <span class="at">f =</span> f, </span>
-<span id="cb762-6"><a href="statistical-techniques-for-exponential-distributions.html#cb762-6" tabindex="-1"></a>          <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(supermasks) )</span></code></pre></div>
+<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb772-1"><a href="statistical-techniques-for-exponential-distributions.html#cb772-1" tabindex="-1"></a><span class="co"># Step 3b: Calculate Chi-squared if we had received the vector supermasks all along, assuming that were the whole population</span></span>
+<span id="cb772-2"><a href="statistical-techniques-for-exponential-distributions.html#cb772-2" tabindex="-1"></a><span class="co"># Get lambda from directly from the data</span></span>
+<span id="cb772-3"><a href="statistical-techniques-for-exponential-distributions.html#cb772-3" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(t, lambda){ <span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">*</span>lambda<span class="sc">*</span>t) }</span>
+<span id="cb772-4"><a href="statistical-techniques-for-exponential-distributions.html#cb772-4" tabindex="-1"></a><span class="fu">get_chisq</span>(<span class="at">t =</span> supermasks, <span class="at">binwidth =</span> <span class="dv">7</span>,</span>
+<span id="cb772-5"><a href="statistical-techniques-for-exponential-distributions.html#cb772-5" tabindex="-1"></a>          <span class="at">n_total =</span> <span class="dv">25</span>, <span class="at">np =</span> <span class="dv">1</span>, <span class="at">f =</span> f, </span>
+<span id="cb772-6"><a href="statistical-techniques-for-exponential-distributions.html#cb772-6" tabindex="-1"></a>          <span class="at">lambda =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(supermasks) )</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##   chisq  nbin    np    df p_value
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;

@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2024-08-29" />
+<meta name="date" content="2024-10-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,7 @@
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="assets/kePrint-0.0.1/kePrint.js"></script>
 <link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="assets/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
 <script src="assets/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <script src="assets/d3-3.3.8/d3.min.js"></script>
 <script src="assets/dagre-0.4.0/dagre-d3.min.js"></script>
@@ -76,7 +77,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -921,7 +922,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="25" data-path="appendix-test.html"><a href="appendix-test.html"><i class="fa fa-check"></i><b>25</b> Appendix: test</a>
 <ul>
-<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-24"><i class="fa fa-check"></i>Getting Started</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-24"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-1"><i class="fa fa-check"></i>Version 1</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-2"><i class="fa fa-check"></i>Version 2</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -949,18 +954,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Please open up your project on Posit.Cloud, for our <a href="https://github.com/timothyfraser/sysen">Github class repository</a>. Start a new R script (File &gt;&gt; New &gt;&gt; R Script). Save the R script as <code>appendix_fitdistr.R</code>. And let’s get started!</p>
 <div id="load-packages-10" class="section level3 unnumbered hasAnchor">
 <h3>Load Packages<a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#load-packages-10" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb1254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1254-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1254-1" tabindex="-1"></a><span class="co"># Load dplyr, which contains most data wrangling functions</span></span>
-<span id="cb1254-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1254-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1254-3"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1254-3" tabindex="-1"></a><span class="co"># Load the fitdistr() function directly from the MASS package. </span></span>
-<span id="cb1254-4"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1254-4" tabindex="-1"></a><span class="co"># We&#39;ll do this, rather than loading the whole MASS package, because MASS will cancel out some dplyr functions that share the same names otherwise. See how fitdistr has now shown up in your environment as a function?</span></span>
-<span id="cb1254-5"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1254-5" tabindex="-1"></a>fitdistr <span class="ot">=</span> MASS<span class="sc">::</span>fitdistr</span></code></pre></div>
+<div class="sourceCode" id="cb1263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1263-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1263-1" tabindex="-1"></a><span class="co"># Load dplyr, which contains most data wrangling functions</span></span>
+<span id="cb1263-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1263-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1263-3"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1263-3" tabindex="-1"></a><span class="co"># Load the fitdistr() function directly from the MASS package. </span></span>
+<span id="cb1263-4"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1263-4" tabindex="-1"></a><span class="co"># We&#39;ll do this, rather than loading the whole MASS package, because MASS will cancel out some dplyr functions that share the same names otherwise. See how fitdistr has now shown up in your environment as a function?</span></span>
+<span id="cb1263-5"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1263-5" tabindex="-1"></a>fitdistr <span class="ot">=</span> MASS<span class="sc">::</span>fitdistr</span></code></pre></div>
 </div>
 <div id="our-data-7" class="section level3 hasAnchor" number="23.0.1">
 <h3><span class="header-section-number">23.0.1</span> Our Data<a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#our-data-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>As our raw data, let’s use our vector of seawall heights <code>sw</code>. Its raw distribution can be visualized with <code>hist(sw)</code>.</p>
-<div class="sourceCode" id="cb1255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1255-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1255-1" tabindex="-1"></a><span class="co"># Let&#39;s remake again our vector of seawall heights</span></span>
-<span id="cb1255-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1255-2" tabindex="-1"></a>sw <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">4.5</span>, <span class="dv">5</span>, <span class="fl">5.5</span>, <span class="dv">5</span>, <span class="fl">5.5</span>, <span class="fl">6.5</span>, <span class="fl">6.5</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>)</span>
-<span id="cb1255-3"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1255-3" tabindex="-1"></a><span class="fu">hist</span>(sw)</span></code></pre></div>
+<div class="sourceCode" id="cb1264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1264-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1264-1" tabindex="-1"></a><span class="co"># Let&#39;s remake again our vector of seawall heights</span></span>
+<span id="cb1264-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1264-2" tabindex="-1"></a>sw <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">4.5</span>, <span class="dv">5</span>, <span class="fl">5.5</span>, <span class="dv">5</span>, <span class="fl">5.5</span>, <span class="fl">6.5</span>, <span class="fl">6.5</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>)</span>
+<span id="cb1264-3"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1264-3" tabindex="-1"></a><span class="fu">hist</span>(sw)</span></code></pre></div>
 <p><img src="99_skill_fitdistr_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
 </div>
@@ -977,18 +982,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="method-of-moments" class="section level2 hasAnchor" number="23.2">
 <h2><span class="header-section-number">23.2</span> Method of Moments<a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#method-of-moments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1256-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1256-1" tabindex="-1"></a><span class="co"># Let&#39;s use the method of moments to find the inverse mean</span></span>
-<span id="cb1256-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1256-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> (<span class="fu">sum</span>(sw) <span class="sc">/</span> <span class="fu">length</span>(sw))</span></code></pre></div>
+<div class="sourceCode" id="cb1265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1265-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1265-1" tabindex="-1"></a><span class="co"># Let&#39;s use the method of moments to find the inverse mean</span></span>
+<span id="cb1265-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1265-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> (<span class="fu">sum</span>(sw) <span class="sc">/</span> <span class="fu">length</span>(sw))</span></code></pre></div>
 <pre><code>## [1] 0.1869159</code></pre>
-<div class="sourceCode" id="cb1258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1258-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1258-1" tabindex="-1"></a><span class="co"># Equivalent to...</span></span>
-<span id="cb1258-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1258-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(sw)</span></code></pre></div>
+<div class="sourceCode" id="cb1267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1267-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1267-1" tabindex="-1"></a><span class="co"># Equivalent to...</span></span>
+<span id="cb1267-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1267-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(sw)</span></code></pre></div>
 <pre><code>## [1] 0.1869159</code></pre>
 </div>
 <div id="mle-with-fitdistr" class="section level2 hasAnchor" number="23.3">
 <h2><span class="header-section-number">23.3</span> MLE with <code>fitdistr()</code><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#mle-with-fitdistr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s ask <code>fitdistr</code> to run maximum likelihood estimation.</p>
 <p>Maximum likelihood estimation requires a benchmark distribution to compare against, so we need to specify the distribution type as <code>densfun = [type name]</code>. In this case, let’s do <code>exponential</code>. (See a list of supported distributions using <code>?MASS::fitdistr</code>)</p>
-<div class="sourceCode" id="cb1260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1260-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1260-1" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> MASS<span class="sc">::</span><span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;exponential&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1269-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1269-1" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> MASS<span class="sc">::</span><span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;exponential&quot;</span>)</span></code></pre></div>
 <pre><code>##       rate   
 ##   0.18691589 
 ##  (0.05910799)</code></pre>
@@ -998,33 +1003,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">23.4</span> MLE with <code>optim()</code><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#mle-with-optim" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Alternatively, we could run maximum likelihood estimation manually, using <code>optim()</code>. <code>optim()</code> is <code>R</code>’s built in optimization function. We’ll learn maximum likelihood estimation a little more later in the book. The key idea is this:</p>
 <p><code>dexp(x = 2, rate = 0.1)</code> gives the probability of the value <code>x = 2</code> showing up in an exponential distribution characterized by a parameter <code>rate = 0.1</code>.</p>
-<div class="sourceCode" id="cb1262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1262-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1262-1" tabindex="-1"></a><span class="fu">dexp</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">rate =</span> <span class="fl">0.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1271-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1271-1" tabindex="-1"></a><span class="fu">dexp</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">rate =</span> <span class="fl">0.1</span>)</span></code></pre></div>
 <pre><code>## [1] 0.08187308</code></pre>
 <p><code>dexp(x = sw, rate = 0.1)</code> gives the probabilities for <em>each value of x</em> if they showed up in an exponential distribution characterized by a parameter <code>rate = 0.1</code>.</p>
-<div class="sourceCode" id="cb1264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1264-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1264-1" tabindex="-1"></a><span class="co"># You can also pipe the values of x into dexp() like this</span></span>
-<span id="cb1264-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1264-2" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">dexp</span>(<span class="at">rate =</span> <span class="fl">0.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1273-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1273-1" tabindex="-1"></a><span class="co"># You can also pipe the values of x into dexp() like this</span></span>
+<span id="cb1273-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1273-2" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">dexp</span>(<span class="at">rate =</span> <span class="fl">0.1</span>)</span></code></pre></div>
 <pre><code>##  [1] 0.06376282 0.06065307 0.05769498 0.06065307 0.05769498 0.05220458
 ##  [7] 0.05220458 0.05488116 0.06065307 0.06703200</code></pre>
 <p>The <strong>joint probability</strong> of these values of x occurring together is called the <strong>likelihood</strong>. We can take the product using <code>prod()</code>.</p>
-<div class="sourceCode" id="cb1266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1266-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1266-1" tabindex="-1"></a><span class="co"># Let&#39;s get the likelihood of these values...</span></span>
-<span id="cb1266-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1266-2" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">dexp</span>(<span class="at">rate =</span> <span class="fl">0.1</span>) <span class="sc">%&gt;%</span> <span class="fu">prod</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1275-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1275-1" tabindex="-1"></a><span class="co"># Let&#39;s get the likelihood of these values...</span></span>
+<span id="cb1275-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1275-2" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">dexp</span>(<span class="at">rate =</span> <span class="fl">0.1</span>) <span class="sc">%&gt;%</span> <span class="fu">prod</span>()</span></code></pre></div>
 <pre><code>## [1] 4.748151e-13</code></pre>
 <p>Likelihood tend to be very small numbers, so a helpful trick is to calculate the <code>log-likelihood</code> instead, meaning the sum of logged probabilities.</p>
-<div class="sourceCode" id="cb1268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1268-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1268-1" tabindex="-1"></a><span class="co"># See how these two processes produce the same output?</span></span>
-<span id="cb1268-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1268-2" tabindex="-1"></a><span class="co"># Get the log of probabilities multiplied together...</span></span>
-<span id="cb1268-3"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1268-3" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">dexp</span>(<span class="at">rate =</span> <span class="fl">0.1</span>) <span class="sc">%&gt;%</span> <span class="fu">prod</span>() <span class="sc">%&gt;%</span> <span class="fu">log</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1277-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1277-1" tabindex="-1"></a><span class="co"># See how these two processes produce the same output?</span></span>
+<span id="cb1277-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1277-2" tabindex="-1"></a><span class="co"># Get the log of probabilities multiplied together...</span></span>
+<span id="cb1277-3"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1277-3" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">dexp</span>(<span class="at">rate =</span> <span class="fl">0.1</span>) <span class="sc">%&gt;%</span> <span class="fu">prod</span>() <span class="sc">%&gt;%</span> <span class="fu">log</span>()</span></code></pre></div>
 <pre><code>## [1] -28.37585</code></pre>
-<div class="sourceCode" id="cb1270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1270-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1270-1" tabindex="-1"></a><span class="co"># Get the sum of logged probabilities...</span></span>
-<span id="cb1270-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1270-2" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">dexp</span>(<span class="at">rate =</span> <span class="fl">0.1</span>) <span class="sc">%&gt;%</span> <span class="fu">log</span>() <span class="sc">%&gt;%</span> <span class="fu">sum</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1279-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1279-1" tabindex="-1"></a><span class="co"># Get the sum of logged probabilities...</span></span>
+<span id="cb1279-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1279-2" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">dexp</span>(<span class="at">rate =</span> <span class="fl">0.1</span>) <span class="sc">%&gt;%</span> <span class="fu">log</span>() <span class="sc">%&gt;%</span> <span class="fu">sum</span>()</span></code></pre></div>
 <pre><code>## [1] -28.37585</code></pre>
-<div class="sourceCode" id="cb1272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1272-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1272-1" tabindex="-1"></a><span class="co"># They&#39;re equivalent</span></span></code></pre></div>
+<div class="sourceCode" id="cb1281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1281-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1281-1" tabindex="-1"></a><span class="co"># They&#39;re equivalent</span></span></code></pre></div>
 <p>Then, we write up a short <code>function</code> called <code>loglikelihood()</code>, including two inputs (1) <code>par</code> and (2) our data <code>x</code>. I added an example value <code>0.1</code> to <code>par</code> just as a reminder for what it means.</p>
-<div class="sourceCode" id="cb1273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1273-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1273-1" tabindex="-1"></a>loglikelihood <span class="ot">=</span> <span class="cf">function</span>(<span class="at">par =</span> <span class="fl">0.1</span>, x){ <span class="fu">dexp</span>(<span class="at">x =</span> x, <span class="at">rate =</span> par) <span class="sc">%&gt;%</span> <span class="fu">log</span>() <span class="sc">%&gt;%</span> <span class="fu">sum</span>()   }</span>
-<span id="cb1273-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1273-2" tabindex="-1"></a><span class="co"># Try it!</span></span>
-<span id="cb1273-3"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1273-3" tabindex="-1"></a><span class="fu">loglikelihood</span>(<span class="at">par =</span> <span class="fl">0.1</span>, <span class="at">x =</span> sw)</span></code></pre></div>
+<div class="sourceCode" id="cb1282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1282-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1282-1" tabindex="-1"></a>loglikelihood <span class="ot">=</span> <span class="cf">function</span>(<span class="at">par =</span> <span class="fl">0.1</span>, x){ <span class="fu">dexp</span>(<span class="at">x =</span> x, <span class="at">rate =</span> par) <span class="sc">%&gt;%</span> <span class="fu">log</span>() <span class="sc">%&gt;%</span> <span class="fu">sum</span>()   }</span>
+<span id="cb1282-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1282-2" tabindex="-1"></a><span class="co"># Try it!</span></span>
+<span id="cb1282-3"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1282-3" tabindex="-1"></a><span class="fu">loglikelihood</span>(<span class="at">par =</span> <span class="fl">0.1</span>, <span class="at">x =</span> sw)</span></code></pre></div>
 <pre><code>## [1] -28.37585</code></pre>
 <p>Finally, we run an optimizer using <code>optim()</code>, supplying a starting value for search <code>par = 0.1</code>, our raw data <code>x</code>, and our function <code>loglikelihood</code>. We want to <strong>maximize</strong> the loglikelihood, but <code>optim()</code> minimizes by default, so we’ll say, <code>control = list(fnscale = -1)</code> to flip the scale.</p>
-<div class="sourceCode" id="cb1275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1275-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1275-1" tabindex="-1"></a><span class="fu">optim</span>(<span class="at">par =</span> <span class="fu">c</span>(<span class="fl">0.1</span>), <span class="at">x =</span> sw, <span class="at">fn =</span> loglikelihood, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">fnscale =</span> <span class="sc">-</span><span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1284-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1284-1" tabindex="-1"></a><span class="fu">optim</span>(<span class="at">par =</span> <span class="fu">c</span>(<span class="fl">0.1</span>), <span class="at">x =</span> sw, <span class="at">fn =</span> loglikelihood, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">fnscale =</span> <span class="sc">-</span><span class="dv">1</span>))</span></code></pre></div>
 <pre><code>## $par
 ## [1] 0.1869531
 ## 
@@ -1041,7 +1046,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## $message
 ## NULL</code></pre>
 <p>Compare the final parameter value against <code>fitdistr</code>’s results! They’re about the same.</p>
-<div class="sourceCode" id="cb1277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1277-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1277-1" tabindex="-1"></a><span class="fu">fitdistr</span>(<span class="at">x =</span> sw, <span class="at">densfun =</span> <span class="st">&quot;exponential&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1286-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1286-1" tabindex="-1"></a><span class="fu">fitdistr</span>(<span class="at">x =</span> sw, <span class="at">densfun =</span> <span class="st">&quot;exponential&quot;</span>)</span></code></pre></div>
 <pre><code>##       rate   
 ##   0.18691589 
 ##  (0.05910799)</code></pre>
@@ -1053,13 +1058,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="normal-distribution-1" class="section level3 hasAnchor" number="23.5.1">
 <h3><span class="header-section-number">23.5.1</span> Normal Distribution<a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#normal-distribution-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>What parameter values would best describe our distribution’s shape, if this data were from a normal distribution? Remember, normal distributions have a <code>mean</code> and a <code>sd</code>.</p>
-<div class="sourceCode" id="cb1279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1279-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1279-1" tabindex="-1"></a><span class="co"># Method of Moments</span></span>
-<span id="cb1279-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1279-2" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">mean</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1288-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1288-1" tabindex="-1"></a><span class="co"># Method of Moments</span></span>
+<span id="cb1288-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1288-2" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">mean</span>()</span></code></pre></div>
 <pre><code>## [1] 5.35</code></pre>
-<div class="sourceCode" id="cb1281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1281-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1281-1" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">sd</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1290-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1290-1" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">sd</span>()</span></code></pre></div>
 <pre><code>## [1] 0.8181958</code></pre>
-<div class="sourceCode" id="cb1283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1283-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1283-1" tabindex="-1"></a><span class="co"># Maximum Likelihood Estimation</span></span>
-<span id="cb1283-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1283-2" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;normal&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1292-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1292-1" tabindex="-1"></a><span class="co"># Maximum Likelihood Estimation</span></span>
+<span id="cb1292-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1292-2" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;normal&quot;</span>)</span></code></pre></div>
 <pre><code>##      mean         sd    
 ##   5.3500000   0.7762087 
 ##  (0.2454588) (0.1735655)</code></pre>
@@ -1067,11 +1072,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="poisson-distribution-1" class="section level3 hasAnchor" number="23.5.2">
 <h3><span class="header-section-number">23.5.2</span> Poisson Distribution<a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#poisson-distribution-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>What parameter values would best describe our distribution’s shape, if this data were from a Poisson distribution? Remember, poisson distributions have a <code>lambda</code> parameter describing the <code>mean</code>.</p>
-<div class="sourceCode" id="cb1285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1285-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1285-1" tabindex="-1"></a><span class="co"># Method of moments</span></span>
-<span id="cb1285-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1285-2" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">mean</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1294-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1294-1" tabindex="-1"></a><span class="co"># Method of moments</span></span>
+<span id="cb1294-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1294-2" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">mean</span>()</span></code></pre></div>
 <pre><code>## [1] 5.35</code></pre>
-<div class="sourceCode" id="cb1287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1287-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1287-1" tabindex="-1"></a><span class="co"># Maximum Likelihood Estimation</span></span>
-<span id="cb1287-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1287-2" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;poisson&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1296-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1296-1" tabindex="-1"></a><span class="co"># Maximum Likelihood Estimation</span></span>
+<span id="cb1296-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1296-2" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;poisson&quot;</span>)</span></code></pre></div>
 <pre><code>##     lambda  
 ##   5.3500000 
 ##  (0.7314369)</code></pre>
@@ -1079,15 +1084,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="gamma-distribution-2" class="section level3 hasAnchor" number="23.5.3">
 <h3><span class="header-section-number">23.5.3</span> Gamma Distribution<a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#gamma-distribution-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>What parameter values would best describe our distribution’s shape, if this data were from a Gamma distribution? Remember, gamma distributions have a <code>shape</code> parameter ` <span class="math inline">\(\approx \frac{mean^{2}}{ variance}\)</span> and a <code>scale</code> parameter <span class="math inline">\(\approx \frac{variance}{ mean }\)</span>.</p>
-<div class="sourceCode" id="cb1289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1289-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1289-1" tabindex="-1"></a><span class="co"># Method of Moments</span></span>
-<span id="cb1289-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1289-2" tabindex="-1"></a><span class="co"># For shape, we want the rate of how much greater the mean-squared is than the variance.</span></span>
-<span id="cb1289-3"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1289-3" tabindex="-1"></a><span class="fu">mean</span>(sw)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">var</span>(sw)</span></code></pre></div>
+<div class="sourceCode" id="cb1298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1298-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1298-1" tabindex="-1"></a><span class="co"># Method of Moments</span></span>
+<span id="cb1298-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1298-2" tabindex="-1"></a><span class="co"># For shape, we want the rate of how much greater the mean-squared is than the variance.</span></span>
+<span id="cb1298-3"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1298-3" tabindex="-1"></a><span class="fu">mean</span>(sw)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">var</span>(sw)</span></code></pre></div>
 <pre><code>## [1] 42.7556</code></pre>
-<div class="sourceCode" id="cb1291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1291-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1291-1" tabindex="-1"></a><span class="co"># For rate, we like to get the inverse of the variance divided by the mean.</span></span>
-<span id="cb1291-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1291-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> (<span class="fu">var</span>(sw) <span class="sc">/</span> <span class="fu">mean</span>(sw) )</span></code></pre></div>
+<div class="sourceCode" id="cb1300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1300-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1300-1" tabindex="-1"></a><span class="co"># For rate, we like to get the inverse of the variance divided by the mean.</span></span>
+<span id="cb1300-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1300-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> (<span class="fu">var</span>(sw) <span class="sc">/</span> <span class="fu">mean</span>(sw) )</span></code></pre></div>
 <pre><code>## [1] 7.991701</code></pre>
-<div class="sourceCode" id="cb1293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1293-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1293-1" tabindex="-1"></a><span class="co"># Maximum Likelihood Estimation</span></span>
-<span id="cb1293-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1293-2" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;gamma&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1302-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1302-1" tabindex="-1"></a><span class="co"># Maximum Likelihood Estimation</span></span>
+<span id="cb1302-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1302-2" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;gamma&quot;</span>)</span></code></pre></div>
 <pre><code>##      shape       rate   
 ##   46.711924    8.731202 
 ##  (20.815512) ( 3.911664)</code></pre>
@@ -1095,8 +1100,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="weibull-distribution-2" class="section level3 hasAnchor" number="23.5.4">
 <h3><span class="header-section-number">23.5.4</span> Weibull Distribution<a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#weibull-distribution-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>What parameter values would best describe our distribution’s shape, if this data were from a Weibull distribution? Remember, gamma distributions have a <code>shape</code> parameter and a <code>scale</code> parameter. (But we can’t easily use the method of moments here right now.)</p>
-<div class="sourceCode" id="cb1295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1295-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1295-1" tabindex="-1"></a><span class="co"># Estimate the shape and scale parameters for a weibull distribution</span></span>
-<span id="cb1295-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1295-2" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;weibull&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1304-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1304-1" tabindex="-1"></a><span class="co"># Estimate the shape and scale parameters for a weibull distribution</span></span>
+<span id="cb1304-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1304-2" tabindex="-1"></a>sw <span class="sc">%&gt;%</span> <span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;weibull&quot;</span>)</span></code></pre></div>
 <pre><code>##      shape       scale  
 ##   7.7312532   5.6881102 
 ##  (1.9038045) (0.2461222)</code></pre>
@@ -1112,27 +1117,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <strong>[View Answer!]</strong>
 </summary>
 <p>First, let’s make the data.</p>
-<div class="sourceCode" id="cb1297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1297-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1297-1" tabindex="-1"></a><span class="co"># Make distribution of Corgis</span></span>
-<span id="cb1297-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1297-2" tabindex="-1"></a>corgi <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1306-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1306-1" tabindex="-1"></a><span class="co"># Make distribution of Corgis</span></span>
+<span id="cb1306-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1306-2" tabindex="-1"></a>corgi <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span></code></pre></div>
 <p>Next, let’s compute the estimated statistics using maximum likelihood estimation.</p>
-<div class="sourceCode" id="cb1298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1298-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1298-1" tabindex="-1"></a><span class="co"># Compute statistics for each distributions</span></span>
-<span id="cb1298-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1298-2" tabindex="-1"></a>corgi <span class="sc">%&gt;%</span> <span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;normal&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1307-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1307-1" tabindex="-1"></a><span class="co"># Compute statistics for each distributions</span></span>
+<span id="cb1307-2"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1307-2" tabindex="-1"></a>corgi <span class="sc">%&gt;%</span> <span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;normal&quot;</span>)</span></code></pre></div>
 <pre><code>##      mean         sd    
 ##   4.3000000   2.3685439 
 ##  (0.7489993) (0.5296225)</code></pre>
-<div class="sourceCode" id="cb1300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1300-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1300-1" tabindex="-1"></a>corgi <span class="sc">%&gt;%</span> <span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;poisson&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1309-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1309-1" tabindex="-1"></a>corgi <span class="sc">%&gt;%</span> <span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;poisson&quot;</span>)</span></code></pre></div>
 <pre><code>##     lambda  
 ##   4.3000000 
 ##  (0.6557439)</code></pre>
-<div class="sourceCode" id="cb1302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1302-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1302-1" tabindex="-1"></a>corgi <span class="sc">%&gt;%</span> <span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;exponential&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1311-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1311-1" tabindex="-1"></a>corgi <span class="sc">%&gt;%</span> <span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;exponential&quot;</span>)</span></code></pre></div>
 <pre><code>##       rate   
 ##   0.23255814 
 ##  (0.07354134)</code></pre>
-<div class="sourceCode" id="cb1304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1304-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1304-1" tabindex="-1"></a>corgi <span class="sc">%&gt;%</span> <span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;gamma&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1313-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1313-1" tabindex="-1"></a>corgi <span class="sc">%&gt;%</span> <span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;gamma&quot;</span>)</span></code></pre></div>
 <pre><code>##      shape       rate   
 ##   3.2628624   0.7588054 
 ##  (1.3910572) (0.3497135)</code></pre>
-<div class="sourceCode" id="cb1306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1306-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1306-1" tabindex="-1"></a>corgi <span class="sc">%&gt;%</span> <span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;weibull&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1315-1"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#cb1315-1" tabindex="-1"></a>corgi <span class="sc">%&gt;%</span> <span class="fu">fitdistr</span>(<span class="at">densfun =</span> <span class="st">&quot;weibull&quot;</span>)</span></code></pre></div>
 <pre><code>##      shape       scale  
 ##   1.9207427   4.8617234 
 ##  (0.4566410) (0.8459497)</code></pre>

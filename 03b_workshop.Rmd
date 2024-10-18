@@ -166,7 +166,11 @@ pd5
 
 Looks like `r round(pd5*100, 1)`% of customers stopped by 5 stalls.
 
-We can validate this using our simulated `visits` from above. We can calculate the `density()` function, extract it using `approxfun()`, and then assign it to `dsim()`, our own exact probability density function for our data. It works just like `dpois()`, but you don't need to specify `lambda`, because it only works for this exact distribution!
+<details><summary>**[Optional] Validate This!**</summary>
+
+We can validate this using our simulated `visits` from above, if we use methods for Observed Probabilities, which we learn later in this tutorial. 
+
+We can calculate the `density()` function, extract it using `approxfun()`, and then assign it to `dsim()`, our own exact probability density function for our data. It works just like `dpois()`, but you don't need to specify `lambda`, because it only works for this exact distribution!
 
 ```{r}
 # Approximate the PDF of our simulated visits
@@ -176,6 +180,11 @@ dsim(5)
 # Pretty close to our results from dpois()!
 ```
 
+```{r}
+remove(dsim)
+```
+
+</details>
 
 <br>
 <br>
@@ -201,6 +210,10 @@ What percentage of customers stopped by *over 5 stalls?*
 ```
 
 
+<details><summary>**[Optional] Validate This!**</summary>
+
+We can validate this using our simulated `visits` from above, if we use methods for Observed Probabilities, which we learn later in this tutorial. 
+
 We can validate our results against our simulated distribution.
 
 ```{r}
@@ -216,6 +229,14 @@ psim(5)
 # Pretty close to cdf5!
 ```
 
+```{r}
+remove(psim)
+```
+
+
+</details>
+
+
 <br>
 <br>
 
@@ -230,6 +251,10 @@ q5
 ```
 
 Looks like 50% of folks visited between `r q5[1]` and `r q5[2]` stalls
+
+
+<details><summary>**[Optional] Validate this!**</summary>
+We can validate this using our simulated `visits` from above, if we use methods for Observed Probabilities, which we learn later in this tutorial. 
 
 We can compare against our simulated data using `quantile()`.
 
@@ -248,11 +273,17 @@ qsim <- tibble(
 qsim(c(.25, .75))
 ```
 
+```{r}
+remove(qsim)
+```
+
+</details>
+
 <br>
 <br>
 
 ```{r}
-rm(visits, pd5, cd5, q5, dsim, psim, qsim)
+rm(visits, pd5, cd5, q5)
 
 ```
 

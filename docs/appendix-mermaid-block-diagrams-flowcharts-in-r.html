@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2024-08-29" />
+<meta name="date" content="2024-10-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,7 @@
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="assets/kePrint-0.0.1/kePrint.js"></script>
 <link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="assets/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
 <script src="assets/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <script src="assets/d3-3.3.8/d3.min.js"></script>
 <script src="assets/dagre-0.4.0/dagre-d3.min.js"></script>
@@ -76,7 +77,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -921,7 +922,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="25" data-path="appendix-test.html"><a href="appendix-test.html"><i class="fa fa-check"></i><b>25</b> Appendix: test</a>
 <ul>
-<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-24"><i class="fa fa-check"></i>Getting Started</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-24"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-1"><i class="fa fa-check"></i>Version 1</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-2"><i class="fa fa-check"></i>Version 2</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -955,9 +960,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="load-packages-9" class="section level3 unnumbered hasAnchor">
 <h3>Load Packages<a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#load-packages-9" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s load our packages, and then go through a few examples!</p>
-<div class="sourceCode" id="cb1237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1237-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1237-1" tabindex="-1"></a><span class="co"># Load packages</span></span>
-<span id="cb1237-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1237-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data management</span></span>
-<span id="cb1237-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1237-3" tabindex="-1"></a><span class="fu">library</span>(DiagrammeR) <span class="co"># for speedy mermaid plotting in R</span></span></code></pre></div>
+<div class="sourceCode" id="cb1247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1247-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1247-1" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb1247-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1247-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data management</span></span>
+<span id="cb1247-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1247-3" tabindex="-1"></a><span class="fu">library</span>(DiagrammeR) <span class="co"># for speedy mermaid plotting in R</span></span></code></pre></div>
 </div>
 </div>
 <div id="mermaid" class="section level2 hasAnchor" number="22.1">
@@ -966,42 +971,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>How does it work? We take a bunch of small <code>character</code> values, like <code>"graph TB"</code>, <code>"a"</code>, <code>"b"</code>, and <code>"a--&gt;b"</code>, and we <code>paste()</code> them together into a single big string that the <code>mermaid</code> function reads. When we <code>paste()</code> them, we have to be sure that every value goes on a separate line, so we separate them by using <code>collapse = "\n "</code>. <code>"\n"</code> is a handy shortcut that means, <em>linebreak!</em> Let’s do a quick example, then we’ll apply it to our hypothetical Ben and Jerry’s example.</p>
 <div id="example-block-diagram-with-mermaid" class="section level3 hasAnchor" number="22.1.1">
 <h3><span class="header-section-number">22.1.1</span> Example Block Diagram with <code>mermaid</code><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#example-block-diagram-with-mermaid" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb1238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1238-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-1" tabindex="-1"></a><span class="co"># Let&#39;s make a big vector of values, using c()</span></span>
-<span id="cb1238-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-2" tabindex="-1"></a>example <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb1238-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-3" tabindex="-1"></a>  <span class="co"># say it&#39;s a graph, going Left-to-Right (LR)</span></span>
-<span id="cb1238-4"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-4" tabindex="-1"></a>  <span class="st">&quot;graph LR&quot;</span>, </span>
-<span id="cb1238-5"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-5" tabindex="-1"></a>    <span class="co"># list out our main nodes</span></span>
-<span id="cb1238-6"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-6" tabindex="-1"></a>    <span class="st">&quot;a[Tim]&quot;</span>,</span>
-<span id="cb1238-7"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-7" tabindex="-1"></a>    <span class="st">&quot;z[Coffee]&quot;</span>,</span>
-<span id="cb1238-8"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-8" tabindex="-1"></a>    <span class="co"># make a subgraph </span></span>
-<span id="cb1238-9"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-9" tabindex="-1"></a>    <span class="co"># (a box to contain some nodes)</span></span>
-<span id="cb1238-10"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-10" tabindex="-1"></a>    <span class="st">&quot;subgraph Process&quot;</span>,</span>
-<span id="cb1238-11"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-11" tabindex="-1"></a>      <span class="co"># Put at least one node in it</span></span>
-<span id="cb1238-12"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-12" tabindex="-1"></a>      <span class="st">&quot;b[Froth Milk]&quot;</span>,</span>
-<span id="cb1238-13"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-13" tabindex="-1"></a>      <span class="st">&quot;c[Brew Coffee]&quot;</span>,</span>
-<span id="cb1238-14"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-14" tabindex="-1"></a>      <span class="st">&quot;d[Pour in Milk]&quot;</span>,</span>
-<span id="cb1238-15"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-15" tabindex="-1"></a>    <span class="co"># Close the subgraph</span></span>
-<span id="cb1238-16"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-16" tabindex="-1"></a>    <span class="st">&quot;end&quot;</span>,</span>
-<span id="cb1238-17"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-17" tabindex="-1"></a>    <span class="co"># Draw relationships</span></span>
-<span id="cb1238-18"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-18" tabindex="-1"></a>    <span class="st">&quot;a--&gt;b&quot;</span>,</span>
-<span id="cb1238-19"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-19" tabindex="-1"></a>    <span class="st">&quot;b--&gt;c&quot;</span>,</span>
-<span id="cb1238-20"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-20" tabindex="-1"></a>    <span class="st">&quot;c--&gt;d&quot;</span>,</span>
-<span id="cb1238-21"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-21" tabindex="-1"></a>    <span class="st">&quot;d--&gt;z&quot;</span>)</span>
-<span id="cb1238-22"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-22" tabindex="-1"></a><span class="co"># Check it out!</span></span>
-<span id="cb1238-23"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1238-23" tabindex="-1"></a>example</span></code></pre></div>
+<div class="sourceCode" id="cb1248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1248-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-1" tabindex="-1"></a><span class="co"># Let&#39;s make a big vector of values, using c()</span></span>
+<span id="cb1248-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-2" tabindex="-1"></a>example <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1248-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-3" tabindex="-1"></a>  <span class="co"># say it&#39;s a graph, going Left-to-Right (LR)</span></span>
+<span id="cb1248-4"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-4" tabindex="-1"></a>  <span class="st">&quot;graph LR&quot;</span>, </span>
+<span id="cb1248-5"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-5" tabindex="-1"></a>    <span class="co"># list out our main nodes</span></span>
+<span id="cb1248-6"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-6" tabindex="-1"></a>    <span class="st">&quot;a[Tim]&quot;</span>,</span>
+<span id="cb1248-7"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-7" tabindex="-1"></a>    <span class="st">&quot;z[Coffee]&quot;</span>,</span>
+<span id="cb1248-8"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-8" tabindex="-1"></a>    <span class="co"># make a subgraph </span></span>
+<span id="cb1248-9"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-9" tabindex="-1"></a>    <span class="co"># (a box to contain some nodes)</span></span>
+<span id="cb1248-10"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-10" tabindex="-1"></a>    <span class="st">&quot;subgraph Process&quot;</span>,</span>
+<span id="cb1248-11"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-11" tabindex="-1"></a>      <span class="co"># Put at least one node in it</span></span>
+<span id="cb1248-12"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-12" tabindex="-1"></a>      <span class="st">&quot;b[Froth Milk]&quot;</span>,</span>
+<span id="cb1248-13"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-13" tabindex="-1"></a>      <span class="st">&quot;c[Brew Coffee]&quot;</span>,</span>
+<span id="cb1248-14"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-14" tabindex="-1"></a>      <span class="st">&quot;d[Pour in Milk]&quot;</span>,</span>
+<span id="cb1248-15"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-15" tabindex="-1"></a>    <span class="co"># Close the subgraph</span></span>
+<span id="cb1248-16"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-16" tabindex="-1"></a>    <span class="st">&quot;end&quot;</span>,</span>
+<span id="cb1248-17"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-17" tabindex="-1"></a>    <span class="co"># Draw relationships</span></span>
+<span id="cb1248-18"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-18" tabindex="-1"></a>    <span class="st">&quot;a--&gt;b&quot;</span>,</span>
+<span id="cb1248-19"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-19" tabindex="-1"></a>    <span class="st">&quot;b--&gt;c&quot;</span>,</span>
+<span id="cb1248-20"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-20" tabindex="-1"></a>    <span class="st">&quot;c--&gt;d&quot;</span>,</span>
+<span id="cb1248-21"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-21" tabindex="-1"></a>    <span class="st">&quot;d--&gt;z&quot;</span>)</span>
+<span id="cb1248-22"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-22" tabindex="-1"></a><span class="co"># Check it out!</span></span>
+<span id="cb1248-23"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-23" tabindex="-1"></a>example</span></code></pre></div>
 <pre><code>##  [1] &quot;graph LR&quot;         &quot;a[Tim]&quot;           &quot;z[Coffee]&quot;        &quot;subgraph Process&quot;
 ##  [5] &quot;b[Froth Milk]&quot;    &quot;c[Brew Coffee]&quot;   &quot;d[Pour in Milk]&quot;  &quot;end&quot;             
 ##  [9] &quot;a--&gt;b&quot;            &quot;b--&gt;c&quot;            &quot;c--&gt;d&quot;            &quot;d--&gt;z&quot;</code></pre>
 <p>If we <code>paste()</code> that <code>example</code> with <code>collapse = "\n "</code>, we can see it’s all just one big value now.</p>
-<div class="sourceCode" id="cb1240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1240-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1240-1" tabindex="-1"></a>example <span class="sc">%&gt;%</span> </span>
-<span id="cb1240-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1240-2" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st"> &quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1250-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1250-1" tabindex="-1"></a>example <span class="sc">%&gt;%</span> </span>
+<span id="cb1250-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1250-2" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st"> &quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;graph LR\n a[Tim]\n z[Coffee]\n subgraph Process\n b[Froth Milk]\n c[Brew Coffee]\n d[Pour in Milk]\n end\n a--&gt;b\n b--&gt;c\n c--&gt;d\n d--&gt;z&quot;</code></pre>
 <p>And if we append <code>mermaid()</code> to that, we can get a really nice chart!</p>
-<div class="sourceCode" id="cb1242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1242-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1242-1" tabindex="-1"></a>example <span class="sc">%&gt;%</span> </span>
-<span id="cb1242-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1242-2" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1242-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1242-3" tabindex="-1"></a>  <span class="fu">mermaid</span>()</span></code></pre></div>
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-b8d3b8e5eabfd931b21f" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-b8d3b8e5eabfd931b21f">{"x":{"diagram":"graph LR\na[Tim]\nz[Coffee]\nsubgraph Process\nb[Froth Milk]\nc[Brew Coffee]\nd[Pour in Milk]\nend\na-->b\nb-->c\nc-->d\nd-->z"},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb1252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1252-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1252-1" tabindex="-1"></a>example <span class="sc">%&gt;%</span> </span>
+<span id="cb1252-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1252-2" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1252-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1252-3" tabindex="-1"></a>  <span class="fu">mermaid</span>()</span></code></pre></div>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-b1d72f700c563737de13" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-b1d72f700c563737de13">{"x":{"diagram":"graph LR\na[Tim]\nz[Coffee]\nsubgraph Process\nb[Froth Milk]\nc[Brew Coffee]\nd[Pour in Milk]\nend\na-->b\nb-->c\nc-->d\nd-->z"},"evals":[],"jsHooks":[]}</script>
 <p>Whohoo! You made your first <code>mermaid</code> plot!</p>
 <hr />
 <p><br>
@@ -1019,43 +1024,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <summary>
 <strong>[View Answer!]</strong>
 </summary>
-<div class="sourceCode" id="cb1243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1243-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-1" tabindex="-1"></a><span class="co"># Here&#39;s one of several ways you could draw that!</span></span>
-<span id="cb1243-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-2" tabindex="-1"></a>mystory <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;graph LR&quot;</span>,</span>
-<span id="cb1243-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-3" tabindex="-1"></a>  <span class="st">&quot;a[Tim]&quot;</span>,</span>
-<span id="cb1243-4"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-4" tabindex="-1"></a>  <span class="co"># Start a subgraph about what happens in the store</span></span>
-<span id="cb1243-5"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-5" tabindex="-1"></a>  <span class="st">&quot;subgraph Shopping&quot;</span>,</span>
-<span id="cb1243-6"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-6" tabindex="-1"></a>    <span class="st">&quot;b[Store]&quot;</span>,</span>
-<span id="cb1243-7"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-7" tabindex="-1"></a>    <span class="st">&quot;c[Ice Cream]&quot;</span>,</span>
-<span id="cb1243-8"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-8" tabindex="-1"></a>    <span class="co"># end subgraph</span></span>
-<span id="cb1243-9"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-9" tabindex="-1"></a>  <span class="st">&quot;end&quot;</span>,</span>
-<span id="cb1243-10"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-10" tabindex="-1"></a>  <span class="co"># Start subgraph about what happens when eating</span></span>
-<span id="cb1243-11"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-11" tabindex="-1"></a>  <span class="st">&quot;subgraph Eating&quot;</span>,</span>
-<span id="cb1243-12"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-12" tabindex="-1"></a>    <span class="st">&quot;d[Checks Phone]&quot;</span>,</span>
-<span id="cb1243-13"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-13" tabindex="-1"></a>    <span class="st">&quot;e[Drops Ice Cream]&quot;</span>,</span>
-<span id="cb1243-14"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-14" tabindex="-1"></a>    <span class="co"># end subgraph</span></span>
-<span id="cb1243-15"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-15" tabindex="-1"></a>  <span class="st">&quot;end&quot;</span>,</span>
-<span id="cb1243-16"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-16" tabindex="-1"></a>  <span class="co"># Add interactions</span></span>
-<span id="cb1243-17"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-17" tabindex="-1"></a>  <span class="co"># Tim goes to store</span></span>
-<span id="cb1243-18"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-18" tabindex="-1"></a>  <span class="st">&quot;a--&gt;b&quot;</span>,</span>
-<span id="cb1243-19"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-19" tabindex="-1"></a>  <span class="co"># Buys ice cream at store</span></span>
-<span id="cb1243-20"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-20" tabindex="-1"></a>  <span class="st">&quot;b--&gt;c&quot;</span>,</span>
-<span id="cb1243-21"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-21" tabindex="-1"></a>  <span class="co"># Checks phone</span></span>
-<span id="cb1243-22"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-22" tabindex="-1"></a>  <span class="st">&quot;c--&gt;d&quot;</span>,</span>
-<span id="cb1243-23"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-23" tabindex="-1"></a>  <span class="co"># Drops Ice cream</span></span>
-<span id="cb1243-24"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-24" tabindex="-1"></a>  <span class="st">&quot;d--&gt;e&quot;</span>,</span>
-<span id="cb1243-25"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-25" tabindex="-1"></a>  <span class="co"># Goes back to store</span></span>
-<span id="cb1243-26"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-26" tabindex="-1"></a>  <span class="st">&quot;e--&gt;b&quot;</span>,</span>
-<span id="cb1243-27"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-27" tabindex="-1"></a>  <span class="co"># Buys ice cream again</span></span>
-<span id="cb1243-28"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-28" tabindex="-1"></a>  <span class="st">&quot;b--&gt;c&quot;</span>,</span>
-<span id="cb1243-29"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-29" tabindex="-1"></a>  <span class="co"># Looks at phone</span></span>
-<span id="cb1243-30"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-30" tabindex="-1"></a>  <span class="st">&quot;c--&gt;d&quot;</span>,</span>
-<span id="cb1243-31"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-31" tabindex="-1"></a>  <span class="co"># Drops ice cream again</span></span>
-<span id="cb1243-32"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-32" tabindex="-1"></a>  <span class="st">&quot;d--&gt;e&quot;</span></span>
-<span id="cb1243-33"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1243-33" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb1253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1253-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-1" tabindex="-1"></a><span class="co"># Here&#39;s one of several ways you could draw that!</span></span>
+<span id="cb1253-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-2" tabindex="-1"></a>mystory <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;graph LR&quot;</span>,</span>
+<span id="cb1253-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-3" tabindex="-1"></a>  <span class="st">&quot;a[Tim]&quot;</span>,</span>
+<span id="cb1253-4"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-4" tabindex="-1"></a>  <span class="co"># Start a subgraph about what happens in the store</span></span>
+<span id="cb1253-5"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-5" tabindex="-1"></a>  <span class="st">&quot;subgraph Shopping&quot;</span>,</span>
+<span id="cb1253-6"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-6" tabindex="-1"></a>    <span class="st">&quot;b[Store]&quot;</span>,</span>
+<span id="cb1253-7"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-7" tabindex="-1"></a>    <span class="st">&quot;c[Ice Cream]&quot;</span>,</span>
+<span id="cb1253-8"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-8" tabindex="-1"></a>    <span class="co"># end subgraph</span></span>
+<span id="cb1253-9"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-9" tabindex="-1"></a>  <span class="st">&quot;end&quot;</span>,</span>
+<span id="cb1253-10"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-10" tabindex="-1"></a>  <span class="co"># Start subgraph about what happens when eating</span></span>
+<span id="cb1253-11"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-11" tabindex="-1"></a>  <span class="st">&quot;subgraph Eating&quot;</span>,</span>
+<span id="cb1253-12"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-12" tabindex="-1"></a>    <span class="st">&quot;d[Checks Phone]&quot;</span>,</span>
+<span id="cb1253-13"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-13" tabindex="-1"></a>    <span class="st">&quot;e[Drops Ice Cream]&quot;</span>,</span>
+<span id="cb1253-14"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-14" tabindex="-1"></a>    <span class="co"># end subgraph</span></span>
+<span id="cb1253-15"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-15" tabindex="-1"></a>  <span class="st">&quot;end&quot;</span>,</span>
+<span id="cb1253-16"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-16" tabindex="-1"></a>  <span class="co"># Add interactions</span></span>
+<span id="cb1253-17"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-17" tabindex="-1"></a>  <span class="co"># Tim goes to store</span></span>
+<span id="cb1253-18"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-18" tabindex="-1"></a>  <span class="st">&quot;a--&gt;b&quot;</span>,</span>
+<span id="cb1253-19"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-19" tabindex="-1"></a>  <span class="co"># Buys ice cream at store</span></span>
+<span id="cb1253-20"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-20" tabindex="-1"></a>  <span class="st">&quot;b--&gt;c&quot;</span>,</span>
+<span id="cb1253-21"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-21" tabindex="-1"></a>  <span class="co"># Checks phone</span></span>
+<span id="cb1253-22"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-22" tabindex="-1"></a>  <span class="st">&quot;c--&gt;d&quot;</span>,</span>
+<span id="cb1253-23"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-23" tabindex="-1"></a>  <span class="co"># Drops Ice cream</span></span>
+<span id="cb1253-24"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-24" tabindex="-1"></a>  <span class="st">&quot;d--&gt;e&quot;</span>,</span>
+<span id="cb1253-25"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-25" tabindex="-1"></a>  <span class="co"># Goes back to store</span></span>
+<span id="cb1253-26"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-26" tabindex="-1"></a>  <span class="st">&quot;e--&gt;b&quot;</span>,</span>
+<span id="cb1253-27"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-27" tabindex="-1"></a>  <span class="co"># Buys ice cream again</span></span>
+<span id="cb1253-28"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-28" tabindex="-1"></a>  <span class="st">&quot;b--&gt;c&quot;</span>,</span>
+<span id="cb1253-29"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-29" tabindex="-1"></a>  <span class="co"># Looks at phone</span></span>
+<span id="cb1253-30"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-30" tabindex="-1"></a>  <span class="st">&quot;c--&gt;d&quot;</span>,</span>
+<span id="cb1253-31"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-31" tabindex="-1"></a>  <span class="co"># Drops ice cream again</span></span>
+<span id="cb1253-32"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-32" tabindex="-1"></a>  <span class="st">&quot;d--&gt;e&quot;</span></span>
+<span id="cb1253-33"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1253-33" tabindex="-1"></a>)</span></code></pre></div>
 <p>And visualize it!</p>
-<div class="sourceCode" id="cb1244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1244-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1244-1" tabindex="-1"></a>mystory <span class="sc">%&gt;%</span></span>
-<span id="cb1244-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1244-2" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st"> &quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1244-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1244-3" tabindex="-1"></a>  <span class="fu">mermaid</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1254-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1254-1" tabindex="-1"></a>mystory <span class="sc">%&gt;%</span></span>
+<span id="cb1254-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1254-2" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st"> &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1254-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1254-3" tabindex="-1"></a>  <span class="fu">mermaid</span>()</span></code></pre></div>
 <p><img src="images/3_image_mermaid.png" width="100%" /></p>
 </details>
 <p><br>
@@ -1066,115 +1071,114 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">22.2</span> Diagram of Ice Cream Shipment<a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#diagram-of-ice-cream-shipment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s try and visualize what the process of shipping out ice cream looks like once it has been made, using <code>mermaid</code>. To make this easier, we can do it piecemeal, a few lines at a time, saved into logically named vectors.</p>
 <p>First, let’s get the starting settings of our graph! We’ll name it <code>intro</code>.</p>
-<div class="sourceCode" id="cb1245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1245-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1245-1" tabindex="-1"></a><span class="co"># Get the basic graph, going left-to-right</span></span>
-<span id="cb1245-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1245-2" tabindex="-1"></a>intro <span class="ot">&lt;-</span> <span class="st">&quot;graph LR&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb1255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1255-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1255-1" tabindex="-1"></a><span class="co"># Get the basic graph, going left-to-right</span></span>
+<span id="cb1255-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1255-2" tabindex="-1"></a>intro <span class="ot">&lt;-</span> <span class="st">&quot;graph LR&quot;</span></span></code></pre></div>
 <p>Second, let’s get a <code>subgraph</code> of people! We’ll call it <code>subgraph_people</code>. <em>(Note: whenever we make multi-line chunks, gotta bind that stuff together using <code>paste()!</code>)</em></p>
-<div class="sourceCode" id="cb1246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1246-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1246-1" tabindex="-1"></a>subgraph_people <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb1246-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1246-2" tabindex="-1"></a>  <span class="co"># Make a subgraph</span></span>
-<span id="cb1246-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1246-3" tabindex="-1"></a>  <span class="st">&quot;subgraph People&quot;</span>,</span>
-<span id="cb1246-4"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1246-4" tabindex="-1"></a>    <span class="co"># Draw people in circles with ()</span></span>
-<span id="cb1246-5"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1246-5" tabindex="-1"></a>    <span class="st">&quot;w1(Worker 1)&quot;</span>,</span>
-<span id="cb1246-6"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1246-6" tabindex="-1"></a>    <span class="st">&quot;w2(Worker 2)&quot;</span>,</span>
-<span id="cb1246-7"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1246-7" tabindex="-1"></a>    <span class="st">&quot;w3(Worker 3)&quot;</span>,</span>
-<span id="cb1246-8"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1246-8" tabindex="-1"></a>  <span class="co"># Conclude the subgraph</span></span>
-<span id="cb1246-9"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1246-9" tabindex="-1"></a>  <span class="st">&quot;end&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1246-10"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1246-10" tabindex="-1"></a>  <span class="co"># remember to bind it together</span></span>
-<span id="cb1246-11"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1246-11" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1256-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1256-1" tabindex="-1"></a>subgraph_people <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1256-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1256-2" tabindex="-1"></a>  <span class="co"># Make a subgraph</span></span>
+<span id="cb1256-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1256-3" tabindex="-1"></a>  <span class="st">&quot;subgraph People&quot;</span>,</span>
+<span id="cb1256-4"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1256-4" tabindex="-1"></a>    <span class="co"># Draw people in circles with ()</span></span>
+<span id="cb1256-5"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1256-5" tabindex="-1"></a>    <span class="st">&quot;w1(Worker 1)&quot;</span>,</span>
+<span id="cb1256-6"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1256-6" tabindex="-1"></a>    <span class="st">&quot;w2(Worker 2)&quot;</span>,</span>
+<span id="cb1256-7"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1256-7" tabindex="-1"></a>    <span class="st">&quot;w3(Worker 3)&quot;</span>,</span>
+<span id="cb1256-8"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1256-8" tabindex="-1"></a>  <span class="co"># Conclude the subgraph</span></span>
+<span id="cb1256-9"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1256-9" tabindex="-1"></a>  <span class="st">&quot;end&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1256-10"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1256-10" tabindex="-1"></a>  <span class="co"># remember to bind it together</span></span>
+<span id="cb1256-11"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1256-11" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <p>Third, let’s get a subgraph of events these people are involved in. We’ll call it <code>subgraph_events</code>.</p>
 <p><em>Note: <code>mermaid</code> understands some <code>HTML</code>, so to get breaks in the labels, we’re going to use <code>&lt;br&gt;</code> below.</em></p>
-<div class="sourceCode" id="cb1247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1247-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1247-1" tabindex="-1"></a>subgraph_events <span class="ot">&lt;-</span> <span class="fu">paste</span>(</span>
-<span id="cb1247-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1247-2" tabindex="-1"></a>  <span class="co"># Make another subgraph</span></span>
-<span id="cb1247-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1247-3" tabindex="-1"></a>  <span class="st">&quot;subgraph Events&quot;</span>,</span>
-<span id="cb1247-4"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1247-4" tabindex="-1"></a>    <span class="co"># Draw events as boxes with []</span></span>
-<span id="cb1247-5"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1247-5" tabindex="-1"></a>    <span class="st">&quot;freezer[Freeze&lt;br&gt;Ice Cream]&quot;</span>,</span>
-<span id="cb1247-6"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1247-6" tabindex="-1"></a>    <span class="st">&quot;loading[Load&lt;br&gt;onto Truck]&quot;</span>,</span>
-<span id="cb1247-7"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1247-7" tabindex="-1"></a>    <span class="st">&quot;transport[Transport&lt;br&gt;to Store]&quot;</span>,</span>
-<span id="cb1247-8"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1247-8" tabindex="-1"></a>  <span class="co"># Conclude the subgraph</span></span>
-<span id="cb1247-9"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1247-9" tabindex="-1"></a>  <span class="st">&quot;end&quot;</span>,</span>
-<span id="cb1247-10"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1247-10" tabindex="-1"></a>  <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st"> &quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1257-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1257-1" tabindex="-1"></a>subgraph_events <span class="ot">&lt;-</span> <span class="fu">paste</span>(</span>
+<span id="cb1257-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1257-2" tabindex="-1"></a>  <span class="co"># Make another subgraph</span></span>
+<span id="cb1257-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1257-3" tabindex="-1"></a>  <span class="st">&quot;subgraph Events&quot;</span>,</span>
+<span id="cb1257-4"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1257-4" tabindex="-1"></a>    <span class="co"># Draw events as boxes with []</span></span>
+<span id="cb1257-5"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1257-5" tabindex="-1"></a>    <span class="st">&quot;freezer[Freeze&lt;br&gt;Ice Cream]&quot;</span>,</span>
+<span id="cb1257-6"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1257-6" tabindex="-1"></a>    <span class="st">&quot;loading[Load&lt;br&gt;onto Truck]&quot;</span>,</span>
+<span id="cb1257-7"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1257-7" tabindex="-1"></a>    <span class="st">&quot;transport[Transport&lt;br&gt;to Store]&quot;</span>,</span>
+<span id="cb1257-8"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1257-8" tabindex="-1"></a>  <span class="co"># Conclude the subgraph</span></span>
+<span id="cb1257-9"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1257-9" tabindex="-1"></a>  <span class="st">&quot;end&quot;</span>,</span>
+<span id="cb1257-10"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1257-10" tabindex="-1"></a>  <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st"> &quot;</span>)</span></code></pre></div>
 <p>Fourth, let’s list out the ways our nodes are related, and we’ll call it <code>ties</code>.</p>
-<div class="sourceCode" id="cb1248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1248-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-1" tabindex="-1"></a><span class="co"># Draw main ties</span></span>
-<span id="cb1248-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-2" tabindex="-1"></a>ties  <span class="ot">&lt;-</span> <span class="fu">paste</span>(</span>
-<span id="cb1248-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-3" tabindex="-1"></a>  <span class="co"># Worker 1 puts ice cream in Freezer</span></span>
-<span id="cb1248-4"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-4" tabindex="-1"></a>  <span class="st">&quot;w1 --&gt; freezer&quot;</span>,</span>
-<span id="cb1248-5"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-5" tabindex="-1"></a>  <span class="co"># Worker 2 loads ice cream into Truck</span></span>
-<span id="cb1248-6"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-6" tabindex="-1"></a>  <span class="st">&quot;w2 --&gt; loading&quot;</span>,</span>
-<span id="cb1248-7"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-7" tabindex="-1"></a>  <span class="co"># Worker 3 transports ice cream to Store</span></span>
-<span id="cb1248-8"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-8" tabindex="-1"></a>  <span class="st">&quot;w3 --&gt; transport&quot;</span>,</span>
-<span id="cb1248-9"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-9" tabindex="-1"></a>  <span class="co"># Also, Worker 2 takes the ice cream from the Freezer for loading</span></span>
-<span id="cb1248-10"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-10" tabindex="-1"></a>  <span class="st">&quot;freezer --&gt; w2&quot;</span>,</span>
-<span id="cb1248-11"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-11" tabindex="-1"></a>  <span class="co"># And Worker 3 drives the ice cream from loading dock to Store</span></span>
-<span id="cb1248-12"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-12" tabindex="-1"></a>  <span class="st">&quot;loading --&gt; w3&quot;</span>,</span>
-<span id="cb1248-13"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1248-13" tabindex="-1"></a>  <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st"> &quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1258-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1258-1" tabindex="-1"></a><span class="co"># Draw main ties</span></span>
+<span id="cb1258-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1258-2" tabindex="-1"></a>ties  <span class="ot">&lt;-</span> <span class="fu">paste</span>(</span>
+<span id="cb1258-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1258-3" tabindex="-1"></a>  <span class="co"># Worker 1 puts ice cream in Freezer</span></span>
+<span id="cb1258-4"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1258-4" tabindex="-1"></a>  <span class="st">&quot;w1 --&gt; freezer&quot;</span>,</span>
+<span id="cb1258-5"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1258-5" tabindex="-1"></a>  <span class="co"># Worker 2 loads ice cream into Truck</span></span>
+<span id="cb1258-6"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1258-6" tabindex="-1"></a>  <span class="st">&quot;w2 --&gt; loading&quot;</span>,</span>
+<span id="cb1258-7"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1258-7" tabindex="-1"></a>  <span class="co"># Worker 3 transports ice cream to Store</span></span>
+<span id="cb1258-8"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1258-8" tabindex="-1"></a>  <span class="st">&quot;w3 --&gt; transport&quot;</span>,</span>
+<span id="cb1258-9"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1258-9" tabindex="-1"></a>  <span class="co"># Also, Worker 2 takes the ice cream from the Freezer for loading</span></span>
+<span id="cb1258-10"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1258-10" tabindex="-1"></a>  <span class="st">&quot;freezer --&gt; w2&quot;</span>,</span>
+<span id="cb1258-11"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1258-11" tabindex="-1"></a>  <span class="co"># And Worker 3 drives the ice cream from loading dock to Store</span></span>
+<span id="cb1258-12"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1258-12" tabindex="-1"></a>  <span class="st">&quot;loading --&gt; w3&quot;</span>,</span>
+<span id="cb1258-13"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1258-13" tabindex="-1"></a>  <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st"> &quot;</span>)</span></code></pre></div>
 <p>Alright! Let’s visualize this chart!</p>
-<div class="sourceCode" id="cb1249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1249-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1249-1" tabindex="-1"></a><span class="fu">c</span>(intro, </span>
-<span id="cb1249-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1249-2" tabindex="-1"></a>    <span class="co"># Add subgraphs of nodes</span></span>
-<span id="cb1249-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1249-3" tabindex="-1"></a>    subgraph_people,</span>
-<span id="cb1249-4"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1249-4" tabindex="-1"></a>    subgraph_events,</span>
-<span id="cb1249-5"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1249-5" tabindex="-1"></a>    <span class="co"># Add ties</span></span>
-<span id="cb1249-6"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1249-6" tabindex="-1"></a>  ties) <span class="sc">%&gt;%</span></span>
-<span id="cb1249-7"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1249-7" tabindex="-1"></a>  <span class="co"># Paste them together</span></span>
-<span id="cb1249-8"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1249-8" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st"> &quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1249-9"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1249-9" tabindex="-1"></a>  <span class="co"># And visualize it!</span></span>
-<span id="cb1249-10"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1249-10" tabindex="-1"></a>  <span class="fu">mermaid</span>()</span></code></pre></div>
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-aad41d2f3322b6a91b00" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-aad41d2f3322b6a91b00">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3"},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb1259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1259-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1259-1" tabindex="-1"></a><span class="fu">c</span>(intro, </span>
+<span id="cb1259-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1259-2" tabindex="-1"></a>    <span class="co"># Add subgraphs of nodes</span></span>
+<span id="cb1259-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1259-3" tabindex="-1"></a>    subgraph_people,</span>
+<span id="cb1259-4"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1259-4" tabindex="-1"></a>    subgraph_events,</span>
+<span id="cb1259-5"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1259-5" tabindex="-1"></a>    <span class="co"># Add ties</span></span>
+<span id="cb1259-6"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1259-6" tabindex="-1"></a>  ties) <span class="sc">%&gt;%</span></span>
+<span id="cb1259-7"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1259-7" tabindex="-1"></a>  <span class="co"># Paste them together</span></span>
+<span id="cb1259-8"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1259-8" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st"> &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1259-9"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1259-9" tabindex="-1"></a>  <span class="co"># And visualize it!</span></span>
+<span id="cb1259-10"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1259-10" tabindex="-1"></a>  <span class="fu">mermaid</span>()</span></code></pre></div>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-c2f151d3c5edd5226fd0" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-c2f151d3c5edd5226fd0">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="diagram-failures" class="section level2 hasAnchor" number="22.3">
 <h2><span class="header-section-number">22.3</span> Diagram Failures<a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#diagram-failures" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Now, we could imagine that there are several potential failure modes here. Let’s add them to our drawing!</p>
 <p>First, we’ll make a <code>subgraph</code> of failures aptly named <code>subgraph_fail</code>.</p>
-<div class="sourceCode" id="cb1250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1250-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1250-1" tabindex="-1"></a>subgraph_fail <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb1250-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1250-2" tabindex="-1"></a>  <span class="co"># Make another subgraph</span></span>
-<span id="cb1250-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1250-3" tabindex="-1"></a>  <span class="st">&quot;subgraph Failures&quot;</span>,</span>
-<span id="cb1250-4"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1250-4" tabindex="-1"></a>    <span class="st">&quot;fail_break[freezer breaks]&quot;</span>,</span>
-<span id="cb1250-5"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1250-5" tabindex="-1"></a>    <span class="st">&quot;fail_time[left out too long]&quot;</span>,</span>
-<span id="cb1250-6"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1250-6" tabindex="-1"></a>    <span class="st">&quot;fail_eat[worker eats it]&quot;</span>,</span>
-<span id="cb1250-7"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1250-7" tabindex="-1"></a>  <span class="co"># Conclude subgraph</span></span>
-<span id="cb1250-8"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1250-8" tabindex="-1"></a>  <span class="st">&quot;end&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1250-9"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1250-9" tabindex="-1"></a>  <span class="co"># Bind it!</span></span>
-<span id="cb1250-10"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1250-10" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st"> &quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1260-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1260-1" tabindex="-1"></a>subgraph_fail <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1260-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1260-2" tabindex="-1"></a>  <span class="co"># Make another subgraph</span></span>
+<span id="cb1260-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1260-3" tabindex="-1"></a>  <span class="st">&quot;subgraph Failures&quot;</span>,</span>
+<span id="cb1260-4"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1260-4" tabindex="-1"></a>    <span class="st">&quot;fail_break[freezer breaks]&quot;</span>,</span>
+<span id="cb1260-5"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1260-5" tabindex="-1"></a>    <span class="st">&quot;fail_time[left out too long]&quot;</span>,</span>
+<span id="cb1260-6"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1260-6" tabindex="-1"></a>    <span class="st">&quot;fail_eat[worker eats it]&quot;</span>,</span>
+<span id="cb1260-7"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1260-7" tabindex="-1"></a>  <span class="co"># Conclude subgraph</span></span>
+<span id="cb1260-8"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1260-8" tabindex="-1"></a>  <span class="st">&quot;end&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1260-9"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1260-9" tabindex="-1"></a>  <span class="co"># Bind it!</span></span>
+<span id="cb1260-10"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1260-10" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st"> &quot;</span>)</span></code></pre></div>
 <p>Second, we’ll compile a list of relationships, or ways our nodes could lead to these failures.</p>
-<div class="sourceCode" id="cb1251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1251-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1251-1" tabindex="-1"></a>failures <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb1251-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1251-2" tabindex="-1"></a>  <span class="co"># Worker 1 could leave ice cream out before freezing</span></span>
-<span id="cb1251-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1251-3" tabindex="-1"></a>  <span class="co">#&quot;w1 --&gt; fail_time&quot;,</span></span>
-<span id="cb1251-4"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1251-4" tabindex="-1"></a>  <span class="co"># Worker 1 could eat the ice cream before freezing</span></span>
-<span id="cb1251-5"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1251-5" tabindex="-1"></a>  <span class="co">#&quot;w1 --&gt; fail_eat&quot;,</span></span>
-<span id="cb1251-6"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1251-6" tabindex="-1"></a>  <span class="co"># Frezzer could break</span></span>
-<span id="cb1251-7"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1251-7" tabindex="-1"></a>  <span class="st">&quot;freezer --&gt; fail_break&quot;</span>,</span>
-<span id="cb1251-8"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1251-8" tabindex="-1"></a>  <span class="co"># Worker 2 could leave ice cream out while loading</span></span>
-<span id="cb1251-9"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1251-9" tabindex="-1"></a>  <span class="st">&quot;loading --&gt; fail_time&quot;</span>,</span>
-<span id="cb1251-10"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1251-10" tabindex="-1"></a>  <span class="co"># Worker 2 could eat the ice cream while loading</span></span>
-<span id="cb1251-11"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1251-11" tabindex="-1"></a>  <span class="st">&quot;loading --&gt; fail_eat&quot;</span>,</span>
-<span id="cb1251-12"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1251-12" tabindex="-1"></a>  <span class="co"># Worker 3 could leave the ice cream out in transit</span></span>
-<span id="cb1251-13"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1251-13" tabindex="-1"></a>  <span class="st">&quot;transport --&gt; fail_time&quot;</span>,</span>
-<span id="cb1251-14"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1251-14" tabindex="-1"></a>  <span class="co"># Worker 3 could eat the ice cream in transit</span></span>
-<span id="cb1251-15"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1251-15" tabindex="-1"></a>  <span class="st">&quot;transport --&gt; fail_eat&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1251-16"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1251-16" tabindex="-1"></a>  <span class="co"># bind it!</span></span>
-<span id="cb1251-17"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1251-17" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st"> &quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1261-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1261-1" tabindex="-1"></a>failures <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1261-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1261-2" tabindex="-1"></a>  <span class="co"># Worker 1 could leave ice cream out before freezing</span></span>
+<span id="cb1261-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1261-3" tabindex="-1"></a>  <span class="co">#&quot;w1 --&gt; fail_time&quot;,</span></span>
+<span id="cb1261-4"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1261-4" tabindex="-1"></a>  <span class="co"># Worker 1 could eat the ice cream before freezing</span></span>
+<span id="cb1261-5"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1261-5" tabindex="-1"></a>  <span class="co">#&quot;w1 --&gt; fail_eat&quot;,</span></span>
+<span id="cb1261-6"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1261-6" tabindex="-1"></a>  <span class="co"># Frezzer could break</span></span>
+<span id="cb1261-7"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1261-7" tabindex="-1"></a>  <span class="st">&quot;freezer --&gt; fail_break&quot;</span>,</span>
+<span id="cb1261-8"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1261-8" tabindex="-1"></a>  <span class="co"># Worker 2 could leave ice cream out while loading</span></span>
+<span id="cb1261-9"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1261-9" tabindex="-1"></a>  <span class="st">&quot;loading --&gt; fail_time&quot;</span>,</span>
+<span id="cb1261-10"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1261-10" tabindex="-1"></a>  <span class="co"># Worker 2 could eat the ice cream while loading</span></span>
+<span id="cb1261-11"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1261-11" tabindex="-1"></a>  <span class="st">&quot;loading --&gt; fail_eat&quot;</span>,</span>
+<span id="cb1261-12"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1261-12" tabindex="-1"></a>  <span class="co"># Worker 3 could leave the ice cream out in transit</span></span>
+<span id="cb1261-13"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1261-13" tabindex="-1"></a>  <span class="st">&quot;transport --&gt; fail_time&quot;</span>,</span>
+<span id="cb1261-14"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1261-14" tabindex="-1"></a>  <span class="co"># Worker 3 could eat the ice cream in transit</span></span>
+<span id="cb1261-15"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1261-15" tabindex="-1"></a>  <span class="st">&quot;transport --&gt; fail_eat&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1261-16"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1261-16" tabindex="-1"></a>  <span class="co"># bind it!</span></span>
+<span id="cb1261-17"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1261-17" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st"> &quot;</span>)</span></code></pre></div>
 <p>So what does our new diagram look like?</p>
-<div class="sourceCode" id="cb1252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1252-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1252-1" tabindex="-1"></a><span class="fu">c</span>(<span class="st">&quot;graph LR&quot;</span>, </span>
-<span id="cb1252-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1252-2" tabindex="-1"></a>    <span class="co"># Add subgraphs of nodes</span></span>
-<span id="cb1252-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1252-3" tabindex="-1"></a>    subgraph_people,</span>
-<span id="cb1252-4"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1252-4" tabindex="-1"></a>    subgraph_events,</span>
-<span id="cb1252-5"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1252-5" tabindex="-1"></a>    <span class="co"># Add ties</span></span>
-<span id="cb1252-6"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1252-6" tabindex="-1"></a>  ties,</span>
-<span id="cb1252-7"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1252-7" tabindex="-1"></a>    <span class="co"># Add subgraph of failure nodes  </span></span>
-<span id="cb1252-8"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1252-8" tabindex="-1"></a>      subgraph_fail,</span>
-<span id="cb1252-9"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1252-9" tabindex="-1"></a>    <span class="co"># Add ways possible failures</span></span>
-<span id="cb1252-10"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1252-10" tabindex="-1"></a>      failures</span>
-<span id="cb1252-11"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1252-11" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb1252-12"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1252-12" tabindex="-1"></a>  <span class="co"># Paste them together</span></span>
-<span id="cb1252-13"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1252-13" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st"> &quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1252-14"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1252-14" tabindex="-1"></a>  <span class="co"># And visualize it!</span></span>
-<span id="cb1252-15"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1252-15" tabindex="-1"></a>  <span class="fu">mermaid</span>()</span></code></pre></div>
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-25b41b64fe3ed5f2b31b" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-25b41b64fe3ed5f2b31b">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb1262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1262-1"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1262-1" tabindex="-1"></a><span class="fu">c</span>(<span class="st">&quot;graph LR&quot;</span>, </span>
+<span id="cb1262-2"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1262-2" tabindex="-1"></a>    <span class="co"># Add subgraphs of nodes</span></span>
+<span id="cb1262-3"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1262-3" tabindex="-1"></a>    subgraph_people,</span>
+<span id="cb1262-4"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1262-4" tabindex="-1"></a>    subgraph_events,</span>
+<span id="cb1262-5"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1262-5" tabindex="-1"></a>    <span class="co"># Add ties</span></span>
+<span id="cb1262-6"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1262-6" tabindex="-1"></a>  ties,</span>
+<span id="cb1262-7"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1262-7" tabindex="-1"></a>    <span class="co"># Add subgraph of failure nodes  </span></span>
+<span id="cb1262-8"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1262-8" tabindex="-1"></a>      subgraph_fail,</span>
+<span id="cb1262-9"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1262-9" tabindex="-1"></a>    <span class="co"># Add ways possible failures</span></span>
+<span id="cb1262-10"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1262-10" tabindex="-1"></a>      failures</span>
+<span id="cb1262-11"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1262-11" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb1262-12"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1262-12" tabindex="-1"></a>  <span class="co"># Paste them together</span></span>
+<span id="cb1262-13"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1262-13" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st"> &quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1262-14"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1262-14" tabindex="-1"></a>  <span class="co"># And visualize it!</span></span>
+<span id="cb1262-15"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#cb1262-15" tabindex="-1"></a>  <span class="fu">mermaid</span>()</span></code></pre></div>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-911356d120cff26000ea" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-911356d120cff26000ea">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
 <p>There’s so much you can do with <code>mermaid</code>, but for now, this will do. Hooray!</p>
 <p>You’re ready to use <code>mermaid</code>!</p>
 <p><br>
 <br></p>
-<pre class="include"><code>rm(list = ls())</code></pre>
 
 </div>
 </div>

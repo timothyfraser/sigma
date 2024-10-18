@@ -23,7 +23,7 @@
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2024-08-29" />
+<meta name="date" content="2024-10-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,7 @@
 <script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="assets/kePrint-0.0.1/kePrint.js"></script>
 <link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="assets/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
 <script src="assets/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <script src="assets/d3-3.3.8/d3.min.js"></script>
 <script src="assets/dagre-0.4.0/dagre-d3.min.js"></script>
@@ -76,7 +77,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -921,7 +922,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="25" data-path="appendix-test.html"><a href="appendix-test.html"><i class="fa fa-check"></i><b>25</b> Appendix: test</a>
 <ul>
-<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-24"><i class="fa fa-check"></i>Getting Started</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-24"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-1"><i class="fa fa-check"></i>Version 1</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-2"><i class="fa fa-check"></i>Version 2</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -950,18 +955,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Prerequisites<a href="appendix-tidyfault-for-fault-tree-analysis.html#prerequisites-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>As a prerequisite for this workshop, be sure to have read the Fault Trees training earlier in this book!
 You’ll need to install a few packages real quick below. Here they are.</p>
-<div class="sourceCode" id="cb1308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1308-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1308-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;devtools&quot;</span>, <span class="st">&quot;admisc&quot;</span>, <span class="st">&quot;tidygraph&quot;</span>, <span class="st">&quot;ggraph&quot;</span>, <span class="st">&quot;QCA&quot;</span>))</span>
-<span id="cb1308-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1308-2" tabindex="-1"></a><span class="co"># Install the tidyfault package!</span></span>
-<span id="cb1308-3"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1308-3" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;timothyfraser/tidyfault&quot;</span>)</span>
-<span id="cb1308-4"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1308-4" tabindex="-1"></a><span class="co"># Select, &#39;install all packages&#39;</span></span>
-<span id="cb1308-5"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1308-5" tabindex="-1"></a><span class="co"># on the menu that will pop up in your console</span></span></code></pre></div>
+<div class="sourceCode" id="cb1317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1317-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1317-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;devtools&quot;</span>, <span class="st">&quot;admisc&quot;</span>, <span class="st">&quot;tidygraph&quot;</span>, <span class="st">&quot;ggraph&quot;</span>, <span class="st">&quot;QCA&quot;</span>))</span>
+<span id="cb1317-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1317-2" tabindex="-1"></a><span class="co"># Install the tidyfault package!</span></span>
+<span id="cb1317-3"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1317-3" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;timothyfraser/tidyfault&quot;</span>)</span>
+<span id="cb1317-4"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1317-4" tabindex="-1"></a><span class="co"># Select, &#39;install all packages&#39;</span></span>
+<span id="cb1317-5"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1317-5" tabindex="-1"></a><span class="co"># on the menu that will pop up in your console</span></span></code></pre></div>
 </div>
 <div id="load-packages-11" class="section level3 unnumbered hasAnchor">
 <h3>Load Packages<a href="appendix-tidyfault-for-fault-tree-analysis.html#load-packages-11" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb1309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1309-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1309-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1309-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1309-2" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1309-3"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1309-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1309-4"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1309-4" tabindex="-1"></a><span class="fu">library</span>(tidyfault)</span></code></pre></div>
+<div class="sourceCode" id="cb1318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1318-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1318-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1318-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1318-2" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1318-3"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1318-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1318-4"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1318-4" tabindex="-1"></a><span class="fu">library</span>(tidyfault)</span></code></pre></div>
 </div>
 </div>
 <div id="visualizing-fault-trees-in-r" class="section level2 hasAnchor" number="24.1">
@@ -978,20 +983,20 @@ You’ll need to install a few packages real quick below. Here they are.</p>
 <li><p>each node should be classified by <code>type</code> as (1) an <code>and</code> gate, (2) an <code>or</code> gate, or (3) <code>not</code> a gate. We can use <code>factor()</code> to tell R to always remember <code>"and"</code>, <code>"or"</code>, and <code>"not"</code> in that order (useful for <code>ggplot</code> legends).</p></li>
 <li><p>classic fault trees sometimes write events and the gates that condition them as separate nodes, but as far as the graph is concerned, they are really the <em>same node</em>. So, remember to combine them for analysis.</p></li>
 </ul>
-<div class="sourceCode" id="cb1310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1310-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1310-1" tabindex="-1"></a><span class="co"># Let&#39;s make a data.frame of nodes!</span></span>
-<span id="cb1310-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1310-2" tabindex="-1"></a><span class="fu">tribble</span>(</span>
-<span id="cb1310-3"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1310-3" tabindex="-1"></a>  <span class="co"># Make the headers, using a tilde</span></span>
-<span id="cb1310-4"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1310-4" tabindex="-1"></a>  <span class="sc">~</span>id, <span class="sc">~</span>event, <span class="sc">~</span>type,</span>
-<span id="cb1310-5"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1310-5" tabindex="-1"></a>  <span class="co"># Add the value entries</span></span>
-<span id="cb1310-6"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1310-6" tabindex="-1"></a>  <span class="st">&quot;T&quot;</span>,   <span class="st">&quot;T&quot;</span>,   <span class="st">&quot;top&quot;</span>,</span>
-<span id="cb1310-7"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1310-7" tabindex="-1"></a>  <span class="st">&quot;G1&quot;</span>,  <span class="st">&quot;G1&quot;</span>,  <span class="st">&quot;and&quot;</span>,</span>
-<span id="cb1310-8"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1310-8" tabindex="-1"></a>  <span class="co"># Notice how event &#39;B&#39; appears twice,</span></span>
-<span id="cb1310-9"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1310-9" tabindex="-1"></a>  <span class="co"># so it has a logical but differentiated `name` &quot;B1&quot; and &quot;B2&quot;?</span></span>
-<span id="cb1310-10"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1310-10" tabindex="-1"></a>  <span class="st">&quot;B1&quot;</span>,  <span class="st">&quot;B&quot;</span>,   <span class="st">&quot;not&quot;</span>,</span>
-<span id="cb1310-11"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1310-11" tabindex="-1"></a>  <span class="st">&quot;B2&quot;</span>,  <span class="st">&quot;B&quot;</span>,   <span class="st">&quot;not&quot;</span>,</span>
-<span id="cb1310-12"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1310-12" tabindex="-1"></a>  <span class="st">&quot;C1&quot;</span>,  <span class="st">&quot;C&quot;</span>,   <span class="st">&quot;not&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1310-13"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1310-13" tabindex="-1"></a>  <span class="co"># Classify &#39;type&#39; as a factor, with specific levels</span></span>
-<span id="cb1310-14"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1310-14" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">factor</span>(type, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;top&quot;</span>, <span class="st">&quot;and&quot;</span>, <span class="st">&quot;or&quot;</span>, <span class="st">&quot;not&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb1319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1319-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1319-1" tabindex="-1"></a><span class="co"># Let&#39;s make a data.frame of nodes!</span></span>
+<span id="cb1319-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1319-2" tabindex="-1"></a><span class="fu">tribble</span>(</span>
+<span id="cb1319-3"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1319-3" tabindex="-1"></a>  <span class="co"># Make the headers, using a tilde</span></span>
+<span id="cb1319-4"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1319-4" tabindex="-1"></a>  <span class="sc">~</span>id, <span class="sc">~</span>event, <span class="sc">~</span>type,</span>
+<span id="cb1319-5"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1319-5" tabindex="-1"></a>  <span class="co"># Add the value entries</span></span>
+<span id="cb1319-6"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1319-6" tabindex="-1"></a>  <span class="st">&quot;T&quot;</span>,   <span class="st">&quot;T&quot;</span>,   <span class="st">&quot;top&quot;</span>,</span>
+<span id="cb1319-7"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1319-7" tabindex="-1"></a>  <span class="st">&quot;G1&quot;</span>,  <span class="st">&quot;G1&quot;</span>,  <span class="st">&quot;and&quot;</span>,</span>
+<span id="cb1319-8"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1319-8" tabindex="-1"></a>  <span class="co"># Notice how event &#39;B&#39; appears twice,</span></span>
+<span id="cb1319-9"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1319-9" tabindex="-1"></a>  <span class="co"># so it has a logical but differentiated `name` &quot;B1&quot; and &quot;B2&quot;?</span></span>
+<span id="cb1319-10"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1319-10" tabindex="-1"></a>  <span class="st">&quot;B1&quot;</span>,  <span class="st">&quot;B&quot;</span>,   <span class="st">&quot;not&quot;</span>,</span>
+<span id="cb1319-11"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1319-11" tabindex="-1"></a>  <span class="st">&quot;B2&quot;</span>,  <span class="st">&quot;B&quot;</span>,   <span class="st">&quot;not&quot;</span>,</span>
+<span id="cb1319-12"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1319-12" tabindex="-1"></a>  <span class="st">&quot;C1&quot;</span>,  <span class="st">&quot;C&quot;</span>,   <span class="st">&quot;not&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1319-13"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1319-13" tabindex="-1"></a>  <span class="co"># Classify &#39;type&#39; as a factor, with specific levels</span></span>
+<span id="cb1319-14"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1319-14" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">factor</span>(type, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;top&quot;</span>, <span class="st">&quot;and&quot;</span>, <span class="st">&quot;or&quot;</span>, <span class="st">&quot;not&quot;</span>)))</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 3
 ##   id    event type 
 ##   &lt;chr&gt; &lt;chr&gt; &lt;fct&gt;
@@ -1009,13 +1014,13 @@ You’ll need to install a few packages real quick below. Here they are.</p>
 <ul>
 <li>each row shows a unique edge between nodes, recording their node <code>id</code>s from the top-down in the <code>from</code> and <code>to</code> columns.</li>
 </ul>
-<div class="sourceCode" id="cb1312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1312-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1312-1" tabindex="-1"></a><span class="co"># For example....</span></span>
-<span id="cb1312-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1312-2" tabindex="-1"></a><span class="fu">tribble</span>(</span>
-<span id="cb1312-3"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1312-3" tabindex="-1"></a>  <span class="sc">~</span>from, <span class="sc">~</span>to,</span>
-<span id="cb1312-4"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1312-4" tabindex="-1"></a>  <span class="st">&quot;T&quot;</span>,   <span class="st">&quot;G1&quot;</span>,</span>
-<span id="cb1312-5"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1312-5" tabindex="-1"></a>  <span class="st">&quot;G1&quot;</span>, <span class="st">&quot;G2&quot;</span>,</span>
-<span id="cb1312-6"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1312-6" tabindex="-1"></a>  <span class="st">&quot;G2&quot;</span>, <span class="st">&quot;B1&quot;</span>,</span>
-<span id="cb1312-7"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1312-7" tabindex="-1"></a>  <span class="st">&quot;G2&quot;</span>, <span class="st">&quot;G5&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb1321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1321-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1321-1" tabindex="-1"></a><span class="co"># For example....</span></span>
+<span id="cb1321-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1321-2" tabindex="-1"></a><span class="fu">tribble</span>(</span>
+<span id="cb1321-3"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1321-3" tabindex="-1"></a>  <span class="sc">~</span>from, <span class="sc">~</span>to,</span>
+<span id="cb1321-4"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1321-4" tabindex="-1"></a>  <span class="st">&quot;T&quot;</span>,   <span class="st">&quot;G1&quot;</span>,</span>
+<span id="cb1321-5"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1321-5" tabindex="-1"></a>  <span class="st">&quot;G1&quot;</span>, <span class="st">&quot;G2&quot;</span>,</span>
+<span id="cb1321-6"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1321-6" tabindex="-1"></a>  <span class="st">&quot;G2&quot;</span>, <span class="st">&quot;B1&quot;</span>,</span>
+<span id="cb1321-7"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1321-7" tabindex="-1"></a>  <span class="st">&quot;G2&quot;</span>, <span class="st">&quot;G5&quot;</span>) </span></code></pre></div>
 <pre><code>## # A tibble: 4 × 2
 ##   from  to   
 ##   &lt;chr&gt; &lt;chr&gt;
@@ -1028,9 +1033,9 @@ You’ll need to install a few packages real quick below. Here they are.</p>
 <div id="our-data-8" class="section level2 hasAnchor" number="24.2">
 <h2><span class="header-section-number">24.2</span> Our Data<a href="appendix-tidyfault-for-fault-tree-analysis.html#our-data-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this example, we’re going to use the default data in <code>tidyfault</code>, called <code>fakenodes</code> and <code>fakeedges</code>. You can download it like this:</p>
-<div class="sourceCode" id="cb1314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1314-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1314-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;fakenodes&quot;</span>)</span>
-<span id="cb1314-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1314-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;fakeedges&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb1315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1315-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1315-1" tabindex="-1"></a>fakenodes</span></code></pre></div>
+<div class="sourceCode" id="cb1323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1323-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1323-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;fakenodes&quot;</span>)</span>
+<span id="cb1323-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1323-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;fakeedges&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1324-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1324-1" tabindex="-1"></a>fakenodes</span></code></pre></div>
 <pre><code>## # A tibble: 12 × 3
 ##       id event type 
 ##    &lt;dbl&gt; &lt;chr&gt; &lt;fct&gt;
@@ -1046,7 +1051,7 @@ You’ll need to install a few packages real quick below. Here they are.</p>
 ## 10    10 C     not  
 ## 11    11 C     not  
 ## 12    12 D     not</code></pre>
-<div class="sourceCode" id="cb1317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1317-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1317-1" tabindex="-1"></a>fakeedges</span></code></pre></div>
+<div class="sourceCode" id="cb1326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1326-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1326-1" tabindex="-1"></a>fakeedges</span></code></pre></div>
 <pre><code>## # A tibble: 11 × 2
 ##     from    to
 ##    &lt;dbl&gt; &lt;dbl&gt;
@@ -1067,17 +1072,17 @@ You’ll need to install a few packages real quick below. Here they are.</p>
 <div id="getting-a-fault-tree-layout" class="section level2 hasAnchor" number="24.3">
 <h2><span class="header-section-number">24.3</span> Getting a Fault Tree Layout<a href="appendix-tidyfault-for-fault-tree-analysis.html#getting-a-fault-tree-layout" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Using <code>tidyfault</code>‘s <code>illustrate()</code> function, we can quickly assign <code>x</code> and <code>y</code> coordinates for a ’tree’ layout to to our <code>fakenodes</code> and <code>fakeedges</code>. We say <code>type = "both"</code> because we want to receive coordinates for <em>both</em> the nodes and edges.</p>
-<div class="sourceCode" id="cb1319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1319-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1319-1" tabindex="-1"></a>gg <span class="ot">=</span> <span class="fu">illustrate</span>(<span class="at">nodes =</span> fakenodes, <span class="at">edges =</span> fakeedges, </span>
-<span id="cb1319-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1319-2" tabindex="-1"></a>                <span class="at">type =</span> <span class="st">&quot;both&quot;</span>, <span class="at">node_key =</span> <span class="st">&quot;id&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1328-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1328-1" tabindex="-1"></a>gg <span class="ot">=</span> <span class="fu">illustrate</span>(<span class="at">nodes =</span> fakenodes, <span class="at">edges =</span> fakeedges, </span>
+<span id="cb1328-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1328-2" tabindex="-1"></a>                <span class="at">type =</span> <span class="st">&quot;both&quot;</span>, <span class="at">node_key =</span> <span class="st">&quot;id&quot;</span>)</span></code></pre></div>
 <p>This returns a <code>list()</code> object. <code>list()</code> objects are collections of data.frames - sort of like a vector whose values are entire data.frames. We can query the values inside lists by using the <code>$</code>, just like a data.frame.</p>
-<div class="sourceCode" id="cb1320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1320-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1320-1" tabindex="-1"></a><span class="co"># see the nodes</span></span>
-<span id="cb1320-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1320-2" tabindex="-1"></a>gg<span class="sc">$</span>nodes <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1329-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1329-1" tabindex="-1"></a><span class="co"># see the nodes</span></span>
+<span id="cb1329-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1329-2" tabindex="-1"></a>gg<span class="sc">$</span>nodes <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##    x y id event type
 ## 1  0 4  1     T  top
 ## 2  0 3  2    G1  and
 ## 3 -1 2  3    G2  and</code></pre>
-<div class="sourceCode" id="cb1322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1322-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1322-1" tabindex="-1"></a><span class="co"># see the edges</span></span>
-<span id="cb1322-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1322-2" tabindex="-1"></a>gg<span class="sc">$</span>edges <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1331-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1331-1" tabindex="-1"></a><span class="co"># see the edges</span></span>
+<span id="cb1331-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1331-2" tabindex="-1"></a>gg<span class="sc">$</span>edges <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 5
 ## # Groups:   edge_id [2]
 ##   edge_id direction    id     x     y
@@ -1088,23 +1093,23 @@ You’ll need to install a few packages real quick below. Here they are.</p>
 </div>
 <div id="visualize-a-fault-tree" class="section level2 hasAnchor" number="24.4">
 <h2><span class="header-section-number">24.4</span> Visualize a Fault Tree<a href="appendix-tidyfault-for-fault-tree-analysis.html#visualize-a-fault-tree" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1324-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1324-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb1324-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1324-2" tabindex="-1"></a>  <span class="co"># Plot each line corresponding to the unique edge id, used to group them</span></span>
-<span id="cb1324-3"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1324-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> gg<span class="sc">$</span>edges, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">group =</span> edge_id)) <span class="sc">+</span></span>
-<span id="cb1324-4"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1324-4" tabindex="-1"></a>  <span class="co"># Plot each point</span></span>
-<span id="cb1324-5"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1324-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> gg<span class="sc">$</span>nodes, </span>
-<span id="cb1324-6"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1324-6" tabindex="-1"></a>             <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">shape =</span> type, <span class="at">fill =</span> type),</span>
-<span id="cb1324-7"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1324-7" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb1324-8"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1324-8" tabindex="-1"></a>  <span class="co"># Plot labels!</span></span>
-<span id="cb1324-9"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1324-9" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> gg<span class="sc">$</span>nodes, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">label =</span> event)) <span class="sc">+</span></span>
-<span id="cb1324-10"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1324-10" tabindex="-1"></a>  <span class="co"># We can also assign shapes!</span></span>
-<span id="cb1324-11"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1324-11" tabindex="-1"></a>  <span class="co"># (shapes 21, 22, 23, 24, and 25 have fill and color)</span></span>
-<span id="cb1324-12"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1324-12" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">24</span>, <span class="dv">25</span>, <span class="dv">21</span>)) <span class="sc">+</span></span>
-<span id="cb1324-13"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1324-13" tabindex="-1"></a>  <span class="co"># And assign some poppy colors here</span></span>
-<span id="cb1324-14"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1324-14" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkgrey&quot;</span>, <span class="st">&quot;cyan&quot;</span>, <span class="st">&quot;coral&quot;</span>, <span class="st">&quot;lightgrey&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb1324-15"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1324-15" tabindex="-1"></a>  <span class="co"># Finally, we can make a clean void theme, with the legend below.</span></span>
-<span id="cb1324-16"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1324-16" tabindex="-1"></a>  <span class="fu">theme_void</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb1324-17"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1324-17" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1333-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1333-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb1333-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1333-2" tabindex="-1"></a>  <span class="co"># Plot each line corresponding to the unique edge id, used to group them</span></span>
+<span id="cb1333-3"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1333-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> gg<span class="sc">$</span>edges, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">group =</span> edge_id)) <span class="sc">+</span></span>
+<span id="cb1333-4"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1333-4" tabindex="-1"></a>  <span class="co"># Plot each point</span></span>
+<span id="cb1333-5"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1333-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> gg<span class="sc">$</span>nodes, </span>
+<span id="cb1333-6"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1333-6" tabindex="-1"></a>             <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">shape =</span> type, <span class="at">fill =</span> type),</span>
+<span id="cb1333-7"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1333-7" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb1333-8"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1333-8" tabindex="-1"></a>  <span class="co"># Plot labels!</span></span>
+<span id="cb1333-9"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1333-9" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> gg<span class="sc">$</span>nodes, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">label =</span> event)) <span class="sc">+</span></span>
+<span id="cb1333-10"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1333-10" tabindex="-1"></a>  <span class="co"># We can also assign shapes!</span></span>
+<span id="cb1333-11"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1333-11" tabindex="-1"></a>  <span class="co"># (shapes 21, 22, 23, 24, and 25 have fill and color)</span></span>
+<span id="cb1333-12"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1333-12" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">24</span>, <span class="dv">25</span>, <span class="dv">21</span>)) <span class="sc">+</span></span>
+<span id="cb1333-13"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1333-13" tabindex="-1"></a>  <span class="co"># And assign some poppy colors here</span></span>
+<span id="cb1333-14"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1333-14" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkgrey&quot;</span>, <span class="st">&quot;cyan&quot;</span>, <span class="st">&quot;coral&quot;</span>, <span class="st">&quot;lightgrey&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb1333-15"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1333-15" tabindex="-1"></a>  <span class="co"># Finally, we can make a clean void theme, with the legend below.</span></span>
+<span id="cb1333-16"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1333-16" tabindex="-1"></a>  <span class="fu">theme_void</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb1333-17"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1333-17" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
 <p><img src="99_skill_tidyfault_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p><br>
 <br></p>
@@ -1121,10 +1126,10 @@ You’ll need to install a few packages real quick below. Here they are.</p>
 </div>
 <div id="gates" class="section level2 hasAnchor" number="24.6">
 <h2><span class="header-section-number">24.6</span> Gates<a href="appendix-tidyfault-for-fault-tree-analysis.html#gates" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1325-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1325-1" tabindex="-1"></a><span class="co"># To get a data.frame of gates, use curate()!</span></span>
-<span id="cb1325-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1325-2" tabindex="-1"></a>g <span class="ot">=</span> <span class="fu">curate</span>(fakenodes, fakeedges)</span>
-<span id="cb1325-3"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1325-3" tabindex="-1"></a><span class="co"># Check it</span></span>
-<span id="cb1325-4"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1325-4" tabindex="-1"></a>g</span></code></pre></div>
+<div class="sourceCode" id="cb1334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1334-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1334-1" tabindex="-1"></a><span class="co"># To get a data.frame of gates, use curate()!</span></span>
+<span id="cb1334-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1334-2" tabindex="-1"></a>g <span class="ot">=</span> <span class="fu">curate</span>(fakenodes, fakeedges)</span>
+<span id="cb1334-3"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1334-3" tabindex="-1"></a><span class="co"># Check it</span></span>
+<span id="cb1334-4"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1334-4" tabindex="-1"></a>g</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 6
 ##   gate  type  class     n set           items    
 ##   &lt;chr&gt; &lt;fct&gt; &lt;fct&gt; &lt;int&gt; &lt;chr&gt;         &lt;list&gt;   
@@ -1138,30 +1143,30 @@ You’ll need to install a few packages real quick below. Here they are.</p>
 <div id="equations" class="section level2 hasAnchor" number="24.7">
 <h2><span class="header-section-number">24.7</span> Equations<a href="appendix-tidyfault-for-fault-tree-analysis.html#equations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To get the full boolean equation of the fault tree, use <code>equate()</code>!</p>
-<div class="sourceCode" id="cb1327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1327-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1327-1" tabindex="-1"></a>g <span class="sc">%&gt;%</span> <span class="fu">equate</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb1336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1336-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1336-1" tabindex="-1"></a>g <span class="sc">%&gt;%</span> <span class="fu">equate</span>() </span></code></pre></div>
 <pre><code>## [1] &quot; ( ( (B *  (C + D) )  *  (A +  (B * C) ) ) ) &quot;</code></pre>
 <p>We can format it as a function too!</p>
-<div class="sourceCode" id="cb1329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1329-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1329-1" tabindex="-1"></a>f <span class="ot">=</span> g <span class="sc">%&gt;%</span> <span class="fu">equate</span>() <span class="sc">%&gt;%</span> <span class="fu">formulate</span>()</span>
-<span id="cb1329-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1329-2" tabindex="-1"></a></span>
-<span id="cb1329-3"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1329-3" tabindex="-1"></a><span class="co"># Suppose there is each of these probabilities that A, B, C, and D occur</span></span>
-<span id="cb1329-4"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1329-4" tabindex="-1"></a><span class="co"># what&#39;s the probability of the top event?</span></span>
-<span id="cb1329-5"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1329-5" tabindex="-1"></a><span class="fu">f</span>(<span class="at">A =</span> <span class="fl">0.3</span>, <span class="at">B =</span> <span class="fl">0.5</span>, <span class="at">C =</span> <span class="fl">0.1</span>, <span class="at">D =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1338-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1338-1" tabindex="-1"></a>f <span class="ot">=</span> g <span class="sc">%&gt;%</span> <span class="fu">equate</span>() <span class="sc">%&gt;%</span> <span class="fu">formulate</span>()</span>
+<span id="cb1338-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1338-2" tabindex="-1"></a></span>
+<span id="cb1338-3"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1338-3" tabindex="-1"></a><span class="co"># Suppose there is each of these probabilities that A, B, C, and D occur</span></span>
+<span id="cb1338-4"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1338-4" tabindex="-1"></a><span class="co"># what&#39;s the probability of the top event?</span></span>
+<span id="cb1338-5"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1338-5" tabindex="-1"></a><span class="fu">f</span>(<span class="at">A =</span> <span class="fl">0.3</span>, <span class="at">B =</span> <span class="fl">0.5</span>, <span class="at">C =</span> <span class="fl">0.1</span>, <span class="at">D =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <pre><code>## [1] 0.105</code></pre>
 </div>
 <div id="minimal-cutsets" class="section level2 hasAnchor" number="24.8">
 <h2><span class="header-section-number">24.8</span> Minimal Cutsets<a href="appendix-tidyfault-for-fault-tree-analysis.html#minimal-cutsets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To simplify down to the minimal cutsets, use <code>concentrate()</code>! It’s pretty quick for small graphs, but gets exponentially longer the more nodes you add. (Especially with <code>OR</code> statements.) That’s MOCUS’s value as well as its tradeoff.</p>
-<div class="sourceCode" id="cb1331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1331-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1331-1" tabindex="-1"></a>m <span class="ot">=</span> g <span class="sc">%&gt;%</span> </span>
-<span id="cb1331-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1331-2" tabindex="-1"></a>  <span class="fu">concentrate</span>(<span class="at">method =</span> <span class="st">&quot;mocus&quot;</span>)</span>
-<span id="cb1331-3"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1331-3" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb1331-4"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1331-4" tabindex="-1"></a>m</span></code></pre></div>
+<div class="sourceCode" id="cb1340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1340-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1340-1" tabindex="-1"></a>m <span class="ot">=</span> g <span class="sc">%&gt;%</span> </span>
+<span id="cb1340-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1340-2" tabindex="-1"></a>  <span class="fu">concentrate</span>(<span class="at">method =</span> <span class="st">&quot;mocus&quot;</span>)</span>
+<span id="cb1340-3"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1340-3" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb1340-4"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1340-4" tabindex="-1"></a>m</span></code></pre></div>
 <pre><code>## [1] &quot;B*C&quot;   &quot;A*B*D&quot;</code></pre>
 </div>
 <div id="coverage" class="section level2 hasAnchor" number="24.9">
 <h2><span class="header-section-number">24.9</span> Coverage<a href="appendix-tidyfault-for-fault-tree-analysis.html#coverage" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We might want to know, <em>how important</em> are each of my minimal cutsets? We can compute the total number of cutsets that include the minimal cutset, the total cutsets leading to failure in general, and the percentage (<code>coverage</code>) of cutsets containing your minimal cutset out of all total cutsets leading to failure. It’s basically a measure of the explanatory power of your cutsets!</p>
-<div class="sourceCode" id="cb1333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1333-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1333-1" tabindex="-1"></a>m <span class="sc">%&gt;%</span> </span>
-<span id="cb1333-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1333-2" tabindex="-1"></a>  <span class="fu">tabulate</span>(<span class="at">formula =</span> f)</span></code></pre></div>
+<div class="sourceCode" id="cb1342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1342-1"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1342-1" tabindex="-1"></a>m <span class="sc">%&gt;%</span> </span>
+<span id="cb1342-2"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cb1342-2" tabindex="-1"></a>  <span class="fu">tabulate</span>(<span class="at">formula =</span> f)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   mincut query                                        cutsets failures coverage
 ##   &lt;chr&gt;  &lt;chr&gt;                                          &lt;int&gt;    &lt;int&gt;    &lt;dbl&gt;
