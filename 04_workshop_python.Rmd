@@ -1,0 +1,178 @@
+# System Reliability in Python
+
+```{r setup_workshop_4_python, include=FALSE}
+## Global options
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+```
+
+In this tutorial, we learn core Reliability/Survival Analysis concepts in Python by mirroring the R workflow.
+
+## Getting Started {-}
+
+### Packages {-}
+
+```{python, eval=FALSE}
+%pip install pandas plotnine sympy scipy
+```
+
+```{python}
+import pandas as pd
+from plotnine import *
+import sympy as sp
+```
+
+## Concepts
+
+### Life Distributions
+
+```{python}
+from functions_distributions import rnorm, density, tidy_density, approxfun
+lifespan = rnorm(100, mean=5, sd=1)
+```
+
+```{python}
+dlife = density(lifespan)
+dlife = tidy_density(dlife)
+dlife_fn = approxfun(dlife)
+```
+
+```{python}
+plife_df = tidy_density(density(lifespan))
+plife_df = plife_df.sort_values('x')
+plife_df['y'] = plife_df.y.cumsum() / plife_df.y.sum()
+plife = approxfun(plife_df)
+```
+
+```{python}
+import numpy as np
+time = np.arange(lifespan.min(), lifespan.max(), 0.1)
+mycars = pd.DataFrame({
+  'time': time,
+  'prob': dlife_fn(time),
+  'prob_cumulative': plife(time)
+})
+mycars['prob_survival'] = 1 - mycars['prob_cumulative']
+```
+
+```{python}
+(ggplot(mycars, aes(x='time')) +
+  geom_area(aes(y='prob_cumulative', fill='"Cumulative Probability"'), alpha=0.5) +
+  geom_area(aes(y='prob_survival', fill='"Reliability (Survival)"'), alpha=0.5) +
+  geom_area(aes(y='prob', fill='"Probability"'), alpha=0.5) +
+  theme_classic() + theme(legend_position='bottom') +
+  labs(x='Lifespan of Car', y='Probability', subtitle='Example Life Distributions'))
+```
+
+### Example: Airplane Propeller Failure
+
+```{python}
+import math
+def fplane(t):
+  return 1 - math.exp(-(t/750))
+```
+
+```{python}
+[fplane(600), fplane(5000)]
+fplane(5000) - fplane(600)
+1 - fplane(6000)
+```
+
+### Joint Probabilities
+
+```{python}
+def fcup(days):
+  return 1 - math.exp(-(days/360))
+
+def rcup(days):
+  return 1 - fcup(days)
+```
+
+```{python}
+fcup(100); rcup(100); fcup(100)**5
+1 - rcup(365.25)**2
+1 - rcup(365.25)**5
+```
+
+## Hazard, Accumulative Hazard, AFR
+
+```{python}
+def zcup(days, plus=1):
+  return (fcup(days+plus) - fcup(days)) / (plus * rcup(days))
+
+def hcup(days):
+  return -1*math.log(rcup(days))
+
+def afrcup(t1, t2):
+  return (hcup(t2) - hcup(t1)) / (t2 - t1)
+```
+
+```{python}
+zcup(100); hcup(100); afrcup(0,5)
+```
+
+## Units and Conversions
+
+```{python}
+def pk(rate):
+  return rate * 100 * 10**3
+
+def ppmk(rate):
+  return rate * 10**9
+```
+
+```{python}
+def f(t):
+  return 1 - math.exp(-((t/2000)**0.5))
+
+def z(t, change=1):
+  deltaf = (f(t+change) - f(t)) / change
+  r = 1 - f(t)
+  return deltaf / r
+
+def afr(t1, t2):
+  r1 = 1 - f(t1)
+  r2 = 1 - f(t2)
+  h1 = -math.log(r1)
+  h2 = -math.log(r2)
+  return (h2 - h1) / (t2 - t1)
+```
+
+```{python}
+z(10); pk(z(10)); ppmk(z(10))
+afr(1000, 10000); pk(afr(1000, 10000)); ppmk(afr(1000, 10000))
+```
+
+---
+
+## Learning Check 1 {.unnumbered .LC}
+
+**Question**
+
+Using `fexplode(days) = 1 - exp(-0.01*days)`, what percent survive 6 months and 1 year?
+
+<details><summary>**[View Answer!]**</summary>
+
+```{python}
+import math
+def fexplode(days):
+  return 1 - math.exp(-0.01*days)
+
+[1 - fexplode(365.25/2), 1 - fexplode(365.25)]
+```
+
+</details>
+
+---
+
+## System Reliability (Series, Parallel, Combined)
+
+Provide series and parallel reliability calculations by multiplying reliabilities for series and using complements for parallel systems.
+
+## Conclusion {.unnumbered}
+
+You translated reliability concepts to Python: failure, reliability, hazard, cumulative hazard, and AFR with simple functions, plus basic series/parallel reasoning.
+
+```{python, include=FALSE}
+globals().clear()
+```
+
