@@ -5,7 +5,7 @@
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 ```
 
-This workshop extends SPC with capability and performance indices and confidence intervals using Python.
+This workshop extends SPC with capability and performance indices and confidence intervals using Python. We'll calculate Cp, Cpk, Pp, and Ppk, then construct normal-approximation confidence intervals and a simple bootstrap, paralleling the R chapter.
 
 ## Getting Started {-}
 

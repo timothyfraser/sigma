@@ -1,113 +1,182 @@
-# Distributions and Visualization in Python
+# Distributions and Descriptive Statistics in Python
 
 ```{r setup_workshop_2_python, include=FALSE}
 ## Global options
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 ```
 
-```{r header_py, echo = FALSE, out.width="100%", fig.cap="Yay Distributions!"}
-knitr::include_graphics("images/2_viz.png")
-```
-
-This tutorial will introduce you to visualizing distributions and basic plots in Python using plotnine (a Python port of ggplot2) and pandas.
+This tutorial introduces distributions and descriptive statistics in Python using pandas and helper functions that mirror `R`'s syntax.
 
 ## Getting Started {-}
 
-Please open up your Posit.Cloud project. Start a new Python script (File >> New File >> Text File). Save the script as `workshop_2_python.py`. And let's get started!
-
 ### Install and Import Packages {-}
 
-We're going to use a few Python packages today: `pandas` (data), `plotnine` (visualization), `gapminder` (example data), and `seaborn` (example data).
-
 ```{python, eval=FALSE}
-%pip install pandas plotnine seaborn gapminder
+%pip install pandas plotnine scipy
 ```
 
 ```{python}
+import os, sys
 import pandas as p
 from plotnine import *
-from gapminder import gapminder as gapminder
-from seaborn import load_dataset
-
-# Load diamonds dataset from seaborn
-diamonds = load_dataset('diamonds')
+sys.path.append(os.path.abspath('functions'))
+from functions_distributions import *
 ```
 
-## Your First Scatterplot
+## Our Data
 
-Let's make a scatterplot with the `gapminder` dataset: GDP per capita on the x-axis and life expectancy on the y-axis.
-
-```{python, eval=FALSE}
-ggplot(data=gapminder, mapping=aes(x='gdpPercap', y='lifeExp'))
+```{python}
+sw = p.Series([4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4])
+sw
 ```
 
-We made an empty graph! Add `+ geom_point()` to plot points.
+## Size
 
-```{python, eval=FALSE}
-(ggplot(data=gapminder, mapping=aes(x='gdpPercap', y='lifeExp')) +
-  geom_point())
+### Length
+
+```{python}
+len(sw)
 ```
 
-### Transparency (alpha)
+## Location
 
-What happens when you change `alpha`? Try a few values:
+### Mean and Median
 
-```{python, eval=FALSE}
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point(alpha=0.2))
+```{python}
+sw.mean()
 ```
 
-```{python, eval=FALSE}
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point(alpha=0.5))
+```{python}
+sw.median()
 ```
 
-```{python, eval=FALSE}
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point(alpha=1))
+### Mode
+
+```{python}
+sw.mode()
 ```
 
-### Color: constant vs mapped
+## Spread (1)
 
-If you want a single color, set `color` inside `geom_point()`. If you want colors based on a variable, map `color` inside `aes()`.
+### Percentiles
 
-```{python, eval=FALSE}
-# Single color
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) +
-  geom_point(alpha=0.5, color='steelblue'))
+```{python}
+sw.quantile(q=0)  # min
+sw.quantile(q=1)  # max
+sw.quantile(q=.75)
 ```
 
-```{python, eval=FALSE}
-# Color mapped by continent
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp', color='continent')) +
-  geom_point(alpha=0.5))
+## Spread (2)
+
+### Standard Deviation, Variance, CV, SE
+
+```{python}
+# Manual SD (sample)
+x = ((sw - sw.mean())**2).sum()
+x = x / (len(sw) - 1)
+x**0.5
 ```
 
-### Labels and Themes
-
-Add informative labels and explore themes.
-
-```{python, eval=FALSE}
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp', color='continent')) +
-  geom_point(alpha=0.5) +
-  labs(x='GDP per capita (USD)',
-       y='Life Expectancy (years)',
-       color='Continent',
-       title='Does Wealth affect Health?',
-       subtitle='Global Health Trends by Continent',
-       caption='Points display individual country-year observations.') )
+```{python}
+sw.std()
+sw.var()
+sw.std()**2
+sw.std() / sw.mean()  # CV
 ```
 
-You can save a plot as an object and add to it.
+```{python}
+se = sw.std() / (len(sw)**0.5)
+se
+```
 
-```{python, eval=FALSE}
-myviz = (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp', color='continent')) +
-  geom_point(alpha=0.5) +
-  labs(x='GDP per capita (USD)', y='Life Expectancy (years)', color='Continent',
-       title='Does Wealth affect Health?', subtitle='Global Health Trends by Continent',
-       caption='Points display individual country-year observations.'))
+## Shape
 
-myviz
-myviz + theme_bw()
-myviz + theme_dark()
-myviz + theme_classic()
+### Skewness and Kurtosis
+
+```{python}
+diff = sw - sw.mean()
+n = len(sw) - 1
+sigma = sw.std()
+sum(diff**3) / (n * sigma**3)
+sum(diff**4) / (n * sigma**4)
+```
+
+```{python}
+# Using helper functions mirroring R
+skewness(sw)
+kurtosis(sw)
+```
+
+## Finding Parameters for Your Distributions
+
+```{python}
+sw = p.Series([4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4])
+mymean = sw.mean()
+mysd = sw.std()
+```
+
+## Common Distributions
+
+### Normal
+
+```{python}
+mynorm = rnorm(n=1000, mean=mymean, sd=mysd)
+hist(mynorm)
+```
+
+### Poisson
+
+```{python}
+mypois = rpois(n=1000, mu=mymean)
+hist(mypois)
+```
+
+### Exponential
+
+```{python}
+myrate_e = 1 / sw.mean()
+myexp = rexp(n=1000, rate=myrate_e)
+hist(myexp)
+```
+
+### Gamma
+
+```{python}
+myshape = sw.mean()**2 / sw.var()
+myrate = 1 / (sw.var() / sw.mean())
+mygamma = rgamma(n=1000, shape=myshape, rate=myrate)
+hist(mygamma)
+```
+
+### Weibull
+
+```{python}
+from scipy import stats as fitdistr
+myshape_w, loc, myscale_w = fitdistr.weibull_min.fit(sw, floc=0)
+myweibull = rweibull(n=1000, shape=myshape_w, scale=myscale_w)
+hist(myweibull)
+```
+
+## Comparing Distributions
+
+```{python}
+mysim = p.concat([
+  p.DataFrame({'x': sw, 'type': "Observed"}),
+  p.DataFrame({'x': mynorm, 'type': "Normal"}),
+  p.DataFrame({'x': mypois, 'type': "Poisson"}),
+  p.DataFrame({'x': mygamma, 'type': "Gamma"}),
+  p.DataFrame({'x': myexp, 'type': "Exponential"}),
+  p.DataFrame({'x': myweibull, 'type': "Weibull"})
+])
+
+g1 = (ggplot(mysim, aes(x='x', fill='type')) +
+  geom_density(alpha=0.5) +
+  labs(x='Seawall Height (m)', y='Density (Frequency)', subtitle='Which distribution fits best?', fill='Type'))
+g1
+```
+
+```{python}
+g1 + xlim(0,10)
 ```
 
 ---
@@ -116,139 +185,25 @@ myviz + theme_classic()
 
 **Question**
 
-Try both color approaches on the `gapminder` scatterplot. Which code assigns a single color? Which maps color by continent?
+Simulate 1000 draws from a normal distribution using your `sw` mean and standard deviation. What are the simulated mean and sd? How close are they to `sw`’s?
 
 <details><summary>**[View Answer!]**</summary>
 
-```{python, eval=FALSE}
-# Single color
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) +
-  geom_point(alpha=0.5, color='steelblue'))
-```
-
-```{python, eval=FALSE}
-# Color mapped by continent
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp', color='continent')) +
-  geom_point(alpha=0.5))
+```{python}
+mymean = sw.mean(); mysd = sw.std()
+m = rnorm(1000, mean=mymean, sd=mysd)
+[m.mean(), m.std()]
 ```
 
 </details>
 
 ---
-
-<br>
-<br>
-
-## Visualizing diamonds data
-
-`diamonds` is a dataset of 50,000+ diamond sales available via seaborn.
-
-```{python}
-# Peek at the data
-diamonds.head(3)
-```
-
-```{python}
-diamonds.columns
-```
-
-```{python}
-diamonds.shape
-```
-
-### Boxplots by cut
-
-`cut` is ordinal while `price` is numeric. Let's make boxplots.
-
-```{python, eval=FALSE}
-(ggplot(diamonds, aes(x='cut', y='price', group='cut')) +
-  geom_boxplot())
-```
-
-We can change fill either to a single color or map it by `cut`.
-
-```{python, eval=FALSE}
-(ggplot(diamonds, aes(x='cut', y='price', group='cut')) +
-  geom_boxplot(fill='steelblue'))
-```
-
-```{python, eval=FALSE}
-(ggplot(diamonds, aes(x='cut', y='price', group='cut', fill='cut')) +
-  geom_boxplot())
-```
-
----
-
-## Learning Check 2 {.unnumbered .LC}
-
-**Question**
-
-Why do the two boxplot versions above look different? What changed in the code to create those different effects?
-
-<details><summary>**[View Answer!]**</summary>
-
-```{python}
-# Answer:
-# Constant fill: set inside geom_boxplot(fill='steelblue').
-# Mapped fill: set inside aes(..., fill='cut') to color by variable.
-```
-
-</details>
-
----
-
-<br>
-<br>
-
-## Visualizing Distributions
-
-Histograms approximate the distribution of values. Let's visualize `price` by `cut`.
-
-```{python, eval=FALSE}
-(ggplot(diamonds, aes(x='price', group='cut', fill='cut')) +
-  geom_histogram(color='white') +
-  labs(x='Price (USD)', y='Frequency of Price (Count)', title='US Diamond Sales'))
-```
-
-### Try adjusting binwidth and theme
-
-```{python, eval=FALSE}
-(ggplot(diamonds, aes(x='price', fill='cut')) +
-  geom_histogram(color='white', binwidth=500) +
-  theme_classic() +
-  labs(x='Price (USD)', y='Frequency', title='US Diamond Sales (binwidth=500)'))
-```
-
----
-
-## Learning Check 3 {.unnumbered .LC}
-
-**Question**
-
-Using `diamonds`, make a histogram of `price` with a narrower binwidth and apply a different theme. Which choices improve readability?
-
-<details><summary>**[View Answer!]**</summary>
-
-```{python, eval=FALSE}
-(ggplot(diamonds, aes(x='price', fill='cut')) +
-  geom_histogram(color='white', binwidth=250) +
-  theme_bw() +
-  labs(x='Price (USD)', y='Frequency'))
-```
-
-</details>
-
----
-
-<br>
-<br>
 
 ## Conclusion {.unnumbered}
 
-You learned how to build scatterplots, boxplots, and histograms with `plotnine` and how to control transparency, color mapping, labels, and themes. These tools help you explore and present distributions effectively in Python.
+You computed size, location, spread, and shape statistics and compared common simulated distributions using helper functions that mirror R.
 
 ```{python, include=FALSE}
-# Clear variables
 globals().clear()
 ```
 

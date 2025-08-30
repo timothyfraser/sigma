@@ -5,7 +5,7 @@
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 ```
 
-In this workshop, we mirror SPC workflows in Python using pandas and plotnine.
+In this workshop, we mirror SPC workflows in Python using pandas and plotnine. We'll analyze an onsen (hot springs) dataset to assess process stability and capability, matching the narrative and steps in the R chapter.
 
 ## Getting Started {-}
 
