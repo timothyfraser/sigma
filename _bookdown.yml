@@ -6,6 +6,7 @@ rmd_files:
     # Failure Mode & Effecst Analysis
     "00_part1.Rmd",
     "01_workshop.Rmd", # Coding in R
+    "01_workshop_python.Rmd", # Coding in Python
     "01_skill_fmea.Rmd", # Failure Mode and Effects Analysis
     "01_skill_ggplot.Rmd", # ggplot
 
