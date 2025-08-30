@@ -14,6 +14,7 @@ rmd_files:
     # Statistics & Reliability
     "00_part2.Rmd",
     "02_workshop.Rmd", # Descriptives
+    "02_workshop_python.Rmd", # Descriptives (Python)
     "02_skill_functions.Rmd",
     "03a_workshop.Rmd", # Probability
     "03b_workshop.Rmd", # Probability
