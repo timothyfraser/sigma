@@ -7,6 +7,10 @@ knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 
 In this tutorial, we learn core Reliability/Survival Analysis concepts in Python by mirroring the R workflow.
 
+```{r img_epic_fail_py, echo = FALSE, out.width="100%", fig.height=4}
+knitr::include_graphics("images/4_fail.png")
+```
+
 ## Getting Started {-}
 
 ### Packages {-}
@@ -108,6 +112,22 @@ def afrcup(t1, t2):
 
 ```{python}
 zcup(100); hcup(100); afrcup(0,5)
+
+---
+
+## Learning Check 1 {.unnumbered .LC}
+
+**Question**
+
+Using `fplane(t) = 1 - exp(-(t/750))`, what percentage of propellers survive 6 months and 1 year?
+
+<details><summary>**[View Answer!]**</summary>
+
+```{python}
+1 - fplane(365.25/2), 1 - fplane(365.25)
+```
+
+</details>
 ```
 
 ## Units and Conversions
@@ -166,7 +186,28 @@ def fexplode(days):
 
 ## System Reliability (Series, Parallel, Combined)
 
-Provide series and parallel reliability calculations by multiplying reliabilities for series and using complements for parallel systems.
+For systems in series, multiply component reliabilities. For parallel, use complements.
+
+```{python}
+def r_exp(t, mean_time):
+  import math
+  return math.exp(-t/mean_time)
+
+def series_reliability(t, means):
+  r = 1.0
+  for m in means:
+    r *= r_exp(t, m)
+  return r
+
+def parallel_reliability(t, means):
+  import math
+  prod_fail = 1.0
+  for m in means:
+    prod_fail *= (1 - r_exp(t, m))
+  return 1 - prod_fail
+
+series_reliability(1000, [750, 900, 1200]), parallel_reliability(1000, [750, 900, 1200])
+```
 
 ## Conclusion {.unnumbered}
 
