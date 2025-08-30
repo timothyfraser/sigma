@@ -1,0 +1,162 @@
+# Indices and Confidence Intervals for SPC in Python
+
+```{r setup_workshop_6_python, include=FALSE}
+## Global options
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+```
+
+This workshop extends SPC with capability and performance indices and confidence intervals using Python.
+
+## Getting Started {-}
+
+### Packages {-}
+
+```{python, eval=FALSE}
+%pip install pandas plotnine scipy
+```
+
+```{python}
+import pandas as pd
+from plotnine import *
+from functions_distributions import *
+```
+
+### Our Data {-}
+
+```{python}
+water = pd.read_csv('workshops/onsen.csv')
+water.head(3)
+```
+
+## Process Capability vs. Stability
+
+### Index Functions
+
+```{python}
+def cp(sigma_s, upper, lower):
+  return abs(upper - lower) / (6*sigma_s)
+
+def pp(sigma_t, upper, lower):
+  return abs(upper - lower) / (6*sigma_t)
+
+def cpk(mu, sigma_s, lower=None, upper=None):
+  a = None; b = None
+  if lower is not None:
+    a = abs(mu - lower) / (3*sigma_s)
+  if upper is not None:
+    b = abs(upper - mu) / (3*sigma_s)
+  if (lower is not None) and (upper is not None):
+    return min(a,b)
+  return a if upper is None else b
+
+def ppk(mu, sigma_t, lower=None, upper=None):
+  a = None; b = None
+  if lower is not None:
+    a = abs(mu - lower) / (3*sigma_t)
+  if upper is not None:
+    b = abs(upper - mu) / (3*sigma_t)
+  if (lower is not None) and (upper is not None):
+    return min(a,b)
+  return a if upper is None else b
+```
+
+### Ingredients
+
+```{python}
+stat_s = (water.groupby('time').apply(lambda d: pd.Series({
+  'xbar': d['temp'].mean(),
+  's': d['temp'].std(),
+  'n_w': len(d)
+})).reset_index())
+
+stat = pd.DataFrame({
+  'xbbar': [stat_s['xbar'].mean()],
+  'sigma_s': [(stat_s['s']**2).mean()**0.5],
+  'sigma_t': [water['temp'].std()],
+  'n': [stat_s['n_w'].sum()],
+  'n_w': [stat_s['n_w'].iloc[0]],
+  'k': [len(stat_s)]
+})
+stat
+```
+
+### Cp and Pp
+
+```{python}
+limit_lower = 42; limit_upper = 50
+estimate_cp = cp(stat['sigma_s'][0], upper=limit_upper, lower=limit_lower)
+estimate_pp = pp(stat['sigma_t'][0], upper=limit_upper, lower=limit_lower)
+[estimate_cp, estimate_pp]
+```
+
+### Cpk and Ppk
+
+```{python}
+estimate_cpk = cpk(mu=stat['xbbar'][0], sigma_s=stat['sigma_s'][0], lower=limit_lower, upper=limit_upper)
+estimate_ppk = ppk(mu=stat['xbbar'][0], sigma_t=stat['sigma_t'][0], lower=limit_lower, upper=limit_upper)
+[estimate_cpk, estimate_ppk]
+```
+
+### Equality
+
+```{python}
+(estimate_pp * estimate_cpk) == (estimate_ppk * estimate_cp)
+```
+
+## Confidence Intervals (Normal Approximation)
+
+```{python}
+import math
+v_short = stat['k'][0]*(stat['n_w'][0] - 1)
+se_cp = estimate_cp * math.sqrt(1 / (2*v_short))
+z = 1.959963984540054
+ci_cp = (estimate_cp - z*se_cp, estimate_cp + z*se_cp)
+ci_cp
+```
+
+```{python}
+se_cpk = estimate_cpk * math.sqrt(1 / (2*v_short) + 1 / (9*stat['n'][0]*(estimate_cpk**2)))
+ci_cpk = (estimate_cpk - z*se_cpk, estimate_cpk + z*se_cpk)
+ci_cpk
+```
+
+```{python}
+v_total = stat['n_w'][0]*stat['k'][0] - 1
+se_pp = estimate_pp * math.sqrt(1 / (2*v_total))
+ci_pp = (estimate_pp - z*se_pp, estimate_pp + z*se_pp)
+ci_pp
+```
+
+```{python}
+se_ppk = estimate_ppk * math.sqrt(1 / (2*v_total) + 1 / (9*stat['n'][0]*(estimate_ppk**2)))
+ci_ppk = (estimate_ppk - z*se_ppk, estimate_ppk + z*se_ppk)
+ci_ppk
+```
+
+## Bootstrapping Cp (Example)
+
+```{python}
+import numpy as np
+reps = 500
+def boot_cp(seed=1):
+  np.random.seed(seed)
+  vals = []
+  for r in range(reps):
+    sample = water.sample(n=len(water), replace=True)
+    stat_s_b = (sample.groupby('time').apply(lambda d: pd.Series({'xbar': d['temp'].mean(), 's': d['temp'].std(), 'n_w': len(d)})).reset_index())
+    sigma_s_b = (stat_s_b['s']**2).mean()**0.5
+    vals.append(cp(sigma_s_b, upper=limit_upper, lower=limit_lower))
+  s = pd.Series(vals)
+  return pd.DataFrame({'cp': [estimate_cp], 'lower': [s.quantile(0.025)], 'upper': [s.quantile(0.975)], 'se': [s.std()]})
+
+boot_cp()
+```
+
+## Conclusion {.unnumbered}
+
+You computed Cp, Cpk, Pp, Ppk and their confidence intervals, including a bootstrap example, in Python.
+
+```{python, include=FALSE}
+globals().clear()
+```
+
