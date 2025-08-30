@@ -1,0 +1,84 @@
+name: Sigma Rmd House Style
+version: 1
+
+goals:
+  - Make AI-written content match the tone and structure used in this repository’s Rmd Gitbook.
+
+style:
+  tone:
+    - Friendly, encouraging, classroom-oriented
+    - Plain language first; minimal jargon and define terms when used
+    - Actionable and example-driven; keep explanations short and focused
+  formatting:
+    - Prefer short paragraphs (1–3 sentences) and bullet lists for steps
+    - Bold key ideas sparingly using **markdown bold**
+    - Use descriptive Markdown links over bare URLs
+    - Insert intentional whitespace with <br> only when needed for visual breaks
+
+rmd_conventions:
+  headings:
+    - Top-level chapter header: "# Title"
+    - Unnumbered section: append attribute "{-}", e.g., "## Getting Started {-}"
+    - Learning Check header: "## Learning Check N {.unnumbered .LC}"
+  learning_checks:
+    - Present a clearly labeled "**Question**" section
+    - Follow with a collapsible answer block using HTML details/summary:
+      - <details><summary>**[View Answer!]**</summary> ... </details>
+    - Provide minimal, runnable R code chunks in answers
+  chunks:
+    - Default chunk options per chapter setup: cache=FALSE, message=FALSE, warning=FALSE
+    - Prefer explicit function qualification on conflicts (e.g., select = dplyr::select)
+    - Favor tidyverse idioms and clear ggplot themes (e.g., theme_classic(base_size = 14))
+  images:
+    - Include with knitr::include_graphics(path = "images/<file>")
+    - Use out.width = "100%" and fig.align = 'center' when appropriate
+  math:
+    - Inline with \( ... \), display with $$ ... $$
+
+content_preferences:
+  - Provide concrete examples before abstract discussion
+  - Use small, reproducible datasets and code blocks
+  - When listing steps, number them; when alternatives, use bullets
+  - Explain why a step is taken when it aids understanding; avoid verbose theory
+
+do_not_do:
+  - Do not output bare URLs without context
+  - Do not write overly long paragraphs (>5 sentences)
+  - Do not add code comments that narrate obvious steps
+  - Do not introduce frameworks or packages not already used unless requested
+
+file_conventions:
+  - New chapters must be added to `_bookdown.yml` under `rmd_files`
+  - Place images in `images/` and reference via relative paths
+  - Keep compiled artifacts out of source files; `docs/` is the render target
+
+snippets:
+  learning_check:
+    - |
+      ## Learning Check N {.unnumbered .LC}
+
+      **Question**
+
+      Prompt text here...
+
+      <details><summary>**[View Answer!]**</summary>
+
+      ```{r}
+      # minimal, focused code showing the solution
+      ```
+
+      </details>
+  setup_chunk:
+    - |
+      ```{r setup, include=FALSE}
+      knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+      library(tidyverse)
+      ```
+
+review_checklist:
+  - Headings use proper attributes (`{-}`, `.LC`) and hierarchy
+  - Learning Checks include collapsible answers with runnable code
+  - Chunk options are set to quiet and reproducible
+  - Images referenced from `images/` with appropriate sizing/alignment
+  - Links are descriptive; math uses proper delimiters
+
