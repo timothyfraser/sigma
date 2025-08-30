@@ -2,7 +2,7 @@
 
 ```{r setup_workshop_4, include=FALSE}
 ## Global options
-knitr::opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 library(knitr)
 library(kableExtra)
 library(magick)

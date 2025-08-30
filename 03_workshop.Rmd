@@ -2,7 +2,7 @@
 
 ```{r setup_workshop_3, include=FALSE}
 ## Global options
-knitr::opts_chunk$set(cache = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 library(knitr)
 library(kableExtra)
 library(magick)
@@ -216,7 +216,7 @@ knitr::include_graphics("https://bhi61nm2cr3mkdgk1dtaov18-wpengine.netdna-ssl.co
 
 You've got `3` bags ($E_{1 \to 3}$), each containing `3` marbles, each with a different split of red vs. blue marbles. If we choose a bag at random *and* sample a marble at random (2 mutually exclusive events), what's the probability that marble will be red ($P(A)$)?
 
-I like to map these out, so I understand visually what all the possible pathways are. Here's a chart I made using `mermaid`, where I've diagrammed each possible set of actions, like choosing Bag 1 then Marble *a* (1 pathway), choosing Bag 1 then Marble *b* (a second pathway), etc.  
+I like to map these out, so I understand visually what all the possible pathways are. Here's a chart I made (using `mermaid`), where I've diagrammed each possible set of actions, like choosing Bag 1 then Marble *a* (1 pathway), choosing Bag 1 then Marble *b* (a second pathway), etc.  
 
 If we look at the ties to the marbles, you'll see I labeled each tie to a red marble as `1` and each tie to a blue marble as `0`. If we add these pathways up, we'll get the `total probability`: `0.67` (aka `2/3`).
 
@@ -534,104 +534,101 @@ orders %>%
 # It should! And it does! Tada!
 ```
 
-<br>
-<br>
+### Example: Movie Theatre Popularity {-}
 
+You are the manager of a movie theatre, and you want to determine the popularity of different genres of movies among your customers. 
 
----
+You have collected data on the genres of movies that customers choose to watch 
 
-## Learning Check 1 {.unnumbered #LC1}
+- Probability of a customer choosing an Action movie, P(Action) = `0.25`.
+- Similarly, P(Comedy) = `0.30`.
+- P(Drama) = `0.20`.
+- P(Sci-Fi) = `0.15`.
+- P(Horror) = `0.10`.
 
-**Question**
-  
-```{r img_bank, echo = FALSE, fig.height = 0.5, fig.cap=figcap("Bank of Evil, from Despicable Me"), out.width="100%", fig.height = 0.5}
-knitr::include_graphics("https://external-preview.redd.it/6FJDW5OvgqXpUjFutYDMX18UZH6oGLlu_LY8Qlf-1Rs.jpg", dpi = 100)
-```
+You also have information about the overall popularity of each genre in the market:
 
-A local business is trying to open a new branch and needs a short-term loan. They meet with a bank, but are surprised by the interest rates, so they do a little research. Over the last 5 years:
+- Out of the customers who chose an Action movie, 60% also bought tickets for Comedy.
+- Out of the customers who chose a Comedy movie, 40% also bought tickets for Drama.
+- Out of the customers who chose a Drama movie, 25% also bought tickets for Sci-Fi.
+- Out of the customers who chose a Science Fiction movie, 70% also bought tickets for Action.
+- Out of the customers who chose a Horror movie, 20% also bought tickets for Drama.
 
-- 50 businesses applied to this bank for loans.
-
-- 29 receive loans.
-
-- 18 went bankrupt.
-
-- 13 of those that went bankrupt got loans.
-
-1. Our local business wants to know: what's the probability that a firms goes bankrupt, given that they received a loan? 
-
-2. Assume that a bankruptcy rate above 10% indicates bad lending practices. Should you stay away from that bank?
-
-<br>
-
-<details><summary>**[View Answer!]**</summary>
-
-We know the following:
+You want to calculate the probability that a customer chooses a Drama movie given that they have already purchased a ticket.
 
 ```{r}
-# The probability of getting a loan (13) given that you went bankrupt (18)
-p_loan_bankrupt <- 13 / 18
-# Probability of going bankrupt (18), whether or not you got a loan (50)
-p_bankrupt <- 18 / 50
-# Probability of NOT going bankrupt (50 - 18 = 32), whether or not you got a loan (50)
-p_no_bankrupt <- 32 / 50
-# Probability of getting a loan (29), whether or not you go bankrupt (50)
-p_loan <- 29 / 50
-# Probability you get a loan (26), given that you don't go bankrupt (32)
-p_loan_no_bankrupt <- 26 / 32
+# We define the prior probabilities of customers choosing each genre based on the given problem statement.
 
-# Apply Bayes Rule
-p_bankrupt_loan <- p_loan_bankrupt * p_bankrupt /
-  (p_loan_bankrupt * p_bankrupt + p_loan_no_bankrupt * p_no_bankrupt)
-# Check!
-p_bankrupt_loan
-```
-Looks like there is a 33% chance that you will go bankrupt if you get a loan. That's much higher than 10%. Maybe be a little wary of that bank?
+P_action <- 0.25
+P_comedy <- 0.30
+P_drama <- 0.20
+P_scifi <- 0.15
+P_horror <- 0.10
 
-```{r, eval = FALSE, include = FALSE}
-firms <- tibble(
-  bankrupt = c("no", "no", "no", "yes", "no", "yes", "yes", "yes", "no", "no", "yes", 
-              "no", "no", "no", "yes", "yes", "no", "yes", "no", "no", "yes", "no", 
-              "no", "yes", "no", "yes", "no", "no", "no", "yes", "no", "no", "no", 
-              "yes", "yes", "no", "no", "no", "no", "no", "no", "yes", "yes", "yes", 
-              "no", "no", "no", "no", "yes", "no") %>% factor(levels = c("yes", "no")),
-  loan = c("yes", "yes", "yes", "yes", "yes", "no", "yes", "yes", "no", "yes", "yes", 
-            "yes", "yes", "yes", "no", "no", "yes", "yes", "yes", "yes", "yes", "yes", 
-            "yes", "no", "yes", "yes", "no", "yes", "yes", "yes", "yes", "yes", "yes", 
-            "yes", "yes", "no", "yes", "no", "yes", "yes", "yes", "yes", "yes", "yes", 
-            "no", "yes", "yes", "yes", "no", "no") %>% factor(levels=  c("yes", "no")))
+# We define conditional probabilities that represent the likelihood of crossover purchases. 
+# For example, the probability of choosing Action given that the customer chose Comedy is 60%.
+conP_action_given_drama <- 0.00
+conP_comedy_given_drama <- 0.25
+conP_drama_given_drama <- 0.00
+conP_scifi_given_drama <- 0.00
+conP_horror_given_drama <- 0.20
 
-firms %>% table()
-
-# What's the likelihood that they would default if they receive a loan?
-firms %>% 
-  summarize(
-    # The goal (posterior)
-    p_bankrupt_loan = sum(bankrupt == "yes" & loan == "yes") / sum(loan == "yes"),
-    # The data
-    p_loan_bankrupt = sum(loan == "yes" & bankrupt == "yes") / sum(bankrupt == "yes"),
-    p_loan_no_bankrupt = sum(loan == "yes" & bankrupt == "no") / sum(bankrupt == "no"),
-    p_bankrupt = sum(bankrupt == "yes") / sum(loan == "yes" | loan == "no"),
-    p_no_bankrupt = sum(bankrupt == "no") / sum(loan == "yes" | loan == "no"),
-    # Now recalculate the goal, using the data we have collected.
-    # Does 'bayes' equal 'p_bankrupt_loan'?
-    bayes = p_loan_bankrupt * p_bankrupt / (p_loan_bankrupt * p_bankrupt + p_loan_no_bankrupt * p_no_bankrupt))
+# Specify the target genre
+# Our target genre is Drama and we want to calculate the probability that a customer chooses a Drama movie given that they have already purchased a ticket.
+target_genre <- "Drama"  # We can change this to our desired target genre
 ```
 
-```{r, eval =FALSE}
-# Clear excess data
-remove(firms, p_loan_bankrupt, p_bankrupt, p_no_bankrupt, p_loan, p_loan_no_bankrupt, p_bankrupt_loan)
+
+To calculate the probability that a customer chooses the target genre given a ticket purchase, let's use Bayes Rule!
+
+```{r}
+# We will be using Bayes' rule: P(Target Genre | Ticket Purchase) = P(Ticket Purchase | Target Genre) * P(Target Genre) / P(Ticket Purchase)
+
+# We calculate P(Ticket Purchase | Target Genre) * P(Target Genre) as probability_given_purchase
+
+# If target_genre is "Comedy," the switch function will select the conditional probability for choosing Comedy given a ticket purchase 
+
+probability_given_purchase <- switch(
+  target_genre,
+  "Action" = conP_action_given_drama * P_action,
+  "Comedy" = conP_comedy_given_drama * P_comedy,
+  "Drama" = conP_drama_given_drama * P_drama,
+  "SciFi" = conP_scifi_given_drama * P_scifi,
+  "Horror" = conP_horror_given_drama * P_horror
+)
+# View it!
+probability_given_purchase
+```
+Next...
+
+```{r}
+# We will further calculate the total probability of a ticket purchase P(Ticket Purchase) as total_probability_purchase:
+
+total_probability_purchase <- sum(
+  conP_action_given_drama * P_action,
+  conP_comedy_given_drama * P_comedy,
+  conP_drama_given_drama * P_drama,
+  conP_scifi_given_drama * P_scifi,
+  conP_horror_given_drama * P_horror
+)
+# View it!
+total_probability_purchase
 ```
 
-```{r, include = FALSE}
-# Clear excess data
-remove(orders, p_coffee, p_scone, p_coffee_no_scone, p_coffee_scone, p_scone_coffee)
-```
-  
-</details>
-  
----
+We want to calculate the probability that a customer chooses a Drama movie given that they have already purchased a ticket, thus target genre is Drama.
 
+```{r}
+# P(Target Genre | Ticket Purchase) <- P(Ticket Purchase | Target Genre) * P(Target Genre) / P(Ticket Purchase)
+
+probability_target_genre_given_purchase <- probability_given_purchase / total_probability_purchase
+
+# Let's print that using paste!
+paste(
+  "Probability that a customer chooses a", 
+    target_genre, 
+  "movie given a ticket purchase:", 
+  probability_target_genre_given_purchase)
+```
 
 <br>
 <br>
@@ -1015,7 +1012,7 @@ remove(mypd, pdf, pdf2, cdf, obs)
 
 ---
 
-## Learning Check 2 {.unnumbered #LC2}
+## Learning Check 1 {.unnumbered #LC1}
 
 **Question**
   
@@ -1299,7 +1296,7 @@ rm(visits, pd5, cd5, q5, dsim, psim, qsim)
 
 ---
 
-## Learning Check 3 {.unnumbered #LC3}
+## Learning Check 2 {.unnumbered #LC2}
 
 **Question**
   
@@ -1365,3 +1362,6 @@ And that's a wrap! Nice work! You can now figure out *a lot* of things about the
 ```{r, include = FALSE}
 rm(list = ls())
 ```
+
+
+

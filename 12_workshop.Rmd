@@ -1,7 +1,7 @@
 # Workshop: Multivariate Regression: Modeling Effects of Disaster on Social Capital
 
 ```{r setup_workshop_12, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, cache = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = TRUE, cache = FALSE, message = FALSE, warning = FALSE)
 
 library(tidyverse)
 library(rmdformats)
