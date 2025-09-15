@@ -1,4 +1,4 @@
-# Distributions and Descriptive Statistics
+# Distributions and Descriptive Statistics in `R`
 
 ```{r setup_workshop_2, include=FALSE}
 ## Global options

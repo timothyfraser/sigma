@@ -1,5 +1,4 @@
-# Indices and Confidence Intervals for SPC in Python
-
+# Indices and Confidence Intervals for Statistical Process Control in `Python` 
 
 
 <div class="figure">

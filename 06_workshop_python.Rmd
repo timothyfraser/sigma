@@ -1,5 +1,4 @@
-# Indices and Confidence Intervals for SPC in Python
-
+# Indices and Confidence Intervals for Statistical Process Control in `Python` 
 ```{r setup_workshop_6_python, include=FALSE}
 ## Global options
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)

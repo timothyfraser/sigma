@@ -1,5 +1,4 @@
-# System Reliability in Python
-
+# System Reliability in `Python`
 ```{r setup_workshop_4_python, include=FALSE}
 ## Global options
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)

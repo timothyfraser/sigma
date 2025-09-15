@@ -2,6 +2,9 @@
 
 ```{r setup_workshop_13, include =FALSE}
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+
+# Fix graphics API version mismatch issues by avoiding ragg
+knitr::opts_chunk$set(dev = "png")
 library(tidyverse)
 ```
 
@@ -470,27 +473,29 @@ donuts2 = donuts %>%
   mutate(type = factor(type, levels = c("b", "a")))
 ```
 
-- **paired t-test (equal variance)** `t.test(outcome_var ~ group_var, paired = TRUE, var.equal = TRUE)`
+- **paired t-test (equal variance)** `t.test(outcome_group_a ~ outcome_group_b, paired = TRUE, var.equal = TRUE)`
 
 ```{r}
-donuts2 %>%
+donuts2 %>% 
+  # extract individual vectors of weight for each type
+  reframe(a = weight[type == "a"], b = weight[type == "b"]) %>% 
   # Run our t-test using the data from donuts, then tidy() it into a data.frame
-  summarize(
-    t.test(weight ~ type,  paired = TRUE, var.equal = TRUE) %>% tidy())
+  summarize(t.test(b, a, paired = TRUE, var.equal = TRUE) %>% tidy())
 ```
-- **unpaired t-test (equal variance)**: `t.test(outcome_var ~ group_var, paired = FALSE, var.equal = TRUE)`
+- **unpaired t-test (equal variance)**: `t.test(outcome_var ~ group_var, var.equal = TRUE)`
 
 ```{r}
+# Or, more simply for an unpaired t-test...
 donuts2 %>%
-  # Run our t-test using the data from donuts, then tidy() it into a data.frame
-  summarize(  t.test(weight ~ type, paired = FALSE, var.equal = TRUE) %>% tidy()  )
+  # Run our t-test using a formula format (eg. y ~ x) on the data from donuts, then tidy() it into a data.frame
+  summarize(  t.test(weight ~ type, var.equal = TRUE) %>% tidy()  )
 ```
-- **unpaired t-test (unequal variance)**: `t.test(outcome_var ~ group_var, paried = FALSE, var.equal = FALSE)`
+- **unpaired t-test (unequal variance)**: `t.test(outcome_var ~ group_var,  var.equal = FALSE)`
 
 ```{r}
 donuts2 %>%
   # Run our t-test using the data from donuts, then tidy() it into a data.frame
-  summarize(  t.test(weight ~ type, paired = FALSE, var.equal = FALSE) %>% tidy()  )
+  summarize(  t.test(weight ~ type,  var.equal = FALSE) %>% tidy()  )
 ```
 
 <br>

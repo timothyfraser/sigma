@@ -10,6 +10,9 @@ library(knitr)
 library(kableExtra)
 
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+
+# Fix graphics API version mismatch issues by avoiding ragg
+knitr::opts_chunk$set(dev = "png")
 ```
 
 In this workshop, we'll learn how to use **physical acceleration models** to convert results from reliability tests done under laboratory conditions (which may be slightly unrealistic) into estimates that match real outcomes in the field!

@@ -5,6 +5,9 @@ library(tidyverse)
 library(knitr)
 library(kableExtra)
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+
+# Fix graphics API version mismatch issues by avoiding ragg
+knitr::opts_chunk$set(dev = "png")
 library(tidyfault)
 ```
 

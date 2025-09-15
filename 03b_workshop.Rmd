@@ -1,4 +1,4 @@
-# Probability Functions
+# Probability Functions in `R`
 
 ```{r setup_workshop_3b, include=FALSE}
 ## Global options

@@ -39,4 +39,9 @@ Next, notice how the python version 05_workshop_python.Rmd has much less summary
 
 # Remaining Issues
 
-- Insert here
+- **_main.rds file lock error on Windows**: This is a common issue where the bookdown cache file gets locked. The enhanced `book_dev.R` now handles this automatically, but if it persists:
+  1. Run `source("cleanup_bookdown.R")` to manually clean up
+  2. Close all R/RStudio sessions
+  3. Wait a few seconds
+  4. Try `source("book_dev.R")` again
+  5. If it still fails, restart your computer

@@ -35,25 +35,25 @@ Use this checklist to track which chapters have been tested and confirmed workin
 - [x] `03b_workshop.Rmd`
 - [x] `04_workshop.Rmd`
 - [x] `04_workshop_python.Rmd`
-- [ ] `05_workshop.Rmd`
-- [ ] `05_workshop_python.Rmd`
-- [ ] `06_workshop.Rmd`
-- [ ] `06_workshop_python.Rmd`
-- [ ] `07_workshop.Rmd`
-- [ ] `07b_workshop.Rmd`
-- [ ] `08_workshop.Rmd`
-- [ ] `09_workshop.Rmd`
-- [ ] `10_workshop.Rmd`
-- [ ] `11_workshop.Rmd`
-- [ ] `12_workshop.Rmd`
-- [ ] `13_workshop.Rmd`
-- [ ] `14_workshop.Rmd`
-- [ ] `15_workshop.Rmd`
+- [x] `05_workshop.Rmd`
+- [x] `05_workshop_python.Rmd`
+- [x] `06_workshop.Rmd`
+- [x] `06_workshop_python.Rmd`
+- [x] `07_workshop.Rmd`
+- [x] `07b_workshop.Rmd`
+- [x] `08_workshop.Rmd`
+- [x] `09_workshop.Rmd`
+- [x] `10_workshop.Rmd`
+- [x] `11_workshop.Rmd`
+- [x] `12_workshop.Rmd`
+- [x] `13_workshop.Rmd`
+- [x] `14_workshop.Rmd`
+- [x] `15_workshop.Rmd`
 - [ ] `99_references.Rmd`
-- [ ] `99_skill_fitdistr.Rmd`
-- [ ] `99_skill_flowcharts.Rmd`
-- [ ] `99_skill_tidyfault.Rmd`
-- [ ] `99_skill_viz.Rmd`
+- [x] `99_skill_fitdistr.Rmd`
+- [x] `99_skill_flowcharts.Rmd`
+- [x] `99_skill_tidyfault.Rmd`
+- [x] `99_skill_viz.Rmd`
 - [x] `99_test.Rmd`
 - [x] `index.Rmd`
 

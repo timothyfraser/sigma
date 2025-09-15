@@ -1,5 +1,4 @@
-# Statistical Process Control in Python
-
+# Statistical Process Control in `Python`
 
 
 <div class="figure">
@@ -106,7 +105,7 @@ water.head(3)
 
 ## Process Descriptive Statistics
 
-First, let's get a sense of our process by calculating some basic descriptive statistics. We'll create a simple function to calculate the mean and standard deviation, which are fundamental to understanding process variation.
+First, let's get a sense of our process by calculating some basic descriptive statistics. We'll create a simple function to calculate the mean and standard deviation, which are fundamental to evaluating process variation.
 
 
 ```python

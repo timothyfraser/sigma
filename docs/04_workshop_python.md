@@ -1,5 +1,4 @@
-# System Reliability in Python
-
+# System Reliability in `Python`
 
 
 In this tutorial, we learn core Reliability/Survival Analysis concepts in Python by mirroring the R workflow.
@@ -128,7 +127,7 @@ Let's plot our three curves!
 ```
 
 ```
-## <plotnine.ggplot.ggplot object at 0x0000027F6C515280>
+## <plotnine.ggplot.ggplot object at 0x000001C383D921B0>
 ```
 
 This new reliability function allows us to calculate 2 quantities of interest:
@@ -528,7 +527,7 @@ print("AFR PPM/K from 1000 to 10000 hours:", ppmk(afr(1000, 10000)))
 
 **Question**
 
-### 📱💥Exploding Phones!
+### 📱💥Exploding Phones! {.unnumbered}
 
 Hypothetical: Samsung is releasing a new Galaxy phone. But after the [2016 debacle of exploding phones](https://www.businessinsider.com/samsung-infographic-explains-why-galaxy-note-7-phones-exploded-2017-1), they want to estimate how likely it is a phone will explode (versus stay intact). Their pre-sale trials suggest that every 500 days, 5 phones are expected to explode. What percentage of phones are expected to work after more than 6 months? 1 year?
 
@@ -685,7 +684,7 @@ ppmk(afr(1000, 10000))
 
 **Question**
 
-### 🍜 Does Instant Ramen *ever* go bad?
+### 🍜 Does Instant Ramen *ever* go bad? {.unnumbered}
 
 A food safety inspector is investigating the average shelf life of instant ramen noodles. A company estimates the average shelf life of a package of ramen noodles at ~240 days per package. In a moment of poor judgement, she hires a team of hungry college students to taste-test old packages of that company's ramen noodles, randomly sampled from a warehouse. When a student comes down with food poisoning, she records that product as having gone bad after XX days. She treats the record of ramen food poisonings as a sample of the lifespan of ramen products.
 

@@ -101,10 +101,25 @@ if (!file.exists("index.Rmd") || !file.exists("_bookdown.yml")) {
   stop("Please run this script from the bookdown project root directory")
 }
 
-# Clean up any existing _main.rds file that might be locked
+# Clean up any existing _main.rds file that might be locked (Windows issue)
 if (file.exists("_main.rds")) {
   cat("Cleaning up _main.rds...\n")
   try(unlink("_main.rds", force = TRUE), silent = TRUE)
+  # Additional cleanup for Windows
+  Sys.sleep(0.5)  # Give Windows time to release the file
+  if (file.exists("_main.rds")) {
+    cat("Warning: _main.rds still exists, attempting force removal...\n")
+    try(file.remove("_main.rds"), silent = TRUE)
+  }
+}
+
+# Also clean up any other potential lock files
+lock_files <- c("_main.rds", "_bookdown_files", "docs")
+for (file in lock_files) {
+  if (file.exists(file)) {
+    cat("Cleaning up", file, "...\n")
+    try(unlink(file, recursive = TRUE, force = TRUE), silent = TRUE)
+  }
 }
 
 # Set up hybrid caching
@@ -142,6 +157,22 @@ tryCatch({
 }, error = function(e) {
   cat("Render failed with error:\n")
   cat(as.character(e), "\n")
+  
+  # Additional cleanup on error
+  cat("Performing cleanup after error...\n")
+  try(unlink("_main.rds", force = TRUE), silent = TRUE)
+  try(unlink("_bookdown_files", recursive = TRUE, force = TRUE), silent = TRUE)
+  
+  # Check if it's a _main.rds specific error
+  if (grepl("_main.rds", as.character(e))) {
+    cat("\n*** _main.rds FILE LOCK ERROR DETECTED ***\n")
+    cat("This is a common Windows issue. Try:\n")
+    cat("1. Close any R/RStudio sessions\n")
+    cat("2. Wait a few seconds\n")
+    cat("3. Run source('book_dev.R') again\n")
+    cat("4. If it persists, restart your computer\n\n")
+  }
+  
   stop("Render failed")
 })
 

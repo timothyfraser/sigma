@@ -1,5 +1,4 @@
-# Statistical Process Control in Python
-
+# Statistical Process Control in `Python`
 ```{r setup_workshop_5_python, include=FALSE}
 ## Global options
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)

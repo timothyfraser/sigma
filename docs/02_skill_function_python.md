@@ -21,8 +21,8 @@ We'll use base Python here. No extra packages needed.
 
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-704a3fc7eaedc008047f" style="width:100%;height:144px;"></div>
-<script type="application/json" data-for="htmlwidget-704a3fc7eaedc008047f">{"x":{"diagram":"graph LR\n subgraph before\n i[input data <i>x<\/i>]\n end\n subgraph function\n c[calculation]\n end\n subgraph after\n o[output data <i>y<\/i>]\n end\n i --> c\n c --> o"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-4916cdcfc644eeb6be9e" style="width:100%;height:144px;"></div>
+<script type="application/json" data-for="htmlwidget-4916cdcfc644eeb6be9e">{"x":{"diagram":"graph LR\n subgraph before\n i[input data <i>x<\/i>]\n end\n subgraph function\n c[calculation]\n end\n subgraph after\n o[output data <i>y<\/i>]\n end\n i --> c\n c --> o"},"evals":[],"jsHooks":[]}</script>
 ```
 
 Below, we'll write an example function, called `add(a, b)`. 

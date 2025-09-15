@@ -70,6 +70,11 @@
   font-weight: bold;
 }
 
+#chapter-6b::before {
+  content: "6B. ";
+  font-weight: bold;
+}
+
 /* Custom section numbering for Python chapters */
 #chapter-1b {
   counter-reset: section;
@@ -88,6 +93,10 @@
 }
 
 #chapter-5b {
+  counter-reset: section;
+}
+
+#chapter-6b {
   counter-reset: section;
 }
 
@@ -110,4 +119,8 @@
 
 #chapter-5b .section-number::before {
   content: "5.";
+}
+
+#chapter-6b .section-number::before {
+  content: "6.";
 }

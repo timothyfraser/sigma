@@ -13,6 +13,9 @@ library(readr)
 library(ggplot2)
 library(knitr)
 
+# Fix graphics API version mismatch issues by avoiding ragg
+knitr::opts_chunk$set(dev = "png")
+
 # Load data
 
 # Viewable Share link
