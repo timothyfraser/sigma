@@ -106,6 +106,7 @@ knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 - **Libraries**: prefer the tidyverse for data work; call functions explicitly when name clashes (e.g., `select = dplyr::select`).
 - **Graphics**: use `ggplot2` with clear labels and a clean theme (often `theme_classic(base_size = 14)`).
 - **Images**: include with `knitr::include_graphics(path = "images/<file>")`; set `out.width = "100%"` and `fig.align = 'center'` when appropriate.
+- **Graphics API Issues**: If you encounter "Graphics API version mismatch" errors, ensure your setup chunks use `knitr::opts_chunk$set(dev = "png")` instead of `ragg_png`. Use `png()` device directly for `ggsave()` operations to avoid `ragg` conflicts.
 - **Math**: inline math with `\( ... \)`; display math with `$$ ... $$`.
 - **Spacing**: use `<br>` to insert intentional white space between major blocks.
 - **Linking**: prefer Markdown links with descriptive text rather than bare URLs.
@@ -126,12 +127,15 @@ knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 
 ### Packages
 
+#### R Packages
+
 Core packages used across chapters include:
 
 - `bookdown`, `knitr`, `rmarkdown`
 - `tidyverse` (`dplyr`, `ggplot2`, etc.)
 - `kableExtra`, `broom`, `magick` (varies by chapter)
-- `gert`, `credentials` (for the maintainer’s render-and-push workflow)
+- `gert`, `credentials` (for the maintainer's render-and-push workflow)
+- `reticulate` (for Python integration)
 
 Install in R:
 
@@ -139,8 +143,29 @@ Install in R:
 install.packages(c(
   "bookdown", "knitr", "rmarkdown", "tidyverse",
   "ggplot2", "kableExtra", "broom", "magick",
-  "gert", "credentials"
+  "gert", "credentials", "reticulate"
 ))
+```
+
+#### Python Packages
+
+Some chapters include Python code that requires additional packages:
+
+- `matplotlib` - for plotting and visualization
+- `pandas` - for data manipulation and analysis
+- `plotnine` - Python port of ggplot2 for advanced plotting
+- `dfply` - for data manipulation (similar to dplyr in R)
+
+Install in Python:
+
+```bash
+pip install matplotlib pandas plotnine dfply
+```
+
+Or if using a specific Python installation:
+
+```bash
+C:/Python312/python.exe -m pip install matplotlib pandas plotnine dfply
 ```
 
 ---

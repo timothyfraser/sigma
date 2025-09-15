@@ -62,6 +62,12 @@ if (!file.exists("index.Rmd") || !file.exists("_bookdown.yml")) {
   stop("❌ Please run this script from the bookdown project root directory")
 }
 
+# Clean up any existing _main.rds file that might be locked
+if (file.exists("_main.rds")) {
+  cat("🧹 Cleaning up _main.rds...\n")
+  try(unlink("_main.rds", force = TRUE), silent = TRUE)
+}
+
 # Set up hybrid caching
 setup_hybrid_caching()
 

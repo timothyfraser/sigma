@@ -1,41 +1,6 @@
-# Coding in Python {#chapter-1b .unnumbered}
+# **1B** Coding in Python {-}
 
-```{r setup_python_workshop_1, include=FALSE}
-## Global options
-knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
-library(knitr)
-library(kableExtra)
-## Configure reticulate to use existing Python
-library(reticulate)
 
-# Use your specific Python installation
-python_path <- "C:/Python312/python.exe"
-if (file.exists(python_path)) {
-  use_python(python_path, required = FALSE)
-  cat("Using Python at:", python_path, "\n")
-} else {
-  # Fallback to system Python
-  system_python <- Sys.which("python")
-  if (system_python != "") {
-    use_python(system_python, required = FALSE)
-    cat("Using system Python at:", system_python, "\n")
-  } else {
-    cat("Warning: No Python installation found\n")
-  }
-}
-
-# Disable automatic environment creation and downloads
-Sys.unsetenv("RETICULATE_PYTHON_ENV")
-Sys.unsetenv("RETICULATE_PYTHON") 
-Sys.unsetenv("RETICULATE_AUTOCONFIGURE")
-Sys.unsetenv("RETICULATE_PYTHON_FALLBACK")
-
-# Set the Python path explicitly
-Sys.setenv(RETICULATE_PYTHON = python_path)
-
-# Prevent reticulate from downloading Python
-options(reticulate.conda_binary = NULL)
-```
 
 Welcome to Posit Cloud! You made it! This document will introduce you to how to start coding in Python using Posit Cloud. We will use the Python language frequently to conduct analyses and visualization.
 
@@ -58,9 +23,10 @@ We'll be using Posit Cloud, a browser-based environment you can access from any 
 1. For a quick visual orientation, take a peek at the image below.
 2. Read and follow along with the instructions on this page. Type the tutorial code and run it in your Python session.
 
-```{r graphic_py_1, echo = FALSE, out.width = "100%", fig.align='center', fig.cap= "Visual Intro to Using Posit Cloud"}
-knitr::include_graphics(path = "images/1_0.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/1_0.png" alt="Visual Intro to Using Posit Cloud" width="100%" />
+<p class="caption">(\#fig:graphic_py_1)Visual Intro to Using Posit Cloud</p>
+</div>
 
 <br>
 <br>
@@ -72,7 +38,8 @@ Your project includes a Python script file (its name ends in `.py`). It contains
 1. code - instructions to our calculator
 2. comments - any text that immediately follows a `#` sign
 
-```{python example_comment_py}
+
+```python
 # For example,
 # Comments are ignored by the calculator, so we can write notes.
 ```
@@ -81,12 +48,14 @@ Notice: the IDE has four panes, including the editor, console, environment/histo
 
 To create a new script, go to File >> New File >> Text File (or Python Script), then save it and name it.
 
-```{r image_py_1_1, echo = FALSE, out.width = "49%", fig.align = 'center', fig.cap="Open New Script"}
-knitr::include_graphics(path = "images/1_1.png")
-```
-```{r image_py_1_2, echo = FALSE, out.width = "49%", fig.align='center', fig.cap="Save New Script as a .py file!"}
-knitr::include_graphics(path = "images/1_2.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/1_1.png" alt="Open New Script" width="49%" />
+<p class="caption">(\#fig:image_py_1_1)Open New Script</p>
+</div>
+<div class="figure" style="text-align: center">
+<img src="images/1_2.png" alt="Save New Script as a .py file!" width="49%" />
+<p class="caption">(\#fig:image_py_1_2)Save New Script as a .py file!</p>
+</div>
 
 Let's learn to use Python!
 
@@ -96,48 +65,88 @@ Try highlighting the following and pressing Ctrl+Enter, or click Run.
 
 Addition:
 
-```{python chunk_addition_py}
+
+```python
 1 + 5
+```
+
+```
+## 6
 ```
 
 Subtraction:
 
-```{python chunk_subtraction_py}
+
+```python
 5 - 2
+```
+
+```
+## 3
 ```
 
 Multiplication:
 
-```{python chunk_multiplication_py}
+
+```python
 2 * 3
+```
+
+```
+## 6
 ```
 
 Division:
 
-```{python chunk_division_py}
+
+```python
 15 / 5
+```
+
+```
+## 3.0
 ```
 
 Exponents:
 
-```{python chunk_exponents_py}
+
+```python
 2 ** 2
+```
+
+```
+## 4
 ```
 
 Square roots:
 
-```{python chunk_squareroots_py}
+
+```python
 16 ** 0.5
+```
+
+```
+## 4.0
 ```
 
 Order of operations still applies. Use parentheses to control order:
 
-```{python chunk_order_py}
+
+```python
 2 * 2 - 5
 ```
 
-```{python chunk_parentheses_py}
+```
+## -1
+```
+
+
+```python
 2 * (2 - 5)
+```
+
+```
+## -6
 ```
 
 <br>
@@ -160,17 +169,39 @@ Try calculating something wild in Python! Solve for `x` below using the commands
 
 <details><summary>**[View Answer!]**</summary>
 
-```{python chunk_statement1_py}
+
+```python
 ((2 - 5) / 5) ** 4
+```
+
+```
+## 0.1296
+```
+
+```python
 (( (2 - 5) / 5) ** 4) ** 0.5
 ```
 
-```{python chunk_statement2_py}
+```
+## 0.36
+```
+
+
+```python
 (1 - 7) ** 2 * 5 - 49 ** 0.5
 ```
 
-```{python chunk_statement3_py}
+```
+## 173.0
+```
+
+
+```python
 2**2 + 2**2 * 2**2 - 2**2 / 2**2
+```
+
+```
+## 19.0
 ```
 
 </details>
@@ -185,18 +216,56 @@ Try calculating something wild in Python! Solve for `x` below using the commands
 
 Python commonly uses numeric values and character strings.
 
-```{python chunk_numeric_py}
+
+```python
 15000
+```
+
+```
+## 15000
+```
+
+```python
 0.0005
+```
+
+```
+## 0.0005
+```
+
+```python
 -8222
+```
+
+```
+## -8222
 ```
 
 and
 
-```{python chunk_character_py}
+
+```python
 "Coding!"
+```
+
+```
+## 'Coding!'
+```
+
+```python
 "Corgis!"
+```
+
+```
+## 'Corgis!'
+```
+
+```python
 "Coffee!"
+```
+
+```
+## 'Coffee!'
 ```
 
 <br>
@@ -208,36 +277,65 @@ and
 
 Save a value as a named variable in memory.
 
-```{python chunk_values_py}
+
+```python
 2
+```
+
+```
+## 2
+```
+
+```python
 "x"
 ```
 
-```{python chunk_object_py}
+```
+## 'x'
+```
+
+
+```python
 myvalue = 2
 ```
 
-```{python chunk_enter_py}
+
+```python
 myvalue
+```
+
+```
+## 2
 ```
 
 Do operations too!
 
-```{python chunk_operations_py}
+
+```python
 secondvalue = myvalue + 2
 secondvalue
 ```
 
+```
+## 4
+```
+
 Overwrite variables as needed.
 
-```{python chunk_overwrite_py}
+
+```python
 myvalue = "I overwrote it!"
 myvalue
 ```
 
+```
+## 'I overwrote it!'
+```
+
 Remove variables from memory if needed.
 
-```{python chunk_remove_py}
+
+```python
 del myvalue
 del secondvalue
 ```
@@ -246,21 +344,32 @@ del secondvalue
 
 Lists hold multiple values.
 
-```{python chunk_vector_py}
+
+```python
 [1, 4, 8]
+```
+
+```
+## [1, 4, 8]
 ```
 
 and
 
-```{python chunk_char_vector_py}
+
+```python
 ["Boston", "New York", "Los Angeles"]
+```
+
+```
+## ['Boston', 'New York', 'Los Angeles']
 ```
 
 Python will coerce types inside a list only if you mix them when converting to arrays or series. Keep types consistent when possible.
 
 Do math element-wise using pandas Series:
 
-```{python chunk_vector_math_py, eval=FALSE}
+
+```python
 import pandas as p
 p.Series([1,2,3,4]) * 2
 p.Series([1,2,3,4]) + 2
@@ -270,7 +379,8 @@ p.Series([1,2,3,4]) + 2
 
 Bundle columns into a table using pandas DataFrame.
 
-```{python chunk_dataframe_py, eval=FALSE}
+
+```python
 import pandas as p
 myheights = [4, 4.5, 5, 5, 5, 5.5, 5.5, 6, 6.5, 6.5]
 mytowns = ["Gloucester", "Newburyport", "Provincetown", 
@@ -288,14 +398,16 @@ sw
 
 Access a column (Series) with dot or bracket notation and do operations.
 
-```{python chunk_sw_height_py, eval=FALSE}
+
+```python
 sw.height
 sw.height + 1
 ```
 
 Update values as needed.
 
-```{python chunk_sw_height_update_py, eval=FALSE}
+
+```python
 # sw["height"] = sw["height"] + 1
 ```
 
@@ -312,7 +424,8 @@ How would you make your own DataFrame? Make a DataFrame with 3 columns and 4 row
 
 <details><summary>**[View Answer!]**</summary>
 
-```{python chunk_mayhem_py, eval=FALSE}
+
+```python
 import pandas as p
 mayhem = p.DataFrame({
   'dogs': ["Mocha", "Domino", "Latte", "Dot"],
@@ -333,13 +446,12 @@ mayhem
 
 We can compute descriptive statistics using pandas Series methods.
 
-```{r image_py_1_4, include = FALSE,echo = FALSE, out.width = "100%", fig.cap = "Descriptive Stats Cheatsheet!"}
-knitr::include_graphics(path = "images/1_4.png")
-```
+
 
 ### Measures of Central Tendency
 
-```{python chunk_central_tendency_py, eval=FALSE}
+
+```python
 sw.height.mean()
 sw.height.median()
 sw.height.sum()
@@ -347,7 +459,8 @@ sw.height.sum()
 
 ### Measures of Dispersion
 
-```{python chunk_dispersion_py, eval=FALSE}
+
+```python
 sw.height.min()
 sw.height.max()
 sw.height.quantile(q=0.25)
@@ -358,7 +471,8 @@ sw.height.var()
 
 ### Other Good Functions
 
-```{python chunk_length_py, eval=FALSE}
+
+```python
 len(sw.height)
 sw.shape[1]  # number of columns
 ```
@@ -369,13 +483,19 @@ sw.shape[1]  # number of columns
 
 Sometimes data include missing values. In pandas these are `NaN`. Many pandas functions ignore `NaN` by default.
 
-```{python chunk_sw_missing_py}
+
+```python
 import pandas as p
 mysw = p.Series([4, 4.5, 5, 5, 5, 5.5, 5.5, 6, 6.5, 6.5, None])
 ```
 
-```{python chunk_sw_missing_mean_py}
+
+```python
 mysw.mean()  # returns 5.35, skips None/NaN by default
+```
+
+```
+## np.float64(5.35)
 ```
 
 If you need to include missing values in a calculation, convert them or use numpy functions explicitly, but usually skipping them is desired.
@@ -391,13 +511,82 @@ If you need to include missing values in a calculation, convert them or use nump
 
 Recreate the table below as a pandas DataFrame named `jp`, then answer the questions.
 
-```{r chunk_lc_jp_py, echo = FALSE, fig.height=2}
-knitr::kable(data.frame(
-  town = c("Kuji South", "Fudai", "Taro", "Miyako", "Yamada", "Ohtsuchi", "Tohni", "Yoshihama", "Hirota", "Karakuwa East", "Onagawa", "Souma", "Nakoso"),
-  seawall_m = c(12.0, 15.5, 13.7, 8.5, 6.6, 6.4, 11.8, 14.3, 6.5, 6.1, 5.8, 6.2, 6.2),
-  wave_m = c(14.5, 18.4, 16.3, 11.8, 10.9, 15.1, 21.0, 17.2, 18.3, 14.4, 18.0, 14.5, 7.7)
-))
-```
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> town </th>
+   <th style="text-align:right;"> seawall_m </th>
+   <th style="text-align:right;"> wave_m </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Kuji South </td>
+   <td style="text-align:right;"> 12.0 </td>
+   <td style="text-align:right;"> 14.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Fudai </td>
+   <td style="text-align:right;"> 15.5 </td>
+   <td style="text-align:right;"> 18.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Taro </td>
+   <td style="text-align:right;"> 13.7 </td>
+   <td style="text-align:right;"> 16.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Miyako </td>
+   <td style="text-align:right;"> 8.5 </td>
+   <td style="text-align:right;"> 11.8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Yamada </td>
+   <td style="text-align:right;"> 6.6 </td>
+   <td style="text-align:right;"> 10.9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Ohtsuchi </td>
+   <td style="text-align:right;"> 6.4 </td>
+   <td style="text-align:right;"> 15.1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Tohni </td>
+   <td style="text-align:right;"> 11.8 </td>
+   <td style="text-align:right;"> 21.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Yoshihama </td>
+   <td style="text-align:right;"> 14.3 </td>
+   <td style="text-align:right;"> 17.2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Hirota </td>
+   <td style="text-align:right;"> 6.5 </td>
+   <td style="text-align:right;"> 18.3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Karakuwa East </td>
+   <td style="text-align:right;"> 6.1 </td>
+   <td style="text-align:right;"> 14.4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Onagawa </td>
+   <td style="text-align:right;"> 5.8 </td>
+   <td style="text-align:right;"> 18.0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Souma </td>
+   <td style="text-align:right;"> 6.2 </td>
+   <td style="text-align:right;"> 14.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Nakoso </td>
+   <td style="text-align:right;"> 6.2 </td>
+   <td style="text-align:right;"> 7.7 </td>
+  </tr>
+</tbody>
+</table>
 
 1. Reproduce this table as a DataFrame named `jp`.
 2. How much greater was the mean tsunami height than the mean seawall height?
@@ -408,7 +597,8 @@ knitr::kable(data.frame(
 
 <details><summary>**[View Answer!]**</summary>
 
-```{python chunk_lc_jp_1_py, eval=FALSE}
+
+```python
 import pandas as p
 jp = p.DataFrame({
   'town': ["Kuji South", "Fudai", "Taro", "Miyako", "Yamada", "Ohtsuchi", "Tohni", 
@@ -419,13 +609,15 @@ jp = p.DataFrame({
 jp
 ```
 
-```{python chunk_lc_jp_2_py, eval=FALSE}
+
+```python
 jp.wave_m.mean()
 jp.seawall_m.mean()
 jp.wave_m.mean() - jp.seawall_m.mean()
 ```
 
-```{python chunk_lc_jp_3_py, eval=FALSE}
+
+```python
 jp.wave_m.std()
 jp.seawall_m.std()
 jp.wave_m.std() - jp.seawall_m.std()
@@ -444,13 +636,15 @@ jp.wave_m.std() - jp.seawall_m.std()
 
 Use `pip` to install packages. Do this once per environment.
 
-```{python chunk_packages_install_py, eval=FALSE}
+
+```python
 %pip install pandas plotnine dfply
 ```
 
 ### Importing packages
 
-```{python chunk_packages_import_py, eval=FALSE}
+
+```python
 import pandas as p
 from plotnine import *
 from dfply import *
@@ -463,7 +657,8 @@ from dfply import *
 
 In Python we can use dfply's pipeline operator `>>` to connect data to functions. This reduces parentheses and keeps sequences readable. *But it is not as usable as the pipe operator in R. It can only pipe dataframes to common dfply / dplyr functions like `select`, `mutate`, `summarize`, etc.*
 
-```{python chunk_pipeline_py, eval=FALSE}
+
+```python
 from dfply import *
 sw >> select(X.height)
 sw >> mutate(y = X.height ** X.height)
@@ -479,7 +674,8 @@ We can visualize with `matplotlib`/`pandas`, or use `plotnine` (a Python port of
 
 ### pandas/matplotlib
 
-```{python chunk_allsw_py, eval=FALSE}
+
+```python
 import pandas as p
 allsw = p.DataFrame({
   'height': [4, 4.5, 5, 5, 5.5, 5.5, 5.5, 6, 6, 6.5,
@@ -492,7 +688,8 @@ allsw.height.hist()
 
 ### `geom_histogram()` in `plotnine`
 
-```{python plot1_py, eval=FALSE}
+
+```python
 from plotnine import *
 (ggplot(allsw, aes(x='height')) +
  geom_histogram(color="white", fill="steelblue", binwidth=0.5) +
@@ -501,7 +698,8 @@ from plotnine import *
 
 Facet by state:
 
-```{python plot2_py, eval=FALSE}
+
+```python
 (ggplot(allsw, aes(x='height')) +
  geom_histogram(color="white", fill="steelblue", binwidth=0.5) +
  labs(x="Seawall Height", y="Frequency (# of cities)") +
@@ -521,11 +719,14 @@ Using a list named `sw`, draw a histogram of the seawall heights: 4.5, 5, 5.5, 5
 
 <details><summary>**[View Answer!]**</summary>
 
-```{python}
+
+```python
 import pandas as p
 sw = [4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4]
 p.Series(sw).hist()
 ```
+
+<img src="01_workshop_python_files/figure-html/unnamed-chunk-1-1.png" width="672" />
 
 </details>
 
@@ -539,11 +740,13 @@ Make a histogram of `jp['seawall_m']` from Learning Check 3 using (1) pandas and
 
 <details><summary>**[View Answer!]**</summary>
 
-```{python, eval=FALSE}
+
+```python
 jp.seawall_m.hist()
 ```
 
-```{python, eval=FALSE}
+
+```python
 (ggplot(jp, aes(x='seawall_m')) + geom_histogram())
 ```
 
@@ -583,8 +786,5 @@ You'll be a rockstar at using Python in no time! Stay tuned for our next Worksho
 - If that doesn't work, relaunch the project from the top banner menu.
 - If that doesn't work, let me know!
 
-```{python, include = FALSE}
-# Clear variables
-globals().clear()
-```
+
 
