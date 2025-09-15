@@ -120,6 +120,7 @@ knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 4. Add the new file to `_bookdown.yml` under `rmd_files` in the correct position.
 5. Render locally; verify the output in `docs/`.
 6. Commit the source and the rebuilt `docs/` folder; push to update the live site.
+7. This book gets deployed via Github Pages from the `main` branch's `docs/` folder.
 
 ---
 

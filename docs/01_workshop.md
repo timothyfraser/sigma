@@ -181,17 +181,17 @@ Use Parentheses!
 
 **Learning Checks (LC)** are short questions that appear throughout this book, providing short coding challenges to try and work through.
 
-- Below is the ```question``` tab. 
+- Below is the `question` tab. 
 
 - Read the question, and try to answer it on your own!
 
-- Then, *click the answer button to see the ```answer```.* (Note: There are often many different ways to code the same thing!) 
+- Then, *click the answer button to see the `answer`.* (Note: There are often many different ways to code the same thing!) 
 
 - Feeling stumped? You can check the answer, but be sure to code it yourself afterwards!
 
 **Question**
 
-Try calculating something wild in ```R```! Solve for ```x``` below using the commands you just learned in R!
+Try calculating something wild in `R`! Solve for `x` below using the commands you just learned in R!
 
 1. \( x = \sqrt{  (\frac{2 - 5 }{5})^{4}  }   \)
 
@@ -334,17 +334,17 @@ First, R uses **values** - which are single numbers or characters.
 ```
 
 
-You can save a value as a named ```object``` in the R Environment.
+You can save a value as a named `object` in the R Environment.
 That means, we tell R to remember that whenever you use a certain name, it means that value.
 
-To name something as an ```object```, use an arrow!
+To name something as an `object`, use an arrow!
 
 
 ```r
 myvalue <- 2
 ```
 
-Now let's highlight and press **CTRL ENTER** on ```myvalue``` (or the Mac Equivalent).
+Now let's highlight and press **CTRL ENTER** on `myvalue` (or the Mac Equivalent).
 
 
 ```r
@@ -354,7 +354,7 @@ myvalue
 ```
 ## [1] 2
 ```
-Notice how it's **listed in the R Environment** (upper right), and how it **outputs as ```2```** in the console?
+Notice how it's **listed in the R Environment** (upper right), and how it **outputs as `2`** in the console?
 
 We can do operations too!
 
@@ -380,7 +380,7 @@ myvalue
 ## [1] "I overwrote it!"
 ```
 
-And we can also remove objects from the Environment, with ```remove()```.
+And we can also remove objects from the Environment, with `remove()`.
 
 
 ```r
@@ -509,7 +509,7 @@ And when it outputs in the console, it looks like a spreadsheet!
 
 - AND ALL CELLS ARE **VALUES!**
 
-Actually, we can make ```data.frames``` into objects too!
+Actually, we can make `data.frames` into objects too!
 
 
 ```r
@@ -572,7 +572,7 @@ sw
 
 
 But what if we want to work with the vectors again?
-We can use the '$' sign to say, 'grab the following vector from inside this ```data.frame```.'
+We can use the '$' sign to say, 'grab the following vector from inside this `data.frame`.'
 
 
 ```r
@@ -614,7 +614,7 @@ We can also update values, like the following:
 **Question**
 
 How would you make your own data.frame? 
-Please make up a ```data.frame``` of with 3 vectors and 4 values each. Make 1 vector ```numeric``` and 2 vectors ```character``` data. How many rows are in that data.frame?
+Please make up a `data.frame` of with 3 vectors and 4 values each. Make 1 vector `numeric` and 2 vectors `character` data. How many rows are in that data.frame?
 
 <details><summary>**[View Answer!]**</summary>
 
@@ -653,9 +653,9 @@ mayhem
 
 ## Common Functions in R
 
-We can also run ```functions``` that come pre-installed to analyze vectors.
+We can also run `functions` that come pre-installed to analyze vectors.
 
-These include: ```mean()```, ```median()```, ```sum()```, ```min()```, ```max()```, ```range()```, ```quantile()```, ```sd()```, ```var()```, and ```length()```.
+These include: `mean()`, `median()`, `sum()`, `min()`, `max()`, `range()`, `quantile()`, `sd()`, `var()`, and `length()`.
 
 <div class="figure">
 <img src="images/1_4.png" alt="Descriptive Stats function Cheatsheet!" width="100%" />
@@ -789,8 +789,8 @@ mysw <- c(4, 4.5, 5, 5, 5,
 ```
 
 
-If you run ```mean(mysw)``` now, R doesn't know how to add ```6.5 + NA```.
-The output will become ```NA``` instead of ```5.35```.
+If you run `mean(mysw)` now, R doesn't know how to add `6.5 + NA`.
+The output will become `NA` instead of `5.35`.
 
 
 ```r
@@ -801,7 +801,7 @@ mean(mysw)
 ## [1] NA
 ```
 
-To fix this, we can add an 'argument' to the function, telling it to omit ```NA```s from the calculation.
+To fix this, we can add an 'argument' to the function, telling it to omit `NA`s from the calculation.
 
 
 ```r
@@ -826,7 +826,7 @@ Each function is unique, often made by different people, so only these functions
 
 **Question**
 
-Jun Kanda ([2015](http://dx.doi.org/10.1080/15732479.2015.1020497)) measured max seawall heights (```seawall_m```) in 13 Japanese towns (```town```) after the 2011 tsunami in Tohoku, Japan, compared against the height of the tsunami wave (```wave_m```). Using this table, please code and answer the questions below.
+Jun Kanda ([2015](http://dx.doi.org/10.1080/15732479.2015.1020497)) measured max seawall heights (`seawall_m`) in 13 Japanese towns (`town`) after the 2011 tsunami in Tohoku, Japan, compared against the height of the tsunami wave (`wave_m`). Using this table, please code and answer the questions below.
 
 <table class=" lightable-classic lightable-striped" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
  <thead>
@@ -905,7 +905,7 @@ Jun Kanda ([2015](http://dx.doi.org/10.1080/15732479.2015.1020497)) measured max
 </tbody>
 </table>
 
-1. Reproduce this table as a data.frame in R, and save it as an object named ```jp```.
+1. Reproduce this table as a data.frame in R, and save it as an object named `jp`.
 
 2. How much greater was the mean height of the tsunami than the mean height of seawalls?
 
@@ -917,7 +917,7 @@ Jun Kanda ([2015](http://dx.doi.org/10.1080/15732479.2015.1020497)) measured max
   
 <details><summary>**[View Answer!]**</summary>
 
-1. Reproduce this table as a data.frame in R, and save it as an object named ```jp```.
+1. Reproduce this table as a data.frame in R, and save it as an object named `jp`.
 
 
 ```r
@@ -1036,11 +1036,11 @@ That means wave height varied by -0.09 meters less than seawall height.
 
 ### Using Packages
 
-Some functions come pre-built into R, but lots of people have come together to build 'packages' of functions that help R users all over the world do more, cool things, so we don't each have to 'reinvent the wheel.' ```ggplot2```, which we use below, is one of these!
+Some functions come pre-built into R, but lots of people have come together to build 'packages' of functions that help R users all over the world do more, cool things, so we don't each have to 'reinvent the wheel.' `ggplot2`, which we use below, is one of these!
 
 ### Installing Packages
 
-We can use the ```library()``` function to load a package (like fipping an 'on' switch for the package). After loading it, R will recognize that package's functions when you run them!
+We can use the `library()` function to load a package (like fipping an 'on' switch for the package). After loading it, R will recognize that package's functions when you run them!
 
 But if you try to load a package that has never been installed on your computer, you might get this error:
 
@@ -1049,9 +1049,9 @@ But if you try to load a package that has never been installed on your computer,
 library(ggplot2)
 ```
 
-```Error in library(ggplot2) : there is no package called ‘ggplot2’```
+`Error in library(ggplot2) : there is no package called ‘ggplot2’`
 
-In this case, we need to install those packages (only necessary once), using ```install.packages()```. (If a message pops up, just accept 'Yes'.)
+In this case, we need to install those packages (only necessary once), using `install.packages()`. (If a message pops up, just accept 'Yes'.)
 
 
 ```r
@@ -1075,7 +1075,7 @@ The downloaded source packages are in
 
 ### Loading Packages
 
-Finally, we can load our packages with ```library()```.
+Finally, we can load our packages with `library()`.
 
 
 ```r
@@ -1106,7 +1106,7 @@ For example:
 
 
 ```r
-#  let's make a vector ```x``` and do some operations on it.
+#  let's make a vector `x` and do some operations on it.
 x <- c(1,2,3)
 
 # These are the same!
@@ -1125,7 +1125,7 @@ x %>% mean()
 ## [1] 2
 ```
 
-Using pipelines keeps our code neat and tidy. It lets us run long sequences of code without saving it bit by bit as objects. For example, we can take them ```mean()`` of ```x``` *and* then get the ```length()``` of the resulting vector, all in one sequence. Without a pipeline, you end up in parenthesis hell very quickly.
+Using pipelines keeps our code neat and tidy. It lets us run long sequences of code without saving it bit by bit as objects. For example, we can take them `mean()` of `x` *and* then get the `length()` of the resulting vector, all in one sequence. Without a pipeline, you end up in parenthesis hell very quickly.
 
 
 ```r
@@ -1146,7 +1146,7 @@ x %>% mean() %>% length()
 ## [1] 1
 ```
 
-Handy, right? To simplify things, there's a special 'hotkey' shortcut for making pipelines too. In Windows and Linux, use ```Ctrl Shift M```. In Mac, use ```Cmd Shift M```.
+Handy, right? To simplify things, there's a special 'hotkey' shortcut for making pipelines too. In Windows and Linux, use `Ctrl Shift M`. In Mac, use `Cmd Shift M`.
 
 <br>
 <br>
@@ -1155,7 +1155,7 @@ Handy, right? To simplify things, there's a special 'hotkey' shortcut for making
 ## Visualizing Data with Histograms
 
 
-The power of R is that you can process data, calculate statistics, and visualize it all together, very quickly. We can do this using ```hist()``` and `geom_histogram()`, among other functions.
+The power of R is that you can process data, calculate statistics, and visualize it all together, very quickly. We can do this using `hist()` and `geom_histogram()`, among other functions.
 
 ### `hist()`
 
@@ -1211,7 +1211,7 @@ allsw
 ## 30    8.0     ME
 ```
 
-Every vector is a distribution - a range of low to high values. We can use the ```hist()``` function to quickly visualize a vector's distribution.
+Every vector is a distribution - a range of low to high values. We can use the `hist()` function to quickly visualize a vector's distribution.
 
 
 ```r
@@ -1228,12 +1228,12 @@ hist(allsw$height)
 
 **Question**
   
-Using the ```hist()``` function we just learned, draw the histogram of a vector of seawalls, naming the vector ```sw```!  The vector should include the following seawall heights (in meters): `4.5 m`, `5 m`, `5.5 m`, `5 m`, `5.5 m`, `6.5 m`, `6.5 m`, `6 m`, `5 m`, and `4 m`.
+Using the `hist()` function we just learned, draw the histogram of a vector of seawalls, naming the vector `sw`!  The vector should include the following seawall heights (in meters): `4.5 m`, `5 m`, `5.5 m`, `5 m`, `5.5 m`, `6.5 m`, `6.5 m`, `6 m`, `5 m`, and `4 m`.
 
 
 <details><summary>**[View Answer!]**</summary>
   
-Using the ```hist()``` function we just learned, draw the histogram of a vector of seawalls, naming the vector ```sw```!  The vector should include the following seawall heights (in meters): `4.5 m`, `5 m`, `5.5 m`, `5 m`, `5.5 m`, `6.5 m`, `6.5 m`, `6 m`, `5 m`, and `4 m`.
+Using the `hist()` function we just learned, draw the histogram of a vector of seawalls, naming the vector `sw`!  The vector should include the following seawall heights (in meters): `4.5 m`, `5 m`, `5.5 m`, `5 m`, `5.5 m`, `6.5 m`, `6.5 m`, `6 m`, `5 m`, and `4 m`.
 
 
 ```r
@@ -1256,9 +1256,9 @@ sw %>% hist()
 ---
 
 
-### ```geom_histogram()``` in ```ggplot2```
+### `geom_histogram()` in `ggplot2`
 
-```hist()``` is great for a quick check, but for anything more complex, we're going to use ```ggplot2```, the most popular visualization package in R. 
+`hist()` is great for a quick check, but for anything more complex, we're going to use `ggplot2`, the most popular visualization package in R. 
 
 
 ```r
@@ -1286,9 +1286,9 @@ ggplot(
 
 <img src="01_workshop_files/figure-html/plot1-1.png" width="672" />
 
-Looks much nicer, right? Lots more code, but lots more options for customizing. We'll learn ```ggplot2``` more over this term, and it will become second nature in time! (Just takes practice!)
+Looks much nicer, right? Lots more code, but lots more options for customizing. We'll learn `ggplot2` more over this term, and it will become second nature in time! (Just takes practice!)
 
-The value of ```ggplot2``` really comes alive when we make complex visuals. For example, our data ```allsw$height``` essentially contains 3 vectors, one per state; one for MA, one for RI, one for ME. Can we visualize *each* of these vectors' distributions using separate histograms?
+The value of `ggplot2` really comes alive when we make complex visuals. For example, our data `allsw$height` essentially contains 3 vectors, one per state; one for MA, one for RI, one for ME. Can we visualize *each* of these vectors' distributions using separate histograms?
 
 
 ```r
@@ -1317,17 +1317,17 @@ Massachusetts (MA) has lower seawalls, evenly distributed around 5.5 m. Maine (M
 
 **Question**
 
-Challenge: Please make a histogram of Jun Kanda's sample of seawall heights (```seawall_m```) in the ```jp``` object from LC 3. 
+Challenge: Please make a histogram of Jun Kanda's sample of seawall heights (`seawall_m`) in the `jp` object from LC 3. 
 
-1. First, make a histogram using the ```hist()``` function. 
+1. First, make a histogram using the `hist()` function. 
 
-2. Then, try and use the ```geom_histogram()``` function from ```ggplot2```!
+2. Then, try and use the `geom_histogram()` function from `ggplot2`!
 
 <br>
 
 <details><summary>**[View Answer!]**</summary>
   
-1. First, make a histogram using the ```hist()``` function. 
+1. First, make a histogram using the `hist()` function. 
 
 
 ```r
@@ -1337,7 +1337,7 @@ hist(jp$seawall_m)
 
 <img src="01_workshop_files/figure-html/plot3-1.png" width="672" />
 
-2. Then, try and use the ```geom_histogram()``` function from ```ggplot2```!
+2. Then, try and use the `geom_histogram()` function from `ggplot2`!
 
 
 ```r
@@ -1379,7 +1379,7 @@ we're going to advance each of these skills:
 
 Be sure to clear your environment often.
 
-That means, using ```remove()``` or the broom tool in the upper right hand corner. 
+That means, using `remove()` or the broom tool in the upper right hand corner. 
 
 
 ```r
