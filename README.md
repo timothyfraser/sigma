@@ -9,57 +9,6 @@ Your online textbook for learning reliability and six sigma techniques in R. The
 ---
 
 
-### Chapter Testing Checklist
-
-Use this checklist to track which chapters have been tested and confirmed working:
-
-- [x] `00_part1.Rmd`
-- [x] `00_part2.Rmd`
-- [x] `00_part3.Rmd`
-- [x] `00_part4.Rmd`
-- [x] `00_part5.Rmd`
-- [x] `00_part6.Rmd`
-- [x] `00_part7.Rmd`
-- [x] `00_part8.Rmd`
-- [x] `00_partappendix.Rmd`
-- [x] `01_skill_fmea.Rmd`
-- [x] `01_skill_ggplot.Rmd`
-- [x] `01_skill_plotnine.Rmd`
-- [x] `01_workshop.Rmd`
-- [x] `01_workshop_python.Rmd`
-- [x] `02_skill_function_python.Rmd`
-- [x] `02_skill_functions.Rmd`
-- [x] `02_workshop.Rmd`
-- [x] `02_workshop_python.Rmd`
-- [x] `03a_workshop.Rmd`
-- [x] `03b_workshop.Rmd`
-- [x] `04_workshop.Rmd`
-- [x] `04_workshop_python.Rmd`
-- [x] `05_workshop.Rmd`
-- [x] `05_workshop_python.Rmd`
-- [x] `06_workshop.Rmd`
-- [x] `06_workshop_python.Rmd`
-- [x] `07_workshop.Rmd`
-- [x] `07b_workshop.Rmd`
-- [x] `08_workshop.Rmd`
-- [x] `09_workshop.Rmd`
-- [x] `10_workshop.Rmd`
-- [x] `11_workshop.Rmd`
-- [x] `12_workshop.Rmd`
-- [x] `13_workshop.Rmd`
-- [x] `14_workshop.Rmd`
-- [x] `15_workshop.Rmd`
-- [ ] `99_references.Rmd`
-- [x] `99_skill_fitdistr.Rmd`
-- [x] `99_skill_flowcharts.Rmd`
-- [x] `99_skill_tidyfault.Rmd`
-- [x] `99_skill_viz.Rmd`
-- [x] `99_test.Rmd`
-- [x] `index.Rmd`
-
----
-
-
 ### Purpose
 
 - **Teach reliability and Six Sigma with code-first workshops**: each chapter mixes short narrative explanations, runnable examples, and hands-on “Learning Checks.”
@@ -177,8 +126,6 @@ knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 
 ---
 
-### Packages
-
 #### R Packages
 
 Core packages used across chapters include:
@@ -224,7 +171,6 @@ C:/Python312/python.exe -m pip install matplotlib pandas plotnine dfply gapminde
 ```
 
 ---
-
 
 ### License and attribution
 
