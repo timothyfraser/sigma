@@ -43,3 +43,84 @@
 .button-python {
   background-color: ##FFB000; /* Yellow */
 }
+
+/* Custom styling for Python chapters */
+#chapter-1b::before {
+  content: "1B. ";
+  font-weight: bold;
+}
+
+#chapter-2b::before {
+  content: "2B. ";
+  font-weight: bold;
+}
+
+#chapter-3b::before {
+  content: "3B. ";
+  font-weight: bold;
+}
+
+#chapter-4b::before {
+  content: "4B. ";
+  font-weight: bold;
+}
+
+#chapter-5b::before {
+  content: "5B. ";
+  font-weight: bold;
+}
+
+#chapter-6b::before {
+  content: "6B. ";
+  font-weight: bold;
+}
+
+/* Custom section numbering for Python chapters */
+#chapter-1b {
+  counter-reset: section;
+}
+
+#chapter-2b {
+  counter-reset: section;
+}
+
+#chapter-3b {
+  counter-reset: section;
+}
+
+#chapter-4b {
+  counter-reset: section;
+}
+
+#chapter-5b {
+  counter-reset: section;
+}
+
+#chapter-6b {
+  counter-reset: section;
+}
+
+/* Override section numbering for Python chapters */
+#chapter-1b .section-number::before {
+  content: "1.";
+}
+
+#chapter-2b .section-number::before {
+  content: "2.";
+}
+
+#chapter-3b .section-number::before {
+  content: "3.";
+}
+
+#chapter-4b .section-number::before {
+  content: "4.";
+}
+
+#chapter-5b .section-number::before {
+  content: "5.";
+}
+
+#chapter-6b .section-number::before {
+  content: "6.";
+}

@@ -42,7 +42,7 @@ For today's workshop, we're going to think about why quality control matters in 
 
 *Onsen*-goers often seek out *specific* types of hot springs, so it's important for an *onsen* to actually provide what it advertises! [Serbulea and Payyappallimana (2012)](http://dx.doi.org/10.1016/j.healthplace.2012.06.020) describe some of these benchmarks.
 
-- **Temperature**: Onsen are divided into "Extra Hot Springs" (`>42 °C`), "Hot Springs" (`41~34°C`), and "Warm Springs" (`33~25°C`).
+- **Temperature**: Onsen are divided into "Extra Hot Springs" (`>42  degreesC`), "Hot Springs" (`41~34 degreesC`), and "Warm Springs" (`33~25 degreesC`).
 
 - **pH**: Onsen are classified into "Acidic" (`pH < 3`), "Mildly Acidic" (`pH 3~6`), "Neutral" (`pH 6~7.5`), "Mildly alkaline" (`ph 7.5~8.5`), and "Aklaline" (`pH > 8.5`).
 
@@ -589,7 +589,7 @@ mrsim %>% mean()
 ```
 
 ```
-## [1] 1.137301
+## [1] 1.116826
 ```
 
 
@@ -599,7 +599,7 @@ mrsim %>% sd()
 ```
 
 ```
-## [1] 0.8512873
+## [1] 0.8421688
 ```
 
 But why stop there? We can calculate loads of other interesting statistics!
@@ -614,7 +614,7 @@ mrsim %>%
 
 ```
 ##   50%   90%   95% 
-## 0.970 2.343 2.763
+## 0.947 2.302 2.738
 ```
 
 <br>
@@ -726,7 +726,7 @@ dn(n = 2)
 ## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   <dbl> <dbl> <dbl> <dbl>
-## 1  1.13 0.860     0  3.29
+## 1  1.13 0.855     0  3.28
 ```
 
 
@@ -743,7 +743,7 @@ d
 ## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   <dbl> <dbl> <dbl> <dbl>
-## 1  3.72 0.720 0.419  1.58
+## 1  3.72 0.718 0.421  1.58
 ```
 
 <br>
@@ -786,7 +786,7 @@ mydstat
 ## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   <dbl> <dbl> <dbl> <dbl>
-## 1  3.73 0.727 0.415  1.58
+## 1  3.72 0.730 0.412  1.59
 ```
 
 And use these constants to estimate the upper and lower CI for $\bar{r}$!
@@ -803,7 +803,7 @@ stat %>%
 ## # A tibble: 1 × 3
 ##    rbar rbar_lower rbar_upper
 ##   <dbl>      <dbl>      <dbl>
-## 1  7.26       3.02       11.5
+## 1  7.26       2.99       11.5
 ```
 
 So quick! You could use these values to make a *range* chart now.
@@ -913,7 +913,7 @@ mybstat
 ## # A tibble: 1 × 6
 ##      b2    b3    C4    A3    B3    B4
 ##   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-## 1 0.987 0.159 0.987 0.679 0.518  1.48
+## 1 0.988 0.163 0.988 0.679 0.505  1.49
 ```
 
 Finally, let's calculate our control limits!
@@ -936,7 +936,7 @@ stat %>%
 ## # A tibble: 1 × 3
 ##    sbar sbar_lower sbar_upper
 ##   <dbl>      <dbl>      <dbl>
-## 1  1.94       1.00       2.87
+## 1  1.94      0.978       2.89
 ```
 
 Now you're all ready to make a control chart showing variation in the standard deviation!
@@ -971,15 +971,15 @@ dx
 ## # A tibble: 9 × 3
 ##       n    d2    d3
 ##   <int> <dbl> <dbl>
-## 1     2  1.12 0.853
-## 2     3  1.68 0.891
-## 3     4  2.05 0.886
-## 4     5  2.34 0.859
-## 5     6  2.52 0.848
-## 6     7  2.69 0.843
-## 7     8  2.84 0.820
-## 8     9  2.99 0.804
-## 9    10  3.07 0.791
+## 1     2  1.13 0.859
+## 2     3  1.69 0.886
+## 3     4  2.04 0.878
+## 4     5  2.32 0.871
+## 5     6  2.53 0.849
+## 6     7  2.72 0.831
+## 7     8  2.85 0.825
+## 8     9  2.98 0.805
+## 9    10  3.08 0.797
 ```
 
 </details>

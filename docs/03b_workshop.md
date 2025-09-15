@@ -1,4 +1,4 @@
-# Probability Functions
+# Probability Functions in `R`
 
 
 
@@ -104,7 +104,7 @@ Much like `rpois()` randomly generates poisson distributed values, `dpois()`,  `
 See the Table below for several examples.
 
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
-<caption>(\#tab:unnamed-chunk-4)Table 1: Probability Functions (r, d, p, and q)</caption>
+<caption>(\#tab:unnamed-chunk-4)(\#tab:unnamed-chunk-4)Table 1: Probability Functions (r, d, p, and q)</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Meaning </th>
@@ -194,7 +194,7 @@ dsim(5)
 ```
 
 ```
-## [1] 0.1615981
+## [1] 0.1471204
 ```
 
 ```r
@@ -262,7 +262,7 @@ psim(5)
 ```
 
 ```
-## [1] 0.4420252
+## [1] 0.4614108
 ```
 
 ```r
@@ -510,9 +510,9 @@ obs %>% density() %>% tidy() %>% tail(3)
 ## # A tibble: 3 × 2
 ##       x           y
 ##   <dbl>       <dbl>
-## 1 5715. 0.000000725
-## 2 5727. 0.000000675
-## 3 5739. 0.000000628
+## 1 5715. 0.000000718
+## 2 5727. 0.000000669
+## 3 5739. 0.000000622
 ```
 
 But that's *data*, not a *function*, right? Functions are *equations*, machines you can pump an input into to get a specific output. Given a data.frame of 2 vectors, `R` can actually approximate the `function` (equation) connecting vector 1 to vector 2 using `approxfun()`, *creating your own function!* So cool!
@@ -535,7 +535,7 @@ seq(1000, 3000, by = 1000) %>% dobs()
 ```
 
 ```
-## [1] 0.0001505136 0.0003081445 0.0003186926
+## [1] 0.0001503415 0.0003078665 0.0003184267
 ```
 
 For now, let's get the densities for costs ranging from the min to the max observed cost.
@@ -559,7 +559,7 @@ mypd %>% head(3)
 ##    cost prob_cost_i prob_extreme_i
 ##   <dbl>       <dbl> <lgl>         
 ## 1  1126    0.000186 FALSE         
-## 2  1136    0.000189 FALSE         
+## 2  1136    0.000188 FALSE         
 ## 3  1146    0.000191 FALSE
 ```
 
@@ -632,7 +632,7 @@ p
 ## # A tibble: 1 × 3
 ##   prob_cost_extreme prob_cost prob_extreme
 ##               <dbl>     <dbl>        <dbl>
-## 1            0.0317    0.0868        0.365
+## 1            0.0317    0.0867        0.365
 ```
 
 Very cool! Visually, what's happening here?
@@ -711,8 +711,8 @@ mypd %>%
 ##    cost prob_cost_i prob_extreme_i prob_cost_cumulative
 ##   <dbl>       <dbl> <lgl>                         <dbl>
 ## 1  1126    0.000186 FALSE                      0.000186
-## 2  1136    0.000189 FALSE                      0.000375
-## 3  1146    0.000191 FALSE                      0.000566
+## 2  1136    0.000188 FALSE                      0.000374
+## 3  1146    0.000191 FALSE                      0.000565
 ```
 
 Our `prob_cost_cumulative` in row 3 above shows the total probability of `n = 3` patients receiving a cost of 1126 OR 1136 OR 1146. But, we want an *average* estimate for 1 patient. So, like in a weighted average, we can divide by the total probability of *all* (`n`) hypothetical patients in the probability density function receiving any of these costs. This gives us our *revised* `prob_cost_cumulative`, which ranges from `0` to `1`!
@@ -789,7 +789,7 @@ pobs <- obs %>% density() %>% tidy() %>%
 ```
 
 ```
-## [1] 0.3726192
+## [1] 0.3726148
 ```
 
 ```r
@@ -883,7 +883,7 @@ obs %>% head() %>% pobs()
 ```
 
 ```
-## [1] 0.07774089 0.16376985 0.17348497 0.22750868 0.28831038 0.33387171
+## [1] 0.07767408 0.16372910 0.17344816 0.22749238 0.28830929 0.33387438
 ```
 
 ```r

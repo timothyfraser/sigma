@@ -405,7 +405,7 @@ water %>%
 ## # A tibble: 1 × 1
 ##    mean
 ##   <dbl>
-## 1  44.7
+## 1  44.9
 ```
 
 Our bootstrapped `mean` is *very*, *very* close to the original mean - just slightly off due to sampling error! Bootstrapping is a very powerful tool, as it lets us circumvent many long formulas, as long as you take enough samples. Let's take 1000 resamples below:
@@ -598,11 +598,11 @@ myboot %>% glimpse()
 ## Columns: 6
 ## Groups: rep [1,000]
 ## $ rep    <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-## $ id     <dbl> 2, 74, 14, 139, 118, 101, 123, 4, 4, 131, 142, 37, 43, 51, 61, …
-## $ time   <dbl> 1, 7, 1, 13, 11, 11, 13, 1, 1, 13, 15, 3, 5, 5, 7, 9, 3, 7, 9, …
-## $ temp   <dbl> 45.3, 45.5, 46.1, 46.3, 44.4, 46.8, 43.0, 43.9, 43.9, 46.5, 44.…
-## $ ph     <dbl> 4.8, 5.2, 5.1, 5.1, 5.0, 4.8, 5.3, 6.4, 6.4, 6.0, 5.6, 5.1, 5.3…
-## $ sulfur <dbl> 0.4, 0.4, 0.0, 0.2, 0.9, 0.4, 0.7, 0.2, 0.2, -0.2, 0.6, 0.1, 0.…
+## $ id     <dbl> 144, 109, 65, 160, 142, 68, 39, 131, 54, 15, 35, 84, 150, 50, 2…
+## $ time   <dbl> 15, 11, 7, 15, 15, 7, 3, 13, 5, 1, 3, 9, 15, 5, 3, 11, 13, 13, …
+## $ temp   <dbl> 46.2, 45.9, 47.8, 44.3, 44.6, 44.1, 46.8, 46.5, 43.1, 46.0, 44.…
+## $ ph     <dbl> 5.6, 4.2, 5.8, 5.4, 5.6, 6.8, 5.7, 6.0, 5.7, 5.3, 6.0, 5.6, 4.6…
+## $ sulfur <dbl> 2.2, 0.4, 0.4, 2.0, 0.6, 0.1, 0.3, -0.2, 1.0, 0.2, 0.4, 0.5, 1.…
 ```
 This produces a very, very big data.frame!
 
@@ -656,7 +656,6 @@ g
 ```
 
 <img src="06_workshop_files/figure-html/unnamed-chunk-22-1.png" width="672" />
-
 So last, let's take our boostrapped $C_{p}$ statistics in `mybootstat$cp` and estimate a confidence interval and standard error for this sampling distribution.
 
 Because we have the *entire distribution*, we can extract values at specific percentiles in the distribution using `quantiles()`, rather than `qnorm()` or such theoretical distributions.
@@ -683,7 +682,7 @@ myqi
 ## # A tibble: 1 × 4
 ##      cp lower upper     se
 ##   <dbl> <dbl> <dbl>  <dbl>
-## 1 0.671 0.617 0.782 0.0425
+## 1 0.671 0.611 0.780 0.0438
 ```
 
 This suggests a wider confidence interval that our normal distribution assumes by default - interesting!

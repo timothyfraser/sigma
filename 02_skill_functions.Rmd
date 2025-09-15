@@ -2,6 +2,9 @@
 
 ```{r setup_skill_functions, include = FALSE}
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+
+# Fix graphics API version mismatch issues by avoiding ragg
+knitr::opts_chunk$set(dev = "png")
 library(tidyverse)
 library(DiagrammeR)
 ```

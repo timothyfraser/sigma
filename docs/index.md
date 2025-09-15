@@ -1,23 +1,93 @@
 ---
 title: "System Reliability and Six Sigma in R"
 author: "Timothy Fraser, PhD"
-date: "2024-10-18"
+date: "2025-09-15"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-description: "Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300."
+description: "Your online textbook for learning reliability and six sigma techniques in R and Python! Made for Cornell University Course SYSEN 5300."
 ---
 
 
 
 # Introduction {.unnumbered}
 
-Your online textbook for learning reliability and six sigma techniques in R! These coding workshops were made for Cornell University Course SYSEN 5300. Follow along with Posit.Cloud to learn to apply six sigma techniques in R!
+Your online textbook for learning reliability and six sigma techniques in R and Python! These coding workshops were made for Cornell University Course SYSEN 5300. Follow along with Posit.Cloud to learn to apply six sigma techniques in R and Python!
 
 <div class="figure">
-<img src="images/dice.jpg" alt="Photo by &lt;a href='https://unsplash.com/ja/@tamiminaser?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'&gt;Naser Tamimi&lt;/a&gt; on &lt;a href='https://unsplash.com/s/photos/statistics?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'&gt;Unsplash&lt;/a&gt;" width="100%" />
-<p class="caption">(\#fig:img-cover)Photo by <a href='https://unsplash.com/ja/@tamiminaser?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Naser Tamimi</a> on <a href='https://unsplash.com/s/photos/statistics?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a></p>
+<img src="images/dice.jpg" alt="Photo by Naser Tamimi on Unsplash" width="100%" />
+<p class="caption">(\#fig:img-cover)Photo by Naser Tamimi on Unsplash</p>
 </div>
 
+---
+
+# About this Book
+
+This comprehensive textbook provides hands-on training in **System Reliability and Six Sigma techniques using R and Python**. Designed specifically for Cornell University's SYSEN 5300 course, this book bridges the gap between statistical theory concepts and practical coding implementation of these advanced statistical techniques.
+
+## What You'll Learn
+
+Through a series of interactive workshops and skill-building exercises, you'll master:
+
+- **Statistical Process Control** - Monitoring and improving manufacturing and service processes
+- **Reliability Engineering** - Predicting and improving system performance over time
+- **Life Distributions** - Modeling failure patterns using exponential, Weibull, gamma, and log-normal distributions
+- **Fault Tree Analysis** - Visualizing and quantifying system failure modes
+- **Physical Acceleration Models** - Converting lab test results to field performance estimates
+- **Regression Analysis** - Modeling relationships between variables in complex systems
+- **Design of Experiments** - Planning and analyzing controlled experiments
+- **Response Surface Methodology** - Optimizing processes through systematic experimentation
+
+## Learning Approach
+
+Each chapter combines:
+- **Theoretical foundations** with clear explanations
+- **Hands-on coding workshops** in both R and Python
+- **Case studies** from manufacturing, healthcare, and service industries
+- **Interactive exercises** with immediate feedback
+- **Visual learning** through plots, diagrams, and flowcharts
+
+## Prerequisites
+
+- Basic familiarity with R programming
+- Understanding of fundamental statistics
+- Access to RStudio or Posit Cloud (recommended)
+
+
+---
+
+## About the Author
+
+<div class="figure" style="text-align: center">
+<img src="images/bio.jpg" alt="Dr. Timothy Fraser" width="200px" />
+<p class="caption">(\#fig:author-photo)Dr. Timothy Fraser</p>
+</div>
+
+**Dr. Timothy (Tim) Fraser** is an Assistant Teaching Professor in the Systems Engineering Program at Cornell University, where he has been teaching since 2022. He also serves as Coordinator for the Center for Transportation, Environment, and Community Health (CTECH).
+
+As a computational social scientist, Dr. Fraser develops methods, systems, and software to help communities combat environmental crises. His research spans urban resilience and environmental systems in the US and Japan, with 51 peer-reviewed publications, plus numerous dashboards, R packages, and software tools.
+
+Dr. Fraser has advised researchers on social infrastructure at the OECD and UN Development Programme's Accelerator Labs. He earned his PhD from Northeastern University in 2022 and has received funding from multiple national grants, including Fulbright.
+
+His current research focuses on developing AI and cloud computing tools to quantify, visualize, and communicate environmental policy data to the public, supporting community action and resilience in socio-technical systems.
+
+**Contact:** [www.timothyfraser.com](https://www.timothyfraser.com)
+
+## Acknowledgments
+
+Special thanks to the students of Cornell's Systems Engineering Program for their invaluable feedback, testing, and suggestions that helped refine this textbook. Your engagement and questions have made this resource more effective and user-friendly.
+
+---
+
+## How to Use This Book
+
+1. **Start with the basics** - Begin with Part 1 for fundamental R and Python programming skills
+2. **Follow the sequence** - Each chapter builds on previous concepts
+3. **Find the code** - Find the code for each chapter in the `code/` folder and the `workshops/` folder at [github.com/timothyfraser/sigma](https://github.com/timothyfraser/sigma)
+3. **Practice actively** - Run all code examples and complete exercises
+4. **Use both languages** - Compare R and Python implementations to deepen understanding
+5. **Apply to your field** - Adapt examples to your specific industry or research area
+
+**Happy learning!** 🚀

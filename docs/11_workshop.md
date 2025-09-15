@@ -4,7 +4,7 @@
 
 Social systems are full of numeric variables, like voter turnout, percentage of votes for party X, income, unemployment rates, and rates of policy implementation or people affected. So how do we analyze the association between two numeric variables?
 
-Today, we're going to investigate a popular dataset on commerce. The ```ggplot2``` package's ```diamonds``` dataset contains 53,940 diamond sales gathered from the Loose Diamonds Search Engine in 2017. We're going to examine a random sample of 1000 of these diamonds, saved as ```mydiamonds.csv```. This dataset lets us investigate a popular question for consumers: Are diamonds' size, measured by ```carat```, actually related to their cost, measured by ```price```? Let's investigate using the techniques below.
+Today, we're going to investigate a popular dataset on commerce. The `ggplot2` package's `diamonds` dataset contains 53,940 diamond sales gathered from the Loose Diamonds Search Engine in 2017. We're going to examine a random sample of 1000 of these diamonds, saved as `mydiamonds.csv`. This dataset lets us investigate a popular question for consumers: Are diamonds' size, measured by `carat`, actually related to their cost, measured by `price`? Let's investigate using the techniques below.
 
 
 ## Getting Started {.tabset .tabset-fade .tabset-pills .unnumbered}
@@ -46,11 +46,11 @@ mydiamonds %>% head(3)
 
 In this dataset, our variables mean:
 
-- ```price```: price of diamond in US dollars (from `$`326 to $18,823!)
+- `price`: price of diamond in US dollars (from `$`326 to $18,823!)
 
-- ```carat```: weight of the diamond (0.2 to 5.01 carats)
+- `carat`: weight of the diamond (0.2 to 5.01 carats)
 
-- ```cut```: quality of the cut (Fair, Good, Very Good, Premium, Ideal)
+- `cut`: quality of the cut (Fair, Good, Very Good, Premium, Ideal)
 
 ---
 
@@ -126,9 +126,9 @@ We can use `cor.test()` to test **correlation** in R. Let's, for example, get th
 
 3. *statistical sigificance (p-value)*, an indicator of how *extreme* our statistics are - how likely is it we got this statistic due to chance? (Likely due to chance = nearer to 1; not likely due to chance = near 0, eg. p < 0.05.)
 
-To extract `cor.test()`'s output, we can use the ```broom``` package's ```tidy()``` function. This takes the output of the ```cor.test()``` function and puts it in a nice tidy data.frame, which we can then give to ```summarize()```, allowing us to still use ```group_by()```. 
+To extract `cor.test()`'s output, we can use the `broom` package's `tidy()` function. This takes the output of the `cor.test()` function and puts it in a nice tidy data.frame, which we can then give to `summarize()`, allowing us to still use `group_by()`. 
 
-Then, the correlation is reported in the ```estimate``` column, a standardized t-statistic is calculated in the ```statistic``` column, significance is given in the ```p.value``` column, and the upper (97.5%) and lower (2.5%) 95% confidence intervals are reported in ```conf.low``` and ```conf.high```.
+Then, the correlation is reported in the `estimate` column, a standardized t-statistic is calculated in the `statistic` column, significance is given in the `p.value` column, and the upper (97.5%) and lower (2.5%) 95% confidence intervals are reported in `conf.low` and `conf.high`.
 
 
 ```r
@@ -173,7 +173,7 @@ $Y_{observed} = Alpha + X_{observed} \times Beta + Error$
 
 Let's break this down.
 
-- $Y_{observed}$: the raw, observed outcome for each observation (```price``` for each diamond).
+- $Y_{observed}$: the raw, observed outcome for each observation (`price` for each diamond).
 
 - $Y_{predicted}$: the predicted outcome for each observation, based on the supplied data (```carat`` for each diamond). 
 
@@ -181,7 +181,7 @@ Let's break this down.
 
 - $X_{Observed}$ a vector of observed values of our predictor/explanatory variable. We feed each value into our model to generate a predicted outcome.
 
-- $Beta$: how much our outcome y (```price```) increases by when our predictor/explanatory variable x (```carat```) increases by 1. Also known as the slope of the line.
+- $Beta$: how much our outcome y (`price`) increases by when our predictor/explanatory variable x (`carat`) increases by 1. Also known as the slope of the line.
 
 - $Error$ or $Residuals$: predicted outcome might deviate a little from the observed outcome. This deviation ($Y_{observed} - Y_{predicted}$) is call the $Residual$ for each observation. Colloquially, we call it $Error$.
 
@@ -245,7 +245,7 @@ If a diamond weighed 0 carats, the model projects that the price of that diamond
 
 ##  Statistical Significance
 
-We can even assess statistical significance for our alpha and beta coefficients. We can use ```tidy()``` from the ```broom``` package.
+We can even assess statistical significance for our alpha and beta coefficients. We can use `tidy()` from the `broom` package.
 
 
 ```r
@@ -361,7 +361,7 @@ There is a less than 0.001 probability that our beta coefficient of 7559 USD per
 
 ##  Visualization
 
-Finally, visualizing the line of best fit is quite easy! We make a scatterplot in using the ```ggplot2``` package's ```ggplot()``` function. Then, we add ```geom_smooth(method = "lm")```. This uses the ```lm()``` function internally to make a line of best fit between our ```x``` and ```y``` variables in the ```aes()``` section of our plot.
+Finally, visualizing the line of best fit is quite easy! We make a scatterplot in using the `ggplot2` package's `ggplot()` function. Then, we add `geom_smooth(method = "lm")`. This uses the `lm()` function internally to make a line of best fit between our `x` and `y` variables in the `aes()` section of our plot.
 
 
 ```r
@@ -620,7 +620,7 @@ Models are imperfect approximations of trends in data. The simplest possible mod
 
 - If your F statistic is large, the model explains much, much more variation than the intercept.
 
-- We can compare your F statistic to a null distribution of scores we'd get due to chance, and find the probability we got this statistic due to chance, our p-value. The ```broom``` package's ```glance()``` function lets us do this below, giving us a ```statistic``` and ```p.value```.
+- We can compare your F statistic to a null distribution of scores we'd get due to chance, and find the probability we got this statistic due to chance, our p-value. The `broom` package's `glance()` function lets us do this below, giving us a `statistic` and `p.value`.
 
 
 ```r
@@ -719,7 +719,7 @@ ingredients %>%
 ## $ p_value                        <dbl> 0
 ```
 
-And there you have it! That's how you calculate an F-statistic and its p-value manually. As you can see, it's a lot faster to just use the ```broom``` package's ```glance()``` function.
+And there you have it! That's how you calculate an F-statistic and its p-value manually. As you can see, it's a lot faster to just use the `broom` package's `glance()` function.
 
 
 <br>
@@ -784,7 +784,7 @@ So what can you find in the `summary()` output?
 
 **Question**
 
-Using the ```filter()``` and ```lm()``` functions, test the effect of ```carat``` on diamond ```price```, first looking at just ```"Ideal"``` diamonds. Use the ```summary()``` function, and report alpha, beta, R2, the F-statistic, and its p-value for this model.
+Using the `filter()` and `lm()` functions, test the effect of `carat` on diamond `price`, first looking at just `"Ideal"` diamonds. Use the `summary()` function, and report alpha, beta, R2, the F-statistic, and its p-value for this model.
 
 <br>
 <br>

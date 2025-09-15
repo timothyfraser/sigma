@@ -3,6 +3,9 @@
 ```{r setup_skill_flowcharts, include=FALSE}
 ## Global options
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+
+# Fix graphics API version mismatch issues by avoiding ragg
+knitr::opts_chunk$set(dev = "png")
 library(knitr)
 library(kableExtra)
 library(magick)

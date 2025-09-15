@@ -1,4 +1,4 @@
-# Distributions and Descriptive Statistics
+# Distributions and Descriptive Statistics in `R`
 
 
 
@@ -11,11 +11,11 @@ This tutorial will introduce you to how to code and analyses distributions in R,
 
 ## Getting Started {-}
 
-Please open up your Posit.Cloud project. Start a new R script (File >> New >> R Script). Save the R script as ```workshop_2.R```. And let's get started!
+Please open up your Posit.Cloud project. Start a new R script (File >> New >> R Script). Save the R script as `workshop_2.R`. And let's get started!
 
 ### Load Packages {-}
 
-We're going to use extra functions from 3 packages today, including ```ggplot2```, ```dplyr``` (pronounced DIP-LER), and ```MASS```. [Note: Please be sure to load them first, otherwise your functions will *not work*.]
+We're going to use extra functions from 3 packages today, including `ggplot2`, `dplyr` (pronounced DIP-LER), and `MASS`. [Note: Please be sure to load them first, otherwise your functions will *not work*.]
 
 
 ```r
@@ -78,7 +78,7 @@ What's a statistic? A statistic is a **single number** that **summarizes somethi
    <td style="text-align:left;"> Shape </td>
    <td style="text-align:left;"> What shape does it resemble? </td>
    <td style="text-align:left;"> distributions </td>
-   <td style="text-align:left;"> rnorm(), rbinom(), rpois(),<br>[skewness &amp; kurtosis - no functions] </td>
+   <td style="text-align:left;"> rnorm(), rbinom(), rpois(),&lt;br&gt;[skewness &amp; kurtosis - no functions] </td>
   </tr>
 </tbody>
 </table>
@@ -103,7 +103,7 @@ sw
 
 ### Length
 
-*How big is our sample?* Use ```length()``` on a vector to find the number of values in the vector ```sw``` we made in **LC1.**
+*How big is our sample?* Use `length()` on a vector to find the number of values in the vector `sw` we made in **LC1.**
 
 
 ```r
@@ -125,7 +125,7 @@ length(sw)
 
 ### Mean
 
-Use ```mean()``` and ```median()``` to find the most central values. 
+Use `mean()` and `median()` to find the most central values. 
 
 
 ```r
@@ -149,7 +149,7 @@ sw %>% median()
 
 ### Mode
 
-Fun fact: ```mode()``` doesn't work in R; it's huge pain. You have to use this code instead.
+Fun fact: `mode()` doesn't work in R; it's huge pain. You have to use this code instead.
 
 
 ```r
@@ -173,7 +173,7 @@ sw %>% table() %>% sort(decreasing = TRUE)
 
 ### Percentile
 
-Use ```quantile()``` to check for any percentile in a vector, from 0 (min) to 0.5 (median) to 1 (max). If you have ```quantile()```, you don't need to remember ```min()```, ```max()```, ```range()```, or even ```median()```.
+Use `quantile()` to check for any percentile in a vector, from 0 (min) to 0.5 (median) to 1 (max). If you have `quantile()`, you don't need to remember `min()`, `max()`, `range()`, or even `median()`.
 
 
 ```r
@@ -207,7 +207,7 @@ Your team took a series of air quality measurements from a sample of sensors acr
 
 Air Quality Index scores: `12`, `24`, `50`, `35`, `36`, `37`, `40`, `25`, `28`, `30`, `32`, `28`
 
-1. Please convert the following values into a **vector** named ```aqi```! 
+1. Please convert the following values into a **vector** named `aqi`! 
 
 2. What was the sample size of the vector?
 
@@ -215,7 +215,7 @@ Air Quality Index scores: `12`, `24`, `50`, `35`, `36`, `37`, `40`, `25`, `28`, 
 
 <details><summary>**[View Answer!]**</summary>
   
-1. Please convert the following values into a **vector** named ```aqi```! 
+1. Please convert the following values into a **vector** named `aqi`! 
 
 
 ```r
@@ -278,7 +278,7 @@ $ \sigma = \sqrt{ \Sigma \frac{ (x_{i} - mean) }{ n - 1 } }  $
 <p class="caption">(\#fig:unnamed-chunk-14)Figure 5: Standard Deviation, the ultimate Statistic for Spread</p>
 </div>
 
-We can calculate this 'by hand', or use the ```sd()``` function.
+We can calculate this 'by hand', or use the `sd()` function.
 
 
 ```r
@@ -364,7 +364,7 @@ sd(sw)^2 / length(sw)
 
 This means we could take this set of seawalls and compare it against samples of coastal infrastructure in Louisiana, in Japan, in Australia, and make *meaningful comparisons*, having adjusted for sample size. 
 
-However, sample-size adjusted variance is a little bit of a funky concept, and so it's much more common for us to use the sample-size adjusted standard deviation, more commonly known as the **standard error**, or ```se```.
+However, sample-size adjusted variance is a little bit of a funky concept, and so it's much more common for us to use the sample-size adjusted standard deviation, more commonly known as the **standard error**, or `se`.
 
 $ SE = \frac{ \sigma }{ \sqrt{n} } = \sqrt{ \frac{ \sigma^{2} }{ n  } } = \sqrt{  \frac{ variance}{ n }}  $  
 
@@ -394,7 +394,7 @@ Suppose we collected data on 10 randomly selected chunks of cheese from a produc
 
 The moisture in our cheese weighed `5.52 g`, `5.71 g`, `5.06 g`, `5.10 g`, `4.98 g`, `5.50 g`, `4.81 g`, `5.55 g`, `4.74 g`, & `5.39 g`.
 
-1. Please convert the following values into a **vector** named ```cheese```! 
+1. Please convert the following values into a **vector** named `cheese`! 
 
 2. What was the **average** moisture level in the sample?
 
@@ -405,7 +405,7 @@ The moisture in our cheese weighed `5.52 g`, `5.71 g`, `5.06 g`, `5.10 g`, `4.98
 
 <details><summary>**[View Answer!]**</summary>
   
-1. Please convert the following values into a **vector** named ```cheese```! 
+1. Please convert the following values into a **vector** named `cheese`! 
 
 
 ```r
@@ -721,10 +721,10 @@ c(skewness, kurtosis)
 
 ## Simulating Distributions
 
-Finally, to describe **shape**, we need some shapes to compare our distributions to. Fortunately, the ```rnorm()```, ```rbinom()```, ```rpois()```, and ```rgamma()``` functions allow us to draw the shapes of several common distributions. **Table 2** shows the shape of these distributions, and their ranges.
+Finally, to describe **shape**, we need some shapes to compare our distributions to. Fortunately, the `rnorm()`, `rbinom()`, `rpois()`, and `rgamma()` functions allow us to draw the shapes of several common distributions. **Table 2** shows the shape of these distributions, and their ranges.
 
 <table class=" lightable-classic lightable-striped" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
-<caption>(\#tab:w2_table2)Table 2: Example Distributions</caption>
+<caption>(\#tab:w2_table2)(\#tab:w2_table2)Table 2: Example Distributions</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Distributions </th>
@@ -741,7 +741,7 @@ Finally, to describe **shape**, we need some shapes to compare our distributions
    <td style="text-align:left;"> -Inf to +Inf </td>
    <td style="text-align:left;"> `rnorm()` </td>
    <td style="text-align:left;"> mean, sd </td>
-   <td style="text-align:left;">  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewBox="0 0 48.00 12.00"><defs><style type="text/css">
+   <td style="text-align:left;">  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.00pt" height="12.00pt" viewBox="0 0 48.00 12.00"><g class="svglite"><defs><style type="text/css">
     .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
       fill: none;
       stroke: #000000;
@@ -752,17 +752,21 @@ Finally, to describe **shape**, we need some shapes to compare our distributions
     .svglite text {
       white-space: pre;
     }
+    .svglite g.glyphgroup path {
+      fill: inherit;
+      stroke: none;
+    }
   </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clipPath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
-</g><defs><clipPath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="0.37" y="11.62" width="1.73" height="0.043" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="2.10" y="11.62" width="1.73" height="0.043" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="3.83" y="11.58" width="1.73" height="0.087" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="5.56" y="11.10" width="1.73" height="0.56" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="7.29" y="9.54" width="1.73" height="2.12" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="9.02" y="7.89" width="1.73" height="3.77" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="10.75" y="4.69" width="1.73" height="6.97" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="12.48" y="3.22" width="1.73" height="8.44" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="14.21" y="3.65" width="1.73" height="8.01" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="15.94" y="5.34" width="1.73" height="6.32" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="17.68" y="7.81" width="1.73" height="3.85" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="19.41" y="9.67" width="1.73" height="1.99" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="21.14" y="10.84" width="1.73" height="0.82" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="22.87" y="11.53" width="1.73" height="0.13" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="24.60" y="11.58" width="1.73" height="0.087" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="26.33" y="11.62" width="1.73" height="0.043" style="stroke-width: 0.38; fill: #D3D3D3;"></rect></g></svg>
+</g><defs><clipPath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="0.41" y="11.58" width="1.94" height="0.086" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="2.35" y="11.28" width="1.94" height="0.39" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="4.29" y="11.10" width="1.94" height="0.56" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="6.23" y="9.95" width="1.94" height="1.71" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="8.17" y="7.55" width="1.94" height="4.12" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="10.11" y="5.40" width="1.94" height="6.26" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="12.05" y="3.22" width="1.94" height="8.44" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="13.99" y="4.08" width="1.94" height="7.59" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="15.93" y="5.15" width="1.94" height="6.52" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="17.87" y="6.86" width="1.94" height="4.80" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="19.81" y="10.03" width="1.94" height="1.63" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="21.75" y="11.23" width="1.94" height="0.43" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="23.69" y="11.41" width="1.94" height="0.26" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="25.63" y="11.58" width="1.94" height="0.086" style="stroke-width: 0.38; fill: #D3D3D3;"></rect></g></g></svg>
 </td>
-   <td style="text-align:left;"> [Wiki](https://en.wikipedia.org/wiki/normal_distribution) </td>
+   <td style="text-align:left;"> [Wiki](htt </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Poisson </td>
    <td style="text-align:left;"> 0, 1, 2, 3... </td>
    <td style="text-align:left;"> `rpois()` </td>
    <td style="text-align:left;"> lambda (mean) </td>
-   <td style="text-align:left;">  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewBox="0 0 48.00 12.00"><defs><style type="text/css">
+   <td style="text-align:left;">  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.00pt" height="12.00pt" viewBox="0 0 48.00 12.00"><g class="svglite"><defs><style type="text/css">
     .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
       fill: none;
       stroke: #000000;
@@ -773,17 +777,21 @@ Finally, to describe **shape**, we need some shapes to compare our distributions
     .svglite text {
       white-space: pre;
     }
+    .svglite g.glyphgroup path {
+      fill: inherit;
+      stroke: none;
+    }
   </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clipPath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
-</g><defs><clipPath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="9.02" y="4.03" width="1.73" height="7.63" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="10.75" y="11.66" width="1.73" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="12.48" y="3.22" width="1.73" height="8.44" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="14.21" y="11.66" width="1.73" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="15.94" y="7.31" width="1.73" height="4.35" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="17.68" y="11.66" width="1.73" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="19.41" y="10.67" width="1.73" height="0.99" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="21.14" y="11.66" width="1.73" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="22.87" y="11.20" width="1.73" height="0.46" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="24.60" y="11.66" width="1.73" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="26.33" y="11.55" width="1.73" height="0.11" style="stroke-width: 0.38; fill: #D3D3D3;"></rect></g></svg>
+</g><defs><clipPath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="10.11" y="3.22" width="1.94" height="8.44" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="12.05" y="3.31" width="1.94" height="8.35" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="13.99" y="11.66" width="1.94" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="15.93" y="7.13" width="1.94" height="4.53" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="17.87" y="11.66" width="1.94" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="19.81" y="10.51" width="1.94" height="1.15" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="21.75" y="11.66" width="1.94" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="23.69" y="11.27" width="1.94" height="0.39" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="25.63" y="11.66" width="1.94" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="27.57" y="11.55" width="1.94" height="0.12" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="29.51" y="11.66" width="1.94" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="31.45" y="11.64" width="1.94" height="0.023" style="stroke-width: 0.38; fill: #D3D3D3;"></rect></g></g></svg>
 </td>
-   <td style="text-align:left;"> [Wiki](https://en.wikipedia.org/wiki/Poisson_distribution) </td>
+   <td style="text-align:left;"> [Wiki](htt </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Gamma </td>
    <td style="text-align:left;"> 0.1, 2.5, 5.5, +Inf </td>
    <td style="text-align:left;"> `rgamma()` </td>
    <td style="text-align:left;"> shape, rate </td>
-   <td style="text-align:left;">  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewBox="0 0 48.00 12.00"><defs><style type="text/css">
+   <td style="text-align:left;">  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.00pt" height="12.00pt" viewBox="0 0 48.00 12.00"><g class="svglite"><defs><style type="text/css">
     .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
       fill: none;
       stroke: #000000;
@@ -794,17 +802,21 @@ Finally, to describe **shape**, we need some shapes to compare our distributions
     .svglite text {
       white-space: pre;
     }
+    .svglite g.glyphgroup path {
+      fill: inherit;
+      stroke: none;
+    }
   </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clipPath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
-</g><defs><clipPath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="10.75" y="3.22" width="3.46" height="8.44" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="14.21" y="8.75" width="3.46" height="2.91" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="17.68" y="10.62" width="3.46" height="1.04" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="21.14" y="11.32" width="3.46" height="0.34" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="24.60" y="11.47" width="3.46" height="0.20" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="28.06" y="11.61" width="3.46" height="0.052" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="31.52" y="11.65" width="3.46" height="0.013" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="34.98" y="11.66" width="3.46" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="38.45" y="11.66" width="3.46" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="41.91" y="11.66" width="3.46" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="45.37" y="11.65" width="3.46" height="0.013" style="stroke-width: 0.38; fill: #D3D3D3;"></rect></g></svg>
+</g><defs><clipPath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="10.11" y="3.22" width="3.88" height="8.44" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="13.99" y="8.61" width="3.88" height="3.05" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="17.87" y="10.40" width="3.88" height="1.27" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="21.75" y="11.34" width="3.88" height="0.32" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="25.63" y="11.53" width="3.88" height="0.13" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="29.51" y="11.61" width="3.88" height="0.053" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="33.39" y="11.62" width="3.88" height="0.040" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="37.27" y="11.66" width="3.88" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="41.15" y="11.65" width="3.88" height="0.013" style="stroke-width: 0.38; fill: #D3D3D3;"></rect></g></g></svg>
 </td>
-   <td style="text-align:left;"> [Wiki](https://en.wikipedia.org/wiki/Gamma_distribution) </td>
+   <td style="text-align:left;"> [Wiki](htt </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Exponential </td>
    <td style="text-align:left;"> same </td>
    <td style="text-align:left;"> `rexp()` </td>
    <td style="text-align:left;"> rate </td>
-   <td style="text-align:left;">  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewBox="0 0 48.00 12.00"><defs><style type="text/css">
+   <td style="text-align:left;">  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.00pt" height="12.00pt" viewBox="0 0 48.00 12.00"><g class="svglite"><defs><style type="text/css">
     .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
       fill: none;
       stroke: #000000;
@@ -815,17 +827,21 @@ Finally, to describe **shape**, we need some shapes to compare our distributions
     .svglite text {
       white-space: pre;
     }
+    .svglite g.glyphgroup path {
+      fill: inherit;
+      stroke: none;
+    }
   </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clipPath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
-</g><defs><clipPath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="10.75" y="3.22" width="1.73" height="8.44" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="12.48" y="6.87" width="1.73" height="4.79" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="14.21" y="9.05" width="1.73" height="2.61" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="15.94" y="9.55" width="1.73" height="2.12" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="17.68" y="10.62" width="1.73" height="1.04" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="19.41" y="10.89" width="1.73" height="0.77" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="21.14" y="11.29" width="1.73" height="0.37" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="22.87" y="11.43" width="1.73" height="0.23" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="24.60" y="11.56" width="1.73" height="0.10" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="26.33" y="11.54" width="1.73" height="0.12" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="28.06" y="11.60" width="1.73" height="0.062" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="29.79" y="11.62" width="1.73" height="0.041" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="31.52" y="11.66" width="1.73" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="33.25" y="11.64" width="1.73" height="0.021" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="34.98" y="11.64" width="1.73" height="0.021" style="stroke-width: 0.38; fill: #D3D3D3;"></rect></g></svg>
+</g><defs><clipPath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="8.17" y="11.42" width="1.94" height="0.24" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="10.11" y="3.22" width="1.94" height="8.44" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="12.05" y="6.47" width="1.94" height="5.19" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="13.99" y="8.52" width="1.94" height="3.14" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="15.93" y="9.69" width="1.94" height="1.97" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="17.87" y="10.36" width="1.94" height="1.30" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="19.81" y="10.98" width="1.94" height="0.69" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="21.75" y="11.15" width="1.94" height="0.51" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="23.69" y="11.42" width="1.94" height="0.24" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="25.63" y="11.49" width="1.94" height="0.18" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="27.57" y="11.62" width="1.94" height="0.044" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="29.51" y="11.60" width="1.94" height="0.066" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="31.45" y="11.64" width="1.94" height="0.022" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="33.39" y="11.64" width="1.94" height="0.022" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="35.33" y="11.64" width="1.94" height="0.022" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="37.27" y="11.66" width="1.94" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="39.21" y="11.64" width="1.94" height="0.022" style="stroke-width: 0.38; fill: #D3D3D3;"></rect></g></g></svg>
 </td>
-   <td style="text-align:left;"> [Wiki](https://en.wikipedia.org/wiki/Exponential_distribution) </td>
+   <td style="text-align:left;"> [Wiki](htt </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Weibull </td>
    <td style="text-align:left;"> same </td>
    <td style="text-align:left;"> `rweibull()` </td>
    <td style="text-align:left;"> shape, scale </td>
-   <td style="text-align:left;">  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewBox="0 0 48.00 12.00"><defs><style type="text/css">
+   <td style="text-align:left;">  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.00pt" height="12.00pt" viewBox="0 0 48.00 12.00"><g class="svglite"><defs><style type="text/css">
     .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
       fill: none;
       stroke: #000000;
@@ -836,17 +852,21 @@ Finally, to describe **shape**, we need some shapes to compare our distributions
     .svglite text {
       white-space: pre;
     }
+    .svglite g.glyphgroup path {
+      fill: inherit;
+      stroke: none;
+    }
   </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clipPath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
-</g><defs><clipPath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="10.75" y="3.22" width="3.46" height="8.44" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="14.21" y="8.61" width="3.46" height="3.05" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="17.68" y="10.55" width="3.46" height="1.11" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="21.14" y="11.29" width="3.46" height="0.37" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="24.60" y="11.50" width="3.46" height="0.16" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="28.06" y="11.62" width="3.46" height="0.040" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="31.52" y="11.65" width="3.46" height="0.013" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="34.98" y="11.65" width="3.46" height="0.013" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="38.45" y="11.66" width="3.46" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="41.91" y="11.65" width="3.46" height="0.013" style="stroke-width: 0.38; fill: #D3D3D3;"></rect></g></svg>
+</g><defs><clipPath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="10.11" y="3.22" width="3.88" height="8.44" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="13.99" y="8.63" width="3.88" height="3.03" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="17.87" y="10.48" width="3.88" height="1.18" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="21.75" y="11.30" width="3.88" height="0.36" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="25.63" y="11.52" width="3.88" height="0.15" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="29.51" y="11.60" width="3.88" height="0.066" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="33.39" y="11.66" width="3.88" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="37.27" y="11.66" width="3.88" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="41.15" y="11.66" width="3.88" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="45.03" y="11.65" width="3.88" height="0.013" style="stroke-width: 0.38; fill: #D3D3D3;"></rect></g></g></svg>
 </td>
-   <td style="text-align:left;"> [Wiki](https://en.wikipedia.org/wiki/Weibull_distribution) </td>
+   <td style="text-align:left;"> [Wiki](htt </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Binomial </td>
    <td style="text-align:left;"> 0 vs. 1 </td>
    <td style="text-align:left;"> `rbinom()` </td>
    <td style="text-align:left;"> probability </td>
-   <td style="text-align:left;">  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewBox="0 0 48.00 12.00"><defs><style type="text/css">
+   <td style="text-align:left;">  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.00pt" height="12.00pt" viewBox="0 0 48.00 12.00"><g class="svglite"><defs><style type="text/css">
     .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
       fill: none;
       stroke: #000000;
@@ -857,17 +877,21 @@ Finally, to describe **shape**, we need some shapes to compare our distributions
     .svglite text {
       white-space: pre;
     }
+    .svglite g.glyphgroup path {
+      fill: inherit;
+      stroke: none;
+    }
   </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clipPath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
-</g><defs><clipPath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="10.06" y="3.29" width="0.69" height="8.38" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="10.75" y="11.66" width="0.69" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="11.44" y="11.66" width="0.69" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="12.14" y="11.66" width="0.69" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="12.83" y="11.66" width="0.69" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="13.52" y="11.66" width="0.69" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="14.21" y="11.66" width="0.69" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="14.91" y="11.66" width="0.69" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="15.60" y="11.66" width="0.69" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="16.29" y="11.66" width="0.69" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="16.98" y="3.22" width="0.69" height="8.44" style="stroke-width: 0.38; fill: #D3D3D3;"></rect></g></svg>
+</g><defs><clipPath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="10.11" y="3.22" width="0.78" height="8.44" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="10.88" y="11.66" width="0.78" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="11.66" y="11.66" width="0.78" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="12.44" y="11.66" width="0.78" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="13.21" y="11.66" width="0.78" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="13.99" y="11.66" width="0.78" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="14.76" y="11.66" width="0.78" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="15.54" y="11.66" width="0.78" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="16.32" y="11.66" width="0.78" height="0.00" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="17.09" y="3.22" width="0.78" height="8.44" style="stroke-width: 0.38; fill: #D3D3D3;"></rect></g></g></svg>
 </td>
-   <td style="text-align:left;"> [Wiki](https://en.wikipedia.org/wiki/Binomial_distribution) </td>
+   <td style="text-align:left;"> [Wiki](htt </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Uniform </td>
    <td style="text-align:left;"> min to max </td>
    <td style="text-align:left;"> `runif()` </td>
    <td style="text-align:left;"> min, max </td>
-   <td style="text-align:left;">  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svglite" width="48.00pt" height="12.00pt" viewBox="0 0 48.00 12.00"><defs><style type="text/css">
+   <td style="text-align:left;">  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.00pt" height="12.00pt" viewBox="0 0 48.00 12.00"><g class="svglite"><defs><style type="text/css">
     .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
       fill: none;
       stroke: #000000;
@@ -878,10 +902,14 @@ Finally, to describe **shape**, we need some shapes to compare our distributions
     .svglite text {
       white-space: pre;
     }
+    .svglite g.glyphgroup path {
+      fill: inherit;
+      stroke: none;
+    }
   </style></defs><rect width="100%" height="100%" style="stroke: none; fill: none;"></rect><defs><clipPath id="cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw"><rect x="0.00" y="0.00" width="48.00" height="12.00"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwwLjAwfDEyLjAw)">
-</g><defs><clipPath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="7.29" y="8.15" width="1.73" height="3.51" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="9.02" y="3.22" width="1.73" height="8.44" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="10.75" y="3.99" width="1.73" height="7.68" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="12.48" y="4.20" width="1.73" height="7.46" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="14.21" y="3.66" width="1.73" height="8.01" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="15.94" y="3.49" width="1.73" height="8.17" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="17.68" y="3.33" width="1.73" height="8.33" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="19.41" y="8.43" width="1.73" height="3.24" style="stroke-width: 0.38; fill: #D3D3D3;"></rect></g></svg>
+</g><defs><clipPath id="cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw"><rect x="0.00" y="2.88" width="48.00" height="9.12"></rect></clipPath></defs><g clip-path="url(#cpMC4wMHw0OC4wMHwyLjg4fDEyLjAw)"><rect x="6.23" y="7.99" width="1.94" height="3.67" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="8.17" y="3.93" width="1.94" height="7.73" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="10.11" y="3.33" width="1.94" height="8.33" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="12.05" y="4.15" width="1.94" height="7.51" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="13.99" y="4.15" width="1.94" height="7.51" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="15.93" y="3.22" width="1.94" height="8.44" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="17.87" y="3.44" width="1.94" height="8.23" style="stroke-width: 0.38; fill: #D3D3D3;"></rect><rect x="19.81" y="8.26" width="1.94" height="3.40" style="stroke-width: 0.38; fill: #D3D3D3;"></rect></g></g></svg>
 </td>
-   <td style="text-align:left;"> [Wiki](https://en.wikipedia.org/wiki/Continuous_uniform_distribution) </td>
+   <td style="text-align:left;"> [Wiki](htt </td>
   </tr>
 </tbody>
 </table>
@@ -894,7 +922,7 @@ To determine what kind of distribution our vector has, we can visually compare i
 
 ## Finding Parameters for your Distribution
 
-To do so, let's get some statistics from our data to help us visualize what a distribution with those traits would look like. As our raw data, let's use our vector of seawall heights ```sw```.
+To do so, let's get some statistics from our data to help us visualize what a distribution with those traits would look like. As our raw data, let's use our vector of seawall heights `sw`.
 
 
 ```r
@@ -902,13 +930,13 @@ To do so, let's get some statistics from our data to help us visualize what a di
 sw <- c(4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4)
 ```
 
-To simulate, you feed your simulator function (1) ```n``` values to draw and (2) any required statistics necessary for computing draws from that distribution. (For example, ```rnorm()``` requires the mean and standard deviation.) 
+To simulate, you feed your simulator function (1) `n` values to draw and (2) any required statistics necessary for computing draws from that distribution. (For example, `rnorm()` requires the mean and standard deviation.) 
 
 Fortunately, statisticians have figured out for us 2 ways to figure out what statistics to provide. 
 
 1. There are a few equations called **method of moments estimators** that do a great job of estimating those statistics. We'll learn these below.
 
-2. Alternatively, we can ask ```R``` to compute the values of those statistics using the ```MASS``` package's ```fitdistr()```. You can learn more about this optional add-on function in the **Appendix.**
+2. Alternatively, we can ask `R` to compute the values of those statistics using the `MASS` package's `fitdistr()`. You can learn more about this optional add-on function in the **Appendix.**
 
 <br>
 <br>
@@ -917,7 +945,7 @@ Fortunately, statisticians have figured out for us 2 ways to figure out what sta
 
 ### Normal Distribution
 
-```rnorm()``` randomly generates for us any number of values randomly sampled from a normal distribution. We just need to supply: (1) ```n``` values to draw, (2) the ```mean``` of that distribution, and (3) the ```sd``` of that distribution.
+`rnorm()` randomly generates for us any number of values randomly sampled from a normal distribution. We just need to supply: (1) `n` values to draw, (2) the `mean` of that distribution, and (3) the `sd` of that distribution.
 
 
 ```r
@@ -958,7 +986,7 @@ Neat!
 
 ### Poisson Distribution
 
-```rpois()``` randomly samples integers (eg. 0, 1, 2, 3) from a poisson distribution, based on ```lambda```, the average rate of occurrence. We can approximate that by taking the mean of ```sw```.
+`rpois()` randomly samples integers (eg. 0, 1, 2, 3) from a poisson distribution, based on `lambda`, the average rate of occurrence. We can approximate that by taking the mean of `sw`.
 
 
 ```r
@@ -990,9 +1018,9 @@ Excellent!
 
 ### Exponential Distribution
 
-```rexp()``` randomly simulates positive real numbers over zero from an [exponential distribution](https://en.wikipedia.org/wiki/Exponential_distribution). Here, the **method of moments** says:
+`rexp()` randomly simulates positive real numbers over zero from an [exponential distribution](https://en.wikipedia.org/wiki/Exponential_distribution). Here, the **method of moments** says:
 
-- ```rate``` \( \approx \frac{ 1 }{ mean }) \)
+- `rate` \( \approx \frac{ 1 }{ mean }) \)
 
 
 ```r
@@ -1024,11 +1052,11 @@ Pretty solid!
 
 ### Gamma Distribution
 
-```rgamma()``` randomly samples positive real numbers greater than zero from a gamma distribution. It's like the continuous version of ```rpois()```. It requires 2 paramters, ```shape``` and ```rate```. You can estimate these a couple of different ways, but a simple one is to use the **method of moments**, which says that: 
+`rgamma()` randomly samples positive real numbers greater than zero from a gamma distribution. It's like the continuous version of `rpois()`. It requires 2 paramters, `shape` and `rate`. You can estimate these a couple of different ways, but a simple one is to use the **method of moments**, which says that: 
 
-- ```shape``` \( \approx \frac{mean^{2}}{ variance} \).
+- `shape` \( \approx \frac{mean^{2}}{ variance} \).
 
-- ```scale```  \( \approx \frac{variance}{ mean } \).
+- `scale`  \( \approx \frac{variance}{ mean } \).
 
 
 ```r
@@ -1070,7 +1098,7 @@ Neat!
 
 ### Weibull Distribution
 
-```rweibull()``` randomly samples positive real numbers over zero too, but from a [Weibull distribution](https://en.wikipedia.org/wiki/Weibull_distribution). It requires a ```shape``` and ```scale``` parameter, but its **method of moments** equation is pretty complex. Once we get into Weibull distribution territory, we'll need to use an advanced concept called maximum likelihood estimation, with the `fitdistr()` from the `MASS` package. You can read more about it in the apppendix.
+`rweibull()` randomly samples positive real numbers over zero too, but from a [Weibull distribution](https://en.wikipedia.org/wiki/Weibull_distribution). It requires a `shape` and `scale` parameter, but its **method of moments** equation is pretty complex. Once we get into Weibull distribution territory, we'll need to use an advanced concept called maximum likelihood estimation, with the `fitdistr()` from the `MASS` package. You can read more about it in the apppendix.
 
 
 ```r
@@ -1096,7 +1124,7 @@ myweibull %>% hist()
 
 ### Binomial Distribution
 
-Next, the binomial distribution is a bit of a special case, in that it's mostly only helpful for binary variables (with values 0 and 1). But let's try an example anyways. ```rbinom()``` randomly draws ```n``` simulated values from a set of provided values at a given probability (```prob```). It's usually used for drawing binary variables (0 and 1); a coin flip would have ```prob = 0.5```, or a 50-50 chance.
+Next, the binomial distribution is a bit of a special case, in that it's mostly only helpful for binary variables (with values 0 and 1). But let's try an example anyways. `rbinom()` randomly draws `n` simulated values from a set of provided values at a given probability (`prob`). It's usually used for drawing binary variables (0 and 1); a coin flip would have `prob = 0.5`, or a 50-50 chance.
 
 
 ```r
@@ -1104,9 +1132,9 @@ rbinom(n = 10, size = 1, prob = 0.5)
 ```
 
 ```
-##  [1] 0 1 0 0 0 0 1 0 0 0
+##  [1] 1 0 1 0 1 0 1 1 1 1
 ```
-To get a meaningful simulation, maybe we calculate the proportion of values that are greater than the ```mean```.
+To get a meaningful simulation, maybe we calculate the proportion of values that are greater than the `mean`.
 
 
 ```r
@@ -1143,7 +1171,7 @@ myunif %>% hist(xlim = c(-0.5,1.5))
 
 ## Comparing Distributions
 
-Finally, we're going to want to outfit those vectors in nice data.frames (skipping ```rbinom()``` and `runif()`), and stack them into 1 data.frame to visualize. We can do this using the ```bind_rows()``` function from the ```dplyr``` package.
+Finally, we're going to want to outfit those vectors in nice data.frames (skipping `rbinom()` and `runif()`), and stack them into 1 data.frame to visualize. We can do this using the `bind_rows()` function from the `dplyr` package.
 
 
 ```r
@@ -1164,7 +1192,7 @@ mysim <- bind_rows(
 )
 ```
 
-Next, we can visualize those distributions using ```geom_density()``` in ggplot (or ```geom_histogram()```, really, if that floats your boat).
+Next, we can visualize those distributions using `geom_density()` in ggplot (or `geom_histogram()`, really, if that floats your boat).
 
 
 ```r
@@ -1180,7 +1208,7 @@ g1
 
 <img src="02_workshop_files/figure-html/w2_plot3-1.png" width="672" />
 
-Personally, I can't read much out of that, so it would be helpful to narrow in the x-axis a bit. We can do that with ```xlim()```, narrowing to just between values ```0``` and ```10```.
+Personally, I can't read much out of that, so it would be helpful to narrow in the x-axis a bit. We can do that with `xlim()`, narrowing to just between values `0` and `10`.
 
 
 ```r
@@ -1203,7 +1231,7 @@ Beautiful! Wow! It looks like the **Normal**, **Gamma**, and **Weibull** distrib
 
 **Question**
   
-You've been recruited to evaluate the frequency of Corgi sightings in the Ithaca Downtown. A sample of 10 students each reported the number of corgis they saw last Tuesday in town. Using the method of moments (or ```fitdistr()``` for Weibull) and ```ggplot()```, find out which type of distribution best matches the observed corgi distribution!
+You've been recruited to evaluate the frequency of Corgi sightings in the Ithaca Downtown. A sample of 10 students each reported the number of corgis they saw last Tuesday in town. Using the method of moments (or `fitdistr()` for Weibull) and `ggplot()`, find out which type of distribution best matches the observed corgi distribution!
 
 Beth saw 5, Javier saw 1, June saw 10(!), Tim saw 3, Melanie saw 4, Mohammad saw 3, Jenny say 6, Yosuke saw 4, Jimena saw 5, and David saw 2.
 

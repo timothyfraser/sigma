@@ -5,6 +5,9 @@ library(tidyverse)
 library(knitr)
 library(kableExtra)
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+
+# Fix graphics API version mismatch issues by avoiding ragg
+knitr::opts_chunk$set(dev = "png")
 ```
 
 ```{r, out.width = "100%", echo = FALSE, fig.cap="Bootstrapping Sampling Distributions for Statistics!!"}
@@ -501,9 +504,6 @@ g = mybootstat %>%
   guides(fill = "none")
 # View it!
 g
-```
-```{r, echo = FALSE, results='hide', include = FALSE}
-ggsave(g, filename = "images/10_cover.png", dpi = 200, width = 8, height = 4)
 ```
 So last, let's take our boostrapped $C_{p}$ statistics in `mybootstat$cp` and estimate a confidence interval and standard error for this sampling distribution.
 

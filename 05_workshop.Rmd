@@ -45,7 +45,7 @@ For today's workshop, we're going to think about why quality control matters in 
 
 *Onsen*-goers often seek out *specific* types of hot springs, so it's important for an *onsen* to actually provide what it advertises! [Serbulea and Payyappallimana (2012)](http://dx.doi.org/10.1016/j.healthplace.2012.06.020) describe some of these benchmarks.
 
-- **Temperature**: Onsen are divided into "Extra Hot Springs" (`>42 °C`), "Hot Springs" (`41~34°C`), and "Warm Springs" (`33~25°C`).
+- **Temperature**: Onsen are divided into "Extra Hot Springs" (`>42  degreesC`), "Hot Springs" (`41~34 degreesC`), and "Warm Springs" (`33~25 degreesC`).
 
 - **pH**: Onsen are classified into "Acidic" (`pH < 3`), "Mildly Acidic" (`pH 3~6`), "Neutral" (`pH 6~7.5`), "Mildly alkaline" (`ph 7.5~8.5`), and "Aklaline" (`pH > 8.5`).
 

@@ -2,6 +2,9 @@
 
 ```{r setup_skill_gpplot, include = FALSE}
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+
+# Fix graphics API version mismatch issues by avoiding ragg
+knitr::opts_chunk$set(dev = "png")
 ```
 
 Visualization is a key part of statistical analyses, especially in systems engineering! Visuals themselves are often the analysis themselves! In this tutorial, we're going to learn how to visualize data in the `ggplot2` package.

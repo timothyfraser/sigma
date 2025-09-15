@@ -60,8 +60,8 @@ plife <- lifespan %>% density() %>% tidy() %>%
 
 Having built these functions for our cars, we can generate the
 probability (PDF) and cumulative probability (CDF) of failure across our
-observed vector of car lifespans, from \~2.76
-to \~7.68.
+observed vector of car lifespans, from \~1.98
+to \~8.02.
 
 Reliability or Survival Analysis is concerned with *the probability*
 that a unit (our car) will still be operating by a specific time $t$,
@@ -397,7 +397,7 @@ breaks within a year is...
 ## Table of Failure-Related Functions
 
 <table class="table" style="margin-left: auto; margin-right: auto;">
-<caption>(\#tab:tab_functions)Table 1. Failure and Reliability Functions</caption>
+<caption>(\#tab:tab_functions)(\#tab:tab_functions)Table 1. Failure and Reliability Functions</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Function </th>
@@ -409,42 +409,42 @@ breaks within a year is...
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #DC267F !important;"> $F(t)$ </td>
+   <td style="text-align:left;font-weight: bold;color: rgba(220, 38, 127, 255) !important;"> $F(t)$ </td>
    <td style="text-align:left;"> Failure Function </td>
    <td style="text-align:left;"> $1 - e^{-\lambda t}$ </td>
    <td style="text-align:left;"> $1 - e^{-H(t)}$ </td>
    <td style="text-align:left;"> Cumulative Distribution Function (CDF) of Lifespans </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #648FFF !important;"> $R(t)$ </td>
+   <td style="text-align:left;font-weight: bold;color: rgba(100, 143, 255, 255) !important;"> $R(t)$ </td>
    <td style="text-align:left;"> Reliability Distribution </td>
    <td style="text-align:left;"> $e^{-\lambda t}$ </td>
    <td style="text-align:left;"> $e^{-H(t)}$ </td>
    <td style="text-align:left;"> Remainder of CDF for Lifespans </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #785EF0 !important;"> $f(t)$ </td>
+   <td style="text-align:left;font-weight: bold;color: rgba(120, 94, 240, 255) !important;"> $f(t)$ </td>
    <td style="text-align:left;"> Change in Failure Function </td>
    <td style="text-align:left;"> $\frac{F(t + \Delta t) - F(t)}{\Delta t}$ </td>
    <td style="text-align:left;"> $-R'(t)$ </td>
    <td style="text-align:left;"> Change in CDF at time $t_{2}$ $-$ at $t_{1}$, per extra timestep </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #EA5A00 !important;"> $z(t)$ </td>
+   <td style="text-align:left;font-weight: bold;color: rgba(234, 90, 0, 255) !important;"> $z(t)$ </td>
    <td style="text-align:left;"> Failure Rate (Hazard Rate) </td>
    <td style="text-align:left;"> $\frac{f(t)}{R(t)}$ </td>
    <td style="text-align:left;"> $\lambda = \frac{1}{m}$ </td>
    <td style="text-align:left;"> Mean Failure Rate $\lambda$; Inverse of Mean Time to Fail $m$ </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #C99728 !important;"> $H(t)$ </td>
+   <td style="text-align:left;font-weight: bold;color: rgba(201, 151, 40, 255) !important;"> $H(t)$ </td>
    <td style="text-align:left;"> Accumulative Hazard Rate </td>
    <td style="text-align:left;"> $-log( R(t) )$ </td>
    <td style="text-align:left;"> $\lambda t$ </td>
    <td style="text-align:left;"> Total Risk of Failure gained from time 0 to $t$ </td>
   </tr>
   <tr>
-   <td style="text-align:left;font-weight: bold;color: #E0712B !important;"> $AFR(t_1,t_2)$ </td>
+   <td style="text-align:left;font-weight: bold;color: rgba(224, 113, 43, 255) !important;"> $AFR(t_1,t_2)$ </td>
    <td style="text-align:left;"> Average Failure Rate </td>
    <td style="text-align:left;"> $\frac{H(t_{2}) - H(t_{1})}{t_{2} - t_{1}}$ </td>
    <td style="text-align:left;"> $\frac{log(R(t_{1})) -log(R(t_{2})}{t_{2} - t_{1}}$ </td>
@@ -784,7 +784,7 @@ framen(240)
 ```
 
 ```
-## [1] 0.5082465
+## [1] 0.508274
 ```
 
 Yes! \~50% of packages will go bad within 8 months. Pretty accurate!
@@ -802,7 +802,7 @@ lambda
 ```
 
 ```
-## [1] 0.0256399
+## [1] 0.02563947
 ```
 
 On average, between 8 months to 1 year, ramen packages go bad at a rate
@@ -822,7 +822,7 @@ m
 ```
 
 ```
-## [1] 39.00172
+## [1] 39.00237
 ```
 
 `39` days per package. In other words, during this period
@@ -868,8 +868,8 @@ We can also visualize it below, where each labelled node is a component.
 <div class="figure">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-ac9389117e4648712d82" style="width:672px;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-ac9389117e4648712d82">{"x":{"diagram":"graph LR\n sstart(( ))\n send(( ))\n subgraph Series System\n 1\n 2\n 3\n end\n 1---2\n 2---3\n sstart---1\n 3---send"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-7c481e3aa4e87504e105" style="width:672px;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-7c481e3aa4e87504e105">{"x":{"diagram":"graph LR\n sstart(( ))\n send(( ))\n subgraph Series System\n 1\n 2\n 3\n end\n 1---2\n 2---3\n sstart---1\n 3---send"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:mermaid_series)Figure 6. Example Series System</p>
@@ -903,8 +903,8 @@ need them in `mermaid`.)
 <div class="figure">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-2b8c62f5679364fbf5ba" style="width:100%;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-2b8c62f5679364fbf5ba">{"x":{"diagram":"graph LR\n ostart(( ))\n oend(( ))\n subgraph Parallel System\n pstart(( ))\n 1\n 2\n 3\n pend(( ))\n pstart---1\n pstart---2\n pstart---3\n 1---pend\n 2---pend\n 3---pend\n end\n ostart---pstart\n pend---oend"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-51589a8466f18418b844" style="width:100%;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-51589a8466f18418b844">{"x":{"diagram":"graph LR\n ostart(( ))\n oend(( ))\n subgraph Parallel System\n pstart(( ))\n 1\n 2\n 3\n pend(( ))\n pstart---1\n pstart---2\n pstart---3\n 1---pend\n 2---pend\n 3---pend\n end\n ostart---pstart\n pend---oend"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:mermaid_parallel)Figure 7. Example Parallel System</p>
@@ -924,8 +924,8 @@ system.
 <div class="figure">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-86937227c00c2463f7bb" style="width:672px;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-86937227c00c2463f7bb">{"x":{"diagram":"graph LR\n subgraph Series System\n 1[1<br>R=0.80]\n 5[5<br>R=0.95]\n subgraph Parallel System\n pstart(( ))\n 2[2<br>R=0.98]\n 3[3<br>R=0.99]\n 4[4<br>R=0.90]\n pend(( ))\n pstart---2\n pstart---3\n pstart---4\n 2---pend\n 3---pend\n 4---pend\n end\n 1---pstart\n pend---5\n end"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-cb53b92bc85735b49a3c" style="width:672px;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-cb53b92bc85735b49a3c">{"x":{"diagram":"graph LR\n subgraph Series System\n 1[1<br>R=0.80]\n 5[5<br>R=0.95]\n subgraph Parallel System\n pstart(( ))\n 2[2<br>R=0.98]\n 3[3<br>R=0.99]\n 4[4<br>R=0.90]\n pend(( ))\n pstart---2\n pstart---3\n pstart---4\n 2---pend\n 3---pend\n 4---pend\n end\n 1---pstart\n pend---5\n end"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:nested1)Figure 8. Series System with Nested Parallel System</p>
@@ -944,8 +944,8 @@ In the Figure above, we calculate the reliability rate for the parallel system, 
 <div class="figure">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-40b270c2ee65880d1f58" style="width:672px;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-40b270c2ee65880d1f58">{"x":{"diagram":"graph LR\n subgraph Parallel System\n pbstart(( ))\n pbend(( ))\n subgraph Series System A\n 6[6<br>R=0.80]\n 7[7<br>R=0.90]\n end\n subgraph Series System B\n 8[8<br>R=0.95]\n 9[9<br>R=0.99]\n end\n pbstart---6\n 6---7\n 7---pbend\n pbstart---8\n 8---9\n 9---pbend\n end"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-22c842f19d0e93acb5e2" style="width:672px;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-22c842f19d0e93acb5e2">{"x":{"diagram":"graph LR\n subgraph Parallel System\n pbstart(( ))\n pbend(( ))\n subgraph Series System A\n 6[6<br>R=0.80]\n 7[7<br>R=0.90]\n end\n subgraph Series System B\n 8[8<br>R=0.95]\n 9[9<br>R=0.99]\n end\n pbstart---6\n 6---7\n 7---pbend\n pbstart---8\n 8---9\n 9---pbend\n end"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:nestedb)Figure 9. Parallel System with Nested Series Systems</p>
@@ -989,8 +989,8 @@ We can represent this in a system diagram below.
 <div class="figure">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-bba3787b1aaa4042c1f9" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-bba3787b1aaa4042c1f9">{"x":{"diagram":"graph LR\n subgraph Coffee Shop Series System\n a[Water]\n b[Coffee Grounds]\n c[Refrigerator]\n d[Dishwasher]\n e[Register]\n end\n a---b\n b---c\n c---d\n d---e"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-3a5f94de43d06cffd8a3" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-3a5f94de43d06cffd8a3">{"x":{"diagram":"graph LR\n subgraph Coffee Shop Series System\n a[Water]\n b[Coffee Grounds]\n c[Refrigerator]\n d[Dishwasher]\n e[Register]\n end\n a---b\n b---c\n c---d\n d---e"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:coffee_series)Figure 10. Example Series System in a Coffeeshop</p>
@@ -1141,9 +1141,9 @@ fakeunits %>% head(3)
 ## # A tibble: 3 × 4
 ##    time prob_f prob_fr_f_10 prob_fr_f_50
 ##   <dbl>  <dbl>        <dbl>        <dbl>
-## 1     0 0.0341     0.000436     0.000484
-## 2     1 0.0344     0.000442     0.000490
-## 3     2 0.0348     0.000449     0.000496
+## 1     0 0.0341     0.000435     0.000484
+## 2     1 0.0344     0.000441     0.000490
+## 3     2 0.0347     0.000448     0.000496
 ```
 
 And let's visualize it!

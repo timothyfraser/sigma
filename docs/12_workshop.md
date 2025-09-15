@@ -9,7 +9,7 @@
 
 Why do some communities see stronger **social capital** than others? **Social capital** refers to the social ties that bind results, enabling trust and collective action among residents to tackle public issues. [Recent studies suggest](https://doi.org/10.1016/j.ijdrr.2018.11.009) that after disasters, residents' social capital actually increases, because people recognize the value of friends and family as they work to recover and rebuild. We can use regression analysis to test this hypothesis on new data!
 
-This workshop examines 151 Japanese municipalities over 7 years, from 2011 to 2017 (```jp_matching_experiment.csv```), totaling 1057 city-year observations. This includes 85 coastal municipalities hit by the 2011 tsunami and 66 municipalities as similar as possible, just next door, that were not hit. Let's load in our data and get started.
+This workshop examines 151 Japanese municipalities over 7 years, from 2011 to 2017 (`jp_matching_experiment.csv`), totaling 1057 city-year observations. This includes 85 coastal municipalities hit by the 2011 tsunami and 66 municipalities as similar as possible, just next door, that were not hit. Let's load in our data and get started.
 
 <br>
 
@@ -53,37 +53,37 @@ cities %>% head(3)
 In this dataset, our variables mean:
 
 
-- ```muni_code``` unique 5 digit idenfier for each municipality.
+- `muni_code` unique 5 digit idenfier for each municipality.
 
-- ```muni```: municipality where election took place
+- `muni`: municipality where election took place
 
-- ```pref```: prefecture that municipality is in
+- `pref`: prefecture that municipality is in
 
-- ```year```: year of observation.
+- `year`: year of observation.
 
-- ```by_tsunami```: was that city struck by the tsunami ("Hit"), not hit but just next door ("Not Hit"), or some other municipality ("Other")?
+- `by_tsunami`: was that city struck by the tsunami ("Hit"), not hit but just next door ("Not Hit"), or some other municipality ("Other")?
 
 **Outcome Variable**
 
-- ```social_capital```: index measuring overall social capital, the social ties between residents that build trust, using several dimensions. Measured on a scale from 0 (low) to 1 (high).
+- `social_capital`: index measuring overall social capital, the social ties between residents that build trust, using several dimensions. Measured on a scale from 0 (low) to 1 (high).
 
 **Explanatory Variable**
 
-- ```damage_rate```: rate of buildings damaged or destroyed by earthquake and tsunami, per million residents.
+- `damage_rate`: rate of buildings damaged or destroyed by earthquake and tsunami, per million residents.
 
 **Control Variables**
 
-- ```exp_dis_relief_per_capita```: spending on disaster relief in 1000s of yen per capita.
+- `exp_dis_relief_per_capita`: spending on disaster relief in 1000s of yen per capita.
 
-- ```income_per_capita```: income per capita in millions of yen per capita.
+- `income_per_capita`: income per capita in millions of yen per capita.
 
-- ```unemployment```: unemployment rate per 1,000 residents.
+- `unemployment`: unemployment rate per 1,000 residents.
 
-- ```pop_women```: % residents who are women
+- `pop_women`: % residents who are women
 
-- ```pop_over_age_65```: % residents over age 65
+- `pop_over_age_65`: % residents over age 65
 
-- ```pop_density```: population in 1000s of residents per square kilometer
+- `pop_density`: population in 1000s of residents per square kilometer
 
 
 <br>
@@ -93,7 +93,7 @@ In this dataset, our variables mean:
 
 ### Beta coefficients
 
-We can use a regression model to test the association between our **outcome variable** ```social_capital``` and our **explanatory variable** ```by_tsunami```. Using the ```lm()``` function, we can get a **beta** coefficient estimating how much higher a social capital index score they received for every additional building damaged per million residents.
+We can use a regression model to test the association between our **outcome variable** `social_capital` and our **explanatory variable** `by_tsunami`. Using the `lm()` function, we can get a **beta** coefficient estimating how much higher a social capital index score they received for every additional building damaged per million residents.
 
 
 ```r
@@ -118,7 +118,7 @@ cities %>%
 
 But... many other things might affect social capital in a community, not just getting hit by the tsunami: For example, (1) population density, (2) wealth, (3) unemployment, (4) age, (5) government capacity, (6) disaster relief, (7) time, and even (8) regional differences. We need to add **control variables** to our model to **control** for these alternative explanations for variation in social capital. This will **refine** our beta coefficient for the effect of the tsunami, getting us closer to the truth.
 
-We can add extra control variables using ```+``` in the ```lm()``` function. For example, we test the effect of ```damage_rate``` below, controlling for ```income_per_capita```.
+We can add extra control variables using `+` in the `lm()` function. For example, we test the effect of `damage_rate` below, controlling for `income_per_capita`.
 
 
 ```r
@@ -165,7 +165,7 @@ Instead of a line of best fit, for 2 variables, this regression model now essent
 **Question**
 
 
-<text style="color:#9F2042">Make a regression model testing the effect of a city's ```damage_rate``` on ```social_capital```, controlling for ```pop_density```. What's the effect of ```damage_rate``` on ```social_capital```?
+<text style="color:#9F2042">Make a regression model testing the effect of a city's `damage_rate` on `social_capital`, controlling for `pop_density`. What's the effect of `damage_rate` on `social_capital`?
 
 <br>
 <br>
@@ -235,7 +235,7 @@ rescaled %>% head(3)
 |02202     |Hirosaki  |Aomori |2011 |Not Hit    |      0.3907693|  -0.6351305|  -0.1932630|                -0.3611821|       -0.34526666|   -0.1842532| 1.5495231|      -0.4271015|
 |02203     |Hachinohe |Aomori |2011 |Hit        |      0.2606770|  -0.6225776|   0.1404966|                -0.3343254|        0.17144612|    0.7018050| 0.5775988|      -0.7093800|
 
-Okay, let's repeat our model, this time using our new data.frame ```rescaled```, and save the model as ```m0```.
+Okay, let's repeat our model, this time using our new data.frame `rescaled`, and save the model as `m0`.
 
 
 ```r
@@ -267,7 +267,7 @@ We can now interpret our results as: As the damage rate increases by 1 standard 
 
 **Question**
 
-<text style="color:#9F2042">Make a second regression model called ```m1```, that *also* controls for the effect of ```year```. Because we made it a ```factor()```, we control for each year. The ```beta``` coefficient tells us now *how many more standard deviations of social capital* we got in year X compared to the first year (2011), our baseline for comparison. The ```alpha``` coefficient tells us how many standard deviations we got during the our baseline year. Which year had the largest effect on social capital, and how much was that effect?
+<text style="color:#9F2042">Make a second regression model called `m1`, that *also* controls for the effect of `year`. Because we made it a `factor()`, we control for each year. The `beta` coefficient tells us now *how many more standard deviations of social capital* we got in year X compared to the first year (2011), our baseline for comparison. The `alpha` coefficient tells us how many standard deviations we got during the our baseline year. Which year had the largest effect on social capital, and how much was that effect?
 
 <details><summary>**[View Answer!]**</summary>
 
@@ -311,7 +311,7 @@ Notice that we didn't rescale categorical variables. In regression, categorical 
 
 To find the best model, it helps to make several, in a logical, systematic way. 
 
-- Choose your explanatory variable whose effect you really want to test. For us, that's disaster damage (```damage_rate```). Add choose your absolutely most essential control variables, without which the model isn't very valid. For us, that's ```pop_density``` and ```year```.  (Already done and saved as ```m1```!)
+- Choose your explanatory variable whose effect you really want to test. For us, that's disaster damage (`damage_rate`). Add choose your absolutely most essential control variables, without which the model isn't very valid. For us, that's `pop_density` and `year`.  (Already done and saved as `m1`!)
 
 
 ```r
@@ -320,7 +320,7 @@ m1 <- rescaled %>%
   lm(formula = social_capital ~ damage_rate + pop_density + year)
 ```
 
-- Add more controls, to wean out effects of other phenomena and get a more accurate beta coefficient for ```damage_rate```. Let's add ```exp_dis_relief_per_capita```, to control for city government spending on disaster relief. Save that as ```m2```.
+- Add more controls, to wean out effects of other phenomena and get a more accurate beta coefficient for `damage_rate`. Let's add `exp_dis_relief_per_capita`, to control for city government spending on disaster relief. Save that as `m2`.
 
 
 ```r
@@ -329,7 +329,7 @@ m2 <- rescaled %>%
        exp_dis_relief_per_capita)
 ```
 
-- Examine our two tables, using the ```texreg``` package's ```htmlreg()``` function. We're going to ```list()``` our models ```m1``` and ```m2```, and ask R to save a nice table in our files as ```"table_1.html"```. Try it out, then go to your files in the right-hand corner and click `'View in Web Browser'`! 
+- Examine our two tables, using the `texreg` package's `htmlreg()` function. We're going to `list()` our models `m1` and `m2`, and ask R to save a nice table in our files as `"table_1.html"`. Try it out, then go to your files in the right-hand corner and click `'View in Web Browser'`! 
 
 
 ```r
@@ -495,14 +495,14 @@ Pretty nice, right? The ```bold = 0.05``` says, if your p-value is below p < 0.0
 
 **Question**
 
-<text style="color:#9F2042">Make another model called ```m3```, adding as controls ```income_per_capita```,  ```unemployment```,  ```pop_women```, and ```pop_over_age_65```. Then make a model called ```m4```, which adds ```pref```, the prefecture each city is in (like their state). Finally, put them together in a ```htmlreg()``` table that visualizes ```m1```, ```m2```, ```m3```, and ```m4``` side by side, called ```"table_2.html"```. Look at the R-squared statistic at the bottom. Which model fits best?
+<text style="color:#9F2042">Make another model called `m3`, adding as controls `income_per_capita`,  `unemployment`,  `pop_women`, and `pop_over_age_65`. Then make a model called `m4`, which adds `pref`, the prefecture each city is in (like their state). Finally, put them together in a `htmlreg()` table that visualizes `m1`, `m2`, `m3`, and `m4` side by side, called `"table_2.html"`. Look at the R-squared statistic at the bottom. Which model fits best?
 
 <br>
 <br>
 
 <details><summary>**[View Answer!]**</summary>
 
-Adding controls ```income_per_capita```,  ```unemployment```,  ```pop_women```, and ```pop_over_age_65```...
+Adding controls `income_per_capita`,  `unemployment`,  `pop_women`, and `pop_over_age_65`...
 
 
 ```r
@@ -884,13 +884,13 @@ Finally, let's add a few bells and whistles to our model table, to make it look 
 
 <details><summary>**[Click here to learn about texreg() arguments!]**</summary>
 
-- ```custom.model.names``` lets you add names for each column.
+- `custom.model.names` lets you add names for each column.
 
-- ```custom.coef.map``` lets you rename variables. It also lets you rearrange them in whatever order makes sense to you. Only variables you rename will stay in the table, so it also will let us exclude the ```year``` effects, which are a few too numerous to report.
+- `custom.coef.map` lets you rename variables. It also lets you rearrange them in whatever order makes sense to you. Only variables you rename will stay in the table, so it also will let us exclude the `year` effects, which are a few too numerous to report.
 
-- ```caption``` adds a nice title. ```caption.above = TRUE``` puts it on top of the table.
+- `caption` adds a nice title. `caption.above = TRUE` puts it on top of the table.
 
-- ```custom.note``` adds a footnote. Always indicate levels of statistical significance. 
+- `custom.note` adds a footnote. Always indicate levels of statistical significance. 
 
 - ```single.row = TRUE``` puts everything on one row, which is helpful.
 
@@ -1177,7 +1177,7 @@ htmlreg(
 
 **Question**
 
-<text style="color:#9F2042">Make a new ```texreg``` table called ```"table_4.html"```, but this time, remove the ```pref``` categorical effects from the table, and make a note in the custom note of in which model we controlled for prefecture. Finally, what's the effect of disaster damage in our final model? How significant is that effect?
+<text style="color:#9F2042">Make a new `texreg` table called `"table_4.html"`, but this time, remove the `pref` categorical effects from the table, and make a note in the custom note of in which model we controlled for prefecture. Finally, what's the effect of disaster damage in our final model? How significant is that effect?
 
 <details><summary>**[View Answer!]**</summary>
 

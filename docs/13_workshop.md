@@ -163,9 +163,9 @@ perm %>% head(3)
 ## # A tibble: 3 × 4
 ##     rep xbar_a xbar_b   dbar
 ##   <int>  <dbl>  <dbl>  <dbl>
-## 1     1   30.2   29.9 -0.344
-## 2     2   30.2   29.9 -0.280
-## 3     3   29.9   30.2  0.312
+## 1     1   30.2   29.8 -0.408
+## 2     2   30.3   29.8 -0.496
+## 3     3   29.8   30.3  0.488
 ```
 Now, let's calculate - what percentage of random statistics were more extreme than than our observed statistic?
 
@@ -186,7 +186,7 @@ perm %>%
 ## # A tibble: 1 × 2
 ##   estimate p_value
 ##      <dbl>   <dbl>
-## 1     3.35       0
+## 1     3.35   0.001
 ```
 Wow! That is a super statistically significant difference of means!
 
@@ -288,12 +288,12 @@ stat_boot %>% head()
 ## # A tibble: 6 × 4
 ##     rep xbar_a xbar_b  dbar
 ##   <int>  <dbl>  <dbl> <dbl>
-## 1     1   27.4   31.3  3.86
-## 2     2   28.7   32.6  3.85
-## 3     3   28.1   30.0  1.85
-## 4     4   27.3   31.3  3.97
-## 5     5   27.9   31.6  3.65
-## 6     6   28.5   30.3  1.74
+## 1     1   28.2   32.0  3.82
+## 2     2   28.0   31.4  3.48
+## 3     3   28.0   32.7  4.69
+## 4     4   28.1   31.6  3.54
+## 5     5   28.2   30.7  2.51
+## 6     6   28.0   30.6  2.65
 ```
 
 We can then use `summarize()` to compute quantities of interest from our bootstrapped sampling distribution of `dbar` in `stat_boot`, like the standard deviation (which would be the literal standard error, in this case), and confidence intervals.
@@ -316,7 +316,7 @@ stat_boot %>%
 ## # A tibble: 1 × 4
 ##   estimate    se lower upper
 ##      <dbl> <dbl> <dbl> <dbl>
-## 1     3.35 0.777  1.91  4.89
+## 1     3.35 0.817  1.77  5.02
 ```
 
 <br>
@@ -526,14 +526,15 @@ donuts2 = donuts %>%
   mutate(type = factor(type, levels = c("b", "a")))
 ```
 
-- **paired t-test (equal variance)** `t.test(outcome_var ~ group_var, paired = TRUE, var.equal = TRUE)`
+- **paired t-test (equal variance)** `t.test(outcome_group_a ~ outcome_group_b, paired = TRUE, var.equal = TRUE)`
 
 
 ```r
-donuts2 %>%
+donuts2 %>% 
+  # extract individual vectors of weight for each type
+  reframe(a = weight[type == "a"], b = weight[type == "b"]) %>% 
   # Run our t-test using the data from donuts, then tidy() it into a data.frame
-  summarize(
-    t.test(weight ~ type,  paired = TRUE, var.equal = TRUE) %>% tidy())
+  summarize(t.test(b, a, paired = TRUE, var.equal = TRUE) %>% tidy())
 ```
 
 ```
@@ -542,13 +543,14 @@ donuts2 %>%
 ##      <dbl>     <dbl>    <dbl>     <dbl>    <dbl>     <dbl> <chr>     <chr>      
 ## 1     3.35      4.25 0.000282        24     1.72      4.98 Paired t… two.sided
 ```
-- **unpaired t-test (equal variance)**: `t.test(outcome_var ~ group_var, paired = FALSE, var.equal = TRUE)`
+- **unpaired t-test (equal variance)**: `t.test(outcome_var ~ group_var, var.equal = TRUE)`
 
 
 ```r
+# Or, more simply for an unpaired t-test...
 donuts2 %>%
-  # Run our t-test using the data from donuts, then tidy() it into a data.frame
-  summarize(  t.test(weight ~ type, paired = FALSE, var.equal = TRUE) %>% tidy()  )
+  # Run our t-test using a formula format (eg. y ~ x) on the data from donuts, then tidy() it into a data.frame
+  summarize(  t.test(weight ~ type, var.equal = TRUE) %>% tidy()  )
 ```
 
 ```
@@ -558,13 +560,13 @@ donuts2 %>%
 ## 1     3.35      31.7      28.4      4.24 0.000100        48     1.76      4.94
 ## # ℹ 2 more variables: method <chr>, alternative <chr>
 ```
-- **unpaired t-test (unequal variance)**: `t.test(outcome_var ~ group_var, paried = FALSE, var.equal = FALSE)`
+- **unpaired t-test (unequal variance)**: `t.test(outcome_var ~ group_var,  var.equal = FALSE)`
 
 
 ```r
 donuts2 %>%
   # Run our t-test using the data from donuts, then tidy() it into a data.frame
-  summarize(  t.test(weight ~ type, paired = FALSE, var.equal = FALSE) %>% tidy()  )
+  summarize(  t.test(weight ~ type,  var.equal = FALSE) %>% tidy()  )
 ```
 
 ```

@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 About this Book | System Reliability and Six Sigma in R</title>
+  <meta name="description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 About this Book | System Reliability and Six Sigma in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 About this Book | System Reliability and Six Sigma in R" />
+  
+  <meta name="twitter:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  
+
+<meta name="author" content="Timothy Fraser, PhD" />
+
+
+<meta name="date" content="2025-09-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="coding-in-r.html"/>
+<script src="assets/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="assets/kePrint-0.0.1/kePrint.js"></script>
+<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="assets/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="assets/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="assets/d3-3.3.8/d3.min.js"></script>
+<script src="assets/dagre-0.4.0/dagre-d3.min.js"></script>
+<link href="assets/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
+<script src="assets/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
+<link href="assets/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="assets/chromatography-0.1/chromatography.js"></script>
+<script src="assets/DiagrammeR-binding-1.0.9/DiagrammeR.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="about-this-book.html"><a href="about-this-book.html"><i class="fa fa-check"></i><b>1</b> About this Book</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="about-this-book.html"><a href="about-this-book.html#what-youll-learn"><i class="fa fa-check"></i><b>1.1</b> What You’ll Learn</a></li>
+<li class="chapter" data-level="1.2" data-path="about-this-book.html"><a href="about-this-book.html#learning-approach"><i class="fa fa-check"></i><b>1.2</b> Learning Approach</a></li>
+<li class="chapter" data-level="1.3" data-path="about-this-book.html"><a href="about-this-book.html#prerequisites"><i class="fa fa-check"></i><b>1.3</b> Prerequisites</a></li>
+<li class="chapter" data-level="1.4" data-path="about-this-book.html"><a href="about-this-book.html#about-the-author"><i class="fa fa-check"></i><b>1.4</b> About the Author</a></li>
+<li class="chapter" data-level="1.5" data-path="about-this-book.html"><a href="about-this-book.html#acknowledgments"><i class="fa fa-check"></i><b>1.5</b> Acknowledgments</a></li>
+<li class="chapter" data-level="1.6" data-path="about-this-book.html"><a href="about-this-book.html#how-to-use-this-book"><i class="fa fa-check"></i><b>1.6</b> How to Use This Book</a></li>
+</ul></li>
+<li class="part"><span><b>I Failure Mode and Effects Analysis</b></span></li>
+<li class="chapter" data-level="2" data-path="coding-in-r.html"><a href="coding-in-r.html"><i class="fa fa-check"></i><b>2</b> Coding in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="coding-in-r.html"><a href="coding-in-r.html#getting-started"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="coding-in-r.html"><a href="coding-in-r.html#making-an-posit.cloud-account"><i class="fa fa-check"></i>Making an Posit.Cloud account</a></li>
+<li class="chapter" data-level="" data-path="coding-in-r.html"><a href="coding-in-r.html#using-r-for-the-first-time"><i class="fa fa-check"></i>Using R for the First Time</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1" data-path="coding-in-r.html"><a href="coding-in-r.html#introduction-to-r"><i class="fa fa-check"></i><b>2.1</b> Introduction to <code>R</code></a></li>
+<li class="chapter" data-level="2.2" data-path="coding-in-r.html"><a href="coding-in-r.html#basic-calculations-in-r"><i class="fa fa-check"></i><b>2.2</b> Basic Calculations in R</a></li>
+<li class="chapter" data-level="" data-path="coding-in-r.html"><a href="coding-in-r.html#learning-check-1"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="2.3" data-path="coding-in-r.html"><a href="coding-in-r.html#types-of-values-in-r"><i class="fa fa-check"></i><b>2.3</b> Types of Values in R</a></li>
+<li class="chapter" data-level="2.4" data-path="coding-in-r.html"><a href="coding-in-r.html#types-of-data-in-r"><i class="fa fa-check"></i><b>2.4</b> Types of Data in R</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="coding-in-r.html"><a href="coding-in-r.html#values"><i class="fa fa-check"></i><b>2.4.1</b> Values</a></li>
+<li class="chapter" data-level="2.4.2" data-path="coding-in-r.html"><a href="coding-in-r.html#vectors"><i class="fa fa-check"></i><b>2.4.2</b> Vectors</a></li>
+<li class="chapter" data-level="2.4.3" data-path="coding-in-r.html"><a href="coding-in-r.html#dataframes"><i class="fa fa-check"></i><b>2.4.3</b> Dataframes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="coding-in-r.html"><a href="coding-in-r.html#learning-check-2"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="2.5" data-path="coding-in-r.html"><a href="coding-in-r.html#common-functions-in-r"><i class="fa fa-check"></i><b>2.5</b> Common Functions in R</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="coding-in-r.html"><a href="coding-in-r.html#measures-of-central-tendency"><i class="fa fa-check"></i><b>2.5.1</b> Measures of Central Tendency</a></li>
+<li class="chapter" data-level="2.5.2" data-path="coding-in-r.html"><a href="coding-in-r.html#measures-of-dispersion"><i class="fa fa-check"></i><b>2.5.2</b> Measures of Dispersion</a></li>
+<li class="chapter" data-level="2.5.3" data-path="coding-in-r.html"><a href="coding-in-r.html#other-good-functions"><i class="fa fa-check"></i><b>2.5.3</b> Other Good Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="coding-in-r.html"><a href="coding-in-r.html#missing-data"><i class="fa fa-check"></i><b>2.6</b> Missing Data</a></li>
+<li class="chapter" data-level="" data-path="coding-in-r.html"><a href="coding-in-r.html#learning-check-3"><i class="fa fa-check"></i>Learning Check 3</a></li>
+<li class="chapter" data-level="2.7" data-path="coding-in-r.html"><a href="coding-in-r.html#packages"><i class="fa fa-check"></i><b>2.7</b> Packages</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="coding-in-r.html"><a href="coding-in-r.html#using-packages"><i class="fa fa-check"></i><b>2.7.1</b> Using Packages</a></li>
+<li class="chapter" data-level="2.7.2" data-path="coding-in-r.html"><a href="coding-in-r.html#installing-packages"><i class="fa fa-check"></i><b>2.7.2</b> Installing Packages</a></li>
+<li class="chapter" data-level="2.7.3" data-path="coding-in-r.html"><a href="coding-in-r.html#loading-packages"><i class="fa fa-check"></i><b>2.7.3</b> Loading Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="coding-in-r.html"><a href="coding-in-r.html#the-pipeline"><i class="fa fa-check"></i>The Pipeline</a></li>
+<li class="chapter" data-level="2.8" data-path="coding-in-r.html"><a href="coding-in-r.html#visualizing-data-with-histograms"><i class="fa fa-check"></i><b>2.8</b> Visualizing Data with Histograms</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="coding-in-r.html"><a href="coding-in-r.html#hist"><i class="fa fa-check"></i><b>2.8.1</b> <code>hist()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="coding-in-r.html"><a href="coding-in-r.html#learning-check-4"><i class="fa fa-check"></i>Learning Check 4</a>
+<ul>
+<li class="chapter" data-level="2.8.2" data-path="coding-in-r.html"><a href="coding-in-r.html#geom_histogram-in-ggplot2"><i class="fa fa-check"></i><b>2.8.2</b> <code>geom_histogram()</code> in <code>ggplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="coding-in-r.html"><a href="coding-in-r.html#learning-check-5"><i class="fa fa-check"></i>Learning Check 5</a></li>
+<li class="chapter" data-level="" data-path="coding-in-r.html"><a href="coding-in-r.html#conclusion"><i class="fa fa-check"></i>Conclusion</a>
+<ul>
+<li class="chapter" data-level="" data-path="coding-in-r.html"><a href="coding-in-r.html#next-steps"><i class="fa fa-check"></i>Next Steps</a></li>
+<li class="chapter" data-level="" data-path="coding-in-r.html"><a href="coding-in-r.html#advice"><i class="fa fa-check"></i>Advice</a></li>
+<li class="chapter" data-level="" data-path="coding-in-r.html"><a href="coding-in-r.html#troubleshooting"><i class="fa fa-check"></i>Troubleshooting</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="coding-in-python.html"><a href="coding-in-python.html"><i class="fa fa-check"></i><b>3</b> Coding in Python</a>
+<ul>
+<li class="chapter" data-level="" data-path="coding-in-python.html"><a href="coding-in-python.html#getting-started-1"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="coding-in-python.html"><a href="coding-in-python.html#making-a-posit-cloud-account"><i class="fa fa-check"></i>Making a Posit Cloud account</a></li>
+<li class="chapter" data-level="" data-path="coding-in-python.html"><a href="coding-in-python.html#using-python-for-the-first-time"><i class="fa fa-check"></i>Using Python for the First Time</a></li>
+</ul></li>
+<li class="chapter" data-level="3.1" data-path="coding-in-python.html"><a href="coding-in-python.html#introduction-to-python"><i class="fa fa-check"></i><b>3.1</b> Introduction to <code>Python</code></a></li>
+<li class="chapter" data-level="3.2" data-path="coding-in-python.html"><a href="coding-in-python.html#basic-calculations-in-python"><i class="fa fa-check"></i><b>3.2</b> Basic Calculations in Python</a></li>
+<li class="chapter" data-level="" data-path="coding-in-python.html"><a href="coding-in-python.html#learning-check-1-1"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="3.3" data-path="coding-in-python.html"><a href="coding-in-python.html#types-of-values-in-python"><i class="fa fa-check"></i><b>3.3</b> Types of Values in Python</a></li>
+<li class="chapter" data-level="3.4" data-path="coding-in-python.html"><a href="coding-in-python.html#types-of-data-in-python"><i class="fa fa-check"></i><b>3.4</b> Types of Data in Python</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="coding-in-python.html"><a href="coding-in-python.html#values-and-variables"><i class="fa fa-check"></i><b>3.4.1</b> Values and Variables</a></li>
+<li class="chapter" data-level="3.4.2" data-path="coding-in-python.html"><a href="coding-in-python.html#lists-like-r-vectors"><i class="fa fa-check"></i><b>3.4.2</b> Lists (like R vectors)</a></li>
+<li class="chapter" data-level="3.4.3" data-path="coding-in-python.html"><a href="coding-in-python.html#dataframes-with-pandas"><i class="fa fa-check"></i><b>3.4.3</b> DataFrames with pandas</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="coding-in-python.html"><a href="coding-in-python.html#learning-check-2-1"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="3.5" data-path="coding-in-python.html"><a href="coding-in-python.html#common-functions-in-python"><i class="fa fa-check"></i><b>3.5</b> Common Functions in Python</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="coding-in-python.html"><a href="coding-in-python.html#measures-of-central-tendency-1"><i class="fa fa-check"></i><b>3.5.1</b> Measures of Central Tendency</a></li>
+<li class="chapter" data-level="3.5.2" data-path="coding-in-python.html"><a href="coding-in-python.html#measures-of-dispersion-1"><i class="fa fa-check"></i><b>3.5.2</b> Measures of Dispersion</a></li>
+<li class="chapter" data-level="3.5.3" data-path="coding-in-python.html"><a href="coding-in-python.html#other-good-functions-1"><i class="fa fa-check"></i><b>3.5.3</b> Other Good Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="coding-in-python.html"><a href="coding-in-python.html#missing-data-1"><i class="fa fa-check"></i><b>3.6</b> Missing Data</a></li>
+<li class="chapter" data-level="" data-path="coding-in-python.html"><a href="coding-in-python.html#learning-check-3-1"><i class="fa fa-check"></i>Learning Check 3</a></li>
+<li class="chapter" data-level="3.7" data-path="coding-in-python.html"><a href="coding-in-python.html#packages-1"><i class="fa fa-check"></i><b>3.7</b> Packages</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="coding-in-python.html"><a href="coding-in-python.html#installing-packages-1"><i class="fa fa-check"></i><b>3.7.1</b> Installing packages</a></li>
+<li class="chapter" data-level="3.7.2" data-path="coding-in-python.html"><a href="coding-in-python.html#importing-packages"><i class="fa fa-check"></i><b>3.7.2</b> Importing packages</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="coding-in-python.html"><a href="coding-in-python.html#the-pipeline-1"><i class="fa fa-check"></i>The Pipeline</a></li>
+<li class="chapter" data-level="3.8" data-path="coding-in-python.html"><a href="coding-in-python.html#visualizing-data-with-histograms-1"><i class="fa fa-check"></i><b>3.8</b> Visualizing Data with Histograms</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="coding-in-python.html"><a href="coding-in-python.html#pandasmatplotlib"><i class="fa fa-check"></i><b>3.8.1</b> pandas/matplotlib</a></li>
+<li class="chapter" data-level="3.8.2" data-path="coding-in-python.html"><a href="coding-in-python.html#geom_histogram-in-plotnine"><i class="fa fa-check"></i><b>3.8.2</b> <code>geom_histogram()</code> in <code>plotnine</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="coding-in-python.html"><a href="coding-in-python.html#learning-check-4-1"><i class="fa fa-check"></i>Learning Check 4</a></li>
+<li class="chapter" data-level="" data-path="coding-in-python.html"><a href="coding-in-python.html#learning-check-5-1"><i class="fa fa-check"></i>Learning Check 5</a></li>
+<li class="chapter" data-level="" data-path="coding-in-python.html"><a href="coding-in-python.html#conclusion-1"><i class="fa fa-check"></i>Conclusion</a>
+<ul>
+<li class="chapter" data-level="" data-path="coding-in-python.html"><a href="coding-in-python.html#next-steps-1"><i class="fa fa-check"></i>Next Steps</a></li>
+<li class="chapter" data-level="" data-path="coding-in-python.html"><a href="coding-in-python.html#advice-1"><i class="fa fa-check"></i>Advice</a></li>
+<li class="chapter" data-level="" data-path="coding-in-python.html"><a href="coding-in-python.html#troubleshooting-1"><i class="fa fa-check"></i>Troubleshooting</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="fmea-in-r.html"><a href="fmea-in-r.html"><i class="fa fa-check"></i><b>4</b> FMEA in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="fmea-in-r.html"><a href="fmea-in-r.html#getting-started-2"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="fmea-in-r.html"><a href="fmea-in-r.html#load-packages"><i class="fa fa-check"></i>Load Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="4.1" data-path="fmea-in-r.html"><a href="fmea-in-r.html#example-ben-and-jerrys-ice-cream"><i class="fa fa-check"></i><b>4.1</b> Example: Ben and Jerry’s Ice Cream</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="fmea-in-r.html"><a href="fmea-in-r.html#scope-resolution"><i class="fa fa-check"></i><b>4.1.1</b> Scope &amp; Resolution</a></li>
+<li class="chapter" data-level="4.1.2" data-path="fmea-in-r.html"><a href="fmea-in-r.html#measuring-criticality"><i class="fa fa-check"></i><b>4.1.2</b> Measuring Criticality</a></li>
+<li class="chapter" data-level="4.1.3" data-path="fmea-in-r.html"><a href="fmea-in-r.html#block-diagram"><i class="fa fa-check"></i><b>4.1.3</b> Block Diagram</a></li>
+<li class="chapter" data-level="4.1.4" data-path="fmea-in-r.html"><a href="fmea-in-r.html#failure-modes"><i class="fa fa-check"></i><b>4.1.4</b> Failure Modes</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="fmea-in-r.html"><a href="fmea-in-r.html#calculating-criticality"><i class="fa fa-check"></i><b>4.2</b> Calculating Criticality</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="fmea-in-r.html"><a href="fmea-in-r.html#estimate-severity"><i class="fa fa-check"></i><b>4.2.1</b> Estimate Severity</a></li>
+<li class="chapter" data-level="4.2.2" data-path="fmea-in-r.html"><a href="fmea-in-r.html#estimate-occurrence"><i class="fa fa-check"></i><b>4.2.2</b> Estimate Occurrence</a></li>
+<li class="chapter" data-level="4.2.3" data-path="fmea-in-r.html"><a href="fmea-in-r.html#estimate-detection"><i class="fa fa-check"></i><b>4.2.3</b> Estimate Detection</a></li>
+<li class="chapter" data-level="4.2.4" data-path="fmea-in-r.html"><a href="fmea-in-r.html#estimate-criticality-rpn"><i class="fa fa-check"></i><b>4.2.4</b> Estimate Criticality (RPN)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="fmea-in-r.html"><a href="fmea-in-r.html#learning-check-1-2"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="" data-path="fmea-in-r.html"><a href="fmea-in-r.html#conclusion-2"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html"><i class="fa fa-check"></i><b>5</b> Visualization with <code>ggplot</code> in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#getting-started-3"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#loading-packages-1"><i class="fa fa-check"></i>Loading Packages</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#gapminder-data"><i class="fa fa-check"></i>Gapminder data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.1" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#your-first-scatterplot"><i class="fa fa-check"></i><b>5.1</b> Your first scatterplot</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#learning-check-1-3"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#learning-check-2-2"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#learning-check-3-2"><i class="fa fa-check"></i>Learning Check 3</a></li>
+<li class="chapter" data-level="5.2" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#improving-our-visualizations"><i class="fa fa-check"></i><b>5.2</b> Improving our Visualizations</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#learning-check-4-2"><i class="fa fa-check"></i>Learning Check 4</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#learning-check-5-2"><i class="fa fa-check"></i>Learning Check 5</a></li>
+<li class="chapter" data-level="5.3" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#visualizing-diamonds-data"><i class="fa fa-check"></i><b>5.3</b> Visualizing <code>diamonds</code> data</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#learning-check-6"><i class="fa fa-check"></i>Learning Check 6</a></li>
+<li class="chapter" data-level="5.4" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#visualizing-distributions"><i class="fa fa-check"></i><b>5.4</b> Visualizing Distributions</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#learning-check-9"><i class="fa fa-check"></i>Learning Check 9</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#conclusion-3"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html"><i class="fa fa-check"></i><b>6</b> Visualization with <code>plotnine</code> in <code>Python</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#getting-started-4"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#loading-packages-2"><i class="fa fa-check"></i>Loading Packages</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#gapminder-data-1"><i class="fa fa-check"></i>Gapminder data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.1" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#your-first-scatterplot-1"><i class="fa fa-check"></i><b>6.1</b> Your first scatterplot</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#learning-check-1-4"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="6.2" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#transparency-alpha"><i class="fa fa-check"></i><b>6.2</b> Transparency (alpha)</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#learning-check-2-3"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="6.3" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#color-constant-vs-mapped"><i class="fa fa-check"></i><b>6.3</b> Color: constant vs mapped</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#learning-check-3-3"><i class="fa fa-check"></i>Learning Check 3</a></li>
+<li class="chapter" data-level="6.4" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#improving-our-visualizations-1"><i class="fa fa-check"></i><b>6.4</b> Improving our visualizations</a></li>
+<li class="chapter" data-level="6.5" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#visualizing-diamonds-data-1"><i class="fa fa-check"></i><b>6.5</b> Visualizing <code>diamonds</code> data</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#boxplots-by-cut"><i class="fa fa-check"></i><b>6.5.1</b> Boxplots by cut</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#learning-check-4-3"><i class="fa fa-check"></i>Learning Check 4</a></li>
+<li class="chapter" data-level="6.6" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#visualizing-distributions-1"><i class="fa fa-check"></i><b>6.6</b> Visualizing Distributions</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#try-adjusting-binwidth-and-theme"><i class="fa fa-check"></i><b>6.6.1</b> Try adjusting binwidth and theme</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#learning-check-5-3"><i class="fa fa-check"></i>Learning Check 5</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#conclusion-4"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="part"><span><b>II Statistics &amp; Reliability</b></span></li>
+<li class="chapter" data-level="7" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html"><i class="fa fa-check"></i><b>7</b> Distributions and Descriptive Statistics in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#getting-started-5"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#load-packages-1"><i class="fa fa-check"></i>Load Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="7.1" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#distributions"><i class="fa fa-check"></i><b>7.1</b> Distributions</a></li>
+<li class="chapter" data-level="7.2" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#descriptive-statistics"><i class="fa fa-check"></i><b>7.2</b> Descriptive Statistics</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#whats-a-statistic"><i class="fa fa-check"></i><b>7.2.1</b> What’s a statistic?</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#our-data"><i class="fa fa-check"></i><b>7.3</b> Our Data</a></li>
+<li class="chapter" data-level="7.4" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#size"><i class="fa fa-check"></i><b>7.4</b> Size</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#length"><i class="fa fa-check"></i><b>7.4.1</b> Length</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#location"><i class="fa fa-check"></i><b>7.5</b> Location</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#mean"><i class="fa fa-check"></i><b>7.5.1</b> Mean</a></li>
+<li class="chapter" data-level="7.5.2" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#median"><i class="fa fa-check"></i><b>7.5.2</b> Median</a></li>
+<li class="chapter" data-level="7.5.3" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#mode"><i class="fa fa-check"></i><b>7.5.3</b> Mode</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#spread-1"><i class="fa fa-check"></i><b>7.6</b> Spread (1)</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#percentile"><i class="fa fa-check"></i><b>7.6.1</b> Percentile</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#learning-check-1-5"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="7.7" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#spread-2"><i class="fa fa-check"></i><b>7.7</b> Spread (2)</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#standard-deviation"><i class="fa fa-check"></i><b>7.7.1</b> Standard Deviation</a></li>
+<li class="chapter" data-level="7.7.2" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#variance"><i class="fa fa-check"></i><b>7.7.2</b> Variance</a></li>
+<li class="chapter" data-level="7.7.3" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#coefficient-of-variation-cv"><i class="fa fa-check"></i><b>7.7.3</b> Coefficient of Variation (CV)</a></li>
+<li class="chapter" data-level="7.7.4" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#standard-error-se"><i class="fa fa-check"></i><b>7.7.4</b> Standard Error (SE)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#learning-check-2-4"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="7.8" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#shape"><i class="fa fa-check"></i><b>7.8</b> Shape</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#skewness"><i class="fa fa-check"></i><b>7.8.1</b> Skewness</a></li>
+<li class="chapter" data-level="7.8.2" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#kurtosis"><i class="fa fa-check"></i><b>7.8.2</b> Kurtosis</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#learning-check-3-4"><i class="fa fa-check"></i>Learning Check 3</a></li>
+<li class="chapter" data-level="7.9" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#simulating-distributions"><i class="fa fa-check"></i><b>7.9</b> Simulating Distributions</a></li>
+<li class="chapter" data-level="7.10" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#finding-parameters-for-your-distribution"><i class="fa fa-check"></i><b>7.10</b> Finding Parameters for your Distribution</a></li>
+<li class="chapter" data-level="7.11" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#common-distributions"><i class="fa fa-check"></i><b>7.11</b> Common Distributions</a>
+<ul>
+<li class="chapter" data-level="7.11.1" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#normal-distribution"><i class="fa fa-check"></i><b>7.11.1</b> Normal Distribution</a></li>
+<li class="chapter" data-level="7.11.2" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#poisson-distribution"><i class="fa fa-check"></i><b>7.11.2</b> Poisson Distribution</a></li>
+<li class="chapter" data-level="7.11.3" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#exponential-distribution"><i class="fa fa-check"></i><b>7.11.3</b> Exponential Distribution</a></li>
+<li class="chapter" data-level="7.11.4" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#gamma-distribution"><i class="fa fa-check"></i><b>7.11.4</b> Gamma Distribution</a></li>
+<li class="chapter" data-level="7.11.5" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#weibull-distribution"><i class="fa fa-check"></i><b>7.11.5</b> Weibull Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="7.12" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#special-distributions"><i class="fa fa-check"></i><b>7.12</b> Special Distributions</a>
+<ul>
+<li class="chapter" data-level="7.12.1" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#binomial-distribution"><i class="fa fa-check"></i><b>7.12.1</b> Binomial Distribution</a></li>
+<li class="chapter" data-level="7.12.2" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#uniform-distribution"><i class="fa fa-check"></i><b>7.12.2</b> Uniform Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="7.13" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#comparing-distributions"><i class="fa fa-check"></i><b>7.13</b> Comparing Distributions</a></li>
+<li class="chapter" data-level="" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#learning-check-4-4"><i class="fa fa-check"></i>Learning Check 4</a></li>
+<li class="chapter" data-level="" data-path="distributions-and-descriptive-statistics-in-r.html"><a href="distributions-and-descriptive-statistics-in-r.html#conclusion-5"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html"><i class="fa fa-check"></i><b>8</b> Distributions and Descriptive Statistics in Python</a>
+<ul>
+<li class="chapter" data-level="" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#getting-started-6"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#install-and-import-packages"><i class="fa fa-check"></i>Install and Import Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="8.1" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#our-data-1"><i class="fa fa-check"></i><b>8.1</b> Our Data</a></li>
+<li class="chapter" data-level="8.2" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#size-1"><i class="fa fa-check"></i><b>8.2</b> Size</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#length-1"><i class="fa fa-check"></i><b>8.2.1</b> Length</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#location-1"><i class="fa fa-check"></i><b>8.3</b> Location</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#mean-and-median"><i class="fa fa-check"></i><b>8.3.1</b> Mean and Median</a></li>
+<li class="chapter" data-level="8.3.2" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#mode-1"><i class="fa fa-check"></i><b>8.3.2</b> Mode</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#spread-1-1"><i class="fa fa-check"></i><b>8.4</b> Spread (1)</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#percentiles"><i class="fa fa-check"></i><b>8.4.1</b> Percentiles</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#spread-2-1"><i class="fa fa-check"></i><b>8.5</b> Spread (2)</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#standard-deviation-variance-cv-se"><i class="fa fa-check"></i><b>8.5.1</b> Standard Deviation, Variance, CV, SE</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#shape-1"><i class="fa fa-check"></i><b>8.6</b> Shape</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#skewness-and-kurtosis"><i class="fa fa-check"></i><b>8.6.1</b> Skewness and Kurtosis</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#finding-parameters-for-your-distributions"><i class="fa fa-check"></i><b>8.7</b> Finding Parameters for Your Distributions</a></li>
+<li class="chapter" data-level="8.8" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#common-distributions-1"><i class="fa fa-check"></i><b>8.8</b> Common Distributions</a>
+<ul>
+<li class="chapter" data-level="8.8.1" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#normal"><i class="fa fa-check"></i><b>8.8.1</b> Normal</a></li>
+<li class="chapter" data-level="8.8.2" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#poisson"><i class="fa fa-check"></i><b>8.8.2</b> Poisson</a></li>
+<li class="chapter" data-level="8.8.3" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#exponential"><i class="fa fa-check"></i><b>8.8.3</b> Exponential</a></li>
+<li class="chapter" data-level="8.8.4" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#gamma"><i class="fa fa-check"></i><b>8.8.4</b> Gamma</a></li>
+<li class="chapter" data-level="8.8.5" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#weibull"><i class="fa fa-check"></i><b>8.8.5</b> Weibull</a></li>
+</ul></li>
+<li class="chapter" data-level="8.9" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#comparing-distributions-1"><i class="fa fa-check"></i><b>8.9</b> Comparing Distributions</a></li>
+<li class="chapter" data-level="" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#learning-check-1-6"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="" data-path="distributions-and-descriptive-statistics-in-python.html"><a href="distributions-and-descriptive-statistics-in-python.html#conclusion-6"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="functions-in-r.html"><a href="functions-in-r.html"><i class="fa fa-check"></i><b>9</b> Functions in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="functions-in-r.html"><a href="functions-in-r.html#getting-started-7"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="functions-in-r.html"><a href="functions-in-r.html#packages-2"><i class="fa fa-check"></i>Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="9.1" data-path="functions-in-r.html"><a href="functions-in-r.html#coding-your-own-function"><i class="fa fa-check"></i><b>9.1</b> Coding your own function!</a></li>
+<li class="chapter" data-level="9.2" data-path="functions-in-r.html"><a href="functions-in-r.html#functions-with-default-inputs"><i class="fa fa-check"></i><b>9.2</b> Functions with Default Inputs</a></li>
+<li class="chapter" data-level="" data-path="functions-in-r.html"><a href="functions-in-r.html#conclusion-7"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="functions-in-python.html"><a href="functions-in-python.html"><i class="fa fa-check"></i><b>10</b> Functions in <code>Python</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="functions-in-python.html"><a href="functions-in-python.html#getting-started-8"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="functions-in-python.html"><a href="functions-in-python.html#packages-3"><i class="fa fa-check"></i>Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="10.1" data-path="functions-in-python.html"><a href="functions-in-python.html#coding-your-own-function-1"><i class="fa fa-check"></i><b>10.1</b> Coding your own function!</a></li>
+<li class="chapter" data-level="10.2" data-path="functions-in-python.html"><a href="functions-in-python.html#functions-with-default-inputs-1"><i class="fa fa-check"></i><b>10.2</b> Functions with Default Inputs</a></li>
+<li class="chapter" data-level="" data-path="functions-in-python.html"><a href="functions-in-python.html#conclusion-8"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="probability-in-r.html"><a href="probability-in-r.html"><i class="fa fa-check"></i><b>11</b> Probability in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="probability-in-r.html"><a href="probability-in-r.html#getting-started-9"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="probability-in-r.html"><a href="probability-in-r.html#load-packages-2"><i class="fa fa-check"></i>Load Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="11.1" data-path="probability-in-r.html"><a href="probability-in-r.html#key-functions"><i class="fa fa-check"></i><b>11.1</b> Key Functions</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="probability-in-r.html"><a href="probability-in-r.html#bind_rows"><i class="fa fa-check"></i><b>11.1.1</b> <code>bind_rows()</code></a></li>
+<li class="chapter" data-level="11.1.2" data-path="probability-in-r.html"><a href="probability-in-r.html#mutate"><i class="fa fa-check"></i><b>11.1.2</b> <code>mutate()</code></a></li>
+<li class="chapter" data-level="11.1.3" data-path="probability-in-r.html"><a href="probability-in-r.html#summarize"><i class="fa fa-check"></i><b>11.1.3</b> <code>summarize()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="probability-in-r.html"><a href="probability-in-r.html#probability"><i class="fa fa-check"></i><b>11.2</b> Probability</a></li>
+<li class="chapter" data-level="11.3" data-path="probability-in-r.html"><a href="probability-in-r.html#conditional-probability"><i class="fa fa-check"></i><b>11.3</b> Conditional Probability</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="probability-in-r.html"><a href="probability-in-r.html#example-twizzlers"><i class="fa fa-check"></i><b>11.3.1</b> Example: Twizzlers</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="probability-in-r.html"><a href="probability-in-r.html#total-probabilities"><i class="fa fa-check"></i><b>11.4</b> Total Probabilities</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="probability-in-r.html"><a href="probability-in-r.html#example-marbles"><i class="fa fa-check"></i><b>11.4.1</b> Example: Marbles!</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="probability-in-r.html"><a href="probability-in-r.html#bayes-rule"><i class="fa fa-check"></i><b>11.5</b> Bayes Rule</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="probability-in-r.html"><a href="probability-in-r.html#example-coffee-shop-incomplete-information"><i class="fa fa-check"></i><b>11.5.1</b> Example: Coffee Shop (Incomplete Information)</a></li>
+<li class="chapter" data-level="11.5.2" data-path="probability-in-r.html"><a href="probability-in-r.html#example-coffee-shop-complete-information"><i class="fa fa-check"></i><b>11.5.2</b> Example: Coffee Shop (Complete Information)</a></li>
+<li class="chapter" data-level="11.5.3" data-path="probability-in-r.html"><a href="probability-in-r.html#example-movie-theatre-popularity"><i class="fa fa-check"></i><b>11.5.3</b> Example: Movie Theatre Popularity</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="probability-in-r.html"><a href="probability-in-r.html#conclusion-9"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html"><i class="fa fa-check"></i><b>12</b> Probability Functions in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#getting-started-10"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#load-packages-3"><i class="fa fa-check"></i>Load Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="12.1" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#probability-functions"><i class="fa fa-check"></i><b>12.1</b> Probability Functions</a></li>
+<li class="chapter" data-level="12.2" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#hypothetical-probability-functions"><i class="fa fa-check"></i><b>12.2</b> Hypothetical Probability Functions</a>
+<ul>
+<li class="chapter" data-level="" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#example-farmers-market"><i class="fa fa-check"></i>Example: Farmers Market</a></li>
+<li class="chapter" data-level="" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#unobserved-distributions"><i class="fa fa-check"></i>Unobserved Distributions</a></li>
+<li class="chapter" data-level="" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#using-hypothetical-probability-functions"><i class="fa fa-check"></i>Using Hypothetical Probability Functions</a></li>
+<li class="chapter" data-level="12.2.1" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#density-pdf"><i class="fa fa-check"></i><b>12.2.1</b> Density (PDF)</a></li>
+<li class="chapter" data-level="12.2.2" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#cumulative-probabilities-cdf"><i class="fa fa-check"></i><b>12.2.2</b> Cumulative Probabilities (CDF)</a></li>
+<li class="chapter" data-level="12.2.3" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#quantiles"><i class="fa fa-check"></i><b>12.2.3</b> Quantiles</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#learning-check-1-7"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="12.3" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#observed-probability-functions"><i class="fa fa-check"></i><b>12.3</b> Observed Probability Functions</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#example-observed-distributions"><i class="fa fa-check"></i><b>12.3.1</b> Example: Observed Distributions</a></li>
+<li class="chapter" data-level="12.3.2" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#observed-pdfs-probability-density-functions"><i class="fa fa-check"></i><b>12.3.2</b> Observed PDFs (Probability Density Functions)</a></li>
+<li class="chapter" data-level="12.3.3" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#density"><i class="fa fa-check"></i><b>12.3.3</b> <code>density()</code></a></li>
+<li class="chapter" data-level="12.3.4" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#using-pdfs-probability-density-functions"><i class="fa fa-check"></i><b>12.3.4</b> Using PDFs (Probability Density Functions)</a></li>
+<li class="chapter" data-level="12.3.5" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#observed-cdfs-cumulative-distribution-functions"><i class="fa fa-check"></i><b>12.3.5</b> Observed CDFs (Cumulative Distribution Functions)</a></li>
+<li class="chapter" data-level="12.3.6" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#using-calculus"><i class="fa fa-check"></i><b>12.3.6</b> Using Calculus!</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#learning-check-2-5"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="" data-path="probability-functions-in-r.html"><a href="probability-functions-in-r.html#conclusion-10"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="system-reliability.html"><a href="system-reliability.html"><i class="fa fa-check"></i><b>13</b> System Reliability</a>
+<ul>
+<li class="chapter" data-level="" data-path="system-reliability.html"><a href="system-reliability.html#getting-started-11"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="system-reliability.html"><a href="system-reliability.html#packages-4"><i class="fa fa-check"></i>Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="13.1" data-path="system-reliability.html"><a href="system-reliability.html#concepts"><i class="fa fa-check"></i><b>13.1</b> Concepts</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="system-reliability.html"><a href="system-reliability.html#life-distributions"><i class="fa fa-check"></i><b>13.1.1</b> Life Distributions</a></li>
+<li class="chapter" data-level="13.1.2" data-path="system-reliability.html"><a href="system-reliability.html#example-airplane-propeller-failure"><i class="fa fa-check"></i><b>13.1.2</b> Example: Airplane Propeller Failure!</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="system-reliability.html"><a href="system-reliability.html#learning-check-1-8"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="13.2" data-path="system-reliability.html"><a href="system-reliability.html#joint-probabilities"><i class="fa fa-check"></i><b>13.2</b> Joint Probabilities</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="system-reliability.html"><a href="system-reliability.html#multiplication-rule"><i class="fa fa-check"></i><b>13.2.1</b> Multiplication Rule</a></li>
+<li class="chapter" data-level="13.2.2" data-path="system-reliability.html"><a href="system-reliability.html#compliment-rule"><i class="fa fa-check"></i><b>13.2.2</b> Compliment Rule</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="system-reliability.html"><a href="system-reliability.html#table-of-failure-related-functions"><i class="fa fa-check"></i><b>13.3</b> Table of Failure-Related Functions</a></li>
+<li class="chapter" data-level="13.4" data-path="system-reliability.html"><a href="system-reliability.html#hazard-rate-function"><i class="fa fa-check"></i><b>13.4</b> Hazard Rate Function</a></li>
+<li class="chapter" data-level="13.5" data-path="system-reliability.html"><a href="system-reliability.html#accumulative-hazard-function"><i class="fa fa-check"></i><b>13.5</b> Accumulative Hazard Function</a></li>
+<li class="chapter" data-level="13.6" data-path="system-reliability.html"><a href="system-reliability.html#average-failure-rate"><i class="fa fa-check"></i><b>13.6</b> Average Failure Rate</a></li>
+<li class="chapter" data-level="13.7" data-path="system-reliability.html"><a href="system-reliability.html#units"><i class="fa fa-check"></i><b>13.7</b> Units</a>
+<ul>
+<li class="chapter" data-level="13.7.1" data-path="system-reliability.html"><a href="system-reliability.html#failure-functions"><i class="fa fa-check"></i><b>13.7.1</b> Failure Functions</a></li>
+<li class="chapter" data-level="13.7.2" data-path="system-reliability.html"><a href="system-reliability.html#conversion-functions"><i class="fa fa-check"></i><b>13.7.2</b> Conversion Functions</a></li>
+<li class="chapter" data-level="13.7.3" data-path="system-reliability.html"><a href="system-reliability.html#converting-estimates"><i class="fa fa-check"></i><b>13.7.3</b> Converting Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="system-reliability.html"><a href="system-reliability.html#learning-check-2-6"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="13.8" data-path="system-reliability.html"><a href="system-reliability.html#system-reliability-1"><i class="fa fa-check"></i><b>13.8</b> System Reliability</a>
+<ul>
+<li class="chapter" data-level="13.8.1" data-path="system-reliability.html"><a href="system-reliability.html#series-systems"><i class="fa fa-check"></i><b>13.8.1</b> Series Systems</a></li>
+<li class="chapter" data-level="13.8.2" data-path="system-reliability.html"><a href="system-reliability.html#parallel-systems"><i class="fa fa-check"></i><b>13.8.2</b> Parallel Systems</a></li>
+<li class="chapter" data-level="13.8.3" data-path="system-reliability.html"><a href="system-reliability.html#combined-systems"><i class="fa fa-check"></i><b>13.8.3</b> Combined Systems</a></li>
+<li class="chapter" data-level="13.8.4" data-path="system-reliability.html"><a href="system-reliability.html#example-business-reliability"><i class="fa fa-check"></i><b>13.8.4</b> Example: Business Reliability</a></li>
+</ul></li>
+<li class="chapter" data-level="13.9" data-path="system-reliability.html"><a href="system-reliability.html#renewal-rates-via-bayes-rule"><i class="fa fa-check"></i><b>13.9</b> Renewal Rates via Bayes Rule</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html"><i class="fa fa-check"></i><b>14</b> System Reliability in <code>Python</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#getting-started-12"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#packages-5"><i class="fa fa-check"></i>Packages</a></li>
+<li class="chapter" data-level="" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#custom-functions"><i class="fa fa-check"></i>Custom Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="14.1" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#concepts-1"><i class="fa fa-check"></i><b>14.1</b> Concepts</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#life-distributions-1"><i class="fa fa-check"></i><b>14.1.1</b> Life Distributions</a></li>
+<li class="chapter" data-level="14.1.2" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#example-airplane-propeller-failure-1"><i class="fa fa-check"></i><b>14.1.2</b> Example: Airplane Propeller Failure!</a></li>
+<li class="chapter" data-level="14.1.3" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#joint-probabilities-1"><i class="fa fa-check"></i><b>14.1.3</b> Joint Probabilities</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#hazard-rate-function-1"><i class="fa fa-check"></i><b>14.2</b> Hazard Rate Function</a></li>
+<li class="chapter" data-level="14.3" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#accumulative-hazard-function-1"><i class="fa fa-check"></i><b>14.3</b> Accumulative Hazard Function</a></li>
+<li class="chapter" data-level="14.4" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#average-failure-rate-1"><i class="fa fa-check"></i><b>14.4</b> Average Failure Rate</a></li>
+<li class="chapter" data-level="14.5" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#units-and-conversions"><i class="fa fa-check"></i><b>14.5</b> Units and Conversions</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#failure-functions-1"><i class="fa fa-check"></i><b>14.5.1</b> Failure Functions</a></li>
+<li class="chapter" data-level="14.5.2" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#conversion-functions-1"><i class="fa fa-check"></i><b>14.5.2</b> Conversion Functions</a></li>
+<li class="chapter" data-level="14.5.3" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#converting-estimates-1"><i class="fa fa-check"></i><b>14.5.3</b> Converting Estimates</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#learning-check-1-9"><i class="fa fa-check"></i>Learning Check 1</a>
+<ul>
+<li class="chapter" data-level="" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#exploding-phones"><i class="fa fa-check"></i>📱💥Exploding Phones!</a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#units-and-conversions-1"><i class="fa fa-check"></i><b>14.6</b> Units and Conversions</a></li>
+<li class="chapter" data-level="" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#learning-check-2-7"><i class="fa fa-check"></i>Learning Check 2</a>
+<ul>
+<li class="chapter" data-level="" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#does-instant-ramen-ever-go-bad"><i class="fa fa-check"></i>🍜 Does Instant Ramen <em>ever</em> go bad?</a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#system-reliability-2"><i class="fa fa-check"></i><b>14.7</b> System Reliability</a>
+<ul>
+<li class="chapter" data-level="14.7.1" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#series-systems-1"><i class="fa fa-check"></i><b>14.7.1</b> Series Systems</a></li>
+<li class="chapter" data-level="14.7.2" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#parallel-systems-1"><i class="fa fa-check"></i><b>14.7.2</b> Parallel Systems</a></li>
+<li class="chapter" data-level="14.7.3" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#combined-systems-1"><i class="fa fa-check"></i><b>14.7.3</b> Combined Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="system-reliability-in-python.html"><a href="system-reliability-in-python.html#conclusion-11"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="part"><span><b>III Statistical Process Control</b></span></li>
+<li class="chapter" data-level="15" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html"><i class="fa fa-check"></i><b>15</b> Statistical Process Control in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#getting-started-13"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#packages-6"><i class="fa fa-check"></i>Packages</a></li>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#our-case"><i class="fa fa-check"></i>Our Case</a></li>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#our-data-2"><i class="fa fa-check"></i>Our Data</a></li>
+</ul></li>
+<li class="chapter" data-level="15.1" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#visualizing-quality-control"><i class="fa fa-check"></i><b>15.1</b> Visualizing Quality Control</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#theme_set"><i class="fa fa-check"></i><b>15.1.1</b> <code>theme_set()</code></a></li>
+<li class="chapter" data-level="15.1.2" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#process-descriptive-statistics"><i class="fa fa-check"></i><b>15.1.2</b> Process Descriptive Statistics</a></li>
+<li class="chapter" data-level="15.1.3" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#process-overview-visual"><i class="fa fa-check"></i><b>15.1.3</b> Process Overview Visual</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#learning-check-1-10"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="15.2" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#average-and-standard-deviation-graphs"><i class="fa fa-check"></i><b>15.2</b> Average and Standard Deviation Graphs</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#key-statistics"><i class="fa fa-check"></i><b>15.2.1</b> Key Statistics</a></li>
+<li class="chapter" data-level="15.2.2" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#subgroup-within-group-statistics"><i class="fa fa-check"></i><b>15.2.2</b> Subgroup (Within-Group) Statistics</a></li>
+<li class="chapter" data-level="15.2.3" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#total-statistics-between-groups"><i class="fa fa-check"></i><b>15.2.3</b> Total Statistics (Between Groups)</a></li>
+<li class="chapter" data-level="15.2.4" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#average-and-standard-deviation-charts"><i class="fa fa-check"></i><b>15.2.4</b> Average and Standard Deviation Charts</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#learning-check-2-8"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="15.3" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#moving-range-charts"><i class="fa fa-check"></i><b>15.3</b> Moving Range Charts</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#individual-and-moving-range-charts"><i class="fa fa-check"></i><b>15.3.1</b> Individual and Moving Range Charts</a></li>
+<li class="chapter" data-level="15.3.2" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#factors-d_2-and-friends"><i class="fa fa-check"></i><b>15.3.2</b> Factors <span class="math inline">\(d_{2}\)</span> and Friends</a></li>
+<li class="chapter" data-level="15.3.3" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#estimating-sigma_short-for-moving-range-statistics"><i class="fa fa-check"></i><b>15.3.3</b> Estimating <span class="math inline">\(\sigma_{short}\)</span> for Moving Range Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#constants"><i class="fa fa-check"></i><b>15.4</b> Constants</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#find-any-d_x-factor"><i class="fa fa-check"></i><b>15.4.1</b> Find <em>any</em> <span class="math inline">\(d_x\)</span> Factor</a></li>
+<li class="chapter" data-level="15.4.2" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#using-d_x-factors"><i class="fa fa-check"></i><b>15.4.2</b> Using <span class="math inline">\(d_x\)</span> factors</a></li>
+<li class="chapter" data-level="15.4.3" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#finding-any-b_x-factor."><i class="fa fa-check"></i><b>15.4.3</b> Finding <em>any</em> <span class="math inline">\(b_x\)</span> Factor.</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#learning-check-3-5"><i class="fa fa-check"></i>Learning Check 3</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html"><i class="fa fa-check"></i><b>16</b> Statistical Process Control in <code>Python</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#getting-started-14"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#packages-7"><i class="fa fa-check"></i>Packages</a></li>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#custom-functions-1"><i class="fa fa-check"></i>Custom Functions</a></li>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#our-case-1"><i class="fa fa-check"></i>Our Case</a></li>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#our-data-3"><i class="fa fa-check"></i>Our Data</a></li>
+</ul></li>
+<li class="chapter" data-level="16.1" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#process-descriptive-statistics-1"><i class="fa fa-check"></i><b>16.1</b> Process Descriptive Statistics</a></li>
+<li class="chapter" data-level="16.2" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#process-overview-visual-1"><i class="fa fa-check"></i><b>16.2</b> Process Overview Visual</a></li>
+<li class="chapter" data-level="16.3" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#subgroup-within-group-statistics-1"><i class="fa fa-check"></i><b>16.3</b> Subgroup (Within-Group) Statistics</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#total-statistics-between-groups-1"><i class="fa fa-check"></i><b>16.3.1</b> Total Statistics (Between Groups)</a></li>
+<li class="chapter" data-level="16.3.2" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#average-and-standard-deviation-charts-1"><i class="fa fa-check"></i><b>16.3.2</b> Average and Standard Deviation Charts</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#learning-check-1-11"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="16.4" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#moving-range-charts-n1"><i class="fa fa-check"></i><b>16.4</b> Moving Range Charts (n=1)</a></li>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#conclusion-12"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><i class="fa fa-check"></i><b>17</b> Indices and Confidence Intervals for Statistical Process Control in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#getting-started-15"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#packages-8"><i class="fa fa-check"></i>Packages</a></li>
+<li class="chapter" data-level="" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#our-data-4"><i class="fa fa-check"></i>Our Data</a></li>
+</ul></li>
+<li class="chapter" data-level="17.1" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#process-capability-vs.-stability"><i class="fa fa-check"></i><b>17.1</b> Process Capability vs. Stability</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#definitions"><i class="fa fa-check"></i><b>17.1.1</b> Definitions</a></li>
+<li class="chapter" data-level="17.1.2" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#table-of-indices"><i class="fa fa-check"></i><b>17.1.2</b> Table of Indices</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#index-functions"><i class="fa fa-check"></i><b>17.2</b> Index Functions</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#capacity-index-c_p"><i class="fa fa-check"></i><b>17.2.1</b> Capacity Index <span class="math inline">\(C_{p}\)</span></a></li>
+<li class="chapter" data-level="17.2.2" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#process-performance-index-p_p"><i class="fa fa-check"></i><b>17.2.2</b> Process Performance Index <span class="math inline">\(P_{p}\)</span></a></li>
+<li class="chapter" data-level="17.2.3" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#capacity-index-c_pk"><i class="fa fa-check"></i><b>17.2.3</b> Capacity Index <span class="math inline">\(C_{pk}\)</span></a></li>
+<li class="chapter" data-level="17.2.4" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#process-performance-index-p_pk"><i class="fa fa-check"></i><b>17.2.4</b> Process Performance Index <span class="math inline">\(P_{pk}\)</span></a></li>
+<li class="chapter" data-level="17.2.5" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#equality"><i class="fa fa-check"></i><b>17.2.5</b> Equality</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#learning-check-1-12"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="17.3" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#confidence-intervals"><i class="fa fa-check"></i><b>17.3</b> Confidence Intervals</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#confidence-intervals-show-us-sampling-distributions"><i class="fa fa-check"></i><b>17.3.1</b> Confidence Intervals show us Sampling Distributions</a></li>
+<li class="chapter" data-level="17.3.2" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#bootstrapped-or-theoretical-sampling-distributions"><i class="fa fa-check"></i><b>17.3.2</b> Bootstrapped or Theoretical Sampling Distributions?</a></li>
+<li class="chapter" data-level="17.3.3" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#confidence-intervals-with-theoretical-sampling-distributions"><i class="fa fa-check"></i><b>17.3.3</b> Confidence Intervals with Theoretical Sampling Distributions</a></li>
+<li class="chapter" data-level="17.3.4" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#visualizing-confidence-intervals"><i class="fa fa-check"></i><b>17.3.4</b> Visualizing Confidence Intervals</a></li>
+<li class="chapter" data-level="17.3.5" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#bootstrapping-c_p"><i class="fa fa-check"></i><b>17.3.5</b> Bootstrapping <span class="math inline">\(C_{p}\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#cis-for-any-index"><i class="fa fa-check"></i><b>17.4</b> CIs for any Index!</a>
+<ul>
+<li class="chapter" data-level="17.4.1" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#cis-for-p_p"><i class="fa fa-check"></i><b>17.4.1</b> CIs for <span class="math inline">\(P_p\)</span></a></li>
+<li class="chapter" data-level="17.4.2" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#cis-for-c_pk"><i class="fa fa-check"></i><b>17.4.2</b> CIs for <span class="math inline">\(C_{pk}\)</span></a></li>
+<li class="chapter" data-level="17.4.3" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#cis-for-p_p-1"><i class="fa fa-check"></i><b>17.4.3</b> CIs for <span class="math inline">\(P_p\)</span></a></li>
+<li class="chapter" data-level="17.4.4" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#cis-for-p_pk"><i class="fa fa-check"></i><b>17.4.4</b> CIs for <span class="math inline">\(P_{pk}\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-r.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-r.html#conclusion-13"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><i class="fa fa-check"></i><b>18</b> Indices and Confidence Intervals for Statistical Process Control in <code>Python</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#getting-started-16"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#packages-9"><i class="fa fa-check"></i>Packages</a></li>
+<li class="chapter" data-level="" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#custom-functions-2"><i class="fa fa-check"></i>Custom Functions</a></li>
+<li class="chapter" data-level="" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#our-data-5"><i class="fa fa-check"></i>Our Data</a></li>
+<li class="chapter" data-level="18.0.1" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#process-overview"><i class="fa fa-check"></i><b>18.0.1</b> Process Overview</a></li>
+</ul></li>
+<li class="chapter" data-level="18.1" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#process-capability-vs.-stability-1"><i class="fa fa-check"></i><b>18.1</b> Process Capability vs. Stability</a>
+<ul>
+<li class="chapter" data-level="18.1.1" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#definitions-1"><i class="fa fa-check"></i><b>18.1.1</b> Definitions</a></li>
+<li class="chapter" data-level="18.1.2" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#table-of-indices-1"><i class="fa fa-check"></i><b>18.1.2</b> Table of Indices</a></li>
+<li class="chapter" data-level="18.1.3" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#index-functions-1"><i class="fa fa-check"></i><b>18.1.3</b> Index Functions</a></li>
+<li class="chapter" data-level="18.1.4" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#ingredients"><i class="fa fa-check"></i><b>18.1.4</b> Ingredients</a></li>
+<li class="chapter" data-level="18.1.5" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#cp-and-pp"><i class="fa fa-check"></i><b>18.1.5</b> Cp and Pp</a></li>
+<li class="chapter" data-level="18.1.6" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#cpk-and-ppk"><i class="fa fa-check"></i><b>18.1.6</b> Cpk and Ppk</a></li>
+<li class="chapter" data-level="18.1.7" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#equality-1"><i class="fa fa-check"></i><b>18.1.7</b> Equality</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#confidence-intervals-normal-approximation"><i class="fa fa-check"></i><b>18.2</b> Confidence Intervals (Normal Approximation)</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#cp-confidence-interval"><i class="fa fa-check"></i><b>18.2.1</b> Cp Confidence Interval</a></li>
+<li class="chapter" data-level="18.2.2" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#cpk-confidence-interval"><i class="fa fa-check"></i><b>18.2.2</b> Cpk Confidence Interval</a></li>
+<li class="chapter" data-level="18.2.3" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#pp-and-ppk-confidence-intervals"><i class="fa fa-check"></i><b>18.2.3</b> Pp and Ppk Confidence Intervals</a></li>
+<li class="chapter" data-level="18.2.4" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#visualizing-confidence-intervals-1"><i class="fa fa-check"></i><b>18.2.4</b> Visualizing Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#bootstrapping-cp-example"><i class="fa fa-check"></i><b>18.3</b> Bootstrapping Cp (Example)</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#bootstrap-sampling-distributions-visualization"><i class="fa fa-check"></i><b>18.3.1</b> Bootstrap Sampling Distributions Visualization</a></li>
+<li class="chapter" data-level="18.3.2" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>18.3.2</b> Bootstrap Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#conclusion-14"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="part"><span><b>IV Life Distributions</b></span></li>
+<li class="chapter" data-level="19" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html"><i class="fa fa-check"></i><b>19</b> Useful Life Distributions (Exponential)</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#getting-started-17"><i class="fa fa-check"></i><b>19.1</b> Getting Started</a>
+<ul>
+<li class="chapter" data-level="19.1.1" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#load-packages-4"><i class="fa fa-check"></i><b>19.1.1</b> Load Packages</a></li>
+<li class="chapter" data-level="19.1.2" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#key-concepts"><i class="fa fa-check"></i><b>19.1.2</b> Key Concepts</a></li>
+<li class="chapter" data-level="19.1.3" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#our-data-6"><i class="fa fa-check"></i><b>19.1.3</b> Our Data</a></li>
+</ul></li>
+<li class="chapter" data-level="19.2" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#quantities-of-interest"><i class="fa fa-check"></i><b>19.2</b> Quantities of Interest</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#lack-of-memory"><i class="fa fa-check"></i><b>19.2.1</b> Lack of Memory</a></li>
+<li class="chapter" data-level="19.2.2" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#mean-time-to-fail"><i class="fa fa-check"></i><b>19.2.2</b> Mean Time to Fail</a></li>
+<li class="chapter" data-level="19.2.3" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#mean-time-to-fail-via-integration"><i class="fa fa-check"></i><b>19.2.3</b> Mean Time to Fail via <em>Integration</em></a></li>
+<li class="chapter" data-level="19.2.4" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#median-time-to-fail-t_50"><i class="fa fa-check"></i><b>19.2.4</b> Median Time to Fail <span class="math inline">\(T_{50}\)</span></a></li>
+<li class="chapter" data-level="19.2.5" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#modal-time-to-fail"><i class="fa fa-check"></i><b>19.2.5</b> Modal Time to Fail</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#learning-check-1-13"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#learning-check-2-9"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="19.3" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#quantities-of-interest-continued"><i class="fa fa-check"></i><b>19.3</b> Quantities of Interest (continued)</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#conditional-reliability-survival-function"><i class="fa fa-check"></i><b>19.3.1</b> Conditional Reliability (Survival) Function</a></li>
+<li class="chapter" data-level="19.3.2" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#mut-mean-residual-life"><i class="fa fa-check"></i><b>19.3.2</b> <span class="math inline">\(\mu(t)\)</span>: Mean Residual Life</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#learning-check-3-6"><i class="fa fa-check"></i>Learning Check 3</a></li>
+<li class="chapter" data-level="19.4" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#system-failure-with-independent-failure-rates"><i class="fa fa-check"></i><b>19.4</b> System Failure with Independent Failure Rates</a>
+<ul>
+<li class="chapter" data-level="19.4.1" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#reliability-functions-with-multiple-inputs"><i class="fa fa-check"></i><b>19.4.1</b> Reliability Functions with Multiple Inputs</a></li>
+<li class="chapter" data-level="19.4.2" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#phase-type-distributions"><i class="fa fa-check"></i><b>19.4.2</b> Phase-Type Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="19.5" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#conclusion-15"><i class="fa fa-check"></i><b>19.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html"><i class="fa fa-check"></i><b>20</b> Statistical Techniques for Exponential Distributions</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html#getting-started-18"><i class="fa fa-check"></i><b>20.1</b> Getting Started</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html#load-packages-5"><i class="fa fa-check"></i><b>20.1.1</b> Load Packages</a></li>
+<li class="chapter" data-level="20.1.2" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html#our-data-7"><i class="fa fa-check"></i><b>20.1.2</b> Our Data</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html#factors-in-r"><i class="fa fa-check"></i><b>20.2</b> Factors in R</a></li>
+<li class="chapter" data-level="20.3" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html#crosstabulation"><i class="fa fa-check"></i><b>20.3</b> Crosstabulation</a></li>
+<li class="chapter" data-level="" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html#learning-check-1-14"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="20.4" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html#estimating-lambda"><i class="fa fa-check"></i><b>20.4</b> Estimating Lambda</a>
+<ul>
+<li class="chapter" data-level="20.4.1" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html#lambda-from-complete-sample"><i class="fa fa-check"></i><b>20.4.1</b> Lambda from Complete Sample</a></li>
+<li class="chapter" data-level="20.4.2" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html#hatlambda-from-cross-tabulation"><i class="fa fa-check"></i><b>20.4.2</b> <span class="math inline">\(\hat{\lambda}\)</span> from Cross-Tabulation</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html#learning-check-2-10"><i class="fa fa-check"></i>Learning Check 2</a>
+<ul>
+<li class="chapter" data-level="20.4.3" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html#confidence-intervals-for-hatlambda"><i class="fa fa-check"></i><b>20.4.3</b> Confidence Intervals for <span class="math inline">\(\hat{\lambda}\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html#learning-check-3-7"><i class="fa fa-check"></i>Learning Check 3</a></li>
+<li class="chapter" data-level="20.5" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html#planning-experiments"><i class="fa fa-check"></i><b>20.5</b> Planning Experiments</a>
+<ul>
+<li class="chapter" data-level="20.5.1" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html#example-minimum-sample-size"><i class="fa fa-check"></i><b>20.5.1</b> Example: Minimum Sample Size</a></li>
+</ul></li>
+<li class="chapter" data-level="20.6" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html#chi-squared"><i class="fa fa-check"></i><b>20.6</b> Chi-squared</a>
+<ul>
+<li class="chapter" data-level="20.6.1" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html#compute-chi-squared-from-scratch"><i class="fa fa-check"></i><b>20.6.1</b> Compute Chi-squared from scratch</a></li>
+<li class="chapter" data-level="20.6.2" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html#building-a-chi-squared-function"><i class="fa fa-check"></i><b>20.6.2</b> Building a Chi-squared function</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html#learning-check-4-5"><i class="fa fa-check"></i>Learning Check 4</a></li>
+<li class="chapter" data-level="20.7" data-path="statistical-techniques-for-exponential-distributions.html"><a href="statistical-techniques-for-exponential-distributions.html#conclusion-16"><i class="fa fa-check"></i><b>20.7</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html"><i class="fa fa-check"></i><b>21</b> Useful Life Distributions (Weibull, Gamma, &amp; Lognormal)</a>
+<ul>
+<li class="chapter" data-level="" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#getting-started-19"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#load-packages-6"><i class="fa fa-check"></i>Load Packages</a></li>
+<li class="chapter" data-level="" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#load-data"><i class="fa fa-check"></i>Load Data</a></li>
+</ul></li>
+<li class="chapter" data-level="21.1" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#maximum-likelihood-estimation-mle"><i class="fa fa-check"></i><b>21.1</b> Maximum Likelihood Estimation (MLE)</a>
+<ul>
+<li class="chapter" data-level="21.1.1" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#likelihood-function"><i class="fa fa-check"></i><b>21.1.1</b> Likelihood Function</a></li>
+<li class="chapter" data-level="21.1.2" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#maximizing-with-optim"><i class="fa fa-check"></i><b>21.1.2</b> Maximizing with <code>optim()</code></a></li>
+<li class="chapter" data-level="21.1.3" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#under-the-hood"><i class="fa fa-check"></i><b>21.1.3</b> Under the Hood</a></li>
+<li class="chapter" data-level="21.1.4" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#multi-parameter-optimization"><i class="fa fa-check"></i><b>21.1.4</b> Multi-parameter optimization</a></li>
+<li class="chapter" data-level="21.1.5" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#mle-with-censored-data"><i class="fa fa-check"></i><b>21.1.5</b> MLE with Censored Data</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#learning-check-1-15"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="21.2" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#gamma-distribution-1"><i class="fa fa-check"></i><b>21.2</b> Gamma Distribution</a>
+<ul>
+<li class="chapter" data-level="21.2.1" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#gamma-function-gamma"><i class="fa fa-check"></i><b>21.2.1</b> <span class="math inline">\(\Gamma\)</span> function <code>gamma()</code></a></li>
+<li class="chapter" data-level="21.2.2" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#ft-or-dtprobability-density-function-aka-pdf"><i class="fa fa-check"></i><b>21.2.2</b> <span class="math inline">\(f(t)\)</span> or <code>d(t)</code>(<strong>Probability Density Function, aka PDF</strong>)</a></li>
+<li class="chapter" data-level="21.2.3" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#ft-failure-function-and-rt-reliability-function"><i class="fa fa-check"></i><b>21.2.3</b> <span class="math inline">\(F(t)\)</span> <strong>Failure Function</strong> and <span class="math inline">\(R(t)\)</span> <strong>Reliability Function</strong></a></li>
+<li class="chapter" data-level="21.2.4" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#mttf-and-variance"><i class="fa fa-check"></i><b>21.2.4</b> MTTF and Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#learning-check-2-11"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="21.3" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#weibull-distribution-1"><i class="fa fa-check"></i><b>21.3</b> Weibull Distribution</a>
+<ul>
+<li class="chapter" data-level="21.3.1" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#ft-failure-function-and-rt-reliability-function-1"><i class="fa fa-check"></i><b>21.3.1</b> <span class="math inline">\(F(t)\)</span> Failure Function and <span class="math inline">\(R(t)\)</span> Reliability Function</a></li>
+<li class="chapter" data-level="21.3.2" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#ft-or-dt-pdf"><i class="fa fa-check"></i><b>21.3.2</b> <span class="math inline">\(f(t)\)</span> or <code>d(t)</code> (PDF)</a></li>
+<li class="chapter" data-level="21.3.3" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#zt-failure-rate"><i class="fa fa-check"></i><b>21.3.3</b> <span class="math inline">\(z(t)\)</span> Failure Rate</a></li>
+<li class="chapter" data-level="21.3.4" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#m-and-c"><i class="fa fa-check"></i><b>21.3.4</b> <span class="math inline">\(m\)</span> and <span class="math inline">\(c\)</span></a></li>
+<li class="chapter" data-level="21.3.5" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#weibull-series-systems"><i class="fa fa-check"></i><b>21.3.5</b> Weibull Series Systems</a></li>
+<li class="chapter" data-level="21.3.6" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#mttf-and-variance-1"><i class="fa fa-check"></i><b>21.3.6</b> MTTF and Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#learning-check-3-8"><i class="fa fa-check"></i>Learning Check 3</a></li>
+<li class="chapter" data-level="" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#learning-check-4-6"><i class="fa fa-check"></i>Learning Check 4</a></li>
+<li class="chapter" data-level="21.4" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#lognormal-distribution"><i class="fa fa-check"></i><b>21.4</b> Lognormal Distribution</a>
+<ul>
+<li class="chapter" data-level="21.4.1" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#ft-or-dt-pdf-1"><i class="fa fa-check"></i><b>21.4.1</b> <span class="math inline">\(f(t)\)</span> or <code>d(t)</code> (PDF)</a></li>
+<li class="chapter" data-level="21.4.2" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#phi"><i class="fa fa-check"></i><b>21.4.2</b> <span class="math inline">\(\Phi\)</span></a></li>
+<li class="chapter" data-level="21.4.3" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#key-functions-1"><i class="fa fa-check"></i><b>21.4.3</b> Key Functions</a></li>
+<li class="chapter" data-level="21.4.4" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#mttf-and-variance-2"><i class="fa fa-check"></i><b>21.4.4</b> MTTF and Variance</a></li>
+<li class="chapter" data-level="21.4.5" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#using-other-parameters"><i class="fa fa-check"></i><b>21.4.5</b> Using Other Parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#learning-check-5-4"><i class="fa fa-check"></i>Learning Check 5</a></li>
+<li class="chapter" data-level="" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#learning-check-6-1"><i class="fa fa-check"></i>Learning Check 6</a></li>
+<li class="chapter" data-level="21.5" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#conclusion-17"><i class="fa fa-check"></i><b>21.5</b> Conclusion</a></li>
+</ul></li>
+<li class="part"><span><b>V Physical Acceleration Models</b></span></li>
+<li class="chapter" data-level="22" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html"><i class="fa fa-check"></i><b>22</b> Fault Tree Analysis in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html#getting-started-20"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html#prerequisites-1"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html#load-packages-7"><i class="fa fa-check"></i>Load Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="22.1" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html#simulating-fault-trees"><i class="fa fa-check"></i><b>22.1</b> Simulating Fault Trees</a></li>
+<li class="chapter" data-level="22.2" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html#example-superman-fault-tree"><i class="fa fa-check"></i><b>22.2</b> Example: Superman Fault Tree</a></li>
+<li class="chapter" data-level="22.3" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html#using-raw-probabilities"><i class="fa fa-check"></i><b>22.3</b> Using Raw Probabilities</a></li>
+<li class="chapter" data-level="" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html#learning-check-1-16"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="22.4" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html#using-failure-rates-at-time-t"><i class="fa fa-check"></i><b>22.4</b> Using Failure Rates at Time <code>t</code></a></li>
+<li class="chapter" data-level="" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html#learning-check-2-12"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="22.5" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html#simulating-uncertainty-in-probabilities"><i class="fa fa-check"></i><b>22.5</b> Simulating Uncertainty in Probabilities</a></li>
+<li class="chapter" data-level="22.6" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html#simulating-uncertainty-in-failure-rates"><i class="fa fa-check"></i><b>22.6</b> Simulating Uncertainty in Failure Rates</a></li>
+<li class="chapter" data-level="22.7" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html#example-contagion"><i class="fa fa-check"></i><b>22.7</b> Example: Contagion</a></li>
+<li class="chapter" data-level="" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html#learning-check-3-9"><i class="fa fa-check"></i>Learning Check 3</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html"><i class="fa fa-check"></i><b>23</b> Physical Acceleration Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#getting-started-21"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#load-packages-8"><i class="fa fa-check"></i>Load Packages</a></li>
+<li class="chapter" data-level="" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#helpful-functions"><i class="fa fa-check"></i>Helpful Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="23.1" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#acceleration-factor"><i class="fa fa-check"></i><b>23.1</b> Acceleration Factor</a>
+<ul>
+<li class="chapter" data-level="23.1.1" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#stress-vs.-usage-conditions"><i class="fa fa-check"></i><b>23.1.1</b> Stress vs. Usage Conditions</a></li>
+<li class="chapter" data-level="23.1.2" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#acceleration-as-a-function-fracf_stf_ut"><i class="fa fa-check"></i><b>23.1.2</b> Acceleration as a Function <span class="math inline">\(\frac{f_{s}(t)}{f_{u}(t)}\)</span></a></li>
+<li class="chapter" data-level="23.1.3" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#linear-acceleration"><i class="fa fa-check"></i><b>23.1.3</b> Linear Acceleration</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#learning-check-1-17"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#learning-check-2-13"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="23.2" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#modeling-normal-use-lifespan"><i class="fa fa-check"></i><b>23.2</b> Modeling Normal Use Lifespan</a>
+<ul>
+<li class="chapter" data-level="23.2.1" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#models-and-prediction"><i class="fa fa-check"></i><b>23.2.1</b> Models and Prediction</a></li>
+<li class="chapter" data-level="23.2.2" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#arrhenius-model-temperature"><i class="fa fa-check"></i><b>23.2.2</b> Arrhenius Model (Temperature)</a></li>
+<li class="chapter" data-level="23.2.3" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#visualizing-the-arrhenius-model"><i class="fa fa-check"></i><b>23.2.3</b> Visualizing the Arrhenius Model</a></li>
+<li class="chapter" data-level="23.2.4" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#estimating-the-arrhenius-model"><i class="fa fa-check"></i><b>23.2.4</b> Estimating the Arrhenius Model</a></li>
+<li class="chapter" data-level="23.2.5" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#prediction"><i class="fa fa-check"></i><b>23.2.5</b> Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="23.3" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#eyring-model-multiple-stressors"><i class="fa fa-check"></i><b>23.3</b> Eyring Model (Multiple Stressors)</a></li>
+<li class="chapter" data-level="23.4" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#degradation-model-time-trends"><i class="fa fa-check"></i><b>23.4</b> Degradation Model (Time Trends)</a></li>
+<li class="chapter" data-level="23.5" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#burn-in-periods"><i class="fa fa-check"></i><b>23.5</b> Burn-in Periods</a></li>
+<li class="chapter" data-level="23.6" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#maximum-likelihood-estimation-mle-for-physical-acceleration-models"><i class="fa fa-check"></i><b>23.6</b> Maximum Likelihood Estimation (MLE) for Physical Acceleration Models</a>
+<ul>
+<li class="chapter" data-level="23.6.1" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#mle-for-an-example-arrhenius-model"><i class="fa fa-check"></i><b>23.6.1</b> MLE for an Example Arrhenius Model</a></li>
+<li class="chapter" data-level="23.6.2" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#estimating-delta-h-with-mle"><i class="fa fa-check"></i><b>23.6.2</b> Estimating <span class="math inline">\(\Delta H\)</span> with MLE</a></li>
+<li class="chapter" data-level="23.6.3" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#visualizing-probabilities"><i class="fa fa-check"></i><b>23.6.3</b> Visualizing Probabilities</a></li>
+</ul></li>
+<li class="chapter" data-level="23.7" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#conclusion-18"><i class="fa fa-check"></i><b>23.7</b> Conclusion</a></li>
+</ul></li>
+<li class="part"><span><b>VI Regression</b></span></li>
+<li class="chapter" data-level="24" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html"><i class="fa fa-check"></i><b>24</b> Bivariate Regression: Modeling Diamond Pricing</a>
+<ul>
+<li class="chapter" data-level="" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#getting-started-22"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#load-data-1"><i class="fa fa-check"></i>Load Data</a></li>
+<li class="chapter" data-level="" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#view-data"><i class="fa fa-check"></i>View Data</a></li>
+<li class="chapter" data-level="" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#codebook"><i class="fa fa-check"></i>Codebook</a></li>
+</ul></li>
+<li class="chapter" data-level="24.1" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#review"><i class="fa fa-check"></i><b>24.1</b> Review</a>
+<ul>
+<li class="chapter" data-level="24.1.1" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#scatterplots"><i class="fa fa-check"></i><b>24.1.1</b> Scatterplots</a></li>
+<li class="chapter" data-level="24.1.2" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#correlation"><i class="fa fa-check"></i><b>24.1.2</b> Correlation</a></li>
+<li class="chapter" data-level="24.1.3" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#example"><i class="fa fa-check"></i><b>24.1.3</b> Example</a></li>
+<li class="chapter" data-level="24.1.4" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#cor.test-and-tidy"><i class="fa fa-check"></i><b>24.1.4</b> cor.test() and tidy()</a></li>
+</ul></li>
+<li class="chapter" data-level="24.2" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#regression-and-the-line-of-best-fit"><i class="fa fa-check"></i><b>24.2</b> Regression and the Line of Best Fit</a>
+<ul>
+<li class="chapter" data-level="24.2.1" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#model-equation"><i class="fa fa-check"></i><b>24.2.1</b> Model Equation</a></li>
+<li class="chapter" data-level="24.2.2" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#coding-regression-models"><i class="fa fa-check"></i><b>24.2.2</b> Coding Regression Models</a></li>
+<li class="chapter" data-level="24.2.3" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#lm"><i class="fa fa-check"></i><b>24.2.3</b> lm()</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#learning-check-1-18"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="24.3" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#statistical-significance"><i class="fa fa-check"></i><b>24.3</b> Statistical Significance</a></li>
+<li class="chapter" data-level="" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#learning-check-2-14"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="24.4" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#visualization"><i class="fa fa-check"></i><b>24.4</b> Visualization</a></li>
+<li class="chapter" data-level="" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#learning-check-3-10"><i class="fa fa-check"></i>Learning Check 3</a></li>
+<li class="chapter" data-level="24.5" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#finding-the-line-of-best-fit"><i class="fa fa-check"></i><b>24.5</b> Finding the Line of Best Fit</a>
+<ul>
+<li class="chapter" data-level="24.5.1" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#predicted-values"><i class="fa fa-check"></i><b>24.5.1</b> Predicted Values</a></li>
+<li class="chapter" data-level="24.5.2" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#residuals"><i class="fa fa-check"></i><b>24.5.2</b> Residuals</a></li>
+<li class="chapter" data-level="24.5.3" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#r-squared"><i class="fa fa-check"></i><b>24.5.3</b> R-squared</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#learning-check-4-7"><i class="fa fa-check"></i>Learning Check 4</a></li>
+<li class="chapter" data-level="24.6" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#f-statistic"><i class="fa fa-check"></i><b>24.6</b> F-statistic</a>
+<ul>
+<li class="chapter" data-level="24.6.1" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#interpreting-an-f-statistic"><i class="fa fa-check"></i><b>24.6.1</b> Interpreting an F-statistic</a></li>
+</ul></li>
+<li class="chapter" data-level="24.7" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#summary"><i class="fa fa-check"></i><b>24.7</b> <code>summary()</code></a>
+<ul>
+<li class="chapter" data-level="24.7.1" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#get-all-stats-all-at-once-with-summary"><i class="fa fa-check"></i><b>24.7.1</b> Get all stats, all at once with <code>summary()</code></a></li>
+<li class="chapter" data-level="24.7.2" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#key-statistics-1"><i class="fa fa-check"></i><b>24.7.2</b> <strong>4 Key Statistics</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html#learning-check-5-5"><i class="fa fa-check"></i>Learning Check 5</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html"><i class="fa fa-check"></i><b>25</b> Multivariate Regression: Modeling Effects of Disaster on Social Capital</a>
+<ul>
+<li class="chapter" data-level="" data-path="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#getting-started-23"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#load-data-packages"><i class="fa fa-check"></i>Load Data &amp; Packages</a></li>
+<li class="chapter" data-level="" data-path="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#view-data-1"><i class="fa fa-check"></i>View Data</a></li>
+<li class="chapter" data-level="" data-path="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#codebook-1"><i class="fa fa-check"></i>Codebook</a></li>
+</ul></li>
+<li class="chapter" data-level="25.1" data-path="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#multiple-regression"><i class="fa fa-check"></i><b>25.1</b> Multiple Regression</a>
+<ul>
+<li class="chapter" data-level="25.1.1" data-path="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#beta-coefficients"><i class="fa fa-check"></i><b>25.1.1</b> Beta coefficients</a></li>
+<li class="chapter" data-level="25.1.2" data-path="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#controls"><i class="fa fa-check"></i><b>25.1.2</b> Controls</a></li>
+<li class="chapter" data-level="25.1.3" data-path="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#planes"><i class="fa fa-check"></i><b>25.1.3</b> Planes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#learning-check-1-19"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="25.2" data-path="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#effect-sizes"><i class="fa fa-check"></i><b>25.2</b> Effect Sizes</a></li>
+<li class="chapter" data-level="" data-path="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#learning-check-2-15"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="25.3" data-path="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#multiple-models"><i class="fa fa-check"></i><b>25.3</b> Multiple Models</a></li>
+<li class="chapter" data-level="" data-path="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#learning-check-3-11"><i class="fa fa-check"></i>Learning Check 3</a></li>
+<li class="chapter" data-level="25.4" data-path="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#great-tables"><i class="fa fa-check"></i><b>25.4</b> Great Tables</a></li>
+<li class="chapter" data-level="" data-path="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html"><a href="multivariate-regression-modeling-effects-of-disaster-on-social-capital.html#learning-check-4-8"><i class="fa fa-check"></i>Learning Check 4</a></li>
+</ul></li>
+<li class="part"><span><b>VII Comparing Groups and ANOVA</b></span></li>
+<li class="chapter" data-level="26" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html"><i class="fa fa-check"></i><b>26</b> Design of Experiments in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#getting-started-24"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#the-experiment"><i class="fa fa-check"></i>The Experiment</a></li>
+<li class="chapter" data-level="" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#import-data"><i class="fa fa-check"></i>Import Data</a></li>
+</ul></li>
+<li class="chapter" data-level="26.1" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#difference-of-means-t-tests"><i class="fa fa-check"></i><b>26.1</b> Difference of Means (t-tests)</a>
+<ul>
+<li class="chapter" data-level="26.1.1" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#calculating-dbar"><i class="fa fa-check"></i><b>26.1.1</b> Calculating <code>dbar</code></a></li>
+<li class="chapter" data-level="26.1.2" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#visualizing-the-difference-of-means"><i class="fa fa-check"></i><b>26.1.2</b> Visualizing the difference of means</a></li>
+</ul></li>
+<li class="chapter" data-level="26.2" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#definitions-null-vs.-sampling-distributions"><i class="fa fa-check"></i><b>26.2</b> Definitions: Null vs. Sampling Distributions</a></li>
+<li class="chapter" data-level="26.3" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#null-distributions"><i class="fa fa-check"></i><b>26.3</b> Null Distributions</a>
+<ul>
+<li class="chapter" data-level="26.3.1" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#permutation-test-computational-approach"><i class="fa fa-check"></i><b>26.3.1</b> Permutation Test (Computational Approach)</a></li>
+<li class="chapter" data-level="26.3.2" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#t-statistics-theoretical-approach"><i class="fa fa-check"></i><b>26.3.2</b> t-statistics (Theoretical Approach)</a></li>
+</ul></li>
+<li class="chapter" data-level="26.4" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#sampling-distribution"><i class="fa fa-check"></i><b>26.4</b> Sampling Distribution</a>
+<ul>
+<li class="chapter" data-level="26.4.1" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#bootstrapped-cis-for-dbar"><i class="fa fa-check"></i><b>26.4.1</b> Bootstrapped CIs for <code>dbar</code></a></li>
+<li class="chapter" data-level="26.4.2" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#assume-normal-cis-for-dbar"><i class="fa fa-check"></i><b>26.4.2</b> Assume Normal CIs for <code>dbar</code></a></li>
+</ul></li>
+<li class="chapter" data-level="26.5" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#speedy-t-tests"><i class="fa fa-check"></i><b>26.5</b> Speedy t-tests</a></li>
+<li class="chapter" data-level="26.6" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#anova"><i class="fa fa-check"></i><b>26.6</b> ANOVA</a>
+<ul>
+<li class="chapter" data-level="26.6.1" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#visualizing-anova"><i class="fa fa-check"></i><b>26.6.1</b> Visualizing ANOVA</a></li>
+<li class="chapter" data-level="26.6.2" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#anova-explained"><i class="fa fa-check"></i><b>26.6.2</b> ANOVA Explained</a></li>
+<li class="chapter" data-level="26.6.3" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#functions-for-anova"><i class="fa fa-check"></i><b>26.6.3</b> Functions for ANOVA</a></li>
+<li class="chapter" data-level="26.6.4" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#lm---the-easy-way"><i class="fa fa-check"></i><b>26.6.4</b> <code>lm()</code> - the easy way</a></li>
+<li class="chapter" data-level="26.6.5" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#aov---the-normal-way"><i class="fa fa-check"></i><b>26.6.5</b> <code>aov()</code> - the normal way</a></li>
+<li class="chapter" data-level="26.6.6" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#oneway.test---if-you-know-your-group-variances-are-unequal"><i class="fa fa-check"></i><b>26.6.6</b> <code>oneway.test()</code> - if you know your group variances are unequal</a></li>
+<li class="chapter" data-level="26.6.7" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#multiple-variables"><i class="fa fa-check"></i><b>26.6.7</b> Multiple Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="design-of-experiments-in-r.html"><a href="design-of-experiments-in-r.html#conclusion-19"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="part"><span><b>VIII Factorial Design &amp; RSM</b></span></li>
+<li class="chapter" data-level="27" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html"><i class="fa fa-check"></i><b>27</b> Factorial Design and Interaction Effects in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#getting-started-25"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#factorial-design"><i class="fa fa-check"></i>Factorial Design</a></li>
+<li class="chapter" data-level="" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#data-packages"><i class="fa fa-check"></i>Data &amp; Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="27.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-direct-effects"><i class="fa fa-check"></i><b>27.1</b> Estimating Direct Effects</a>
+<ul>
+<li class="chapter" data-level="27.1.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#difference-of-grand-means-barbard"><i class="fa fa-check"></i><b>27.1.1</b> Difference of Grand Means <span class="math inline">\(\bar{\bar{d}}\)</span></a></li>
+<li class="chapter" data-level="27.1.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#slower-but-clearer-method-of-getting-the-difference-of-grand-means-barbard"><i class="fa fa-check"></i><b>27.1.2</b> Slower-but-Clearer Method of Getting the Difference of Grand Means <span class="math inline">\(\bar{\bar{d}}\)</span></a></li>
+<li class="chapter" data-level="27.1.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#faster-but-messier-method-of-getting-the-difference-of-grand-means-barbard"><i class="fa fa-check"></i><b>27.1.3</b> Faster-but-Messier Method of Getting the Difference of Grand Means <span class="math inline">\(\bar{\bar{d}}\)</span></a></li>
+<li class="chapter" data-level="27.1.4" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-many-difference-of-grand-means-barbard"><i class="fa fa-check"></i><b>27.1.4</b> Estimating <em>Many</em> Difference of Grand Means <span class="math inline">\(\bar{\bar{d}}\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="27.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#standard-errors-for-barbard"><i class="fa fa-check"></i><b>27.2</b> Standard Errors for <span class="math inline">\(\bar{\bar{d}}\)</span></a>
+<ul>
+<li class="chapter" data-level="27.2.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-standard-error-when-s2_i-is-known"><i class="fa fa-check"></i><b>27.2.1</b> Estimating Standard Error when <span class="math inline">\(s^2_i\)</span> is known</a></li>
+<li class="chapter" data-level="27.2.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#using-pooled-variance-to-estimate-standard-errors"><i class="fa fa-check"></i><b>27.2.2</b> Using Pooled Variance to Estimate Standard Errors</a></li>
+</ul></li>
+<li class="chapter" data-level="27.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#pivoting-data-with-pivot_longer-pivot_wider"><i class="fa fa-check"></i><b>27.3</b> Pivoting Data with <code>pivot_longer()</code> &amp; <code>pivot_wider()</code></a>
+<ul>
+<li class="chapter" data-level="27.3.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#contains"><i class="fa fa-check"></i><b>27.3.1</b> <code>contains()</code></a></li>
+<li class="chapter" data-level="27.3.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#pivot_longer"><i class="fa fa-check"></i><b>27.3.2</b> <code>pivot_longer()</code></a></li>
+<li class="chapter" data-level="27.3.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#pivot_wider"><i class="fa fa-check"></i><b>27.3.3</b> <code>pivot_wider()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="27.4" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#visualizing-reporting-treatment-effects"><i class="fa fa-check"></i><b>27.4</b> Visualizing &amp; Reporting Treatment Effects</a>
+<ul>
+<li class="chapter" data-level="27.4.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#building-a-table-of-direct-effects"><i class="fa fa-check"></i><b>27.4.1</b> Building a Table of Direct Effects</a></li>
+<li class="chapter" data-level="27.4.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#visualization-strategies"><i class="fa fa-check"></i><b>27.4.2</b> Visualization Strategies</a></li>
+<li class="chapter" data-level="27.4.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#an-excellent-visual"><i class="fa fa-check"></i><b>27.4.3</b> An Excellent Visual</a></li>
+</ul></li>
+<li class="chapter" data-level="27.5" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#interaction-effects"><i class="fa fa-check"></i><b>27.5</b> Interaction Effects</a></li>
+<li class="chapter" data-level="27.6" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-2-way-interactions"><i class="fa fa-check"></i><b>27.6</b> Estimating 2-way interactions</a></li>
+<li class="chapter" data-level="27.7" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-3-way-interactions"><i class="fa fa-check"></i><b>27.7</b> Estimating 3-way interactions</a></li>
+<li class="chapter" data-level="27.8" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-interactions-in-lm"><i class="fa fa-check"></i><b>27.8</b> Estimating Interactions in <code>lm()</code></a>
+<ul>
+<li class="chapter" data-level="27.8.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#modeling-interactions"><i class="fa fa-check"></i><b>27.8.1</b> Modeling Interactions</a></li>
+<li class="chapter" data-level="27.8.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#using-predict-to-visualize-interaction-effects"><i class="fa fa-check"></i><b>27.8.2</b> Using <code>predict()</code> to visualize interaction effects</a></li>
+<li class="chapter" data-level="27.8.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#finding-the-best-model-with-anova"><i class="fa fa-check"></i><b>27.8.3</b> Finding the best model with <code>anova()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#conclusion-20"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="28" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html"><i class="fa fa-check"></i><b>28</b> Response Surface Methodology in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#getting-started-26"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#packages-10"><i class="fa fa-check"></i>Packages</a></li>
+<li class="chapter" data-level="" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#our-data-8"><i class="fa fa-check"></i>Our Data</a></li>
+<li class="chapter" data-level="" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#import-data-1"><i class="fa fa-check"></i>Import Data</a></li>
+</ul></li>
+<li class="chapter" data-level="28.1" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#models-for-rsm"><i class="fa fa-check"></i><b>28.1</b> Models for RSM</a>
+<ul>
+<li class="chapter" data-level="28.1.1" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#specifying-an-interaction-model-with-polynomials"><i class="fa fa-check"></i><b>28.1.1</b> Specifying an Interaction Model with Polynomials</a></li>
+<li class="chapter" data-level="28.1.2" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#modeling-with-rsm"><i class="fa fa-check"></i><b>28.1.2</b> Modeling with <code>rsm()</code></a></li>
+<li class="chapter" data-level="28.1.3" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#transforming-variables"><i class="fa fa-check"></i><b>28.1.3</b> Transforming Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#learning-check-1-20"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="28.2" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#contour-plots"><i class="fa fa-check"></i><b>28.2</b> Contour Plots</a>
+<ul>
+<li class="chapter" data-level="28.2.1" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#simple-contour-plots"><i class="fa fa-check"></i><b>28.2.1</b> Simple <code>contour()</code> plots</a></li>
+<li class="chapter" data-level="28.2.2" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#geom_tile-plots"><i class="fa fa-check"></i><b>28.2.2</b> <code>geom_tile()</code> plots</a></li>
+<li class="chapter" data-level="28.2.3" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#pretty-geom_contour-plots"><i class="fa fa-check"></i><b>28.2.3</b> Pretty <code>geom_contour()</code> plots!</a></li>
+<li class="chapter" data-level="28.2.4" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#one-step-rsm-in-ggplot"><i class="fa fa-check"></i><b>28.2.4</b> One-step RSM in <code>ggplot</code></a></li>
+<li class="chapter" data-level="28.2.5" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#more-realistic-plots"><i class="fa fa-check"></i><b>28.2.5</b> More Realistic Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#learning-check-2-16"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="28.3" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#iterate"><i class="fa fa-check"></i><b>28.3</b> Iterate!</a>
+<ul>
+<li class="chapter" data-level="28.3.1" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#modeling-many-interactions"><i class="fa fa-check"></i><b>28.3.1</b> Modeling many Interactions</a></li>
+<li class="chapter" data-level="28.3.2" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#contours-with-multiple-variables"><i class="fa fa-check"></i><b>28.3.2</b> Contours with Multiple Variables</a></li>
+<li class="chapter" data-level="28.3.3" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#ggplot-contour-plots"><i class="fa fa-check"></i><b>28.3.3</b> <code>ggplot</code> contour plots!</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#learning-check-3-12"><i class="fa fa-check"></i>Learning Check 3</a></li>
+<li class="chapter" data-level="28.4" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#quantities-of-interest-in-rsm"><i class="fa fa-check"></i><b>28.4</b> Quantities of Interest in RSM</a>
+<ul>
+<li class="chapter" data-level="28.4.1" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#percent-change-in-bins"><i class="fa fa-check"></i><b>28.4.1</b> Percent Change in Bins</a></li>
+<li class="chapter" data-level="28.4.2" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#study-range"><i class="fa fa-check"></i><b>28.4.2</b> Study Range</a></li>
+</ul></li>
+<li class="chapter" data-level="28.5" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#extra-concepts-of-interest-canonical-form"><i class="fa fa-check"></i><b>28.5</b> Extra Concepts of Interest: Canonical Form</a>
+<ul>
+<li class="chapter" data-level="28.5.1" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#finding-the-canonical-form"><i class="fa fa-check"></i><b>28.5.1</b> Finding the Canonical Form</a></li>
+<li class="chapter" data-level="28.5.2" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#canonical-form-coefficients"><i class="fa fa-check"></i><b>28.5.2</b> Canonical Form Coefficients</a></li>
+<li class="chapter" data-level="28.5.3" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#stationary-points"><i class="fa fa-check"></i><b>28.5.3</b> Stationary Points</a></li>
+<li class="chapter" data-level="28.5.4" data-path="response-surface-methodology-in-r.html"><a href="response-surface-methodology-in-r.html#shift-points"><i class="fa fa-check"></i><b>28.5.4</b> Shift Points</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="conclusion-21.html"><a href="conclusion-21.html"><i class="fa fa-check"></i>Conclusion</a></li>
+<li class="part"><span><b>IX Appendices</b></span></li>
+<li class="chapter" data-level="29" data-path="appendix-ggplot-tips.html"><a href="appendix-ggplot-tips.html"><i class="fa fa-check"></i><b>29</b> Appendix: <code>ggplot</code> tips</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-ggplot-tips.html"><a href="appendix-ggplot-tips.html#getting-started-27"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="29.0.1" data-path="appendix-ggplot-tips.html"><a href="appendix-ggplot-tips.html#resources"><i class="fa fa-check"></i><b>29.0.1</b> Resources</a></li>
+<li class="chapter" data-level="29.0.2" data-path="appendix-ggplot-tips.html"><a href="appendix-ggplot-tips.html#our-packages"><i class="fa fa-check"></i><b>29.0.2</b> Our Packages</a></li>
+<li class="chapter" data-level="29.0.3" data-path="appendix-ggplot-tips.html"><a href="appendix-ggplot-tips.html#our-data-9"><i class="fa fa-check"></i><b>29.0.3</b> Our Data</a></li>
+</ul></li>
+<li class="chapter" data-level="29.1" data-path="appendix-ggplot-tips.html"><a href="appendix-ggplot-tips.html#flipping-axes"><i class="fa fa-check"></i><b>29.1</b> Flipping Axes</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-ggplot-tips.html"><a href="appendix-ggplot-tips.html#learning-check-1-21"><i class="fa fa-check"></i>Learning Check 1</a></li>
+</ul></li>
+<li class="chapter" data-level="29.2" data-path="appendix-ggplot-tips.html"><a href="appendix-ggplot-tips.html#legend-positioning"><i class="fa fa-check"></i><b>29.2</b> Legend Positioning</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-ggplot-tips.html"><a href="appendix-ggplot-tips.html#learning-check-8"><i class="fa fa-check"></i>Learning Check 8</a></li>
+</ul></li>
+<li class="chapter" data-level="29.3" data-path="appendix-ggplot-tips.html"><a href="appendix-ggplot-tips.html#breaking-up-a-visual"><i class="fa fa-check"></i><b>29.3</b> Breaking Up a Visual</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-ggplot-tips.html"><a href="appendix-ggplot-tips.html#learning-check-10"><i class="fa fa-check"></i>Learning Check 10</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="30" data-path="appendix-mermaid-block-diagrams-flowcharts-in-r.html"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html"><i class="fa fa-check"></i><b>30</b> Appendix: <code>mermaid</code> Block Diagrams (Flowcharts) in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-mermaid-block-diagrams-flowcharts-in-r.html"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#getting-started-28"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-mermaid-block-diagrams-flowcharts-in-r.html"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#block-diagrams"><i class="fa fa-check"></i>Block Diagrams</a></li>
+<li class="chapter" data-level="" data-path="appendix-mermaid-block-diagrams-flowcharts-in-r.html"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#load-packages-9"><i class="fa fa-check"></i>Load Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="30.1" data-path="appendix-mermaid-block-diagrams-flowcharts-in-r.html"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#mermaid"><i class="fa fa-check"></i><b>30.1</b> Mermaid</a>
+<ul>
+<li class="chapter" data-level="30.1.1" data-path="appendix-mermaid-block-diagrams-flowcharts-in-r.html"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#example-block-diagram-with-mermaid"><i class="fa fa-check"></i><b>30.1.1</b> Example Block Diagram with <code>mermaid</code></a></li>
+<li class="chapter" data-level="" data-path="appendix-mermaid-block-diagrams-flowcharts-in-r.html"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#learning-check-1-22"><i class="fa fa-check"></i>Learning Check 1</a></li>
+</ul></li>
+<li class="chapter" data-level="30.2" data-path="appendix-mermaid-block-diagrams-flowcharts-in-r.html"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#diagram-of-ice-cream-shipment"><i class="fa fa-check"></i><b>30.2</b> Diagram of Ice Cream Shipment</a></li>
+<li class="chapter" data-level="30.3" data-path="appendix-mermaid-block-diagrams-flowcharts-in-r.html"><a href="appendix-mermaid-block-diagrams-flowcharts-in-r.html#diagram-failures"><i class="fa fa-check"></i><b>30.3</b> Diagram Failures</a></li>
+</ul></li>
+<li class="chapter" data-level="31" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><i class="fa fa-check"></i><b>31</b> Appendix: Using <code>fitdistr</code> to Fitting Distribution Parameters</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#getting-started-29"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#load-packages-10"><i class="fa fa-check"></i>Load Packages</a></li>
+<li class="chapter" data-level="31.0.1" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#our-data-10"><i class="fa fa-check"></i><b>31.0.1</b> Our Data</a></li>
+</ul></li>
+<li class="chapter" data-level="31.1" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#example-exponential-distribution"><i class="fa fa-check"></i><b>31.1</b> Example: Exponential Distribution</a></li>
+<li class="chapter" data-level="31.2" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#method-of-moments"><i class="fa fa-check"></i><b>31.2</b> Method of Moments</a></li>
+<li class="chapter" data-level="31.3" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#mle-with-fitdistr"><i class="fa fa-check"></i><b>31.3</b> MLE with <code>fitdistr()</code></a></li>
+<li class="chapter" data-level="31.4" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#mle-with-optim"><i class="fa fa-check"></i><b>31.4</b> MLE with <code>optim()</code></a></li>
+<li class="chapter" data-level="31.5" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#applications"><i class="fa fa-check"></i><b>31.5</b> Applications</a>
+<ul>
+<li class="chapter" data-level="31.5.1" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#normal-distribution-1"><i class="fa fa-check"></i><b>31.5.1</b> Normal Distribution</a></li>
+<li class="chapter" data-level="31.5.2" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#poisson-distribution-1"><i class="fa fa-check"></i><b>31.5.2</b> Poisson Distribution</a></li>
+<li class="chapter" data-level="31.5.3" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#gamma-distribution-2"><i class="fa fa-check"></i><b>31.5.3</b> Gamma Distribution</a></li>
+<li class="chapter" data-level="31.5.4" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#weibull-distribution-2"><i class="fa fa-check"></i><b>31.5.4</b> Weibull Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#learning-check-1-23"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="31.6" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#conclusion-22"><i class="fa fa-check"></i><b>31.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="32" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html"><i class="fa fa-check"></i><b>32</b> Appendix: <code>tidyfault</code> for Fault Tree Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#getting-started-30"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#prerequisites-2"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#load-packages-11"><i class="fa fa-check"></i>Load Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="32.1" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#visualizing-fault-trees-in-r"><i class="fa fa-check"></i><b>32.1</b> Visualizing Fault Trees in R</a>
+<ul>
+<li class="chapter" data-level="32.1.1" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#making-a-nodelist"><i class="fa fa-check"></i><b>32.1.1</b> Making a Nodelist</a></li>
+<li class="chapter" data-level="32.1.2" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#making-an-edgelist"><i class="fa fa-check"></i><b>32.1.2</b> Making an Edgelist</a></li>
+</ul></li>
+<li class="chapter" data-level="32.2" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#our-data-11"><i class="fa fa-check"></i><b>32.2</b> Our Data</a></li>
+<li class="chapter" data-level="32.3" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#getting-a-fault-tree-layout"><i class="fa fa-check"></i><b>32.3</b> Getting a Fault Tree Layout</a></li>
+<li class="chapter" data-level="32.4" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#visualize-a-fault-tree"><i class="fa fa-check"></i><b>32.4</b> Visualize a Fault Tree</a></li>
+<li class="chapter" data-level="32.5" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cutsets"><i class="fa fa-check"></i><b>32.5</b> Cutsets</a></li>
+<li class="chapter" data-level="32.6" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#gates"><i class="fa fa-check"></i><b>32.6</b> Gates</a></li>
+<li class="chapter" data-level="32.7" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#equations"><i class="fa fa-check"></i><b>32.7</b> Equations</a></li>
+<li class="chapter" data-level="32.8" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#minimal-cutsets"><i class="fa fa-check"></i><b>32.8</b> Minimal Cutsets</a></li>
+<li class="chapter" data-level="32.9" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#coverage"><i class="fa fa-check"></i><b>32.9</b> Coverage</a></li>
+<li class="chapter" data-level="" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#conclusion-23"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">System Reliability and Six Sigma in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="about-this-book" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> About this Book<a href="about-this-book.html#about-this-book" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This comprehensive textbook provides hands-on training in <strong>System Reliability and Six Sigma techniques using R</strong>. Designed specifically for Cornell University’s SYSEN 5300 course, this book bridges the gap between statistical theory concepts and practical coding implementation of these advanced statistical techniques.</p>
+<div id="what-youll-learn" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> What You’ll Learn<a href="about-this-book.html#what-youll-learn" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Through a series of interactive workshops and skill-building exercises, you’ll master:</p>
+<ul>
+<li><strong>Statistical Process Control</strong> - Monitoring and improving manufacturing and service processes</li>
+<li><strong>Reliability Engineering</strong> - Predicting and improving system performance over time</li>
+<li><strong>Life Distributions</strong> - Modeling failure patterns using exponential, Weibull, gamma, and log-normal distributions</li>
+<li><strong>Fault Tree Analysis</strong> - Visualizing and quantifying system failure modes</li>
+<li><strong>Physical Acceleration Models</strong> - Converting lab test results to field performance estimates</li>
+<li><strong>Regression Analysis</strong> - Modeling relationships between variables in complex systems</li>
+<li><strong>Design of Experiments</strong> - Planning and analyzing controlled experiments</li>
+<li><strong>Response Surface Methodology</strong> - Optimizing processes through systematic experimentation</li>
+</ul>
+</div>
+<div id="learning-approach" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Learning Approach<a href="about-this-book.html#learning-approach" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Each chapter combines:
+- <strong>Theoretical foundations</strong> with clear explanations
+- <strong>Hands-on coding workshops</strong> in both R and Python
+- <strong>Case studies</strong> from manufacturing, healthcare, and service industries
+- <strong>Interactive exercises</strong> with immediate feedback
+- <strong>Visual learning</strong> through plots, diagrams, and flowcharts</p>
+</div>
+<div id="prerequisites" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Prerequisites<a href="about-this-book.html#prerequisites" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Basic familiarity with R programming</li>
+<li>Understanding of fundamental statistics</li>
+<li>Access to RStudio or Posit Cloud (recommended)</li>
+</ul>
+<hr />
+</div>
+<div id="about-the-author" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> About the Author<a href="about-this-book.html#about-the-author" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:author-photo"></span>
+<img src="images/bio.jpg" alt="Dr. Timothy Fraser" width="200px" />
+<p class="caption">
+Figure 1.1: Dr. Timothy Fraser
+</p>
+</div>
+<p><strong>Dr. Timothy (Tim) Fraser</strong> is an Assistant Teaching Professor in the Systems Engineering Program at Cornell University, where he has been teaching since 2022. He also serves as Coordinator for the Center for Transportation, Environment, and Community Health (CTECH).</p>
+<p>As a computational social scientist, Dr. Fraser develops methods, systems, and software to help communities combat environmental crises. His research spans urban resilience and environmental systems in the US and Japan, with 51 peer-reviewed publications, plus numerous dashboards, R packages, and software tools.</p>
+<p>Dr. Fraser has advised researchers on social infrastructure at the OECD and UN Development Programme’s Accelerator Labs. He earned his PhD from Northeastern University in 2022 and has received funding from multiple national grants, including Fulbright.</p>
+<p>His current research focuses on developing AI and cloud computing tools to quantify, visualize, and communicate environmental policy data to the public, supporting community action and resilience in socio-technical systems.</p>
+<p><strong>Contact:</strong> <a href="https://www.timothyfraser.com">www.timothyfraser.com</a></p>
+</div>
+<div id="acknowledgments" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Acknowledgments<a href="about-this-book.html#acknowledgments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Special thanks to the students of Cornell’s Systems Engineering Program for their invaluable feedback, testing, and suggestions that helped refine this textbook. Your engagement and questions have made this resource more effective and user-friendly.</p>
+<hr />
+</div>
+<div id="how-to-use-this-book" class="section level2 hasAnchor" number="1.6">
+<h2><span class="header-section-number">1.6</span> How to Use This Book<a href="about-this-book.html#how-to-use-this-book" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><strong>Start with the basics</strong> - Begin with Part 1 for fundamental R and Python programming skills</li>
+<li><strong>Follow the sequence</strong> - Each chapter builds on previous concepts</li>
+<li><strong>Find the code</strong> - Find the code for each chapter in the <code>code/</code> folder and the <code>workshops/</code> folder at <a href="https://github.com/timothyfraser/sigma">github.com/timothyfraser/sigma</a></li>
+<li><strong>Practice actively</strong> - Run all code examples and complete exercises</li>
+<li><strong>Use both languages</strong> - Compare R and Python implementations to deepen understanding</li>
+<li><strong>Apply to your field</strong> - Adapt examples to your specific industry or research area</li>
+</ol>
+<p><strong>Happy learning!</strong> 🚀</p>
+
+</div>
+</div>
+
+
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="coding-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="assets/gitbook-2.6.7/js/app.min.js"></script>
+<script src="assets/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="assets/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+},
+"toolbar": {
+"position": "static"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
