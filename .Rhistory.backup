@@ -1,0 +1,512 @@
+# Add an example series to each group
+summarize(prob = [0,1] ) >>
+explode('prob')
+sw >>\
+group_by('year') >>\
+# Add an example series to each group
+summarize(prob = [0,1] ) >>
+explode('prob')
+sw >>\
+group_by('year') >>\
+# Add an example series to each group
+summarize(prob = [0,1] ) >>
+X.explode('prob')
+sw >>\
+group_by('year') >>\
+# Add an example series to each group
+summarize(prob = [0,1] ) >>
+X.explode('prob')
+x = sw >>\
+group_by('year') >>\
+# Add an example series to each group
+summarize(prob = [0,1] )
+x.explode('prob')
+globals().clear()
+reticulate::repl_python()
+mtcars.groupby('cyl').apply(
+lambda df: tidy(smf.ols(formula = 'mpg ~ hp', data = mtcars).fit())
+)
+# Load packages
+import pandas as p # for data.frames
+# Import stats and broom functions
+from functions_models import *
+# Import data wrangling and pipelines
+from dfply import *
+# Import distribution functions
+from scipy.stats import norm
+from functions_distributions  import *
+# Load the mtcars dataset
+import statsmodels.api as sm
+mtcars = sm.datasets.get_rdataset('mtcars', package='datasets').data
+mtcars
+# mtcars %>%
+#   group_by(cyl) %>%
+#   summarize(mean = mean(mpg), sd = sd(mpg))
+mtcars.groupby('cyl').agg(
+mean = ('mpg', 'mean'),
+sd=('mpg', 'std')  )
+# mtcars %>%
+#   group_by(cyl) %>%
+#   summarize(sim = rnorm(n = 5, mean = 2, sd = 0.5))
+mtcars.groupby('cyl').apply(lambda df: pd.Series({
+'sim' : norm.rvs(size=5, loc=2, scale=0.5)
+})).explode('sim')
+mtcars.groupby('cyl').apply(lambda df: pd.Series({
+'sim' : rnorm(n = 5, mean = 2, sd = 0.5)
+})).explode('sim')
+# mtcars %>%
+#   group_by(cyl) %>%
+#   summarize(sim = rnorm(n = n(), mean = mean(mpg), sd = sd(mpg)))
+mtcars.groupby('cyl').apply(
+lambda df: pd.Series({
+'sim': rnorm(n = len(df), mean = df['mpg'].mean(), sd = df['mpg'].std())
+})
+).explode('sim')
+m = lm(formula = 'mpg ~ cyl', data = mtcars)
+tidy(m)
+# mtcars %>%
+#   group_by(cyl) %>%
+#   reframe( lm(formula = mpg ~ hp, data = .) %>%
+#     broom::tidy())
+# m.summary2().tables[1]
+mtcars.groupby('cyl').apply(
+lambda df:  lm(formula = 'mpg ~ hp', data = df).summary2().tables[1]
+)
+mtcars.groupby('cyl').apply(
+lambda df:  tidy(lm(formula = 'mpg ~ hp', data = df))
+)
+mtcars.groupby('cyl').apply(
+lambda df:  glance(lm(formula = 'mpg ~ hp', data = df))
+)
+import statsmodels.formula.api as smf
+smf.ols(formula = 'mpg ~ C(cyl)', data = mtcars).fit().summary()
+smf.ols(formula = 'mpg ~ C(cyl) + hp', data = mtcars).fit().summary()
+smf.ols(formula = 'mpg ~ C(cyl) + hp - 1', data = mtcars).fit().summary()
+smf.ols(formula = 'mpg ~ C(cyl) * hp', data = mtcars).fit().summary()
+tidy(smf.ols(formula = 'mpg ~ C(cyl) * hp', data = mtcars).fit())
+mtcars.groupby('cyl').apply(
+lambda df: tidy(smf.ols(formula = 'mpg ~ hp', data = mtcars).fit())
+)
+mtcars.groupby('cyl').apply(
+lambda df: tidy(smf.ols(formula = 'mpg ~ hp', data = mtcars).fit())
+)
+predict(object=m, newdata=pd.Data.Frame({'cyl': [4,6,8]}))
+smf.m.predict( newdata=pd.Data.Frame({'cyl': [4,6,8]}))
+smf.m.predict(pd.Data.Frame({'cyl': [4,6,8]}))
+m = smf.ols(formula = 'mpg ~ hp', data = mtcars).fit()
+smf.m.predict(pd.Data.Frame({'cyl': [4,6,8]}))
+m.predict(pd.Data.Frame({'cyl': [4,6,8]}))
+m.predict(exog=pd.Data.Frame({'cyl': [4,6,8]}))
+m.predict(exog=pd.Data.Frame({'hp': [4,6,8]}))
+newdata = pd.Data.Frame({'hp': [4,6,8]})
+m.predict(newdata)
+newdata = pd.Data.Frame({'hp': [4,6,8]})
+newdata = pd.Data.Frame({'hp': [4, 6, 8] })
+newdata = pd.DataFrame({'hp': [4, 6, 8] })
+m.predict(newdata)
+m.predict(pd.DataFrame({'hp': [4, 6, 8] }))
+# Clear environment
+globals().clear()
+reticulate::repl_python()
+import pandas as p # for data.frames
+# Import stats and broom functions
+from functions_models import *
+# Import data wrangling and pipelines
+from dfply import *
+# Import distribution functions
+from scipy.stats import norm
+from functions_distributions  import *
+# Load the mtcars dataset
+import statsmodels.api as sm
+mtcars = sm.datasets.get_rdataset('mtcars', package='datasets').data
+help(sm.formula.ols)
+sm.formula.ols(formula = "hp ~ cyl", data = mtcars)
+sm.formula.ols(formula = "hp ~ cyl", data = mtcars).fit()
+m = sm.formula.ols(formula = "hp ~ cyl", data = mtcars).fit()
+m.summary()
+m.predict(p.DataFrame({'cyl' : [4, 6, 8]}))
+newdata = p.DataFrame({'cyl' : [4, 6, 8]})
+m.predict(newdata)
+new_data['yhat'] = m.predict(newdata)
+new_data = p.DataFrame({'cyl' : [4, 6, 8]})
+new_data['yhat'] = m.predict(new_data)
+new_data
+x = m
+ci = 0.95
+output = DataFrame({
+'term' : x.params.index.values,
+'estimate' : x.params.values,
+'se' : x.bse.values,
+'statistic' : x.tvalues.values,
+'p_value' : x.pvalues.values
+})
+from pandas import DataFrame, Series
+x = m
+ci = 0.95
+output = DataFrame({
+'term' : x.params.index.values,
+'estimate' : x.params.values,
+'se' : x.bse.values,
+'statistic' : x.tvalues.values,
+'p_value' : x.pvalues.values
+})
+output
+intervals = x.conf_int(alpha = 1 - ci)
+intervals
+output['lower'] = intervals.iloc[:,0].values
+output['upper'] = intervals.iloc[:,1].values
+output
+x
+x.rsquared
+from pandas import DataFrame, Series
+output = DataFrame({
+'rsq' : Series(x.rsquared),
+'adj_rsq' : Series(x.rsquared_adj),
+'sigma' : Series(x.mse_resid**.5),
+'statistic' : Series(x.fvalue),
+'p_value' : Series(x.f_pvalue),
+'df': Series(x.df_model),
+'loglik': Series(x.llf),
+'aic': Series(x.aic),
+'bic': Series(x.bic),
+'df.residual': Series(x.df_resid),
+'nobs': Series(x.nobs)
+})
+output
+from statsmodels.api.formula import ols
+import statsmodels.api.formula
+import statsmodels as sm
+sm.api
+sm.api.formula
+sm.api.formula.ols
+from statsmodels.api.formula import ols
+from statsmodels.api.formula import OLS
+import statsmodels.api.formula.ols as ols
+import statsmodels.api.formula as ols
+import statsmodels.api as sm
+m = sm.formula.ols(formula = formula, data = data)
+import statsmodels.api as sm
+# Load the mtcars dataset
+mtcars = sm.datasets.get_rdataset('mtcars', package='datasets').data
+mtcars
+from functions_models import *
+# Clear environment
+globals().clear()
+from functions/functions_distributions  import *
+from functions/functions_models import *
+from 'functions/functions_models' import *
+from ..functions import functions_models
+from ..functions import functions_models as *
+from ..functions import functions_models
+import os
+import sys
+import sys
+sys.path.append(os.path.abspath('functions'))
+from functions_models import *
+# book_dev.R
+# Timothy Fraser, Fall 2022
+# This script contains vital functions for rendering this bookdown into a book!
+# Load packages.
+library(bookdown)
+library(tidyverse)
+library(usethis)
+library(credentials)
+library(gert)
+# Login to Github with Personal Access Token (PAT)
+library(credentials)
+#set_github_pat(force_new = TRUE)
+# your working directory MUST be the one containing the file 'index.Rmd'
+getwd()
+# Delete any existing copy of the book
+unlink("_main.Rmd")
+unlink("_book", recursive = TRUE)
+unlink("docs", recursive = TRUE)
+# Render the book!
+#bookdown::render_book(input = "index.Rmd", new_session = TRUE, output_format = "bookdown::gitbook")
+#browseURL("docs/introduction.html")
+#serve_book(dir = ".", output_dir = "docs", preview = FALSE, in_session = FALSE)
+bookdown::render_book(input = "index.Rmd", new_session = TRUE, output_format = "bookdown::gitbook")
+# Assuming we're happy, commit it!
+gert::git_add(files = dir(all.files = TRUE, recursive = TRUE))
+gert::git_commit_all(message = "...")
+gert::git_push() # Push to Github!
+# Clear environment
+rm(list = ls())
+rm(list = ls())
+# R code
+summary(mtcars)
+# R code
+mtcars
+# R code
+mtcars$hp %>% mean()
+# R code
+mtcars$hp %>% mean()
+# R code
+library(dplyr)
+library(dplyr)
+# R code
+smtcars$hp %>% mean()
+# R code
+mtcars$hp %>% mean()
+reticulate::repl_python()
+import pandas as pd
+import pandas as pd
+data = pd.DataFrame({'hello': [1,2,3]})
+print(data.hello.mean())
+quit
+# book_dev.R
+# Timothy Fraser, Fall 2022
+# This script contains vital functions for rendering this bookdown into a book!
+# Load packages.
+library(bookdown)
+library(tidyverse)
+library(usethis)
+library(credentials)
+library(gert)
+# Login to Github with Personal Access Token (PAT)
+library(credentials)
+#set_github_pat(force_new = TRUE)
+# your working directory MUST be the one containing the file 'index.Rmd'
+getwd()
+# Delete any existing copy of the book
+unlink("_main.Rmd")
+unlink("_book", recursive = TRUE)
+unlink("docs", recursive = TRUE)
+# Render the book!
+#bookdown::render_book(input = "index.Rmd", new_session = TRUE, output_format = "bookdown::gitbook")
+#browseURL("docs/introduction.html")
+#serve_book(dir = ".", output_dir = "docs", preview = FALSE, in_session = FALSE)
+bookdown::render_book(input = "index.Rmd", new_session = TRUE, output_format = "bookdown::gitbook")
+# Assuming we're happy, commit it!
+gert::git_add(files = dir(all.files = TRUE, recursive = TRUE))
+gert::git_commit_all(message = "...")
+gert::git_push() # Push to Github!
+# Clear environment
+rm(list = ls())
+bookdown::render_book(input = "index.Rmd", new_session = TRUE, output_format = "bookdown::gitbook")
+rmarkdown::render("99_test.Rmd", output_dir = "docs")
+rmarkdown::render("99_test.Rmd")
+bookdown::render_book(input = "index.Rmd", new_session = TRUE, output_format = "bookdown::gitbook")
+# Assuming we're happy, commit it!
+gert::git_add(files = dir(all.files = TRUE, recursive = TRUE))
+gert::git_commit_all(message = "...")
+gert::git_push() # Push to Github!
+# Reliability Function for exponential distribution
+r = function(t, lambda){ exp(-1*t*lambda)}
+r(t = 10 + 5, lambda = stat$lambda) /
+r(t = 10, lambda = stat$lambda)
+masks <- read_csv("workshops/masks.csv")
+# Load packages
+library(tidyverse)
+library(mosaicCalc)
+masks <- read_csv("workshops/masks.csv")
+# Let's glimpse() its contents!
+masks %>% glimpse()
+stat <- masks %>%
+summarize(
+# We can take the mean of this vector of time to fail in hours
+mttf = mean(left_earloop),
+# Lambda is the reciprocal of the MTTF
+lambda = 1 / mttf)
+# Check out the contents!
+stat
+# Reliability Function for exponential distribution
+r = function(t, lambda){ exp(-1*t*lambda)}
+r(t = 10 + 5, lambda = stat$lambda) /
+r(t = 10, lambda = stat$lambda)
+cr = function(t, x, lambda){
+# We can actually nest functions inside each other,
+# to make them easier to write
+r = function(t, lambda){ exp(-1*t*lambda)}
+# Calculate R(x + t) / R(t)
+output <- r(t = t + x, lambda) / r(t = t, lambda)
+# and return the result!
+return(output)
+}
+# Let's compare our result to above! It's the same!
+cr(t = 10, x = 5, lambda = stat$lambda)
+data.frame(
+x = 1:50,
+lambda = stat$lambda) %>%
+mutate(prob = cr(t = 10, x = x, lambda = stat$lambda)) %>%
+ggplot(mapping = aes(x = x, y = prob, fill = "Conditional Reliability\nFunction")) +
+geom_area() +
+labs(y = "Probability",
+x = "Lifespan = 10 + x more hours of use",
+subtitle = "Conditional Reliability of 50 Sampled Masks' Left-Earloops") +
+guides(fill = "none") +
+theme_classic(base_size = 14) +
+theme(panel.border = element_rect(fill = NA, color = "#373737"),
+axis.line = element_blank())
+# Conditional Reliability
+library(mosaicCalc)
+library(dplyr)
+# Calculate Mean Residual Life
+mu = function(t = 5, lambda = 0.001){
+#t = 5
+#lambda = 0.001
+# Get the Reliability Function for exponential distribution
+r = function(t, lambda){ exp(-1*t*lambda)}
+# Get the MTTF, the integral of R(t), from t (time already spent) to infinity
+integral = antiD(tilde = r(t, lambda) ~ t, lower.bound = t)
+# Now calculate mu(), the Mean Residual Life function at time t
+output <- integral(t = Inf, lambda = lambda) / r(t = t, lambda = lambda)
+return(output)
+}
+# Let's test it out and compare to our prevision version.
+mu(t = 500, lambda = 0.001)
+mu(t = 501, lambda = 0.001)
+mu(t = 0, lambda = 0.001)
+# Use mosaicCalc's antiD function
+# To get integral of r(t, lambda) as x goes from 0 to infinity
+mttf = antiD(tilde = r(t, lambda) ~ t)
+mttf = antiD(tilde = r(t, lambda) ~ t)
+mttf(t = 0, lambda = 0.001)
+mttf(lambda = 0.001)
+mttf(t = Inf, lambda = 0.001)
+# Let's test it out and compare to our prevision version.
+mu(t = 500, lambda = 0.001)
+mu(t = 501, lambda = 0.001)
+# Notice also that when t = 0, we have a mu(0) which equals the MTTF.
+mu(t = 0, lambda = 0.001)
+# Get mean time to failure function...
+mttf = antiD(tilde = r(t, lambda) ~ t)
+mttf(t = Inf, lambda = 0.001)
+mttf(lambda = 0.001)
+mu(t = 200, lambda = 0.001)
+mu(t = 2000, lambda = 0.001)
+# Calculate Mean Residual Life
+mu = function(t = 5, lambda = 0.001){
+#t = 5
+#lambda = 0.001
+# Get the Reliability Function for exponential distribution
+r = function(t, lambda){ exp(-1*t*lambda)}
+# Get the MTTF, the integral of R(t), from t (time already spent) to infinity
+integral = antiD(tilde = r(t, lambda) ~ t, lower.bound = t)
+# Now calculate mu(), the Mean Residual Life function at time t
+output <- integral(t = Inf, lambda = lambda) / r(t = t, lambda = lambda)
+return(output)
+}
+# Calculate Mean Residual Life
+mu = function(t = 5, lambda = 0.001){
+#t = 5
+#lambda = 0.001
+# Get the Reliability Function for exponential distribution
+r = function(t, lambda){ exp(-1*t*lambda)}
+# Get the MTTF, the integral of R(t), from t (time already spent) to infinity
+integral = antiD(tilde = r(t, lambda) ~ t, lower.bound = 0)
+# Now calculate mu(), the Mean Residual Life function at time t
+output <- integral(t = Inf, lambda = lambda) / r(t = t, lambda = lambda)
+return(output)
+}
+# Let's test it out and compare to our prevision version.
+mu(t = 500, lambda = 0.001)
+mu(t = 2000, lambda = 0.001)
+# Calculate Mean Residual Life
+mu = function(t = 5, lambda = 0.001){
+#t = 5
+#lambda = 0.001
+# Get the Reliability Function for exponential distribution
+r = function(t, lambda){ exp(-1*t*lambda)}
+# Get the MTTF, the integral of R(t), from t (time already spent) to infinity
+integral = antiD(tilde = r(x, lambda) ~ x, lower.bound = 0)
+# Now calculate mu(), the Mean Residual Life function at time t
+output <- integral(x = Inf, lambda = lambda) * 1 / r(t = t, lambda = lambda)
+return(output)
+}
+# Let's test it out and compare to our prevision version.
+mu(t = 500, lambda = 0.001)
+mu(t = 2000, lambda = 0.001)
+# Calculate Mean Residual Life
+mu = function(t = 5, lambda = 0.001){
+#t = 5
+#lambda = 0.001
+# Get the Reliability Function for exponential distribution
+r = function(t, lambda){ exp(-1*t*lambda)}
+# Get the integral of R(x), the time remaining (mttf)
+integral = antiD(tilde = r(x, lambda) ~ x, lower.bound = 0)
+# Now calculate mu(), the Mean Residual Life function
+# as of time t
+output <- integral(x = Inf, lambda = lambda) * 1 / r(t = t, lambda = lambda)
+return(output)
+}
+# Let's test it out and compare to our prevision version.
+mu(t = 500, lambda = 0.001)
+mu(t = 2000, lambda = 0.001)
+mu(t = 5000, lambda = 0.001)
+# Let's test it out and compare to our prevision version.
+mu(t = 500, lambda = 0.001)
+# Let's test it out and compare to our prevision version.
+mu(t = 0, lambda = 0.001)
+mu(t = 500, lambda = 0.001)
+mu(t = 2000, lambda = 0.001)
+mu(t = 5000, lambda = 0.001)
+# Mean residual life given it's lasted 0 hours...
+mu(t = 0, lambda = 0.001) # same as MTTF!
+# Get mean time to failure function...
+mttf = antiD(tilde = r(t, lambda) ~ t)
+mttf(t = Inf, lambda = 0.001)
+# Get the integral of R(x), from 0 to infinity
+integral = antiD(tilde = r(t = x, m, c) ~ x, lower.bound = 0)
+# Now calculate mu(), the Mean Residual Life function at time t
+output <- integral(x = Inf, m = m, c = c) * 1 / r(t = t, m = m, c= c)
+muw = function(t = 5, m = 2, c = 20000){
+#t = 5
+#lambda = 0.001
+# Get the Reliability Function for exponential distribution
+r = function(t, m, c){ exp(-1*(t/c)^m) }
+# Get the integral of R(x), from 0 to infinity
+integral = antiD(tilde = r(t = x, m, c) ~ x, lower.bound = 0)
+# Now calculate mu(), the Mean Residual Life function at time t
+output <- integral(x = Inf, m = m, c = c) * 1 / r(t = t, m = m, c= c)
+return(output)
+}
+# Try it!
+muw(t = 500, m = 2, c = 20000)
+muw(t = 501, m = 2, c = 20000)
+#t = 5
+#lambda = 0.001
+# Get the Reliability Function for exponential distribution
+r = function(t, m, c){ exp(-1*(t/c)^m) }
+t = 5; m = 2; c = 20000
+#t = 5; m = 2; c = 20000
+# Get the Reliability Function for exponential distribution
+r = function(t, m, c){ exp(-1*(t/c)^m) }
+# Get the integral of R(x), from 0 to infinity
+integral = antiD(tilde = r(t = x, m, c) ~ x, lower.bound = 0)
+# Now calculate mu(), the Mean Residual Life function at time t
+output <- integral(x = Inf, m = m, c = c) * 1 / r(t = t, m = m, c= c)
+output
+integral(x = Inf, m = m, c = c)
+# Get the integral of R(x), from 0 to infinity
+integral = antiD(tilde = r(x, m, c) ~ x, lower.bound = 0)
+integral(x = Inf, m = m, c = c)
+# Now calculate mu(), the Mean Residual Life function at time t
+output <- integral(x = Inf, m = m, c = c) * 1 / r(t = t, m = m, c= c)
+output
+# Try it!
+muw(t = 500, m = 2, c = 20000)
+muw(t = 501, m = 2, c = 20000)
+remove(integral, r, output)
+muw = function(t = 5, m = 2, c = 20000){
+#t = 5; m = 2; c = 20000
+# Get the Reliability Function for exponential distribution
+r = function(t, m, c){ exp(-1*(t/c)^m) }
+# Get the integral of R(x), from 0 to infinity
+integral = antiD(tilde = r(x, m, c) ~ x, lower.bound = 0)
+# Now calculate mu(), the Mean Residual Life function at time t
+output <- integral(x = Inf, m = m, c = c) * 1 / r(t = t, m = m, c= c)
+return(output)
+}
+# Try it!
+muw(t = 500, m = 2, c = 20000)
+muw(t = 501, m = 2, c = 20000)
+# Try it!
+muw(t = 500, m = 2, c = 20000)
+muw(t = 501, m = 2, c = 20000)
+muw(t = 502, m = 2, c = 20000)
+bookdown::render_book(input = "index.Rmd", new_session = TRUE, output_format = "bookdown::gitbook")
+# Assuming we're happy, commit it!
+gert::git_add(files = dir(all.files = TRUE, recursive = TRUE))
+gert::git_commit_all(message = "...")
+gert::git_push() # Push to Github!

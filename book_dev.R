@@ -4,6 +4,14 @@
 
 # This script contains vital functions for rendering this bookdown into a book!
 
+# Set to TRUE to clean intermediate files
+is_clean = FALSE
+
+if(is_clean) { unlink("docs", recursive = TRUE) }
+
+# Set locale to handle multibyte characters properly
+Sys.setlocale("LC_ALL", "en_US.UTF-8")
+
 # Load packages.
 library(bookdown)
 library(tidyverse)
@@ -74,7 +82,7 @@ setup_hybrid_caching <- function() {
       if (any(grepl("rnorm|runif|rbinom|rexp|rpois|sample\\(|set\\.seed", 
                    options$code, ignore.case = TRUE))) {
         options$cache <- FALSE
-        cat("🎲 Disabling cache for random chunk:", options$label, "\n")
+        cat("Disabling cache for random chunk:", options$label, "\n")
       }
       options
     }
@@ -86,16 +94,16 @@ library(credentials)
 #set_github_pat(force_new = TRUE)
 
 # your working directory MUST be the one containing the file 'index.Rmd'
-cat("📁 Working directory:", getwd(), "\n")
+cat("Working directory:", getwd(), "\n")
 
 # Check if we're in the right directory
 if (!file.exists("index.Rmd") || !file.exists("_bookdown.yml")) {
-  stop("❌ Please run this script from the bookdown project root directory")
+  stop("Please run this script from the bookdown project root directory")
 }
 
 # Clean up any existing _main.rds file that might be locked
 if (file.exists("_main.rds")) {
-  cat("🧹 Cleaning up _main.rds...\n")
+  cat("Cleaning up _main.rds...\n")
   try(unlink("_main.rds", force = TRUE), silent = TRUE)
 }
 
@@ -104,7 +112,7 @@ setup_hybrid_caching()
 
 # Start timing
 start_time <- Sys.time()
-cat("🚀 Starting bookdown render...\n")
+cat("Starting bookdown render...\n")
 
 # Render the book with optimizations
 tryCatch({
@@ -112,25 +120,27 @@ tryCatch({
     input = "index.Rmd", 
     new_session = TRUE, 
     output_format = "bookdown::gitbook",
-    clean = FALSE  # Don't clean intermediate files for faster subsequent renders
+    encoding = "UTF-8",
+    clean = is_clean 
+    # Don't clean intermediate files for faster subsequent renders
   )
   
   end_time <- Sys.time()
   render_time <- end_time - start_time
   
-  cat("✅ Render completed successfully!\n")
-  cat("⏱️  Total render time:", round(render_time, 2), "seconds\n")
-  cat("📁 Output directory: docs/\n")
+  cat("Render completed successfully!\n")
+  cat("Total render time:", round(render_time, 2), "seconds\n")
+  cat("Output directory: docs/\n")
   
   # Open the book in browser
   book_url <- file.path(getwd(), "docs", "index.html")
   if (file.exists(book_url)) {
-    cat("📖 Opening book at:", book_url, "\n")
+    cat("Opening book at:", book_url, "\n")
     browseURL(book_url)
   }
   
 }, error = function(e) {
-  cat("❌ Render failed with error:\n")
+  cat("Render failed with error:\n")
   cat(as.character(e), "\n")
   stop("Render failed")
 })

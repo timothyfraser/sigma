@@ -13,28 +13,28 @@ Your online textbook for learning reliability and six sigma techniques in R. The
 
 Use this checklist to track which chapters have been tested and confirmed working:
 
-- [ ] `00_part1.Rmd`
-- [ ] `00_part2.Rmd`
-- [ ] `00_part3.Rmd`
-- [ ] `00_part4.Rmd`
-- [ ] `00_part5.Rmd`
-- [ ] `00_part6.Rmd`
-- [ ] `00_part7.Rmd`
-- [ ] `00_part8.Rmd`
-- [ ] `00_partappendix.Rmd`
+- [x] `00_part1.Rmd`
+- [x] `00_part2.Rmd`
+- [x] `00_part3.Rmd`
+- [x] `00_part4.Rmd`
+- [x] `00_part5.Rmd`
+- [x] `00_part6.Rmd`
+- [x] `00_part7.Rmd`
+- [x] `00_part8.Rmd`
+- [x] `00_partappendix.Rmd`
 - [x] `01_skill_fmea.Rmd`
 - [x] `01_skill_ggplot.Rmd`
 - [x] `01_skill_plotnine.Rmd`
 - [x] `01_workshop.Rmd`
 - [x] `01_workshop_python.Rmd`
-- [ ] `02_skill_function_python.Rmd`
+- [x] `02_skill_function_python.Rmd`
 - [x] `02_skill_functions.Rmd`
 - [x] `02_workshop.Rmd`
 - [x] `02_workshop_python.Rmd`
-- [ ] `03a_workshop.Rmd`
-- [ ] `03b_workshop.Rmd`
-- [ ] `04_workshop.Rmd`
-- [ ] `04_workshop_python.Rmd`
+- [x] `03a_workshop.Rmd`
+- [x] `03b_workshop.Rmd`
+- [x] `04_workshop.Rmd`
+- [x] `04_workshop_python.Rmd`
 - [ ] `05_workshop.Rmd`
 - [ ] `05_workshop_python.Rmd`
 - [ ] `06_workshop.Rmd`
@@ -55,7 +55,7 @@ Use this checklist to track which chapters have been tested and confirmed workin
 - [ ] `99_skill_tidyfault.Rmd`
 - [ ] `99_skill_viz.Rmd`
 - [x] `99_test.Rmd`
-- [ ] `index.Rmd`
+- [x] `index.Rmd`
 
 ---
 
@@ -209,17 +209,18 @@ Some chapters include Python code that requires additional packages:
 - `dfply` - for data manipulation (similar to dplyr in R)
 - `gapminder` - for gapminder dataset used in visualization examples
 - `seaborn` - for color palettes
+- `sympy` - for symbolic mathematics and reliability calculations
 
 Install in Python:
 
 ```bash
-pip install matplotlib pandas plotnine dfply gapminder seaborn
+pip install matplotlib pandas plotnine dfply gapminder seaborn sympy
 ```
 
 Or if using a specific Python installation:
 
 ```bash
-C:/Python312/python.exe -m pip install matplotlib pandas plotnine dfply gapminder
+C:/Python312/python.exe -m pip install matplotlib pandas plotnine dfply gapminder sympy
 ```
 
 ---

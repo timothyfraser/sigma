@@ -3,8 +3,7 @@ rmd_files:
     ###################################
     "index.Rmd", 
     ###################################
-    # Failure Mode & Effecst Analysis
-    "00_part1.Rmd",
+    # "00_part1.Rmd",
     # "01_workshop.Rmd", # Coding in R
     # "01_workshop_python.Rmd", # Coding in Python
     # "01_skill_fmea.Rmd", # Failure Mode and Effects Analysis
@@ -17,12 +16,14 @@ rmd_files:
     # "02_workshop.Rmd", # Descriptives
     # "02_workshop_python.Rmd", # Descriptives (Python)
     # "02_skill_functions.Rmd",
-    # # "02_skill_function_python.Rmd", # Functions (Python)
+    # "02_skill_function_python.Rmd", # Functions (Python)
     # "03a_workshop.Rmd", # Probability
     # "03b_workshop.Rmd", # Probability
     # # # "03_workshop_python.Rmd", # Probability (Python) [moved earlier]
     # "04_workshop.Rmd", # Reliability
-    # # "04_workshop_python.Rmd", # Reliability (Python)
+    # "04_workshop_python.Rmd", # Reliability (Python)
+    # "05_workshop.Rmd", # Statistical Process Control
+    "05_workshop_python.Rmd", # Statistical Process Control (Python)
 
     # ##################################
     # # Statistical Process Control
@@ -69,7 +70,7 @@ rmd_files:
     # "99_skill_flowcharts.Rmd", # Appendix Exercises
     # "99_skill_fitdistr.Rmd", # Appendix Exercises
     # "99_skill_tidyfault.Rmd",
-    "99_test.Rmd" # test section
+    # "99_test.Rmd" # test section
     # 
     # ##################################
     # #"99_references.Rmd"

@@ -27,7 +27,7 @@ rm(list = ls())
 
 Your online textbook for learning reliability and six sigma techniques in R! These coding workshops were made for Cornell University Course SYSEN 5300. Follow along with Posit.Cloud to learn to apply six sigma techniques in R!
 
-```{r img-cover, out.width = "100%", echo=FALSE, results='asis', fig.cap=paste("Photo by <a href='https://unsplash.com/ja/@tamiminaser?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Naser Tamimi</a> on <a href='https://unsplash.com/s/photos/statistics?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a>")}
+```{r img-cover, out.width = "100%", echo=FALSE, results='asis', fig.cap="Photo by Naser Tamimi on Unsplash"}
 knitr::include_graphics(path = "images/dice.jpg")
 ```
 

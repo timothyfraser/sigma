@@ -17,7 +17,7 @@ description: "Your online textbook for learning reliability and six sigma techni
 Your online textbook for learning reliability and six sigma techniques in R! These coding workshops were made for Cornell University Course SYSEN 5300. Follow along with Posit.Cloud to learn to apply six sigma techniques in R!
 
 <div class="figure">
-<img src="images/dice.jpg" alt="Photo by &lt;a href='https://unsplash.com/ja/@tamiminaser?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'&gt;Naser Tamimi&lt;/a&gt; on &lt;a href='https://unsplash.com/s/photos/statistics?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText'&gt;Unsplash&lt;/a&gt;" width="100%" />
-<p class="caption">(\#fig:img-cover)Photo by <a href='https://unsplash.com/ja/@tamiminaser?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Naser Tamimi</a> on <a href='https://unsplash.com/s/photos/statistics?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText'>Unsplash</a></p>
+<img src="images/dice.jpg" alt="Photo by Naser Tamimi on Unsplash" width="100%" />
+<p class="caption">(\#fig:img-cover)Photo by Naser Tamimi on Unsplash</p>
 </div>
 

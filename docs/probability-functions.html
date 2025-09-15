@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 Probability Functions | System Reliability and Six Sigma in R</title>
+  <meta name="description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 Probability Functions | System Reliability and Six Sigma in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 Probability Functions | System Reliability and Six Sigma in R" />
+  
+  <meta name="twitter:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  
+
+<meta name="author" content="Timothy Fraser, PhD" />
+
+
+<meta name="date" content="2025-09-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+
+<script src="assets/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="assets/kePrint-0.0.1/kePrint.js"></script>
+<link href="assets/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="probability-functions.html"><a href="probability-functions.html"><i class="fa fa-check"></i><b>1</b> Probability Functions</a>
+<ul>
+<li class="chapter" data-level="" data-path="probability-functions.html"><a href="probability-functions.html#getting-started"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="probability-functions.html"><a href="probability-functions.html#load-packages"><i class="fa fa-check"></i>Load Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1" data-path="probability-functions.html"><a href="probability-functions.html#probability-functions-1"><i class="fa fa-check"></i><b>1.1</b> Probability Functions</a></li>
+<li class="chapter" data-level="1.2" data-path="probability-functions.html"><a href="probability-functions.html#hypothetical-probability-functions"><i class="fa fa-check"></i><b>1.2</b> Hypothetical Probability Functions</a>
+<ul>
+<li class="chapter" data-level="" data-path="probability-functions.html"><a href="probability-functions.html#example-farmers-market"><i class="fa fa-check"></i>Example: Farmers Market</a></li>
+<li class="chapter" data-level="" data-path="probability-functions.html"><a href="probability-functions.html#unobserved-distributions"><i class="fa fa-check"></i>Unobserved Distributions</a></li>
+<li class="chapter" data-level="" data-path="probability-functions.html"><a href="probability-functions.html#using-hypothetical-probability-functions"><i class="fa fa-check"></i>Using Hypothetical Probability Functions</a></li>
+<li class="chapter" data-level="1.2.1" data-path="probability-functions.html"><a href="probability-functions.html#density-pdf"><i class="fa fa-check"></i><b>1.2.1</b> Density (PDF)</a></li>
+<li class="chapter" data-level="1.2.2" data-path="probability-functions.html"><a href="probability-functions.html#cumulative-probabilities-cdf"><i class="fa fa-check"></i><b>1.2.2</b> Cumulative Probabilities (CDF)</a></li>
+<li class="chapter" data-level="1.2.3" data-path="probability-functions.html"><a href="probability-functions.html#quantiles"><i class="fa fa-check"></i><b>1.2.3</b> Quantiles</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="probability-functions.html"><a href="probability-functions.html#learning-check-1"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="1.3" data-path="probability-functions.html"><a href="probability-functions.html#observed-probability-functions"><i class="fa fa-check"></i><b>1.3</b> Observed Probability Functions</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="probability-functions.html"><a href="probability-functions.html#example-observed-distributions"><i class="fa fa-check"></i><b>1.3.1</b> Example: Observed Distributions</a></li>
+<li class="chapter" data-level="1.3.2" data-path="probability-functions.html"><a href="probability-functions.html#observed-pdfs-probability-density-functions"><i class="fa fa-check"></i><b>1.3.2</b> Observed PDFs (Probability Density Functions)</a></li>
+<li class="chapter" data-level="1.3.3" data-path="probability-functions.html"><a href="probability-functions.html#density"><i class="fa fa-check"></i><b>1.3.3</b> <code>density()</code></a></li>
+<li class="chapter" data-level="1.3.4" data-path="probability-functions.html"><a href="probability-functions.html#using-pdfs-probability-density-functions"><i class="fa fa-check"></i><b>1.3.4</b> Using PDFs (Probability Density Functions)</a></li>
+<li class="chapter" data-level="1.3.5" data-path="probability-functions.html"><a href="probability-functions.html#observed-cdfs-cumulative-distribution-functions"><i class="fa fa-check"></i><b>1.3.5</b> Observed CDFs (Cumulative Distribution Functions)</a></li>
+<li class="chapter" data-level="1.3.6" data-path="probability-functions.html"><a href="probability-functions.html#using-calculus"><i class="fa fa-check"></i><b>1.3.6</b> Using Calculus!</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="probability-functions.html"><a href="probability-functions.html#learning-check-2"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="" data-path="probability-functions.html"><a href="probability-functions.html#conclusion"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">System Reliability and Six Sigma in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="probability-functions" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Probability Functions<a href="probability-functions.html#probability-functions" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="getting-started" class="section level2 unnumbered hasAnchor">
+<h2>Getting Started<a href="probability-functions.html#getting-started" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Please open up your Posit.Cloud project. Start a new R script (File &gt;&gt; New &gt;&gt; R Script). Save a new R script. And let’s get started!</p>
+<div id="load-packages" class="section level3 unnumbered hasAnchor">
+<h3>Load Packages<a href="probability-functions.html#load-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In this tutorial, we’re going to use more of the <code>dplyr</code> and <code>ggplot2</code> packages, plus the <code>broom</code> package and <code>mosaicCalc</code> package.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="probability-functions.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="probability-functions.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="probability-functions.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-4"><a href="probability-functions.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(mosaicCalc)</span></code></pre></div>
+<p><br>
+<br></p>
+</div>
+</div>
+<div id="probability-functions-1" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Probability Functions<a href="probability-functions.html#probability-functions-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>How do we use probability in our statistical analyses of risk, performance, and other systems engineering concepts?</p>
+<p>Probability allows us to measure for any statistic (or parameter) <code>mu</code>, how <strong>extreme</strong> is that statistic? This is called <em>type II error</em>, measured by a <code>p</code>-value, the probability that a <strong>more</strong> extreme value occurred than our statistic. It’s an extremely helpful benchmark. In order to evaluate how <strong>extreme</strong> it is, we need values to compare it to. We can do this by:</p>
+<ol style="list-style-type: decimal">
+<li>assuming the probability function of an unobserved, hypothetical distribution, or;</li>
+<li>making a probability function curve of the observed distribution.</li>
+</ol>
+<p><br>
+<br></p>
+</div>
+<div id="hypothetical-probability-functions" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Hypothetical Probability Functions<a href="probability-functions.html#hypothetical-probability-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Often, our sample of data is just one of the many samples we could have possibly gotten. For example, say we are examining customer behavior at storefronts. Had we looked at a different firm location (by chance), or a different sample of customers come in by chance, we might have gotten slightly different distribution of purchase value made by these customers.</p>
+<p>The problem is, we almost never can see the distribution of the <strong>true</strong> population of all observations (eg. all purchases). But, if we can approximately guess <em>what type of distribution that population has</em>, we can very easily compute the probability density functions and cumulative distribution functions of several of the most well known distributions in <code>R</code> (eg. Normal, Poisson, Gamma, etc.)</p>
+<div id="example-farmers-market" class="section level3 unnumbered hasAnchor">
+<h3>Example: Farmers Market<a href="probability-functions.html#example-farmers-market" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The Ithaca Farmers Market is a vendor-owned cooperative that runs a massive Saturday-and-Sunday morning market for local produce, street food, and hand-made goods, on the waterfront of Cayuga Lake. In markets and street fairs, some stalls’ brands are often better known than others, so businesses new to the market might worry that people won’t come to their stalls without specific prompting. This past Saturday, a volunteer tracked 500 customers and recorded how many stalls each customers visited during their stay. They calculated the following statistics.</p>
+<ul>
+<li>The average customer visited a <code>mean</code> of <code>5.5</code> stalls and a <code>median</code> of <code>5</code> stalls, with a standard deviation of <code>2.5</code> stalls.</li>
+</ul>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
+<img src="https://i0.wp.com/ithacamarket.com/wp-content/uploads/2019/04/IMG_3407-900px.jpg?w=900&ssl=1" alt="[Ithaca Farmers Market!](https://ithacamarket.com/markets/saturday-at-the-pavilion/)" width="100%" />
+<p class="caption">
+Figure 1.1: <a href="https://ithacamarket.com/markets/saturday-at-the-pavilion/">Ithaca Farmers Market!</a>
+</p>
+</div>
+<p>Market operators wants to know:</p>
+<ol style="list-style-type: decimal">
+<li><p>What’s the probability that customers will stop by <em>5 stalls</em>?</p></li>
+<li><p>What’s the probability that customers will stop by <em>at max 5 stalls</em>?</p></li>
+<li><p>What’s the probability that customers will stop by <em>over 5 stalls</em>?</p></li>
+<li><p>How many visits did people <em>usually</em> make? Estimate the interquartile range (25th-75th percentiles).</p></li>
+</ol>
+<p>Unfortunately, the wind blew the raw data away into Cayuga Lake before they could finish their analysis. How can we approximate the unobserved distribution of visits and compute these probabilities?</p>
+<p>Below, we will (1) use these statistics to guess which of several possible archetypal hypothetical distributions it most resembles, and then (2) compute probabilities based off of the shape of that hypothetical distribution.</p>
+<p><br>
+<br></p>
+</div>
+<div id="unobserved-distributions" class="section level3 unnumbered hasAnchor">
+<h3>Unobserved Distributions<a href="probability-functions.html#unobserved-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We don’t have the actual data, but we know several basic features of our distribution!</p>
+<ul>
+<li><p>Our variable is <code>visits</code>, a count ranging from 0 to infinity. (Can’t have -5 visits, can’t have 1.3 visits.)</p></li>
+<li><p>The median (<code>5</code>) is less than the mean (<code>5.5</code>), so our distribution is <strong>right-skewed</strong>.</p></li>
+</ul>
+<p>This sounds like a classic Poisson distribution! Let’s simulate some poisson-distributed data to demonstrate.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="probability-functions.html#cb2-1" tabindex="-1"></a><span class="co"># Randomly sample 500 visits from a poisson distribution with a mean of 5.5</span></span>
+<span id="cb2-2"><a href="probability-functions.html#cb2-2" tabindex="-1"></a>visits <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">500</span>, <span class="at">lambda =</span> <span class="fl">5.5</span>)</span>
+<span id="cb2-3"><a href="probability-functions.html#cb2-3" tabindex="-1"></a><span class="co"># Check out the distribution!</span></span>
+<span id="cb2-4"><a href="probability-functions.html#cb2-4" tabindex="-1"></a>visits <span class="sc">%&gt;%</span> <span class="fu">hist</span>()</span></code></pre></div>
+<p><img src="03b_workshop_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><br>
+<br></p>
+</div>
+<div id="using-hypothetical-probability-functions" class="section level3 unnumbered hasAnchor">
+<h3>Using Hypothetical Probability Functions<a href="probability-functions.html#using-hypothetical-probability-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Much like <code>rpois()</code> randomly generates poisson distributed values, <code>dpois()</code>, <code>ppois()</code>, and <code>qpois()</code> can help you get other quantities of interest from the Poisson distribution.</p>
+<ul>
+<li><code>dpois()</code> generates the density of any value on a poisson distribution centered on a given mean (PDF).</li>
+<li><code>ppois()</code> returns for any percentile in the distribution the cumulative probability (percentage of the area under the density curve) up until that point (CDF).</li>
+<li><code>qpois()</code> returns for any percentile in the distribution the raw value.</li>
+</ul>
+<p>See the Table below for several examples.</p>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-4">Table 1.1: </span><span id="tab:unnamed-chunk-4">Table 1.2: </span>Table 1: Probability Functions (r, d, p, and q)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Meaning
+</th>
+<th style="text-align:left;">
+Purpose
+</th>
+<th style="text-align:left;">
+Main Input
+</th>
+<th style="text-align:left;">
+Normal
+</th>
+<th style="text-align:left;">
+Poisson
+</th>
+<th style="text-align:left;">
+Gamma
+</th>
+<th style="text-align:left;">
+Exponential
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Random Draws from Distribution
+</td>
+<td style="text-align:left;">
+Simulate a distribution
+</td>
+<td style="text-align:left;">
+n = # of simulations
+</td>
+<td style="text-align:left;">
+rnorm()
+</td>
+<td style="text-align:left;">
+rpois()
+</td>
+<td style="text-align:left;">
+rgamma()
+</td>
+<td style="text-align:left;">
+rexp()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Probability Density Function
+</td>
+<td style="text-align:left;">
+Get Probability of Value in Distribution
+</td>
+<td style="text-align:left;">
+x = value in distribution
+</td>
+<td style="text-align:left;">
+dnorm()
+</td>
+<td style="text-align:left;">
+dpois()
+</td>
+<td style="text-align:left;">
+dgamma()
+</td>
+<td style="text-align:left;">
+dexp()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cumulative Distribution Function
+</td>
+<td style="text-align:left;">
+Get % of Distribution LESS than Value
+</td>
+<td style="text-align:left;">
+q = a cumulative probability
+</td>
+<td style="text-align:left;">
+pnorm()
+</td>
+<td style="text-align:left;">
+ppois()
+</td>
+<td style="text-align:left;">
+pgamma()
+</td>
+<td style="text-align:left;">
+pexp()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Quantiles Function
+</td>
+<td style="text-align:left;">
+Get Value of any Percentile in Distribution
+</td>
+<td style="text-align:left;">
+p = percentile
+</td>
+<td style="text-align:left;">
+qnorm()
+</td>
+<td style="text-align:left;">
+qpois()
+</td>
+<td style="text-align:left;">
+qgamma()
+</td>
+<td style="text-align:left;">
+qexp()
+</td>
+</tr>
+</tbody>
+</table>
+<p><br>
+<br></p>
+</div>
+<div id="density-pdf" class="section level3 hasAnchor" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Density (PDF)<a href="probability-functions.html#density-pdf" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>So, what percentage of customers stopped by 1 stall?</p>
+<p>Below, <code>dpois()</code> tells us the <code>density()</code> or frequency of your value, given a distribution where the <code>mean = 5.5</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="probability-functions.html#cb3-1" tabindex="-1"></a><span class="co"># Get the frequency for 5 visits in the distribution</span></span>
+<span id="cb3-2"><a href="probability-functions.html#cb3-2" tabindex="-1"></a>pd5 <span class="ot">&lt;-</span> <span class="fu">dpois</span>(<span class="dv">5</span>, <span class="at">lambda =</span> <span class="fl">5.5</span>)</span>
+<span id="cb3-3"><a href="probability-functions.html#cb3-3" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb3-4"><a href="probability-functions.html#cb3-4" tabindex="-1"></a>pd5</span></code></pre></div>
+<pre><code>## [1] 0.1714007</code></pre>
+<p>Looks like 17.1% of customers stopped by 5 stalls.</p>
+<details>
+<summary>
+<strong>[Optional] Validate This!</strong>
+</summary>
+<p>We can validate this using our simulated <code>visits</code> from above, if we use methods for Observed Probabilities, which we learn later in this tutorial.</p>
+<p>We can calculate the <code>density()</code> function, extract it using <code>approxfun()</code>, and then assign it to <code>dsim()</code>, our own exact probability density function for our data. It works just like <code>dpois()</code>, but you don’t need to specify <code>lambda</code>, because it only works for this exact distribution!</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="probability-functions.html#cb5-1" tabindex="-1"></a><span class="co"># Approximate the PDF of our simulated visits</span></span>
+<span id="cb5-2"><a href="probability-functions.html#cb5-2" tabindex="-1"></a>dsim <span class="ot">&lt;-</span> visits <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">approxfun</span>()</span>
+<span id="cb5-3"><a href="probability-functions.html#cb5-3" tabindex="-1"></a><span class="co"># Try our density function for our simulated data!</span></span>
+<span id="cb5-4"><a href="probability-functions.html#cb5-4" tabindex="-1"></a><span class="fu">dsim</span>(<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] 0.1666756</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="probability-functions.html#cb7-1" tabindex="-1"></a><span class="co"># Pretty close to our results from dpois()!</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="probability-functions.html#cb8-1" tabindex="-1"></a><span class="fu">remove</span>(dsim)</span></code></pre></div>
+</details>
+<p><br>
+<br></p>
+</div>
+<div id="cumulative-probabilities-cdf" class="section level3 hasAnchor" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> Cumulative Probabilities (CDF)<a href="probability-functions.html#cumulative-probabilities-cdf" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>What percentage of customers stopped by <em>at max 5 stalls?</em></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="probability-functions.html#cb9-1" tabindex="-1"></a><span class="co"># Get the cumulative frequency for a value (5) in the distribution</span></span>
+<span id="cb9-2"><a href="probability-functions.html#cb9-2" tabindex="-1"></a>cd5 <span class="ot">&lt;-</span> <span class="fu">ppois</span>(<span class="at">q =</span> <span class="dv">5</span>, <span class="at">lambda =</span> <span class="fl">5.5</span>)</span>
+<span id="cb9-3"><a href="probability-functions.html#cb9-3" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb9-4"><a href="probability-functions.html#cb9-4" tabindex="-1"></a>cd5</span></code></pre></div>
+<pre><code>## [1] 0.5289187</code></pre>
+<p>Looks like just 52.9% of customers stopped by 1 stall or fewer.</p>
+<p>What percentage of customers stopped by <em>over 5 stalls?</em></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="probability-functions.html#cb11-1" tabindex="-1"></a><span class="co"># Get the probability they will NOT stop at 5 or fewer stalls</span></span>
+<span id="cb11-2"><a href="probability-functions.html#cb11-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> cd5</span></code></pre></div>
+<pre><code>## [1] 0.4710813</code></pre>
+<details>
+<summary>
+<strong>[Optional] Validate This!</strong>
+</summary>
+<p>We can validate this using our simulated <code>visits</code> from above, if we use methods for Observed Probabilities, which we learn later in this tutorial.</p>
+<p>We can validate our results against our simulated distribution.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="probability-functions.html#cb13-1" tabindex="-1"></a>psim <span class="ot">&lt;-</span> visits <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="probability-functions.html#cb13-2" tabindex="-1"></a>  <span class="co"># Get cumulative probability distribution</span></span>
+<span id="cb13-3"><a href="probability-functions.html#cb13-3" tabindex="-1"></a>  <span class="fu">arrange</span>(x) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-4"><a href="probability-functions.html#cb13-4" tabindex="-1"></a>  <span class="co"># Get cumulative probabilities</span></span>
+<span id="cb13-5"><a href="probability-functions.html#cb13-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">cumsum</span>(y) <span class="sc">/</span> <span class="fu">sum</span>(y)) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-6"><a href="probability-functions.html#cb13-6" tabindex="-1"></a>  <span class="co"># Turn it into a literal function!</span></span>
+<span id="cb13-7"><a href="probability-functions.html#cb13-7" tabindex="-1"></a>  <span class="fu">approxfun</span>()</span>
+<span id="cb13-8"><a href="probability-functions.html#cb13-8" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb13-9"><a href="probability-functions.html#cb13-9" tabindex="-1"></a><span class="fu">psim</span>(<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] 0.4447869</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="probability-functions.html#cb15-1" tabindex="-1"></a><span class="co"># Pretty close to cdf5!</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="probability-functions.html#cb16-1" tabindex="-1"></a><span class="fu">remove</span>(psim)</span></code></pre></div>
+</details>
+<p><br>
+<br></p>
+</div>
+<div id="quantiles" class="section level3 hasAnchor" number="1.2.3">
+<h3><span class="header-section-number">1.2.3</span> Quantiles<a href="probability-functions.html#quantiles" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>How many visits did people <em>usually</em> make? Estimate the interquartile range (25th-75th percentiles) of the unobserved distribution.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="probability-functions.html#cb17-1" tabindex="-1"></a>q5 <span class="ot">&lt;-</span> <span class="fu">qpois</span>(<span class="at">p =</span> <span class="fu">c</span>(.<span class="dv">25</span>, .<span class="dv">75</span>), <span class="at">lambda =</span> <span class="fl">5.5</span>)</span>
+<span id="cb17-2"><a href="probability-functions.html#cb17-2" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb17-3"><a href="probability-functions.html#cb17-3" tabindex="-1"></a>q5</span></code></pre></div>
+<pre><code>## [1] 4 7</code></pre>
+<p>Looks like 50% of folks visited between 4 and 7 stalls</p>
+<details>
+<summary>
+<strong>[Optional] Validate this!</strong>
+</summary>
+<p>We can validate this using our simulated <code>visits</code> from above, if we use methods for Observed Probabilities, which we learn later in this tutorial.</p>
+<p>We can compare against our simulated data using <code>quantile()</code>.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="probability-functions.html#cb19-1" tabindex="-1"></a><span class="co"># Approximate the quantile function of this distribution</span></span>
+<span id="cb19-2"><a href="probability-functions.html#cb19-2" tabindex="-1"></a>qsim <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb19-3"><a href="probability-functions.html#cb19-3" tabindex="-1"></a>  <span class="co"># Get a vector of percentiles from 0 to 1, in units of 0.001</span></span>
+<span id="cb19-4"><a href="probability-functions.html#cb19-4" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.001</span>),</span>
+<span id="cb19-5"><a href="probability-functions.html#cb19-5" tabindex="-1"></a>  <span class="co"># Using our simulated distribution, </span></span>
+<span id="cb19-6"><a href="probability-functions.html#cb19-6" tabindex="-1"></a>  <span class="co"># get the quantiles (values) at those points from this distribution</span></span>
+<span id="cb19-7"><a href="probability-functions.html#cb19-7" tabindex="-1"></a>  <span class="at">y =</span> visits <span class="sc">%&gt;%</span> <span class="fu">quantile</span>(<span class="at">probs =</span> x)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-8"><a href="probability-functions.html#cb19-8" tabindex="-1"></a>  <span class="co"># Approximate function!</span></span>
+<span id="cb19-9"><a href="probability-functions.html#cb19-9" tabindex="-1"></a>  <span class="fu">approxfun</span>()</span>
+<span id="cb19-10"><a href="probability-functions.html#cb19-10" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="probability-functions.html#cb19-11" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb19-12"><a href="probability-functions.html#cb19-12" tabindex="-1"></a><span class="fu">qsim</span>(<span class="fu">c</span>(.<span class="dv">25</span>, .<span class="dv">75</span>))</span></code></pre></div>
+<pre><code>## [1] 4 7</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="probability-functions.html#cb21-1" tabindex="-1"></a><span class="fu">remove</span>(qsim)</span></code></pre></div>
+</details>
+<p><br>
+<br></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="probability-functions.html#cb22-1" tabindex="-1"></a><span class="fu">rm</span>(visits, pd5, cd5, q5)</span></code></pre></div>
+<p><br>
+<br></p>
+<hr />
+</div>
+</div>
+<div id="learning-check-1" class="section level2 unnumbered LC hasAnchor">
+<h2>Learning Check 1<a href="probability-functions.html#learning-check-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Question</strong></p>
+<p>What if we are not certain whether our unobserved vector of visits has a Poisson distribution or not? To give you more practice, please calculate the probability that customers will stop <em>at more than 5 stalls</em>, using appropriate functions for the (1) Normal, (2) Gamma, and (3) Exponential distribution! (See our table above for the list of function names.)</p>
+<details>
+<summary>
+<strong>[View Answer!]</strong>
+</summary>
+<p>We know there were <code>n = 500</code> customers, with a mean of <code>5.5</code> visits, a median of <code>5</code> visits, and a standard deviation of <code>2.5</code> visits.</p>
+<p>For a Normal Distribution:</p>
+<p>We learned in Workshop 2 that <code>rnorm()</code> requires a <code>mean</code> and <code>sd</code> (standard deviation); we conveniently have both!</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="probability-functions.html#cb23-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">5</span>, <span class="at">mean =</span> <span class="fl">5.5</span>, <span class="at">sd =</span> <span class="fl">2.5</span>)</span></code></pre></div>
+<pre><code>## [1] 0.5792597</code></pre>
+<p>For a Gamma Distribution:</p>
+<p>We learned in Workshop 2 that <code>rgamma()</code> requires a <code>shape</code> and <code>scale</code> (or <code>rate</code>); we can calculate these from the <code>mean</code> and <code>sd</code> (standard deviation).</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="probability-functions.html#cb25-1" tabindex="-1"></a><span class="co"># shape = mean^2 / variance = mean^2 / sd^2</span></span>
+<span id="cb25-2"><a href="probability-functions.html#cb25-2" tabindex="-1"></a>shape <span class="ot">&lt;-</span> <span class="fl">5.5</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fl">2.5</span><span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb25-3"><a href="probability-functions.html#cb25-3" tabindex="-1"></a><span class="co"># scale = variance / mean</span></span>
+<span id="cb25-4"><a href="probability-functions.html#cb25-4" tabindex="-1"></a>scale <span class="ot">&lt;-</span> <span class="fl">2.5</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fl">5.5</span></span>
+<span id="cb25-5"><a href="probability-functions.html#cb25-5" tabindex="-1"></a><span class="co"># AND</span></span>
+<span id="cb25-6"><a href="probability-functions.html#cb25-6" tabindex="-1"></a><span class="co"># rate = 1 / scale</span></span>
+<span id="cb25-7"><a href="probability-functions.html#cb25-7" tabindex="-1"></a>rate <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> scale</span>
+<span id="cb25-8"><a href="probability-functions.html#cb25-8" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="probability-functions.html#cb25-9" tabindex="-1"></a><span class="co"># So...</span></span>
+<span id="cb25-10"><a href="probability-functions.html#cb25-10" tabindex="-1"></a><span class="co"># Get 1 - cumulative probability up to 5</span></span>
+<span id="cb25-11"><a href="probability-functions.html#cb25-11" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pgamma</span>(<span class="dv">5</span>, <span class="at">shape =</span> shape, <span class="at">scale =</span> scale)</span></code></pre></div>
+<pre><code>## [1] 0.5211581</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="probability-functions.html#cb27-1" tabindex="-1"></a><span class="co"># OR (same)</span></span>
+<span id="cb27-2"><a href="probability-functions.html#cb27-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pgamma</span>(<span class="dv">5</span>, <span class="at">shape =</span> shape, <span class="at">rate =</span> rate)</span></code></pre></div>
+<pre><code>## [1] 0.5211581</code></pre>
+<p>For an Exponential Distribution:</p>
+<p>We learned in Workshop 2 that <code>rexp()</code> requires a <code>rate</code>; we can calculate this from the <code>mean</code>.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="probability-functions.html#cb29-1" tabindex="-1"></a><span class="co"># For exponential distribution,</span></span>
+<span id="cb29-2"><a href="probability-functions.html#cb29-2" tabindex="-1"></a><span class="co"># rate = 1 / mean</span></span>
+<span id="cb29-3"><a href="probability-functions.html#cb29-3" tabindex="-1"></a>rate <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fl">5.5</span></span>
+<span id="cb29-4"><a href="probability-functions.html#cb29-4" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="probability-functions.html#cb29-5" tabindex="-1"></a><span class="co"># So...</span></span>
+<span id="cb29-6"><a href="probability-functions.html#cb29-6" tabindex="-1"></a><span class="co"># Get 1 - cumulative probability up to 5</span></span>
+<span id="cb29-7"><a href="probability-functions.html#cb29-7" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pexp</span>(<span class="dv">5</span>, <span class="at">rate =</span> rate)</span></code></pre></div>
+<pre><code>## [1] 0.4028903</code></pre>
+</details>
+<hr />
+</div>
+<div id="observed-probability-functions" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Observed Probability Functions<a href="probability-functions.html#observed-probability-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="example-observed-distributions" class="section level3 hasAnchor" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> Example: Observed Distributions<a href="probability-functions.html#example-observed-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="figure">
+<img src="https://media.glamour.com/photos/5abd5bbd73c84932389610fd/master/pass/TCDEERR_EC008.jpg" alt="Figure 1. Your Local ER" width="100%" />
+<p class="caption">
+(#fig:img_er)Figure 1. Your Local ER
+</p>
+</div>
+<p>For example, a local hospital wants to make their health care services more affordable, given the surge in inflation.</p>
+<ul>
+<li><p>They measured <code>n = 15</code> patients who stayed 1 night over the last 7 days, how much were they charged (before insurance)? Let’s call this vector <code>obs</code> (for ‘observed data’).</p></li>
+<li><p>A 16th patient received a bill of <code>$3000</code> (above the national mean of ~<code>$2500</code>). We’ll record this as <code>stat</code> below.</p></li>
+</ul>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="probability-functions.html#cb31-1" tabindex="-1"></a><span class="co"># Let&#39;s record our vector of 15 patients</span></span>
+<span id="cb31-2"><a href="probability-functions.html#cb31-2" tabindex="-1"></a>obs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1126</span>, <span class="dv">1493</span>, <span class="dv">1528</span>, <span class="dv">1713</span>, <span class="dv">1912</span>, <span class="dv">2060</span>, <span class="dv">2541</span>, <span class="dv">2612</span>, <span class="dv">2888</span>, <span class="dv">2915</span>, <span class="dv">3166</span>, <span class="dv">3552</span>, <span class="dv">3692</span>, <span class="dv">3695</span>, <span class="dv">4248</span>)</span>
+<span id="cb31-3"><a href="probability-functions.html#cb31-3" tabindex="-1"></a><span class="co"># And let&#39;s get our new patient data point to compare against</span></span>
+<span id="cb31-4"><a href="probability-functions.html#cb31-4" tabindex="-1"></a>stat <span class="ot">&lt;-</span> <span class="dv">3000</span></span></code></pre></div>
+<p>Here, we know the full observed distribution of values (<code>cost</code>), so we can directly compute the <code>p_value</code> from them, using the logical operator <code>&gt;=</code>.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="probability-functions.html#cb32-1" tabindex="-1"></a><span class="co"># Which values of in vector obs were greater than or equal to stat?</span></span>
+<span id="cb32-2"><a href="probability-functions.html#cb32-2" tabindex="-1"></a>obs <span class="sc">&gt;=</span> stat</span></code></pre></div>
+<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE
+## [13]  TRUE  TRUE  TRUE</code></pre>
+<p><code>R</code> interprets <code>TRUE == 1</code> &amp; <code>FALSE == 0</code>, so we can take the <code>mean()</code> to get the percentage of values in <code>obs</code> greater than or equal to <code>stat</code>.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="probability-functions.html#cb34-1" tabindex="-1"></a><span class="co"># Get p-value, the probability of getting a value greater than or equal to stat</span></span>
+<span id="cb34-2"><a href="probability-functions.html#cb34-2" tabindex="-1"></a><span class="fu">mean</span>(obs <span class="sc">&gt;=</span> stat)</span></code></pre></div>
+<pre><code>## [1] 0.3333333</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="probability-functions.html#cb36-1" tabindex="-1"></a><span class="co"># This means Total Probability, where probability of each cost is 1/n</span></span>
+<span id="cb36-2"><a href="probability-functions.html#cb36-2" tabindex="-1"></a><span class="fu">sum</span>(  (obs <span class="sc">&gt;=</span> stat) <span class="sc">/</span> <span class="fu">length</span>(obs)   )</span></code></pre></div>
+<pre><code>## [1] 0.3333333</code></pre>
+<p>Unfortunately, this only takes into account the exact values we observed (eg. $1493), but it can’t tell us anything about values we <em>didn’t</em> observe (eg. $1500). But logically, we know that the probability of getting a bill of $1500 should be pretty similar to a bill of $1493. So how do we fill in the gaps?</p>
+<p><br>
+<br></p>
+</div>
+<div id="observed-pdfs-probability-density-functions" class="section level3 hasAnchor" number="1.3.2">
+<h3><span class="header-section-number">1.3.2</span> Observed PDFs (Probability Density Functions)<a href="probability-functions.html#observed-pdfs-probability-density-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Above, we calculated the probability of getting a <strong>more</strong> extreme hospital bill based on a limited sample of points, but for more <em>precise</em> probabilities, we need to fill in the gaps between our observed data points.</p>
+<ul>
+<li><p>For a vector <code>x</code>, the probability density function is a <strong>curve</strong> providing the probability (<code>y</code>) of each value across the range of <code>x</code>.</p></li>
+<li><p>It shows the <strong>relative frequency</strong> (probability) of each <em>possible</em> value in the range.</p></li>
+</ul>
+<p><br></p>
+</div>
+<div id="density" class="section level3 hasAnchor" number="1.3.3">
+<h3><span class="header-section-number">1.3.3</span> <code>density()</code><a href="probability-functions.html#density" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can ask R to estimate the probability density function for any observed vector using <code>density()</code>. This returns the density (<code>y</code>) of a bunch of hypothetical values (<code>x</code>) matching our distribution’s curve. We can access those results using the <code>broom</code> package, by <code>tidy()</code>-ing it into a data.frame.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="probability-functions.html#cb38-1" tabindex="-1"></a>obs <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 2
+##       x           y
+##   &lt;dbl&gt;       &lt;dbl&gt;
+## 1 5715. 0.000000718
+## 2 5727. 0.000000669
+## 3 5739. 0.000000622</code></pre>
+<p>But that’s <em>data</em>, not a <em>function</em>, right? Functions are <em>equations</em>, machines you can pump an input into to get a specific output. Given a data.frame of 2 vectors, <code>R</code> can actually approximate the <code>function</code> (equation) connecting vector 1 to vector 2 using <code>approxfun()</code>, <em>creating your own function!</em> So cool!</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="probability-functions.html#cb40-1" tabindex="-1"></a><span class="co"># Let&#39;s make dobs(), the probability density function for our observed data. </span></span>
+<span id="cb40-2"><a href="probability-functions.html#cb40-2" tabindex="-1"></a>dobs <span class="ot">&lt;-</span> obs <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">approxfun</span>()</span>
+<span id="cb40-3"><a href="probability-functions.html#cb40-3" tabindex="-1"></a><span class="co"># Now let&#39;s get a sequence (seq()) of costs from 1000 to 3000, in units of 1000....</span></span>
+<span id="cb40-4"><a href="probability-functions.html#cb40-4" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1000</span>, <span class="dv">3000</span>, <span class="at">by =</span> <span class="dv">1000</span>)</span></code></pre></div>
+<pre><code>## [1] 1000 2000 3000</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="probability-functions.html#cb42-1" tabindex="-1"></a><span class="co"># and let&#39;s feed it a range of data to get the frequencies at those costs!</span></span>
+<span id="cb42-2"><a href="probability-functions.html#cb42-2" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1000</span>, <span class="dv">3000</span>, <span class="at">by =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> <span class="fu">dobs</span>()</span></code></pre></div>
+<pre><code>## [1] 0.0001503415 0.0003078665 0.0003184267</code></pre>
+<p>For now, let’s get the densities for costs ranging from the min to the max observed cost.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="probability-functions.html#cb44-1" tabindex="-1"></a>mypd <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb44-2"><a href="probability-functions.html#cb44-2" tabindex="-1"></a>  <span class="co"># Get sequence from min to max, in units of $10</span></span>
+<span id="cb44-3"><a href="probability-functions.html#cb44-3" tabindex="-1"></a>  <span class="at">cost =</span> <span class="fu">seq</span>(<span class="fu">min</span>(obs), <span class="fu">max</span>(obs), <span class="at">by =</span> <span class="dv">10</span>),</span>
+<span id="cb44-4"><a href="probability-functions.html#cb44-4" tabindex="-1"></a>  <span class="co"># Get probability densities</span></span>
+<span id="cb44-5"><a href="probability-functions.html#cb44-5" tabindex="-1"></a>  <span class="at">prob_cost_i =</span> <span class="fu">dobs</span>(cost)) <span class="sc">%&gt;%</span></span>
+<span id="cb44-6"><a href="probability-functions.html#cb44-6" tabindex="-1"></a>  <span class="co"># Classify each row as TRUE (1) if cost greater than or equal to stat, or FALSE (0) if not.</span></span>
+<span id="cb44-7"><a href="probability-functions.html#cb44-7" tabindex="-1"></a>  <span class="co"># This is the probability that each row is extreme (1 or 0)</span></span>
+<span id="cb44-8"><a href="probability-functions.html#cb44-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob_extreme_i =</span> cost <span class="sc">&gt;=</span> stat)</span>
+<span id="cb44-9"><a href="probability-functions.html#cb44-9" tabindex="-1"></a><span class="co"># Check it out!</span></span>
+<span id="cb44-10"><a href="probability-functions.html#cb44-10" tabindex="-1"></a>mypd <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 3
+##    cost prob_cost_i prob_extreme_i
+##   &lt;dbl&gt;       &lt;dbl&gt; &lt;lgl&gt;         
+## 1  1126    0.000186 FALSE         
+## 2  1136    0.000188 FALSE         
+## 3  1146    0.000191 FALSE</code></pre>
+<ul>
+<li><p>We’ll save it to <code>mypd</code>, naming the x-axis <code>cost</code> and the y-axis <code>prob_cost_i</code>, to show the probability of each <code>cost</code> in row <code>i</code> (eg. $1126, $1136, $1146, … <code>n</code>).</p></li>
+<li><p>We’ll also calculate <code>prob_extreme_i</code>, the probability that each <em>ith</em> <code>cost</code> is extreme (greater than or equal to our 16th patient’s bill). Either it <em>is</em> extreme (<code>TRUE == 100% = 1</code>) or it <em>isn’t</em> (<code>FALSE == 0% == 0</code>).</p></li>
+</ul>
+<p>Our density function <code>dobs()</code> estimated <code>prob_cost_i</code> (<code>y</code>), the probability/relative frequency of <code>cost</code> (<code>x</code>) occurring, where <code>x</code> represents every possible value of <code>cost</code>.</p>
+<ul>
+<li><p>We can visualize <code>mypd</code> using <code>geom_area()</code> or <code>geom_line()</code> in <code>ggplot2</code>!</p></li>
+<li><p>We can add <code>geom_vline()</code> to draw a vertical line at the location of <code>stat</code> on the <code>xintercept</code>.</p></li>
+</ul>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="probability-functions.html#cb46-1" tabindex="-1"></a>mypd <span class="sc">%&gt;%</span></span>
+<span id="cb46-2"><a href="probability-functions.html#cb46-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_cost_i, <span class="at">fill =</span> prob_extreme_i)) <span class="sc">+</span></span>
+<span id="cb46-3"><a href="probability-functions.html#cb46-3" tabindex="-1"></a>  <span class="co"># Fill in the area from 0 to y along x</span></span>
+<span id="cb46-4"><a href="probability-functions.html#cb46-4" tabindex="-1"></a>  <span class="fu">geom_area</span>() <span class="sc">+</span></span>
+<span id="cb46-5"><a href="probability-functions.html#cb46-5" tabindex="-1"></a>  <span class="co"># Or just draw curve with line</span></span>
+<span id="cb46-6"><a href="probability-functions.html#cb46-6" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb46-7"><a href="probability-functions.html#cb46-7" tabindex="-1"></a>  <span class="co"># add vertical line</span></span>
+<span id="cb46-8"><a href="probability-functions.html#cb46-8" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> stat, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb46-9"><a href="probability-functions.html#cb46-9" tabindex="-1"></a>  <span class="co"># Add theme and labels</span></span>
+<span id="cb46-10"><a href="probability-functions.html#cb46-10" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb46-11"><a href="probability-functions.html#cb46-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Range of Patient Costs (n = 15)&quot;</span>,</span>
+<span id="cb46-12"><a href="probability-functions.html#cb46-12" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Probability&quot;</span>,</span>
+<span id="cb46-13"><a href="probability-functions.html#cb46-13" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Probability Density Function of Hospital Stay Costs&quot;</span>) <span class="sc">+</span></span>
+<span id="cb46-14"><a href="probability-functions.html#cb46-14" tabindex="-1"></a>  <span class="co"># And let&#39;s add a quick label</span></span>
+<span id="cb46-15"><a href="probability-functions.html#cb46-15" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="dv">3500</span>, <span class="at">y =</span> <span class="fl">1.5e-4</span>, <span class="at">label =</span> <span class="st">&quot;(%) Area</span><span class="sc">\n</span><span class="st">under</span><span class="sc">\n</span><span class="st">curve??&quot;</span>, <span class="at">size =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="figure">
+<img src="03b_workshop_files/figure-html/plot_pdf-1.png" alt="Figure 2. Visualizing a Probability Density Function!" width="100%" />
+<p class="caption">
+(#fig:plot_pdf)Figure 2. Visualizing a Probability Density Function!
+</p>
+</div>
+<p><br>
+<br></p>
+</div>
+<div id="using-pdfs-probability-density-functions" class="section level3 hasAnchor" number="1.3.4">
+<h3><span class="header-section-number">1.3.4</span> Using PDFs (Probability Density Functions)<a href="probability-functions.html#using-pdfs-probability-density-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Great! We can <em>view</em> the probability density function now above. But how do we translate that into <strong>a single probability</strong> that measures how extreme Patient 16’s bill is?</p>
+<ul>
+<li><p>We have the probability <code>prob_cost_i</code> at points <code>cost</code> estimated by the probability density function saved in <code>mypd</code>.</p></li>
+<li><p>We can calculate the total probability or <code>p_value</code> that a value of <code>cost</code> will be greater than our statistic <code>stat</code>, using our total probability formula. We can even restate it, so that it looks a little more like the weighted average it truly is.</p></li>
+</ul>
+<p><span class="math display">\[  P_{\ Extreme} =  \sum_{i = 1}^{n}{ P (Cost | Extreme_{\ i}) \times P (Cost_{\ i}) } = \frac{ \sum_{i = 1}^{n}{ P (Cost_{i}) \times P(Extreme)_{\ i} } }{ \sum_{i = 1}^{n}{ P(Cost_{i}) }  }     \]</span></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="probability-functions.html#cb47-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> mypd <span class="sc">%&gt;%</span> </span>
+<span id="cb47-2"><a href="probability-functions.html#cb47-2" tabindex="-1"></a>  <span class="co"># Calculate the conditional probability of each cost occurring given that condition</span></span>
+<span id="cb47-3"><a href="probability-functions.html#cb47-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob_cost_extreme_i =</span> prob_cost_i <span class="sc">*</span> prob_extreme_i) <span class="sc">%&gt;%</span></span>
+<span id="cb47-4"><a href="probability-functions.html#cb47-4" tabindex="-1"></a>  <span class="co"># Next, let&#39;s summarize these probabilities</span></span>
+<span id="cb47-5"><a href="probability-functions.html#cb47-5" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb47-6"><a href="probability-functions.html#cb47-6" tabindex="-1"></a>    <span class="co"># Add up all probabilities of each cost given its condition in row i</span></span>
+<span id="cb47-7"><a href="probability-functions.html#cb47-7" tabindex="-1"></a>    <span class="at">prob_cost_extreme =</span> <span class="fu">sum</span>(prob_cost_extreme_i),</span>
+<span id="cb47-8"><a href="probability-functions.html#cb47-8" tabindex="-1"></a>    <span class="co"># Add up all probabilities of each cost in any row i</span></span>
+<span id="cb47-9"><a href="probability-functions.html#cb47-9" tabindex="-1"></a>    <span class="at">prob_cost =</span> <span class="fu">sum</span>(prob_cost_i),</span>
+<span id="cb47-10"><a href="probability-functions.html#cb47-10" tabindex="-1"></a>    <span class="co"># Calculate the weighted average, or total probability of getting an extreme cost</span></span>
+<span id="cb47-11"><a href="probability-functions.html#cb47-11" tabindex="-1"></a>    <span class="co"># by dividing these two sums!</span></span>
+<span id="cb47-12"><a href="probability-functions.html#cb47-12" tabindex="-1"></a>    <span class="at">prob_extreme =</span> prob_cost_extreme <span class="sc">/</span> prob_cost)</span>
+<span id="cb47-13"><a href="probability-functions.html#cb47-13" tabindex="-1"></a><span class="co"># Check it out!</span></span>
+<span id="cb47-14"><a href="probability-functions.html#cb47-14" tabindex="-1"></a>p</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 3
+##   prob_cost_extreme prob_cost prob_extreme
+##               &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;
+## 1            0.0317    0.0867        0.365</code></pre>
+<p>Very cool! Visually, what’s happening here?</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="probability-functions.html#cb49-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb49-2"><a href="probability-functions.html#cb49-2" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mypd, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_cost_i, <span class="at">fill =</span> prob_extreme_i)) <span class="sc">+</span></span>
+<span id="cb49-3"><a href="probability-functions.html#cb49-3" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> stat, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb49-4"><a href="probability-functions.html#cb49-4" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb49-5"><a href="probability-functions.html#cb49-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Range of Patient Costs (n = 15)&quot;</span>,</span>
+<span id="cb49-6"><a href="probability-functions.html#cb49-6" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Probability&quot;</span>,</span>
+<span id="cb49-7"><a href="probability-functions.html#cb49-7" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Probability Density Function of Hospital Stay Costs&quot;</span>) <span class="sc">+</span></span>
+<span id="cb49-8"><a href="probability-functions.html#cb49-8" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="dv">3500</span>, <span class="at">y =</span> <span class="fl">1.5e-4</span>, </span>
+<span id="cb49-9"><a href="probability-functions.html#cb49-9" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">&quot;P(Extreme)&quot;</span>, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>, <span class="st">&quot; = &quot;</span>, p<span class="sc">$</span>prob_extreme <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>), <span class="at">sep =</span> <span class="st">&quot;&quot;</span>),</span>
+<span id="cb49-10"><a href="probability-functions.html#cb49-10" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="figure">
+<img src="03b_workshop_files/figure-html/plot_pdf_area-1.png" alt="Figure 3. PDF with Area Under Curve!" width="100%" />
+<p class="caption">
+(#fig:plot_pdf_area)Figure 3. PDF with Area Under Curve!
+</p>
+</div>
+<p><br>
+<br></p>
+</div>
+<div id="observed-cdfs-cumulative-distribution-functions" class="section level3 hasAnchor" number="1.3.5">
+<h3><span class="header-section-number">1.3.5</span> Observed CDFs (Cumulative Distribution Functions)<a href="probability-functions.html#observed-cdfs-cumulative-distribution-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Alternatively, we can calculate that <code>p</code>-value for <code>prob_extreme</code> a different way, by looking at the <strong>cumulative probability</strong>.</p>
+<ul>
+<li>To add a values/probabilities in a vector together sequentially, we can use <code>cumsum()</code> (short for cumulative sum). For example:</li>
+</ul>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="probability-functions.html#cb50-1" tabindex="-1"></a><span class="co"># Normally</span></span>
+<span id="cb50-2"><a href="probability-functions.html#cb50-2" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] 1 2 3 4 5</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="probability-functions.html#cb52-1" tabindex="-1"></a><span class="co"># Cumulatively summed</span></span>
+<span id="cb52-2"><a href="probability-functions.html#cb52-2" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="fu">cumsum</span>()</span></code></pre></div>
+<pre><code>## [1]  1  3  6 10 15</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="probability-functions.html#cb54-1" tabindex="-1"></a><span class="co"># Same as</span></span>
+<span id="cb54-2"><a href="probability-functions.html#cb54-2" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span><span class="sc">+</span><span class="dv">1</span>, <span class="dv">3</span><span class="sc">+</span><span class="dv">2</span><span class="sc">+</span><span class="dv">1</span>, <span class="dv">4</span><span class="sc">+</span><span class="dv">3</span><span class="sc">+</span><span class="dv">2</span><span class="sc">+</span><span class="dv">1</span>, <span class="dv">5</span><span class="sc">+</span><span class="dv">4</span><span class="sc">+</span><span class="dv">3</span><span class="sc">+</span><span class="dv">2</span><span class="sc">+</span><span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1]  1  3  6 10 15</code></pre>
+<p>Every <strong>probability density function (PDF)</strong> can <em>also</em> be represented as a <strong>cumulative distribution function (CDF)</strong>. Here, we calculate the <em>cumulative</em> total probability of receiving <em>each</em> <code>cost</code>, applying <code>cumsum()</code> to the probability (<code>prob_cost</code>) of each value (<code>cost</code>). In this case, we’re basically saying, we’re interested in <em>all</em> the <code>costs</code>, so don’t discount any.</p>
+<p><span class="math display">\[  P_{\ Extreme} =  \sum_{i = 1}^{n}{ P (Cost | Extreme_{\ i} = 1) \times P (Cost_{\ i}) } = \frac{ \sum_{i = 1}^{n}{ P (Cost_{i}) \times 1 } }{ \sum_{i = 1}^{n}{ P(Cost_{i}) }  }     \]</span></p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="probability-functions.html#cb56-1" tabindex="-1"></a>mypd <span class="sc">%&gt;%</span> </span>
+<span id="cb56-2"><a href="probability-functions.html#cb56-2" tabindex="-1"></a>  <span class="co"># For instance, we can do the first step here,</span></span>
+<span id="cb56-3"><a href="probability-functions.html#cb56-3" tabindex="-1"></a>  <span class="co"># taking the cumulative probability of costs i through j....</span></span>
+<span id="cb56-4"><a href="probability-functions.html#cb56-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob_cost_cumulative =</span> <span class="fu">cumsum</span>(prob_cost_i)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-5"><a href="probability-functions.html#cb56-5" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 4
+##    cost prob_cost_i prob_extreme_i prob_cost_cumulative
+##   &lt;dbl&gt;       &lt;dbl&gt; &lt;lgl&gt;                         &lt;dbl&gt;
+## 1  1126    0.000186 FALSE                      0.000186
+## 2  1136    0.000188 FALSE                      0.000374
+## 3  1146    0.000191 FALSE                      0.000565</code></pre>
+<p>Our <code>prob_cost_cumulative</code> in row 3 above shows the total probability of <code>n = 3</code> patients receiving a cost of 1126 OR 1136 OR 1146. But, we want an <em>average</em> estimate for 1 patient. So, like in a weighted average, we can divide by the total probability of <em>all</em> (<code>n</code>) hypothetical patients in the probability density function receiving any of these costs. This gives us our <em>revised</em> <code>prob_cost_cumulative</code>, which ranges from <code>0</code> to <code>1</code>!</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="probability-functions.html#cb58-1" tabindex="-1"></a>mycd <span class="ot">&lt;-</span> mypd <span class="sc">%&gt;%</span> </span>
+<span id="cb58-2"><a href="probability-functions.html#cb58-2" tabindex="-1"></a>  <span class="co"># For instance, we can do the first step here,</span></span>
+<span id="cb58-3"><a href="probability-functions.html#cb58-3" tabindex="-1"></a>  <span class="co"># taking the cumulative probability of costs i through j....</span></span>
+<span id="cb58-4"><a href="probability-functions.html#cb58-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob_cost_cumulative =</span> <span class="fu">cumsum</span>(prob_cost_i) <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i)) <span class="sc">%&gt;%</span></span>
+<span id="cb58-5"><a href="probability-functions.html#cb58-5" tabindex="-1"></a>  <span class="co"># We can also then identify the segment that is extreme!</span></span>
+<span id="cb58-6"><a href="probability-functions.html#cb58-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob_extreme =</span> prob_cost_cumulative <span class="sc">*</span> prob_extreme_i)</span>
+<span id="cb58-7"><a href="probability-functions.html#cb58-7" tabindex="-1"></a></span>
+<span id="cb58-8"><a href="probability-functions.html#cb58-8" tabindex="-1"></a><span class="co"># Take a peek at the tail!</span></span>
+<span id="cb58-9"><a href="probability-functions.html#cb58-9" tabindex="-1"></a>mycd <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 5
+##    cost prob_cost_i prob_extreme_i prob_cost_cumulative prob_extreme
+##   &lt;dbl&gt;       &lt;dbl&gt; &lt;lgl&gt;                         &lt;dbl&gt;        &lt;dbl&gt;
+## 1  4226    0.000144 TRUE                          0.997        0.997
+## 2  4236    0.000142 TRUE                          0.998        0.998
+## 3  4246    0.000140 TRUE                          1            1</code></pre>
+<p>Let’s visualize <code>mycd</code>, our cumulative probabilities!</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="probability-functions.html#cb60-1" tabindex="-1"></a>viz_cd <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb60-2"><a href="probability-functions.html#cb60-2" tabindex="-1"></a>  <span class="co"># Show the cumulative probability of each cost, </span></span>
+<span id="cb60-3"><a href="probability-functions.html#cb60-3" tabindex="-1"></a>  <span class="co"># shaded by whether it is &quot;extreme&quot; (cost &gt;= stat)  or not</span></span>
+<span id="cb60-4"><a href="probability-functions.html#cb60-4" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycd, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_cost_cumulative, <span class="at">fill =</span> prob_extreme_i)) <span class="sc">+</span></span>
+<span id="cb60-5"><a href="probability-functions.html#cb60-5" tabindex="-1"></a>  <span class="co"># Show cumulative probability of getting an extreme cost</span></span>
+<span id="cb60-6"><a href="probability-functions.html#cb60-6" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycd, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_extreme, <span class="at">fill =</span> prob_extreme_i))  <span class="sc">+</span></span>
+<span id="cb60-7"><a href="probability-functions.html#cb60-7" tabindex="-1"></a>  <span class="co"># Show the 16th patient&#39;s cost</span></span>
+<span id="cb60-8"><a href="probability-functions.html#cb60-8" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> stat, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb60-9"><a href="probability-functions.html#cb60-9" tabindex="-1"></a>  <span class="co"># Add formatting</span></span>
+<span id="cb60-10"><a href="probability-functions.html#cb60-10" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb60-11"><a href="probability-functions.html#cb60-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Cost of Hospital Stays (n = 15)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Cumulative Probability of Cost&quot;</span>,</span>
+<span id="cb60-12"><a href="probability-functions.html#cb60-12" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">&quot;P(Extreme i)&quot;</span>,</span>
+<span id="cb60-13"><a href="probability-functions.html#cb60-13" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Cumulative Distribution Function for Cost of Hospital Stays&quot;</span>,</span>
+<span id="cb60-14"><a href="probability-functions.html#cb60-14" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Probability of Cost more Extreme than $3000 = 0.36&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="probability-functions.html#cb61-1" tabindex="-1"></a><span class="co"># View it! </span></span>
+<span id="cb61-2"><a href="probability-functions.html#cb61-2" tabindex="-1"></a>viz_cd</span>
+<span id="cb61-3"><a href="probability-functions.html#cb61-3" tabindex="-1"></a><span class="co"># (Note: I&#39;ve added some more annotation to mine </span></span>
+<span id="cb61-4"><a href="probability-functions.html#cb61-4" tabindex="-1"></a><span class="co"># than your image will have - don&#39;t worry!)</span></span></code></pre></div>
+<div class="figure">
+<img src="03b_workshop_files/figure-html/plot_cdf-1.png" alt="Figure 4. Visualizing a Cumulative Distribution Function!" width="100%" />
+<p class="caption">
+(#fig:plot_cdf)Figure 4. Visualizing a Cumulative Distribution Function!
+</p>
+</div>
+<p>But wouldn’t it be handy if we could just make a literal cumulative distribution <code>function</code>, just like we did for the probability density <code>function</code> <code>dobs()</code>?</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="probability-functions.html#cb62-1" tabindex="-1"></a>pobs <span class="ot">&lt;-</span> obs <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb62-2"><a href="probability-functions.html#cb62-2" tabindex="-1"></a>  <span class="co"># Sort from smallest to largest</span></span>
+<span id="cb62-3"><a href="probability-functions.html#cb62-3" tabindex="-1"></a>  <span class="fu">arrange</span>(x) <span class="sc">%&gt;%</span></span>
+<span id="cb62-4"><a href="probability-functions.html#cb62-4" tabindex="-1"></a>  <span class="co"># take cumulative sum, divided by total probability</span></span>
+<span id="cb62-5"><a href="probability-functions.html#cb62-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">cumsum</span>(y) <span class="sc">/</span> <span class="fu">sum</span>(y)) <span class="sc">%&gt;%</span> </span>
+<span id="cb62-6"><a href="probability-functions.html#cb62-6" tabindex="-1"></a>  <span class="co"># Make cumulative distribution function pobs()!</span></span>
+<span id="cb62-7"><a href="probability-functions.html#cb62-7" tabindex="-1"></a>  <span class="fu">approxfun</span>()</span>
+<span id="cb62-8"><a href="probability-functions.html#cb62-8" tabindex="-1"></a></span>
+<span id="cb62-9"><a href="probability-functions.html#cb62-9" tabindex="-1"></a><span class="co"># We&#39;ll test it out!</span></span>
+<span id="cb62-10"><a href="probability-functions.html#cb62-10" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pobs</span>(<span class="dv">3000</span>)</span></code></pre></div>
+<pre><code>## [1] 0.3726148</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="probability-functions.html#cb64-1" tabindex="-1"></a><span class="co"># Pretty close to our probability we calculated before!</span></span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="probability-functions.html#cb65-1" tabindex="-1"></a><span class="co"># Clear unnecessary data.</span></span>
+<span id="cb65-2"><a href="probability-functions.html#cb65-2" tabindex="-1"></a><span class="fu">remove</span>(stat, mycd, p, viz_cd)</span></code></pre></div>
+</div>
+<div id="using-calculus" class="section level3 hasAnchor" number="1.3.6">
+<h3><span class="header-section-number">1.3.6</span> Using Calculus!<a href="probability-functions.html#using-calculus" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Above we took a <strong>computational-approach</strong> to the CDF, using <code>R</code> to number-crunch the CDF. To summarize:</p>
+<ol style="list-style-type: decimal">
+<li><p>We took a vector of empirical data <code>obs</code>,</p></li>
+<li><p>We estimated the probability density function (PDF) using <code>density()</code></p></li>
+<li><p>We calculated the cumulative probability distribution ourselves</p></li>
+<li><p>We connected-the-dots of our CDF into a function with <code>approxfun()</code>.</p></li>
+</ol>
+<p>We did this because we started with empirical data, where <em>where the density function is unknown!</em></p>
+<p>But <em>sometimes</em>, we do know the density function, perhaps because systems engineers have modeled it for decades! In these cases, we could alternatively use calculus in <code>R</code> to obtain the CDF and make probabilistic assessments. Here’s how!</p>
+<p>For example, this equation does a pretty okay job of approximating the shape of our distribution in <code>obs</code>.</p>
+<p><span class="math display">\[ f(x) = \frac{-2}{10^7} + \frac{25x}{10^8} - \frac{45x^2}{10^{12}} \]</span>
+We can write that up in a <code>function</code>, which we will call <code>pdf</code>. For every <code>x</code> value we supply, it will compute that equation to predict that value’s relative refequency/probability.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="probability-functions.html#cb66-1" tabindex="-1"></a><span class="co"># Write out our nice polynomial function</span></span>
+<span id="cb66-2"><a href="probability-functions.html#cb66-2" tabindex="-1"></a>pdf <span class="ot">=</span> <span class="cf">function</span>(x){</span>
+<span id="cb66-3"><a href="probability-functions.html#cb66-3" tabindex="-1"></a>  <span class="sc">-</span><span class="dv">2</span><span class="sc">/</span><span class="dv">10</span><span class="sc">^</span><span class="dv">7</span> <span class="sc">+</span> <span class="dv">25</span><span class="sc">/</span><span class="dv">10</span><span class="sc">^</span><span class="dv">8</span><span class="sc">*</span>x <span class="sc">+</span> <span class="sc">-</span><span class="dv">45</span><span class="sc">/</span><span class="dv">10</span><span class="sc">^</span><span class="dv">12</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb66-4"><a href="probability-functions.html#cb66-4" tabindex="-1"></a>}</span>
+<span id="cb66-5"><a href="probability-functions.html#cb66-5" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb66-6"><a href="probability-functions.html#cb66-6" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">3000</span>) <span class="sc">%&gt;%</span> <span class="fu">pdf</span>()</span></code></pre></div>
+<pre><code>## [1] 0.0003198 0.0003448</code></pre>
+<p>The figure below demonstrates that it approximates the true density relatively closely.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="probability-functions.html#cb68-1" tabindex="-1"></a><span class="co"># We&#39;re going to add another column to our mypd dataset,</span></span>
+<span id="cb68-2"><a href="probability-functions.html#cb68-2" tabindex="-1"></a>mypd <span class="ot">&lt;-</span> mypd <span class="sc">%&gt;%</span></span>
+<span id="cb68-3"><a href="probability-functions.html#cb68-3" tabindex="-1"></a>  <span class="co"># approximating the probability of each cost with our new pdf()</span></span>
+<span id="cb68-4"><a href="probability-functions.html#cb68-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob_cost_i2 =</span> <span class="fu">pdf</span>(cost))</span>
+<span id="cb68-5"><a href="probability-functions.html#cb68-5" tabindex="-1"></a></span>
+<span id="cb68-6"><a href="probability-functions.html#cb68-6" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb68-7"><a href="probability-functions.html#cb68-7" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> mypd, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_cost_i, <span class="at">color =</span> <span class="st">&quot;from raw data&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb68-8"><a href="probability-functions.html#cb68-8" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> mypd, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_cost_i2, <span class="at">color =</span> <span class="st">&quot;from function&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb68-9"><a href="probability-functions.html#cb68-9" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb68-10"><a href="probability-functions.html#cb68-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Cost&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Probability&quot;</span>, <span class="at">color =</span> <span class="st">&quot;Type&quot;</span>)</span></code></pre></div>
+<p><img src="03b_workshop_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p>So how do we generate the cumulative density function? The <code>mosaicCalc</code> package can help us with its functions <code>D()</code> and <code>antiD()</code>.</p>
+<ul>
+<li><code>D()</code> computes the derivative of a function (Eg. CDF -&gt; PDF)</li>
+<li><code>antiD()</code> computes its integral (Eg. PDF -&gt; CDF)</li>
+</ul>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="probability-functions.html#cb69-1" tabindex="-1"></a><span class="co"># Compute the anti-derivative (integral) of the function pdf(x), solving for x.</span></span>
+<span id="cb69-2"><a href="probability-functions.html#cb69-2" tabindex="-1"></a>cdf <span class="ot">&lt;-</span> <span class="fu">antiD</span>(<span class="at">tilde =</span> <span class="fu">pdf</span>(x) <span class="sc">~</span> x)</span>
+<span id="cb69-3"><a href="probability-functions.html#cb69-3" tabindex="-1"></a><span class="co"># It works just the same as our other functions</span></span>
+<span id="cb69-4"><a href="probability-functions.html#cb69-4" tabindex="-1"></a>obs <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> <span class="fu">cdf</span>()</span></code></pre></div>
+<pre><code>## [1] 0.1368449 0.2284130 0.2380292 0.2910549 0.3517389 0.3989108</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="probability-functions.html#cb71-1" tabindex="-1"></a><span class="co"># (Note: Our function is not a perfect fit for the data, so probabilities exceed 1!)</span></span>
+<span id="cb71-2"><a href="probability-functions.html#cb71-2" tabindex="-1"></a></span>
+<span id="cb71-3"><a href="probability-functions.html#cb71-3" tabindex="-1"></a><span class="co"># Let&#39;s compare our cdf() function made with calculus with pobs(), our computationally-generated CDF function. </span></span>
+<span id="cb71-4"><a href="probability-functions.html#cb71-4" tabindex="-1"></a>obs <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> <span class="fu">pobs</span>()</span></code></pre></div>
+<pre><code>## [1] 0.07767408 0.16372910 0.17344816 0.22749238 0.28830929 0.33387438</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="probability-functions.html#cb73-1" tabindex="-1"></a><span class="co"># Pretty similar results. The differences are due the fact that our original function is just an approximation, rather than dobs(), which is a perfect fit for our densities.</span></span></code></pre></div>
+<p>And we can also take the derivative of our <code>cdf()</code> function with <code>D()</code> to get back our <code>pdf()</code>, which we’ll call <code>pdf2()</code>.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="probability-functions.html#cb74-1" tabindex="-1"></a>pdf2 <span class="ot">&lt;-</span> <span class="fu">D</span>(<span class="at">tilde =</span> <span class="fu">cdf</span>(x) <span class="sc">~</span> x)</span>
+<span id="cb74-2"><a href="probability-functions.html#cb74-2" tabindex="-1"></a><span class="co"># Let&#39;s compare results....</span></span>
+<span id="cb74-3"><a href="probability-functions.html#cb74-3" tabindex="-1"></a><span class="co"># Our original pdf...</span></span>
+<span id="cb74-4"><a href="probability-functions.html#cb74-4" tabindex="-1"></a>obs <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> <span class="fu">pdf</span>()</span></code></pre></div>
+<pre><code>## [1] 0.0002242456 0.0002727428 0.0002767347 0.0002960034 0.0003132915
+## [6] 0.0003238380</code></pre>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="probability-functions.html#cb76-1" tabindex="-1"></a><span class="co"># Our pdf dervied from cdf...</span></span>
+<span id="cb76-2"><a href="probability-functions.html#cb76-2" tabindex="-1"></a>obs <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> <span class="fu">pdf2</span>()</span></code></pre></div>
+<pre><code>## [1] 0.0002242456 0.0002727428 0.0002767347 0.0002960034 0.0003132915
+## [6] 0.0003238380</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="probability-functions.html#cb78-1" tabindex="-1"></a><span class="co"># They&#39;re the same!</span></span></code></pre></div>
+<p>Tada! You can do calculus in <code>R</code>!</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="probability-functions.html#cb79-1" tabindex="-1"></a><span class="fu">remove</span>(mypd, pdf, pdf2, cdf, obs)</span></code></pre></div>
+<p><br>
+<br></p>
+<hr />
+</div>
+</div>
+<div id="learning-check-2" class="section level2 unnumbered LC hasAnchor">
+<h2>Learning Check 2<a href="probability-functions.html#learning-check-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Question</strong></p>
+<p>A month has gone by, and our hospital has now billed 30 patients. You’ve heard that hospital bills at or above <code>$3000</code> a day may <em>somewhat</em> deter people from seeking future medical care, while bills at or above <code>$4000</code> may <em>greatly</em> deter people from seeking future care. (These numbers are hypothetical.)</p>
+<p>Using the vectors below, please calculate the following, using a PDF or CDF.</p>
+<ul>
+<li><p>What’s the probability that a bill might <em>somewhat</em> deter a patient from going to the hospital?</p></li>
+<li><p>What’s the probability that a bill might <em>greatly</em> deter a patient from going to the hospital?</p></li>
+<li><p>What’s the probability that a patient might be <em>somewhat</em> deterred but <strong>not</strong> <em>greatly</em> deterred from going to the hospital?</p></li>
+<li><p>Note: Assume that the PDF matches the range of observed patients.</p></li>
+</ul>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="probability-functions.html#cb80-1" tabindex="-1"></a><span class="co"># Let&#39;s record our vector of 30 patients</span></span>
+<span id="cb80-2"><a href="probability-functions.html#cb80-2" tabindex="-1"></a>patients <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1126</span>, <span class="dv">1493</span>, <span class="dv">1528</span>, <span class="dv">1713</span>, <span class="dv">1912</span>, <span class="dv">2060</span>, <span class="dv">2541</span>, <span class="dv">2612</span>, <span class="dv">2888</span>, <span class="dv">2915</span>, <span class="dv">3166</span>, <span class="dv">3552</span>, <span class="dv">3692</span>, <span class="dv">3695</span>, <span class="dv">4248</span>,</span>
+<span id="cb80-3"><a href="probability-functions.html#cb80-3" tabindex="-1"></a>         <span class="dv">3000</span>, <span class="dv">3104</span>, <span class="dv">3071</span>, <span class="dv">2953</span>, <span class="dv">2934</span>, <span class="dv">2976</span>, <span class="dv">2902</span>, <span class="dv">2998</span>, <span class="dv">3040</span>, <span class="dv">3030</span>, <span class="dv">3021</span>, <span class="dv">3028</span>, <span class="dv">2952</span>, <span class="dv">3013</span>, <span class="dv">3047</span>)</span>
+<span id="cb80-4"><a href="probability-functions.html#cb80-4" tabindex="-1"></a><span class="co"># And let&#39;s get our statistics to compare against</span></span>
+<span id="cb80-5"><a href="probability-functions.html#cb80-5" tabindex="-1"></a>somewhat <span class="ot">&lt;-</span> <span class="dv">3000</span></span>
+<span id="cb80-6"><a href="probability-functions.html#cb80-6" tabindex="-1"></a>greatly <span class="ot">&lt;-</span> <span class="dv">4000</span></span></code></pre></div>
+<details>
+<summary>
+<strong>[View Answer!]</strong>
+</summary>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="probability-functions.html#cb81-1" tabindex="-1"></a><span class="co"># Get the probability density function for our new data</span></span>
+<span id="cb81-2"><a href="probability-functions.html#cb81-2" tabindex="-1"></a>dobs2 <span class="ot">&lt;-</span> patients <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">approxfun</span>()</span>
+<span id="cb81-3"><a href="probability-functions.html#cb81-3" tabindex="-1"></a></span>
+<span id="cb81-4"><a href="probability-functions.html#cb81-4" tabindex="-1"></a><span class="co"># Get the probability densities</span></span>
+<span id="cb81-5"><a href="probability-functions.html#cb81-5" tabindex="-1"></a>mypd2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb81-6"><a href="probability-functions.html#cb81-6" tabindex="-1"></a>  <span class="at">cost =</span> <span class="fu">seq</span>(<span class="fu">min</span>(patients), <span class="fu">max</span>(patients), <span class="at">by =</span> <span class="dv">10</span>),</span>
+<span id="cb81-7"><a href="probability-functions.html#cb81-7" tabindex="-1"></a>  <span class="at">prob_cost_i =</span> cost <span class="sc">%&gt;%</span> <span class="fu">dobs2</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb81-8"><a href="probability-functions.html#cb81-8" tabindex="-1"></a>  <span class="co"># Calculate probability of being somewhat deterred</span></span>
+<span id="cb81-9"><a href="probability-functions.html#cb81-9" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb81-10"><a href="probability-functions.html#cb81-10" tabindex="-1"></a>    <span class="at">prob_somewhat_i =</span> cost <span class="sc">&gt;=</span> somewhat,</span>
+<span id="cb81-11"><a href="probability-functions.html#cb81-11" tabindex="-1"></a>    <span class="at">prob_greatly_i =</span> cost <span class="sc">&gt;=</span> greatly,</span>
+<span id="cb81-12"><a href="probability-functions.html#cb81-12" tabindex="-1"></a>    <span class="at">prob_somewhat_not_greatly_i =</span> cost <span class="sc">&gt;=</span> somewhat <span class="sc">&amp;</span> cost <span class="sc">&lt;</span> greatly)</span></code></pre></div>
+<p>To calculate these probabilities straight from the probability densities, do like so:</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="probability-functions.html#cb82-1" tabindex="-1"></a>mypd2 <span class="sc">%&gt;%</span></span>
+<span id="cb82-2"><a href="probability-functions.html#cb82-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb82-3"><a href="probability-functions.html#cb82-3" tabindex="-1"></a>    <span class="co"># Calculate total probability of a cost somewhat deterring medical care</span></span>
+<span id="cb82-4"><a href="probability-functions.html#cb82-4" tabindex="-1"></a>    <span class="at">prob_somewhat =</span> <span class="fu">sum</span>(prob_cost_i <span class="sc">*</span> prob_somewhat_i) <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i),</span>
+<span id="cb82-5"><a href="probability-functions.html#cb82-5" tabindex="-1"></a>    <span class="co"># Calculate total probability of a cost greatly deterring medical care</span></span>
+<span id="cb82-6"><a href="probability-functions.html#cb82-6" tabindex="-1"></a>    <span class="at">prob_greatly =</span> <span class="fu">sum</span>(prob_cost_i <span class="sc">*</span> prob_greatly_i) <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i),</span>
+<span id="cb82-7"><a href="probability-functions.html#cb82-7" tabindex="-1"></a>    <span class="co"># Calculate total probability of a cost somewhat-but-not-greatly deterring medical care</span></span>
+<span id="cb82-8"><a href="probability-functions.html#cb82-8" tabindex="-1"></a>    <span class="at">prob_somewhat_not_greatly =</span> <span class="fu">sum</span>(prob_cost_i <span class="sc">*</span> prob_somewhat_not_greatly_i) <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i))</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 3
+##   prob_somewhat prob_greatly prob_somewhat_not_greatly
+##           &lt;dbl&gt;        &lt;dbl&gt;                     &lt;dbl&gt;
+## 1         0.431       0.0172                     0.414</code></pre>
+<p>To calculate these probabilities from the cumulative distribution functions, we can do the following:</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="probability-functions.html#cb84-1" tabindex="-1"></a><span class="co"># Get cumulative probabilities of each</span></span>
+<span id="cb84-2"><a href="probability-functions.html#cb84-2" tabindex="-1"></a>mycd2 <span class="ot">&lt;-</span> mypd2 <span class="sc">%&gt;%</span></span>
+<span id="cb84-3"><a href="probability-functions.html#cb84-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb84-4"><a href="probability-functions.html#cb84-4" tabindex="-1"></a>    <span class="co"># Calculate total probability of a cost somewhat deterring medical care</span></span>
+<span id="cb84-5"><a href="probability-functions.html#cb84-5" tabindex="-1"></a>    <span class="at">prob_somewhat =</span> <span class="fu">cumsum</span>(prob_cost_i) <span class="sc">*</span> prob_somewhat_i <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i),</span>
+<span id="cb84-6"><a href="probability-functions.html#cb84-6" tabindex="-1"></a>    <span class="co"># Calculate total probability of a cost greatly deterring medical care</span></span>
+<span id="cb84-7"><a href="probability-functions.html#cb84-7" tabindex="-1"></a>    <span class="at">prob_greatly =</span> <span class="fu">cumsum</span>(prob_cost_i) <span class="sc">*</span> prob_greatly_i <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i),</span>
+<span id="cb84-8"><a href="probability-functions.html#cb84-8" tabindex="-1"></a>    <span class="co"># Calculate total probability of a cost somewhat-but-not-greatly deterring medical care</span></span>
+<span id="cb84-9"><a href="probability-functions.html#cb84-9" tabindex="-1"></a>    <span class="at">prob_somewhat_not_greatly =</span> <span class="fu">cumsum</span>(prob_cost_i) <span class="sc">*</span> prob_somewhat_not_greatly_i <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i))</span>
+<span id="cb84-10"><a href="probability-functions.html#cb84-10" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb84-11"><a href="probability-functions.html#cb84-11" tabindex="-1"></a>mycd2 <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 8
+##    cost prob_cost_i prob_somewhat_i prob_greatly_i prob_somewhat_not_greatly_i
+##   &lt;dbl&gt;       &lt;dbl&gt; &lt;lgl&gt;           &lt;lgl&gt;          &lt;lgl&gt;                      
+## 1  4226    0.000106 TRUE            TRUE           FALSE                      
+## 2  4236    0.000107 TRUE            TRUE           FALSE                      
+## 3  4246    0.000107 TRUE            TRUE           FALSE                      
+## # ℹ 3 more variables: prob_somewhat &lt;dbl&gt;, prob_greatly &lt;dbl&gt;,
+## #   prob_somewhat_not_greatly &lt;dbl&gt;</code></pre>
+<p>Finally, if you want to visualize them, here’s how you would do it!</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="probability-functions.html#cb86-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb86-2"><a href="probability-functions.html#cb86-2" tabindex="-1"></a>  <span class="co"># Get cumulative probability generally</span></span>
+<span id="cb86-3"><a href="probability-functions.html#cb86-3" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycd2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> <span class="fu">cumsum</span>(prob_cost_i) <span class="sc">/</span> <span class="fu">sum</span>(prob_cost_i),</span>
+<span id="cb86-4"><a href="probability-functions.html#cb86-4" tabindex="-1"></a>                                         <span class="at">fill =</span> <span class="st">&quot;Very Little&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb86-5"><a href="probability-functions.html#cb86-5" tabindex="-1"></a>  <span class="co"># Get cumulative probability if somewhat but not greatly</span></span>
+<span id="cb86-6"><a href="probability-functions.html#cb86-6" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycd2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_somewhat_not_greatly, </span>
+<span id="cb86-7"><a href="probability-functions.html#cb86-7" tabindex="-1"></a>                                         <span class="at">fill =</span> <span class="st">&quot;Somewhat-not-Greatly&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb86-8"><a href="probability-functions.html#cb86-8" tabindex="-1"></a>  <span class="co"># Get cumulative probability if greatly</span></span>
+<span id="cb86-9"><a href="probability-functions.html#cb86-9" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> mycd2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cost, <span class="at">y =</span> prob_greatly, </span>
+<span id="cb86-10"><a href="probability-functions.html#cb86-10" tabindex="-1"></a>                                         <span class="at">fill =</span> <span class="st">&quot;Greatly&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb86-11"><a href="probability-functions.html#cb86-11" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb86-12"><a href="probability-functions.html#cb86-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Cost of Hospital Stay (n = 30)&quot;</span>,</span>
+<span id="cb86-13"><a href="probability-functions.html#cb86-13" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Cumulative Probability&quot;</span>,</span>
+<span id="cb86-14"><a href="probability-functions.html#cb86-14" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Probability of Hospital Bill Deterring Future Hospital Visits&quot;</span>,</span>
+<span id="cb86-15"><a href="probability-functions.html#cb86-15" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">&quot;Deter Future Visits&quot;</span>)</span></code></pre></div>
+<p><img src="03b_workshop_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+</details>
+<hr />
+<p><br>
+<br></p>
+<p><br>
+<br></p>
+</div>
+<div id="conclusion" class="section level2 unnumbered hasAnchor">
+<h2>Conclusion<a href="probability-functions.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>And that’s a wrap! Nice work! You can now figure out <em>a lot</em> of things about the world if you (a) can guess their distribution and (b) have one or two statistics about that distribution. Here we go!</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="assets/gitbook-2.6.7/js/app.min.js"></script>
+<script src="assets/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="assets/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+},
+"toolbar": {
+"position": "static"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

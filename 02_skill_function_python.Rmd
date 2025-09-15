@@ -2,6 +2,8 @@
 
 ```{r setup_skill_functions_python, include = FALSE}
 knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+library(dplyr,  quietly = TRUE, warn.conflicts = FALSE)
+library(DiagrammeR,  quietly = TRUE, warn.conflicts = FALSE)
 ```
 
 We've learned how to use built-in functions to analyze data, but sometimes it's more helpful to (A) do the math by hand or (B) write your own function. Let's learn how!

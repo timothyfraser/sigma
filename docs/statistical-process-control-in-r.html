@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 Statistical Process Control in R | System Reliability and Six Sigma in R</title>
+  <meta name="description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 Statistical Process Control in R | System Reliability and Six Sigma in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 Statistical Process Control in R | System Reliability and Six Sigma in R" />
+  
+  <meta name="twitter:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  
+
+<meta name="author" content="Timothy Fraser, PhD" />
+
+
+<meta name="date" content="2025-09-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+
+<script src="assets/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html"><i class="fa fa-check"></i><b>1</b> Statistical Process Control in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#getting-started"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#packages"><i class="fa fa-check"></i>Packages</a></li>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#our-case"><i class="fa fa-check"></i>Our Case</a></li>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#our-data"><i class="fa fa-check"></i>Our Data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#visualizing-quality-control"><i class="fa fa-check"></i><b>1.1</b> Visualizing Quality Control</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#theme_set"><i class="fa fa-check"></i><b>1.1.1</b> <code>theme_set()</code></a></li>
+<li class="chapter" data-level="1.1.2" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#process-descriptive-statistics"><i class="fa fa-check"></i><b>1.1.2</b> Process Descriptive Statistics</a></li>
+<li class="chapter" data-level="1.1.3" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#process-overview-visual"><i class="fa fa-check"></i><b>1.1.3</b> Process Overview Visual</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#learning-check-1"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="1.2" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#average-and-standard-deviation-graphs"><i class="fa fa-check"></i><b>1.2</b> Average and Standard Deviation Graphs</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#key-statistics"><i class="fa fa-check"></i><b>1.2.1</b> Key Statistics</a></li>
+<li class="chapter" data-level="1.2.2" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#subgroup-within-group-statistics"><i class="fa fa-check"></i><b>1.2.2</b> Subgroup (Within-Group) Statistics</a></li>
+<li class="chapter" data-level="1.2.3" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#total-statistics-between-groups"><i class="fa fa-check"></i><b>1.2.3</b> Total Statistics (Between Groups)</a></li>
+<li class="chapter" data-level="1.2.4" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#average-and-standard-deviation-charts"><i class="fa fa-check"></i><b>1.2.4</b> Average and Standard Deviation Charts</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#learning-check-2"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="1.3" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#moving-range-charts"><i class="fa fa-check"></i><b>1.3</b> Moving Range Charts</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#individual-and-moving-range-charts"><i class="fa fa-check"></i><b>1.3.1</b> Individual and Moving Range Charts</a></li>
+<li class="chapter" data-level="1.3.2" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#factors-d_2-and-friends"><i class="fa fa-check"></i><b>1.3.2</b> Factors <span class="math inline">\(d_{2}\)</span> and Friends</a></li>
+<li class="chapter" data-level="1.3.3" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#estimating-sigma_short-for-moving-range-statistics"><i class="fa fa-check"></i><b>1.3.3</b> Estimating <span class="math inline">\(\sigma_{short}\)</span> for Moving Range Statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#constants"><i class="fa fa-check"></i><b>1.4</b> Constants</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#find-any-d_x-factor"><i class="fa fa-check"></i><b>1.4.1</b> Find <em>any</em> <span class="math inline">\(d_x\)</span> Factor</a></li>
+<li class="chapter" data-level="1.4.2" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#using-d_x-factors"><i class="fa fa-check"></i><b>1.4.2</b> Using <span class="math inline">\(d_x\)</span> factors</a></li>
+<li class="chapter" data-level="1.4.3" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#finding-any-b_x-factor."><i class="fa fa-check"></i><b>1.4.3</b> Finding <em>any</em> <span class="math inline">\(b_x\)</span> Factor.</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="statistical-process-control-in-r.html"><a href="statistical-process-control-in-r.html#learning-check-3"><i class="fa fa-check"></i>Learning Check 3</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">System Reliability and Six Sigma in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="statistical-process-control-in-r" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Statistical Process Control in <code>R</code><a href="statistical-process-control-in-r.html#statistical-process-control-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
+<img src="images/9_chart.png" alt="Statistical Process Control!" width="100%" />
+<p class="caption">
+Figure 1.1: Statistical Process Control!
+</p>
+</div>
+<p>In this workshop, we will learn how to perform statistical process control in <code>R</code>, using statistical tools and <code>ggplot</code> visualizations! Statistical Process Control refers to using statistics to (1) measure variation in product quality over time and (2) identify benchmarks to know when intervention is needed. Let’s get started!</p>
+<p><br>
+<br></p>
+<div id="getting-started" class="section level2 unnumbered hasAnchor">
+<h2>Getting Started<a href="statistical-process-control-in-r.html#getting-started" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="packages" class="section level3 unnumbered hasAnchor">
+<h3>Packages<a href="statistical-process-control-in-r.html#packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We’ll be using the <code>tidyverse</code> package for visualization, <code>viridis</code> for color palletes, <code>moments</code> for descriptive statistics, plus <code>ggpubr</code> for some add-on functions in <code>ggplot</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="statistical-process-control-in-r.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="statistical-process-control-in-r.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb1-3"><a href="statistical-process-control-in-r.html#cb1-3" tabindex="-1"></a><span class="co"># you&#39;ll probably need to install these packages!</span></span>
+<span id="cb1-4"><a href="statistical-process-control-in-r.html#cb1-4" tabindex="-1"></a><span class="co"># install.packages(c(&quot;ggpubr&quot;, &quot;moments&quot;)) </span></span>
+<span id="cb1-5"><a href="statistical-process-control-in-r.html#cb1-5" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb1-6"><a href="statistical-process-control-in-r.html#cb1-6" tabindex="-1"></a><span class="fu">library</span>(moments)</span></code></pre></div>
+<p><br>
+<br></p>
+</div>
+<div id="our-case" class="section level3 unnumbered hasAnchor">
+<h3>Our Case<a href="statistical-process-control-in-r.html#our-case" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
+<img src="https://static.wixstatic.com/media/e8dc42_9cf1b5c0e5664ebd96581ffa8891eae2~mv2_d_1960_1200_s_2.jpg/v1/fill/w_1225,h_819,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/DSC00255-1-3_JPG.jpg" alt="Obanazawa City, Yamagata Prefecture - A Hot Springs Economy. [**Photo credit and more here.**](https://www.thehiddenjapan.com/ginzanonsen)" width="100%" />
+<p class="caption">
+Figure 1.2: Obanazawa City, Yamagata Prefecture - A Hot Springs Economy. <a href="https://www.thehiddenjapan.com/ginzanonsen"><strong>Photo credit and more here.</strong></a>
+</p>
+</div>
+<p>For today’s workshop, we’re going to think about why quality control matters in a local economy, by examining the case of the Japanese Hot Springs bath economy! Hot springs, or <em>onsen</em>, are <a href="https://asiatimes.com/2020/07/japanese-hot-spring-tourism-at-a-crossroads/">a major source of tourism and recreation for families in Japan</a>, bringing residents from across the country every year to often rural communities where the right geological conditions have brought on naturally occurring hot springs. Restaurants, taxi and bus companies, and many service sector firms rely on their local onsen to bring in a steady stream (pun intended) of tourists to the local economy. So, it’s often in the best interest of <em>onsen</em> operators to keep an eye on the temperature, minerals, or other aspects of their hot springs baths to ensure quality control, to keep up their firm (and town’s!) reputation for quality rest and relaxation!</p>
+<p><em>Onsen</em>-goers often seek out <em>specific</em> types of hot springs, so it’s important for an <em>onsen</em> to actually provide what it advertises! <a href="http://dx.doi.org/10.1016/j.healthplace.2012.06.020">Serbulea and Payyappallimana (2012)</a> describe some of these benchmarks.</p>
+<ul>
+<li><p><strong>Temperature</strong>: Onsen are divided into “Extra Hot Springs” (<code>&gt;42  degreesC</code>), “Hot Springs” (<code>41~34 degreesC</code>), and “Warm Springs” (<code>33~25 degreesC</code>).</p></li>
+<li><p><strong>pH</strong>: Onsen are classified into “Acidic” (<code>pH &lt; 3</code>), “Mildly Acidic” (<code>pH 3~6</code>), “Neutral” (<code>pH 6~7.5</code>), “Mildly alkaline” (<code>ph 7.5~8.5</code>), and “Aklaline” (<code>pH &gt; 8.5</code>).</p></li>
+<li><p><strong>Sulfur</strong>: Sulfur <em>onsen</em> typically have about 2mg of sulfur per 1kg of hot spring water; sulfur levels <em>must</em> exceed 1 mg to count as a Sulfur <em>onsen.</em> (It smells like rotten eggs!)</p></li>
+</ul>
+<p>These are decent examples of quality control metrics that <em>onsen</em> operators might want to keep tabs on!</p>
+<p><br>
+<br></p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-4"></span>
+<img src="images/9_monkeys.png" alt="Monkeys are even fans of onsen! Read [**more here!**](https://www.nytimes.com/2018/04/03/science/japan-monkeys-hot-springs-stress.html)" width="100%" />
+<p class="caption">
+Figure 1.3: Monkeys are even fans of onsen! Read <a href="https://www.nytimes.com/2018/04/03/science/japan-monkeys-hot-springs-stress.html"><strong>more here!</strong></a>
+</p>
+</div>
+</div>
+<div id="our-data" class="section level3 unnumbered hasAnchor">
+<h3>Our Data<a href="statistical-process-control-in-r.html#our-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You’ve been hired to evaluate quality control at a local <em>onsen</em> in sunny Kagoshima prefecture! Every month, for 15 months, you systematically took 20 random samples of hot spring water and recorded its <strong>temperature</strong>, <strong>pH</strong>, and <strong>sulfur</strong> levels. How might you determine if this <em>onsen</em> is at risk of slipping out of one sector of the market (eg. Extra Hot!) and into another (just normal Hot Springs?).</p>
+<p>Let’s read in our data from <code>workshops/onsen.csv</code>!</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="statistical-process-control-in-r.html#cb2-1" tabindex="-1"></a><span class="co"># Let&#39;s import our samples of bathwater over time!</span></span>
+<span id="cb2-2"><a href="statistical-process-control-in-r.html#cb2-2" tabindex="-1"></a>water <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;workshops/onsen.csv&quot;</span>)</span>
+<span id="cb2-3"><a href="statistical-process-control-in-r.html#cb2-3" tabindex="-1"></a><span class="co"># Take a peek!</span></span>
+<span id="cb2-4"><a href="statistical-process-control-in-r.html#cb2-4" tabindex="-1"></a>water <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div>
+<pre><code>## Rows: 160
+## Columns: 5
+## $ id     &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, …
+## $ time   &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, …
+## $ temp   &lt;dbl&gt; 43.2, 45.3, 45.5, 43.9, 45.9, 45.0, 42.3, 44.2, 42.2, 43.4, 46.…
+## $ ph     &lt;dbl&gt; 5.1, 4.8, 6.2, 6.4, 5.1, 5.6, 5.5, 5.3, 5.2, 5.9, 5.8, 5.3, 5.9…
+## $ sulfur &lt;dbl&gt; 0.0, 0.4, 0.9, 0.2, 0.0, 0.1, 0.0, 0.0, 0.0, 0.1, 0.7, 1.1, 0.1…</code></pre>
+<p>Our dataset contains:</p>
+<ul>
+<li><p><code>id</code>: unique identifer for each sample of <em>onsen</em> water.</p></li>
+<li><p><code>time</code>: categorical variable describing date of sample (month <code>1</code>, month <code>3</code>, … month <code>15</code>).</p></li>
+<li><p><code>temp</code>: temperature in celsius.</p></li>
+<li><p><code>ph</code>: pH (0 to 14)</p></li>
+<li><p><code>sulfur</code>: milligrams of sulfur ions.</p></li>
+</ul>
+<p><br>
+<br></p>
+</div>
+</div>
+<div id="visualizing-quality-control" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Visualizing Quality Control<a href="statistical-process-control-in-r.html#visualizing-quality-control" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s learn some key techniques for visualizing quality control!</p>
+<p><br></p>
+<div id="theme_set" class="section level3 hasAnchor" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> <code>theme_set()</code><a href="statistical-process-control-in-r.html#theme_set" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>First, when you’re about to make a bunch of <code>ggplot</code> visuals, it can help to set a common theme across them all with <code>theme_set()</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="statistical-process-control-in-r.html#cb4-1" tabindex="-1"></a><span class="co"># By running theme_set()</span></span>
+<span id="cb4-2"><a href="statistical-process-control-in-r.html#cb4-2" tabindex="-1"></a><span class="fu">theme_set</span>(</span>
+<span id="cb4-3"><a href="statistical-process-control-in-r.html#cb4-3" tabindex="-1"></a>  <span class="co"># we tell ggplot to give EVERY plot this theme</span></span>
+<span id="cb4-4"><a href="statistical-process-control-in-r.html#cb4-4" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="statistical-process-control-in-r.html#cb4-5" tabindex="-1"></a>  <span class="co"># With these theme traits, including</span></span>
+<span id="cb4-6"><a href="statistical-process-control-in-r.html#cb4-6" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb4-7"><a href="statistical-process-control-in-r.html#cb4-7" tabindex="-1"></a>    <span class="co"># Putting the legend on the bottom, if applicable</span></span>
+<span id="cb4-8"><a href="statistical-process-control-in-r.html#cb4-8" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb4-9"><a href="statistical-process-control-in-r.html#cb4-9" tabindex="-1"></a>    <span class="co"># horizontally justify plot subtitle and caption in center</span></span>
+<span id="cb4-10"><a href="statistical-process-control-in-r.html#cb4-10" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb4-11"><a href="statistical-process-control-in-r.html#cb4-11" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb4-12"><a href="statistical-process-control-in-r.html#cb4-12" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb4-13"><a href="statistical-process-control-in-r.html#cb4-13" tabindex="-1"></a>    <span class="co"># Getting rid of busy axis ticks</span></span>
+<span id="cb4-14"><a href="statistical-process-control-in-r.html#cb4-14" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-15"><a href="statistical-process-control-in-r.html#cb4-15" tabindex="-1"></a>    <span class="co"># Getting rid of busy axis lines</span></span>
+<span id="cb4-16"><a href="statistical-process-control-in-r.html#cb4-16" tabindex="-1"></a>    <span class="at">axis.line =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-17"><a href="statistical-process-control-in-r.html#cb4-17" tabindex="-1"></a>    <span class="co"># Surrounding the plot in a nice grey border</span></span>
+<span id="cb4-18"><a href="statistical-process-control-in-r.html#cb4-18" tabindex="-1"></a>    <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>),</span>
+<span id="cb4-19"><a href="statistical-process-control-in-r.html#cb4-19" tabindex="-1"></a>    <span class="co"># Remove the right margin, for easy joining of plots</span></span>
+<span id="cb4-20"><a href="statistical-process-control-in-r.html#cb4-20" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">r =</span> <span class="dv">0</span>)</span>
+<span id="cb4-21"><a href="statistical-process-control-in-r.html#cb4-21" tabindex="-1"></a>  )</span>
+<span id="cb4-22"><a href="statistical-process-control-in-r.html#cb4-22" tabindex="-1"></a>)</span></code></pre></div>
+<p><br>
+<br></p>
+</div>
+<div id="process-descriptive-statistics" class="section level3 hasAnchor" number="1.1.2">
+<h3><span class="header-section-number">1.1.2</span> Process Descriptive Statistics<a href="statistical-process-control-in-r.html#process-descriptive-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>First, let’s describe our process, using favorite description statistics. We’re going to want to do this a bunch, so why don’t we just write a <code>function</code> for it? Let’s write <code>describe()</code>, which will take a vector <code>x</code> and calculate the <code>mean()</code>, <code>sd()</code>, <code>skewness()</code>, and <code>kurtosis()</code>, and then <code>paste()</code> together a nice caption describing them.</p>
+<p>(<em>I encourage you to write your own functions like this to help expedite your coding! Start simple!</em>)</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="statistical-process-control-in-r.html#cb5-1" tabindex="-1"></a>describe <span class="ot">=</span> <span class="cf">function</span>(x){</span>
+<span id="cb5-2"><a href="statistical-process-control-in-r.html#cb5-2" tabindex="-1"></a>  <span class="co"># Put our vector x in a tibble</span></span>
+<span id="cb5-3"><a href="statistical-process-control-in-r.html#cb5-3" tabindex="-1"></a>  <span class="fu">tibble</span>(x) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="statistical-process-control-in-r.html#cb5-4" tabindex="-1"></a>    <span class="co"># Calculate summary statistics</span></span>
+<span id="cb5-5"><a href="statistical-process-control-in-r.html#cb5-5" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb5-6"><a href="statistical-process-control-in-r.html#cb5-6" tabindex="-1"></a>      <span class="at">mean =</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb5-7"><a href="statistical-process-control-in-r.html#cb5-7" tabindex="-1"></a>      <span class="at">sd =</span> <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb5-8"><a href="statistical-process-control-in-r.html#cb5-8" tabindex="-1"></a>      <span class="co"># We&#39;ll use the moments package for these two</span></span>
+<span id="cb5-9"><a href="statistical-process-control-in-r.html#cb5-9" tabindex="-1"></a>      <span class="at">skew =</span> <span class="fu">skewness</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb5-10"><a href="statistical-process-control-in-r.html#cb5-10" tabindex="-1"></a>      <span class="at">kurtosis =</span> <span class="fu">kurtosis</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-11"><a href="statistical-process-control-in-r.html#cb5-11" tabindex="-1"></a>    <span class="co"># Let&#39;s add a caption, that compiles  all these statistics  </span></span>
+<span id="cb5-12"><a href="statistical-process-control-in-r.html#cb5-12" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb5-13"><a href="statistical-process-control-in-r.html#cb5-13" tabindex="-1"></a>      <span class="co"># We&#39;ll paste() the following together</span></span>
+<span id="cb5-14"><a href="statistical-process-control-in-r.html#cb5-14" tabindex="-1"></a>      <span class="at">caption =</span> <span class="fu">paste</span>(</span>
+<span id="cb5-15"><a href="statistical-process-control-in-r.html#cb5-15" tabindex="-1"></a>        <span class="co"># Listing the name of each stat, then reporting its value and rounding it, then separating with &quot; | &quot;</span></span>
+<span id="cb5-16"><a href="statistical-process-control-in-r.html#cb5-16" tabindex="-1"></a>        <span class="st">&quot;Process Mean: &quot;</span>, mean <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>), <span class="st">&quot; | &quot;</span>, </span>
+<span id="cb5-17"><a href="statistical-process-control-in-r.html#cb5-17" tabindex="-1"></a>        <span class="st">&quot;SD: &quot;</span>, sd <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>), <span class="st">&quot; | &quot;</span>,</span>
+<span id="cb5-18"><a href="statistical-process-control-in-r.html#cb5-18" tabindex="-1"></a>        <span class="st">&quot;Skewness: &quot;</span>, skew <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>), <span class="st">&quot; | &quot;</span>,</span>
+<span id="cb5-19"><a href="statistical-process-control-in-r.html#cb5-19" tabindex="-1"></a>        <span class="st">&quot;Kurtosis: &quot;</span>, kurtosis <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>), </span>
+<span id="cb5-20"><a href="statistical-process-control-in-r.html#cb5-20" tabindex="-1"></a>        <span class="co"># Then make sure no extra spaces separate each item</span></span>
+<span id="cb5-21"><a href="statistical-process-control-in-r.html#cb5-21" tabindex="-1"></a>        <span class="at">sep =</span> <span class="st">&quot;&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-22"><a href="statistical-process-control-in-r.html#cb5-22" tabindex="-1"></a>    <span class="fu">return</span>()</span>
+<span id="cb5-23"><a href="statistical-process-control-in-r.html#cb5-23" tabindex="-1"></a>}</span>
+<span id="cb5-24"><a href="statistical-process-control-in-r.html#cb5-24" tabindex="-1"></a><span class="co"># Run descriptives!</span></span>
+<span id="cb5-25"><a href="statistical-process-control-in-r.html#cb5-25" tabindex="-1"></a>tab <span class="ot">=</span> water<span class="sc">$</span>temp <span class="sc">%&gt;%</span> <span class="fu">describe</span>()</span>
+<span id="cb5-26"><a href="statistical-process-control-in-r.html#cb5-26" tabindex="-1"></a><span class="co"># Check it out!</span></span>
+<span id="cb5-27"><a href="statistical-process-control-in-r.html#cb5-27" tabindex="-1"></a>tab</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 5
+##    mean    sd   skew kurtosis caption                                           
+##   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;                                             
+## 1  44.8  1.99 0.0849     3.62 Process Mean: 44.85 | SD: 1.99 | Skewness: 0.08 |…</code></pre>
+<p><br>
+<br></p>
+</div>
+<div id="process-overview-visual" class="section level3 hasAnchor" number="1.1.3">
+<h3><span class="header-section-number">1.1.3</span> Process Overview Visual<a href="statistical-process-control-in-r.html#process-overview-visual" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Your first step should always be to look at the data overall! <code>geom_jitter()</code>, <code>geom_boxplot()</code>, and <code>ggMarginal()</code> can help you do this.</p>
+<ul>
+<li><p><code>geom_jitter()</code> is a jittered scatterplot, jittering points a little to help with visibility. Since we want to be really precise on our quality control metrics, we could jitter the width a little (<code>width = 0.25</code>), but hold the y-axis (quality metric) constant at <code>height = 0</code>. These are in your x and y axis units, so decide based on your data each time.</p></li>
+<li><p><code>geom_boxplot()</code> makes a boxplot for each <code>group</code> (<code>time</code>) in our data, showing the interquartile range (25th, 50th, and 75th percentiles) of our <code>y</code> variable for each <code>group</code>. Helpful way to view distributions. (Alternatively, you can try <code>geom_violin()</code>, which works the same way.)</p></li>
+<li><p><code>geom_hline()</code> makes a horizontal line at the <code>yintercept</code>; we can tell it to show the <code>mean()</code> of <code>y</code> (in this case, <code>temp</code>).</p></li>
+<li><p><code>geom_histogram()</code> is a histogram! We can use <code>coord_flip()</code> to turn it vertical to match the <code>y-axis</code>.</p></li>
+<li><p><code>ggarrange()</code> from the <code>ggpubr</code> package binds two plots together into one, giving each a specific proportional <code>width</code> (eg. <code>c(0.25, 0.75)</code> percent, or <code>c(5, 1)</code> would be 5/6 and 1/6.)</p></li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="statistical-process-control-in-r.html#cb7-1" tabindex="-1"></a><span class="co"># Make the initial boxplot...</span></span>
+<span id="cb7-2"><a href="statistical-process-control-in-r.html#cb7-2" tabindex="-1"></a>g1 <span class="ot">=</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="statistical-process-control-in-r.html#cb7-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> temp, <span class="at">group =</span> time)) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="statistical-process-control-in-r.html#cb7-4" tabindex="-1"></a>  <span class="co"># Plot grand mean</span></span>
+<span id="cb7-5"><a href="statistical-process-control-in-r.html#cb7-5" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="fu">mean</span>(temp)), <span class="at">color =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="statistical-process-control-in-r.html#cb7-6" tabindex="-1"></a>  <span class="co"># Plot points and boxplots </span></span>
+<span id="cb7-7"><a href="statistical-process-control-in-r.html#cb7-7" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb7-8"><a href="statistical-process-control-in-r.html#cb7-8" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb7-9"><a href="statistical-process-control-in-r.html#cb7-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Time (Subgroup)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Temperature (Celsius)&quot;</span>,</span>
+<span id="cb7-10"><a href="statistical-process-control-in-r.html#cb7-10" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Process Overview&quot;</span>,</span>
+<span id="cb7-11"><a href="statistical-process-control-in-r.html#cb7-11" tabindex="-1"></a>       <span class="co"># Add our descriptive stats in the caption!</span></span>
+<span id="cb7-12"><a href="statistical-process-control-in-r.html#cb7-12" tabindex="-1"></a>       <span class="at">caption =</span> tab<span class="sc">$</span>caption)</span>
+<span id="cb7-13"><a href="statistical-process-control-in-r.html#cb7-13" tabindex="-1"></a><span class="co"># Part 1 of plot</span></span>
+<span id="cb7-14"><a href="statistical-process-control-in-r.html#cb7-14" tabindex="-1"></a>g1</span></code></pre></div>
+<p><img src="05_workshop_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><br></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="statistical-process-control-in-r.html#cb8-1" tabindex="-1"></a><span class="co"># Make the histogram, but tilt it on its side</span></span>
+<span id="cb8-2"><a href="statistical-process-control-in-r.html#cb8-2" tabindex="-1"></a>g2 <span class="ot">=</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="statistical-process-control-in-r.html#cb8-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> temp)) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="statistical-process-control-in-r.html#cb8-4" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">15</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="statistical-process-control-in-r.html#cb8-5" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span>   <span class="co"># Clear the them</span></span>
+<span id="cb8-6"><a href="statistical-process-control-in-r.html#cb8-6" tabindex="-1"></a>  <span class="fu">coord_flip</span>()   <span class="co"># tilt on its side</span></span>
+<span id="cb8-7"><a href="statistical-process-control-in-r.html#cb8-7" tabindex="-1"></a><span class="co"># Part 2 of plot</span></span>
+<span id="cb8-8"><a href="statistical-process-control-in-r.html#cb8-8" tabindex="-1"></a>g2</span></code></pre></div>
+<p><img src="05_workshop_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><br></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="statistical-process-control-in-r.html#cb9-1" tabindex="-1"></a><span class="co"># Then bind them together into 1 plot, &#39;h&#39;orizontally aligned.</span></span>
+<span id="cb9-2"><a href="statistical-process-control-in-r.html#cb9-2" tabindex="-1"></a>p1 <span class="ot">=</span> <span class="fu">ggarrange</span>(g1,g2, <span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">1</span>), <span class="at">align =</span> <span class="st">&quot;h&quot;</span>)</span>
+<span id="cb9-3"><a href="statistical-process-control-in-r.html#cb9-3" tabindex="-1"></a><span class="co"># Check it out!</span></span>
+<span id="cb9-4"><a href="statistical-process-control-in-r.html#cb9-4" tabindex="-1"></a>p1</span></code></pre></div>
+<p><img src="05_workshop_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<br>
+<br></p>
+<p>We can tell from this visual several things!</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Side Histogram</strong>: Our overall distribution is pretty centered.</p></li>
+<li><p><strong>Descriptive Statistics</strong>: Our distribution has little skew (~0) and has <strong>slightly higher-than-average kurtosis (&lt;3)</strong> (very centered) (<a href="https://docs.google.com/presentation/d/1hYpNxsmKBJYCW_8rply9sKCPHLH1mCOTuT_ohqflK7Q/edit?usp=sharing">Review Skewness and Kurtosis here</a>.)</p></li>
+<li><p><strong>Line vs. Boxplots</strong>: Over time, our samples sure do seem to be getting slightly further from the mean!</p></li>
+</ol>
+<p><br>
+<br></p>
+<hr />
+</div>
+</div>
+<div id="learning-check-1" class="section level2 unnumbered LC hasAnchor">
+<h2>Learning Check 1<a href="statistical-process-control-in-r.html#learning-check-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Question</strong></p>
+<p>We analyzed temperature variation above, but our hot springs owner wants to know about variation in <code>pH</code> too! Write a <code>function</code> to produce a process overview plot given any 2 vectors (<code>water$time</code> and <code>water$pH</code>, in this case), and visualize the process overview for <code>pH</code>! (<em>You can do it!</em>)</p>
+<details>
+<summary>
+<strong>[View Answer!]</strong>
+</summary>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="statistical-process-control-in-r.html#cb10-1" tabindex="-1"></a>ggprocess <span class="ot">=</span> <span class="cf">function</span>(x, y, <span class="at">xlab =</span> <span class="st">&quot;Subgroup&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Metric&quot;</span>){</span>
+<span id="cb10-2"><a href="statistical-process-control-in-r.html#cb10-2" tabindex="-1"></a>  </span>
+<span id="cb10-3"><a href="statistical-process-control-in-r.html#cb10-3" tabindex="-1"></a>  <span class="co"># Get descriptive statistics</span></span>
+<span id="cb10-4"><a href="statistical-process-control-in-r.html#cb10-4" tabindex="-1"></a>  tab <span class="ot">=</span> <span class="fu">describe</span>(y)</span>
+<span id="cb10-5"><a href="statistical-process-control-in-r.html#cb10-5" tabindex="-1"></a>  </span>
+<span id="cb10-6"><a href="statistical-process-control-in-r.html#cb10-6" tabindex="-1"></a>  <span class="co"># Make the initial boxplot...</span></span>
+<span id="cb10-7"><a href="statistical-process-control-in-r.html#cb10-7" tabindex="-1"></a>  g1 <span class="ot">=</span> <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">group =</span> x)) <span class="sc">+</span></span>
+<span id="cb10-8"><a href="statistical-process-control-in-r.html#cb10-8" tabindex="-1"></a>    <span class="co"># Plot grand mean</span></span>
+<span id="cb10-9"><a href="statistical-process-control-in-r.html#cb10-9" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="fu">mean</span>(y)), <span class="at">color =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb10-10"><a href="statistical-process-control-in-r.html#cb10-10" tabindex="-1"></a>    <span class="co"># Plot points and boxplots </span></span>
+<span id="cb10-11"><a href="statistical-process-control-in-r.html#cb10-11" tabindex="-1"></a>    <span class="fu">geom_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb10-12"><a href="statistical-process-control-in-r.html#cb10-12" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb10-13"><a href="statistical-process-control-in-r.html#cb10-13" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> xlab, <span class="at">y =</span> ylab,</span>
+<span id="cb10-14"><a href="statistical-process-control-in-r.html#cb10-14" tabindex="-1"></a>         <span class="at">subtitle =</span> <span class="st">&quot;Process Overview&quot;</span>,</span>
+<span id="cb10-15"><a href="statistical-process-control-in-r.html#cb10-15" tabindex="-1"></a>         <span class="co"># Add our descriptive stats in the caption!</span></span>
+<span id="cb10-16"><a href="statistical-process-control-in-r.html#cb10-16" tabindex="-1"></a>         <span class="at">caption =</span> tab<span class="sc">$</span>caption)</span>
+<span id="cb10-17"><a href="statistical-process-control-in-r.html#cb10-17" tabindex="-1"></a>  </span>
+<span id="cb10-18"><a href="statistical-process-control-in-r.html#cb10-18" tabindex="-1"></a>  <span class="co"># Make the histogram, but tilt it on its side</span></span>
+<span id="cb10-19"><a href="statistical-process-control-in-r.html#cb10-19" tabindex="-1"></a>  g2 <span class="ot">=</span> <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> y)) <span class="sc">+</span></span>
+<span id="cb10-20"><a href="statistical-process-control-in-r.html#cb10-20" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">15</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb10-21"><a href="statistical-process-control-in-r.html#cb10-21" tabindex="-1"></a>    <span class="fu">theme_void</span>() <span class="sc">+</span>   <span class="co"># Clear the them</span></span>
+<span id="cb10-22"><a href="statistical-process-control-in-r.html#cb10-22" tabindex="-1"></a>    <span class="fu">coord_flip</span>()   <span class="co"># tilt on its side</span></span>
+<span id="cb10-23"><a href="statistical-process-control-in-r.html#cb10-23" tabindex="-1"></a>  </span>
+<span id="cb10-24"><a href="statistical-process-control-in-r.html#cb10-24" tabindex="-1"></a>  <span class="co"># Then bind them together into 1 plot, &#39;h&#39;orizontally aligned.</span></span>
+<span id="cb10-25"><a href="statistical-process-control-in-r.html#cb10-25" tabindex="-1"></a>  p1 <span class="ot">=</span> <span class="fu">ggarrange</span>(g1,g2, <span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">1</span>), <span class="at">align =</span> <span class="st">&quot;h&quot;</span>)</span>
+<span id="cb10-26"><a href="statistical-process-control-in-r.html#cb10-26" tabindex="-1"></a>  </span>
+<span id="cb10-27"><a href="statistical-process-control-in-r.html#cb10-27" tabindex="-1"></a>  <span class="fu">return</span>(p1)</span>
+<span id="cb10-28"><a href="statistical-process-control-in-r.html#cb10-28" tabindex="-1"></a>}</span>
+<span id="cb10-29"><a href="statistical-process-control-in-r.html#cb10-29" tabindex="-1"></a></span>
+<span id="cb10-30"><a href="statistical-process-control-in-r.html#cb10-30" tabindex="-1"></a><span class="co"># Visualize it!</span></span>
+<span id="cb10-31"><a href="statistical-process-control-in-r.html#cb10-31" tabindex="-1"></a><span class="fu">ggprocess</span>(<span class="at">x =</span> water<span class="sc">$</span>time, <span class="at">y =</span> water<span class="sc">$</span>ph)</span></code></pre></div>
+<p><img src="05_workshop_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>In comparison to <code>temp</code>, <code>pH</code> is a much more controlled process.</p>
+<p>I encourage you to use this <code>ggprocess()</code> function you just created!</p>
+</details>
+<hr />
+<p><br>
+<br></p>
+</div>
+<div id="average-and-standard-deviation-graphs" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Average and Standard Deviation Graphs<a href="statistical-process-control-in-r.html#average-and-standard-deviation-graphs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="key-statistics" class="section level3 hasAnchor" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Key Statistics<a href="statistical-process-control-in-r.html#key-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Next, to analyze these processes more in depth, we need to assemble statistics at 2 levels:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>within-group statistics</strong> measure quantities of interest within each subgroup (eg. each monthly slice <code>time</code> in our <em>onsen</em> data).</p></li>
+<li><p><strong>between-group statistics</strong> measure <em>total</em> quantities of interest for the overall process (eg. the overall <em>“grand”</em> mean, overall standard deviation in our <em>onsen</em> data).</p></li>
+</ol>
+<p><br>
+<br></p>
+</div>
+<div id="subgroup-within-group-statistics" class="section level3 hasAnchor" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> Subgroup (Within-Group) Statistics<a href="statistical-process-control-in-r.html#subgroup-within-group-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s apply these to our <em>onsen</em> data to get statistics describing each subgroup’s distribution, a.k.a. short-term or within-group statistics.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="statistical-process-control-in-r.html#cb11-1" tabindex="-1"></a><span class="co"># Calculate short-term statistics within each group</span></span>
+<span id="cb11-2"><a href="statistical-process-control-in-r.html#cb11-2" tabindex="-1"></a>stat_s <span class="ot">=</span> water <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="statistical-process-control-in-r.html#cb11-3" tabindex="-1"></a>  <span class="co"># For each timestpe</span></span>
+<span id="cb11-4"><a href="statistical-process-control-in-r.html#cb11-4" tabindex="-1"></a>  <span class="fu">group_by</span>(time) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="statistical-process-control-in-r.html#cb11-5" tabindex="-1"></a>  <span class="co"># Calculate these statistics of interest!</span></span>
+<span id="cb11-6"><a href="statistical-process-control-in-r.html#cb11-6" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb11-7"><a href="statistical-process-control-in-r.html#cb11-7" tabindex="-1"></a>    <span class="co"># within-group mean</span></span>
+<span id="cb11-8"><a href="statistical-process-control-in-r.html#cb11-8" tabindex="-1"></a>    <span class="at">xbar =</span> <span class="fu">mean</span>(temp),</span>
+<span id="cb11-9"><a href="statistical-process-control-in-r.html#cb11-9" tabindex="-1"></a>    <span class="co"># within-group range</span></span>
+<span id="cb11-10"><a href="statistical-process-control-in-r.html#cb11-10" tabindex="-1"></a>    <span class="at">r =</span> <span class="fu">max</span>(temp) <span class="sc">-</span> <span class="fu">min</span>(temp),</span>
+<span id="cb11-11"><a href="statistical-process-control-in-r.html#cb11-11" tabindex="-1"></a>    <span class="co"># within-group standard deviation</span></span>
+<span id="cb11-12"><a href="statistical-process-control-in-r.html#cb11-12" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">sd</span>(temp),</span>
+<span id="cb11-13"><a href="statistical-process-control-in-r.html#cb11-13" tabindex="-1"></a>    <span class="co"># within-group sample size</span></span>
+<span id="cb11-14"><a href="statistical-process-control-in-r.html#cb11-14" tabindex="-1"></a>    <span class="at">nw =</span> <span class="fu">n</span>(),</span>
+<span id="cb11-15"><a href="statistical-process-control-in-r.html#cb11-15" tabindex="-1"></a>    <span class="co"># Degrees of freedom within groups</span></span>
+<span id="cb11-16"><a href="statistical-process-control-in-r.html#cb11-16" tabindex="-1"></a>    <span class="at">df =</span> nw <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-17"><a href="statistical-process-control-in-r.html#cb11-17" tabindex="-1"></a>  <span class="co"># Last, we&#39;ll calculate sigma_short (within-group variance)</span></span>
+<span id="cb11-18"><a href="statistical-process-control-in-r.html#cb11-18" tabindex="-1"></a>  <span class="co"># We&#39;re going to calculate the short-term variation parameter sigma_s (sigma_short)</span></span>
+<span id="cb11-19"><a href="statistical-process-control-in-r.html#cb11-19" tabindex="-1"></a>  <span class="co"># by taking the square root of the average of the standard deviation</span></span>
+<span id="cb11-20"><a href="statistical-process-control-in-r.html#cb11-20" tabindex="-1"></a>  <span class="co"># Essentially, we&#39;re weakening the impact of any special cause variation</span></span>
+<span id="cb11-21"><a href="statistical-process-control-in-r.html#cb11-21" tabindex="-1"></a>  <span class="co"># so that our sigma is mostly representative of common cause (within-group) variation</span></span>
+<span id="cb11-22"><a href="statistical-process-control-in-r.html#cb11-22" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb11-23"><a href="statistical-process-control-in-r.html#cb11-23" tabindex="-1"></a>    <span class="co"># these are equivalent</span></span>
+<span id="cb11-24"><a href="statistical-process-control-in-r.html#cb11-24" tabindex="-1"></a>    <span class="at">sigma_s =</span> <span class="fu">sqrt</span>( <span class="fu">sum</span>(df <span class="sc">*</span> sd<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="fu">sum</span>(df) ),</span>
+<span id="cb11-25"><a href="statistical-process-control-in-r.html#cb11-25" tabindex="-1"></a>    <span class="at">sigma_s =</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(sd<span class="sc">^</span><span class="dv">2</span>)), </span>
+<span id="cb11-26"><a href="statistical-process-control-in-r.html#cb11-26" tabindex="-1"></a>    <span class="co"># And get standard error (in a way that retains each subgroup&#39;s sample size!)</span></span>
+<span id="cb11-27"><a href="statistical-process-control-in-r.html#cb11-27" tabindex="-1"></a>    <span class="at">se =</span> sigma_s <span class="sc">/</span> <span class="fu">sqrt</span>(nw),</span>
+<span id="cb11-28"><a href="statistical-process-control-in-r.html#cb11-28" tabindex="-1"></a>    <span class="co"># Calculate 6-sigma control limits!</span></span>
+<span id="cb11-29"><a href="statistical-process-control-in-r.html#cb11-29" tabindex="-1"></a>    <span class="at">upper =</span> <span class="fu">mean</span>(xbar) <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>se,</span>
+<span id="cb11-30"><a href="statistical-process-control-in-r.html#cb11-30" tabindex="-1"></a>    <span class="at">lower =</span> <span class="fu">mean</span>(xbar) <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>se)</span>
+<span id="cb11-31"><a href="statistical-process-control-in-r.html#cb11-31" tabindex="-1"></a></span>
+<span id="cb11-32"><a href="statistical-process-control-in-r.html#cb11-32" tabindex="-1"></a></span>
+<span id="cb11-33"><a href="statistical-process-control-in-r.html#cb11-33" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb11-34"><a href="statistical-process-control-in-r.html#cb11-34" tabindex="-1"></a>stat_s <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 10
+##    time  xbar     r    sd    nw    df sigma_s    se upper lower
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1  44.6  4.20  1.34    20    19    1.99 0.444  46.2  43.5
+## 2     3  45.3  7.9   2.00    20    19    1.99 0.444  46.2  43.5
+## 3     5  44.8  5.90  1.63    20    19    1.99 0.444  46.2  43.5</code></pre>
+<p><br>
+<br></p>
+</div>
+<div id="total-statistics-between-groups" class="section level3 hasAnchor" number="1.2.3">
+<h3><span class="header-section-number">1.2.3</span> Total Statistics (Between Groups)<a href="statistical-process-control-in-r.html#total-statistics-between-groups" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="statistical-process-control-in-r.html#cb13-1" tabindex="-1"></a><span class="co"># To get between-group estimates....</span></span>
+<span id="cb13-2"><a href="statistical-process-control-in-r.html#cb13-2" tabindex="-1"></a>stat_t <span class="ot">=</span> stat_s <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="statistical-process-control-in-r.html#cb13-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb13-4"><a href="statistical-process-control-in-r.html#cb13-4" tabindex="-1"></a>    <span class="at">xbbar =</span> <span class="fu">mean</span>(xbar),</span>
+<span id="cb13-5"><a href="statistical-process-control-in-r.html#cb13-5" tabindex="-1"></a>    <span class="at">rbar =</span> <span class="fu">mean</span>(r),</span>
+<span id="cb13-6"><a href="statistical-process-control-in-r.html#cb13-6" tabindex="-1"></a>    <span class="at">sdbar =</span> <span class="fu">mean</span>(sd),</span>
+<span id="cb13-7"><a href="statistical-process-control-in-r.html#cb13-7" tabindex="-1"></a>    <span class="co"># We can also recalculate sigma_short here too</span></span>
+<span id="cb13-8"><a href="statistical-process-control-in-r.html#cb13-8" tabindex="-1"></a>    <span class="at">sigma_s =</span> <span class="fu">sqrt</span>( <span class="fu">mean</span>(sd<span class="sc">^</span><span class="dv">2</span>) ),</span>
+<span id="cb13-9"><a href="statistical-process-control-in-r.html#cb13-9" tabindex="-1"></a>    <span class="co"># Or we can calculate overall standard deviation </span></span>
+<span id="cb13-10"><a href="statistical-process-control-in-r.html#cb13-10" tabindex="-1"></a>    <span class="at">sigma_t =</span> <span class="fu">sd</span>(water<span class="sc">$</span>temp) )</span></code></pre></div>
+<p><br>
+<br></p>
+<p>So, now that we have estimated within-group, common cause variation via <span class="math inline">\(\sigma_{short}\)</span> (<code>sigma_s</code>) and the standard error (<code>se</code>), what can we say about our process?</p>
+<p><br>
+<br></p>
+</div>
+<div id="average-and-standard-deviation-charts" class="section level3 hasAnchor" number="1.2.4">
+<h3><span class="header-section-number">1.2.4</span> Average and Standard Deviation Charts<a href="statistical-process-control-in-r.html#average-and-standard-deviation-charts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The preferred method for measuring within-group variability is the standard deviation, rather than the range, so we generally recommend (a) Average (<span class="math inline">\(\bar{X}\)</span>) and Standard Deviation (<span class="math inline">\(S\)</span>) charts over (b) Average (<span class="math inline">\(\bar{X}\)</span>) and Range (<span class="math inline">\(R\)</span>) charts.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="statistical-process-control-in-r.html#cb14-1" tabindex="-1"></a><span class="co"># Let&#39;s extract some labels</span></span>
+<span id="cb14-2"><a href="statistical-process-control-in-r.html#cb14-2" tabindex="-1"></a>labels <span class="ot">=</span> stat_s <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="statistical-process-control-in-r.html#cb14-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb14-4"><a href="statistical-process-control-in-r.html#cb14-4" tabindex="-1"></a>    <span class="at">time =</span> <span class="fu">max</span>(time),</span>
+<span id="cb14-5"><a href="statistical-process-control-in-r.html#cb14-5" tabindex="-1"></a>    <span class="at">type =</span> <span class="fu">c</span>(<span class="st">&quot;xbbar&quot;</span>,  <span class="st">&quot;upper&quot;</span>, <span class="st">&quot;lower&quot;</span>),</span>
+<span id="cb14-6"><a href="statistical-process-control-in-r.html#cb14-6" tabindex="-1"></a>    <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;mean&quot;</span>, <span class="st">&quot;+3 s&quot;</span>, <span class="st">&quot;-3 s&quot;</span>),</span>
+<span id="cb14-7"><a href="statistical-process-control-in-r.html#cb14-7" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">c</span>(<span class="fu">mean</span>(xbar), <span class="fu">unique</span>(upper), <span class="fu">unique</span>(lower)),</span>
+<span id="cb14-8"><a href="statistical-process-control-in-r.html#cb14-8" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">round</span>(value, <span class="dv">2</span>),</span>
+<span id="cb14-9"><a href="statistical-process-control-in-r.html#cb14-9" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">paste</span>(name, value, <span class="at">sep =</span> <span class="st">&quot; = &quot;</span>))</span>
+<span id="cb14-10"><a href="statistical-process-control-in-r.html#cb14-10" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="statistical-process-control-in-r.html#cb14-11" tabindex="-1"></a>stat_s <span class="sc">%&gt;%</span></span>
+<span id="cb14-12"><a href="statistical-process-control-in-r.html#cb14-12" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> xbar)) <span class="sc">+</span></span>
+<span id="cb14-13"><a href="statistical-process-control-in-r.html#cb14-13" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="fu">mean</span>(xbar)), <span class="at">color =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb14-14"><a href="statistical-process-control-in-r.html#cb14-14" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper), <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb14-15"><a href="statistical-process-control-in-r.html#cb14-15" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb14-16"><a href="statistical-process-control-in-r.html#cb14-16" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb14-17"><a href="statistical-process-control-in-r.html#cb14-17" tabindex="-1"></a>  <span class="co"># Plot labels</span></span>
+<span id="cb14-18"><a href="statistical-process-control-in-r.html#cb14-18" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="at">data =</span> labels, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> value, <span class="at">label =</span> text),  <span class="at">hjust =</span> <span class="dv">1</span>)  <span class="sc">+</span></span>
+<span id="cb14-19"><a href="statistical-process-control-in-r.html#cb14-19" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Time (Subgroups)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Average&quot;</span>,</span>
+<span id="cb14-20"><a href="statistical-process-control-in-r.html#cb14-20" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Average and Standard Deviation Chart&quot;</span>)</span></code></pre></div>
+<p><img src="05_workshop_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+This tells us that excitingly, our <em>onsen</em> temperatures are quite firmly within range. While the average varies quite a bit, it remains comfortably within 3 standard deviations of the mean.</p>
+<p><br>
+<br></p>
+<hr />
+</div>
+</div>
+<div id="learning-check-2" class="section level2 unnumbered LC hasAnchor">
+<h2>Learning Check 2<a href="statistical-process-control-in-r.html#learning-check-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Question</strong></p>
+<p>Well, that was nifty, but can we do it all over again for <code>pH</code>? Make some rad upper and lower confidence intervals for <span class="math inline">\(\bar{X}\)</span> for <code>pH</code>!</p>
+<details>
+<summary>
+<strong>[View Answer!]</strong>
+</summary>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="statistical-process-control-in-r.html#cb15-1" tabindex="-1"></a><span class="co"># Get the within-group stats for ph!</span></span>
+<span id="cb15-2"><a href="statistical-process-control-in-r.html#cb15-2" tabindex="-1"></a>ph_s <span class="ot">=</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="statistical-process-control-in-r.html#cb15-3" tabindex="-1"></a>  <span class="fu">group_by</span>(time) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="statistical-process-control-in-r.html#cb15-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb15-5"><a href="statistical-process-control-in-r.html#cb15-5" tabindex="-1"></a>    <span class="at">xbar =</span> <span class="fu">mean</span>(ph),</span>
+<span id="cb15-6"><a href="statistical-process-control-in-r.html#cb15-6" tabindex="-1"></a>    <span class="at">r =</span> <span class="fu">max</span>(ph) <span class="sc">-</span> <span class="fu">min</span>(ph),</span>
+<span id="cb15-7"><a href="statistical-process-control-in-r.html#cb15-7" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">sd</span>(ph),</span>
+<span id="cb15-8"><a href="statistical-process-control-in-r.html#cb15-8" tabindex="-1"></a>    <span class="at">nw =</span> <span class="fu">n</span>(),</span>
+<span id="cb15-9"><a href="statistical-process-control-in-r.html#cb15-9" tabindex="-1"></a>    <span class="at">df =</span> nw <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-10"><a href="statistical-process-control-in-r.html#cb15-10" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-11"><a href="statistical-process-control-in-r.html#cb15-11" tabindex="-1"></a>    <span class="at">sigma_s =</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(sd<span class="sc">^</span><span class="dv">2</span>)), </span>
+<span id="cb15-12"><a href="statistical-process-control-in-r.html#cb15-12" tabindex="-1"></a>    <span class="at">se =</span> sigma_s <span class="sc">/</span> <span class="fu">sqrt</span>(nw),</span>
+<span id="cb15-13"><a href="statistical-process-control-in-r.html#cb15-13" tabindex="-1"></a>    <span class="at">upper =</span> <span class="fu">mean</span>(xbar) <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>se,</span>
+<span id="cb15-14"><a href="statistical-process-control-in-r.html#cb15-14" tabindex="-1"></a>    <span class="at">lower =</span> <span class="fu">mean</span>(xbar) <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>se)</span>
+<span id="cb15-15"><a href="statistical-process-control-in-r.html#cb15-15" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="statistical-process-control-in-r.html#cb15-16" tabindex="-1"></a><span class="co"># Let&#39;s extract some labels</span></span>
+<span id="cb15-17"><a href="statistical-process-control-in-r.html#cb15-17" tabindex="-1"></a>labels <span class="ot">=</span> ph_s <span class="sc">%&gt;%</span></span>
+<span id="cb15-18"><a href="statistical-process-control-in-r.html#cb15-18" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb15-19"><a href="statistical-process-control-in-r.html#cb15-19" tabindex="-1"></a>    <span class="at">time =</span> <span class="fu">max</span>(time),</span>
+<span id="cb15-20"><a href="statistical-process-control-in-r.html#cb15-20" tabindex="-1"></a>    <span class="at">type =</span> <span class="fu">c</span>(<span class="st">&quot;xbbar&quot;</span>,  <span class="st">&quot;upper&quot;</span>, <span class="st">&quot;lower&quot;</span>),</span>
+<span id="cb15-21"><a href="statistical-process-control-in-r.html#cb15-21" tabindex="-1"></a>    <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;mean&quot;</span>, <span class="st">&quot;-3 s&quot;</span>, <span class="st">&quot;+3 s&quot;</span>),</span>
+<span id="cb15-22"><a href="statistical-process-control-in-r.html#cb15-22" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">c</span>(<span class="fu">mean</span>(xbar), <span class="fu">unique</span>(upper), <span class="fu">unique</span>(lower)),</span>
+<span id="cb15-23"><a href="statistical-process-control-in-r.html#cb15-23" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">round</span>(value, <span class="dv">2</span>),</span>
+<span id="cb15-24"><a href="statistical-process-control-in-r.html#cb15-24" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">paste</span>(name, value, <span class="at">sep =</span> <span class="st">&quot; = &quot;</span>))</span>
+<span id="cb15-25"><a href="statistical-process-control-in-r.html#cb15-25" tabindex="-1"></a></span>
+<span id="cb15-26"><a href="statistical-process-control-in-r.html#cb15-26" tabindex="-1"></a><span class="co"># and let&#39;s visualize it!</span></span>
+<span id="cb15-27"><a href="statistical-process-control-in-r.html#cb15-27" tabindex="-1"></a>ph_s <span class="sc">%&gt;%</span></span>
+<span id="cb15-28"><a href="statistical-process-control-in-r.html#cb15-28" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> xbar)) <span class="sc">+</span></span>
+<span id="cb15-29"><a href="statistical-process-control-in-r.html#cb15-29" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="fu">mean</span>(xbar)), <span class="at">color =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb15-30"><a href="statistical-process-control-in-r.html#cb15-30" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper), <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb15-31"><a href="statistical-process-control-in-r.html#cb15-31" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb15-32"><a href="statistical-process-control-in-r.html#cb15-32" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb15-33"><a href="statistical-process-control-in-r.html#cb15-33" tabindex="-1"></a>  <span class="co"># Plot labels</span></span>
+<span id="cb15-34"><a href="statistical-process-control-in-r.html#cb15-34" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="at">data =</span> labels, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> value, <span class="at">label =</span> text),  <span class="at">hjust =</span> <span class="dv">1</span>)  <span class="sc">+</span></span>
+<span id="cb15-35"><a href="statistical-process-control-in-r.html#cb15-35" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Time (Subgroups)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Average pH&quot;</span>,</span>
+<span id="cb15-36"><a href="statistical-process-control-in-r.html#cb15-36" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Average and Standard Deviation Chart&quot;</span>)</span></code></pre></div>
+<p><img src="05_workshop_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+</details>
+<hr />
+<p><br>
+<br></p>
+</div>
+<div id="moving-range-charts" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Moving Range Charts<a href="statistical-process-control-in-r.html#moving-range-charts" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="individual-and-moving-range-charts" class="section level3 hasAnchor" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> Individual and Moving Range Charts<a href="statistical-process-control-in-r.html#individual-and-moving-range-charts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Suppose we only had 1 observation per subgroup! There’s no way to calculate standard deviation for that - after all, there’s no variation within each subgroup! Instead, we can generate an individual and moving range chart.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="statistical-process-control-in-r.html#cb16-1" tabindex="-1"></a><span class="co"># Suppose we sample just the first out of each our months.</span></span>
+<span id="cb16-2"><a href="statistical-process-control-in-r.html#cb16-2" tabindex="-1"></a>indiv <span class="ot">=</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="statistical-process-control-in-r.html#cb16-3" tabindex="-1"></a>  <span class="fu">filter</span>(id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">21</span>, <span class="dv">41</span>, <span class="dv">61</span>, <span class="dv">81</span>, <span class="dv">101</span>, <span class="dv">121</span>, <span class="dv">141</span>))</span></code></pre></div>
+<p>The <em>average moving range</em> <span class="math inline">\(m\bar{R}\)</span> aptly refers to the average of the <em>moving Range</em> <span class="math inline">\(mR\)</span>, the <em>difference</em> in values over time. We can calculate the moving range using the <code>diff()</code> function on a vector like <code>temp</code>, shown below. <code>abs()</code> converts each value to be positive, since ranges are always 0 to infinity.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="statistical-process-control-in-r.html#cb17-1" tabindex="-1"></a><span class="co"># Let&#39;s see our original values</span></span>
+<span id="cb17-2"><a href="statistical-process-control-in-r.html#cb17-2" tabindex="-1"></a>indiv<span class="sc">$</span>temp</span></code></pre></div>
+<pre><code>## [1] 43.2 46.0 46.6 42.1 44.4 46.8 43.7 45.9</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="statistical-process-control-in-r.html#cb19-1" tabindex="-1"></a><span class="co"># diff() gets range between second and first, third and second, and so on</span></span>
+<span id="cb19-2"><a href="statistical-process-control-in-r.html#cb19-2" tabindex="-1"></a>indiv<span class="sc">$</span>temp <span class="sc">%&gt;%</span> <span class="fu">diff</span>() <span class="sc">%&gt;%</span> <span class="fu">abs</span>()</span></code></pre></div>
+<pre><code>## [1] 2.8 0.6 4.5 2.3 2.4 3.1 2.2</code></pre>
+<p><br></p>
+<p>Just like all statistics, <span class="math inline">\(m\bar{R}\)</span> too has its own distribution, containing a range of slightly higher and lower <span class="math inline">\(m\bar{R}\)</span> statistics we might have gotten had our sample been just slightly different due to chance. As a result, we will want to estimate a confidence interval around <span class="math inline">\(m\bar{R}\)</span>, but how are we to do that if we have no statistic like <span class="math inline">\(\sigma\)</span> to capture that variation?</p>
+<p>Well, good news: We can <em>approximate</em> <span class="math inline">\(\sigma_s\)</span> by taking the ratio of <span class="math inline">\(m\bar{R}\)</span> over a factor called <span class="math inline">\(d_{2}\)</span>. What is <span class="math inline">\(d_{2}\)</span>? I’m glad you asked!</p>
+<p><span class="math display">\[\sigma_{short} \approx \frac{m\bar{R}}{d_{2}} \]</span>
+<br>
+<br></p>
+</div>
+<div id="factors-d_2-and-friends" class="section level3 hasAnchor" number="1.3.2">
+<h3><span class="header-section-number">1.3.2</span> Factors <span class="math inline">\(d_{2}\)</span> and Friends<a href="statistical-process-control-in-r.html#factors-d_2-and-friends" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As discussed above, <em>any statistics</em> has a latent distribution of other values you might have gotten for your statistic had your sample been just slightly different due to random error. Fun fact: we can actually <em>see</em> those distributions pretty easily thanks to simulation!</p>
+<ul>
+<li><p>Suppose we have a subgroup of size <code>n = 1</code>, so we calculate a moving range of <code>length 1</code>.</p></li>
+<li><p>This subgroup and its moving range is just one of the possible subgroups we could have encountered by chance, so we can think of it as a random draw from an archetypal normal distribution (<code>mean = 0</code> and <code>sd = 1</code>).</p></li>
+<li><p>If we take <em>enough</em> samples of moving ranges from that distribution, we can plot the distribution. Below, we take <code>n = 10000</code> samples with <code>rnorm()</code> and plot the vector with <code>hist()</code>.</p></li>
+<li><p>We find a beautiful distribution of moving range statistics for <code>n=1</code> size subgroups.</p></li>
+</ul>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="statistical-process-control-in-r.html#cb21-1" tabindex="-1"></a>mrsim <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">diff</span>() <span class="sc">%&gt;%</span> <span class="fu">abs</span>()</span>
+<span id="cb21-2"><a href="statistical-process-control-in-r.html#cb21-2" tabindex="-1"></a>mrsim <span class="sc">%&gt;%</span> <span class="fu">hist</span>()</span></code></pre></div>
+<p><img src="05_workshop_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>Much like <span class="math inline">\(k\)</span> factors in the exponential distribution, we can use this distribution of <span class="math inline">\(mR\)</span> stats to produce a series of <em>factors</em> that can help us estimate any upper or lower confidence interval in a moving range distribution.</p>
+<p>For example, we can calculate:</p>
+<ul>
+<li><p><span class="math inline">\(d_{2}\)</span>, the <em>mean</em> of this archetypal <span class="math inline">\(mR\)</span> distribution.</p></li>
+<li><p><span class="math inline">\(d_{3}\)</span>, the <em>standard deviation</em> of this <span class="math inline">\(mR\)</span> distribution.</p></li>
+<li><p>Technically, <span class="math inline">\(d_{2}\)</span> is a ratio, which says that <em>in a distribution with a standard deviation of 1, the mean mR is <span class="math inline">\(d_{2}\)</span>.</em> In other words, <span class="math inline">\(d_{2} = \frac{m\bar{R}_{normal, n = 1} }{\sigma_{normal,n=1} }\)</span>. So, if we have observed a real life average moving range <span class="math inline">\(m\bar{R}_{observed,n=1}\)</span>, we can use this <span class="math inline">\(d_{2}\)</span> factor to convert out of units of <span class="math inline">\(1 \sigma_{normal,n=1}\)</span> into units the <span class="math inline">\(\sigma_{short}\)</span> of our observed data!</p></li>
+</ul>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="statistical-process-control-in-r.html#cb22-1" tabindex="-1"></a><span class="co"># For example, the mean of our vector mrsim, for subgroup size n = 1, </span></span>
+<span id="cb22-2"><a href="statistical-process-control-in-r.html#cb22-2" tabindex="-1"></a><span class="co"># says that d2 (mean of these mR stats) is...</span></span>
+<span id="cb22-3"><a href="statistical-process-control-in-r.html#cb22-3" tabindex="-1"></a>mrsim <span class="sc">%&gt;%</span> <span class="fu">mean</span>()</span></code></pre></div>
+<pre><code>## [1] 1.11865</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="statistical-process-control-in-r.html#cb24-1" tabindex="-1"></a><span class="co"># While d3 (standard deviation is...)</span></span>
+<span id="cb24-2"><a href="statistical-process-control-in-r.html#cb24-2" tabindex="-1"></a>mrsim <span class="sc">%&gt;%</span> <span class="fu">sd</span>()</span></code></pre></div>
+<pre><code>## [1] 0.8483457</code></pre>
+<p>But why stop there? We can calculate loads of other interesting statistics!</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="statistical-process-control-in-r.html#cb26-1" tabindex="-1"></a><span class="co"># For example, these statistics </span></span>
+<span id="cb26-2"><a href="statistical-process-control-in-r.html#cb26-2" tabindex="-1"></a><span class="co"># estimate the median, upper 90, and upper 95% of the distribution! </span></span>
+<span id="cb26-3"><a href="statistical-process-control-in-r.html#cb26-3" tabindex="-1"></a>mrsim <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="statistical-process-control-in-r.html#cb26-4" tabindex="-1"></a>  <span class="fu">quantile</span>(<span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.50</span>, <span class="fl">0.90</span>, .<span class="dv">95</span>)) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##   50%   90%   95% 
+## 0.949 2.305 2.747</code></pre>
+<p><br>
+<br></p>
+</div>
+<div id="estimating-sigma_short-for-moving-range-statistics" class="section level3 hasAnchor" number="1.3.3">
+<h3><span class="header-section-number">1.3.3</span> Estimating <span class="math inline">\(\sigma_{short}\)</span> for Moving Range Statistics<a href="statistical-process-control-in-r.html#estimating-sigma_short-for-moving-range-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s apply our new knowledge about <span class="math inline">\(d_{2}\)</span> to calculate some upper bounds (<span class="math inline">\(+3 \sigma\)</span>) for our average moving range estimates!</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="statistical-process-control-in-r.html#cb28-1" tabindex="-1"></a>istat_s <span class="ot">=</span> indiv <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="statistical-process-control-in-r.html#cb28-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb28-3"><a href="statistical-process-control-in-r.html#cb28-3" tabindex="-1"></a>    <span class="at">time =</span> time[<span class="sc">-</span><span class="dv">1</span>],</span>
+<span id="cb28-4"><a href="statistical-process-control-in-r.html#cb28-4" tabindex="-1"></a>    <span class="co"># get moving range</span></span>
+<span id="cb28-5"><a href="statistical-process-control-in-r.html#cb28-5" tabindex="-1"></a>    <span class="at">mr =</span> temp <span class="sc">%&gt;%</span> <span class="fu">diff</span>() <span class="sc">%&gt;%</span> <span class="fu">abs</span>(),</span>
+<span id="cb28-6"><a href="statistical-process-control-in-r.html#cb28-6" tabindex="-1"></a>    <span class="co"># Get average moving range</span></span>
+<span id="cb28-7"><a href="statistical-process-control-in-r.html#cb28-7" tabindex="-1"></a>    <span class="at">mrbar =</span> <span class="fu">mean</span>(mr),</span>
+<span id="cb28-8"><a href="statistical-process-control-in-r.html#cb28-8" tabindex="-1"></a>    <span class="co"># Get total sample size!</span></span>
+<span id="cb28-9"><a href="statistical-process-control-in-r.html#cb28-9" tabindex="-1"></a>    <span class="at">d2 =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">diff</span>() <span class="sc">%&gt;%</span> <span class="fu">abs</span>() <span class="sc">%&gt;%</span> <span class="fu">mean</span>(),</span>
+<span id="cb28-10"><a href="statistical-process-control-in-r.html#cb28-10" tabindex="-1"></a>    <span class="co"># If we approximate sigma_s....</span></span>
+<span id="cb28-11"><a href="statistical-process-control-in-r.html#cb28-11" tabindex="-1"></a>    <span class="co"># pretty good!</span></span>
+<span id="cb28-12"><a href="statistical-process-control-in-r.html#cb28-12" tabindex="-1"></a>    <span class="at">sigma_s =</span> mrbar <span class="sc">/</span> d2,</span>
+<span id="cb28-13"><a href="statistical-process-control-in-r.html#cb28-13" tabindex="-1"></a>    <span class="co"># Our subgroup size was 1, right?</span></span>
+<span id="cb28-14"><a href="statistical-process-control-in-r.html#cb28-14" tabindex="-1"></a>    <span class="at">n =</span> <span class="dv">1</span>,</span>
+<span id="cb28-15"><a href="statistical-process-control-in-r.html#cb28-15" tabindex="-1"></a>    <span class="co"># so this means sigma_s just equals the standard error here</span></span>
+<span id="cb28-16"><a href="statistical-process-control-in-r.html#cb28-16" tabindex="-1"></a>    <span class="at">se =</span> sigma_s <span class="sc">/</span> <span class="fu">sqrt</span>(n),</span>
+<span id="cb28-17"><a href="statistical-process-control-in-r.html#cb28-17" tabindex="-1"></a>    <span class="co"># compute upper 3-se bound</span></span>
+<span id="cb28-18"><a href="statistical-process-control-in-r.html#cb28-18" tabindex="-1"></a>    <span class="at">upper =</span> mrbar <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> se,</span>
+<span id="cb28-19"><a href="statistical-process-control-in-r.html#cb28-19" tabindex="-1"></a>    <span class="co"># and lower ALWAYS equals 0 for moving range</span></span>
+<span id="cb28-20"><a href="statistical-process-control-in-r.html#cb28-20" tabindex="-1"></a>    <span class="at">lower =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p>Why stop there? Let’s visualize it!</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="statistical-process-control-in-r.html#cb29-1" tabindex="-1"></a><span class="co"># Let&#39;s get our labels!</span></span>
+<span id="cb29-2"><a href="statistical-process-control-in-r.html#cb29-2" tabindex="-1"></a>labels <span class="ot">=</span> istat_s <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="statistical-process-control-in-r.html#cb29-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb29-4"><a href="statistical-process-control-in-r.html#cb29-4" tabindex="-1"></a>    <span class="at">time =</span> <span class="fu">max</span>(time), </span>
+<span id="cb29-5"><a href="statistical-process-control-in-r.html#cb29-5" tabindex="-1"></a>    <span class="at">type =</span> <span class="fu">c</span>(<span class="st">&quot;mean&quot;</span>, <span class="st">&quot;+3 s&quot;</span>, <span class="st">&quot;lower&quot;</span>),</span>
+<span id="cb29-6"><a href="statistical-process-control-in-r.html#cb29-6" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">c</span>(mrbar[<span class="dv">1</span>],  upper[<span class="dv">1</span>], lower[<span class="dv">1</span>]) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>),</span>
+<span id="cb29-7"><a href="statistical-process-control-in-r.html#cb29-7" tabindex="-1"></a>    <span class="at">name =</span> <span class="fu">paste</span>(type, value, <span class="at">sep =</span> <span class="st">&quot; = &quot;</span>))</span>
+<span id="cb29-8"><a href="statistical-process-control-in-r.html#cb29-8" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="statistical-process-control-in-r.html#cb29-9" tabindex="-1"></a><span class="co"># Now make the plot!</span></span>
+<span id="cb29-10"><a href="statistical-process-control-in-r.html#cb29-10" tabindex="-1"></a>istat_s <span class="sc">%&gt;%</span></span>
+<span id="cb29-11"><a href="statistical-process-control-in-r.html#cb29-11" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> mr)) <span class="sc">+</span></span>
+<span id="cb29-12"><a href="statistical-process-control-in-r.html#cb29-12" tabindex="-1"></a>  <span class="co"># Plot the confidence intervals</span></span>
+<span id="cb29-13"><a href="statistical-process-control-in-r.html#cb29-13" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper), </span>
+<span id="cb29-14"><a href="statistical-process-control-in-r.html#cb29-14" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb29-15"><a href="statistical-process-control-in-r.html#cb29-15" tabindex="-1"></a>  <span class="co"># Plot mrbar</span></span>
+<span id="cb29-16"><a href="statistical-process-control-in-r.html#cb29-16" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="fu">mean</span>(mr)), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">&quot;darkgrey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb29-17"><a href="statistical-process-control-in-r.html#cb29-17" tabindex="-1"></a>  <span class="co"># Plot moving range</span></span>
+<span id="cb29-18"><a href="statistical-process-control-in-r.html#cb29-18" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb29-19"><a href="statistical-process-control-in-r.html#cb29-19" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb29-20"><a href="statistical-process-control-in-r.html#cb29-20" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="at">data =</span> labels, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> value, <span class="at">label =</span> name), <span class="at">hjust =</span> <span class="dv">1</span>) <span class="sc">+</span>  </span>
+<span id="cb29-21"><a href="statistical-process-control-in-r.html#cb29-21" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Time (Subgroup)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Moving Range&quot;</span>,</span>
+<span id="cb29-22"><a href="statistical-process-control-in-r.html#cb29-22" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Moving Range Chart&quot;</span>)</span></code></pre></div>
+<p><img src="05_workshop_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>Again, this process looks pretty sound, firmly within range.</p>
+<p><br>
+<br></p>
+</div>
+</div>
+<div id="constants" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Constants<a href="statistical-process-control-in-r.html#constants" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="find-any-d_x-factor" class="section level3 hasAnchor" number="1.4.1">
+<h3><span class="header-section-number">1.4.1</span> Find <em>any</em> <span class="math inline">\(d_x\)</span> Factor<a href="statistical-process-control-in-r.html#find-any-d_x-factor" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>While our book writes extensively about <span class="math inline">\(d_{2}\)</span> and other <span class="math inline">\(d_{whatever}\)</span> factors, it’s not strictly necessary to calculate them unless you <em>need</em> them. Usually, we do this when we <em>can’t</em> calculate the standard deviation normally (eg. when we have <em>only</em> moving range statistics or <em>only</em> a subgroup sample size of <code>n=1</code>). If you’re working with full data from your process though, you can easily calculate <span class="math inline">\(\sigma_{short}\)</span> right from the empirical data, without ever needing to use <span class="math inline">\(d_x\)</span> factors.</p>
+<p>But let’s say you <em>did</em> need a <span class="math inline">\(d_x\)</span> factor for a subgroup range of a given sample size <code>n = 1, 2, 3.... n</code>. Could we calculate some kind of function to give us it?</p>
+<p>Funny you should ask! I’ve written a little helper function you can use.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="statistical-process-control-in-r.html#cb30-1" tabindex="-1"></a><span class="co"># Let&#39;s calculate our own d function</span></span>
+<span id="cb30-2"><a href="statistical-process-control-in-r.html#cb30-2" tabindex="-1"></a>dn <span class="ot">=</span> <span class="cf">function</span>(n, <span class="at">reps =</span> <span class="fl">1e4</span>){</span>
+<span id="cb30-3"><a href="statistical-process-control-in-r.html#cb30-3" tabindex="-1"></a>  <span class="co"># For 10,0000 reps</span></span>
+<span id="cb30-4"><a href="statistical-process-control-in-r.html#cb30-4" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span>reps) <span class="sc">%&gt;%</span></span>
+<span id="cb30-5"><a href="statistical-process-control-in-r.html#cb30-5" tabindex="-1"></a>    <span class="co"># For each rep,</span></span>
+<span id="cb30-6"><a href="statistical-process-control-in-r.html#cb30-6" tabindex="-1"></a>    <span class="fu">group_by</span>(rep) <span class="sc">%&gt;%</span></span>
+<span id="cb30-7"><a href="statistical-process-control-in-r.html#cb30-7" tabindex="-1"></a>    <span class="co"># Simulate the ranges of n values</span></span>
+<span id="cb30-8"><a href="statistical-process-control-in-r.html#cb30-8" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">r =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">range</span>() <span class="sc">%&gt;%</span> <span class="fu">diff</span>() <span class="sc">%&gt;%</span> <span class="fu">abs</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb30-9"><a href="statistical-process-control-in-r.html#cb30-9" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb30-10"><a href="statistical-process-control-in-r.html#cb30-10" tabindex="-1"></a>    <span class="co"># And calculate...</span></span>
+<span id="cb30-11"><a href="statistical-process-control-in-r.html#cb30-11" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb30-12"><a href="statistical-process-control-in-r.html#cb30-12" tabindex="-1"></a>      <span class="co"># Mean range</span></span>
+<span id="cb30-13"><a href="statistical-process-control-in-r.html#cb30-13" tabindex="-1"></a>      <span class="at">d2 =</span> <span class="fu">mean</span>(r),</span>
+<span id="cb30-14"><a href="statistical-process-control-in-r.html#cb30-14" tabindex="-1"></a>      <span class="co"># standard deviation of ranges</span></span>
+<span id="cb30-15"><a href="statistical-process-control-in-r.html#cb30-15" tabindex="-1"></a>      <span class="at">d3 =</span> <span class="fu">sd</span>(r),</span>
+<span id="cb30-16"><a href="statistical-process-control-in-r.html#cb30-16" tabindex="-1"></a>      <span class="co"># and constants for obtaining lower and upper ci for rbar</span></span>
+<span id="cb30-17"><a href="statistical-process-control-in-r.html#cb30-17" tabindex="-1"></a>      <span class="at">D3 =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>(d3<span class="sc">/</span>d2), <span class="co"># sometimes written D3</span></span>
+<span id="cb30-18"><a href="statistical-process-control-in-r.html#cb30-18" tabindex="-1"></a>      <span class="at">D4 =</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>(d3<span class="sc">/</span>d2), <span class="co"># sometimes written D4</span></span>
+<span id="cb30-19"><a href="statistical-process-control-in-r.html#cb30-19" tabindex="-1"></a>      <span class="co"># Sometimes D3 goes negative; we need to bound it at zero</span></span>
+<span id="cb30-20"><a href="statistical-process-control-in-r.html#cb30-20" tabindex="-1"></a>      <span class="at">D3 =</span> <span class="fu">if_else</span>(D3 <span class="sc">&lt;</span> <span class="dv">0</span>, <span class="at">true =</span> <span class="dv">0</span>, <span class="at">false =</span> D3) ) <span class="sc">%&gt;%</span></span>
+<span id="cb30-21"><a href="statistical-process-control-in-r.html#cb30-21" tabindex="-1"></a>    <span class="fu">return</span>()</span>
+<span id="cb30-22"><a href="statistical-process-control-in-r.html#cb30-22" tabindex="-1"></a>}</span>
+<span id="cb30-23"><a href="statistical-process-control-in-r.html#cb30-23" tabindex="-1"></a><span class="co"># Let&#39;s try it, where subgroup size is n = 2</span></span>
+<span id="cb30-24"><a href="statistical-process-control-in-r.html#cb30-24" tabindex="-1"></a><span class="fu">dn</span>(<span class="at">n =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 4
+##      d2    d3    D3    D4
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  1.14 0.856     0  3.26</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="statistical-process-control-in-r.html#cb32-1" tabindex="-1"></a><span class="co"># Let&#39;s get the constants we need too.</span></span>
+<span id="cb32-2"><a href="statistical-process-control-in-r.html#cb32-2" tabindex="-1"></a><span class="co"># Each of our samples has a sample size of 20</span></span>
+<span id="cb32-3"><a href="statistical-process-control-in-r.html#cb32-3" tabindex="-1"></a>d <span class="ot">=</span> <span class="fu">dn</span>(<span class="at">n =</span> <span class="dv">20</span>)</span>
+<span id="cb32-4"><a href="statistical-process-control-in-r.html#cb32-4" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="statistical-process-control-in-r.html#cb32-5" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb32-6"><a href="statistical-process-control-in-r.html#cb32-6" tabindex="-1"></a>d</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 4
+##      d2    d3    D3    D4
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  3.74 0.731 0.414  1.59</code></pre>
+<p><br>
+<br></p>
+</div>
+<div id="using-d_x-factors" class="section level3 hasAnchor" number="1.4.2">
+<h3><span class="header-section-number">1.4.2</span> Using <span class="math inline">\(d_x\)</span> factors<a href="statistical-process-control-in-r.html#using-d_x-factors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Using <code>d_n()</code>, we can make a quick approximation for the upper and lower control limits for the <em>range</em> <span class="math inline">\(\bar{R}\)</span> as well (as opposed to <span class="math inline">\(m\bar{R}\)</span>)!</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="statistical-process-control-in-r.html#cb34-1" tabindex="-1"></a><span class="co"># Let&#39;s get within group range for temperature...</span></span>
+<span id="cb34-2"><a href="statistical-process-control-in-r.html#cb34-2" tabindex="-1"></a>stat_w <span class="ot">=</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="statistical-process-control-in-r.html#cb34-3" tabindex="-1"></a>  <span class="fu">group_by</span>(time) <span class="sc">%&gt;%</span></span>
+<span id="cb34-4"><a href="statistical-process-control-in-r.html#cb34-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">r =</span> temp <span class="sc">%&gt;%</span> <span class="fu">range</span>() <span class="sc">%&gt;%</span> <span class="fu">diff</span>() <span class="sc">%&gt;%</span> <span class="fu">abs</span>(),</span>
+<span id="cb34-5"><a href="statistical-process-control-in-r.html#cb34-5" tabindex="-1"></a>            <span class="at">n_w =</span> <span class="fu">n</span>()) <span class="co"># get subgroup size</span></span>
+<span id="cb34-6"><a href="statistical-process-control-in-r.html#cb34-6" tabindex="-1"></a><span class="co"># Let&#39;s get average within group range for temperature...</span></span>
+<span id="cb34-7"><a href="statistical-process-control-in-r.html#cb34-7" tabindex="-1"></a>stat <span class="ot">=</span> stat_w <span class="sc">%&gt;%</span></span>
+<span id="cb34-8"><a href="statistical-process-control-in-r.html#cb34-8" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">rbar =</span> <span class="fu">mean</span>(r), <span class="co"># get Rbar</span></span>
+<span id="cb34-9"><a href="statistical-process-control-in-r.html#cb34-9" tabindex="-1"></a>            <span class="at">n_w =</span> <span class="fu">unique</span>(n_w)) <span class="co"># assuming constant subgroup size...</span></span>
+<span id="cb34-10"><a href="statistical-process-control-in-r.html#cb34-10" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb34-11"><a href="statistical-process-control-in-r.html#cb34-11" tabindex="-1"></a>stat</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 2
+##    rbar   n_w
+##   &lt;dbl&gt; &lt;int&gt;
+## 1  7.26    20</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="statistical-process-control-in-r.html#cb36-1" tabindex="-1"></a><span class="co"># We find that dn() gives us constants D3 and D4... </span></span>
+<span id="cb36-2"><a href="statistical-process-control-in-r.html#cb36-2" tabindex="-1"></a>mydstat <span class="ot">=</span> <span class="fu">dn</span>(<span class="at">n =</span> stat<span class="sc">$</span>n_w)</span>
+<span id="cb36-3"><a href="statistical-process-control-in-r.html#cb36-3" tabindex="-1"></a>mydstat</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 4
+##      d2    d3    D3    D4
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  3.72 0.726 0.415  1.59</code></pre>
+<p>And use these constants to estimate the upper and lower CI for <span class="math inline">\(\bar{r}\)</span>!</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="statistical-process-control-in-r.html#cb38-1" tabindex="-1"></a>stat <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="statistical-process-control-in-r.html#cb38-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rbar_lower =</span> rbar <span class="sc">*</span> mydstat<span class="sc">$</span>D3,</span>
+<span id="cb38-3"><a href="statistical-process-control-in-r.html#cb38-3" tabindex="-1"></a>         <span class="at">rbar_upper =</span> rbar <span class="sc">*</span> mydstat<span class="sc">$</span>D4) <span class="sc">%&gt;%</span></span>
+<span id="cb38-4"><a href="statistical-process-control-in-r.html#cb38-4" tabindex="-1"></a>  <span class="fu">select</span>(rbar, rbar_lower, rbar_upper)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 3
+##    rbar rbar_lower rbar_upper
+##   &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1  7.26       3.01       11.5</code></pre>
+<p>So quick! You could use these values to make a <em>range</em> chart now.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="statistical-process-control-in-r.html#cb40-1" tabindex="-1"></a><span class="fu">remove</span>(stat, stat_w)</span></code></pre></div>
+<p><br>
+<br></p>
+</div>
+<div id="finding-any-b_x-factor." class="section level3 hasAnchor" number="1.4.3">
+<h3><span class="header-section-number">1.4.3</span> Finding <em>any</em> <span class="math inline">\(b_x\)</span> Factor.<a href="statistical-process-control-in-r.html#finding-any-b_x-factor." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We might also want to know how much the standard deviation could possible vary due to sampling error. To figure this out, we’ll simulate many many standard deviations from a normal distribution, like in <code>dn()</code>, for a given subgroup size <code>n</code>.</p>
+<p>Then, we can calculate some quantities of interest like <span class="math inline">\(C_{4}\)</span> (the mean standard deviation from an archetypal normal distribution), <span class="math inline">\(B_{3}\)</span> (a multiplier for getting the lower control limit for 3 sigmas), and <span class="math inline">\(B_{4}\)</span> (a multiplier for getting the upper control limit for 3 sigmas.)</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="statistical-process-control-in-r.html#cb41-1" tabindex="-1"></a><span class="co"># Let&#39;s write a function bn() to calculate our B3 and B4 statistics for any subgroup size n</span></span>
+<span id="cb41-2"><a href="statistical-process-control-in-r.html#cb41-2" tabindex="-1"></a>bn <span class="ot">=</span> <span class="cf">function</span>(n, <span class="at">reps =</span> <span class="fl">1e4</span>){</span>
+<span id="cb41-3"><a href="statistical-process-control-in-r.html#cb41-3" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span>reps) <span class="sc">%&gt;%</span></span>
+<span id="cb41-4"><a href="statistical-process-control-in-r.html#cb41-4" tabindex="-1"></a>    <span class="fu">group_by</span>(rep) <span class="sc">%&gt;%</span></span>
+<span id="cb41-5"><a href="statistical-process-control-in-r.html#cb41-5" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">s =</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">sd</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb41-6"><a href="statistical-process-control-in-r.html#cb41-6" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">b2 =</span> <span class="fu">mean</span>(s), </span>
+<span id="cb41-7"><a href="statistical-process-control-in-r.html#cb41-7" tabindex="-1"></a>              <span class="at">b3 =</span> <span class="fu">sd</span>(s),</span>
+<span id="cb41-8"><a href="statistical-process-control-in-r.html#cb41-8" tabindex="-1"></a>              <span class="at">C4 =</span> b2, <span class="co"># this is sometimes called C4</span></span>
+<span id="cb41-9"><a href="statistical-process-control-in-r.html#cb41-9" tabindex="-1"></a>              <span class="at">A3 =</span> <span class="dv">3</span> <span class="sc">/</span> (b2 <span class="sc">*</span> <span class="fu">sqrt</span>( n  )),</span>
+<span id="cb41-10"><a href="statistical-process-control-in-r.html#cb41-10" tabindex="-1"></a>              <span class="at">B3 =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="dv">3</span> <span class="sc">*</span> b3<span class="sc">/</span>b2,</span>
+<span id="cb41-11"><a href="statistical-process-control-in-r.html#cb41-11" tabindex="-1"></a>              <span class="at">B4 =</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> b3<span class="sc">/</span>b2,</span>
+<span id="cb41-12"><a href="statistical-process-control-in-r.html#cb41-12" tabindex="-1"></a>              <span class="co"># bound B3 at 0, since we can&#39;t have a standard deviation below 0</span></span>
+<span id="cb41-13"><a href="statistical-process-control-in-r.html#cb41-13" tabindex="-1"></a>              <span class="at">B3 =</span> <span class="fu">if_else</span>(B3 <span class="sc">&lt;</span> <span class="dv">0</span>, <span class="at">true =</span> <span class="dv">0</span>, <span class="at">false =</span> B3)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-14"><a href="statistical-process-control-in-r.html#cb41-14" tabindex="-1"></a>    <span class="fu">return</span>()</span>
+<span id="cb41-15"><a href="statistical-process-control-in-r.html#cb41-15" tabindex="-1"></a>}</span></code></pre></div>
+<p>Let’s apply this to our <code>temp</code> vector.</p>
+<p>First, we’ll calculate the standard deviation within each subgroup, saved in <code>stat_w</code> under <code>s</code>.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="statistical-process-control-in-r.html#cb42-1" tabindex="-1"></a><span class="co"># Let&#39;s get within group standard deviation for temperature...</span></span>
+<span id="cb42-2"><a href="statistical-process-control-in-r.html#cb42-2" tabindex="-1"></a>stat_w <span class="ot">=</span> water <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="statistical-process-control-in-r.html#cb42-3" tabindex="-1"></a>  <span class="fu">group_by</span>(time) <span class="sc">%&gt;%</span></span>
+<span id="cb42-4"><a href="statistical-process-control-in-r.html#cb42-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">s =</span> temp <span class="sc">%&gt;%</span> <span class="fu">sd</span>(),</span>
+<span id="cb42-5"><a href="statistical-process-control-in-r.html#cb42-5" tabindex="-1"></a>            <span class="at">n_w =</span> <span class="fu">n</span>()) <span class="co"># get subgroup size</span></span>
+<span id="cb42-6"><a href="statistical-process-control-in-r.html#cb42-6" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="statistical-process-control-in-r.html#cb42-7" tabindex="-1"></a>stat_w</span></code></pre></div>
+<pre><code>## # A tibble: 8 × 3
+##    time     s   n_w
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+## 1     1  1.34    20
+## 2     3  2.00    20
+## 3     5  1.63    20
+## 4     7  2.66    20
+## 5     9  2.57    20
+## 6    11  2.02    20
+## 7    13  1.65    20
+## 8    15  1.61    20</code></pre>
+<p>Second, we’ll calculate the average standard deviation across subgroups, saved in <code>stat</code> under <code>sbar</code>.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="statistical-process-control-in-r.html#cb44-1" tabindex="-1"></a><span class="co"># Let&#39;s get average within group range for temperature...</span></span>
+<span id="cb44-2"><a href="statistical-process-control-in-r.html#cb44-2" tabindex="-1"></a>stat <span class="ot">=</span> stat_w <span class="sc">%&gt;%</span></span>
+<span id="cb44-3"><a href="statistical-process-control-in-r.html#cb44-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">sbar =</span> <span class="fu">mean</span>(s), <span class="co"># get Rbar</span></span>
+<span id="cb44-4"><a href="statistical-process-control-in-r.html#cb44-4" tabindex="-1"></a>            <span class="at">n_w =</span> <span class="fu">unique</span>(n_w)) <span class="co"># assuming constant subgroup size...</span></span>
+<span id="cb44-5"><a href="statistical-process-control-in-r.html#cb44-5" tabindex="-1"></a><span class="co"># Check it!</span></span>
+<span id="cb44-6"><a href="statistical-process-control-in-r.html#cb44-6" tabindex="-1"></a>stat</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 2
+##    sbar   n_w
+##   &lt;dbl&gt; &lt;int&gt;
+## 1  1.94    20</code></pre>
+<p>Third, we’ll get our constants <span class="math inline">\(B_{3}\)</span> and <span class="math inline">\(B_{4}\)</span>!</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="statistical-process-control-in-r.html#cb46-1" tabindex="-1"></a><span class="co"># For a subgroup size of 20...</span></span>
+<span id="cb46-2"><a href="statistical-process-control-in-r.html#cb46-2" tabindex="-1"></a>stat<span class="sc">$</span>n_w</span></code></pre></div>
+<pre><code>## [1] 20</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="statistical-process-control-in-r.html#cb48-1" tabindex="-1"></a><span class="co"># Let&#39;s get our B constants!</span></span>
+<span id="cb48-2"><a href="statistical-process-control-in-r.html#cb48-2" tabindex="-1"></a>mybstat <span class="ot">=</span> <span class="fu">bn</span>(<span class="at">n =</span> stat<span class="sc">$</span>n_w)</span>
+<span id="cb48-3"><a href="statistical-process-control-in-r.html#cb48-3" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="statistical-process-control-in-r.html#cb48-4" tabindex="-1"></a><span class="co"># Check it out!</span></span>
+<span id="cb48-5"><a href="statistical-process-control-in-r.html#cb48-5" tabindex="-1"></a>mybstat</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 6
+##      b2    b3    C4    A3    B3    B4
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 0.986 0.161 0.986 0.680 0.511  1.49</code></pre>
+<p>Finally, let’s calculate our control limits!</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="statistical-process-control-in-r.html#cb50-1" tabindex="-1"></a>stat <span class="ot">=</span> stat <span class="sc">%&gt;%</span></span>
+<span id="cb50-2"><a href="statistical-process-control-in-r.html#cb50-2" tabindex="-1"></a>  <span class="co"># Add our constants to the data.frame...</span></span>
+<span id="cb50-3"><a href="statistical-process-control-in-r.html#cb50-3" tabindex="-1"></a>  <span class="fu">mutate</span>(mybstat) <span class="sc">%&gt;%</span></span>
+<span id="cb50-4"><a href="statistical-process-control-in-r.html#cb50-4" tabindex="-1"></a>  <span class="co"># Calculate 3 sigma control limits</span></span>
+<span id="cb50-5"><a href="statistical-process-control-in-r.html#cb50-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sbar_lower =</span> sbar <span class="sc">*</span> B3,</span>
+<span id="cb50-6"><a href="statistical-process-control-in-r.html#cb50-6" tabindex="-1"></a>         <span class="at">sbar_upper =</span> sbar <span class="sc">*</span> B4)</span>
+<span id="cb50-7"><a href="statistical-process-control-in-r.html#cb50-7" tabindex="-1"></a></span>
+<span id="cb50-8"><a href="statistical-process-control-in-r.html#cb50-8" tabindex="-1"></a><span class="co"># Check it out!</span></span>
+<span id="cb50-9"><a href="statistical-process-control-in-r.html#cb50-9" tabindex="-1"></a>stat <span class="sc">%&gt;%</span></span>
+<span id="cb50-10"><a href="statistical-process-control-in-r.html#cb50-10" tabindex="-1"></a>  <span class="fu">select</span>(sbar, sbar_lower, sbar_upper)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 3
+##    sbar sbar_lower sbar_upper
+##   &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1  1.94      0.990       2.88</code></pre>
+<p>Now you’re all ready to make a control chart showing variation in the standard deviation!</p>
+<p><br>
+<br></p>
+<hr />
+</div>
+</div>
+<div id="learning-check-3" class="section level2 unnumbered LC hasAnchor">
+<h2>Learning Check 3<a href="statistical-process-control-in-r.html#learning-check-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Question</strong></p>
+<p>Using our <code>dn()</code> function above, compile for yourself a short table of the <span class="math inline">\(d_{2}\)</span> and <span class="math inline">\(d_{3}\)</span> factors for subgroups sized <code>2</code> to <code>10</code>.</p>
+<details>
+<summary>
+<strong>[View Answer!]</strong>
+</summary>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="statistical-process-control-in-r.html#cb52-1" tabindex="-1"></a><span class="co"># Let&#39;s bind them together!</span></span>
+<span id="cb52-2"><a href="statistical-process-control-in-r.html#cb52-2" tabindex="-1"></a>dx <span class="ot">=</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb52-3"><a href="statistical-process-control-in-r.html#cb52-3" tabindex="-1"></a>  <span class="fu">dn</span>(<span class="dv">2</span>), <span class="fu">dn</span>(<span class="dv">3</span>), <span class="fu">dn</span>(<span class="dv">4</span>), <span class="fu">dn</span>(<span class="dv">5</span>),</span>
+<span id="cb52-4"><a href="statistical-process-control-in-r.html#cb52-4" tabindex="-1"></a>  <span class="fu">dn</span>(<span class="dv">6</span>), <span class="fu">dn</span>(<span class="dv">7</span>), <span class="fu">dn</span>(<span class="dv">8</span>), <span class="fu">dn</span>(<span class="dv">9</span>), <span class="fu">dn</span>(<span class="dv">10</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb52-5"><a href="statistical-process-control-in-r.html#cb52-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb52-6"><a href="statistical-process-control-in-r.html#cb52-6" tabindex="-1"></a>  <span class="fu">select</span>(n, d2, d3)</span>
+<span id="cb52-7"><a href="statistical-process-control-in-r.html#cb52-7" tabindex="-1"></a></span>
+<span id="cb52-8"><a href="statistical-process-control-in-r.html#cb52-8" tabindex="-1"></a><span class="co"># Look at that cool table! </span></span>
+<span id="cb52-9"><a href="statistical-process-control-in-r.html#cb52-9" tabindex="-1"></a>dx</span></code></pre></div>
+<pre><code>## # A tibble: 9 × 3
+##       n    d2    d3
+##   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     2  1.12 0.849
+## 2     3  1.69 0.895
+## 3     4  2.05 0.879
+## 4     5  2.32 0.853
+## 5     6  2.55 0.857
+## 6     7  2.71 0.840
+## 7     8  2.84 0.808
+## 8     9  2.97 0.808
+## 9    10  3.08 0.804</code></pre>
+</details>
+<hr />
+<p><br>
+<br></p>
+<p>All done! Great work!</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="assets/gitbook-2.6.7/js/app.min.js"></script>
+<script src="assets/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="assets/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+},
+"toolbar": {
+"position": "static"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
