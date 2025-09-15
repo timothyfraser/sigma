@@ -44,7 +44,7 @@ Your project includes a Python script file (its name ends in `.py`). It contains
 # Comments are ignored by the calculator, so we can write notes.
 ```
 
-Notice: the IDE has four panes, including the editor, console, environment/history, and files. The console shows outputs from Python.
+Notice: the IDE has four panes, including the editor, console, environment/history, and files. The console shows outputs from Python (or R).
 
 To create a new script, go to File >> New File >> Text File (or Python Script), then save it and name it.
 
@@ -428,7 +428,7 @@ from dfply import *
 
 ## The Pipeline {-}
 
-In Python we can use dfply's pipeline operator `>>` to connect data to functions. This reduces parentheses and keeps sequences readable.
+In Python we can use dfply's pipeline operator `>>` to connect data to functions. This reduces parentheses and keeps sequences readable. *But it is not as usable as the pipe operator in R. It can only pipe dataframes to common dfply / dplyr functions like `select`, `mutate`, `summarize`, etc.*
 
 ```{python chunk_pipeline_py, eval=FALSE}
 from dfply import *
@@ -442,7 +442,7 @@ sw >> summarize(mean_value = mean(X.height))
 
 ## Visualizing Data with Histograms
 
-We can visualize with `matplotlib`/`pandas` or use `plotnine` (a Python port of ggplot2).
+We can visualize with `matplotlib`/`pandas`, or use `plotnine` (a Python port of `R`'s `ggplot2`) to develope detailed, customized visuals.
 
 ### pandas/matplotlib
 

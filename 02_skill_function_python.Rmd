@@ -21,6 +21,33 @@ We'll use base Python here. No extra packages needed.
 
 `Functions` are machines that do a specific calculation using an input to produce a specific output.
 
+```{r flowchart, echo = FALSE, fig.height=1.5, out.width="100%"}
+c("graph LR",
+  "subgraph before",
+    "i[input data <i>x</i>]",
+  "end",
+  "subgraph function",
+    "c[calculation]",
+  "end",
+  "subgraph after",
+    "o[output data <i>y</i>]",
+  "end",
+  # Edges
+  "i --> c",
+  "c --> o"
+) %>%
+  paste(collapse = "\n ") %>%
+  DiagrammeR::mermaid()
+```
+
+Below, we'll write an example function, called `add(a, b)`. 
+
+- This function takes two `numeric` values, `a` and `b`, as `inputs`, and adds them together. 
+
+- Using `def`, we'll tell `Python` that our function contains two inputs, `a` and `b`. 
+
+- The function can involve multiple operations inside it. But at the end, you need to print *one* final output, or put `return` before your output.
+
 ```{python}
 # Make function
 def add(a, b):
