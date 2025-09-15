@@ -1,18 +1,11 @@
 # Indices and Confidence Intervals for Statistical Process Control in `R`
 
-```{r setup_workshop_10, include = FALSE, echo = FALSE}
-library(tidyverse)
-library(knitr)
-library(kableExtra)
-knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 
-# Fix graphics API version mismatch issues by avoiding ragg
-knitr::opts_chunk$set(dev = "png")
-```
 
-```{r, out.width = "100%", echo = FALSE, fig.cap="Bootstrapping Sampling Distributions for Statistics!!"}
-knitr::include_graphics("images/10_cover.png")
-```
+<div class="figure">
+<img src="images/10_cover.png" alt="Bootstrapping Sampling Distributions for Statistics!!" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-1)Bootstrapping Sampling Distributions for Statistics!!</p>
+</div>
 
 This workshop extends our toolkit developed in Workshop 9, discussing Process Capability and Stability Indices, and introducing means to calculate confidence intervals for these indices.
 
@@ -22,7 +15,8 @@ This workshop extends our toolkit developed in Workshop 9, discussing Process Ca
 
 We'll be using the `tidyverse` package for visualization, `viridis` for color palletes, `moments` for descriptive statistics, plus `ggpubr` for some add-on functions in `ggplot`.
 
-```{r}
+
+```r
 library(tidyverse)
 library(viridis)
 # you'll probably need to install these packages!
@@ -35,11 +29,22 @@ We'll be continuing to analyze our quality control data from a local hot springs
 
 Let's read in our data from `workshops/onsen.csv`!
 
-```{r}
+
+```r
 # Let's import our samples of bathwater over time!
 water = read_csv("workshops/onsen.csv")
 # Take a peek!
 water %>% glimpse()
+```
+
+```
+## Rows: 160
+## Columns: 5
+## $ id     <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, …
+## $ time   <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, …
+## $ temp   <dbl> 43.2, 45.3, 45.5, 43.9, 45.9, 45.0, 42.3, 44.2, 42.2, 43.4, 46.…
+## $ ph     <dbl> 5.1, 4.8, 6.2, 6.4, 5.1, 5.6, 5.5, 5.3, 5.2, 5.9, 5.8, 5.3, 5.9…
+## $ sulfur <dbl> 0.0, 0.4, 0.9, 0.2, 0.0, 0.1, 0.0, 0.0, 0.0, 0.1, 0.7, 1.1, 0.1…
 ```
 
 Our dataset contains:
@@ -76,20 +81,54 @@ We need to maximize *both* process **capability** and **stability** to make an e
 
 These statistics rely on some combination of (1) the mean $\mu$, (2) the standard deviation $\sigma$, and (3) the upper and lower **"specification limits"**; the specification limits are our **expected values** $E_{upper}$ and $E_{lower}$, as compared to our actual **observed values**, summarized by $\mu$ and $\sigma$.
 
-```{r table1, echo = FALSE}
-tribble(
-  ~Index,  ~Shape, ~Sided,   ~Stability,   ~Formula, ~Meaning,
-  "$C_{p}$", "Centered", "2-sided",   "Stable",  "$\\frac{E_{upper} - E_{lower}}{6 \\sigma_{short}}$", "How many times wider is the expected range than the observed range, assuming it is stable?",
-  "$C_{pk}$", "Uncentered", "1-sided", "Stable", "$\\frac{\\mid E_{limit} - \\mu \\mid}{3 \\sigma_{short}}$", "How many times wider is the expected vs. observed range for the left/right side, assuming it is stable?",
-
-  "$P_{p}$", "Centered",  "2-sided", "Unstable",   "$\\frac{E_{upper} - E_{lower}}{6 \\sigma_{total}}$", "How many times wider is the expected vs. observed range, stable or not?",
-  "$P_{pk}$", "Uncentered",  "1-sided", "Unstable", "$\\frac{\\mid E_{limit} - \\mu \\mid}{3 \\sigma_{total}}$", "How many times wider is the expected vs. observed range for the left/right side, stable or not?") %>%
-  
-  kable(label = "Table 1: Key Indices in Statistical Process Control") %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
-  group_rows(group_label = "Capability Indices (How $\\textit{could}$ it perform, if stable?)", 1, 2, bold = TRUE) %>%
-  group_rows(group_label = "Process Performance Indices (How is it performing, stable or not?)", 3, 4, bold = TRUE)
-```
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Index </th>
+   <th style="text-align:left;"> Shape </th>
+   <th style="text-align:left;"> Sided </th>
+   <th style="text-align:left;"> Stability </th>
+   <th style="text-align:left;"> Formula </th>
+   <th style="text-align:left;"> Meaning </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr grouplength="2"><td colspan="6" style="border-bottom: 1px solid;"><strong>Capability Indices (How $\textit{could}$ it perform, if stable?)</strong></td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> $C_{p}$ </td>
+   <td style="text-align:left;"> Centered </td>
+   <td style="text-align:left;"> 2-sided </td>
+   <td style="text-align:left;"> Stable </td>
+   <td style="text-align:left;"> $\frac{E_{upper} - E_{lower}}{6 \sigma_{short}}$ </td>
+   <td style="text-align:left;"> How many times wider is the expected range than the observed range, assuming it is stable? </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> $C_{pk}$ </td>
+   <td style="text-align:left;"> Uncentered </td>
+   <td style="text-align:left;"> 1-sided </td>
+   <td style="text-align:left;"> Stable </td>
+   <td style="text-align:left;"> $\frac{\mid E_{limit} - \mu \mid}{3 \sigma_{short}}$ </td>
+   <td style="text-align:left;"> How many times wider is the expected vs. observed range for the left/right side, assuming it is stable? </td>
+  </tr>
+  <tr grouplength="2"><td colspan="6" style="border-bottom: 1px solid;"><strong>Process Performance Indices (How is it performing, stable or not?)</strong></td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> $P_{p}$ </td>
+   <td style="text-align:left;"> Centered </td>
+   <td style="text-align:left;"> 2-sided </td>
+   <td style="text-align:left;"> Unstable </td>
+   <td style="text-align:left;"> $\frac{E_{upper} - E_{lower}}{6 \sigma_{total}}$ </td>
+   <td style="text-align:left;"> How many times wider is the expected vs. observed range, stable or not? </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> $P_{pk}$ </td>
+   <td style="text-align:left;"> Uncentered </td>
+   <td style="text-align:left;"> 1-sided </td>
+   <td style="text-align:left;"> Unstable </td>
+   <td style="text-align:left;"> $\frac{\mid E_{limit} - \mu \mid}{3 \sigma_{total}}$ </td>
+   <td style="text-align:left;"> How many times wider is the expected vs. observed range for the left/right side, stable or not? </td>
+  </tr>
+</tbody>
+</table>
 
 
 
@@ -97,7 +136,8 @@ tribble(
 
 Let's do ourselves a favor and write up some simple functions for these.
 
-```{r}
+
+```r
 # Capability Index (for centered, normal data)
 cp = function(sigma_s, upper, lower){  abs(upper - lower) / (6*sigma_s)   }
 
@@ -144,7 +184,6 @@ ppk = function(mu, sigma_t, lower = NULL, upper = NULL){
     # If we got just the lower stat, return a (for lower)
   }else if(is.null(upper)){ return(a) }
 }
-
 ```
 
 <br>
@@ -154,7 +193,8 @@ How might we use these indices to describe our process data? For example, recall
 
 Let's start by calculating our quantities of interest.
 
-```{r}
+
+```r
 stat = water %>%
   group_by(time) %>%
   summarize(
@@ -173,17 +213,29 @@ stat = water %>%
 stat
 ```
 
+```
+## # A tibble: 1 × 6
+##   xbbar sigma_s sigma_t     n   n_w     k
+##   <dbl>   <dbl>   <dbl> <int> <int> <int>
+## 1  44.8    1.99    1.99   160    20     8
+```
+
 ###  Capacity Index $C_{p}$
 
 Our $C_{p}$ Capacity index says, assuming that the distribution is centered and stable, how many times wider are our limits than our approximate observed distribution ($6 \sigma_{short}$)?
 
-```{r}
+
+```r
 mycp = cp(sigma_s = stat$sigma_s, lower = 42, upper = 80)
 
 # Check it!
 mycp
 ```
-Great! This says, our observed variation is many times (`r mycp` times) narrower than the expected specification limits. 
+
+```
+## [1] 3.18871
+```
+Great! This says, our observed variation is many times (3.1887098 times) narrower than the expected specification limits. 
 
 <br>
 
@@ -191,9 +243,14 @@ Great! This says, our observed variation is many times (`r mycp` times) narrower
 
 Our $P_{p}$ Process Performance Index asks, even if the distribution is not stable (meaning it varies not just due to common causes), how many times wider are our specification limits than our approximate observed distribution ($6 \sigma_{total}$)?
 
-```{r}
+
+```r
 mypp = pp(sigma_t = stat$sigma_t, lower = 42, upper = 80)
 mypp
+```
+
+```
+## [1] 3.183378
 ```
 Much like before, the specification limit range remains quite bigger than the observed distribution.
 
@@ -203,15 +260,25 @@ Much like before, the specification limit range remains quite bigger than the ob
 
 Our $C_{pk}$ Capacity index says, assuming the distribution is pretty stable across subgroups, how many times wider is (a) the distance from the tail of interest to the mean than (b) our approximate observed tail (3 sigma)? This always looks at the *shorter tail*.
 
-```{r}
+
+```r
 mycpk = cpk(sigma_s = stat$sigma_s, mu = stat$xbbar, lower = 42, upper = 80)
 mycpk
 ```
 
+```
+## [1] 0.4783065
+```
+
 If we only care about one of the tails, eg. the lower specification limit of 42, which is much closer than the upper limit of 80, we can just write the lower limit only.
 
-```{r}
+
+```r
 cpk(sigma_s = stat$sigma_s, mu = stat$xbbar, lower = 42)
+```
+
+```
+## [1] 0.4783065
 ```
 
 This says, our observed variation is much wider than the lower specification limit, since $C_{pk}$ is far from `1`, which which show equality.
@@ -223,9 +290,14 @@ This says, our observed variation is much wider than the lower specification lim
 
 Our $P_{pk}$ process performance index says, even if the distribution is neither stable nor centered, how much wider is the observed variation $3 \sigma_{total}$ than the distance from the tail of interest to the mean? We use $\sigma_{total}$ here to account for instability (considerable variation between subgroups) and one-tailed testing to account for the uncentered distribution.
 
-```{r}
+
+```r
 myppk = ppk(sigma_t = stat$sigma_t, mu = stat$xbbar, lower = 42, upper = 80)
 myppk
+```
+
+```
+## [1] 0.4775067
 ```
 
 ###  Equality
@@ -234,9 +306,14 @@ A final reason why these quantities are neat is that these 4 indices are related
 
 $$P_{p} \times C_{pk} = P_{pk} \times C_{p}$$
 
-```{r}
+
+```r
 # whaaaaaat? They're equal!!!! 
 mypp * mycpk == myppk * mycp
+```
+
+```
+## [1] TRUE
 ```
 <br>
 <br>
@@ -254,7 +331,8 @@ What's the process capability index? (I.e. How many times greater is the expecte
 
 <details><summary>**[View Answer!]**</summary>
 
-```{r}
+
+```r
 lower = 2 + 0.05
 upper = 2 - 0.05
 sigma = 0.02
@@ -262,8 +340,18 @@ mu = 2.01
 
 
 cp(sigma = 0.02, upper = 2.05, lower = 1.95)
+```
 
+```
+## [1] 0.8333333
+```
+
+```r
 cpk(mu = 2.01, sigma = 0.02, lower = 1.95, upper = 2.05)
+```
+
+```
+## [1] 0.6666667
 ```
 
   
@@ -288,14 +376,23 @@ Let's quickly go over what confidence intervals are trying to show us!
 
 Suppose we take a statistic like the mean $\mu$ to describe our vector `temp`.
 
-```{r}
+
+```r
 water %>%
   summarize(mean = mean(temp))
 ```
 
+```
+## # A tibble: 1 × 1
+##    mean
+##   <dbl>
+## 1  44.8
+```
+
 We might have gotten a *slightly* different statistic had we had a *slightly* different sample. We can approximate what *slightly* different sample might look like by using *bootstrapped resamples*. This means, randomly sampling a bunch of observations from our dataframe `water`,  sometimes taking the same observation multiple times, sometimes leaving out some observations by chance. We can use the `sample(x, size = ..., replace = TRUE)` function to take a **bootstrapped sample**.
 
-```{r}
+
+```r
 water %>%
   # Grab n() randomly sampled temperatures, with replacement,
   # we'll call those 'boot', since they were 'bootstrapped'
@@ -304,9 +401,17 @@ water %>%
   summarize(mean = mean(boot))
 ```
 
+```
+## # A tibble: 1 × 1
+##    mean
+##   <dbl>
+## 1  45.0
+```
+
 Our bootstrapped `mean` is *very*, *very* close to the original mean - just slightly off due to sampling error! Bootstrapping is a very powerful tool, as it lets us circumvent many long formulas, as long as you take enough samples. Let's take 1000 resamples below:
 
-```{r}
+
+```r
 # Get a vector of ids from 1 to 1000
 myboot = tibble(rep = 1:1000) %>%
   # For each repetition,
@@ -321,6 +426,8 @@ myboot = tibble(rep = 1:1000) %>%
 # Let's view them!
 myboot$mean %>% hist()
 ```
+
+<img src="06_workshop_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 We can see above the *latent distribution of 1000 statistics we could have gotten due to random sampling error*. This is called a **sampling distribution**. Whenever we make confidence intervals, we are *always* drawing from a **sampling distribution**.
 
 <br>
@@ -347,7 +454,8 @@ For any index, you'll need to get the ingredients needed to calculate the index 
 
 So, let's first get our ingredients...
 
-```{r}
+
+```r
 stat = water %>%
   group_by(time) %>%
   summarize(xbar = mean(temp),
@@ -365,9 +473,17 @@ stat = water %>%
 stat
 ```
 
+```
+## # A tibble: 1 × 6
+##   xbbar sigma_s sigma_t     n   n_w     k
+##   <dbl>   <dbl>   <dbl> <int> <int> <int>
+## 1  44.8    1.99    1.99   160    20     8
+```
+
 Now, let's calculate our Capability Index $C_{p}$, which assumes a process *centered* between the upper and lower specification limits and a *stable* process.
 
-```{r}
+
+```r
 # Capability Index (for centered, normal data)
 cp = function(sigma_s, upper, lower){  abs(upper - lower) / (6*sigma_s)   }
 
@@ -380,6 +496,13 @@ stat %>%
     estimate = cp(sigma_s = sigma_s, lower = limit_lower, upper = limit_upper))
 ```
 
+```
+## # A tibble: 1 × 3
+##   limit_lower limit_upper estimate
+##         <dbl>       <dbl>    <dbl>
+## 1          42          50    0.671
+```
+
 
 That was surprisingly painless!
 
@@ -387,7 +510,8 @@ Now, let's estimate the two-sided, 95% confidence interval of our sampling distr
 
 We're getting the interval that spans 95%, so it's got to start at 2.5% and end at 97.5%, covering the 95% *most frequently occurring statistics* in the sampling distribution.
 
-```{r}
+
+```r
 bands = stat %>% 
   summarize(
     limit_lower = 42,
@@ -412,6 +536,13 @@ bands = stat %>%
 bands
 ```
 
+```
+## # A tibble: 1 × 8
+##   limit_lower limit_upper estimate v_short     se     z lower upper
+##         <dbl>       <dbl>    <dbl>   <dbl>  <dbl> <dbl> <dbl> <dbl>
+## 1          42          50    0.671     152 0.0385  1.96 0.596 0.747
+```
+
 
 <br>
 <br>
@@ -420,7 +551,8 @@ bands
 
 Were we to visualize this, it might look like...
 
-```{r}
+
+```r
 bands %>%
   ggplot(mapping = aes(x = "Cp Index", y = estimate, 
                        ymin = lower, ymax = upper)) +
@@ -435,6 +567,8 @@ bands %>%
   labs(y = "Index Value", x = NULL)
 ```
 
+<img src="06_workshop_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+
 It's not the most exciting plot, but it does show very clearly that the value of $C_{p}$ and its 95% confidence interval are nowhere even close to 1.0, the key threshold. This means we can say with 95% confidence that the true value of $C_{p}$ is **less than 1**.
 
 <br>
@@ -446,7 +580,8 @@ How might we estimate this using the bootstrap?
 
 Well, we could...
 
-```{r}
+
+```r
 myboot = tibble(rep = 1:1000) %>%
   # For each rep,
   group_by(rep) %>%
@@ -457,11 +592,24 @@ myboot = tibble(rep = 1:1000) %>%
   
 myboot %>% glimpse()
 ```
+
+```
+## Rows: 160,000
+## Columns: 6
+## Groups: rep [1,000]
+## $ rep    <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+## $ id     <dbl> 98, 134, 11, 12, 97, 45, 16, 10, 74, 18, 47, 122, 52, 158, 35, …
+## $ time   <dbl> 9, 13, 1, 1, 9, 5, 1, 1, 7, 1, 5, 13, 5, 15, 3, 1, 9, 3, 5, 9, …
+## $ temp   <dbl> 44.7, 41.5, 46.4, 44.2, 44.4, 44.4, 43.9, 43.4, 45.5, 45.9, 44.…
+## $ ph     <dbl> 4.4, 4.7, 5.8, 5.3, 5.9, 5.5, 4.8, 5.9, 5.2, 6.6, 6.1, 4.9, 5.4…
+## $ sulfur <dbl> 0.5, 0.8, 0.7, 1.1, 0.3, 0.0, 0.2, 0.1, 0.4, 0.3, 0.4, 0.8, 0.0…
+```
 This produces a very, very big data.frame!
 
 Let's now, for each rep, calculate our statistics from before!
 
-```{r}
+
+```r
 mybootstat = myboot %>%
   # For each rep, and each subgroup...
  group_by(rep, time) %>%
@@ -489,7 +637,8 @@ So cool! We've now generated the sampling distributions for `xbbar`, `sigma_s`, 
 
 We can even visualize the raw distributions now! Look at those wicked cool bootstrapped sampling distributions!!!
 
-```{r}
+
+```r
 g = mybootstat %>%
   # For each rep,
   group_by(rep) %>%
@@ -505,11 +654,14 @@ g = mybootstat %>%
 # View it!
 g
 ```
+
+<img src="06_workshop_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 So last, let's take our boostrapped $C_{p}$ statistics in `mybootstat$cp` and estimate a confidence interval and standard error for this sampling distribution.
 
 Because we have the *entire distribution*, we can extract values at specific percentiles in the distribution using `quantiles()`, rather than `qnorm()` or such theoretical distributions.
 
-```{r}
+
+```r
 # We'll save it as 'myqi', for quantities of interest
 myqi = mybootstat %>% 
   summarize(
@@ -526,6 +678,13 @@ myqi = mybootstat %>%
 myqi
 ```
 
+```
+## # A tibble: 1 × 4
+##      cp lower upper     se
+##   <dbl> <dbl> <dbl>  <dbl>
+## 1 0.671 0.615 0.783 0.0438
+```
+
 This suggests a wider confidence interval that our normal distribution assumes by default - interesting!
 
 We can perform bootstrapping to estimate confidence intervals for *any* statistic, including $C_{p}$, $C_{pk}$, $P_{p}$, or $P_{pk}$. The only limit is your computational power! Wheee!
@@ -533,7 +692,8 @@ We can perform bootstrapping to estimate confidence intervals for *any* statisti
 
 *Note*: Whenever you bootstrap, it's important that you clear out your `R` environment to keep things running quickly, because you tend to accumulate a lot of really big data.frames. You can use `remove()` to do this.
 
-```{r}
+
+```r
 remove(myboot, mybootstat)
 ```
 
@@ -551,7 +711,8 @@ Let's practice calculating confidence intervals (CIs) for each of these indices.
 
 Now that we have our ingredients, let's get our index and its confidence intervals!
 
-```{r}
+
+```r
 # Capability Index (for centered, normal data)
 cp = function(sigma_s, upper, lower){  abs(upper - lower) / (6*sigma_s)   }
 
@@ -571,12 +732,19 @@ stat %>%
     upper = estimate + z * se)
 ```
 
+```
+## # A tibble: 1 × 6
+##   estimate v_short     se     z lower upper
+##      <dbl>   <dbl>  <dbl> <dbl> <dbl> <dbl>
+## 1    0.671     152 0.0385  1.96 0.596 0.747
+```
+
 ###  CIs for $C_{pk}$
 
 Write the function and generate the confidence interval for $P_{pk}$!
 
-```{r}
 
+```r
 # Capability Index (for skewed, uncentered data)
 cpk = function(mu, sigma_s, lower = NULL, upper = NULL){
   if(!is.null(lower)){
@@ -613,12 +781,20 @@ stat %>%
     upper = estimate + z * se)
 ```
 
+```
+## # A tibble: 1 × 6
+##   estimate v_short     se     z lower upper
+##      <dbl>   <dbl>  <dbl> <dbl> <dbl> <dbl>
+## 1    0.478     152 0.0380  1.96 0.404 0.553
+```
+
 
 ###  CIs for $P_p$
 
 Now that we have our ingredients, let's get our index and its confidence intervals!
 
-```{r}
+
+```r
 # Suppose we're looking at the entire process!
 
 # Process Performance Index (for centered, normal data)
@@ -640,6 +816,13 @@ stat %>%
     upper = estimate + z * se)
 ```
 
+```
+## # A tibble: 1 × 6
+##   estimate v_total     se     z lower upper
+##      <dbl>   <dbl>  <dbl> <dbl> <dbl> <dbl>
+## 1    0.670     159 0.0376  1.96 0.597 0.744
+```
+
 <br>
 <br>
 
@@ -647,7 +830,8 @@ stat %>%
 
 Write the function and generate the confidence interval for $P_{pk}$!
 
-```{r}
+
+```r
 # Process Performance Index (for skewed, uncentered data)
 ppk = function(mu, sigma_t, lower = NULL, upper = NULL){
   if(!is.null(lower)){
@@ -683,6 +867,13 @@ stat %>%
     upper = estimate + z * se)
 ```
 
+```
+## # A tibble: 1 × 6
+##   estimate v_total     se     z lower upper
+##      <dbl>   <dbl>  <dbl> <dbl> <dbl> <dbl>
+## 1    0.478     159 0.0376  1.96 0.404 0.551
+```
+
 
 <br>
 <br>
@@ -694,6 +885,4 @@ Alright! You are now a confidence interval wizard!
 
 Go forth and make confidence intervals!
 
-```{r, include = FALSE}
-rm(list = ls())
-```
+

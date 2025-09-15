@@ -23,7 +23,9 @@ rmd_files:
     # "04_workshop.Rmd", # Reliability
     # "04_workshop_python.Rmd", # Reliability (Python)
     # "05_workshop.Rmd", # Statistical Process Control
-    "05_workshop_python.Rmd", # Statistical Process Control (Python)
+    # "05_workshop_python.Rmd", # Statistical Process Control (Python)
+    # "06_workshop.Rmd", # Process Indices & Confidence Intervals
+    "06_workshop_python.Rmd", # Process Indices & Confidence Intervals (Python)
 
     # ##################################
     # # Statistical Process Control

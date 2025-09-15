@@ -31,7 +31,7 @@
   
   
 
-<link rel="next" href="statistical-process-control-in-python.html"/>
+<link rel="next" href="indices-and-confidence-intervals-for-spc-in-python.html"/>
 <script src="assets/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -139,25 +139,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
-<li class="chapter" data-level="1" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html"><i class="fa fa-check"></i><b>1</b> Statistical Process Control in Python</a>
+<li class="chapter" data-level="1" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html"><i class="fa fa-check"></i><b>1</b> Indices and Confidence Intervals for SPC in Python</a>
 <ul>
-<li class="chapter" data-level="" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#getting-started"><i class="fa fa-check"></i>Getting Started</a>
+<li class="chapter" data-level="" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#getting-started"><i class="fa fa-check"></i>Getting Started</a>
 <ul>
-<li class="chapter" data-level="" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#packages"><i class="fa fa-check"></i>Packages</a></li>
-<li class="chapter" data-level="" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#custom-functions"><i class="fa fa-check"></i>Custom Functions</a></li>
-<li class="chapter" data-level="" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#our-case"><i class="fa fa-check"></i>Our Case</a></li>
-<li class="chapter" data-level="" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#our-data"><i class="fa fa-check"></i>Our Data</a></li>
+<li class="chapter" data-level="" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#packages"><i class="fa fa-check"></i>Packages</a></li>
+<li class="chapter" data-level="" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#custom-functions"><i class="fa fa-check"></i>Custom Functions</a></li>
+<li class="chapter" data-level="" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#our-data"><i class="fa fa-check"></i>Our Data</a></li>
+<li class="chapter" data-level="1.0.1" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#process-overview"><i class="fa fa-check"></i><b>1.0.1</b> Process Overview</a></li>
 </ul></li>
-<li class="chapter" data-level="1.1" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#process-descriptive-statistics"><i class="fa fa-check"></i><b>1.1</b> Process Descriptive Statistics</a></li>
-<li class="chapter" data-level="1.2" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#process-overview-visual"><i class="fa fa-check"></i><b>1.2</b> Process Overview Visual</a></li>
-<li class="chapter" data-level="1.3" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#subgroup-within-group-statistics"><i class="fa fa-check"></i><b>1.3</b> Subgroup (Within-Group) Statistics</a>
+<li class="chapter" data-level="1.1" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#process-capability-vs.-stability"><i class="fa fa-check"></i><b>1.1</b> Process Capability vs. Stability</a>
 <ul>
-<li class="chapter" data-level="1.3.1" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#total-statistics-between-groups"><i class="fa fa-check"></i><b>1.3.1</b> Total Statistics (Between Groups)</a></li>
-<li class="chapter" data-level="1.3.2" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#average-and-standard-deviation-charts"><i class="fa fa-check"></i><b>1.3.2</b> Average and Standard Deviation Charts</a></li>
+<li class="chapter" data-level="1.1.1" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#definitions"><i class="fa fa-check"></i><b>1.1.1</b> Definitions</a></li>
+<li class="chapter" data-level="1.1.2" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#table-of-indices"><i class="fa fa-check"></i><b>1.1.2</b> Table of Indices</a></li>
+<li class="chapter" data-level="1.1.3" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#index-functions"><i class="fa fa-check"></i><b>1.1.3</b> Index Functions</a></li>
+<li class="chapter" data-level="1.1.4" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#ingredients"><i class="fa fa-check"></i><b>1.1.4</b> Ingredients</a></li>
+<li class="chapter" data-level="1.1.5" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#cp-and-pp"><i class="fa fa-check"></i><b>1.1.5</b> Cp and Pp</a></li>
+<li class="chapter" data-level="1.1.6" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#cpk-and-ppk"><i class="fa fa-check"></i><b>1.1.6</b> Cpk and Ppk</a></li>
+<li class="chapter" data-level="1.1.7" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#equality"><i class="fa fa-check"></i><b>1.1.7</b> Equality</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#learning-check-1"><i class="fa fa-check"></i>Learning Check 1</a></li>
-<li class="chapter" data-level="1.4" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#moving-range-charts-n1"><i class="fa fa-check"></i><b>1.4</b> Moving Range Charts (n=1)</a></li>
-<li class="chapter" data-level="" data-path="statistical-process-control-in-python.html"><a href="statistical-process-control-in-python.html#conclusion"><i class="fa fa-check"></i>Conclusion</a></li>
+<li class="chapter" data-level="1.2" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#confidence-intervals-normal-approximation"><i class="fa fa-check"></i><b>1.2</b> Confidence Intervals (Normal Approximation)</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#cp-confidence-interval"><i class="fa fa-check"></i><b>1.2.1</b> Cp Confidence Interval</a></li>
+<li class="chapter" data-level="1.2.2" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#cpk-confidence-interval"><i class="fa fa-check"></i><b>1.2.2</b> Cpk Confidence Interval</a></li>
+<li class="chapter" data-level="1.2.3" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#pp-and-ppk-confidence-intervals"><i class="fa fa-check"></i><b>1.2.3</b> Pp and Ppk Confidence Intervals</a></li>
+<li class="chapter" data-level="1.2.4" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#visualizing-confidence-intervals"><i class="fa fa-check"></i><b>1.2.4</b> Visualizing Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#bootstrapping-cp-example"><i class="fa fa-check"></i><b>1.3</b> Bootstrapping Cp (Example)</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#bootstrap-sampling-distributions-visualization"><i class="fa fa-check"></i><b>1.3.1</b> Bootstrap Sampling Distributions Visualization</a></li>
+<li class="chapter" data-level="1.3.2" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>1.3.2</b> Bootstrap Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="indices-and-confidence-intervals-for-spc-in-python.html"><a href="indices-and-confidence-intervals-for-spc-in-python.html#conclusion"><i class="fa fa-check"></i>Conclusion</a></li>
 </ul></li>
 </ul>
 
@@ -198,7 +211,7 @@ Figure 0.1: Photo by Naser Tamimi on Unsplash
         </div>
       </div>
 
-<a href="statistical-process-control-in-python.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="indices-and-confidence-intervals-for-spc-in-python.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="assets/gitbook-2.6.7/js/app.min.js"></script>
@@ -255,6 +268,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
