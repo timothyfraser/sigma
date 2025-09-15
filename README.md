@@ -155,18 +155,70 @@ Some chapters include Python code that requires additional packages:
 - `pandas` - for data manipulation and analysis
 - `plotnine` - Python port of ggplot2 for advanced plotting
 - `dfply` - for data manipulation (similar to dplyr in R)
+- `gapminder` - for gapminder dataset used in visualization examples
+- `seaborn` - for color palettes
 
 Install in Python:
 
 ```bash
-pip install matplotlib pandas plotnine dfply
+pip install matplotlib pandas plotnine dfply gapminder seaborn
 ```
 
 Or if using a specific Python installation:
 
 ```bash
-C:/Python312/python.exe -m pip install matplotlib pandas plotnine dfply
+C:/Python312/python.exe -m pip install matplotlib pandas plotnine dfply gapminder
 ```
+
+---
+
+### Chapter Testing Checklist
+
+Use this checklist to track which chapters have been tested and confirmed working:
+
+- [ ] `00_part1.Rmd`
+- [ ] `00_part2.Rmd`
+- [ ] `00_part3.Rmd`
+- [ ] `00_part4.Rmd`
+- [ ] `00_part5.Rmd`
+- [ ] `00_part6.Rmd`
+- [ ] `00_part7.Rmd`
+- [ ] `00_part8.Rmd`
+- [ ] `00_partappendix.Rmd`
+- [x] `01_skill_fmea.Rmd`
+- [x] `01_skill_ggplot.Rmd`
+- [x] `01_skill_plotnine.Rmd`
+- [x] `01_workshop.Rmd`
+- [x] `01_workshop_python.Rmd`
+- [ ] `02_skill_function_python.Rmd`
+- [x] `02_skill_functions.Rmd`
+- [x] `02_workshop.Rmd`
+- [x] `02_workshop_python.Rmd`
+- [ ] `03a_workshop.Rmd`
+- [ ] `03b_workshop.Rmd`
+- [ ] `04_workshop.Rmd`
+- [ ] `04_workshop_python.Rmd`
+- [ ] `05_workshop.Rmd`
+- [ ] `05_workshop_python.Rmd`
+- [ ] `06_workshop.Rmd`
+- [ ] `06_workshop_python.Rmd`
+- [ ] `07_workshop.Rmd`
+- [ ] `07b_workshop.Rmd`
+- [ ] `08_workshop.Rmd`
+- [ ] `09_workshop.Rmd`
+- [ ] `10_workshop.Rmd`
+- [ ] `11_workshop.Rmd`
+- [ ] `12_workshop.Rmd`
+- [ ] `13_workshop.Rmd`
+- [ ] `14_workshop.Rmd`
+- [ ] `15_workshop.Rmd`
+- [ ] `99_references.Rmd`
+- [ ] `99_skill_fitdistr.Rmd`
+- [ ] `99_skill_flowcharts.Rmd`
+- [ ] `99_skill_tidyfault.Rmd`
+- [ ] `99_skill_viz.Rmd`
+- [x] `99_test.Rmd`
+- [ ] `index.Rmd`
 
 ---
 

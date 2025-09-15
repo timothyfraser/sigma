@@ -1,41 +1,6 @@
 # Visualization with `plotnine` in `Python`
 
-```{r setup_skill_plotnine, include=FALSE}
-## Global options
-knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
-library(knitr)
-library(kableExtra)
-## Configure reticulate to use existing Python
-library(reticulate)
 
-# Use your specific Python installation
-python_path <- "C:/Python312/python.exe"
-if (file.exists(python_path)) {
-  use_python(python_path, required = FALSE)
-  cat("Using Python at:", python_path, "\n")
-} else {
-  # Fallback to system Python
-  system_python <- Sys.which("python")
-  if (system_python != "") {
-    use_python(system_python, required = FALSE)
-    cat("Using system Python at:", system_python, "\n")
-  } else {
-    cat("Warning: No Python installation found\n")
-  }
-}
-
-# Disable automatic environment creation and downloads
-Sys.unsetenv("RETICULATE_PYTHON_ENV")
-Sys.unsetenv("RETICULATE_PYTHON") 
-Sys.unsetenv("RETICULATE_AUTOCONFIGURE")
-Sys.unsetenv("RETICULATE_PYTHON_FALLBACK")
-
-# Set the Python path explicitly
-Sys.setenv(RETICULATE_PYTHON = python_path)
-
-# Prevent reticulate from downloading Python
-options(reticulate.conda_binary = NULL)
-```
 
 Visualization is a key part of statistical analyses, especially in systems engineering. In this tutorial, we'll learn to visualize data with `plotnine` (the Python port of `ggplot2`).
 
@@ -48,7 +13,8 @@ Visualization is a key part of statistical analyses, especially in systems engin
 
 ### Loading Packages {.unnumbered}
 
-```{python}
+
+```python
 import pandas as p
 from plotnine import *
 from gapminder import gapminder as gapminder
@@ -60,26 +26,65 @@ diamonds = load_dataset('diamonds')
 
 ### Gapminder data {-}
 
-```{python}
+
+```python
 # View it in the console
 gapminder
 ```
 
-```{python}
+```
+##           country continent  year  lifeExp       pop   gdpPercap
+## 0     Afghanistan      Asia  1952   28.801   8425333  779.445314
+## 1     Afghanistan      Asia  1957   30.332   9240934  820.853030
+## 2     Afghanistan      Asia  1962   31.997  10267083  853.100710
+## 3     Afghanistan      Asia  1967   34.020  11537966  836.197138
+## 4     Afghanistan      Asia  1972   36.088  13079460  739.981106
+## ...           ...       ...   ...      ...       ...         ...
+## 1699     Zimbabwe    Africa  1987   62.351   9216418  706.157306
+## 1700     Zimbabwe    Africa  1992   60.377  10704340  693.420786
+## 1701     Zimbabwe    Africa  1997   46.809  11404948  792.449960
+## 1702     Zimbabwe    Africa  2002   39.989  11926563  672.038623
+## 1703     Zimbabwe    Africa  2007   43.487  12311143  469.709298
+## 
+## [1704 rows x 6 columns]
+```
+
+
+```python
 # Glimpse-like summary
 gapminder.dtypes, gapminder.shape
 ```
 
+```
+## (country       object
+## continent     object
+## year           int64
+## lifeExp      float64
+## pop            int64
+## gdpPercap    float64
+## dtype: object, (1704, 6))
+```
+
 ## Your first scatterplot
 
-```{python}
+
+```python
 ggplot(data=gapminder, mapping=aes(x='gdpPercap', y='lifeExp'))
+```
+
+```
+## <plotnine.ggplot.ggplot object at 0x000001D21EC330E0>
 ```
 
 Add points with `+ geom_point()`.
 
-```{python}
+
+```python
 (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point())
+```
+
+```
+## <plotnine.ggplot.ggplot object at 0x000001D21ED32630>
 ```
 
 ---
@@ -100,10 +105,29 @@ As wealth per person (GDP per capita) increases, life expectancy rises quickly t
 
 ## Transparency (alpha)
 
-```{python}
+
+```python
 (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point(alpha=0.2))
+```
+
+```
+## <plotnine.ggplot.ggplot object at 0x000001D21F183FE0>
+```
+
+```python
 (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point(alpha=0.5))
+```
+
+```
+## <plotnine.ggplot.ggplot object at 0x000001D21F1B6750>
+```
+
+```python
 (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point(alpha=1))
+```
+
+```
+## <plotnine.ggplot.ggplot object at 0x000001D21F1CCEF0>
 ```
 
 ---
@@ -124,14 +148,25 @@ What happens when you change `alpha` across the three visuals above?
 
 ## Color: constant vs mapped
 
-```{python}
+
+```python
 # Single color
 (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) +
   geom_point(alpha=0.5, color='steelblue'))
+```
 
+```
+## <plotnine.ggplot.ggplot object at 0x000001D21F1B5A60>
+```
+
+```python
 # Color mapped by continent
 (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp', color='continent')) +
   geom_point(alpha=0.5))
+```
+
+```
+## <plotnine.ggplot.ggplot object at 0x000001D21F1CFC80>
 ```
 
 ---
@@ -152,7 +187,8 @@ Single color: set `color` inside `geom_point(color='...')` (outside `aes`). Mapp
 
 ## Improving our visualizations
 
-```{python}
+
+```python
 (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp', color='continent')) +
   geom_point(alpha=0.5) +
   labs(x='GDP per capita (USD)',
@@ -163,9 +199,14 @@ Single color: set `color` inside `geom_point(color='...')` (outside `aes`). Mapp
        caption='Points display individual country-year observations.'))
 ```
 
+```
+## <plotnine.ggplot.ggplot object at 0x000001D21F15D580>
+```
+
 You can save visuals as objects to reuse them.
 
-```{python}
+
+```python
 myviz = (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp', color='continent')) +
   geom_point(alpha=0.5) +
   labs(x='GDP per capita (USD)', y='Life Expectancy (years)', color='Continent',
@@ -173,9 +214,34 @@ myviz = (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp', color='continent')) +
        caption='Points display individual country-year observations.'))
 
 myviz
+```
+
+```
+## <plotnine.ggplot.ggplot object at 0x000001D21F1CDE50>
+```
+
+```python
 myviz + theme_bw()
+```
+
+```
+## <plotnine.ggplot.ggplot object at 0x000001D21EDDB680>
+```
+
+```python
 myviz + theme_dark()
+```
+
+```
+## <plotnine.ggplot.ggplot object at 0x000001D21DF311F0>
+```
+
+```python
 myviz + theme_classic()
+```
+
+```
+## <plotnine.ggplot.ggplot object at 0x000001D21F15CD10>
 ```
 
 <br>
@@ -183,28 +249,66 @@ myviz + theme_classic()
 
 ## Visualizing `diamonds` data
 
-```{python}
+
+```python
 diamonds.head(3)
 ```
 
-```{python}
+```
+##    carat      cut color clarity  depth  table  price     x     y     z
+## 0   0.23    Ideal     E     SI2   61.5   55.0    326  3.95  3.98  2.43
+## 1   0.21  Premium     E     SI1   59.8   61.0    326  3.89  3.84  2.31
+## 2   0.23     Good     E     VS1   56.9   65.0    327  4.05  4.07  2.31
+```
+
+
+```python
 diamonds.dtypes, diamonds.shape
+```
+
+```
+## (carat       float64
+## cut        category
+## color      category
+## clarity    category
+## depth       float64
+## table       float64
+## price         int64
+## x           float64
+## y           float64
+## z           float64
+## dtype: object, (53940, 10))
 ```
 
 ### Boxplots by cut
 
-```{python}
+
+```python
 (ggplot(diamonds, aes(x='cut', y='price', group='cut')) + geom_boxplot())
 ```
 
-```{python}
+```
+## <plotnine.ggplot.ggplot object at 0x000001D21ED1A0F0>
+```
+
+
+```python
 (ggplot(diamonds, aes(x='cut', y='price', group='cut')) +
   geom_boxplot(fill='steelblue'))
 ```
 
-```{python}
+```
+## <plotnine.ggplot.ggplot object at 0x000001D21ED32630>
+```
+
+
+```python
 (ggplot(diamonds, aes(x='cut', y='price', group='cut', fill='cut')) +
   geom_boxplot())
+```
+
+```
+## <plotnine.ggplot.ggplot object at 0x000001D21F1FC5C0>
 ```
 
 ---
@@ -225,19 +329,29 @@ Constant fill uses `geom_boxplot(fill='steelblue')`. Mapped fill uses `aes(fill=
 
 ## Visualizing Distributions
 
-```{python}
+
+```python
 (ggplot(diamonds, aes(x='price', fill='cut')) +
   geom_histogram(color='white') +
   labs(x='Price (USD)', y='Frequency', title='US Diamond Sales'))
 ```
 
+```
+## <plotnine.ggplot.ggplot object at 0x000001D21F1E7D70>
+```
+
 ### Try adjusting binwidth and theme
 
-```{python}
+
+```python
 (ggplot(diamonds, aes(x='price', fill='cut')) +
   geom_histogram(color='white', binwidth=500) +
   theme_classic() +
   labs(x='Price (USD)', y='Frequency', title='US Diamond Sales (binwidth=500)'))
+```
+
+```
+## <plotnine.ggplot.ggplot object at 0x000001D21F0DAFF0>
 ```
 
 ---
@@ -250,11 +364,16 @@ Make a histogram of `price` with a narrower binwidth and apply a different theme
 
 <details><summary>**[View Answer!]**</summary>
 
-```{python}
+
+```python
 (ggplot(diamonds, aes(x='price', fill='cut')) +
   geom_histogram(color='white', binwidth=250) +
   theme_bw() +
   labs(x='Price (USD)', y='Frequency'))
+```
+
+```
+## <plotnine.ggplot.ggplot object at 0x000001D21E6F6930>
 ```
 
 </details>
@@ -265,7 +384,5 @@ Make a histogram of `price` with a narrower binwidth and apply a different theme
 
 You learned how to build scatterplots, boxplots, and histograms with `plotnine` and how to control transparency, color mapping, labels, and themes.
 
-```{python, include=FALSE}
-globals().clear()
-```
+
 

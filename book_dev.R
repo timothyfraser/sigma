@@ -27,6 +27,37 @@ knitr::opts_chunk$set(
   dpi = 96  # Lower DPI for faster rendering
 )
 
+# Global reticulate configuration for Python integration
+library(reticulate)
+
+# Use your specific Python installation
+python_path <- "C:/Python312/python.exe"
+if (file.exists(python_path)) {
+  use_python(python_path, required = FALSE)
+  cat("Using Python at:", python_path, "\n")
+} else {
+  # Fallback to system Python
+  system_python <- Sys.which("python")
+  if (system_python != "") {
+    use_python(system_python, required = FALSE)
+    cat("Using system Python at:", system_python, "\n")
+  } else {
+    cat("Warning: No Python installation found\n")
+  }
+}
+
+# Disable automatic environment creation and downloads
+Sys.unsetenv("RETICULATE_PYTHON_ENV")
+Sys.unsetenv("RETICULATE_PYTHON") 
+Sys.unsetenv("RETICULATE_AUTOCONFIGURE")
+Sys.unsetenv("RETICULATE_PYTHON_FALLBACK")
+
+# Set the Python path explicitly
+Sys.setenv(RETICULATE_PYTHON = python_path)
+
+# Prevent reticulate from downloading Python
+options(reticulate.conda_binary = NULL)
+
 # Set global random seed for reproducible results
 set.seed(123)  # Use a consistent seed across all chapters
 

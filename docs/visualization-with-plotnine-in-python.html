@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Visualization with plotnine in Python | System Reliability and Six Sigma in R</title>
+  <meta name="description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Visualization with plotnine in Python | System Reliability and Six Sigma in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Visualization with plotnine in Python | System Reliability and Six Sigma in R" />
+  
+  <meta name="twitter:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  
+
+<meta name="author" content="Timothy Fraser, PhD" />
+
+
+<meta name="date" content="2025-09-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="visualization-with-ggplot-in-r.html"/>
+<link rel="next" href="appendix-test.html"/>
+<script src="assets/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="part"><span><b>I Failure Mode and Effects Analysis</b></span></li>
+<li class="chapter" data-level="1" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html"><i class="fa fa-check"></i><b>1</b> Visualization with <code>ggplot</code> in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#getting-started"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#loading-packages"><i class="fa fa-check"></i>Loading Packages</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#gapminder-data"><i class="fa fa-check"></i>Gapminder data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#your-first-scatterplot"><i class="fa fa-check"></i><b>1.1</b> Your first scatterplot</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#learning-check-1"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#learning-check-2"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#learning-check-3"><i class="fa fa-check"></i>Learning Check 3</a></li>
+<li class="chapter" data-level="1.2" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#improving-our-visualizations"><i class="fa fa-check"></i><b>1.2</b> Improving our Visualizations</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#learning-check-4"><i class="fa fa-check"></i>Learning Check 4</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#learning-check-5"><i class="fa fa-check"></i>Learning Check 5</a></li>
+<li class="chapter" data-level="1.3" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#visualizing-diamonds-data"><i class="fa fa-check"></i><b>1.3</b> Visualizing <code>diamonds</code> data</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#learning-check-6"><i class="fa fa-check"></i>Learning Check 6</a></li>
+<li class="chapter" data-level="1.4" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#visualizing-distributions"><i class="fa fa-check"></i><b>1.4</b> Visualizing Distributions</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#learning-check-9"><i class="fa fa-check"></i>Learning Check 9</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-ggplot-in-r.html"><a href="visualization-with-ggplot-in-r.html#conclusion"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html"><i class="fa fa-check"></i><b>2</b> Visualization with <code>plotnine</code> in <code>Python</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#getting-started-1"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#loading-packages-1"><i class="fa fa-check"></i>Loading Packages</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#gapminder-data-1"><i class="fa fa-check"></i>Gapminder data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.1" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#your-first-scatterplot-1"><i class="fa fa-check"></i><b>2.1</b> Your first scatterplot</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#learning-check-1-1"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="2.2" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#transparency-alpha"><i class="fa fa-check"></i><b>2.2</b> Transparency (alpha)</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#learning-check-2-1"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="2.3" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#color-constant-vs-mapped"><i class="fa fa-check"></i><b>2.3</b> Color: constant vs mapped</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#learning-check-3-1"><i class="fa fa-check"></i>Learning Check 3</a></li>
+<li class="chapter" data-level="2.4" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#improving-our-visualizations-1"><i class="fa fa-check"></i><b>2.4</b> Improving our visualizations</a></li>
+<li class="chapter" data-level="2.5" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#visualizing-diamonds-data-1"><i class="fa fa-check"></i><b>2.5</b> Visualizing <code>diamonds</code> data</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#boxplots-by-cut"><i class="fa fa-check"></i><b>2.5.1</b> Boxplots by cut</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#learning-check-4-1"><i class="fa fa-check"></i>Learning Check 4</a></li>
+<li class="chapter" data-level="2.6" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#visualizing-distributions-1"><i class="fa fa-check"></i><b>2.6</b> Visualizing Distributions</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#try-adjusting-binwidth-and-theme"><i class="fa fa-check"></i><b>2.6.1</b> Try adjusting binwidth and theme</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#learning-check-5-1"><i class="fa fa-check"></i>Learning Check 5</a></li>
+<li class="chapter" data-level="" data-path="visualization-with-plotnine-in-python.html"><a href="visualization-with-plotnine-in-python.html#conclusion-1"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="appendix-test.html"><a href="appendix-test.html"><i class="fa fa-check"></i><b>3</b> Appendix: test</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-2"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-1"><i class="fa fa-check"></i>Version 1</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-2"><i class="fa fa-check"></i>Version 2</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">System Reliability and Six Sigma in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="visualization-with-plotnine-in-python" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Visualization with <code>plotnine</code> in <code>Python</code><a href="visualization-with-plotnine-in-python.html#visualization-with-plotnine-in-python" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Visualization is a key part of statistical analyses, especially in systems engineering. In this tutorial, we’ll learn to visualize data with <code>plotnine</code> (the Python port of <code>ggplot2</code>).</p>
+<p><strong>Please follow along using the code below!</strong></p>
+<p><br>
+<br></p>
+<div id="getting-started-1" class="section level2 unnumbered hasAnchor">
+<h2>Getting Started<a href="visualization-with-plotnine-in-python.html#getting-started-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="loading-packages-1" class="section level3 unnumbered hasAnchor">
+<h3>Loading Packages<a href="visualization-with-plotnine-in-python.html#loading-packages-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="visualization-with-plotnine-in-python.html#cb27-1" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> p</span>
+<span id="cb27-2"><a href="visualization-with-plotnine-in-python.html#cb27-2" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb27-3"><a href="visualization-with-plotnine-in-python.html#cb27-3" tabindex="-1"></a><span class="im">from</span> gapminder <span class="im">import</span> gapminder <span class="im">as</span> gapminder</span>
+<span id="cb27-4"><a href="visualization-with-plotnine-in-python.html#cb27-4" tabindex="-1"></a><span class="im">from</span> seaborn <span class="im">import</span> load_dataset</span>
+<span id="cb27-5"><a href="visualization-with-plotnine-in-python.html#cb27-5" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="visualization-with-plotnine-in-python.html#cb27-6" tabindex="-1"></a><span class="co"># diamonds from seaborn</span></span>
+<span id="cb27-7"><a href="visualization-with-plotnine-in-python.html#cb27-7" tabindex="-1"></a>diamonds <span class="op">=</span> load_dataset(<span class="st">&#39;diamonds&#39;</span>)</span></code></pre></div>
+</div>
+<div id="gapminder-data-1" class="section level3 unnumbered hasAnchor">
+<h3>Gapminder data<a href="visualization-with-plotnine-in-python.html#gapminder-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="visualization-with-plotnine-in-python.html#cb28-1" tabindex="-1"></a><span class="co"># View it in the console</span></span>
+<span id="cb28-2"><a href="visualization-with-plotnine-in-python.html#cb28-2" tabindex="-1"></a>gapminder</span></code></pre></div>
+<pre><code>##           country continent  year  lifeExp       pop   gdpPercap
+## 0     Afghanistan      Asia  1952   28.801   8425333  779.445314
+## 1     Afghanistan      Asia  1957   30.332   9240934  820.853030
+## 2     Afghanistan      Asia  1962   31.997  10267083  853.100710
+## 3     Afghanistan      Asia  1967   34.020  11537966  836.197138
+## 4     Afghanistan      Asia  1972   36.088  13079460  739.981106
+## ...           ...       ...   ...      ...       ...         ...
+## 1699     Zimbabwe    Africa  1987   62.351   9216418  706.157306
+## 1700     Zimbabwe    Africa  1992   60.377  10704340  693.420786
+## 1701     Zimbabwe    Africa  1997   46.809  11404948  792.449960
+## 1702     Zimbabwe    Africa  2002   39.989  11926563  672.038623
+## 1703     Zimbabwe    Africa  2007   43.487  12311143  469.709298
+## 
+## [1704 rows x 6 columns]</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="visualization-with-plotnine-in-python.html#cb30-1" tabindex="-1"></a><span class="co"># Glimpse-like summary</span></span>
+<span id="cb30-2"><a href="visualization-with-plotnine-in-python.html#cb30-2" tabindex="-1"></a>gapminder.dtypes, gapminder.shape</span></code></pre></div>
+<pre><code>## (country       object
+## continent     object
+## year           int64
+## lifeExp      float64
+## pop            int64
+## gdpPercap    float64
+## dtype: object, (1704, 6))</code></pre>
+</div>
+</div>
+<div id="your-first-scatterplot-1" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Your first scatterplot<a href="visualization-with-plotnine-in-python.html#your-first-scatterplot-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="visualization-with-plotnine-in-python.html#cb32-1" tabindex="-1"></a>ggplot(data<span class="op">=</span>gapminder, mapping<span class="op">=</span>aes(x<span class="op">=</span><span class="st">&#39;gdpPercap&#39;</span>, y<span class="op">=</span><span class="st">&#39;lifeExp&#39;</span>))</span></code></pre></div>
+<pre><code>## &lt;plotnine.ggplot.ggplot object at 0x000001D21EC330E0&gt;</code></pre>
+<p>Add points with <code>+ geom_point()</code>.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="visualization-with-plotnine-in-python.html#cb34-1" tabindex="-1"></a>(ggplot(gapminder, aes(x<span class="op">=</span><span class="st">&#39;gdpPercap&#39;</span>, y<span class="op">=</span><span class="st">&#39;lifeExp&#39;</span>)) <span class="op">+</span> geom_point())</span></code></pre></div>
+<pre><code>## &lt;plotnine.ggplot.ggplot object at 0x000001D21ED32630&gt;</code></pre>
+<hr />
+</div>
+<div id="learning-check-1-1" class="section level2 unnumbered LC hasAnchor">
+<h2>Learning Check 1<a href="visualization-with-plotnine-in-python.html#learning-check-1-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Question</strong></p>
+<p>What kind of relationship does this graph show? Why might it matter to policymakers?</p>
+<details>
+<summary>
+<strong>[View Answer!]</strong>
+</summary>
+<p>As wealth per person (GDP per capita) increases, life expectancy rises quickly then tapers off. This shows a strong relationship between wealth and health.</p>
+</details>
+<hr />
+</div>
+<div id="transparency-alpha" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Transparency (alpha)<a href="visualization-with-plotnine-in-python.html#transparency-alpha" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="visualization-with-plotnine-in-python.html#cb36-1" tabindex="-1"></a>(ggplot(gapminder, aes(x<span class="op">=</span><span class="st">&#39;gdpPercap&#39;</span>, y<span class="op">=</span><span class="st">&#39;lifeExp&#39;</span>)) <span class="op">+</span> geom_point(alpha<span class="op">=</span><span class="fl">0.2</span>))</span></code></pre></div>
+<pre><code>## &lt;plotnine.ggplot.ggplot object at 0x000001D21F183FE0&gt;</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="visualization-with-plotnine-in-python.html#cb38-1" tabindex="-1"></a>(ggplot(gapminder, aes(x<span class="op">=</span><span class="st">&#39;gdpPercap&#39;</span>, y<span class="op">=</span><span class="st">&#39;lifeExp&#39;</span>)) <span class="op">+</span> geom_point(alpha<span class="op">=</span><span class="fl">0.5</span>))</span></code></pre></div>
+<pre><code>## &lt;plotnine.ggplot.ggplot object at 0x000001D21F1B6750&gt;</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="visualization-with-plotnine-in-python.html#cb40-1" tabindex="-1"></a>(ggplot(gapminder, aes(x<span class="op">=</span><span class="st">&#39;gdpPercap&#39;</span>, y<span class="op">=</span><span class="st">&#39;lifeExp&#39;</span>)) <span class="op">+</span> geom_point(alpha<span class="op">=</span><span class="dv">1</span>))</span></code></pre></div>
+<pre><code>## &lt;plotnine.ggplot.ggplot object at 0x000001D21F1CCEF0&gt;</code></pre>
+<hr />
+</div>
+<div id="learning-check-2-1" class="section level2 unnumbered LC hasAnchor">
+<h2>Learning Check 2<a href="visualization-with-plotnine-in-python.html#learning-check-2-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Question</strong></p>
+<p>What happens when you change <code>alpha</code> across the three visuals above?</p>
+<details>
+<summary>
+<strong>[View Answer!]</strong>
+</summary>
+<p><code>alpha</code> controls transparency from 0 to 1. Higher values are more opaque; lower values are more transparent.</p>
+</details>
+<hr />
+</div>
+<div id="color-constant-vs-mapped" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Color: constant vs mapped<a href="visualization-with-plotnine-in-python.html#color-constant-vs-mapped" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="visualization-with-plotnine-in-python.html#cb42-1" tabindex="-1"></a><span class="co"># Single color</span></span>
+<span id="cb42-2"><a href="visualization-with-plotnine-in-python.html#cb42-2" tabindex="-1"></a>(ggplot(gapminder, aes(x<span class="op">=</span><span class="st">&#39;gdpPercap&#39;</span>, y<span class="op">=</span><span class="st">&#39;lifeExp&#39;</span>)) <span class="op">+</span></span>
+<span id="cb42-3"><a href="visualization-with-plotnine-in-python.html#cb42-3" tabindex="-1"></a>  geom_point(alpha<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">&#39;steelblue&#39;</span>))</span></code></pre></div>
+<pre><code>## &lt;plotnine.ggplot.ggplot object at 0x000001D21F1B5A60&gt;</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="visualization-with-plotnine-in-python.html#cb44-1" tabindex="-1"></a><span class="co"># Color mapped by continent</span></span>
+<span id="cb44-2"><a href="visualization-with-plotnine-in-python.html#cb44-2" tabindex="-1"></a>(ggplot(gapminder, aes(x<span class="op">=</span><span class="st">&#39;gdpPercap&#39;</span>, y<span class="op">=</span><span class="st">&#39;lifeExp&#39;</span>, color<span class="op">=</span><span class="st">&#39;continent&#39;</span>)) <span class="op">+</span></span>
+<span id="cb44-3"><a href="visualization-with-plotnine-in-python.html#cb44-3" tabindex="-1"></a>  geom_point(alpha<span class="op">=</span><span class="fl">0.5</span>))</span></code></pre></div>
+<pre><code>## &lt;plotnine.ggplot.ggplot object at 0x000001D21F1CFC80&gt;</code></pre>
+<hr />
+</div>
+<div id="learning-check-3-1" class="section level2 unnumbered LC hasAnchor">
+<h2>Learning Check 3<a href="visualization-with-plotnine-in-python.html#learning-check-3-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Question</strong></p>
+<p>Where do you place <code>color</code> for a single color vs. multiple colors based on a variable?</p>
+<details>
+<summary>
+<strong>[View Answer!]</strong>
+</summary>
+<p>Single color: set <code>color</code> inside <code>geom_point(color='...')</code> (outside <code>aes</code>). Mapped colors: set <code>color</code> inside <code>aes(color='variable')</code>.</p>
+</details>
+<hr />
+</div>
+<div id="improving-our-visualizations-1" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Improving our visualizations<a href="visualization-with-plotnine-in-python.html#improving-our-visualizations-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="visualization-with-plotnine-in-python.html#cb46-1" tabindex="-1"></a>(ggplot(gapminder, aes(x<span class="op">=</span><span class="st">&#39;gdpPercap&#39;</span>, y<span class="op">=</span><span class="st">&#39;lifeExp&#39;</span>, color<span class="op">=</span><span class="st">&#39;continent&#39;</span>)) <span class="op">+</span></span>
+<span id="cb46-2"><a href="visualization-with-plotnine-in-python.html#cb46-2" tabindex="-1"></a>  geom_point(alpha<span class="op">=</span><span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb46-3"><a href="visualization-with-plotnine-in-python.html#cb46-3" tabindex="-1"></a>  labs(x<span class="op">=</span><span class="st">&#39;GDP per capita (USD)&#39;</span>,</span>
+<span id="cb46-4"><a href="visualization-with-plotnine-in-python.html#cb46-4" tabindex="-1"></a>       y<span class="op">=</span><span class="st">&#39;Life Expectancy (years)&#39;</span>,</span>
+<span id="cb46-5"><a href="visualization-with-plotnine-in-python.html#cb46-5" tabindex="-1"></a>       color<span class="op">=</span><span class="st">&#39;Continent&#39;</span>,</span>
+<span id="cb46-6"><a href="visualization-with-plotnine-in-python.html#cb46-6" tabindex="-1"></a>       title<span class="op">=</span><span class="st">&#39;Does Wealth affect Health?&#39;</span>,</span>
+<span id="cb46-7"><a href="visualization-with-plotnine-in-python.html#cb46-7" tabindex="-1"></a>       subtitle<span class="op">=</span><span class="st">&#39;Global Health Trends by Continent&#39;</span>,</span>
+<span id="cb46-8"><a href="visualization-with-plotnine-in-python.html#cb46-8" tabindex="-1"></a>       caption<span class="op">=</span><span class="st">&#39;Points display individual country-year observations.&#39;</span>))</span></code></pre></div>
+<pre><code>## &lt;plotnine.ggplot.ggplot object at 0x000001D21F15D580&gt;</code></pre>
+<p>You can save visuals as objects to reuse them.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="visualization-with-plotnine-in-python.html#cb48-1" tabindex="-1"></a>myviz <span class="op">=</span> (ggplot(gapminder, aes(x<span class="op">=</span><span class="st">&#39;gdpPercap&#39;</span>, y<span class="op">=</span><span class="st">&#39;lifeExp&#39;</span>, color<span class="op">=</span><span class="st">&#39;continent&#39;</span>)) <span class="op">+</span></span>
+<span id="cb48-2"><a href="visualization-with-plotnine-in-python.html#cb48-2" tabindex="-1"></a>  geom_point(alpha<span class="op">=</span><span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb48-3"><a href="visualization-with-plotnine-in-python.html#cb48-3" tabindex="-1"></a>  labs(x<span class="op">=</span><span class="st">&#39;GDP per capita (USD)&#39;</span>, y<span class="op">=</span><span class="st">&#39;Life Expectancy (years)&#39;</span>, color<span class="op">=</span><span class="st">&#39;Continent&#39;</span>,</span>
+<span id="cb48-4"><a href="visualization-with-plotnine-in-python.html#cb48-4" tabindex="-1"></a>       title<span class="op">=</span><span class="st">&#39;Does Wealth affect Health?&#39;</span>, subtitle<span class="op">=</span><span class="st">&#39;Global Health Trends by Continent&#39;</span>,</span>
+<span id="cb48-5"><a href="visualization-with-plotnine-in-python.html#cb48-5" tabindex="-1"></a>       caption<span class="op">=</span><span class="st">&#39;Points display individual country-year observations.&#39;</span>))</span>
+<span id="cb48-6"><a href="visualization-with-plotnine-in-python.html#cb48-6" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="visualization-with-plotnine-in-python.html#cb48-7" tabindex="-1"></a>myviz</span></code></pre></div>
+<pre><code>## &lt;plotnine.ggplot.ggplot object at 0x000001D21F1CDE50&gt;</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="visualization-with-plotnine-in-python.html#cb50-1" tabindex="-1"></a>myviz <span class="op">+</span> theme_bw()</span></code></pre></div>
+<pre><code>## &lt;plotnine.ggplot.ggplot object at 0x000001D21EDDB680&gt;</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="visualization-with-plotnine-in-python.html#cb52-1" tabindex="-1"></a>myviz <span class="op">+</span> theme_dark()</span></code></pre></div>
+<pre><code>## &lt;plotnine.ggplot.ggplot object at 0x000001D21DF311F0&gt;</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="visualization-with-plotnine-in-python.html#cb54-1" tabindex="-1"></a>myviz <span class="op">+</span> theme_classic()</span></code></pre></div>
+<pre><code>## &lt;plotnine.ggplot.ggplot object at 0x000001D21F15CD10&gt;</code></pre>
+<p><br>
+<br></p>
+</div>
+<div id="visualizing-diamonds-data-1" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Visualizing <code>diamonds</code> data<a href="visualization-with-plotnine-in-python.html#visualizing-diamonds-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb56"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="visualization-with-plotnine-in-python.html#cb56-1" tabindex="-1"></a>diamonds.head(<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##    carat      cut color clarity  depth  table  price     x     y     z
+## 0   0.23    Ideal     E     SI2   61.5   55.0    326  3.95  3.98  2.43
+## 1   0.21  Premium     E     SI1   59.8   61.0    326  3.89  3.84  2.31
+## 2   0.23     Good     E     VS1   56.9   65.0    327  4.05  4.07  2.31</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="visualization-with-plotnine-in-python.html#cb58-1" tabindex="-1"></a>diamonds.dtypes, diamonds.shape</span></code></pre></div>
+<pre><code>## (carat       float64
+## cut        category
+## color      category
+## clarity    category
+## depth       float64
+## table       float64
+## price         int64
+## x           float64
+## y           float64
+## z           float64
+## dtype: object, (53940, 10))</code></pre>
+<div id="boxplots-by-cut" class="section level3 hasAnchor" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> Boxplots by cut<a href="visualization-with-plotnine-in-python.html#boxplots-by-cut" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="visualization-with-plotnine-in-python.html#cb60-1" tabindex="-1"></a>(ggplot(diamonds, aes(x<span class="op">=</span><span class="st">&#39;cut&#39;</span>, y<span class="op">=</span><span class="st">&#39;price&#39;</span>, group<span class="op">=</span><span class="st">&#39;cut&#39;</span>)) <span class="op">+</span> geom_boxplot())</span></code></pre></div>
+<pre><code>## &lt;plotnine.ggplot.ggplot object at 0x000001D21ED1A0F0&gt;</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="visualization-with-plotnine-in-python.html#cb62-1" tabindex="-1"></a>(ggplot(diamonds, aes(x<span class="op">=</span><span class="st">&#39;cut&#39;</span>, y<span class="op">=</span><span class="st">&#39;price&#39;</span>, group<span class="op">=</span><span class="st">&#39;cut&#39;</span>)) <span class="op">+</span></span>
+<span id="cb62-2"><a href="visualization-with-plotnine-in-python.html#cb62-2" tabindex="-1"></a>  geom_boxplot(fill<span class="op">=</span><span class="st">&#39;steelblue&#39;</span>))</span></code></pre></div>
+<pre><code>## &lt;plotnine.ggplot.ggplot object at 0x000001D21ED32630&gt;</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="visualization-with-plotnine-in-python.html#cb64-1" tabindex="-1"></a>(ggplot(diamonds, aes(x<span class="op">=</span><span class="st">&#39;cut&#39;</span>, y<span class="op">=</span><span class="st">&#39;price&#39;</span>, group<span class="op">=</span><span class="st">&#39;cut&#39;</span>, fill<span class="op">=</span><span class="st">&#39;cut&#39;</span>)) <span class="op">+</span></span>
+<span id="cb64-2"><a href="visualization-with-plotnine-in-python.html#cb64-2" tabindex="-1"></a>  geom_boxplot())</span></code></pre></div>
+<pre><code>## &lt;plotnine.ggplot.ggplot object at 0x000001D21F1FC5C0&gt;</code></pre>
+<hr />
+</div>
+</div>
+<div id="learning-check-4-1" class="section level2 unnumbered LC hasAnchor">
+<h2>Learning Check 4<a href="visualization-with-plotnine-in-python.html#learning-check-4-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Question</strong></p>
+<p>Why do the two boxplot versions look different? What changed in the code to create those effects?</p>
+<details>
+<summary>
+<strong>[View Answer!]</strong>
+</summary>
+<p>Constant fill uses <code>geom_boxplot(fill='steelblue')</code>. Mapped fill uses <code>aes(fill='cut')</code> to color by variable.</p>
+</details>
+<hr />
+</div>
+<div id="visualizing-distributions-1" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Visualizing Distributions<a href="visualization-with-plotnine-in-python.html#visualizing-distributions-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb66"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="visualization-with-plotnine-in-python.html#cb66-1" tabindex="-1"></a>(ggplot(diamonds, aes(x<span class="op">=</span><span class="st">&#39;price&#39;</span>, fill<span class="op">=</span><span class="st">&#39;cut&#39;</span>)) <span class="op">+</span></span>
+<span id="cb66-2"><a href="visualization-with-plotnine-in-python.html#cb66-2" tabindex="-1"></a>  geom_histogram(color<span class="op">=</span><span class="st">&#39;white&#39;</span>) <span class="op">+</span></span>
+<span id="cb66-3"><a href="visualization-with-plotnine-in-python.html#cb66-3" tabindex="-1"></a>  labs(x<span class="op">=</span><span class="st">&#39;Price (USD)&#39;</span>, y<span class="op">=</span><span class="st">&#39;Frequency&#39;</span>, title<span class="op">=</span><span class="st">&#39;US Diamond Sales&#39;</span>))</span></code></pre></div>
+<pre><code>## &lt;plotnine.ggplot.ggplot object at 0x000001D21F1E7D70&gt;</code></pre>
+<div id="try-adjusting-binwidth-and-theme" class="section level3 hasAnchor" number="2.6.1">
+<h3><span class="header-section-number">2.6.1</span> Try adjusting binwidth and theme<a href="visualization-with-plotnine-in-python.html#try-adjusting-binwidth-and-theme" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb68"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb68-1"><a href="visualization-with-plotnine-in-python.html#cb68-1" tabindex="-1"></a>(ggplot(diamonds, aes(x<span class="op">=</span><span class="st">&#39;price&#39;</span>, fill<span class="op">=</span><span class="st">&#39;cut&#39;</span>)) <span class="op">+</span></span>
+<span id="cb68-2"><a href="visualization-with-plotnine-in-python.html#cb68-2" tabindex="-1"></a>  geom_histogram(color<span class="op">=</span><span class="st">&#39;white&#39;</span>, binwidth<span class="op">=</span><span class="dv">500</span>) <span class="op">+</span></span>
+<span id="cb68-3"><a href="visualization-with-plotnine-in-python.html#cb68-3" tabindex="-1"></a>  theme_classic() <span class="op">+</span></span>
+<span id="cb68-4"><a href="visualization-with-plotnine-in-python.html#cb68-4" tabindex="-1"></a>  labs(x<span class="op">=</span><span class="st">&#39;Price (USD)&#39;</span>, y<span class="op">=</span><span class="st">&#39;Frequency&#39;</span>, title<span class="op">=</span><span class="st">&#39;US Diamond Sales (binwidth=500)&#39;</span>))</span></code></pre></div>
+<pre><code>## &lt;plotnine.ggplot.ggplot object at 0x000001D21F0DAFF0&gt;</code></pre>
+<hr />
+</div>
+</div>
+<div id="learning-check-5-1" class="section level2 unnumbered LC hasAnchor">
+<h2>Learning Check 5<a href="visualization-with-plotnine-in-python.html#learning-check-5-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Question</strong></p>
+<p>Make a histogram of <code>price</code> with a narrower binwidth and apply a different theme. Which choices improve readability?</p>
+<details>
+<summary>
+<strong>[View Answer!]</strong>
+</summary>
+<div class="sourceCode" id="cb70"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb70-1"><a href="visualization-with-plotnine-in-python.html#cb70-1" tabindex="-1"></a>(ggplot(diamonds, aes(x<span class="op">=</span><span class="st">&#39;price&#39;</span>, fill<span class="op">=</span><span class="st">&#39;cut&#39;</span>)) <span class="op">+</span></span>
+<span id="cb70-2"><a href="visualization-with-plotnine-in-python.html#cb70-2" tabindex="-1"></a>  geom_histogram(color<span class="op">=</span><span class="st">&#39;white&#39;</span>, binwidth<span class="op">=</span><span class="dv">250</span>) <span class="op">+</span></span>
+<span id="cb70-3"><a href="visualization-with-plotnine-in-python.html#cb70-3" tabindex="-1"></a>  theme_bw() <span class="op">+</span></span>
+<span id="cb70-4"><a href="visualization-with-plotnine-in-python.html#cb70-4" tabindex="-1"></a>  labs(x<span class="op">=</span><span class="st">&#39;Price (USD)&#39;</span>, y<span class="op">=</span><span class="st">&#39;Frequency&#39;</span>))</span></code></pre></div>
+<pre><code>## &lt;plotnine.ggplot.ggplot object at 0x000001D21E6F6930&gt;</code></pre>
+</details>
+<hr />
+</div>
+<div id="conclusion-1" class="section level2 unnumbered hasAnchor">
+<h2>Conclusion<a href="visualization-with-plotnine-in-python.html#conclusion-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You learned how to build scatterplots, boxplots, and histograms with <code>plotnine</code> and how to control transparency, color mapping, labels, and themes.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="visualization-with-ggplot-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="appendix-test.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="assets/gitbook-2.6.7/js/app.min.js"></script>
+<script src="assets/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="assets/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+},
+"toolbar": {
+"position": "static"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

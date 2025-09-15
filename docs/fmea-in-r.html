@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 FMEA in R | System Reliability and Six Sigma in R</title>
+  <meta name="description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 FMEA in R | System Reliability and Six Sigma in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 FMEA in R | System Reliability and Six Sigma in R" />
+  
+  <meta name="twitter:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  
+
+<meta name="author" content="Timothy Fraser, PhD" />
+
+
+<meta name="date" content="2025-09-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="appendix-test.html"/>
+<script src="assets/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="assets/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="assets/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="assets/d3-3.3.8/d3.min.js"></script>
+<script src="assets/dagre-0.4.0/dagre-d3.min.js"></script>
+<link href="assets/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
+<script src="assets/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
+<link href="assets/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="assets/chromatography-0.1/chromatography.js"></script>
+<script src="assets/DiagrammeR-binding-1.0.9/DiagrammeR.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="part"><span><b>I Failure Mode and Effects Analysis</b></span></li>
+<li class="chapter" data-level="1" data-path="fmea-in-r.html"><a href="fmea-in-r.html"><i class="fa fa-check"></i><b>1</b> FMEA in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="fmea-in-r.html"><a href="fmea-in-r.html#getting-started"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="fmea-in-r.html"><a href="fmea-in-r.html#load-packages"><i class="fa fa-check"></i>Load Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1" data-path="fmea-in-r.html"><a href="fmea-in-r.html#example-ben-and-jerrys-ice-cream"><i class="fa fa-check"></i><b>1.1</b> Example: Ben and Jerry’s Ice Cream</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="fmea-in-r.html"><a href="fmea-in-r.html#scope-resolution"><i class="fa fa-check"></i><b>1.1.1</b> Scope &amp; Resolution</a></li>
+<li class="chapter" data-level="1.1.2" data-path="fmea-in-r.html"><a href="fmea-in-r.html#measuring-criticality"><i class="fa fa-check"></i><b>1.1.2</b> Measuring Criticality</a></li>
+<li class="chapter" data-level="1.1.3" data-path="fmea-in-r.html"><a href="fmea-in-r.html#block-diagram"><i class="fa fa-check"></i><b>1.1.3</b> Block Diagram</a></li>
+<li class="chapter" data-level="1.1.4" data-path="fmea-in-r.html"><a href="fmea-in-r.html#failure-modes"><i class="fa fa-check"></i><b>1.1.4</b> Failure Modes</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="fmea-in-r.html"><a href="fmea-in-r.html#calculating-criticality"><i class="fa fa-check"></i><b>1.2</b> Calculating Criticality</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="fmea-in-r.html"><a href="fmea-in-r.html#estimate-severity"><i class="fa fa-check"></i><b>1.2.1</b> Estimate Severity</a></li>
+<li class="chapter" data-level="1.2.2" data-path="fmea-in-r.html"><a href="fmea-in-r.html#estimate-occurrence"><i class="fa fa-check"></i><b>1.2.2</b> Estimate Occurrence</a></li>
+<li class="chapter" data-level="1.2.3" data-path="fmea-in-r.html"><a href="fmea-in-r.html#estimate-detection"><i class="fa fa-check"></i><b>1.2.3</b> Estimate Detection</a></li>
+<li class="chapter" data-level="1.2.4" data-path="fmea-in-r.html"><a href="fmea-in-r.html#estimate-criticality-rpn"><i class="fa fa-check"></i><b>1.2.4</b> Estimate Criticality (RPN)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="fmea-in-r.html"><a href="fmea-in-r.html#learning-check-1"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="" data-path="fmea-in-r.html"><a href="fmea-in-r.html#conclusion"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="appendix-test.html"><a href="appendix-test.html"><i class="fa fa-check"></i><b>2</b> Appendix: test</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#getting-started-1"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-1"><i class="fa fa-check"></i>Version 1</a></li>
+<li class="chapter" data-level="" data-path="appendix-test.html"><a href="appendix-test.html#version-2"><i class="fa fa-check"></i>Version 2</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">System Reliability and Six Sigma in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="fmea-in-r" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> FMEA in <code>R</code><a href="fmea-in-r.html#fmea-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This tutorial will introduce you to <strong>Failure Modes and Effects Analysis (FMEA)</strong> in R!</p>
+<div id="getting-started" class="section level2 unnumbered hasAnchor">
+<h2>Getting Started<a href="fmea-in-r.html#getting-started" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Please open up your project on Posit.Cloud, for our <a href="https://github.com/timothyfraser/sysen">Github class repository</a>. Start a new R script (File &gt;&gt; New &gt;&gt; R Script). Save the R script as <code>lesson_3.R</code>. And let’s get started!</p>
+<div id="load-packages" class="section level3 unnumbered hasAnchor">
+<h3>Load Packages<a href="fmea-in-r.html#load-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="fmea-in-r.html#cb1-1" tabindex="-1"></a><span class="co"># Load tidyverse, which contains dplyr and most data wrangling functions</span></span>
+<span id="cb1-2"><a href="fmea-in-r.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="fmea-in-r.html#cb1-3" tabindex="-1"></a><span class="co"># Load DiagrammeR, which we&#39;ll use to make diagrams today!</span></span>
+<span id="cb1-4"><a href="fmea-in-r.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(DiagrammeR) </span></code></pre></div>
+</div>
+</div>
+<div id="example-ben-and-jerrys-ice-cream" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Example: Ben and Jerry’s Ice Cream<a href="fmea-in-r.html#example-ben-and-jerrys-ice-cream" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Ben and Jerry’s main headquarters is in Waterbury, VT, just outside of Burlington, where it makes <em>a lot</em> of ice cream. (It’s also fun to visit.) Their staff likely has to take considerable care to make sure that all that ice cream stays refrigerated! Suppose Ben and Jerry’s has decided to build a new ice cream production plant in Ithaca, NY.</p>
+<p>For the sake of Ben and Jerry’s (nay, the world!) let’s use Failure Modes and Effects Analysis (FMEA) to identify any hypothetical vulnerability that might occur at this new ice cream business!</p>
+<p><img src="https://www.benjerry.com/files/live/sites/systemsite/files/flavors/category-refresh/header_mobile_0019_our_flavors_US.jpg" style="display: block; margin: auto;" /></p>
+<div id="scope-resolution" class="section level3 hasAnchor" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> Scope &amp; Resolution<a href="fmea-in-r.html#scope-resolution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As our scope, we’re going to just focus on <strong>melting</strong>. What are all the possible ways that ice cream could melt during this process? Melting would have several negative impacts, such as getting exposed to heat, bacteria, and, worst of all, melting the ice cream! This example is primarily people-centric, because it’s important to remember that <em>people</em> are part of our technological systems!</p>
+<p><br>
+<br></p>
+</div>
+<div id="measuring-criticality" class="section level3 hasAnchor" number="1.1.2">
+<h3><span class="header-section-number">1.1.2</span> Measuring Criticality<a href="fmea-in-r.html#measuring-criticality" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>FMEA includes uses 3 measures to calculate a <strong>criticality</strong> index, meaning the <em>overall risk of each combination of severity and underlying conditions.</em></p>
+<p>$ severity occurence detection = criticality $</p>
+<p>Each gets classified on a scale from 1-10:</p>
+<ul>
+<li><p><code>severity</code>: 1 = none, 10 = hazardous/catastrophic</p></li>
+<li><p><code>occurrence</code>: 1 = almost impossible, 10 = almost certain</p></li>
+<li><p><code>detection</code>: 1 = almost certain, 10 = almost impossible</p></li>
+</ul>
+<p>These will produce a <code>criticality</code> index from 1 to 1000. Suppose we want to be 99% sure that our technology won’t fail and negatively impact society. We would need a <code>criticality</code> index (also known as RPN) of <code>990</code> points or less! (Because <code>1000 - 10 = 990)</code>.)</p>
+<p>So, let’s analyze them!</p>
+<p><br>
+<br></p>
+</div>
+<div id="block-diagram" class="section level3 hasAnchor" number="1.1.3">
+<h3><span class="header-section-number">1.1.3</span> Block Diagram<a href="fmea-in-r.html#block-diagram" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Below, we’ve visualized what the process of shipping out ice cream looks like once it has been made. This involves the following several steps:</p>
+<ul>
+<li><p>Worker 1 puts ice cream in Freezer</p></li>
+<li><p>Worker 2 loads ice cream into Truck</p></li>
+<li><p>Worker 3 transports ice cream to Store</p></li>
+<li><p>Also, Worker 2 takes the ice cream from the Freezer for loading</p></li>
+<li><p>And Worker 3 drives the ice cream from loading dock to Store</p></li>
+</ul>
+<p>Plus, several possible failure modes are involved, as discussed below.</p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-cc6a580e4b521a075542" style="width:100%;height:384px;"></div>
+<script type="application/json" data-for="htmlwidget-cc6a580e4b521a075542">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figure 1.1: Ben &amp; Jerry’s Ice Cream Block Diagram
+</p>
+</div>
+<p><br>
+<br></p>
+</div>
+<div id="failure-modes" class="section level3 hasAnchor" number="1.1.4">
+<h3><span class="header-section-number">1.1.4</span> Failure Modes<a href="fmea-in-r.html#failure-modes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We’ll make a tidy <code>data.frame()</code> of each of the ways our <code>block diagram</code> above could fail, which were contained above in <code>failures</code>. We’ll call this data.frame <code>f</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="fmea-in-r.html#cb2-1" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb2-2"><a href="fmea-in-r.html#cb2-2" tabindex="-1"></a>  <span class="co"># Make a vector of routes to failure</span></span>
+<span id="cb2-3"><a href="fmea-in-r.html#cb2-3" tabindex="-1"></a>  <span class="at">failure_mode =</span> <span class="fu">c</span>(</span>
+<span id="cb2-4"><a href="fmea-in-r.html#cb2-4" tabindex="-1"></a>    <span class="st">&quot;freezer --&gt; fail_break&quot;</span>,</span>
+<span id="cb2-5"><a href="fmea-in-r.html#cb2-5" tabindex="-1"></a>    <span class="st">&quot;loading --&gt; fail_time&quot;</span>,</span>
+<span id="cb2-6"><a href="fmea-in-r.html#cb2-6" tabindex="-1"></a>    <span class="st">&quot;loading --&gt; fail_eat&quot;</span>,</span>
+<span id="cb2-7"><a href="fmea-in-r.html#cb2-7" tabindex="-1"></a>    <span class="st">&quot;transport --&gt; fail_time&quot;</span>,</span>
+<span id="cb2-8"><a href="fmea-in-r.html#cb2-8" tabindex="-1"></a>    <span class="st">&quot;transport --&gt; fail_eat&quot;</span>)</span>
+<span id="cb2-9"><a href="fmea-in-r.html#cb2-9" tabindex="-1"></a>)</span>
+<span id="cb2-10"><a href="fmea-in-r.html#cb2-10" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="fmea-in-r.html#cb2-11" tabindex="-1"></a>  <span class="co"># Worker 2 could leave ice cream out while loading</span></span>
+<span id="cb2-12"><a href="fmea-in-r.html#cb2-12" tabindex="-1"></a>  <span class="co"># Worker 2 could eat the ice cream while loading</span></span>
+<span id="cb2-13"><a href="fmea-in-r.html#cb2-13" tabindex="-1"></a>  <span class="co"># Worker 3 could leave the ice cream out in transit</span></span>
+<span id="cb2-14"><a href="fmea-in-r.html#cb2-14" tabindex="-1"></a>  <span class="co"># Worker 3 could eat the ice cream in transit</span></span></code></pre></div>
+</div>
+</div>
+<div id="calculating-criticality" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Calculating Criticality<a href="fmea-in-r.html#calculating-criticality" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Next, we’re going to make a few judgement calls, to calculate the overall risk for this FMEA.</p>
+<p><br>
+<br></p>
+<div id="estimate-severity" class="section level3 hasAnchor" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Estimate Severity<a href="fmea-in-r.html#estimate-severity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>What’s the <code>severity</code> of the effects of these failures, on a scale from 1 (low) to 10 (high)? We’ll <code>mutate()</code> the <code>data.frame</code> to include a new column <code>severity</code>, and save it as a new data.frame <code>f1</code>.</p>
+<ul>
+<li><p><code>fail_break</code>: It’s pretty bad it the freezer breaks; that could ruin days worth of product. Let’s call that an <code>8</code>. Not catastrophic, but not good for the company!</p></li>
+<li><p><code>fail_time</code>: It’s not great it a single shipment gets left out and melts while waiting for pickup. But it’s just one shipment. Let’s call that a <code>5</code>.</p></li>
+<li><p><code>fail_eat</code>: How much ice cream could one worker really eat? That’s probably a <code>1</code>.</p></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="fmea-in-r.html#cb3-1" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> f <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="fmea-in-r.html#cb3-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">severity =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">1</span>))</span>
+<span id="cb3-3"><a href="fmea-in-r.html#cb3-3" tabindex="-1"></a><span class="co"># Check out the contents!</span></span>
+<span id="cb3-4"><a href="fmea-in-r.html#cb3-4" tabindex="-1"></a>f1</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 2
+##   failure_mode            severity
+##   &lt;chr&gt;                      &lt;dbl&gt;
+## 1 freezer --&gt; fail_break         8
+## 2 loading --&gt; fail_time          5
+## 3 loading --&gt; fail_eat           1
+## 4 transport --&gt; fail_time        5
+## 5 transport --&gt; fail_eat         1</code></pre>
+<p><br>
+<br></p>
+</div>
+<div id="estimate-occurrence" class="section level3 hasAnchor" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> Estimate Occurrence<a href="fmea-in-r.html#estimate-occurrence" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>How often does this occur, from 1 (almost never) to 10 (almost always)? Let’s rank <code>occurrence</code> as follows:</p>
+<ul>
+<li><p><code>fail_break</code>: It’s pretty rare that the freezer would break (eg. <code>2</code>).</p></li>
+<li><p><code>fail_time</code>: It’s probably somewhat rare that shipments melt (eg. <code>5</code>).</p></li>
+<li><p><code>fail_eat</code>: If I were a worker, I would eat that all the time (eg. <code>8</code>).</p></li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="fmea-in-r.html#cb5-1" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> f1 <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="fmea-in-r.html#cb5-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">occurrence =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">8</span>))</span></code></pre></div>
+<p><br>
+<br></p>
+</div>
+<div id="estimate-detection" class="section level3 hasAnchor" number="1.2.3">
+<h3><span class="header-section-number">1.2.3</span> Estimate Detection<a href="fmea-in-r.html#estimate-detection" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Finally, how likely is it that we would detect the occurrence? If very likely, that’s a <code>1</code>. If very unlikely, that’s a <code>10</code>.</p>
+<ul>
+<li><p><code>fail_break</code>: Workers would very quickly detect if the freezer were broken. (eg. <code>1</code>).</p></li>
+<li><p><code>fail_time</code>: You might not know it had melted until the product gets to the store. (eg. <code>8</code>)</p></li>
+<li><p><code>fail_eat</code>: Might get caught. Low chance. (eg. <code>3</code>).</p></li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="fmea-in-r.html#cb6-1" tabindex="-1"></a>f3 <span class="ot">&lt;-</span> f2 <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="fmea-in-r.html#cb6-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">detection =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">3</span>))</span></code></pre></div>
+<p><br>
+<br></p>
+</div>
+<div id="estimate-criticality-rpn" class="section level3 hasAnchor" number="1.2.4">
+<h3><span class="header-section-number">1.2.4</span> Estimate Criticality (RPN)<a href="fmea-in-r.html#estimate-criticality-rpn" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Using our data in <code>f3</code>, let’s estimate <code>criticality</code> (aka RPN, the risk priority number).</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="fmea-in-r.html#cb7-1" tabindex="-1"></a>f4 <span class="ot">&lt;-</span> f3 <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="fmea-in-r.html#cb7-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">criticality =</span> severity <span class="sc">*</span> occurrence <span class="sc">*</span> detection)</span></code></pre></div>
+<p>We can add up the <code>criticality/RPN</code> to estimate the total risk priority, out of <code>1000</code>, which is the <code>max_criticality</code> possible. We can divide these two to get the <code>probability</code> of system failure. Is that risk greater than <code>0.010</code>, aka <code>0.1%</code>? If so, bad news!</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="fmea-in-r.html#cb8-1" tabindex="-1"></a>f4 <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="fmea-in-r.html#cb8-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb8-3"><a href="fmea-in-r.html#cb8-3" tabindex="-1"></a>    <span class="at">total_criticality =</span> <span class="fu">sum</span>(criticality),</span>
+<span id="cb8-4"><a href="fmea-in-r.html#cb8-4" tabindex="-1"></a>    <span class="at">max_criticality =</span> <span class="dv">10</span><span class="sc">*</span><span class="dv">10</span><span class="sc">*</span><span class="dv">10</span>,</span>
+<span id="cb8-5"><a href="fmea-in-r.html#cb8-5" tabindex="-1"></a>    <span class="at">probability =</span> total_criticality <span class="sc">/</span> max_criticality)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 3
+##   total_criticality max_criticality probability
+##               &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+## 1               464            1000       0.464</code></pre>
+<p>Well, that’s not good! Looks like the new factory will need to figure out a way to keep their product from melting! (In reality, I’m sure Ben and Jerry’s has strict quality control!)</p>
+<p><br>
+<br></p>
+<hr />
+</div>
+</div>
+<div id="learning-check-1" class="section level2 unnumbered LC hasAnchor">
+<h2>Learning Check 1<a href="fmea-in-r.html#learning-check-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Question</strong></p>
+<p>What <em>other</em> ways could failure occur here? Add three more kinds of failure to your <code>tibble</code> <code>f</code>, then estimate their <code>severity</code>, <code>occurence</code>, <code>detection</code>, and <code>criticality</code>, and recalculate the total probability of <code>failure</code> at this ice cream plant.</p>
+<details>
+<summary>
+<strong>[View Answer!]</strong>
+</summary>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="fmea-in-r.html#cb10-1" tabindex="-1"></a>fprime <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb10-2"><a href="fmea-in-r.html#cb10-2" tabindex="-1"></a>  <span class="co"># Make a vector of routes to failure</span></span>
+<span id="cb10-3"><a href="fmea-in-r.html#cb10-3" tabindex="-1"></a>  <span class="at">failure_mode =</span> <span class="fu">c</span>(</span>
+<span id="cb10-4"><a href="fmea-in-r.html#cb10-4" tabindex="-1"></a>    <span class="st">&quot;freezer --&gt; fail_break&quot;</span>,</span>
+<span id="cb10-5"><a href="fmea-in-r.html#cb10-5" tabindex="-1"></a>    <span class="st">&quot;loading --&gt; fail_time&quot;</span>,</span>
+<span id="cb10-6"><a href="fmea-in-r.html#cb10-6" tabindex="-1"></a>    <span class="st">&quot;loading --&gt; fail_eat&quot;</span>,</span>
+<span id="cb10-7"><a href="fmea-in-r.html#cb10-7" tabindex="-1"></a>    <span class="st">&quot;transport --&gt; fail_time&quot;</span>,</span>
+<span id="cb10-8"><a href="fmea-in-r.html#cb10-8" tabindex="-1"></a>    <span class="st">&quot;transport --&gt; fail_eat&quot;</span>,</span>
+<span id="cb10-9"><a href="fmea-in-r.html#cb10-9" tabindex="-1"></a>    <span class="co"># Technically, worker 1 could eat it before taking it to freezer</span></span>
+<span id="cb10-10"><a href="fmea-in-r.html#cb10-10" tabindex="-1"></a>    <span class="st">&quot;w1 --&gt; fail_eat&quot;</span>,</span>
+<span id="cb10-11"><a href="fmea-in-r.html#cb10-11" tabindex="-1"></a>    <span class="co"># A fourth worker at the store could eat it before delivering it</span></span>
+<span id="cb10-12"><a href="fmea-in-r.html#cb10-12" tabindex="-1"></a>    <span class="st">&quot;w4 --&gt; fail_eat&quot;</span>,</span>
+<span id="cb10-13"><a href="fmea-in-r.html#cb10-13" tabindex="-1"></a>    <span class="co"># The fourth worker could also leave it out!</span></span>
+<span id="cb10-14"><a href="fmea-in-r.html#cb10-14" tabindex="-1"></a>    <span class="st">&quot;w4 --&gt; fail_time&quot;</span>)</span>
+<span id="cb10-15"><a href="fmea-in-r.html#cb10-15" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-16"><a href="fmea-in-r.html#cb10-16" tabindex="-1"></a>  <span class="co"># Estimate quantities of interest</span></span>
+<span id="cb10-17"><a href="fmea-in-r.html#cb10-17" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">severity =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>),</span>
+<span id="cb10-18"><a href="fmea-in-r.html#cb10-18" tabindex="-1"></a>           <span class="at">occurrence =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">5</span>),</span>
+<span id="cb10-19"><a href="fmea-in-r.html#cb10-19" tabindex="-1"></a>           <span class="at">detection =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">8</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-20"><a href="fmea-in-r.html#cb10-20" tabindex="-1"></a>  <span class="co"># Calculate criticality</span></span>
+<span id="cb10-21"><a href="fmea-in-r.html#cb10-21" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">criticality =</span> severity <span class="sc">*</span> occurrence <span class="sc">*</span> detection)</span>
+<span id="cb10-22"><a href="fmea-in-r.html#cb10-22" tabindex="-1"></a></span>
+<span id="cb10-23"><a href="fmea-in-r.html#cb10-23" tabindex="-1"></a><span class="co"># Let&#39;s check it out!</span></span>
+<span id="cb10-24"><a href="fmea-in-r.html#cb10-24" tabindex="-1"></a>fprime</span></code></pre></div>
+<pre><code>## # A tibble: 8 × 5
+##   failure_mode            severity occurrence detection criticality
+##   &lt;chr&gt;                      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+## 1 freezer --&gt; fail_break         8          2         1          16
+## 2 loading --&gt; fail_time          5          5         8         200
+## 3 loading --&gt; fail_eat           1          8         3          24
+## 4 transport --&gt; fail_time        5          5         8         200
+## 5 transport --&gt; fail_eat         1          8         3          24
+## 6 w1 --&gt; fail_eat                1          8         3          24
+## 7 w4 --&gt; fail_eat                1          8         3          24
+## 8 w4 --&gt; fail_time               5          5         8         200</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="fmea-in-r.html#cb12-1" tabindex="-1"></a><span class="co"># Let&#39;s calculate the total risk!</span></span>
+<span id="cb12-2"><a href="fmea-in-r.html#cb12-2" tabindex="-1"></a>fprime <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="fmea-in-r.html#cb12-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb12-4"><a href="fmea-in-r.html#cb12-4" tabindex="-1"></a>    <span class="at">total_criticality =</span> <span class="fu">sum</span>(criticality),</span>
+<span id="cb12-5"><a href="fmea-in-r.html#cb12-5" tabindex="-1"></a>    <span class="at">max_criticality =</span> <span class="dv">10</span><span class="sc">*</span><span class="dv">10</span><span class="sc">*</span><span class="dv">10</span>,</span>
+<span id="cb12-6"><a href="fmea-in-r.html#cb12-6" tabindex="-1"></a>    <span class="at">probability =</span> total_criticality <span class="sc">/</span> max_criticality)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 3
+##   total_criticality max_criticality probability
+##               &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+## 1               712            1000       0.712</code></pre>
+<p>Ooph! Not good!</p>
+<p><br></p>
+</details>
+<hr />
+<p><br>
+<br></p>
+<p><br></p>
+</div>
+<div id="conclusion" class="section level2 unnumbered hasAnchor">
+<h2>Conclusion<a href="fmea-in-r.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Great work! All done! See you in class!</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="appendix-test.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="assets/gitbook-2.6.7/js/app.min.js"></script>
+<script src="assets/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="assets/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+},
+"toolbar": {
+"position": "static"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
