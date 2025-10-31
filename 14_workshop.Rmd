@@ -432,38 +432,125 @@ direct %>%
 
 ##  Interaction Effects
 
-Alternatively, we might want to estimate treatment effects for **combinations** of treatments.
+### Estimating 1-way interations
 
-## Estimating 2-way interactions
-
-For example, do these lattes tend to taste better specifically when **both** conditions are true? Eg. let's test the effect of having a latte from Machine B with Torani syrup, by comparing it against lattes made from Machine A with Monin syrup. This demonstrates the value added of **both** conditions.
+In factorial design, one-way effect shows how changing one factor affects the outcome. For example, we want to know whether Machine B makes better-tasting lattes than Machine A, regardless of the other factors like syrup or art.
 
 ```{r}
-groups %>%
-  summarize(
-    xbbar_b_torani = xbar[machine == "b" & syrup == "torani"] %>% mean(),
-    xbbar_a_monin = xbar[machine == "a" & syrup == "monin"] %>% mean(),
-    dbbar = xbbar_b_torani - xbbar_a_monin,
-    # Finally, we would use the same shared standard error that we calculated before
-    se = error$se)
-```
+# Rename main metric tastiness by y for easier handling
+lattes = lattes %>% rename(y = tastiness)
+dbar_oneway = function(formula, data){
+  # formula = y ~ machine
+  # data = lattes
+  
+  frame = model.frame(formula, data) %>%
+    select(y = 1, a = 2) %>%
+    mutate(a = factor(a)) %>%
+    mutate(a = as.integer(a) - 1)
+  
+  # Compute the one-way effect
+  frame %>%
+    reframe(
+      # The mean difference between the "High" group (a == 1) and the "Low" group (a == 0)
+      dbar = mean(y[a == 1] - y[a == 0]),
+    ) %>%
+    with(dbar)
+}
 
-## Estimating 3-way interactions
+dbar_oneway(formula = y ~ machine, lattes)
+```
+This result shows that Machine B makes much worse-tasting lattes than Machine A on average!
+
+<br>
+<br>
+
+### Estimating 2-way interactions
+
+Alternatively, we might want to estimate treatment effects for **combinations** of treatments. For example, do these lattes tend to taste better specifically when **both** conditions are true? Eg. let's test the effect of having a latte from Machine B with Torani syrup, by comparing it against lattes made from Machine A with Monin syrup. This demonstrates the value added of **both** conditions.
+
+```{r}
+dbar_twoway = function(formula, data){
+  # formula = y ~ machine * syrup
+  # data = lattes
+  
+  # Extract model frame
+  frame = model.frame(formula, data) %>%
+    # rename columns as y, a, b
+    select(y = 1, a = 2, b = 3) %>%
+    mutate(a = factor(a), b = factor(b))
+  
+  levels_a = levels(frame$a)
+  levels_b = levels(frame$b)
+  
+  # Convert factors to integer codes
+  frame = frame %>%
+    mutate(a = as.integer(a),
+           b = as.integer(b))
+  
+  # Now pick the combinations for comparison
+  output = frame %>%
+    reframe(
+      # so
+      x1 = y[(a == 2 & b == 2) | (a == 1 & b == 1)],
+      # Opposite factors: HL or LH
+      x0 = y[(a == 1 & b == 2) | (a == 2 & b == 1)]
+    ) %>%
+    reframe(
+      # Calculate dbar
+      dbar = mean(x1) - mean(x0)
+    ) %>%
+    with(dbar)
+  return(output)
+}
+
+dbar_twoway(y ~ machine * syrup, lattes)
+```
+We can see that lattes made with Machine B and Torani syrup taste 6.43 worse, on average, than lattes made with machine A and Monin syrup.
+
+<br>
+<br>
+
+### Estimating 3-way interactions
 
 We could even calculate a three-way interaction between `machine` type, `syrup` brand, and latte `art`, like so:
 
 ```{r}
-groups %>%
-  summarize(
-    # This time, we just add `art == "heart"` as an extra condition, and vice versa below
-    xbbar_b_torani_heart = xbar[machine == "b" & syrup == "torani" & art == "heart"] %>% mean(),
-    xbbar_a_monin_foamy = xbar[machine == "a" & syrup == "monin" & art == "foamy"] %>% mean(),
-    dbbar = xbbar_b_torani_heart - xbbar_a_monin_foamy,
-    # Finally, we would use the same shared standard error that we calculated before
-    se = error$se)
-```
+dbar_threeway = function(formula, data){
+  # formula = y ~  machine * syrup * art
+  # data = lattes
+  
+  frame = model.frame(formula, data) %>%
+    select(y = 1, a = 2, b = 3, c = 4) %>%
+    mutate(a = factor(a), b = factor(b), c= factor(c)) %>%
+    mutate(a = as.integer(a) - 1, b = as.integer(b) - 1, c = as.integer(c) - 1)
+  
+  differences = frame %>%
+    reframe(
+      # Get the AC interaction when B = 0
+      d1a = y[a == 1 & b == 0 & c == 1] - y[a == 0 & b == 0 & c == 1],
+      d0a = y[a == 1 & b == 0 & c == 0] - y[a == 0 & b == 0 & c == 0],
+      # Get the AC interaction when B = 1
+      d1b = y[a == 1 & b == 1 & c == 1] - y[a == 0 & b == 1 & c == 1],
+      d0b = y[a == 1 & b == 1 & c == 0] - y[a == 0 & b == 1 & c == 0]
+    )
+  
+  output = differences %>%
+    reframe(
+      # Get AC interaction effect when B = 0
+      dbar_a = (mean(d1a) - mean(d0a)) / 2,
+      # Get AC interaction effect when B = 1
+      dbar_b = (mean(d1b) - mean(d0b) ) / 2,
+      # Get the average of the two effects 
+      dbar = (dbar_b - dbar_a) / 2
+    ) %>%
+    select(dbar) %>%
+    with(dbar)
+  return(output)
+}
 
-But we can see that these threeway effects tend can often be quite small relative to the standard error. It is difficult to find statistically significant three-way effects.
+dbar_threeway(formula = y ~ machine * syrup * art, lattes)
+```
+This negative result indicates the combination of Machine type and Latte art doesn't improve tastiness when the syrup brand changes.
 
 <br>
 <br>
@@ -480,7 +567,7 @@ While it uses a regression model, rather than the difference of means, to estima
 # Using our raw data of observed lattes
 m = lattes %>% 
   # Make a linear model, showing interactions with the '*' sign
-  lm(formula = tastiness ~ machine * milk * syrup * art)   
+  lm(formula = y ~ machine * milk * syrup * art)   
 
 # View our model!
 m %>% tidy()
@@ -580,7 +667,7 @@ Then, we calculate the residual sum of squares in both, calculate the extra expl
 # Let's make a second model for comparison against the first.
 m2 = lattes %>% 
   # Make a linear model, showing interactions with the '*' sign
-  lm(formula = tastiness ~ machine * milk * syrup)
+  lm(formula = y ~ machine * milk * syrup)
 
 # Here, for instance, there is a significant difference, but the RSS increased,
 # so we know that model 1 is better than model 2
