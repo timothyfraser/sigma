@@ -430,15 +430,48 @@ direct %>%
 <br>
 <br>
 
+
 ##  Interaction Effects
+
+### Estimating a Pooled Standard Error
+
+In a factorial experiment, each combination of factors can vary a little due to random noise. This makes it hard to compare effects, so we want to use a **pooled standard error** that represents the average amount of noise across all groups before estimating treatment effects. 
+
+Let's create a function to calculate this **Pooled SE** for the tastiness.
+```{r}
+# Rename tastiness by y for easier handling
+lattes = lattes %>% rename(y = tastiness)
+se_factorial = function(formula = y ~ machine + syrup + art, data){
+  # formula = y ~  machine + syrup + art
+  # data = lattes
+  
+
+  # Get frame of data
+  frame = model.frame(formula, data) %>%
+    rename(y = 1)
+  # Get names of x variables
+  xvars = names(frame)[-1]
+  
+  
+  # Calculate a standard error the tastiness metric in this factorial experiment
+  output = frame %>%
+    group_by(across(any_of(xvars))) %>%
+    summarize(s = sd(y), n = n()) %>%
+    ungroup() %>%
+    summarize(se = sqrt( sum(s^2 / n))) %>%
+    # A trick - with() is like the dollar sign - it will let you access se
+    with(se)
+  return(output)
+}
+se_factorial(formula = y ~ machine + syrup + art, lattes)
+```
 
 ### Estimating 1-way interations
 
 In factorial design, one-way effect shows how changing one factor affects the outcome. For example, we want to know whether Machine B makes better-tasting lattes than Machine A, regardless of the other factors like syrup or art.
 
+The function below measures how much the tastiness changes when moving from the low level to the high level of one factor.
 ```{r}
-# Rename main metric tastiness by y for easier handling
-lattes = lattes %>% rename(y = tastiness)
 dbar_oneway = function(formula, data){
   # formula = y ~ machine
   # data = lattes
@@ -466,8 +499,9 @@ This result shows that Machine B makes much worse-tasting lattes than Machine A 
 
 ### Estimating 2-way interactions
 
-Alternatively, we might want to estimate treatment effects for **combinations** of treatments. For example, do these lattes tend to taste better specifically when **both** conditions are true? Eg. let's test the effect of having a latte from Machine B with Torani syrup, by comparing it against lattes made from Machine A with Monin syrup. This demonstrates the value added of **both** conditions.
+Alternatively, we might want to estimate treatment effects for **combinations** of treatments. For example, do these lattes tend to taste better specifically when both conditions are true? Eg. let's test the effect of having a latte from Machine B with Torani syrup, by comparing it against lattes made from Machine A with Monin syrup. This demonstrates the value added of both conditions.
 
+The `dbar_twoway()` function tests whether two factors (e.g., **Machine** and **Syrup**) together affect tastiness differently than they do individually. It compares “same-direction” pairs (HH + LL) against “opposite-direction” pairs (HL + LH) to find the combined effect.
 ```{r}
 dbar_twoway = function(formula, data){
   # formula = y ~ machine * syrup
@@ -475,7 +509,7 @@ dbar_twoway = function(formula, data){
   
   # Extract model frame
   frame = model.frame(formula, data) %>%
-    # rename columns as y, a, b
+    # Rename columns as y, a, b
     select(y = 1, a = 2, b = 3) %>%
     mutate(a = factor(a), b = factor(b))
   
@@ -490,7 +524,7 @@ dbar_twoway = function(formula, data){
   # Now pick the combinations for comparison
   output = frame %>%
     reframe(
-      # so
+      # Same factors: HH or LL
       x1 = y[(a == 2 & b == 2) | (a == 1 & b == 1)],
       # Opposite factors: HL or LH
       x0 = y[(a == 1 & b == 2) | (a == 2 & b == 1)]
@@ -503,17 +537,19 @@ dbar_twoway = function(formula, data){
   return(output)
 }
 
-dbar_twoway(y ~ machine * syrup, lattes)
+value = dbar_twoway(y ~ machine * syrup, lattes)
+value
 ```
-We can see that lattes made with Machine B and Torani syrup taste 6.43 worse, on average, than lattes made with machine A and Monin syrup.
+We can see that lattes made with Machine B and Torani syrup taste `r round(value, 2)` `r if (value < 0) "worse" else "better"`, on average, than lattes made with machine A and Monin syrup.
 
 <br>
 <br>
 
 ### Estimating 3-way interactions
 
-We could even calculate a three-way interaction between `machine` type, `syrup` brand, and latte `art`, like so:
+We could even calculate a three-way interaction between `machine` type, `syrup` brand, and latte `art`.
 
+Let's create a function to check if the effect of **Machine × Art** depends on which **Syrup** is used. A positive result means the interaction strengthens with the syrup change, and a negative result means it weakens.
 ```{r}
 dbar_threeway = function(formula, data){
   # formula = y ~  machine * syrup * art
@@ -548,9 +584,10 @@ dbar_threeway = function(formula, data){
   return(output)
 }
 
-dbar_threeway(formula = y ~ machine * syrup * art, lattes)
+value = dbar_threeway(formula = y ~ machine * syrup * art, lattes)
+value
 ```
-This negative result indicates the combination of Machine type and Latte art doesn't improve tastiness when the syrup brand changes.
+This `r if (value < 0) "negative" else "positive"` result indicates the combination of Machine type and Latte art `r if (value < 0) "dosen't" else "does"` improve tastiness when the syrup brand changes.
 
 <br>
 <br>
@@ -573,6 +610,8 @@ m = lattes %>%
 m %>% tidy()
 ```
 We see potentially significant interaction effects for the joint impact of machine b and torani syrup, as well as several strong direct effects. Three way effects though, are minimal at best.
+
+While `lm()` returns a regression-based approximation, the `dbar` functions are more helpful when you want to directly calculate the interaction effects using one single standard error.
 
 ### Using `predict()` to visualize interaction effects
 
