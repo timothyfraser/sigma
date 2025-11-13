@@ -16,7 +16,7 @@ Please open up your Posit.Cloud project. Start a new R script (File >> New >> R 
 In this tutorial, we're going to use more of the `dplyr` package.
 
 
-```r
+``` r
 library(dplyr)
 ```
 
@@ -35,7 +35,7 @@ We're going to use 3 functions a *lot* below. This includes `bind_rows()`, `muta
 How might we use `bind_rows()`?
 
 
-```r
+``` r
 mycoffee <- bind_rows(
   # Make first data.frame
   data.frame(
@@ -71,7 +71,7 @@ mycoffee
 How might we use `mutate()`?
 
 
-```r
+``` r
 mycoffee <- mycoffee %>%
   # Add a new vector (must be of same length as data.frame)
   # vector is number of those drinks purchased
@@ -83,7 +83,7 @@ mycoffee <- mycoffee %>%
 How might we use `summarize()`?
 
 
-```r
+``` r
 mycoffee %>%
   # Summarize data.frame into one row
   summarize(
@@ -129,7 +129,7 @@ You've been hired by the Hershey's Chocolate Company to investigate quality cont
 - What's the probability of a packer picking up a Red Vine on the assembly line?
 
 
-```r
+``` r
 sweets <- data.frame(
 # We know there are 10,000 twizzlers
   twizzlers = 10000,
@@ -151,7 +151,7 @@ sweets
 - But then, what's the probability of a packer picking up 2 Red Vines in a row on the assembly line?
 
 
-```r
+``` r
 sweets %>%
     # After picking 1 Red Vine,
   # there's now 1 less Red Vine in circulation
@@ -177,7 +177,7 @@ Alternatively, if two events are *independent* (mutually exclusive), meaning the
 - You dump in a 1000 pieces of Black Licorice. If a packer picks up 2 sweets, what's the probability it's a piece of Black Licorice *or* Red Vines?
 
 
-```r
+``` r
 sweets %>%
   # Add a column for black licorice
   mutate(black_licorice = 1000) %>%
@@ -196,7 +196,7 @@ sweets %>%
 ```
 
 
-```r
+``` r
 remove(mycoffee, sweets)
 ```
 
@@ -228,8 +228,8 @@ If we look at the ties to the marbles, you'll see I labeled each tie to a red ma
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-b1aada95fb6e23ee0004" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-b1aada95fb6e23ee0004">{"x":{"diagram":"graph TD\n you[You]\n subgraph Bags\n b1[Bag 1]\n b2[Bag 2]\n b3[Bag 3]\n end\n subgraph Marbles\n b1m1((Marble <i>a<\/i>))\n b1m2((Marble <i>b<\/i>))\n b1m3((Marble <i>c<\/i>))\n style b1m1 fill:#FB52A5\n style b1m2 fill:#FB52A5\n style b1m3 fill:#FB52A5\n b2m1((Marble <i>d<\/i>))\n b2m2((Marble <i>e<\/i>))\n b2m3((Marble <i>f<\/i>))\n style b2m1 fill:#FB52A5\n style b2m2 fill:#84A3F5\n style b2m3 fill:#84A3F5\n b3m1((Marble <i>g<\/i>))\n b3m2((Marble <i>h<\/i>))\n b3m3((Marble <i>j<\/i>))\n style b3m1 fill:#84A3F5\n style b3m2 fill:#FB52A5\n style b3m3 fill:#FB52A5\n end\n you--> b1\n you--> b2\n you--> b3\n b1-->|1|b1m1\n b1-->|1|b1m2\n b1-->|1|b1m3\n b2-->|1|b2m1\n b2-->|0|b2m2\n b2-->|0|b2m3\n b3-->|0|b3m1\n b3-->|1|b3m2\n b3-->|1|b3m3"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-28a6c40138c6fe4e4c25" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-28a6c40138c6fe4e4c25">{"x":{"diagram":"graph TD\n you[You]\n subgraph Bags\n b1[Bag 1]\n b2[Bag 2]\n b3[Bag 3]\n end\n subgraph Marbles\n b1m1((Marble <i>a<\/i>))\n b1m2((Marble <i>b<\/i>))\n b1m3((Marble <i>c<\/i>))\n style b1m1 fill:#FB52A5\n style b1m2 fill:#FB52A5\n style b1m3 fill:#FB52A5\n b2m1((Marble <i>d<\/i>))\n b2m2((Marble <i>e<\/i>))\n b2m3((Marble <i>f<\/i>))\n style b2m1 fill:#FB52A5\n style b2m2 fill:#84A3F5\n style b2m3 fill:#84A3F5\n b3m1((Marble <i>g<\/i>))\n b3m2((Marble <i>h<\/i>))\n b3m3((Marble <i>j<\/i>))\n style b3m1 fill:#84A3F5\n style b3m2 fill:#FB52A5\n style b3m3 fill:#FB52A5\n end\n you--> b1\n you--> b2\n you--> b3\n b1-->|1|b1m1\n b1-->|1|b1m2\n b1-->|1|b1m3\n b2-->|1|b2m1\n b2-->|0|b2m2\n b2-->|0|b2m3\n b3-->|0|b3m1\n b3-->|1|b3m2\n b3-->|1|b3m3"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:img_mermaid)Drawing Probability Diagrams</p>
@@ -248,7 +248,7 @@ Here's what we know:
 1. There's an equal chance of choosing any bag of the 3 bags (because random). *(If 1 bag were on a really high shelf, then maybe the probabilities would be different, i.e. not random, but let's assume they're random this time.)*
 
 
-```r
+``` r
 # there are 3 bags
 n_bags <- 3
 
@@ -278,7 +278,7 @@ c(pbag1, pbag2, pbag3)
 2. There are 3 marbles in each bag.
 
 
-```r
+``` r
 # Total marbles in Bag 1
 m_bag1 <- 3
 # Total marbles in Bag 2
@@ -290,7 +290,7 @@ m_bag3 <- 3
 3. There are `3` red marbles in bag 1, `1` red marbles in bag 2, and `2` red marbles in bag 3.
 
 
-```r
+``` r
 # So, we can calculate the percentages in each bag.
 
 # percentage of red marbles in Bag 1
@@ -315,7 +315,7 @@ c(pm_bag1, pm_bag2, pm_bag3)
 4. Selecting Bag 1 and then selecting a Red Marble are *interdependent* events, so we multiply them.
 
 
-```r
+``` r
 # For example
 # P(Bag1 & Red) = P(Red|Bag1) * P(Bag1)
 pm_bag1 * pbag1
@@ -328,7 +328,7 @@ pm_bag1 * pbag1
 5. But each pathway (eg. Bag 1 x Marble A) is distinct and *independent* of the other pathways, so we can add them together.
 
 
-```r
+``` r
 # P(Bag1 & Red) = P(Red|Bag1) * P(Bag1)
 pm_bag1 * pbag1 + 
   # P(Bag2 & Red) = P(Red|Bag2) * P(Bag2)
@@ -347,7 +347,7 @@ However, that required making a lot of `objects` in `R`. Can we do this more suc
 We could compute a bag-wise `data.frame`, where each row represents a choice (bag) from `event1`.
 
 
-```r
+``` r
 bags <- data.frame(
   bag_id = 1:3,
   # For each bag, how many do you get to choose?
@@ -369,7 +369,7 @@ bags <- data.frame(
 Finally, we could just sum the joint probabilities all together.
 
 
-```r
+``` r
 bags %>%
   summarize(prob_bagred = sum(prob_bagred))
 ```
@@ -382,7 +382,7 @@ bags %>%
 Much faster!
 
 
-```r
+``` r
 # Let's remove this now unnecessary data
 remove(bags, n_bags, 
        m_bag1, m_bag2, m_bag3, 
@@ -445,7 +445,7 @@ A local coffee chain needs your help to analyze their supply chain issues. They 
 - What's the probability that a customer will buy a scone, given that they just bought coffee?
 
 
-```r
+``` r
 # We want to know this
 p_scone_coffee <- NULL
 
@@ -462,7 +462,7 @@ p_no_scone <- 3 / 10
 Using these 3~4 probabilities, we can deduce the *total* probability of coffee (the denominator), meaning whether you got coffee OR whether you didn't get coffee.
 
 
-```r
+``` r
 # Total Prob of Coffee = Getting Cofee + Not getting coffee
 p_coffee <- p_coffee_scone * p_scone + p_coffee_no_scone * p_no_scone
 # Check it!
@@ -475,7 +475,7 @@ p_coffee
 So let's use `p_coffee` to get the probability of getting a scone given that you got coffee!
 
 
-```r
+``` r
 p_scone_coffee <- p_coffee_scone * p_scone / p_coffee
 ```
 
@@ -491,7 +491,7 @@ But, if we *do* have complete information, then we can actually *prove* Bayes' R
 For example, say those percentages the shop owner gave us were actually meticulously tabulated by a barista. We talk to the barista, and she explains that she can tell us right away the proportion of folks who got a scone given that they got coffee. She shows us her spreadsheet of `orders`, listing for each customer, whether they got `coffee` and whether they got a `scone`.
 
 
-```r
+``` r
 orders <- tibble(
   coffee = c("yes", "no", "yes", "no", "yes", "yes", "yes", "no", "no", "no"),
   scone = c("no", "no", "no", "yes", "yes", "yes", "yes", "yes", "yes", "yes"))
@@ -500,7 +500,7 @@ orders <- tibble(
 We can tabulate these quickly using `table()`, tallying up how many folks did this.
 
 
-```r
+``` r
 orders %>% table()
 ```
 
@@ -512,7 +512,7 @@ orders %>% table()
 ```
 
 
-```r
+``` r
 # Let's skip to the end and just calculate the proportion directly!
 # Out of all people who got coffee, how many got scones?
 orders %>% 
@@ -526,12 +526,12 @@ orders %>%
 ## 1            0.6
 ```
 
-```r
+``` r
 # The end!
 ```
 
 
-```r
+``` r
 # Now that we know this, let's prove that Bayes works.
 orders %>% 
   summarize(
@@ -554,7 +554,7 @@ orders %>%
 ## 1            0.6          0.429             0.667     0.7        0.3   0.6
 ```
 
-```r
+``` r
 # It should! And it does! Tada!
 ```
 
@@ -582,7 +582,7 @@ You also have information about the overall popularity of each genre in the mark
 You want to calculate the probability that a customer chooses a Drama movie given that they have already purchased a ticket.
 
 
-```r
+``` r
 # We define the prior probabilities of customers choosing each genre based on the given problem statement.
 P_action <- 0.25
 P_comedy <- 0.30
@@ -605,7 +605,7 @@ target_genre <- "Drama"  # We can change this to our desired target genre
 To calculate the probability that a customer chooses the target genre given a ticket purchase, let's use Bayes Rule!
 
 
-```r
+``` r
 # We will be using Bayes' rule: P(Target Genre | Ticket Purchase) = P(Ticket Purchase | Target Genre) * P(Target Genre) / P(Ticket Purchase)
 # We calculate P(Ticket Purchase | Target Genre) * P(Target Genre) as probability_given_purchase
 # If target_genre is "Comedy," the switch function will select the conditional probability for choosing Comedy given a ticket purchase 
@@ -627,7 +627,7 @@ probability_given_purchase
 Next...
 
 
-```r
+``` r
 # We will further calculate the total probability of a ticket purchase P(Ticket Purchase) as total_probability_purchase:
 total_probability_purchase <- sum(
   conP_action_given_drama * P_action,
@@ -647,7 +647,7 @@ total_probability_purchase
 We want to calculate the probability that a customer chooses a Drama movie given that they have already purchased a ticket, thus target genre is Drama.
 
 
-```r
+``` r
 # P(Target Genre | Ticket Purchase) <- P(Ticket Purchase | Target Genre) * P(Target Genre) / P(Ticket Purchase)
 probability_target_genre_given_purchase <- probability_given_purchase / total_probability_purchase
 # Let's print that using paste!

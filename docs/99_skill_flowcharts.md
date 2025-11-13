@@ -22,7 +22,7 @@ A **block diagram** shows how a series of components are connected in a social, 
 Let's load our packages, and then go through a few examples!
 
 
-```r
+``` r
 # Load packages
 library(tidyverse) # for data management
 library(DiagrammeR) # for speedy mermaid plotting in R
@@ -37,7 +37,7 @@ How does it work? We take a bunch of small `character` values, like `"graph TB"`
 ### Example Block Diagram with `mermaid`
 
 
-```r
+``` r
 # Let's make a big vector of values, using c()
 example <- c(
   # say it's a graph, going Left-to-Right (LR)
@@ -72,7 +72,7 @@ example
 If we `paste()` that `example` with `collapse = "\n "`, we can see it's all just one big value now.
 
 
-```r
+``` r
 example %>% 
   paste(collapse = "\n ")
 ```
@@ -84,15 +84,15 @@ example %>%
 And if we append `mermaid()` to that, we can get a really nice chart!
 
 
-```r
+``` r
 example %>% 
   paste(collapse = "\n") %>% 
   mermaid()
 ```
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-0a3de61757eb4ef7a91c" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-0a3de61757eb4ef7a91c">{"x":{"diagram":"graph LR\na[Tim]\nz[Coffee]\nsubgraph Process\nb[Froth Milk]\nc[Brew Coffee]\nd[Pour in Milk]\nend\na-->b\nb-->c\nc-->d\nd-->z"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-1cda04082d8f2fa67f6f" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-1cda04082d8f2fa67f6f">{"x":{"diagram":"graph LR\na[Tim]\nz[Coffee]\nsubgraph Process\nb[Froth Milk]\nc[Brew Coffee]\nd[Pour in Milk]\nend\na-->b\nb-->c\nc-->d\nd-->z"},"evals":[],"jsHooks":[]}</script>
 ```
 
 Whohoo! You made your first `mermaid` plot!
@@ -115,7 +115,7 @@ Try making your own `mermaid` plot now, which tells the following tragedy, which
 <details><summary>**[View Answer!]**</summary>
 
 
-```r
+``` r
 # Here's one of several ways you could draw that!
 mystory <- c("graph LR",
   "a[Tim]",
@@ -154,7 +154,7 @@ mystory <- c("graph LR",
 And visualize it!
 
 
-```r
+``` r
 mystory %>%
   paste(collapse = "\n ") %>%
   mermaid()
@@ -175,7 +175,7 @@ Let's try and visualize what the process of shipping out ice cream looks like on
 First, let's get the starting settings of our graph! We'll name it `intro`.
 
 
-```r
+``` r
 # Get the basic graph, going left-to-right
 intro <- "graph LR"
 ```
@@ -183,7 +183,7 @@ intro <- "graph LR"
 Second, let's get a `subgraph` of people! We'll call it `subgraph_people`. *(Note: whenever we make multi-line chunks, gotta bind that stuff together using `paste()!`)*
 
 
-```r
+``` r
 subgraph_people <- c(
   # Make a subgraph
   "subgraph People",
@@ -202,7 +202,7 @@ Third, let's get a subgraph of events these people are involved in. We'll call i
 *Note: `mermaid` understands some `HTML`, so to get breaks in the labels, we're going to use `<br>` below.*
 
 
-```r
+``` r
 subgraph_events <- paste(
   # Make another subgraph
   "subgraph Events",
@@ -218,7 +218,7 @@ subgraph_events <- paste(
 Fourth, let's list out the ways our nodes are related, and we'll call it `ties`.
 
 
-```r
+``` r
 # Draw main ties
 ties  <- paste(
   # Worker 1 puts ice cream in Freezer
@@ -237,7 +237,7 @@ ties  <- paste(
 Alright! Let's visualize this chart!
 
 
-```r
+``` r
 c(intro, 
     # Add subgraphs of nodes
     subgraph_people,
@@ -251,8 +251,8 @@ c(intro,
 ```
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-6e27b6cbd4dffb60fef2" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-6e27b6cbd4dffb60fef2">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-30a881beaec81f19290c" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-30a881beaec81f19290c">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3"},"evals":[],"jsHooks":[]}</script>
 ```
 
 ## Diagram Failures
@@ -262,7 +262,7 @@ Now, we could imagine that there are several potential failure modes here. Let's
 First, we'll make a `subgraph` of failures aptly named `subgraph_fail`.
 
 
-```r
+``` r
 subgraph_fail <- c(
   # Make another subgraph
   "subgraph Failures",
@@ -278,7 +278,7 @@ subgraph_fail <- c(
 Second, we'll compile a list of relationships, or ways our nodes could lead to these failures.
 
 
-```r
+``` r
 failures <- c(
   # Worker 1 could leave ice cream out before freezing
   #"w1 --> fail_time",
@@ -301,7 +301,7 @@ failures <- c(
 So what does our new diagram look like?
 
 
-```r
+``` r
 c("graph LR", 
     # Add subgraphs of nodes
     subgraph_people,
@@ -320,8 +320,8 @@ c("graph LR",
 ```
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-8e8f1e80a63e6ada9fe2" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-8e8f1e80a63e6ada9fe2">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-01724215e78301b78ef1" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-01724215e78301b78ef1">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
 ```
 
 There's so much you can do with `mermaid`, but for now, this will do. Hooray! 

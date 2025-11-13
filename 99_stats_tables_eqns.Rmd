@@ -1,18 +1,11 @@
----
-title: 'Statistical Tables and Common Equations'
-output:
-  rmdformats::downcute:
-    self_contained: true
-    default_style: "light"
-    downcute_theme: "default"
-    number_sections: FALSE
-    css: prelim_bank.css
-    df_print: kable
-    mathjax: "default"
----
-  
-```{r setup, message = FALSE,  warning = FALSE, echo = FALSE, include = FALSE}
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE)
+# Appendix: Statistical Tables and Common Equations
+
+```{r setup, include=FALSE}
+## Global options
+knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
+
+# Fix graphics API version mismatch issues by avoiding ragg
+knitr::opts_chunk$set(dev = "png")
 library(dplyr)
 library(knitr)
 library(kableExtra)
@@ -42,7 +35,7 @@ box = function(title, ...){
 
 ## Table 1: Chi-Squared
 
-```{r table1, out.width="50%", fig.align='center'}
+```{r table1, out.width="50%", fig.align='center', echo=FALSE}
 dist = tibble(chisq = seq(from = 0.001, to = 15, by = 0.01),
        d = dchisq(chisq, df = 4),
        alpha = 0.10,
@@ -139,7 +132,7 @@ tribble(
 
 ## Table 3: k-factor (upper)
 
-```{r table2, fig.align='center'}
+```{r table2, fig.align='center', echo=FALSE}
 fix = function(x, n){x %>% format(scientific = FALSE) %>%  
     str_extract(paste(".[0-9]+[.][0-9]{", n, "}", sep = ""))}
 

@@ -16,7 +16,7 @@ In this workshop, we'll learn how to use **physical acceleration models** to con
 Let's start by loading the `tidyverse` and `broom` packages! Also, sometimes select gets overruled by other packages, so it can help to load it directly.
 
 
-```r
+``` r
 # Load packages
 library(tidyverse)
 library(broom)
@@ -29,12 +29,12 @@ select = dplyr::select
 We'll be using the `tibble()` function; it works identically to the `data.frame()` function, but allows you to reference any vector that came before. For example:
 
 
-```r
+``` r
 # This doesn't work...
 data.frame(x = c(1,2), y = x + 2)
 ```
 
-```r
+``` r
 # But this does.
 tibble(x = c(1,2), y = x + 2)
 ```
@@ -67,7 +67,7 @@ Suppose researchers are stress testing airbags in the lab! Their empirical data 
 
 $$f_u(t) = f_s(t) \times AF = f_s(t) \times 2.5 $$
 
-```r
+``` r
 # Let's write ourselves a speedy weibull density function 'd()'
 d = function(t, m, c){
   (m / t) * (t / c)^m * exp(-1*(t/c)^m)
@@ -104,7 +104,7 @@ ggplot() +
 In reality, $f_{u}(t)$ probably doesn't have exactly a constant relationship with $f_{s}(t)$. In a perfect world, we could collect raw data for both lifetimes under normal conditions $t_u$ and under stress-testing $t_s$, and then estimate their density functions $f_u(t)$ and $f_s(t)$. We could then calculate $AF$ *exactly* as a function `af()` that relates them. For example:
 
 
-```r
+``` r
 # Let's write an acceleration factor function!
 af = function(t){
   # Find density under stress
@@ -121,7 +121,7 @@ af = function(t){
 Were we to plot it, we can see below `AF` is *not* constant here, but varies over time, because $f_u(t)$ and $f_s(t)$ vary over time. So, when we pick an `AF`, we're usually picking the `AF` corresponding to a specific parameter, like the characteristic life or median of a distribution.
 
 
-```r
+``` r
 data.frame(
   time = 1:1000,
   af = af(1:1000)
@@ -153,7 +153,7 @@ However, it's usually very difficult to obtain the density functions for both us
 Linear acceleration requires us to choose a constant value of $AF$ from *just 1 time-step* from the plot above. How can we choose!? We should probably choose a fairly representative lifespan, based off a parameter like the median time to fail $T_{50}$ (or the mean time to fail $m$, characteristic life $c$, etc.). Even if we don't have access to all the raw data, if we know the median lifespan under stress $T_{50_{s}}$ and under normal conditions $T_{50_{u}}$, we can estimate $AF$ by taking $AF = \frac{T_{50_{u}}}{T_{50_{s}}}$. For example:
 
 
-```r
+``` r
 # Let's write a weibull quantile function
 q = function(p, c, m){  qweibull(p, scale = c, shape = m)  }
 
@@ -175,7 +175,7 @@ af
 Let's clear this data.
 
 
-```r
+``` r
 remove(af, median_s, median_u, q, d)
 ```
 
@@ -195,7 +195,7 @@ What proportion of mixers do we expect will fail by 40,000 hours under normal us
 <details><summary>**[View Answer!]**</summary>
   
 
-```r
+``` r
 # Given an acceleration factor of 35
 af <- 35
 
@@ -212,7 +212,7 @@ f(t = 40000 / af, lambda = 1 / 4500)
 ## [1] 0.2242836
 ```
 
-```r
+``` r
 # Method 2:
 # We know that lambda = zu(t) = zs(t/AF) / AF
 # so... plus that in for lambda
@@ -226,7 +226,7 @@ f(t = 40000, lambda = 1 / (4500 * af) )
 We expect ~22% of mixers will fail after 40,000 hours when running at 32 degrees Celsius.
 
 
-```r
+``` r
 remove(af, f)
 ```
 
@@ -248,7 +248,7 @@ Suppose we want no more than 10% of components to fail after 40,000 hours at nor
 <details><summary>**[View Answer!]**</summary>
 
 
-```r
+``` r
 # Write failure function
 f = function(t, lambda){ 1 - exp(-t*lambda) }
 
@@ -277,7 +277,7 @@ af
 We would need an acceleration factor `af` of ~`84.4`.
 
 
-```r
+``` r
 remove(lambda_u, lambda_s, af, f)
 ```
   
@@ -312,7 +312,7 @@ For example, let's think about a *car alternator*, the device that converts mech
 Suppose we tested 5 samples of 100 alternators each, and recorded the results in our `alt` data.frame below. We calculated the characteristic life in each of our 5 samples in the `c`, but our samples were all subjected to different stress conditions: different temperatures in Celsius (`temp`), which were converted into units of temperature factor scores (`tf`); different voltage levels in `volts`; at different points in the devices' lifespan (`time`, in hours); and with different average performance ratings (`rating`) in amps.
 
 
-```r
+``` r
 alt <- tibble(
   # Characteristic life in hours
   c = c(1400, 1450, 1500, 1550, 1650),
@@ -348,7 +348,7 @@ We could visualize the relationship between each of these conditions and the `lo
 - `geom_smooth(method = "lm")`, which finds the line of best fit. 
 
 
-```r
+``` r
 g <- alt %>%
   ggplot(mapping = aes(x = tf, y = log(c) )) +
   geom_point(size = 5) + # Add scatterplot points
@@ -359,7 +359,7 @@ g <- alt %>%
 We can also add in the *equation* of this line of best fit (which we'll calculate below), plus other labels.
 
 
-```r
+``` r
 g + 
   # Add theme
   theme_classic(base_size = 14) +
@@ -382,7 +382,7 @@ So how did `R` calculate that line of best fit? It used the `lm()` function to m
 First, let's make the model with `lm()`, piping our vectors from `alt`.
 
 
-```r
+``` r
 m1 <- alt %>%
   lm(formula = log(c) ~ tf)
 ```
@@ -390,7 +390,7 @@ m1 <- alt %>%
 Second, let's inspect the model's fit with `glance()` from the `broom` package, and `select()` the `r.squared` statistic. `0%` means terrible model fit. `100%` means the model equation perfectly predicts every value of `log(c)` in our `alt` data.frame. We aim for excellent predictive power where possible. `96%` is excellent!
 
 
-```r
+``` r
 m1 %>% glance() %>% select(r.squared)
 ```
 
@@ -404,7 +404,7 @@ m1 %>% glance() %>% select(r.squared)
 Third, we can now read the model equation for our line of best fit.
 
 
-```r
+``` r
 m1
 ```
 
@@ -443,7 +443,7 @@ Now that we have our model equation (and, importantly, a good fitting one), we c
 Writing our own function works the same way as writing our `d()`, `f()`, or `r()` function. We'll call it `c_hat()`.
 
 
-```r
+``` r
 # For any value of tf, we can now calculate c_hat.
 # We write the model equation for log(c), then exponentiate it with exp()!
 c_hat = function(tf){ exp( 3.1701 + 0.1518*tf) }
@@ -459,7 +459,7 @@ c_hat(tf = 28)
 It works! The characteristic life for `tf = 28` is ~1670.
 
 
-```r
+``` r
 # Or better yet, let's calculate temperature factor 'tf' too,
 # so we only have to supply a temperature in Celsius
 tf = function(temp){
@@ -486,7 +486,7 @@ Wouldn't it be nice though, if we could simplify that process? The `predict()` f
 Let's make a data.frame of `fakedata` with `tibble()`, varying temperature from 0 to 200 degrees Celsius, and then transform that into a temperature factor `tf` with our `tf()` function. 
 
 
-```r
+``` r
 fakedata <- tibble(
   temp = seq(0, 200, by = 10),
   tf = tf(temp))
@@ -505,7 +505,7 @@ fakedata %>% head(3)
 Then, we'll feet our 21 rows of `fakedata` and our model `m1` to the `predict()` function, which will output 21 predictions for `log(c)`.
 
 
-```r
+``` r
 m1 %>% predict(newdata = fakedata)
 ```
 
@@ -520,7 +520,7 @@ m1 %>% predict(newdata = fakedata)
 But we can exponentiate it with `exp()` to get `c_hat`!
 
 
-```r
+``` r
 m1 %>% predict(newdata = fakedata) %>% exp()
 ```
 
@@ -536,7 +536,7 @@ m1 %>% predict(newdata = fakedata) %>% exp()
 We could even write the whole thing inside a `tibble()` function:
 
 
-```r
+``` r
 fakedata <- tibble(
   temp = seq(0, 200, by = 10),
   tf = tf(temp),
@@ -558,7 +558,7 @@ fakedata %>% head(3)
 And now, we can plot the line of best fit between `temp` and `c_hat`, which are the quantities we actually care about.
 
 
-```r
+``` r
 g2 <- fakedata %>%
   ggplot(mapping = aes(x = temp, y = c_hat)) +
   geom_line() +
@@ -597,7 +597,7 @@ $$ \beta_{2}X_{2} = B \times (-log(V)), \ where \ \beta_2 = B = effect \ of \ -l
 We can write model this as `m2`, like so:
 
 
-```r
+``` r
 m2 <- alt %>%
   lm(formula = log(c) ~ tf + log(volts) )
 # See our model equation!
@@ -616,7 +616,7 @@ m2
 Then, we can just supply `predict()` with any values of `tf` and `volts` to predict `log(c_hat)`, and exponeniate the result.
 
 
-```r
+``` r
 fakedata <- tibble(
   # Hold temperature constant
   temp = 30,
@@ -630,7 +630,7 @@ fakedata <- tibble(
 And we can visualize our `fakedata` to see the impact of changing `volts` on `c_hat` as `temp` and `tf` were held constant.
 
 
-```r
+``` r
 fakedata %>%
   ggplot(mapping = aes(x = volts, y = c_hat)) +
   geom_line() +
@@ -658,7 +658,7 @@ Let's try this out using our `alt` data!
 We might expect the power rating of an alternator might decline over time. We could model the *overall* degradation effect on the `log(rating)` by regressing a single vector `time` against our model. This produces a great fit of ~`94%`.
 
 
-```r
+``` r
 alt %>%
   lm(formula = log(rating) ~ time) %>%
   glance() %>% select(r.squared)
@@ -674,7 +674,7 @@ alt %>%
 Alternatively, if the degradation effect *depends* on another condition, like *how much voltage was run on it*, we could write an *interaction effect* using `I(volts * time)`. This forces our model to be written as $log(Y) = \alpha + \beta X \times t$ instead of just $log(Y) = \alpha + \beta \times t$.
 
 
-```r
+``` r
 alt %>%
   lm(formula = log(rating) ~ I(volts * time) )
 ```
@@ -691,7 +691,7 @@ alt %>%
 We could even apply these effects right into our estimation of characteristic life $\hat{c}$ for our alternators! Perhaps we think the characteristic life would tend to be lower if the sample were measured later in `time`, after being exposed to higher `volts`. Let's estimate this model as `m3`!
 
 
-```r
+``` r
 m3 <- alt %>%
   lm(formula = log(c) ~ tf + log(volts) + I(volts * time))
 # Really good fit!
@@ -737,7 +737,7 @@ We can say:
 - In other words, we can use the acceleration factor $a$ to project the **conditional probability of failure after surviving burn-in**. We can say, hey, what's the probability of failure *under normal use* $t$ hours after burn-in $F_b(t)$, *given that* we know it survived up through the burn-in period $t_b$ and its use-to-stress relationship is characterized by an acceleration factor of $a$?
 
 
-```r
+``` r
 # Let's write the Weibull density and failure function, as always...
 d = function(t, c, m){  (m / t) * (t / c)^m * exp(-1*(t/c)^m)   }
 f = function(t, c, m){ 1 - exp(-1*((t/c)^m)) }
@@ -749,7 +749,7 @@ $$ F_b(t) = \frac{ F(t + a t_b) - F(at_b)}{ 1 - F(at_b) } $$
 And we can code it as:
 
 
-```r
+``` r
 fb = function(t, tb, a, c, m){ 
   # Change in probability of failure
   delta_failure <- f(t = t + a*tb, c, m) - f(t = a*tb, c, m)  
@@ -763,7 +763,7 @@ fb = function(t, tb, a, c, m){
 Let's try it!
 
 
-```r
+``` r
 # 1000 hours after burn-in
 # with a burn-in period of 100 hours
 # an acceleration factor of 20
@@ -782,7 +782,7 @@ Likewise, the conditional density function $f_b(t)$ can be written as:
 $$ f_b(t) = \frac{ f(t + at_b)}{ 1 - F(at_b)} $$
 
 
-```r
+``` r
 # And we'll write the condition
 db = function(t, tb, a, c, m){  
   density <- d(t = t + a*tb, c, m)
@@ -795,7 +795,7 @@ db = function(t, tb, a, c, m){
 Let's try it! What's the conditional probability of having a lifespan of 1000 hours, given that you had a burn-in period of 100 hours? Let's assume an acceleration factor of 20, characteristic life of 2000 hours, and a shape parameter of 1.5, like before.
 
 
-```r
+``` r
 db(t = 1000, tb = 100, a = 20, c = 2000, m = 1.5)
 ```
 
@@ -815,7 +815,7 @@ Suppose we have several cross-tabulations of readout data available to us about 
 The examples below will focus on samples of car wheels, each with a Weibull distribution, but they are equally applicable to other distributions.
 
 
-```r
+``` r
 # Let's write Weibull density, failure, and reliability functions
 d = function(t, c, m){  (m / t) * (t / c)^m * exp(-1*(t/c)^m)   }
 f = function(t, c, m){ 1 - exp(-1*((t/c)^m)) }
@@ -828,7 +828,7 @@ r = function(t, c, m){ 1 - f(t,c,m) }
 ###  MLE for an Example Arrhenius Model
 
 
-```r
+``` r
 # Let's load in our crosstable
 wheels <- tibble(
   label = c("[0,1000]", "(1000,2000]", "(2000,3000]", "(3000,4000]", "(4000,5000]"),
@@ -855,7 +855,7 @@ wheels
 We can write a maximum likelihood estimation function to find the *most likely* parameters for our products stress tested at 100 degrees Celsius, using `optim()` to perform MLE.
 
 
-```r
+``` r
 # Let's write our crosstable's likelihood function
 ll = function(t, x, par){
   r = sum(x)   # Get total failures
@@ -887,7 +887,7 @@ But doesn't it seem like a waste that we have all this data at multiple temperat
 We'll assume that the shape parameter $m$ is the same for each distribution, but the characteristic life varies (a common assumption in physical acceleration models).
 
 
-```r
+``` r
 # Let's write our crosstable's likelihood function
 ll = function(t, x1, x2, x3, par){
   # Get total failures
@@ -936,7 +936,7 @@ We can apply MLE to estimate *as many parameters* as our computers and patience 
 Next, let's use our MLE values to estimate $\Delta H$, the impact of temperature on lifespan parameters.
 
 
-```r
+``` r
 # Remember our function to calculate temperature factors
 tf = function(temp){  1 / ((1 / 11605) * (temp + 273.15)) }
 
@@ -968,7 +968,7 @@ param
 Now, we've got three different $c$ estimates. We'd really like to project, for any temperature `temp`, what would the characteristic life `c` be? Fortunately, we know we can estimate that with a line of best fit.
 
 
-```r
+``` r
 m4 <- param %>%
   lm(formula = log(c) ~ tf)
 # Pretty good fit (93%)
@@ -988,7 +988,7 @@ Now that we've built a fairly good model, we can use it to *predict* the charact
 And if we have `c_hat()`, then all of a sudden, we can calculate the probability of failure at any time `t`! Suppose our wheel was used at 30 degrees Celsius. Our model projects a probability of failure of 32% by the 100th hour! (Don't buy that wheel!)
 
 
-```r
+``` r
 tibble(
   t = 100,
   temp = 10,
@@ -1012,7 +1012,7 @@ We can even then make some rad graphs!
 For example, we can vary time but hold constant temperature to calculate the probability of failure over time at a specific temperature.
 
 
-```r
+``` r
 tibble(
   t = seq(0, 2000, by = 10),
   tf = tf(temp = 30),
@@ -1031,7 +1031,7 @@ tibble(
 Or, we can hold constant time but vary temperature, to show the changing probability of failure given different stress levels by temperature.
 
 
-```r
+``` r
 tibble(
   t = 1000,
   temp = seq(0, 200, by = 10),

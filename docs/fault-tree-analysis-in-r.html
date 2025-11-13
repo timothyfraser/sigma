@@ -4,26 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>22 Fault Tree Analysis in R | System Reliability and Six Sigma in R</title>
-  <meta name="description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <title>22 Fault Tree Analysis in R | System Reliability and Six Sigma in R and Python</title>
+  <meta name="description" content="Your online textbook for learning reliability and six sigma techniques in R and Python! Made for Cornell University Course SYSEN 5300." />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="22 Fault Tree Analysis in R | System Reliability and Six Sigma in R" />
+  <meta property="og:title" content="22 Fault Tree Analysis in R | System Reliability and Six Sigma in R and Python" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  <meta property="og:description" content="Your online textbook for learning reliability and six sigma techniques in R and Python! Made for Cornell University Course SYSEN 5300." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="22 Fault Tree Analysis in R | System Reliability and Six Sigma in R" />
+  <meta name="twitter:title" content="22 Fault Tree Analysis in R | System Reliability and Six Sigma in R and Python" />
   
-  <meta name="twitter:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  <meta name="twitter:description" content="Your online textbook for learning reliability and six sigma techniques in R and Python! Made for Cornell University Course SYSEN 5300." />
   
 
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2025-09-15" />
+<meta name="date" content="2025-11-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -62,7 +62,11 @@
 <script src="assets/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
 <link href="assets/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
 <script src="assets/chromatography-0.1/chromatography.js"></script>
-<script src="assets/DiagrammeR-binding-1.0.9/DiagrammeR.js"></script>
+<script src="assets/DiagrammeR-binding-1.0.11/DiagrammeR.js"></script>
+<script src="assets/bslib-component-js-0.9.0/components.min.js"></script>
+<script src="assets/bslib-component-js-0.9.0/web-components.min.js" type="module"></script>
+<link href="assets/bslib-component-css-0.9.0/components.css" rel="stylesheet" />
+<script src="assets/bslib-tag-require-0.9.0/tag-require.js"></script>
 
 
 <style type="text/css">
@@ -709,7 +713,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#conclusion-14"><i class="fa fa-check"></i>Conclusion</a></li>
 </ul></li>
-<li class="part"><span><b>IV Life Distributions</b></span></li>
 <li class="chapter" data-level="19" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html"><i class="fa fa-check"></i><b>19</b> Useful Life Distributions (Exponential)</a>
 <ul>
 <li class="chapter" data-level="19.1" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#getting-started-17"><i class="fa fa-check"></i><b>19.1</b> Getting Started</a>
@@ -820,7 +823,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#learning-check-6-1"><i class="fa fa-check"></i>Learning Check 6</a></li>
 <li class="chapter" data-level="21.5" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#conclusion-17"><i class="fa fa-check"></i><b>21.5</b> Conclusion</a></li>
 </ul></li>
-<li class="part"><span><b>V Physical Acceleration Models</b></span></li>
 <li class="chapter" data-level="22" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html"><i class="fa fa-check"></i><b>22</b> Fault Tree Analysis in R</a>
 <ul>
 <li class="chapter" data-level="" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html#getting-started-20"><i class="fa fa-check"></i>Getting Started</a>
@@ -873,6 +875,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="23.7" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#conclusion-18"><i class="fa fa-check"></i><b>23.7</b> Conclusion</a></li>
 </ul></li>
+<li class="part"><span><b>IV Life Distributions</b></span></li>
+<li class="part"><span><b>V Physical Acceleration Models</b></span></li>
 <li class="part"><span><b>VI Regression</b></span></li>
 <li class="chapter" data-level="24" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html"><i class="fa fa-check"></i><b>24</b> Bivariate Regression: Modeling Diamond Pricing</a>
 <ul>
@@ -1009,14 +1013,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="27.4.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#visualization-strategies"><i class="fa fa-check"></i><b>27.4.2</b> Visualization Strategies</a></li>
 <li class="chapter" data-level="27.4.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#an-excellent-visual"><i class="fa fa-check"></i><b>27.4.3</b> An Excellent Visual</a></li>
 </ul></li>
-<li class="chapter" data-level="27.5" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#interaction-effects"><i class="fa fa-check"></i><b>27.5</b> Interaction Effects</a></li>
-<li class="chapter" data-level="27.6" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-2-way-interactions"><i class="fa fa-check"></i><b>27.6</b> Estimating 2-way interactions</a></li>
-<li class="chapter" data-level="27.7" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-3-way-interactions"><i class="fa fa-check"></i><b>27.7</b> Estimating 3-way interactions</a></li>
-<li class="chapter" data-level="27.8" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-interactions-in-lm"><i class="fa fa-check"></i><b>27.8</b> Estimating Interactions in <code>lm()</code></a>
+<li class="chapter" data-level="27.5" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#interaction-effects"><i class="fa fa-check"></i><b>27.5</b> Interaction Effects</a>
 <ul>
-<li class="chapter" data-level="27.8.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#modeling-interactions"><i class="fa fa-check"></i><b>27.8.1</b> Modeling Interactions</a></li>
-<li class="chapter" data-level="27.8.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#using-predict-to-visualize-interaction-effects"><i class="fa fa-check"></i><b>27.8.2</b> Using <code>predict()</code> to visualize interaction effects</a></li>
-<li class="chapter" data-level="27.8.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#finding-the-best-model-with-anova"><i class="fa fa-check"></i><b>27.8.3</b> Finding the best model with <code>anova()</code></a></li>
+<li class="chapter" data-level="27.5.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-a-pooled-standard-error"><i class="fa fa-check"></i><b>27.5.1</b> Estimating a Pooled Standard Error</a></li>
+<li class="chapter" data-level="27.5.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-1-way-interations"><i class="fa fa-check"></i><b>27.5.2</b> Estimating 1-way interations</a></li>
+<li class="chapter" data-level="27.5.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-2-way-interactions"><i class="fa fa-check"></i><b>27.5.3</b> Estimating 2-way interactions</a></li>
+<li class="chapter" data-level="27.5.4" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-3-way-interactions"><i class="fa fa-check"></i><b>27.5.4</b> Estimating 3-way interactions</a></li>
+</ul></li>
+<li class="chapter" data-level="27.6" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-interactions-in-lm"><i class="fa fa-check"></i><b>27.6</b> Estimating Interactions in <code>lm()</code></a>
+<ul>
+<li class="chapter" data-level="27.6.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#modeling-interactions"><i class="fa fa-check"></i><b>27.6.1</b> Modeling Interactions</a></li>
+<li class="chapter" data-level="27.6.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#using-predict-to-visualize-interaction-effects"><i class="fa fa-check"></i><b>27.6.2</b> Using <code>predict()</code> to visualize interaction effects</a></li>
+<li class="chapter" data-level="27.6.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#finding-the-best-model-with-anova"><i class="fa fa-check"></i><b>27.6.3</b> Finding the best model with <code>anova()</code></a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#conclusion-20"><i class="fa fa-check"></i>Conclusion</a></li>
 </ul></li>
@@ -1123,27 +1131,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#learning-check-1-23"><i class="fa fa-check"></i>Learning Check 1</a></li>
 <li class="chapter" data-level="31.6" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#conclusion-22"><i class="fa fa-check"></i><b>31.6</b> Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="32" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html"><i class="fa fa-check"></i><b>32</b> Appendix: <code>tidyfault</code> for Fault Tree Analysis</a>
+<li class="chapter" data-level="32" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html"><i class="fa fa-check"></i><b>32</b> Appendix: Statistical Tables and Common Equations</a>
 <ul>
-<li class="chapter" data-level="" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#getting-started-30"><i class="fa fa-check"></i>Getting Started</a>
-<ul>
-<li class="chapter" data-level="" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#prerequisites-2"><i class="fa fa-check"></i>Prerequisites</a></li>
-<li class="chapter" data-level="" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#load-packages-11"><i class="fa fa-check"></i>Load Packages</a></li>
-</ul></li>
-<li class="chapter" data-level="32.1" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#visualizing-fault-trees-in-r"><i class="fa fa-check"></i><b>32.1</b> Visualizing Fault Trees in R</a>
-<ul>
-<li class="chapter" data-level="32.1.1" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#making-a-nodelist"><i class="fa fa-check"></i><b>32.1.1</b> Making a Nodelist</a></li>
-<li class="chapter" data-level="32.1.2" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#making-an-edgelist"><i class="fa fa-check"></i><b>32.1.2</b> Making an Edgelist</a></li>
-</ul></li>
-<li class="chapter" data-level="32.2" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#our-data-11"><i class="fa fa-check"></i><b>32.2</b> Our Data</a></li>
-<li class="chapter" data-level="32.3" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#getting-a-fault-tree-layout"><i class="fa fa-check"></i><b>32.3</b> Getting a Fault Tree Layout</a></li>
-<li class="chapter" data-level="32.4" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#visualize-a-fault-tree"><i class="fa fa-check"></i><b>32.4</b> Visualize a Fault Tree</a></li>
-<li class="chapter" data-level="32.5" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cutsets"><i class="fa fa-check"></i><b>32.5</b> Cutsets</a></li>
-<li class="chapter" data-level="32.6" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#gates"><i class="fa fa-check"></i><b>32.6</b> Gates</a></li>
-<li class="chapter" data-level="32.7" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#equations"><i class="fa fa-check"></i><b>32.7</b> Equations</a></li>
-<li class="chapter" data-level="32.8" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#minimal-cutsets"><i class="fa fa-check"></i><b>32.8</b> Minimal Cutsets</a></li>
-<li class="chapter" data-level="32.9" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#coverage"><i class="fa fa-check"></i><b>32.9</b> Coverage</a></li>
-<li class="chapter" data-level="" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#conclusion-23"><i class="fa fa-check"></i>Conclusion</a></li>
+<li class="chapter" data-level="32.1" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#table-1-chi-squared"><i class="fa fa-check"></i><b>32.1</b> Table 1: Chi-Squared</a></li>
+<li class="chapter" data-level="32.2" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#table-2-k-factor-rules"><i class="fa fa-check"></i><b>32.2</b> Table 2: k-factor rules</a></li>
+<li class="chapter" data-level="32.3" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#table-3-k-factor-upper"><i class="fa fa-check"></i><b>32.3</b> Table 3: k-factor (upper)</a></li>
+<li class="chapter" data-level="32.4" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#table-4-k-factor-lower"><i class="fa fa-check"></i><b>32.4</b> Table 4: k-factor (lower)</a></li>
+<li class="chapter" data-level="32.5" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#table-5-control-constants-d"><i class="fa fa-check"></i><b>32.5</b> Table 5: Control Constants (d)</a></li>
+<li class="chapter" data-level="32.6" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#table-6-control-constants-b"><i class="fa fa-check"></i><b>32.6</b> Table 6: Control Constants (b)</a></li>
+<li class="chapter" data-level="32.7" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#formula"><i class="fa fa-check"></i><b>32.7</b> Formula</a></li>
 </ul></li>
 </ul>
 
@@ -1154,7 +1150,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">System Reliability and Six Sigma in R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">System Reliability and Six Sigma in R and Python</a>
           </h1>
         </div>
 
@@ -1173,9 +1169,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="load-packages-7" class="section level3 unnumbered hasAnchor">
 <h3>Load Packages<a href="fault-tree-analysis-in-r.html#load-packages-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb1262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1262-1"><a href="fault-tree-analysis-in-r.html#cb1262-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1262-2"><a href="fault-tree-analysis-in-r.html#cb1262-2" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1262-3"><a href="fault-tree-analysis-in-r.html#cb1262-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
+<div class="sourceCode" id="cb1273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1273-1"><a href="fault-tree-analysis-in-r.html#cb1273-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1273-2"><a href="fault-tree-analysis-in-r.html#cb1273-2" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1273-3"><a href="fault-tree-analysis-in-r.html#cb1273-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
 </div>
 </div>
 <div id="simulating-fault-trees" class="section level2 hasAnchor" number="22.1">
@@ -1193,20 +1189,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>D</code>: Lois Lane Dumps Superman</li>
 <li><code>K</code>: Steps on Kryptonite Lego in the middle of the night</li>
 </ul>
-<p><img src="09_workshop_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>In this fault tree, it looks like Superman could turn evil if (A) Superman Movies do poorly at the box office OR (B) if all 3 other conditions happen (boring childhood, dumped by Lois Lane, steps on Kryptonite Lego).</p>
 </div>
 <div id="using-raw-probabilities" class="section level2 hasAnchor" number="22.3">
 <h2><span class="header-section-number">22.3</span> Using Raw Probabilities<a href="fault-tree-analysis-in-r.html#using-raw-probabilities" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We could represent that using boolean logic. So if we know the probability of events <code>m</code>, <code>c</code>, <code>d</code>, and <code>k</code>, we can calculate the probability of the top event <code>top</code>.</p>
-<div class="sourceCode" id="cb1263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1263-1"><a href="fault-tree-analysis-in-r.html#cb1263-1" tabindex="-1"></a>f1 <span class="ot">=</span> <span class="cf">function</span>(m, c, d, k){</span>
-<span id="cb1263-2"><a href="fault-tree-analysis-in-r.html#cb1263-2" tabindex="-1"></a>  top <span class="ot">=</span> m <span class="sc">+</span> c <span class="sc">*</span> d <span class="sc">*</span> k </span>
-<span id="cb1263-3"><a href="fault-tree-analysis-in-r.html#cb1263-3" tabindex="-1"></a>  <span class="fu">return</span>(top)</span>
-<span id="cb1263-4"><a href="fault-tree-analysis-in-r.html#cb1263-4" tabindex="-1"></a>}</span>
-<span id="cb1263-5"><a href="fault-tree-analysis-in-r.html#cb1263-5" tabindex="-1"></a><span class="co"># For example... given these probabilities, the chance Superman turns evil is highly contigent on event m - the success of superman movies at the box office.</span></span>
-<span id="cb1263-6"><a href="fault-tree-analysis-in-r.html#cb1263-6" tabindex="-1"></a>probs1 <span class="ot">=</span> <span class="fu">f1</span>(<span class="at">m =</span> <span class="fl">0.50</span>, <span class="at">c =</span> <span class="fl">0.99</span>, <span class="at">d =</span> <span class="fl">0.25</span>, <span class="at">k =</span> <span class="fl">0.01</span>)</span>
-<span id="cb1263-7"><a href="fault-tree-analysis-in-r.html#cb1263-7" tabindex="-1"></a><span class="co"># view it!</span></span>
-<span id="cb1263-8"><a href="fault-tree-analysis-in-r.html#cb1263-8" tabindex="-1"></a>probs1 </span></code></pre></div>
+<div class="sourceCode" id="cb1274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1274-1"><a href="fault-tree-analysis-in-r.html#cb1274-1" tabindex="-1"></a>f1 <span class="ot">=</span> <span class="cf">function</span>(m, c, d, k){</span>
+<span id="cb1274-2"><a href="fault-tree-analysis-in-r.html#cb1274-2" tabindex="-1"></a>  top <span class="ot">=</span> m <span class="sc">+</span> c <span class="sc">*</span> d <span class="sc">*</span> k </span>
+<span id="cb1274-3"><a href="fault-tree-analysis-in-r.html#cb1274-3" tabindex="-1"></a>  <span class="fu">return</span>(top)</span>
+<span id="cb1274-4"><a href="fault-tree-analysis-in-r.html#cb1274-4" tabindex="-1"></a>}</span>
+<span id="cb1274-5"><a href="fault-tree-analysis-in-r.html#cb1274-5" tabindex="-1"></a><span class="co"># For example... given these probabilities, the chance Superman turns evil is highly contigent on event m - the success of superman movies at the box office.</span></span>
+<span id="cb1274-6"><a href="fault-tree-analysis-in-r.html#cb1274-6" tabindex="-1"></a>probs1 <span class="ot">=</span> <span class="fu">f1</span>(<span class="at">m =</span> <span class="fl">0.50</span>, <span class="at">c =</span> <span class="fl">0.99</span>, <span class="at">d =</span> <span class="fl">0.25</span>, <span class="at">k =</span> <span class="fl">0.01</span>)</span>
+<span id="cb1274-7"><a href="fault-tree-analysis-in-r.html#cb1274-7" tabindex="-1"></a><span class="co"># view it!</span></span>
+<span id="cb1274-8"><a href="fault-tree-analysis-in-r.html#cb1274-8" tabindex="-1"></a>probs1 </span></code></pre></div>
 <pre><code>## [1] 0.502475</code></pre>
 <hr />
 <p><br>
@@ -1238,32 +1233,32 @@ Causes and Probabilities:
 <strong>[View Answer!]</strong>
 </summary>
 <p>Use these events’ probabilities to construct a boolean equation and its function in R!</p>
-<div class="sourceCode" id="cb1265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1265-1"><a href="fault-tree-analysis-in-r.html#cb1265-1" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(<span class="at">a =</span> <span class="fl">0.2</span>, <span class="at">b =</span> <span class="fl">0.15</span>, <span class="at">c =</span> <span class="fl">0.3</span>, <span class="at">d =</span> <span class="fl">0.1</span>, <span class="at">e =</span> <span class="fl">0.15</span>, <span class="at">f =</span> <span class="fl">0.2</span>, <span class="at">g =</span> <span class="fl">0.05</span>, <span class="at">h =</span> <span class="fl">0.1</span>){</span>
-<span id="cb1265-2"><a href="fault-tree-analysis-in-r.html#cb1265-2" tabindex="-1"></a>  <span class="co"># G2. Probability of Insufficient Vaccination Coverage:</span></span>
-<span id="cb1265-3"><a href="fault-tree-analysis-in-r.html#cb1265-3" tabindex="-1"></a>  <span class="co"># All of the sub-events must occur for this intermediate event to happen:</span></span>
-<span id="cb1265-4"><a href="fault-tree-analysis-in-r.html#cb1265-4" tabindex="-1"></a>  p_insufficient_vaccine_coverage <span class="ot">=</span> a <span class="sc">*</span> b <span class="sc">*</span> c <span class="co"># Probabilities for AND logic</span></span>
-<span id="cb1265-5"><a href="fault-tree-analysis-in-r.html#cb1265-5" tabindex="-1"></a>  </span>
-<span id="cb1265-6"><a href="fault-tree-analysis-in-r.html#cb1265-6" tabindex="-1"></a>  <span class="co"># G3. Probability of Ineffective Quarantine Measures:</span></span>
-<span id="cb1265-7"><a href="fault-tree-analysis-in-r.html#cb1265-7" tabindex="-1"></a>  <span class="co"># Any of the sub-event event can lead to this intermediate event:</span></span>
-<span id="cb1265-8"><a href="fault-tree-analysis-in-r.html#cb1265-8" tabindex="-1"></a>  p_quarantine_measures <span class="ot">=</span> d <span class="sc">+</span> e <span class="sc">+</span> f   <span class="co"># Probabilities for OR logic</span></span>
-<span id="cb1265-9"><a href="fault-tree-analysis-in-r.html#cb1265-9" tabindex="-1"></a>  </span>
-<span id="cb1265-10"><a href="fault-tree-analysis-in-r.html#cb1265-10" tabindex="-1"></a>  <span class="co"># G4. Probability of Mutation of the Pathogen:</span></span>
-<span id="cb1265-11"><a href="fault-tree-analysis-in-r.html#cb1265-11" tabindex="-1"></a>  <span class="co"># Both conditions need to be present in order for pathogen to mutate:</span></span>
-<span id="cb1265-12"><a href="fault-tree-analysis-in-r.html#cb1265-12" tabindex="-1"></a>  p_pathogen_mutation <span class="ot">&lt;-</span> g <span class="sc">*</span> h  <span class="co"># Probabilities for AND logic</span></span>
-<span id="cb1265-13"><a href="fault-tree-analysis-in-r.html#cb1265-13" tabindex="-1"></a></span>
-<span id="cb1265-14"><a href="fault-tree-analysis-in-r.html#cb1265-14" tabindex="-1"></a>  </span>
-<span id="cb1265-15"><a href="fault-tree-analysis-in-r.html#cb1265-15" tabindex="-1"></a>  <span class="co"># If EITHER insufficient vaccine coverage </span></span>
-<span id="cb1265-16"><a href="fault-tree-analysis-in-r.html#cb1265-16" tabindex="-1"></a>  <span class="co"># OR no quarantine measures </span></span>
-<span id="cb1265-17"><a href="fault-tree-analysis-in-r.html#cb1265-17" tabindex="-1"></a>  <span class="co"># OR pathogen mutation occur,</span></span>
-<span id="cb1265-18"><a href="fault-tree-analysis-in-r.html#cb1265-18" tabindex="-1"></a>  <span class="co"># the outbreak occurs.</span></span>
-<span id="cb1265-19"><a href="fault-tree-analysis-in-r.html#cb1265-19" tabindex="-1"></a>  </span>
-<span id="cb1265-20"><a href="fault-tree-analysis-in-r.html#cb1265-20" tabindex="-1"></a>  <span class="co"># T = OR Gate G1 = G2 + G3 + G4</span></span>
-<span id="cb1265-21"><a href="fault-tree-analysis-in-r.html#cb1265-21" tabindex="-1"></a>  p_top <span class="ot">=</span> p_insufficient_vaccine_coverage <span class="sc">+</span> p_quarantine_measures <span class="sc">+</span> p_pathogen_mutation</span>
-<span id="cb1265-22"><a href="fault-tree-analysis-in-r.html#cb1265-22" tabindex="-1"></a>  </span>
-<span id="cb1265-23"><a href="fault-tree-analysis-in-r.html#cb1265-23" tabindex="-1"></a>  <span class="fu">return</span>(p_top)</span>
-<span id="cb1265-24"><a href="fault-tree-analysis-in-r.html#cb1265-24" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb1276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1276-1"><a href="fault-tree-analysis-in-r.html#cb1276-1" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(<span class="at">a =</span> <span class="fl">0.2</span>, <span class="at">b =</span> <span class="fl">0.15</span>, <span class="at">c =</span> <span class="fl">0.3</span>, <span class="at">d =</span> <span class="fl">0.1</span>, <span class="at">e =</span> <span class="fl">0.15</span>, <span class="at">f =</span> <span class="fl">0.2</span>, <span class="at">g =</span> <span class="fl">0.05</span>, <span class="at">h =</span> <span class="fl">0.1</span>){</span>
+<span id="cb1276-2"><a href="fault-tree-analysis-in-r.html#cb1276-2" tabindex="-1"></a>  <span class="co"># G2. Probability of Insufficient Vaccination Coverage:</span></span>
+<span id="cb1276-3"><a href="fault-tree-analysis-in-r.html#cb1276-3" tabindex="-1"></a>  <span class="co"># All of the sub-events must occur for this intermediate event to happen:</span></span>
+<span id="cb1276-4"><a href="fault-tree-analysis-in-r.html#cb1276-4" tabindex="-1"></a>  p_insufficient_vaccine_coverage <span class="ot">=</span> a <span class="sc">*</span> b <span class="sc">*</span> c <span class="co"># Probabilities for AND logic</span></span>
+<span id="cb1276-5"><a href="fault-tree-analysis-in-r.html#cb1276-5" tabindex="-1"></a>  </span>
+<span id="cb1276-6"><a href="fault-tree-analysis-in-r.html#cb1276-6" tabindex="-1"></a>  <span class="co"># G3. Probability of Ineffective Quarantine Measures:</span></span>
+<span id="cb1276-7"><a href="fault-tree-analysis-in-r.html#cb1276-7" tabindex="-1"></a>  <span class="co"># Any of the sub-event event can lead to this intermediate event:</span></span>
+<span id="cb1276-8"><a href="fault-tree-analysis-in-r.html#cb1276-8" tabindex="-1"></a>  p_quarantine_measures <span class="ot">=</span> d <span class="sc">+</span> e <span class="sc">+</span> f   <span class="co"># Probabilities for OR logic</span></span>
+<span id="cb1276-9"><a href="fault-tree-analysis-in-r.html#cb1276-9" tabindex="-1"></a>  </span>
+<span id="cb1276-10"><a href="fault-tree-analysis-in-r.html#cb1276-10" tabindex="-1"></a>  <span class="co"># G4. Probability of Mutation of the Pathogen:</span></span>
+<span id="cb1276-11"><a href="fault-tree-analysis-in-r.html#cb1276-11" tabindex="-1"></a>  <span class="co"># Both conditions need to be present in order for pathogen to mutate:</span></span>
+<span id="cb1276-12"><a href="fault-tree-analysis-in-r.html#cb1276-12" tabindex="-1"></a>  p_pathogen_mutation <span class="ot">&lt;-</span> g <span class="sc">*</span> h  <span class="co"># Probabilities for AND logic</span></span>
+<span id="cb1276-13"><a href="fault-tree-analysis-in-r.html#cb1276-13" tabindex="-1"></a></span>
+<span id="cb1276-14"><a href="fault-tree-analysis-in-r.html#cb1276-14" tabindex="-1"></a>  </span>
+<span id="cb1276-15"><a href="fault-tree-analysis-in-r.html#cb1276-15" tabindex="-1"></a>  <span class="co"># If EITHER insufficient vaccine coverage </span></span>
+<span id="cb1276-16"><a href="fault-tree-analysis-in-r.html#cb1276-16" tabindex="-1"></a>  <span class="co"># OR no quarantine measures </span></span>
+<span id="cb1276-17"><a href="fault-tree-analysis-in-r.html#cb1276-17" tabindex="-1"></a>  <span class="co"># OR pathogen mutation occur,</span></span>
+<span id="cb1276-18"><a href="fault-tree-analysis-in-r.html#cb1276-18" tabindex="-1"></a>  <span class="co"># the outbreak occurs.</span></span>
+<span id="cb1276-19"><a href="fault-tree-analysis-in-r.html#cb1276-19" tabindex="-1"></a>  </span>
+<span id="cb1276-20"><a href="fault-tree-analysis-in-r.html#cb1276-20" tabindex="-1"></a>  <span class="co"># T = OR Gate G1 = G2 + G3 + G4</span></span>
+<span id="cb1276-21"><a href="fault-tree-analysis-in-r.html#cb1276-21" tabindex="-1"></a>  p_top <span class="ot">=</span> p_insufficient_vaccine_coverage <span class="sc">+</span> p_quarantine_measures <span class="sc">+</span> p_pathogen_mutation</span>
+<span id="cb1276-22"><a href="fault-tree-analysis-in-r.html#cb1276-22" tabindex="-1"></a>  </span>
+<span id="cb1276-23"><a href="fault-tree-analysis-in-r.html#cb1276-23" tabindex="-1"></a>  <span class="fu">return</span>(p_top)</span>
+<span id="cb1276-24"><a href="fault-tree-analysis-in-r.html#cb1276-24" tabindex="-1"></a>}</span></code></pre></div>
 <p>Let’s see what the probability of widespread outbreak, in this hypothetical scenario, turns out to be:</p>
-<div class="sourceCode" id="cb1266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1266-1"><a href="fault-tree-analysis-in-r.html#cb1266-1" tabindex="-1"></a><span class="fu">f</span>(<span class="at">a =</span> <span class="fl">0.2</span>, <span class="at">b =</span> <span class="fl">0.15</span>, <span class="at">c =</span> <span class="fl">0.3</span>, <span class="at">d =</span> <span class="fl">0.1</span>, <span class="at">e =</span> <span class="fl">0.15</span>, <span class="at">f =</span> <span class="fl">0.2</span>, <span class="at">g =</span> <span class="fl">0.05</span>, <span class="at">h =</span> <span class="fl">0.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1277-1"><a href="fault-tree-analysis-in-r.html#cb1277-1" tabindex="-1"></a><span class="fu">f</span>(<span class="at">a =</span> <span class="fl">0.2</span>, <span class="at">b =</span> <span class="fl">0.15</span>, <span class="at">c =</span> <span class="fl">0.3</span>, <span class="at">d =</span> <span class="fl">0.1</span>, <span class="at">e =</span> <span class="fl">0.15</span>, <span class="at">f =</span> <span class="fl">0.2</span>, <span class="at">g =</span> <span class="fl">0.05</span>, <span class="at">h =</span> <span class="fl">0.1</span>)</span></code></pre></div>
 <pre><code>## [1] 0.464</code></pre>
 </details>
 <hr />
@@ -1271,32 +1266,32 @@ Causes and Probabilities:
 <div id="using-failure-rates-at-time-t" class="section level2 hasAnchor" number="22.4">
 <h2><span class="header-section-number">22.4</span> Using Failure Rates at Time <code>t</code><a href="fault-tree-analysis-in-r.html#using-failure-rates-at-time-t" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>But if we knew the failure rate of each event, we could calculate the probability of the top event at any time <code>t</code>!</p>
-<div class="sourceCode" id="cb1268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1268-1"><a href="fault-tree-analysis-in-r.html#cb1268-1" tabindex="-1"></a>f2 <span class="ot">=</span> <span class="cf">function</span>(t, lambda_m, lambda_c, lambda_d, lambda_k){</span>
-<span id="cb1268-2"><a href="fault-tree-analysis-in-r.html#cb1268-2" tabindex="-1"></a>  <span class="co"># Get probability at time t...</span></span>
-<span id="cb1268-3"><a href="fault-tree-analysis-in-r.html#cb1268-3" tabindex="-1"></a>  prob_m <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_m)</span>
-<span id="cb1268-4"><a href="fault-tree-analysis-in-r.html#cb1268-4" tabindex="-1"></a>  prob_c <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_c)</span>
-<span id="cb1268-5"><a href="fault-tree-analysis-in-r.html#cb1268-5" tabindex="-1"></a>  prob_d <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_d)</span>
-<span id="cb1268-6"><a href="fault-tree-analysis-in-r.html#cb1268-6" tabindex="-1"></a>  prob_k <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_k)</span>
-<span id="cb1268-7"><a href="fault-tree-analysis-in-r.html#cb1268-7" tabindex="-1"></a>  <span class="co"># Use boolean equation to calculate top event</span></span>
-<span id="cb1268-8"><a href="fault-tree-analysis-in-r.html#cb1268-8" tabindex="-1"></a>  prob_top <span class="ot">=</span> prob_m <span class="sc">+</span> (prob_c <span class="sc">*</span> prob_d <span class="sc">*</span> prob_k)</span>
-<span id="cb1268-9"><a href="fault-tree-analysis-in-r.html#cb1268-9" tabindex="-1"></a>  <span class="fu">return</span>(prob_top)</span>
-<span id="cb1268-10"><a href="fault-tree-analysis-in-r.html#cb1268-10" tabindex="-1"></a>}</span>
-<span id="cb1268-11"><a href="fault-tree-analysis-in-r.html#cb1268-11" tabindex="-1"></a></span>
-<span id="cb1268-12"><a href="fault-tree-analysis-in-r.html#cb1268-12" tabindex="-1"></a><span class="co"># Then we could simulate the probability of the top event over time!</span></span>
-<span id="cb1268-13"><a href="fault-tree-analysis-in-r.html#cb1268-13" tabindex="-1"></a>probs2 <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">t =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1268-14"><a href="fault-tree-analysis-in-r.html#cb1268-14" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> <span class="fu">f2</span>(<span class="at">t =</span> t, <span class="at">lambda_m =</span> <span class="fl">0.01</span>, <span class="at">lambda_c =</span> <span class="fl">0.001</span>, </span>
-<span id="cb1268-15"><a href="fault-tree-analysis-in-r.html#cb1268-15" tabindex="-1"></a>                   <span class="at">lambda_d =</span> <span class="fl">0.025</span>, <span class="at">lambda_k =</span> <span class="fl">0.00005</span>))</span>
-<span id="cb1268-16"><a href="fault-tree-analysis-in-r.html#cb1268-16" tabindex="-1"></a><span class="co"># Check out the first few rows!</span></span>
-<span id="cb1268-17"><a href="fault-tree-analysis-in-r.html#cb1268-17" tabindex="-1"></a>probs2 <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1279-1"><a href="fault-tree-analysis-in-r.html#cb1279-1" tabindex="-1"></a>f2 <span class="ot">=</span> <span class="cf">function</span>(t, lambda_m, lambda_c, lambda_d, lambda_k){</span>
+<span id="cb1279-2"><a href="fault-tree-analysis-in-r.html#cb1279-2" tabindex="-1"></a>  <span class="co"># Get probability at time t...</span></span>
+<span id="cb1279-3"><a href="fault-tree-analysis-in-r.html#cb1279-3" tabindex="-1"></a>  prob_m <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_m)</span>
+<span id="cb1279-4"><a href="fault-tree-analysis-in-r.html#cb1279-4" tabindex="-1"></a>  prob_c <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_c)</span>
+<span id="cb1279-5"><a href="fault-tree-analysis-in-r.html#cb1279-5" tabindex="-1"></a>  prob_d <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_d)</span>
+<span id="cb1279-6"><a href="fault-tree-analysis-in-r.html#cb1279-6" tabindex="-1"></a>  prob_k <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_k)</span>
+<span id="cb1279-7"><a href="fault-tree-analysis-in-r.html#cb1279-7" tabindex="-1"></a>  <span class="co"># Use boolean equation to calculate top event</span></span>
+<span id="cb1279-8"><a href="fault-tree-analysis-in-r.html#cb1279-8" tabindex="-1"></a>  prob_top <span class="ot">=</span> prob_m <span class="sc">+</span> (prob_c <span class="sc">*</span> prob_d <span class="sc">*</span> prob_k)</span>
+<span id="cb1279-9"><a href="fault-tree-analysis-in-r.html#cb1279-9" tabindex="-1"></a>  <span class="fu">return</span>(prob_top)</span>
+<span id="cb1279-10"><a href="fault-tree-analysis-in-r.html#cb1279-10" tabindex="-1"></a>}</span>
+<span id="cb1279-11"><a href="fault-tree-analysis-in-r.html#cb1279-11" tabindex="-1"></a></span>
+<span id="cb1279-12"><a href="fault-tree-analysis-in-r.html#cb1279-12" tabindex="-1"></a><span class="co"># Then we could simulate the probability of the top event over time!</span></span>
+<span id="cb1279-13"><a href="fault-tree-analysis-in-r.html#cb1279-13" tabindex="-1"></a>probs2 <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">t =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1279-14"><a href="fault-tree-analysis-in-r.html#cb1279-14" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> <span class="fu">f2</span>(<span class="at">t =</span> t, <span class="at">lambda_m =</span> <span class="fl">0.01</span>, <span class="at">lambda_c =</span> <span class="fl">0.001</span>, </span>
+<span id="cb1279-15"><a href="fault-tree-analysis-in-r.html#cb1279-15" tabindex="-1"></a>                   <span class="at">lambda_d =</span> <span class="fl">0.025</span>, <span class="at">lambda_k =</span> <span class="fl">0.00005</span>))</span>
+<span id="cb1279-16"><a href="fault-tree-analysis-in-r.html#cb1279-16" tabindex="-1"></a><span class="co"># Check out the first few rows!</span></span>
+<span id="cb1279-17"><a href="fault-tree-analysis-in-r.html#cb1279-17" tabindex="-1"></a>probs2 <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 2
 ##       t    prob
 ##   &lt;int&gt;   &lt;dbl&gt;
 ## 1     1 0.00995
 ## 2     2 0.0198 
 ## 3     3 0.0296</code></pre>
-<div class="sourceCode" id="cb1270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1270-1"><a href="fault-tree-analysis-in-r.html#cb1270-1" tabindex="-1"></a><span class="co"># Let&#39;s visualize it!</span></span>
-<span id="cb1270-2"><a href="fault-tree-analysis-in-r.html#cb1270-2" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb1270-3"><a href="fault-tree-analysis-in-r.html#cb1270-3" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> probs2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> prob))</span></code></pre></div>
+<div class="sourceCode" id="cb1281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1281-1"><a href="fault-tree-analysis-in-r.html#cb1281-1" tabindex="-1"></a><span class="co"># Let&#39;s visualize it!</span></span>
+<span id="cb1281-2"><a href="fault-tree-analysis-in-r.html#cb1281-2" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb1281-3"><a href="fault-tree-analysis-in-r.html#cb1281-3" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> probs2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> prob))</span></code></pre></div>
 <p><img src="09_workshop_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <hr />
 </div>
@@ -1313,29 +1308,29 @@ Causes and Probabilities:
 <summary>
 <strong>[View Answer!]</strong>
 </summary>
-<div class="sourceCode" id="cb1271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1271-1"><a href="fault-tree-analysis-in-r.html#cb1271-1" tabindex="-1"></a><span class="co"># Let&#39;s create a function calculate probability of the top event using failure rates and time period</span></span>
-<span id="cb1271-2"><a href="fault-tree-analysis-in-r.html#cb1271-2" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(</span>
-<span id="cb1271-3"><a href="fault-tree-analysis-in-r.html#cb1271-3" tabindex="-1"></a>    <span class="at">t =</span> <span class="dv">1</span>, <span class="co"># Time period we want to analyze the events for    </span></span>
-<span id="cb1271-4"><a href="fault-tree-analysis-in-r.html#cb1271-4" tabindex="-1"></a>    <span class="at">lambda_a =</span> <span class="fl">0.05</span>, <span class="co"># Failure rate for event A </span></span>
-<span id="cb1271-5"><a href="fault-tree-analysis-in-r.html#cb1271-5" tabindex="-1"></a>    <span class="at">lambda_b =</span> <span class="fl">0.03</span>, <span class="co"># Failure rate for event B</span></span>
-<span id="cb1271-6"><a href="fault-tree-analysis-in-r.html#cb1271-6" tabindex="-1"></a>    <span class="at">lambda_c =</span> <span class="fl">0.02</span> <span class="co"># Failure rate for event C</span></span>
-<span id="cb1271-7"><a href="fault-tree-analysis-in-r.html#cb1271-7" tabindex="-1"></a>    ){</span>
-<span id="cb1271-8"><a href="fault-tree-analysis-in-r.html#cb1271-8" tabindex="-1"></a>  </span>
-<span id="cb1271-9"><a href="fault-tree-analysis-in-r.html#cb1271-9" tabindex="-1"></a>  <span class="co"># As these events follow exponential distribution, we need to calculate intermediate probabilities accoridingly</span></span>
-<span id="cb1271-10"><a href="fault-tree-analysis-in-r.html#cb1271-10" tabindex="-1"></a>  prob_a <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_a)</span>
-<span id="cb1271-11"><a href="fault-tree-analysis-in-r.html#cb1271-11" tabindex="-1"></a>  prob_b <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_b)</span>
-<span id="cb1271-12"><a href="fault-tree-analysis-in-r.html#cb1271-12" tabindex="-1"></a>  prob_c <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_c)</span>
-<span id="cb1271-13"><a href="fault-tree-analysis-in-r.html#cb1271-13" tabindex="-1"></a>  </span>
-<span id="cb1271-14"><a href="fault-tree-analysis-in-r.html#cb1271-14" tabindex="-1"></a>  <span class="co"># Get probability of top event</span></span>
-<span id="cb1271-15"><a href="fault-tree-analysis-in-r.html#cb1271-15" tabindex="-1"></a>  prob_top <span class="ot">=</span> (prob_a <span class="sc">*</span> prob_b) <span class="sc">+</span> (prob_b <span class="sc">*</span> prob_c)</span>
-<span id="cb1271-16"><a href="fault-tree-analysis-in-r.html#cb1271-16" tabindex="-1"></a>  </span>
-<span id="cb1271-17"><a href="fault-tree-analysis-in-r.html#cb1271-17" tabindex="-1"></a>  <span class="fu">return</span>(prob_top)</span>
-<span id="cb1271-18"><a href="fault-tree-analysis-in-r.html#cb1271-18" tabindex="-1"></a>} </span></code></pre></div>
-<div class="sourceCode" id="cb1272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1272-1"><a href="fault-tree-analysis-in-r.html#cb1272-1" tabindex="-1"></a><span class="co"># Probability of failure after 1 hour</span></span>
-<span id="cb1272-2"><a href="fault-tree-analysis-in-r.html#cb1272-2" tabindex="-1"></a><span class="fu">f</span>(<span class="at">t =</span> <span class="dv">1</span>, <span class="at">lambda_a =</span> <span class="fl">0.05</span>, <span class="at">lambda_b =</span> <span class="fl">0.03</span>, <span class="at">lambda_c =</span> <span class="fl">0.02</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1282-1"><a href="fault-tree-analysis-in-r.html#cb1282-1" tabindex="-1"></a><span class="co"># Let&#39;s create a function calculate probability of the top event using failure rates and time period</span></span>
+<span id="cb1282-2"><a href="fault-tree-analysis-in-r.html#cb1282-2" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(</span>
+<span id="cb1282-3"><a href="fault-tree-analysis-in-r.html#cb1282-3" tabindex="-1"></a>    <span class="at">t =</span> <span class="dv">1</span>, <span class="co"># Time period we want to analyze the events for    </span></span>
+<span id="cb1282-4"><a href="fault-tree-analysis-in-r.html#cb1282-4" tabindex="-1"></a>    <span class="at">lambda_a =</span> <span class="fl">0.05</span>, <span class="co"># Failure rate for event A </span></span>
+<span id="cb1282-5"><a href="fault-tree-analysis-in-r.html#cb1282-5" tabindex="-1"></a>    <span class="at">lambda_b =</span> <span class="fl">0.03</span>, <span class="co"># Failure rate for event B</span></span>
+<span id="cb1282-6"><a href="fault-tree-analysis-in-r.html#cb1282-6" tabindex="-1"></a>    <span class="at">lambda_c =</span> <span class="fl">0.02</span> <span class="co"># Failure rate for event C</span></span>
+<span id="cb1282-7"><a href="fault-tree-analysis-in-r.html#cb1282-7" tabindex="-1"></a>    ){</span>
+<span id="cb1282-8"><a href="fault-tree-analysis-in-r.html#cb1282-8" tabindex="-1"></a>  </span>
+<span id="cb1282-9"><a href="fault-tree-analysis-in-r.html#cb1282-9" tabindex="-1"></a>  <span class="co"># As these events follow exponential distribution, we need to calculate intermediate probabilities accoridingly</span></span>
+<span id="cb1282-10"><a href="fault-tree-analysis-in-r.html#cb1282-10" tabindex="-1"></a>  prob_a <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_a)</span>
+<span id="cb1282-11"><a href="fault-tree-analysis-in-r.html#cb1282-11" tabindex="-1"></a>  prob_b <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_b)</span>
+<span id="cb1282-12"><a href="fault-tree-analysis-in-r.html#cb1282-12" tabindex="-1"></a>  prob_c <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_c)</span>
+<span id="cb1282-13"><a href="fault-tree-analysis-in-r.html#cb1282-13" tabindex="-1"></a>  </span>
+<span id="cb1282-14"><a href="fault-tree-analysis-in-r.html#cb1282-14" tabindex="-1"></a>  <span class="co"># Get probability of top event</span></span>
+<span id="cb1282-15"><a href="fault-tree-analysis-in-r.html#cb1282-15" tabindex="-1"></a>  prob_top <span class="ot">=</span> (prob_a <span class="sc">*</span> prob_b) <span class="sc">+</span> (prob_b <span class="sc">*</span> prob_c)</span>
+<span id="cb1282-16"><a href="fault-tree-analysis-in-r.html#cb1282-16" tabindex="-1"></a>  </span>
+<span id="cb1282-17"><a href="fault-tree-analysis-in-r.html#cb1282-17" tabindex="-1"></a>  <span class="fu">return</span>(prob_top)</span>
+<span id="cb1282-18"><a href="fault-tree-analysis-in-r.html#cb1282-18" tabindex="-1"></a>} </span></code></pre></div>
+<div class="sourceCode" id="cb1283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1283-1"><a href="fault-tree-analysis-in-r.html#cb1283-1" tabindex="-1"></a><span class="co"># Probability of failure after 1 hour</span></span>
+<span id="cb1283-2"><a href="fault-tree-analysis-in-r.html#cb1283-2" tabindex="-1"></a><span class="fu">f</span>(<span class="at">t =</span> <span class="dv">1</span>, <span class="at">lambda_a =</span> <span class="fl">0.05</span>, <span class="at">lambda_b =</span> <span class="fl">0.03</span>, <span class="at">lambda_c =</span> <span class="fl">0.02</span>)</span></code></pre></div>
 <pre><code>## [1] 0.002026606</code></pre>
-<div class="sourceCode" id="cb1274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1274-1"><a href="fault-tree-analysis-in-r.html#cb1274-1" tabindex="-1"></a><span class="co"># Probability of failure after 10 hours</span></span>
-<span id="cb1274-2"><a href="fault-tree-analysis-in-r.html#cb1274-2" tabindex="-1"></a><span class="fu">f</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">lambda_a =</span> <span class="fl">0.05</span>, <span class="at">lambda_b =</span> <span class="fl">0.03</span>, <span class="at">lambda_c =</span> <span class="fl">0.02</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1285-1"><a href="fault-tree-analysis-in-r.html#cb1285-1" tabindex="-1"></a><span class="co"># Probability of failure after 10 hours</span></span>
+<span id="cb1285-2"><a href="fault-tree-analysis-in-r.html#cb1285-2" tabindex="-1"></a><span class="fu">f</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">lambda_a =</span> <span class="fl">0.05</span>, <span class="at">lambda_b =</span> <span class="fl">0.03</span>, <span class="at">lambda_c =</span> <span class="fl">0.02</span>)</span></code></pre></div>
 <pre><code>## [1] 0.1489618</code></pre>
 </details>
 <hr />
@@ -1344,90 +1339,90 @@ Causes and Probabilities:
 <h2><span class="header-section-number">22.5</span> Simulating Uncertainty in Probabilities<a href="fault-tree-analysis-in-r.html#simulating-uncertainty-in-probabilities" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can use simulation to answer several important questions about variation. For example, we can simulate how the probability of the top event would change if the probability of each event varies ever so slightly across 1000 simulations.</p>
 <p>When simulating variation in probabilities, you can use random draws from the binomial distribution, randomly sampling 1s or 0s at a given probability <code>prob</code> a total of <code>n</code> times.</p>
-<div class="sourceCode" id="cb1276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1276-1"><a href="fault-tree-analysis-in-r.html#cb1276-1" tabindex="-1"></a>probs3 <span class="ot">=</span> <span class="fu">tibble</span>(</span>
-<span id="cb1276-2"><a href="fault-tree-analysis-in-r.html#cb1276-2" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">1000</span>,</span>
-<span id="cb1276-3"><a href="fault-tree-analysis-in-r.html#cb1276-3" tabindex="-1"></a>  <span class="at">prob_m =</span> <span class="fu">rbinom</span>(<span class="at">n =</span> n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.50</span>),</span>
-<span id="cb1276-4"><a href="fault-tree-analysis-in-r.html#cb1276-4" tabindex="-1"></a>  <span class="at">prob_c =</span> <span class="fu">rbinom</span>(<span class="at">n =</span> n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.99</span>),</span>
-<span id="cb1276-5"><a href="fault-tree-analysis-in-r.html#cb1276-5" tabindex="-1"></a>  <span class="at">prob_d =</span> <span class="fu">rbinom</span>(<span class="at">n =</span> n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.25</span>),</span>
-<span id="cb1276-6"><a href="fault-tree-analysis-in-r.html#cb1276-6" tabindex="-1"></a>  <span class="at">prob_k =</span> <span class="fu">rbinom</span>(<span class="at">n =</span> n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.01</span>),</span>
-<span id="cb1276-7"><a href="fault-tree-analysis-in-r.html#cb1276-7" tabindex="-1"></a>  <span class="co"># Calculate probability of top event for each simulation  </span></span>
-<span id="cb1276-8"><a href="fault-tree-analysis-in-r.html#cb1276-8" tabindex="-1"></a>  <span class="at">prob_top =</span> <span class="fu">f1</span>(<span class="at">m =</span> prob_m, <span class="at">c =</span> prob_c, <span class="at">d =</span> prob_d, <span class="at">k =</span> prob_k)</span>
-<span id="cb1276-9"><a href="fault-tree-analysis-in-r.html#cb1276-9" tabindex="-1"></a>)</span>
-<span id="cb1276-10"><a href="fault-tree-analysis-in-r.html#cb1276-10" tabindex="-1"></a><span class="co"># Let&#39;s get some descriptive statistics - the average will be particularly informative</span></span>
-<span id="cb1276-11"><a href="fault-tree-analysis-in-r.html#cb1276-11" tabindex="-1"></a>probs3 <span class="sc">%&gt;%</span> </span>
-<span id="cb1276-12"><a href="fault-tree-analysis-in-r.html#cb1276-12" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb1276-13"><a href="fault-tree-analysis-in-r.html#cb1276-13" tabindex="-1"></a>    <span class="at">mu_top =</span> <span class="fu">mean</span>(prob_top),</span>
-<span id="cb1276-14"><a href="fault-tree-analysis-in-r.html#cb1276-14" tabindex="-1"></a>    <span class="at">sigma_top =</span> <span class="fu">sd</span>(prob_top))</span></code></pre></div>
+<div class="sourceCode" id="cb1287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1287-1"><a href="fault-tree-analysis-in-r.html#cb1287-1" tabindex="-1"></a>probs3 <span class="ot">=</span> <span class="fu">tibble</span>(</span>
+<span id="cb1287-2"><a href="fault-tree-analysis-in-r.html#cb1287-2" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">1000</span>,</span>
+<span id="cb1287-3"><a href="fault-tree-analysis-in-r.html#cb1287-3" tabindex="-1"></a>  <span class="at">prob_m =</span> <span class="fu">rbinom</span>(<span class="at">n =</span> n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.50</span>),</span>
+<span id="cb1287-4"><a href="fault-tree-analysis-in-r.html#cb1287-4" tabindex="-1"></a>  <span class="at">prob_c =</span> <span class="fu">rbinom</span>(<span class="at">n =</span> n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.99</span>),</span>
+<span id="cb1287-5"><a href="fault-tree-analysis-in-r.html#cb1287-5" tabindex="-1"></a>  <span class="at">prob_d =</span> <span class="fu">rbinom</span>(<span class="at">n =</span> n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.25</span>),</span>
+<span id="cb1287-6"><a href="fault-tree-analysis-in-r.html#cb1287-6" tabindex="-1"></a>  <span class="at">prob_k =</span> <span class="fu">rbinom</span>(<span class="at">n =</span> n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.01</span>),</span>
+<span id="cb1287-7"><a href="fault-tree-analysis-in-r.html#cb1287-7" tabindex="-1"></a>  <span class="co"># Calculate probability of top event for each simulation  </span></span>
+<span id="cb1287-8"><a href="fault-tree-analysis-in-r.html#cb1287-8" tabindex="-1"></a>  <span class="at">prob_top =</span> <span class="fu">f1</span>(<span class="at">m =</span> prob_m, <span class="at">c =</span> prob_c, <span class="at">d =</span> prob_d, <span class="at">k =</span> prob_k)</span>
+<span id="cb1287-9"><a href="fault-tree-analysis-in-r.html#cb1287-9" tabindex="-1"></a>)</span>
+<span id="cb1287-10"><a href="fault-tree-analysis-in-r.html#cb1287-10" tabindex="-1"></a><span class="co"># Let&#39;s get some descriptive statistics - the average will be particularly informative</span></span>
+<span id="cb1287-11"><a href="fault-tree-analysis-in-r.html#cb1287-11" tabindex="-1"></a>probs3 <span class="sc">%&gt;%</span> </span>
+<span id="cb1287-12"><a href="fault-tree-analysis-in-r.html#cb1287-12" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1287-13"><a href="fault-tree-analysis-in-r.html#cb1287-13" tabindex="-1"></a>    <span class="at">mu_top =</span> <span class="fu">mean</span>(prob_top),</span>
+<span id="cb1287-14"><a href="fault-tree-analysis-in-r.html#cb1287-14" tabindex="-1"></a>    <span class="at">sigma_top =</span> <span class="fu">sd</span>(prob_top))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 2
 ##   mu_top sigma_top
 ##    &lt;dbl&gt;     &lt;dbl&gt;
-## 1  0.501     0.502</code></pre>
+## 1  0.499     0.500</code></pre>
 </div>
 <div id="simulating-uncertainty-in-failure-rates" class="section level2 hasAnchor" number="22.6">
 <h2><span class="header-section-number">22.6</span> Simulating Uncertainty in Failure Rates<a href="fault-tree-analysis-in-r.html#simulating-uncertainty-in-failure-rates" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Usually, we go a few steps further, saying, <strong>suppose the probability of each failure <span class="math inline">\(/lambda\)</span> might vary slightly, according to a normal distribution.</strong> What would be the average probability of failure for the top event? How much should we expect that average to vary, on average?</p>
 <p>Suppose each failure rate has a specific standard error: for <code>m</code>, <code>0.0001</code>; for <code>c</code>, <code>0.00001</code>, for <code>d</code> and <code>k</code>, <code>0.000002</code>.</p>
-<div class="sourceCode" id="cb1278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1278-1"><a href="fault-tree-analysis-in-r.html#cb1278-1" tabindex="-1"></a>f4 <span class="ot">=</span> <span class="cf">function</span>(t, lambda_m, lambda_c, lambda_d, lambda_k){</span>
-<span id="cb1278-2"><a href="fault-tree-analysis-in-r.html#cb1278-2" tabindex="-1"></a>  sim_lambda_m <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">mean =</span> lambda_m, <span class="at">sd =</span> <span class="fl">0.0001</span>)</span>
-<span id="cb1278-3"><a href="fault-tree-analysis-in-r.html#cb1278-3" tabindex="-1"></a>  sim_lambda_c <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">mean =</span> lambda_c, <span class="at">sd =</span> <span class="fl">0.00001</span>)</span>
-<span id="cb1278-4"><a href="fault-tree-analysis-in-r.html#cb1278-4" tabindex="-1"></a>  sim_lambda_d <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">mean =</span> lambda_d, <span class="at">sd =</span> <span class="fl">0.000002</span>)</span>
-<span id="cb1278-5"><a href="fault-tree-analysis-in-r.html#cb1278-5" tabindex="-1"></a>  sim_lambda_k <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">mean =</span> lambda_k, <span class="at">sd =</span> <span class="fl">0.000002</span>)</span>
-<span id="cb1278-6"><a href="fault-tree-analysis-in-r.html#cb1278-6" tabindex="-1"></a>  </span>
-<span id="cb1278-7"><a href="fault-tree-analysis-in-r.html#cb1278-7" tabindex="-1"></a>  <span class="co"># Get probability at time t...</span></span>
-<span id="cb1278-8"><a href="fault-tree-analysis-in-r.html#cb1278-8" tabindex="-1"></a>  sim_prob_m <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> sim_lambda_m)</span>
-<span id="cb1278-9"><a href="fault-tree-analysis-in-r.html#cb1278-9" tabindex="-1"></a>  sim_prob_c <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> sim_lambda_c)</span>
-<span id="cb1278-10"><a href="fault-tree-analysis-in-r.html#cb1278-10" tabindex="-1"></a>  sim_prob_d <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> sim_lambda_d)</span>
-<span id="cb1278-11"><a href="fault-tree-analysis-in-r.html#cb1278-11" tabindex="-1"></a>  sim_prob_k <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> sim_lambda_k)</span>
-<span id="cb1278-12"><a href="fault-tree-analysis-in-r.html#cb1278-12" tabindex="-1"></a>  <span class="co"># Use boolean equation to calculate top event</span></span>
-<span id="cb1278-13"><a href="fault-tree-analysis-in-r.html#cb1278-13" tabindex="-1"></a>  prob_top <span class="ot">=</span> sim_prob_m <span class="sc">+</span> (sim_prob_c <span class="sc">*</span> sim_prob_d <span class="sc">*</span> sim_prob_k)</span>
-<span id="cb1278-14"><a href="fault-tree-analysis-in-r.html#cb1278-14" tabindex="-1"></a>  <span class="fu">return</span>(prob_top)</span>
-<span id="cb1278-15"><a href="fault-tree-analysis-in-r.html#cb1278-15" tabindex="-1"></a>}</span>
-<span id="cb1278-16"><a href="fault-tree-analysis-in-r.html#cb1278-16" tabindex="-1"></a></span>
-<span id="cb1278-17"><a href="fault-tree-analysis-in-r.html#cb1278-17" tabindex="-1"></a><span class="co"># Then we could simulate the probability of the top event over time,</span></span>
-<span id="cb1278-18"><a href="fault-tree-analysis-in-r.html#cb1278-18" tabindex="-1"></a>probs4 <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">t =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1278-19"><a href="fault-tree-analysis-in-r.html#cb1278-19" tabindex="-1"></a>  <span class="co"># This would give us 1 random simulation per time period  </span></span>
-<span id="cb1278-20"><a href="fault-tree-analysis-in-r.html#cb1278-20" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> <span class="fu">f4</span>(<span class="at">t =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">lambda_m =</span> <span class="fl">0.01</span>, <span class="at">lambda_c =</span> <span class="fl">0.001</span>, </span>
-<span id="cb1278-21"><a href="fault-tree-analysis-in-r.html#cb1278-21" tabindex="-1"></a>                   <span class="at">lambda_d =</span> <span class="fl">0.025</span>, <span class="at">lambda_k =</span> <span class="fl">0.00005</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb1279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1279-1"><a href="fault-tree-analysis-in-r.html#cb1279-1" tabindex="-1"></a><span class="co"># But we really probably want MANY random simulations per time period.</span></span>
-<span id="cb1279-2"><a href="fault-tree-analysis-in-r.html#cb1279-2" tabindex="-1"></a>probs5 <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">reps =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1279-3"><a href="fault-tree-analysis-in-r.html#cb1279-3" tabindex="-1"></a>  <span class="fu">group_by</span>(reps) <span class="sc">%&gt;%</span></span>
-<span id="cb1279-4"><a href="fault-tree-analysis-in-r.html#cb1279-4" tabindex="-1"></a>  <span class="co"># We can use `reframe()`, a version of summarize()</span></span>
-<span id="cb1279-5"><a href="fault-tree-analysis-in-r.html#cb1279-5" tabindex="-1"></a>  <span class="co"># used when you want to return MANY rows per group</span></span>
-<span id="cb1279-6"><a href="fault-tree-analysis-in-r.html#cb1279-6" tabindex="-1"></a>  <span class="fu">reframe</span>(</span>
-<span id="cb1279-7"><a href="fault-tree-analysis-in-r.html#cb1279-7" tabindex="-1"></a>    <span class="at">t =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>,</span>
-<span id="cb1279-8"><a href="fault-tree-analysis-in-r.html#cb1279-8" tabindex="-1"></a>    <span class="at">prob =</span> <span class="fu">f4</span>(<span class="at">t =</span> t, <span class="at">lambda_m =</span> <span class="fl">0.01</span>, <span class="at">lambda_c =</span> <span class="fl">0.001</span>, </span>
-<span id="cb1279-9"><a href="fault-tree-analysis-in-r.html#cb1279-9" tabindex="-1"></a>              <span class="at">lambda_d =</span> <span class="fl">0.025</span>, <span class="at">lambda_k =</span> <span class="fl">0.00005</span>))</span>
-<span id="cb1279-10"><a href="fault-tree-analysis-in-r.html#cb1279-10" tabindex="-1"></a></span>
-<span id="cb1279-11"><a href="fault-tree-analysis-in-r.html#cb1279-11" tabindex="-1"></a>probs5 <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1289-1"><a href="fault-tree-analysis-in-r.html#cb1289-1" tabindex="-1"></a>f4 <span class="ot">=</span> <span class="cf">function</span>(t, lambda_m, lambda_c, lambda_d, lambda_k){</span>
+<span id="cb1289-2"><a href="fault-tree-analysis-in-r.html#cb1289-2" tabindex="-1"></a>  sim_lambda_m <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">mean =</span> lambda_m, <span class="at">sd =</span> <span class="fl">0.0001</span>)</span>
+<span id="cb1289-3"><a href="fault-tree-analysis-in-r.html#cb1289-3" tabindex="-1"></a>  sim_lambda_c <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">mean =</span> lambda_c, <span class="at">sd =</span> <span class="fl">0.00001</span>)</span>
+<span id="cb1289-4"><a href="fault-tree-analysis-in-r.html#cb1289-4" tabindex="-1"></a>  sim_lambda_d <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">mean =</span> lambda_d, <span class="at">sd =</span> <span class="fl">0.000002</span>)</span>
+<span id="cb1289-5"><a href="fault-tree-analysis-in-r.html#cb1289-5" tabindex="-1"></a>  sim_lambda_k <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">mean =</span> lambda_k, <span class="at">sd =</span> <span class="fl">0.000002</span>)</span>
+<span id="cb1289-6"><a href="fault-tree-analysis-in-r.html#cb1289-6" tabindex="-1"></a>  </span>
+<span id="cb1289-7"><a href="fault-tree-analysis-in-r.html#cb1289-7" tabindex="-1"></a>  <span class="co"># Get probability at time t...</span></span>
+<span id="cb1289-8"><a href="fault-tree-analysis-in-r.html#cb1289-8" tabindex="-1"></a>  sim_prob_m <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> sim_lambda_m)</span>
+<span id="cb1289-9"><a href="fault-tree-analysis-in-r.html#cb1289-9" tabindex="-1"></a>  sim_prob_c <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> sim_lambda_c)</span>
+<span id="cb1289-10"><a href="fault-tree-analysis-in-r.html#cb1289-10" tabindex="-1"></a>  sim_prob_d <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> sim_lambda_d)</span>
+<span id="cb1289-11"><a href="fault-tree-analysis-in-r.html#cb1289-11" tabindex="-1"></a>  sim_prob_k <span class="ot">=</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> sim_lambda_k)</span>
+<span id="cb1289-12"><a href="fault-tree-analysis-in-r.html#cb1289-12" tabindex="-1"></a>  <span class="co"># Use boolean equation to calculate top event</span></span>
+<span id="cb1289-13"><a href="fault-tree-analysis-in-r.html#cb1289-13" tabindex="-1"></a>  prob_top <span class="ot">=</span> sim_prob_m <span class="sc">+</span> (sim_prob_c <span class="sc">*</span> sim_prob_d <span class="sc">*</span> sim_prob_k)</span>
+<span id="cb1289-14"><a href="fault-tree-analysis-in-r.html#cb1289-14" tabindex="-1"></a>  <span class="fu">return</span>(prob_top)</span>
+<span id="cb1289-15"><a href="fault-tree-analysis-in-r.html#cb1289-15" tabindex="-1"></a>}</span>
+<span id="cb1289-16"><a href="fault-tree-analysis-in-r.html#cb1289-16" tabindex="-1"></a></span>
+<span id="cb1289-17"><a href="fault-tree-analysis-in-r.html#cb1289-17" tabindex="-1"></a><span class="co"># Then we could simulate the probability of the top event over time,</span></span>
+<span id="cb1289-18"><a href="fault-tree-analysis-in-r.html#cb1289-18" tabindex="-1"></a>probs4 <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">t =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1289-19"><a href="fault-tree-analysis-in-r.html#cb1289-19" tabindex="-1"></a>  <span class="co"># This would give us 1 random simulation per time period  </span></span>
+<span id="cb1289-20"><a href="fault-tree-analysis-in-r.html#cb1289-20" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> <span class="fu">f4</span>(<span class="at">t =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">lambda_m =</span> <span class="fl">0.01</span>, <span class="at">lambda_c =</span> <span class="fl">0.001</span>, </span>
+<span id="cb1289-21"><a href="fault-tree-analysis-in-r.html#cb1289-21" tabindex="-1"></a>                   <span class="at">lambda_d =</span> <span class="fl">0.025</span>, <span class="at">lambda_k =</span> <span class="fl">0.00005</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1290-1"><a href="fault-tree-analysis-in-r.html#cb1290-1" tabindex="-1"></a><span class="co"># But we really probably want MANY random simulations per time period.</span></span>
+<span id="cb1290-2"><a href="fault-tree-analysis-in-r.html#cb1290-2" tabindex="-1"></a>probs5 <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">reps =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1290-3"><a href="fault-tree-analysis-in-r.html#cb1290-3" tabindex="-1"></a>  <span class="fu">group_by</span>(reps) <span class="sc">%&gt;%</span></span>
+<span id="cb1290-4"><a href="fault-tree-analysis-in-r.html#cb1290-4" tabindex="-1"></a>  <span class="co"># We can use `reframe()`, a version of summarize()</span></span>
+<span id="cb1290-5"><a href="fault-tree-analysis-in-r.html#cb1290-5" tabindex="-1"></a>  <span class="co"># used when you want to return MANY rows per group</span></span>
+<span id="cb1290-6"><a href="fault-tree-analysis-in-r.html#cb1290-6" tabindex="-1"></a>  <span class="fu">reframe</span>(</span>
+<span id="cb1290-7"><a href="fault-tree-analysis-in-r.html#cb1290-7" tabindex="-1"></a>    <span class="at">t =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>,</span>
+<span id="cb1290-8"><a href="fault-tree-analysis-in-r.html#cb1290-8" tabindex="-1"></a>    <span class="at">prob =</span> <span class="fu">f4</span>(<span class="at">t =</span> t, <span class="at">lambda_m =</span> <span class="fl">0.01</span>, <span class="at">lambda_c =</span> <span class="fl">0.001</span>, </span>
+<span id="cb1290-9"><a href="fault-tree-analysis-in-r.html#cb1290-9" tabindex="-1"></a>              <span class="at">lambda_d =</span> <span class="fl">0.025</span>, <span class="at">lambda_k =</span> <span class="fl">0.00005</span>))</span>
+<span id="cb1290-10"><a href="fault-tree-analysis-in-r.html#cb1290-10" tabindex="-1"></a></span>
+<span id="cb1290-11"><a href="fault-tree-analysis-in-r.html#cb1290-11" tabindex="-1"></a>probs5 <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 3
-##    reps     t   prob
-##   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
-## 1     1     1 0.0100
-## 2     1     2 0.0199
-## 3     1     3 0.0297</code></pre>
-<div class="sourceCode" id="cb1281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1281-1"><a href="fault-tree-analysis-in-r.html#cb1281-1" tabindex="-1"></a><span class="co"># And then we could get quantities of interest for each time period!</span></span>
-<span id="cb1281-2"><a href="fault-tree-analysis-in-r.html#cb1281-2" tabindex="-1"></a>probs6 <span class="ot">=</span> probs5 <span class="sc">%&gt;%</span></span>
-<span id="cb1281-3"><a href="fault-tree-analysis-in-r.html#cb1281-3" tabindex="-1"></a>  <span class="fu">group_by</span>(t) <span class="sc">%&gt;%</span></span>
-<span id="cb1281-4"><a href="fault-tree-analysis-in-r.html#cb1281-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb1281-5"><a href="fault-tree-analysis-in-r.html#cb1281-5" tabindex="-1"></a>    <span class="at">mu =</span> <span class="fu">mean</span>(prob), </span>
-<span id="cb1281-6"><a href="fault-tree-analysis-in-r.html#cb1281-6" tabindex="-1"></a>    <span class="at">sigma =</span> <span class="fu">sd</span>(prob),</span>
-<span id="cb1281-7"><a href="fault-tree-analysis-in-r.html#cb1281-7" tabindex="-1"></a>    <span class="co"># Exact lower and upper 95% simulated confidence intervals</span></span>
-<span id="cb1281-8"><a href="fault-tree-analysis-in-r.html#cb1281-8" tabindex="-1"></a>    <span class="at">lower =</span> <span class="fu">quantile</span>(prob, <span class="at">probs =</span> <span class="fl">0.025</span>),</span>
-<span id="cb1281-9"><a href="fault-tree-analysis-in-r.html#cb1281-9" tabindex="-1"></a>    <span class="at">upper =</span> <span class="fu">quantile</span>(prob, <span class="at">probs =</span> <span class="fl">0.975</span>),</span>
-<span id="cb1281-10"><a href="fault-tree-analysis-in-r.html#cb1281-10" tabindex="-1"></a>    <span class="co"># Approximated lower and upper 95% confidence intervals</span></span>
-<span id="cb1281-11"><a href="fault-tree-analysis-in-r.html#cb1281-11" tabindex="-1"></a>    <span class="at">lower_approx =</span> mu <span class="sc">-</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span>) <span class="sc">*</span> sigma,</span>
-<span id="cb1281-12"><a href="fault-tree-analysis-in-r.html#cb1281-12" tabindex="-1"></a>    <span class="at">upper_approx =</span> mu <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> sigma)</span>
-<span id="cb1281-13"><a href="fault-tree-analysis-in-r.html#cb1281-13" tabindex="-1"></a></span>
-<span id="cb1281-14"><a href="fault-tree-analysis-in-r.html#cb1281-14" tabindex="-1"></a>probs6 <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+##    reps     t    prob
+##   &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;
+## 1     1     1 0.00997
+## 2     1     2 0.0198 
+## 3     1     3 0.0296</code></pre>
+<div class="sourceCode" id="cb1292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1292-1"><a href="fault-tree-analysis-in-r.html#cb1292-1" tabindex="-1"></a><span class="co"># And then we could get quantities of interest for each time period!</span></span>
+<span id="cb1292-2"><a href="fault-tree-analysis-in-r.html#cb1292-2" tabindex="-1"></a>probs6 <span class="ot">=</span> probs5 <span class="sc">%&gt;%</span></span>
+<span id="cb1292-3"><a href="fault-tree-analysis-in-r.html#cb1292-3" tabindex="-1"></a>  <span class="fu">group_by</span>(t) <span class="sc">%&gt;%</span></span>
+<span id="cb1292-4"><a href="fault-tree-analysis-in-r.html#cb1292-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1292-5"><a href="fault-tree-analysis-in-r.html#cb1292-5" tabindex="-1"></a>    <span class="at">mu =</span> <span class="fu">mean</span>(prob), </span>
+<span id="cb1292-6"><a href="fault-tree-analysis-in-r.html#cb1292-6" tabindex="-1"></a>    <span class="at">sigma =</span> <span class="fu">sd</span>(prob),</span>
+<span id="cb1292-7"><a href="fault-tree-analysis-in-r.html#cb1292-7" tabindex="-1"></a>    <span class="co"># Exact lower and upper 95% simulated confidence intervals</span></span>
+<span id="cb1292-8"><a href="fault-tree-analysis-in-r.html#cb1292-8" tabindex="-1"></a>    <span class="at">lower =</span> <span class="fu">quantile</span>(prob, <span class="at">probs =</span> <span class="fl">0.025</span>),</span>
+<span id="cb1292-9"><a href="fault-tree-analysis-in-r.html#cb1292-9" tabindex="-1"></a>    <span class="at">upper =</span> <span class="fu">quantile</span>(prob, <span class="at">probs =</span> <span class="fl">0.975</span>),</span>
+<span id="cb1292-10"><a href="fault-tree-analysis-in-r.html#cb1292-10" tabindex="-1"></a>    <span class="co"># Approximated lower and upper 95% confidence intervals</span></span>
+<span id="cb1292-11"><a href="fault-tree-analysis-in-r.html#cb1292-11" tabindex="-1"></a>    <span class="at">lower_approx =</span> mu <span class="sc">-</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span>) <span class="sc">*</span> sigma,</span>
+<span id="cb1292-12"><a href="fault-tree-analysis-in-r.html#cb1292-12" tabindex="-1"></a>    <span class="at">upper_approx =</span> mu <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> sigma)</span>
+<span id="cb1292-13"><a href="fault-tree-analysis-in-r.html#cb1292-13" tabindex="-1"></a></span>
+<span id="cb1292-14"><a href="fault-tree-analysis-in-r.html#cb1292-14" tabindex="-1"></a>probs6 <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 7
 ##       t      mu     sigma   lower  upper lower_approx upper_approx
 ##   &lt;int&gt;   &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-## 1     1 0.00996 0.0000984 0.00977 0.0102       0.0101       0.0101
-## 2     2 0.0198  0.000195  0.0194  0.0202       0.0202       0.0202
-## 3     3 0.0296  0.000289  0.0290  0.0301       0.0301       0.0301</code></pre>
+## 1     1 0.00995 0.0000954 0.00976 0.0101       0.0101       0.0101
+## 2     2 0.0198  0.000189  0.0194  0.0202       0.0202       0.0202
+## 3     3 0.0296  0.000281  0.0290  0.0301       0.0301       0.0301</code></pre>
 <p>Let’s visualize that confidence interval over time!</p>
-<div class="sourceCode" id="cb1283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1283-1"><a href="fault-tree-analysis-in-r.html#cb1283-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb1283-2"><a href="fault-tree-analysis-in-r.html#cb1283-2" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> probs6, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper))</span></code></pre></div>
+<div class="sourceCode" id="cb1294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1294-1"><a href="fault-tree-analysis-in-r.html#cb1294-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb1294-2"><a href="fault-tree-analysis-in-r.html#cb1294-2" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> probs6, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper))</span></code></pre></div>
 <p><img src="09_workshop_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>The sky is the limit! Happy fault tree simulating!</p>
 <hr />
@@ -1460,45 +1455,45 @@ Causes and Probabilities:
 <li>High mutation rate of the pathogen: P(High mutation rate) = 0.05 (5%)</li>
 <li>Inadequate monitoring of the pathogen mutations: P(Inadequate monitoring) = 0.1 (10%)</li>
 </ul>
-<div class="sourceCode" id="cb1284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1284-1"><a href="fault-tree-analysis-in-r.html#cb1284-1" tabindex="-1"></a><span class="co"># Calculating probabilities of intermediate events using probabilities based on available data:</span></span>
-<span id="cb1284-2"><a href="fault-tree-analysis-in-r.html#cb1284-2" tabindex="-1"></a><span class="co"># Probability of Insufficient Vaccination Coverage:</span></span>
-<span id="cb1284-3"><a href="fault-tree-analysis-in-r.html#cb1284-3" tabindex="-1"></a><span class="co"># All of the sub-events must occur for this intermediate event to happen:</span></span>
-<span id="cb1284-4"><a href="fault-tree-analysis-in-r.html#cb1284-4" tabindex="-1"></a>p_event1<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.15</span>, <span class="fl">0.3</span>)  <span class="co"># Probabilities for AND logic</span></span>
-<span id="cb1284-5"><a href="fault-tree-analysis-in-r.html#cb1284-5" tabindex="-1"></a>p_insufficient_vaccine_coverage <span class="ot">&lt;-</span> <span class="fu">prod</span>(p_event1)</span>
-<span id="cb1284-6"><a href="fault-tree-analysis-in-r.html#cb1284-6" tabindex="-1"></a>p_insufficient_vaccine_coverage</span></code></pre></div>
+<div class="sourceCode" id="cb1295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1295-1"><a href="fault-tree-analysis-in-r.html#cb1295-1" tabindex="-1"></a><span class="co"># Calculating probabilities of intermediate events using probabilities based on available data:</span></span>
+<span id="cb1295-2"><a href="fault-tree-analysis-in-r.html#cb1295-2" tabindex="-1"></a><span class="co"># Probability of Insufficient Vaccination Coverage:</span></span>
+<span id="cb1295-3"><a href="fault-tree-analysis-in-r.html#cb1295-3" tabindex="-1"></a><span class="co"># All of the sub-events must occur for this intermediate event to happen:</span></span>
+<span id="cb1295-4"><a href="fault-tree-analysis-in-r.html#cb1295-4" tabindex="-1"></a>p_event1<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.15</span>, <span class="fl">0.3</span>)  <span class="co"># Probabilities for AND logic</span></span>
+<span id="cb1295-5"><a href="fault-tree-analysis-in-r.html#cb1295-5" tabindex="-1"></a>p_insufficient_vaccine_coverage <span class="ot">&lt;-</span> <span class="fu">prod</span>(p_event1)</span>
+<span id="cb1295-6"><a href="fault-tree-analysis-in-r.html#cb1295-6" tabindex="-1"></a>p_insufficient_vaccine_coverage</span></code></pre></div>
 <pre><code>## [1] 0.009</code></pre>
-<div class="sourceCode" id="cb1286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1286-1"><a href="fault-tree-analysis-in-r.html#cb1286-1" tabindex="-1"></a><span class="co"># Probability of Ineffective Quarantine Measures:</span></span>
-<span id="cb1286-2"><a href="fault-tree-analysis-in-r.html#cb1286-2" tabindex="-1"></a><span class="co"># Any of the sub-event event can lead to this intermediate event:</span></span>
-<span id="cb1286-3"><a href="fault-tree-analysis-in-r.html#cb1286-3" tabindex="-1"></a>p_event2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.15</span>, <span class="fl">0.2</span>)  <span class="co"># Probabilities for OR logic</span></span>
-<span id="cb1286-4"><a href="fault-tree-analysis-in-r.html#cb1286-4" tabindex="-1"></a>p_quarantine_measures <span class="ot">&lt;-</span> <span class="fu">sum</span>(p_event2)</span>
-<span id="cb1286-5"><a href="fault-tree-analysis-in-r.html#cb1286-5" tabindex="-1"></a>p_quarantine_measures</span></code></pre></div>
+<div class="sourceCode" id="cb1297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1297-1"><a href="fault-tree-analysis-in-r.html#cb1297-1" tabindex="-1"></a><span class="co"># Probability of Ineffective Quarantine Measures:</span></span>
+<span id="cb1297-2"><a href="fault-tree-analysis-in-r.html#cb1297-2" tabindex="-1"></a><span class="co"># Any of the sub-event event can lead to this intermediate event:</span></span>
+<span id="cb1297-3"><a href="fault-tree-analysis-in-r.html#cb1297-3" tabindex="-1"></a>p_event2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.15</span>, <span class="fl">0.2</span>)  <span class="co"># Probabilities for OR logic</span></span>
+<span id="cb1297-4"><a href="fault-tree-analysis-in-r.html#cb1297-4" tabindex="-1"></a>p_quarantine_measures <span class="ot">&lt;-</span> <span class="fu">sum</span>(p_event2)</span>
+<span id="cb1297-5"><a href="fault-tree-analysis-in-r.html#cb1297-5" tabindex="-1"></a>p_quarantine_measures</span></code></pre></div>
 <pre><code>## [1] 0.45</code></pre>
-<div class="sourceCode" id="cb1288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1288-1"><a href="fault-tree-analysis-in-r.html#cb1288-1" tabindex="-1"></a><span class="co"># Probability of Mutation of the Pathogen:</span></span>
-<span id="cb1288-2"><a href="fault-tree-analysis-in-r.html#cb1288-2" tabindex="-1"></a><span class="co"># Both conditions need to be present in order for pathogen to mutate:</span></span>
-<span id="cb1288-3"><a href="fault-tree-analysis-in-r.html#cb1288-3" tabindex="-1"></a>p_event3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.1</span>)  <span class="co"># Probabilities for AND logic</span></span>
-<span id="cb1288-4"><a href="fault-tree-analysis-in-r.html#cb1288-4" tabindex="-1"></a>logic_mutation <span class="ot">&lt;-</span> <span class="st">&quot;AND&quot;</span></span>
-<span id="cb1288-5"><a href="fault-tree-analysis-in-r.html#cb1288-5" tabindex="-1"></a>p_pathogen_mutation <span class="ot">&lt;-</span> <span class="fu">prod</span>(p_event3)</span>
-<span id="cb1288-6"><a href="fault-tree-analysis-in-r.html#cb1288-6" tabindex="-1"></a>p_pathogen_mutation</span></code></pre></div>
+<div class="sourceCode" id="cb1299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1299-1"><a href="fault-tree-analysis-in-r.html#cb1299-1" tabindex="-1"></a><span class="co"># Probability of Mutation of the Pathogen:</span></span>
+<span id="cb1299-2"><a href="fault-tree-analysis-in-r.html#cb1299-2" tabindex="-1"></a><span class="co"># Both conditions need to be present in order for pathogen to mutate:</span></span>
+<span id="cb1299-3"><a href="fault-tree-analysis-in-r.html#cb1299-3" tabindex="-1"></a>p_event3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.1</span>)  <span class="co"># Probabilities for AND logic</span></span>
+<span id="cb1299-4"><a href="fault-tree-analysis-in-r.html#cb1299-4" tabindex="-1"></a>logic_mutation <span class="ot">&lt;-</span> <span class="st">&quot;AND&quot;</span></span>
+<span id="cb1299-5"><a href="fault-tree-analysis-in-r.html#cb1299-5" tabindex="-1"></a>p_pathogen_mutation <span class="ot">&lt;-</span> <span class="fu">prod</span>(p_event3)</span>
+<span id="cb1299-6"><a href="fault-tree-analysis-in-r.html#cb1299-6" tabindex="-1"></a>p_pathogen_mutation</span></code></pre></div>
 <pre><code>## [1] 0.005</code></pre>
-<div class="sourceCode" id="cb1290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1290-1"><a href="fault-tree-analysis-in-r.html#cb1290-1" tabindex="-1"></a><span class="co"># Calculating the probability of widespread outbreak (top event) using the probabilities of intermediate events</span></span>
-<span id="cb1290-2"><a href="fault-tree-analysis-in-r.html#cb1290-2" tabindex="-1"></a><span class="co"># Let&#39;s create a function that can calculate the probability of the top event using any number of intermediate events and any logic gate</span></span>
-<span id="cb1290-3"><a href="fault-tree-analysis-in-r.html#cb1290-3" tabindex="-1"></a>top_event <span class="ot">&lt;-</span> <span class="cf">function</span>(intermediate_probability, logic) {</span>
-<span id="cb1290-4"><a href="fault-tree-analysis-in-r.html#cb1290-4" tabindex="-1"></a>  </span>
-<span id="cb1290-5"><a href="fault-tree-analysis-in-r.html#cb1290-5" tabindex="-1"></a>  <span class="cf">if</span> (logic <span class="sc">==</span> <span class="st">&quot;AND&quot;</span>) {</span>
-<span id="cb1290-6"><a href="fault-tree-analysis-in-r.html#cb1290-6" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">prod</span>(intermediate_probability))</span>
-<span id="cb1290-7"><a href="fault-tree-analysis-in-r.html#cb1290-7" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (logic <span class="sc">==</span> <span class="st">&quot;OR&quot;</span>) {</span>
-<span id="cb1290-8"><a href="fault-tree-analysis-in-r.html#cb1290-8" tabindex="-1"></a>    <span class="fu">return</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">prod</span>(<span class="dv">1</span> <span class="sc">-</span> intermediate_probability))</span>
-<span id="cb1290-9"><a href="fault-tree-analysis-in-r.html#cb1290-9" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb1290-10"><a href="fault-tree-analysis-in-r.html#cb1290-10" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;Unsupported logic operator. Use &#39;AND&#39; or &#39;OR&#39;.&quot;</span>)</span>
-<span id="cb1290-11"><a href="fault-tree-analysis-in-r.html#cb1290-11" tabindex="-1"></a>  }</span>
-<span id="cb1290-12"><a href="fault-tree-analysis-in-r.html#cb1290-12" tabindex="-1"></a>}</span>
-<span id="cb1290-13"><a href="fault-tree-analysis-in-r.html#cb1290-13" tabindex="-1"></a><span class="co"># Define probabilities and logic gates as vector</span></span>
-<span id="cb1290-14"><a href="fault-tree-analysis-in-r.html#cb1290-14" tabindex="-1"></a>intermediate_probability<span class="ot">&lt;-</span> <span class="fu">c</span>(p_insufficient_vaccine_coverage,p_quarantine_measures,p_pathogen_mutation)  <span class="co"># Probabilities for the intermediate events</span></span>
-<span id="cb1290-15"><a href="fault-tree-analysis-in-r.html#cb1290-15" tabindex="-1"></a>logic <span class="ot">&lt;-</span> <span class="st">&quot;OR&quot;</span>  <span class="co"># Logic gate for the top event (&quot;AND&quot; or &quot;OR&quot;)</span></span>
-<span id="cb1290-16"><a href="fault-tree-analysis-in-r.html#cb1290-16" tabindex="-1"></a><span class="co"># Calculate the probability of the top event - Widespread outbreak of disease: </span></span>
-<span id="cb1290-17"><a href="fault-tree-analysis-in-r.html#cb1290-17" tabindex="-1"></a>p_widespread_outbreak <span class="ot">&lt;-</span> <span class="fu">top_event</span>(intermediate_probability, logic)</span>
-<span id="cb1290-18"><a href="fault-tree-analysis-in-r.html#cb1290-18" tabindex="-1"></a><span class="co"># Print the result</span></span>
-<span id="cb1290-19"><a href="fault-tree-analysis-in-r.html#cb1290-19" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Probability of the top event:&quot;</span>, p_widespread_outbreak, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1301-1"><a href="fault-tree-analysis-in-r.html#cb1301-1" tabindex="-1"></a><span class="co"># Calculating the probability of widespread outbreak (top event) using the probabilities of intermediate events</span></span>
+<span id="cb1301-2"><a href="fault-tree-analysis-in-r.html#cb1301-2" tabindex="-1"></a><span class="co"># Let&#39;s create a function that can calculate the probability of the top event using any number of intermediate events and any logic gate</span></span>
+<span id="cb1301-3"><a href="fault-tree-analysis-in-r.html#cb1301-3" tabindex="-1"></a>top_event <span class="ot">&lt;-</span> <span class="cf">function</span>(intermediate_probability, logic) {</span>
+<span id="cb1301-4"><a href="fault-tree-analysis-in-r.html#cb1301-4" tabindex="-1"></a>  </span>
+<span id="cb1301-5"><a href="fault-tree-analysis-in-r.html#cb1301-5" tabindex="-1"></a>  <span class="cf">if</span> (logic <span class="sc">==</span> <span class="st">&quot;AND&quot;</span>) {</span>
+<span id="cb1301-6"><a href="fault-tree-analysis-in-r.html#cb1301-6" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">prod</span>(intermediate_probability))</span>
+<span id="cb1301-7"><a href="fault-tree-analysis-in-r.html#cb1301-7" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (logic <span class="sc">==</span> <span class="st">&quot;OR&quot;</span>) {</span>
+<span id="cb1301-8"><a href="fault-tree-analysis-in-r.html#cb1301-8" tabindex="-1"></a>    <span class="fu">return</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">prod</span>(<span class="dv">1</span> <span class="sc">-</span> intermediate_probability))</span>
+<span id="cb1301-9"><a href="fault-tree-analysis-in-r.html#cb1301-9" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb1301-10"><a href="fault-tree-analysis-in-r.html#cb1301-10" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;Unsupported logic operator. Use &#39;AND&#39; or &#39;OR&#39;.&quot;</span>)</span>
+<span id="cb1301-11"><a href="fault-tree-analysis-in-r.html#cb1301-11" tabindex="-1"></a>  }</span>
+<span id="cb1301-12"><a href="fault-tree-analysis-in-r.html#cb1301-12" tabindex="-1"></a>}</span>
+<span id="cb1301-13"><a href="fault-tree-analysis-in-r.html#cb1301-13" tabindex="-1"></a><span class="co"># Define probabilities and logic gates as vector</span></span>
+<span id="cb1301-14"><a href="fault-tree-analysis-in-r.html#cb1301-14" tabindex="-1"></a>intermediate_probability<span class="ot">&lt;-</span> <span class="fu">c</span>(p_insufficient_vaccine_coverage,p_quarantine_measures,p_pathogen_mutation)  <span class="co"># Probabilities for the intermediate events</span></span>
+<span id="cb1301-15"><a href="fault-tree-analysis-in-r.html#cb1301-15" tabindex="-1"></a>logic <span class="ot">&lt;-</span> <span class="st">&quot;OR&quot;</span>  <span class="co"># Logic gate for the top event (&quot;AND&quot; or &quot;OR&quot;)</span></span>
+<span id="cb1301-16"><a href="fault-tree-analysis-in-r.html#cb1301-16" tabindex="-1"></a><span class="co"># Calculate the probability of the top event - Widespread outbreak of disease: </span></span>
+<span id="cb1301-17"><a href="fault-tree-analysis-in-r.html#cb1301-17" tabindex="-1"></a>p_widespread_outbreak <span class="ot">&lt;-</span> <span class="fu">top_event</span>(intermediate_probability, logic)</span>
+<span id="cb1301-18"><a href="fault-tree-analysis-in-r.html#cb1301-18" tabindex="-1"></a><span class="co"># Print the result</span></span>
+<span id="cb1301-19"><a href="fault-tree-analysis-in-r.html#cb1301-19" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Probability of the top event:&quot;</span>, p_widespread_outbreak, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <pre><code>## Probability of the top event: 0.4576752</code></pre>
 <hr />
 <p><br>
@@ -1512,68 +1507,68 @@ Causes and Probabilities:
 <summary>
 <strong>[View Answer!]</strong>
 </summary>
-<div class="sourceCode" id="cb1292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1292-1"><a href="fault-tree-analysis-in-r.html#cb1292-1" tabindex="-1"></a><span class="co"># Firstly, let&#39;s load necessary libraries for plotting</span></span>
-<span id="cb1292-2"><a href="fault-tree-analysis-in-r.html#cb1292-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1292-3"><a href="fault-tree-analysis-in-r.html#cb1292-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1292-4"><a href="fault-tree-analysis-in-r.html#cb1292-4" tabindex="-1"></a></span>
-<span id="cb1292-5"><a href="fault-tree-analysis-in-r.html#cb1292-5" tabindex="-1"></a>stat <span class="ot">=</span> <span class="fu">tibble</span>(</span>
-<span id="cb1292-6"><a href="fault-tree-analysis-in-r.html#cb1292-6" tabindex="-1"></a>  <span class="at">reps =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>,</span>
-<span id="cb1292-7"><a href="fault-tree-analysis-in-r.html#cb1292-7" tabindex="-1"></a>  <span class="co"># Simulate 1000 lambdas!</span></span>
-<span id="cb1292-8"><a href="fault-tree-analysis-in-r.html#cb1292-8" tabindex="-1"></a>  <span class="at">lambda_a =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">mean =</span> <span class="fl">0.05</span>, <span class="at">sd =</span> <span class="fl">0.001</span>),</span>
-<span id="cb1292-9"><a href="fault-tree-analysis-in-r.html#cb1292-9" tabindex="-1"></a>  <span class="at">lambda_b =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">mean =</span> <span class="fl">0.03</span>, <span class="at">sd =</span> <span class="fl">0.001</span>),</span>
-<span id="cb1292-10"><a href="fault-tree-analysis-in-r.html#cb1292-10" tabindex="-1"></a>  <span class="at">lambda_c =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">mean =</span> <span class="fl">0.02</span>, <span class="at">sd =</span> <span class="fl">0.001</span>)</span>
-<span id="cb1292-11"><a href="fault-tree-analysis-in-r.html#cb1292-11" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb1292-12"><a href="fault-tree-analysis-in-r.html#cb1292-12" tabindex="-1"></a>  <span class="co"># For each simulation...</span></span>
-<span id="cb1292-13"><a href="fault-tree-analysis-in-r.html#cb1292-13" tabindex="-1"></a>  <span class="fu">group_by</span>(reps) <span class="sc">%&gt;%</span></span>
-<span id="cb1292-14"><a href="fault-tree-analysis-in-r.html#cb1292-14" tabindex="-1"></a>  <span class="fu">reframe</span>(</span>
-<span id="cb1292-15"><a href="fault-tree-analysis-in-r.html#cb1292-15" tabindex="-1"></a>    <span class="co"># Get a time frame from 1 to 100 hours</span></span>
-<span id="cb1292-16"><a href="fault-tree-analysis-in-r.html#cb1292-16" tabindex="-1"></a>    <span class="at">t =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>,</span>
-<span id="cb1292-17"><a href="fault-tree-analysis-in-r.html#cb1292-17" tabindex="-1"></a>    <span class="co"># Get the probabilities for that time frame given each simulated lambda</span></span>
-<span id="cb1292-18"><a href="fault-tree-analysis-in-r.html#cb1292-18" tabindex="-1"></a>    <span class="at">prob_a =</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_a),</span>
-<span id="cb1292-19"><a href="fault-tree-analysis-in-r.html#cb1292-19" tabindex="-1"></a>    <span class="at">prob_b =</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_b),</span>
-<span id="cb1292-20"><a href="fault-tree-analysis-in-r.html#cb1292-20" tabindex="-1"></a>    <span class="at">prob_c =</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_c)</span>
-<span id="cb1292-21"><a href="fault-tree-analysis-in-r.html#cb1292-21" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb1292-22"><a href="fault-tree-analysis-in-r.html#cb1292-22" tabindex="-1"></a>  <span class="co"># For each time period, get the lower and upper confidence interval</span></span>
-<span id="cb1292-23"><a href="fault-tree-analysis-in-r.html#cb1292-23" tabindex="-1"></a>  <span class="fu">group_by</span>(t) <span class="sc">%&gt;%</span></span>
-<span id="cb1292-24"><a href="fault-tree-analysis-in-r.html#cb1292-24" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb1292-25"><a href="fault-tree-analysis-in-r.html#cb1292-25" tabindex="-1"></a>    <span class="co"># 95% CI for prob a</span></span>
-<span id="cb1292-26"><a href="fault-tree-analysis-in-r.html#cb1292-26" tabindex="-1"></a>    <span class="at">lower_a =</span> <span class="fu">quantile</span>(prob_a, <span class="at">probs =</span> <span class="fl">0.025</span>),</span>
-<span id="cb1292-27"><a href="fault-tree-analysis-in-r.html#cb1292-27" tabindex="-1"></a>    <span class="at">upper_a =</span> <span class="fu">quantile</span>(prob_a, <span class="at">probs =</span> <span class="fl">0.975</span>),</span>
-<span id="cb1292-28"><a href="fault-tree-analysis-in-r.html#cb1292-28" tabindex="-1"></a>    <span class="co"># 95% CI for prob b</span></span>
-<span id="cb1292-29"><a href="fault-tree-analysis-in-r.html#cb1292-29" tabindex="-1"></a>    <span class="at">lower_b =</span> <span class="fu">quantile</span>(prob_b, <span class="at">probs =</span> <span class="fl">0.025</span>),</span>
-<span id="cb1292-30"><a href="fault-tree-analysis-in-r.html#cb1292-30" tabindex="-1"></a>    <span class="at">upper_b =</span> <span class="fu">quantile</span>(prob_b, <span class="at">probs =</span> <span class="fl">0.975</span>),</span>
-<span id="cb1292-31"><a href="fault-tree-analysis-in-r.html#cb1292-31" tabindex="-1"></a>    <span class="co"># 95% CI for prob c</span></span>
-<span id="cb1292-32"><a href="fault-tree-analysis-in-r.html#cb1292-32" tabindex="-1"></a>    <span class="at">lower_c =</span> <span class="fu">quantile</span>(prob_c, <span class="at">probs =</span> <span class="fl">0.025</span>),</span>
-<span id="cb1292-33"><a href="fault-tree-analysis-in-r.html#cb1292-33" tabindex="-1"></a>    <span class="at">upper_c =</span> <span class="fu">quantile</span>(prob_c, <span class="at">probs =</span> <span class="fl">0.975</span>))</span>
-<span id="cb1292-34"><a href="fault-tree-analysis-in-r.html#cb1292-34" tabindex="-1"></a></span>
-<span id="cb1292-35"><a href="fault-tree-analysis-in-r.html#cb1292-35" tabindex="-1"></a><span class="co"># Let&#39;s view it</span></span>
-<span id="cb1292-36"><a href="fault-tree-analysis-in-r.html#cb1292-36" tabindex="-1"></a>stat <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1303-1"><a href="fault-tree-analysis-in-r.html#cb1303-1" tabindex="-1"></a><span class="co"># Firstly, let&#39;s load necessary libraries for plotting</span></span>
+<span id="cb1303-2"><a href="fault-tree-analysis-in-r.html#cb1303-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1303-3"><a href="fault-tree-analysis-in-r.html#cb1303-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1303-4"><a href="fault-tree-analysis-in-r.html#cb1303-4" tabindex="-1"></a></span>
+<span id="cb1303-5"><a href="fault-tree-analysis-in-r.html#cb1303-5" tabindex="-1"></a>stat <span class="ot">=</span> <span class="fu">tibble</span>(</span>
+<span id="cb1303-6"><a href="fault-tree-analysis-in-r.html#cb1303-6" tabindex="-1"></a>  <span class="at">reps =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>,</span>
+<span id="cb1303-7"><a href="fault-tree-analysis-in-r.html#cb1303-7" tabindex="-1"></a>  <span class="co"># Simulate 1000 lambdas!</span></span>
+<span id="cb1303-8"><a href="fault-tree-analysis-in-r.html#cb1303-8" tabindex="-1"></a>  <span class="at">lambda_a =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">mean =</span> <span class="fl">0.05</span>, <span class="at">sd =</span> <span class="fl">0.001</span>),</span>
+<span id="cb1303-9"><a href="fault-tree-analysis-in-r.html#cb1303-9" tabindex="-1"></a>  <span class="at">lambda_b =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">mean =</span> <span class="fl">0.03</span>, <span class="at">sd =</span> <span class="fl">0.001</span>),</span>
+<span id="cb1303-10"><a href="fault-tree-analysis-in-r.html#cb1303-10" tabindex="-1"></a>  <span class="at">lambda_c =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">mean =</span> <span class="fl">0.02</span>, <span class="at">sd =</span> <span class="fl">0.001</span>)</span>
+<span id="cb1303-11"><a href="fault-tree-analysis-in-r.html#cb1303-11" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb1303-12"><a href="fault-tree-analysis-in-r.html#cb1303-12" tabindex="-1"></a>  <span class="co"># For each simulation...</span></span>
+<span id="cb1303-13"><a href="fault-tree-analysis-in-r.html#cb1303-13" tabindex="-1"></a>  <span class="fu">group_by</span>(reps) <span class="sc">%&gt;%</span></span>
+<span id="cb1303-14"><a href="fault-tree-analysis-in-r.html#cb1303-14" tabindex="-1"></a>  <span class="fu">reframe</span>(</span>
+<span id="cb1303-15"><a href="fault-tree-analysis-in-r.html#cb1303-15" tabindex="-1"></a>    <span class="co"># Get a time frame from 1 to 100 hours</span></span>
+<span id="cb1303-16"><a href="fault-tree-analysis-in-r.html#cb1303-16" tabindex="-1"></a>    <span class="at">t =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>,</span>
+<span id="cb1303-17"><a href="fault-tree-analysis-in-r.html#cb1303-17" tabindex="-1"></a>    <span class="co"># Get the probabilities for that time frame given each simulated lambda</span></span>
+<span id="cb1303-18"><a href="fault-tree-analysis-in-r.html#cb1303-18" tabindex="-1"></a>    <span class="at">prob_a =</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_a),</span>
+<span id="cb1303-19"><a href="fault-tree-analysis-in-r.html#cb1303-19" tabindex="-1"></a>    <span class="at">prob_b =</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_b),</span>
+<span id="cb1303-20"><a href="fault-tree-analysis-in-r.html#cb1303-20" tabindex="-1"></a>    <span class="at">prob_c =</span> <span class="fu">pexp</span>(t, <span class="at">rate =</span> lambda_c)</span>
+<span id="cb1303-21"><a href="fault-tree-analysis-in-r.html#cb1303-21" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb1303-22"><a href="fault-tree-analysis-in-r.html#cb1303-22" tabindex="-1"></a>  <span class="co"># For each time period, get the lower and upper confidence interval</span></span>
+<span id="cb1303-23"><a href="fault-tree-analysis-in-r.html#cb1303-23" tabindex="-1"></a>  <span class="fu">group_by</span>(t) <span class="sc">%&gt;%</span></span>
+<span id="cb1303-24"><a href="fault-tree-analysis-in-r.html#cb1303-24" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1303-25"><a href="fault-tree-analysis-in-r.html#cb1303-25" tabindex="-1"></a>    <span class="co"># 95% CI for prob a</span></span>
+<span id="cb1303-26"><a href="fault-tree-analysis-in-r.html#cb1303-26" tabindex="-1"></a>    <span class="at">lower_a =</span> <span class="fu">quantile</span>(prob_a, <span class="at">probs =</span> <span class="fl">0.025</span>),</span>
+<span id="cb1303-27"><a href="fault-tree-analysis-in-r.html#cb1303-27" tabindex="-1"></a>    <span class="at">upper_a =</span> <span class="fu">quantile</span>(prob_a, <span class="at">probs =</span> <span class="fl">0.975</span>),</span>
+<span id="cb1303-28"><a href="fault-tree-analysis-in-r.html#cb1303-28" tabindex="-1"></a>    <span class="co"># 95% CI for prob b</span></span>
+<span id="cb1303-29"><a href="fault-tree-analysis-in-r.html#cb1303-29" tabindex="-1"></a>    <span class="at">lower_b =</span> <span class="fu">quantile</span>(prob_b, <span class="at">probs =</span> <span class="fl">0.025</span>),</span>
+<span id="cb1303-30"><a href="fault-tree-analysis-in-r.html#cb1303-30" tabindex="-1"></a>    <span class="at">upper_b =</span> <span class="fu">quantile</span>(prob_b, <span class="at">probs =</span> <span class="fl">0.975</span>),</span>
+<span id="cb1303-31"><a href="fault-tree-analysis-in-r.html#cb1303-31" tabindex="-1"></a>    <span class="co"># 95% CI for prob c</span></span>
+<span id="cb1303-32"><a href="fault-tree-analysis-in-r.html#cb1303-32" tabindex="-1"></a>    <span class="at">lower_c =</span> <span class="fu">quantile</span>(prob_c, <span class="at">probs =</span> <span class="fl">0.025</span>),</span>
+<span id="cb1303-33"><a href="fault-tree-analysis-in-r.html#cb1303-33" tabindex="-1"></a>    <span class="at">upper_c =</span> <span class="fu">quantile</span>(prob_c, <span class="at">probs =</span> <span class="fl">0.975</span>))</span>
+<span id="cb1303-34"><a href="fault-tree-analysis-in-r.html#cb1303-34" tabindex="-1"></a></span>
+<span id="cb1303-35"><a href="fault-tree-analysis-in-r.html#cb1303-35" tabindex="-1"></a><span class="co"># Let&#39;s view it</span></span>
+<span id="cb1303-36"><a href="fault-tree-analysis-in-r.html#cb1303-36" tabindex="-1"></a>stat <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 7
 ##       t lower_a upper_a lower_b upper_b lower_c upper_c
 ##   &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-## 1     1  0.0469  0.0507  0.0278  0.0314  0.0179  0.0218
-## 2     2  0.0917  0.0988  0.0548  0.0618  0.0354  0.0432
-## 3     3  0.134   0.144   0.0810  0.0913  0.0527  0.0641</code></pre>
-<div class="sourceCode" id="cb1294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1294-1"><a href="fault-tree-analysis-in-r.html#cb1294-1" tabindex="-1"></a><span class="co"># Let&#39;s make the plot!</span></span>
-<span id="cb1294-2"><a href="fault-tree-analysis-in-r.html#cb1294-2" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb1294-3"><a href="fault-tree-analysis-in-r.html#cb1294-3" tabindex="-1"></a>  <span class="co"># Plot bands for event a</span></span>
-<span id="cb1294-4"><a href="fault-tree-analysis-in-r.html#cb1294-4" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(</span>
-<span id="cb1294-5"><a href="fault-tree-analysis-in-r.html#cb1294-5" tabindex="-1"></a>    <span class="at">data =</span> stat, </span>
-<span id="cb1294-6"><a href="fault-tree-analysis-in-r.html#cb1294-6" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">ymin =</span> lower_a, <span class="at">ymax =</span> upper_a, <span class="at">fill =</span> <span class="st">&quot;A&quot;</span>), </span>
-<span id="cb1294-7"><a href="fault-tree-analysis-in-r.html#cb1294-7" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
-<span id="cb1294-8"><a href="fault-tree-analysis-in-r.html#cb1294-8" tabindex="-1"></a>  <span class="co"># Plot bands for event b</span></span>
-<span id="cb1294-9"><a href="fault-tree-analysis-in-r.html#cb1294-9" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(</span>
-<span id="cb1294-10"><a href="fault-tree-analysis-in-r.html#cb1294-10" tabindex="-1"></a>    <span class="at">data =</span> stat, </span>
-<span id="cb1294-11"><a href="fault-tree-analysis-in-r.html#cb1294-11" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">ymin =</span> lower_b, <span class="at">ymax =</span> upper_b, <span class="at">fill =</span> <span class="st">&quot;B&quot;</span>),</span>
-<span id="cb1294-12"><a href="fault-tree-analysis-in-r.html#cb1294-12" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
-<span id="cb1294-13"><a href="fault-tree-analysis-in-r.html#cb1294-13" tabindex="-1"></a>  <span class="co"># Plot bands for event c</span></span>
-<span id="cb1294-14"><a href="fault-tree-analysis-in-r.html#cb1294-14" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(</span>
-<span id="cb1294-15"><a href="fault-tree-analysis-in-r.html#cb1294-15" tabindex="-1"></a>    <span class="at">data =</span> stat, </span>
-<span id="cb1294-16"><a href="fault-tree-analysis-in-r.html#cb1294-16" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">ymin =</span> lower_c, <span class="at">ymax =</span> upper_c, <span class="at">fill =</span> <span class="st">&quot;C&quot;</span>),</span>
-<span id="cb1294-17"><a href="fault-tree-analysis-in-r.html#cb1294-17" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
-<span id="cb1294-18"><a href="fault-tree-analysis-in-r.html#cb1294-18" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb1294-19"><a href="fault-tree-analysis-in-r.html#cb1294-19" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Probability of Events over 100 hours&quot;</span>,</span>
-<span id="cb1294-20"><a href="fault-tree-analysis-in-r.html#cb1294-20" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Hours&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Probability (95% CI)&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Event Type&quot;</span>)</span></code></pre></div>
+## 1     1  0.0469  0.0507  0.0276  0.0314  0.0178  0.0218
+## 2     2  0.0917  0.0988  0.0545  0.0619  0.0353  0.0431
+## 3     3  0.134   0.144   0.0807  0.0914  0.0525  0.0640</code></pre>
+<div class="sourceCode" id="cb1305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1305-1"><a href="fault-tree-analysis-in-r.html#cb1305-1" tabindex="-1"></a><span class="co"># Let&#39;s make the plot!</span></span>
+<span id="cb1305-2"><a href="fault-tree-analysis-in-r.html#cb1305-2" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb1305-3"><a href="fault-tree-analysis-in-r.html#cb1305-3" tabindex="-1"></a>  <span class="co"># Plot bands for event a</span></span>
+<span id="cb1305-4"><a href="fault-tree-analysis-in-r.html#cb1305-4" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(</span>
+<span id="cb1305-5"><a href="fault-tree-analysis-in-r.html#cb1305-5" tabindex="-1"></a>    <span class="at">data =</span> stat, </span>
+<span id="cb1305-6"><a href="fault-tree-analysis-in-r.html#cb1305-6" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">ymin =</span> lower_a, <span class="at">ymax =</span> upper_a, <span class="at">fill =</span> <span class="st">&quot;A&quot;</span>), </span>
+<span id="cb1305-7"><a href="fault-tree-analysis-in-r.html#cb1305-7" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb1305-8"><a href="fault-tree-analysis-in-r.html#cb1305-8" tabindex="-1"></a>  <span class="co"># Plot bands for event b</span></span>
+<span id="cb1305-9"><a href="fault-tree-analysis-in-r.html#cb1305-9" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(</span>
+<span id="cb1305-10"><a href="fault-tree-analysis-in-r.html#cb1305-10" tabindex="-1"></a>    <span class="at">data =</span> stat, </span>
+<span id="cb1305-11"><a href="fault-tree-analysis-in-r.html#cb1305-11" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">ymin =</span> lower_b, <span class="at">ymax =</span> upper_b, <span class="at">fill =</span> <span class="st">&quot;B&quot;</span>),</span>
+<span id="cb1305-12"><a href="fault-tree-analysis-in-r.html#cb1305-12" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb1305-13"><a href="fault-tree-analysis-in-r.html#cb1305-13" tabindex="-1"></a>  <span class="co"># Plot bands for event c</span></span>
+<span id="cb1305-14"><a href="fault-tree-analysis-in-r.html#cb1305-14" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(</span>
+<span id="cb1305-15"><a href="fault-tree-analysis-in-r.html#cb1305-15" tabindex="-1"></a>    <span class="at">data =</span> stat, </span>
+<span id="cb1305-16"><a href="fault-tree-analysis-in-r.html#cb1305-16" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">ymin =</span> lower_c, <span class="at">ymax =</span> upper_c, <span class="at">fill =</span> <span class="st">&quot;C&quot;</span>),</span>
+<span id="cb1305-17"><a href="fault-tree-analysis-in-r.html#cb1305-17" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb1305-18"><a href="fault-tree-analysis-in-r.html#cb1305-18" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb1305-19"><a href="fault-tree-analysis-in-r.html#cb1305-19" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Probability of Events over 100 hours&quot;</span>,</span>
+<span id="cb1305-20"><a href="fault-tree-analysis-in-r.html#cb1305-20" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Hours&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Probability (95% CI)&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Event Type&quot;</span>)</span></code></pre></div>
 <p><img src="09_workshop_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 </details>
 <hr />
@@ -1600,45 +1595,45 @@ Causes and Probabilities:
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-},
-"toolbar": {
-"position": "static"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  },
+  "toolbar": {
+    "position": "static"
+  }
 });
 });
 </script>

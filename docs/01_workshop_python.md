@@ -38,7 +38,7 @@ Your project includes a Python script file (its name ends in `.py`). It contains
 2. comments - any text that immediately follows a `#` sign
 
 
-```python
+``` python
 # For example,
 # Comments are ignored by the calculator, so we can write notes.
 ```
@@ -65,7 +65,7 @@ Try highlighting the following and pressing Ctrl+Enter, or click Run.
 Addition:
 
 
-```python
+``` python
 1 + 5
 ```
 
@@ -76,7 +76,7 @@ Addition:
 Subtraction:
 
 
-```python
+``` python
 5 - 2
 ```
 
@@ -87,7 +87,7 @@ Subtraction:
 Multiplication:
 
 
-```python
+``` python
 2 * 3
 ```
 
@@ -98,7 +98,7 @@ Multiplication:
 Division:
 
 
-```python
+``` python
 15 / 5
 ```
 
@@ -109,7 +109,7 @@ Division:
 Exponents:
 
 
-```python
+``` python
 2 ** 2
 ```
 
@@ -120,7 +120,7 @@ Exponents:
 Square roots:
 
 
-```python
+``` python
 16 ** 0.5
 ```
 
@@ -131,7 +131,7 @@ Square roots:
 Order of operations still applies. Use parentheses to control order:
 
 
-```python
+``` python
 2 * 2 - 5
 ```
 
@@ -140,7 +140,7 @@ Order of operations still applies. Use parentheses to control order:
 ```
 
 
-```python
+``` python
 2 * (2 - 5)
 ```
 
@@ -169,7 +169,7 @@ Try calculating something wild in Python! Solve for `x` below using the commands
 <details><summary>**[View Answer!]**</summary>
 
 
-```python
+``` python
 ((2 - 5) / 5) ** 4
 ```
 
@@ -177,7 +177,7 @@ Try calculating something wild in Python! Solve for `x` below using the commands
 ## 0.1296
 ```
 
-```python
+``` python
 (( (2 - 5) / 5) ** 4) ** 0.5
 ```
 
@@ -186,7 +186,7 @@ Try calculating something wild in Python! Solve for `x` below using the commands
 ```
 
 
-```python
+``` python
 (1 - 7) ** 2 * 5 - 49 ** 0.5
 ```
 
@@ -195,7 +195,7 @@ Try calculating something wild in Python! Solve for `x` below using the commands
 ```
 
 
-```python
+``` python
 2**2 + 2**2 * 2**2 - 2**2 / 2**2
 ```
 
@@ -216,7 +216,7 @@ Try calculating something wild in Python! Solve for `x` below using the commands
 Python commonly uses numeric values and character strings.
 
 
-```python
+``` python
 15000
 ```
 
@@ -224,7 +224,7 @@ Python commonly uses numeric values and character strings.
 ## 15000
 ```
 
-```python
+``` python
 0.0005
 ```
 
@@ -232,7 +232,7 @@ Python commonly uses numeric values and character strings.
 ## 0.0005
 ```
 
-```python
+``` python
 -8222
 ```
 
@@ -243,7 +243,7 @@ Python commonly uses numeric values and character strings.
 and
 
 
-```python
+``` python
 "Coding!"
 ```
 
@@ -251,7 +251,7 @@ and
 ## 'Coding!'
 ```
 
-```python
+``` python
 "Corgis!"
 ```
 
@@ -259,7 +259,7 @@ and
 ## 'Corgis!'
 ```
 
-```python
+``` python
 "Coffee!"
 ```
 
@@ -277,7 +277,7 @@ and
 Save a value as a named variable in memory.
 
 
-```python
+``` python
 2
 ```
 
@@ -285,7 +285,7 @@ Save a value as a named variable in memory.
 ## 2
 ```
 
-```python
+``` python
 "x"
 ```
 
@@ -294,12 +294,12 @@ Save a value as a named variable in memory.
 ```
 
 
-```python
+``` python
 myvalue = 2
 ```
 
 
-```python
+``` python
 myvalue
 ```
 
@@ -310,7 +310,7 @@ myvalue
 Do operations too!
 
 
-```python
+``` python
 secondvalue = myvalue + 2
 secondvalue
 ```
@@ -322,7 +322,7 @@ secondvalue
 Overwrite variables as needed.
 
 
-```python
+``` python
 myvalue = "I overwrote it!"
 myvalue
 ```
@@ -334,7 +334,7 @@ myvalue
 Remove variables from memory if needed.
 
 
-```python
+``` python
 del myvalue
 del secondvalue
 ```
@@ -344,7 +344,7 @@ del secondvalue
 Lists hold multiple values.
 
 
-```python
+``` python
 [1, 4, 8]
 ```
 
@@ -355,7 +355,7 @@ Lists hold multiple values.
 and
 
 
-```python
+``` python
 ["Boston", "New York", "Los Angeles"]
 ```
 
@@ -368,7 +368,7 @@ Python will coerce types inside a list only if you mix them when converting to a
 Do math element-wise using pandas Series:
 
 
-```python
+``` python
 import pandas as p
 p.Series([1,2,3,4]) * 2
 p.Series([1,2,3,4]) + 2
@@ -379,7 +379,7 @@ p.Series([1,2,3,4]) + 2
 Bundle columns into a table using pandas DataFrame.
 
 
-```python
+``` python
 import pandas as p
 myheights = [4, 4.5, 5, 5, 5, 5.5, 5.5, 6, 6.5, 6.5]
 mytowns = ["Gloucester", "Newburyport", "Provincetown", 
@@ -398,7 +398,7 @@ sw
 Access a column (Series) with dot or bracket notation and do operations.
 
 
-```python
+``` python
 sw.height
 sw.height + 1
 ```
@@ -406,7 +406,7 @@ sw.height + 1
 Update values as needed.
 
 
-```python
+``` python
 # sw["height"] = sw["height"] + 1
 ```
 
@@ -424,7 +424,7 @@ How would you make your own DataFrame? Make a DataFrame with 3 columns and 4 row
 <details><summary>**[View Answer!]**</summary>
 
 
-```python
+``` python
 import pandas as p
 mayhem = p.DataFrame({
   'dogs': ["Mocha", "Domino", "Latte", "Dot"],
@@ -450,7 +450,7 @@ We can compute descriptive statistics using pandas Series methods.
 ### Measures of Central Tendency
 
 
-```python
+``` python
 sw.height.mean()
 sw.height.median()
 sw.height.sum()
@@ -459,7 +459,7 @@ sw.height.sum()
 ### Measures of Dispersion
 
 
-```python
+``` python
 sw.height.min()
 sw.height.max()
 sw.height.quantile(q=0.25)
@@ -471,7 +471,7 @@ sw.height.var()
 ### Other Good Functions
 
 
-```python
+``` python
 len(sw.height)
 sw.shape[1]  # number of columns
 ```
@@ -483,18 +483,18 @@ sw.shape[1]  # number of columns
 Sometimes data include missing values. In pandas these are `NaN`. Many pandas functions ignore `NaN` by default.
 
 
-```python
+``` python
 import pandas as p
 mysw = p.Series([4, 4.5, 5, 5, 5, 5.5, 5.5, 6, 6.5, 6.5, None])
 ```
 
 
-```python
+``` python
 mysw.mean()  # returns 5.35, skips None/NaN by default
 ```
 
 ```
-## np.float64(5.35)
+## 5.35
 ```
 
 If you need to include missing values in a calculation, convert them or use numpy functions explicitly, but usually skipping them is desired.
@@ -537,7 +537,7 @@ Recreate the table below as a pandas DataFrame named `jp`, then answer the quest
 <details><summary>**[View Answer!]**</summary>
 
 
-```python
+``` python
 import pandas as p
 jp = p.DataFrame({
   'town': ["Kuji South", "Fudai", "Taro", "Miyako", "Yamada", "Ohtsuchi", "Tohni", 
@@ -549,14 +549,14 @@ jp
 ```
 
 
-```python
+``` python
 jp.wave_m.mean()
 jp.seawall_m.mean()
 jp.wave_m.mean() - jp.seawall_m.mean()
 ```
 
 
-```python
+``` python
 jp.wave_m.std()
 jp.seawall_m.std()
 jp.wave_m.std() - jp.seawall_m.std()
@@ -576,17 +576,20 @@ jp.wave_m.std() - jp.seawall_m.std()
 Use `pip` to install packages. Do this once per environment.
 
 
-```python
+``` python
+import ensurepip
+ensurepip.bootstrap()
 %pip install pandas plotnine dfply
 ```
 
 ### Importing packages
 
 
-```python
+``` python
 import pandas as p
 from plotnine import *
 from dfply import *
+import matplotlib.pyplot as plt
 ```
 
 <br>
@@ -597,7 +600,7 @@ from dfply import *
 In Python we can use dfply's pipeline operator `>>` to connect data to functions. This reduces parentheses and keeps sequences readable. *But it is not as usable as the pipe operator in R. It can only pipe dataframes to common dfply / dplyr functions like `select`, `mutate`, `summarize`, etc.*
 
 
-```python
+``` python
 from dfply import *
 sw >> select(X.height)
 sw >> mutate(y = X.height ** X.height)
@@ -609,41 +612,75 @@ sw >> summarize(mean_value = mean(X.height))
 
 ## Visualizing Data with Histograms
 
-We can visualize with `matplotlib`/`pandas`, or use `plotnine` (a Python port of `R`'s `ggplot2`) to develope detailed, customized visuals.
+We can visualize with `matplotlib`/`pandas`, or use `plotnine` (a Python port of `R`'s `ggplot2`) to develop detailed, customized visuals.
 
 ### pandas/matplotlib
 
 
-```python
+``` python
 import pandas as p
+import matplotlib.pyplot as pltI 
 allsw = p.DataFrame({
   'height': [4, 4.5, 5, 5, 5.5, 5.5, 5.5, 6, 6, 6.5,
              4, 4, 4, 4, 4.5, 4.5, 4.5, 5, 5, 6,
              5.5, 6, 6.5, 6.5, 7, 7, 7, 7.5, 7.5, 8],
   'states': ["MA"]*10 + ["RI"]*10 + ["ME"]*10
 })
-allsw.height.hist()
+allsw.hist()
 ```
+
+```
+## array([[<Axes: title={'center': 'height'}>]], dtype=object)
+```
+
+<img src="01_workshop_python_files/figure-html/chunk_allsw_py-1.png" width="672" />
+
+
+<img src="matplotlib_figures/allsw.png" width="100%" />
+
+<br>
+<br>
 
 ### `geom_histogram()` in `plotnine`
 
 
-```python
+``` python
 from plotnine import *
-(ggplot(allsw, aes(x='height')) +
- geom_histogram(color="white", fill="steelblue", binwidth=0.5) +
- labs(x="Seawall Height", y="Frequency (# of cities)"))
+g = (ggplot(allsw, aes(x='height')) +
+  geom_histogram(color="white", fill="steelblue", binwidth=0.5) +
+  labs(x="Seawall Height", y="Frequency (# of cities)")
+)
+g
 ```
+
+```
+## <plotnine.ggplot.ggplot object at 0x312406e40>
+```
+
+
+
+
+<img src="plotnine_figures/plot1_py.png" width="100%" />
 
 Facet by state:
 
 
-```python
-(ggplot(allsw, aes(x='height')) +
+``` python
+g = (ggplot(allsw, aes(x='height')) +
  geom_histogram(color="white", fill="steelblue", binwidth=0.5) +
  labs(x="Seawall Height", y="Frequency (# of cities)") +
  facet_wrap('~states'))
+g
 ```
+
+```
+## <plotnine.ggplot.ggplot object at 0x313d57f50>
+```
+
+
+
+<img src="plotnine_figures/plot2_py.png" width="100%" />
+
 
 <br>
 <br>
@@ -659,13 +696,22 @@ Using a list named `sw`, draw a histogram of the seawall heights: 4.5, 5, 5.5, 5
 <details><summary>**[View Answer!]**</summary>
 
 
-```python
+``` python
 import pandas as p
 sw = [4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4]
-p.Series(sw).hist()
+g = p.Series(sw).hist()
+g
+
+# or you could do it like this!
+# hist(sw)
 ```
 
-<img src="01_workshop_python_files/figure-html/unnamed-chunk-1-1.png" width="672" />
+<img src="01_workshop_python_files/figure-html/sw_hist_py-1.png" width="672" />
+
+
+
+<img src="matplotlib_figures/sw_hist_py.png" width="100%" />
+
 
 </details>
 
@@ -680,14 +726,35 @@ Make a histogram of `jp['seawall_m']` from Learning Check 3 using (1) pandas and
 <details><summary>**[View Answer!]**</summary>
 
 
-```python
-jp.seawall_m.hist()
+
+
+``` python
+g = jp.seawall_m.hist()
+g
+```
+
+<img src="01_workshop_python_files/figure-html/seawall_m_py-1.png" width="672" />
+
+
+
+<img src="matplotlib_figures/seawall_m_py.png" width="100%" />
+
+
+``` python
+g = (ggplot(jp, aes(x='seawall_m')) + 
+# adjust binwidth for clearer visualization
+geom_histogram(binwidth=0.5))
+g
+```
+
+```
+## <plotnine.ggplot.ggplot object at 0x313fe9cd0>
 ```
 
 
-```python
-(ggplot(jp, aes(x='seawall_m')) + geom_histogram())
-```
+
+<img src="plotnine_figures/plot3_py.png" width="100%" />
+
 
 </details>
 

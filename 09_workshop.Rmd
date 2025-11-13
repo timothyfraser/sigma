@@ -8,6 +8,10 @@ knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 
 # Fix graphics API version mismatch issues by avoiding ragg
 knitr::opts_chunk$set(dev = "png")
+
+# Install tidyfault from GitHub
+library(devtools)
+devtools::install_github("timothyfraser/tidyfault")
 library(tidyfault)
 ```
 
@@ -44,6 +48,7 @@ A favorite simple fault tree example of mine is the 'Superman Turns Evil' fault 
 - `K`: Steps on Kryptonite Lego in the middle of the night
 
 ```{r, echo = FALSE, message=FALSE}
+library(tidyfault)
 edges = tribble(
   ~from, ~to,
   1,  2,
@@ -67,7 +72,7 @@ nodes = tribble(
   # Classify 'type' as a factor, with specific levels
   mutate(type = factor(type, levels = c("top", "and", "or", "not")))
 
-gg = tidyfault::illustrate(nodes = nodes, edges = edges, type = "both", node_key = "id")
+gg = illustrate(nodes = nodes, edges = edges, type = "both", node_key = "id")
 
 ggplot() +
   # Plot each line corresponding to the unique edge id, used to group them

@@ -31,7 +31,7 @@ But they need help! They've hired us to measure the **impacts** of their potenti
 First, let's import our data, where each row is a `donut`, with produced in one `type` of machine, with a specific `weight`, `lifespan`, and `tastiness`, each made by a `baker` named `"Kim"`, `"Melanie"`, or `"Craig"`.
 
 
-```r
+``` r
 # Load packages, to get our dplyr, ggplot, tibble, and readr functions
 library(tidyverse)
 library(broom) # get our tidy() function
@@ -68,7 +68,7 @@ We can then calculate a single number to summarize the relationship between thes
 We can use `group_by()` and `summarize()` from the `dplyr` package to calculate the difference `diff`.
 
 
-```r
+``` r
 diff = donuts %>%
   group_by(type) %>%
   summarize(xbar = mean(weight))
@@ -83,7 +83,7 @@ Then, we can pivot the shape of this data.frame with `summarize()` again, so tha
 - Finally, we can calculate `dbar`, the difference of means, by subtracting `xbar_b` from `xbar_a`!
 
 
-```r
+``` r
 stat = diff %>%
   summarize(xbar_a = xbar[type == "a"],
             xbar_b = xbar[type == "b"],
@@ -99,7 +99,7 @@ In summary, the mean weight of a donut from the **Krispy Kreme Machine** (`type 
 
 We can visualize the difference of means pretty quickly, using `geom_jitter()`.
 
-```r
+``` r
 donuts %>%
   ggplot(mapping = aes(x = type, y = weight)) +
   geom_jitter(height = 0, width = 0.1, size = 3, alpha = 0.5, 
@@ -142,7 +142,7 @@ To account for this, we can approximate the **null distribution** of all statist
 How can we see the null distribution? We can use *resampling without replacement* on our `donuts` data, **permuting** or **shuffling** which treatment group our donut ingredients got assigned to. This **breaks** any association between the outcome `weight` and our grouping variable `type`, such that any statistic we get is purely due to chance. We'll `mutate()` our `type` vector using the `sample(replace = FALSE)` function, for 1000 repetitions of our data, creating 1000 random datasets, then calculate 1000 differences of means.
 
 
-```r
+``` r
 perm = tibble(rep = 1:1000) %>%
   group_by(rep) %>%
   summarize(donuts) %>%
@@ -163,14 +163,14 @@ perm %>% head(3)
 ## # A tibble: 3 × 4
 ##     rep xbar_a xbar_b   dbar
 ##   <int>  <dbl>  <dbl>  <dbl>
-## 1     1   30.2   29.8 -0.408
-## 2     2   30.3   29.8 -0.496
-## 3     3   29.8   30.3  0.488
+## 1     1   30.0   30.1  0.128
+## 2     2   29.7   30.4  0.648
+## 3     3   30.4   29.7 -0.760
 ```
 Now, let's calculate - what percentage of random statistics were more extreme than than our observed statistic?
 
 
-```r
+``` r
 perm %>% 
   summarize(
     # Get our observed statistic
@@ -186,14 +186,14 @@ perm %>%
 ## # A tibble: 1 × 2
 ##   estimate p_value
 ##      <dbl>   <dbl>
-## 1     3.35   0.001
+## 1     3.35       0
 ```
 Wow! That is a super statistically significant difference of means!
 
 We can visualize it like this. Pretty extreme, huh?
 
 
-```r
+``` r
 perm %>%
   ggplot(mapping = aes(x = dbar)) +
   geom_density(fill = "steelblue", color = "white") +
@@ -225,7 +225,7 @@ Alternatively, if we know the standard error of our statistic, we can calculate 
 Suppose for a moment that we already found the standard error and we went and calculated our `t-statistic`, and we also have the degrees of freedom. We can approximate the null distribution as a t-distribution, for any number of degrees of freedom. See below for an example!
 
 
-```r
+``` r
 tibble(df = c(2, 5, 100)) %>%
   group_by(df) %>%
   summarize(t = seq(from = -5, to = 5, by = 0.05),
@@ -262,7 +262,7 @@ To account for this, we can approximate the **sampling distribution** for our st
 If we have lots of computational power available (we do now that it's 2020), we could bootstrap our data, taking 1000 versions of our dataset and resampling with replacement to simulate sampling error, and calculate dbar 1000 times to get the sampling distribution.
 
 
-```r
+``` r
 # The the donuts 1000 times
 stat_boot = tibble(rep = 1:1000) %>%
   group_by(rep) %>%
@@ -288,18 +288,18 @@ stat_boot %>% head()
 ## # A tibble: 6 × 4
 ##     rep xbar_a xbar_b  dbar
 ##   <int>  <dbl>  <dbl> <dbl>
-## 1     1   28.2   32.0  3.82
-## 2     2   28.0   31.4  3.48
-## 3     3   28.0   32.7  4.69
-## 4     4   28.1   31.6  3.54
-## 5     5   28.2   30.7  2.51
-## 6     6   28.0   30.6  2.65
+## 1     1   28.3   31.9  3.60
+## 2     2   28.2   32.7  4.50
+## 3     3   28.3   30.7  2.39
+## 4     4   28.3   31.7  3.42
+## 5     5   28.2   31.2  2.99
+## 6     6   28.4   30.9  2.56
 ```
 
 We can then use `summarize()` to compute quantities of interest from our bootstrapped sampling distribution of `dbar` in `stat_boot`, like the standard deviation (which would be the literal standard error, in this case), and confidence intervals.
 
 
-```r
+``` r
 stat_boot %>%
   summarize(
     # Let's grab our observed dbar statistic from 'stat'
@@ -316,7 +316,7 @@ stat_boot %>%
 ## # A tibble: 1 × 4
 ##   estimate    se lower upper
 ##      <dbl> <dbl> <dbl> <dbl>
-## 1     3.35 0.817  1.77  5.02
+## 1     3.35 0.764  1.92  4.89
 ```
 
 <br>
@@ -337,7 +337,7 @@ $$ \sigma = \frac{ s_{\bar{d}} }{ \sqrt{n} } = \sqrt{ \frac{ \sum{ (d - \bar{d} 
 Here, $d$ refers to the differences between group `a` and `b`. (This is pretty unrealistic.) You can only calculate it if the sample size of your treatment and control group is identical. For example:
 
 
-```r
+``` r
 # In a paired sample t-test, our data might look like this.s
 paired = donuts %>%
   summarize(weight_a = weight[type == "a"],
@@ -359,7 +359,7 @@ paired %>% glimpse()
 And we could then calculate the standard error like so...
 
 
-```r
+``` r
 paired %>% 
   summarize(
     # Get the total pairs of donuts analyzed
@@ -386,7 +386,7 @@ paired %>%
 So, knowing what we do about the t-distribution, we can now run our paired sample t-test pretty quickly. Once we have a t-statistic, it's pretty easy to then calculate a p-value, the share of statistics more extreme than ours. Let's try calculating it all in one step!
 
 
-```r
+``` r
 paired %>%
   summarize(n = n(),
             dbar = mean(d),
@@ -430,7 +430,7 @@ $$ \sigma = \sqrt{ \frac{s_{1}^{2}}{n_{1}} + \frac{s_{2}^{2}}{n_{2}}  } $$
 Let's try it!
 
 
-```r
+``` r
 # For our unpaired sampled t-test...
 unpaired = donuts %>%
   # For each type (donut maker)
@@ -467,7 +467,7 @@ $$  df = \frac{ ( \frac{s_1^2}{n_1} + \frac{s_2^2}{n_2})^2   }{ \frac{ (s_1^2 / 
 Now, that's pretty silly, so I've written a short `function` for us here. In a moment, we're about to learn a really-really short method for t-tests, but it's important that you know *how it works first*.
 
 
-```r
+``` r
 df = function(s1, n1, s2, n2){
   # Calculate our ingredients...
   top = (s1^2 / n1 + s2^2 / n2)^2
@@ -481,7 +481,7 @@ df = function(s1, n1, s2, n2){
 Now, let's calculate our quantities of interest!
 
 
-```r
+``` r
 unpaired %>%
   # Let's calculate...
   summarize(
@@ -520,7 +520,7 @@ Wow, that took a bit! Wouldn't it be nice if some statisticians, social scientis
 There's just one catch. You **must (!!!)** turn your grouping variable `type` into a factor, where the treatment group comes first, followed by the control group. Otherwise, `R` will default to alphabetical order when calculating the difference of means. (Very important!)
 
 
-```r
+``` r
 donuts2 = donuts %>%
   # Convert type to factor, where treatment group b is first
   mutate(type = factor(type, levels = c("b", "a")))
@@ -529,7 +529,7 @@ donuts2 = donuts %>%
 - **paired t-test (equal variance)** `t.test(outcome_group_a ~ outcome_group_b, paired = TRUE, var.equal = TRUE)`
 
 
-```r
+``` r
 donuts2 %>% 
   # extract individual vectors of weight for each type
   reframe(a = weight[type == "a"], b = weight[type == "b"]) %>% 
@@ -546,7 +546,7 @@ donuts2 %>%
 - **unpaired t-test (equal variance)**: `t.test(outcome_var ~ group_var, var.equal = TRUE)`
 
 
-```r
+``` r
 # Or, more simply for an unpaired t-test...
 donuts2 %>%
   # Run our t-test using a formula format (eg. y ~ x) on the data from donuts, then tidy() it into a data.frame
@@ -563,7 +563,7 @@ donuts2 %>%
 - **unpaired t-test (unequal variance)**: `t.test(outcome_var ~ group_var,  var.equal = FALSE)`
 
 
-```r
+``` r
 donuts2 %>%
   # Run our t-test using the data from donuts, then tidy() it into a data.frame
   summarize(  t.test(weight ~ type,  var.equal = FALSE) %>% tidy()  )
@@ -596,7 +596,7 @@ We can test differences in a numeric outcome like `weight` between 3 or more gro
 Practically speaking, `ANOVA` tries to ascertain how far apart three distributions are from each other, and the F statistic (ranging from `0` to `Inf`) shows *how extreme is the difference between these distributions*. If minor, F is near 0. If large gaps, F grows.
 
 
-```r
+``` r
 donuts %>%
   ggplot(mapping = aes(x = baker, y = weight, color = baker)) +
   geom_jitter(height = 0, width = 0.1, size = 3, alpha = 0.5, 
@@ -640,7 +640,7 @@ Next, we'll take our ingredients to calculate our `qi`, our quantities of intere
 
 
 
-```r
+``` r
 qi = values %>%
   summarize(
     # Calculate the *total* sum of squares
@@ -674,7 +674,7 @@ Then, let's use our `qi` to calculate an F statistic!
 Though our ESS and RSS give us the *sum* of our squared deviations, we know that some data points are bound to vary more than others. So, we should really evaluate the relative distance between our distributions using an *average* of the ESS (called the `mean_squares_explained`) and an *average* of the RSS (called the `mean_squares_explained` - its squart root is the root-mean-squared-error, a.k.a. *sigma*!!!).
 
 
-```r
+``` r
 qi %>%
   mutate(
     # Get the average variation explained by dividing by k - 1 groups
@@ -706,7 +706,7 @@ There are a bunch of different ways to do ANVOA, depending on how much specifici
 Here, `sigma` gives you the residual standard error (which is the square root of the root-mean-squared-error that anova gives you). `statistic` gives you the F-statistic, while `p.value` gives you the p-value for the F-statistic.
 
 
-```r
+``` r
 m1 = donuts %>%
   summarize(lm(weight ~ baker) %>% glance()) %>%
   select(sigma, statistic, p.value, df)
@@ -728,7 +728,7 @@ Practically speaking, I tend to use the `lm()` function for my ANOVA needs, beca
 Here, we get the F `statistic` and its `p.value`, as well as several quantities used to calculate the f-statistic, including the root-mean-squared-error (row 2 `Residuals`, column `meansq`).
 
 
-```r
+``` r
 donuts %>%
   summarize(aov(weight ~ baker) %>% tidy())
 ```
@@ -750,14 +750,14 @@ donuts %>%
 Alternatively, `oneway.test()` can let you use `var.equal = TRUE` or `FALSE` to lightly adjust your statistics to accommodate uneven variances among groups. Randomization *should* usually deal with unequal variances, but if you're working with non-random samples, be sure to check your variances and then use `var.equal = FALSE`.
 
 
-```r
+``` r
 # If even...
 donuts %>%
   summarize(oneway.test(data = ., formula = weight ~ baker, var.equal = TRUE) %>% tidy())
 ```
 
 
-```r
+``` r
 # If uneven...
 donuts %>%
   summarize(oneway.test(formula = weight ~ baker, var.equal = FALSE) %>% tidy())
@@ -772,7 +772,7 @@ But what if we need to test the impact of multiple variables simultaneously?
 For example, what if we want to assess how much differences in average weight were due to the `type` of machine versus the `baker`?
 
 
-```r
+``` r
 # We can add both type and baker to the model
 m2 = donuts %>%
   summarize(lm(formula = weight ~ type + baker) %>% glance()) %>%
@@ -783,7 +783,7 @@ m2 = donuts %>%
 Let's stack our earlier ANOVA model `m1` on top of our new model `m2`. We can see from the `sigma` statistic that the residual standard error (average prediction error) has decreased in our new model, indicating better model fit. We can also see that adding baker had led to a greater F `statistic` with a lower, more significant `p.value`.
 
 
-```r
+``` r
 bind_rows(
   m1 %>% mutate(vars = "baker"),
   m2 %>% mutate(vars = "type + baker") )
@@ -800,7 +800,7 @@ bind_rows(
 Alternatively, what if Craig is pretty okay at making donuts with the old machine, but is just particularly bad at making donuts on the new machine? For this, we can use **interaction effects.**
 
 
-```r
+``` r
 m3 = donuts %>%
   lm(formula = weight ~ type * baker) %>% 
   glance() %>%

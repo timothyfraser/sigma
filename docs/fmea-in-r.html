@@ -4,26 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4 FMEA in R | System Reliability and Six Sigma in R</title>
-  <meta name="description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <title>4 FMEA in R | System Reliability and Six Sigma in R and Python</title>
+  <meta name="description" content="Your online textbook for learning reliability and six sigma techniques in R and Python! Made for Cornell University Course SYSEN 5300." />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4 FMEA in R | System Reliability and Six Sigma in R" />
+  <meta property="og:title" content="4 FMEA in R | System Reliability and Six Sigma in R and Python" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  <meta property="og:description" content="Your online textbook for learning reliability and six sigma techniques in R and Python! Made for Cornell University Course SYSEN 5300." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4 FMEA in R | System Reliability and Six Sigma in R" />
+  <meta name="twitter:title" content="4 FMEA in R | System Reliability and Six Sigma in R and Python" />
   
-  <meta name="twitter:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  <meta name="twitter:description" content="Your online textbook for learning reliability and six sigma techniques in R and Python! Made for Cornell University Course SYSEN 5300." />
   
 
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2025-09-15" />
+<meta name="date" content="2025-11-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -62,7 +62,11 @@
 <script src="assets/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
 <link href="assets/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
 <script src="assets/chromatography-0.1/chromatography.js"></script>
-<script src="assets/DiagrammeR-binding-1.0.9/DiagrammeR.js"></script>
+<script src="assets/DiagrammeR-binding-1.0.11/DiagrammeR.js"></script>
+<script src="assets/bslib-component-js-0.9.0/components.min.js"></script>
+<script src="assets/bslib-component-js-0.9.0/web-components.min.js" type="module"></script>
+<link href="assets/bslib-component-css-0.9.0/components.css" rel="stylesheet" />
+<script src="assets/bslib-tag-require-0.9.0/tag-require.js"></script>
 
 
 <style type="text/css">
@@ -709,7 +713,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#conclusion-14"><i class="fa fa-check"></i>Conclusion</a></li>
 </ul></li>
-<li class="part"><span><b>IV Life Distributions</b></span></li>
 <li class="chapter" data-level="19" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html"><i class="fa fa-check"></i><b>19</b> Useful Life Distributions (Exponential)</a>
 <ul>
 <li class="chapter" data-level="19.1" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#getting-started-17"><i class="fa fa-check"></i><b>19.1</b> Getting Started</a>
@@ -820,7 +823,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#learning-check-6-1"><i class="fa fa-check"></i>Learning Check 6</a></li>
 <li class="chapter" data-level="21.5" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#conclusion-17"><i class="fa fa-check"></i><b>21.5</b> Conclusion</a></li>
 </ul></li>
-<li class="part"><span><b>V Physical Acceleration Models</b></span></li>
 <li class="chapter" data-level="22" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html"><i class="fa fa-check"></i><b>22</b> Fault Tree Analysis in R</a>
 <ul>
 <li class="chapter" data-level="" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html#getting-started-20"><i class="fa fa-check"></i>Getting Started</a>
@@ -873,6 +875,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="23.7" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#conclusion-18"><i class="fa fa-check"></i><b>23.7</b> Conclusion</a></li>
 </ul></li>
+<li class="part"><span><b>IV Life Distributions</b></span></li>
+<li class="part"><span><b>V Physical Acceleration Models</b></span></li>
 <li class="part"><span><b>VI Regression</b></span></li>
 <li class="chapter" data-level="24" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html"><i class="fa fa-check"></i><b>24</b> Bivariate Regression: Modeling Diamond Pricing</a>
 <ul>
@@ -1009,14 +1013,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="27.4.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#visualization-strategies"><i class="fa fa-check"></i><b>27.4.2</b> Visualization Strategies</a></li>
 <li class="chapter" data-level="27.4.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#an-excellent-visual"><i class="fa fa-check"></i><b>27.4.3</b> An Excellent Visual</a></li>
 </ul></li>
-<li class="chapter" data-level="27.5" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#interaction-effects"><i class="fa fa-check"></i><b>27.5</b> Interaction Effects</a></li>
-<li class="chapter" data-level="27.6" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-2-way-interactions"><i class="fa fa-check"></i><b>27.6</b> Estimating 2-way interactions</a></li>
-<li class="chapter" data-level="27.7" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-3-way-interactions"><i class="fa fa-check"></i><b>27.7</b> Estimating 3-way interactions</a></li>
-<li class="chapter" data-level="27.8" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-interactions-in-lm"><i class="fa fa-check"></i><b>27.8</b> Estimating Interactions in <code>lm()</code></a>
+<li class="chapter" data-level="27.5" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#interaction-effects"><i class="fa fa-check"></i><b>27.5</b> Interaction Effects</a>
 <ul>
-<li class="chapter" data-level="27.8.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#modeling-interactions"><i class="fa fa-check"></i><b>27.8.1</b> Modeling Interactions</a></li>
-<li class="chapter" data-level="27.8.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#using-predict-to-visualize-interaction-effects"><i class="fa fa-check"></i><b>27.8.2</b> Using <code>predict()</code> to visualize interaction effects</a></li>
-<li class="chapter" data-level="27.8.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#finding-the-best-model-with-anova"><i class="fa fa-check"></i><b>27.8.3</b> Finding the best model with <code>anova()</code></a></li>
+<li class="chapter" data-level="27.5.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-a-pooled-standard-error"><i class="fa fa-check"></i><b>27.5.1</b> Estimating a Pooled Standard Error</a></li>
+<li class="chapter" data-level="27.5.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-1-way-interations"><i class="fa fa-check"></i><b>27.5.2</b> Estimating 1-way interations</a></li>
+<li class="chapter" data-level="27.5.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-2-way-interactions"><i class="fa fa-check"></i><b>27.5.3</b> Estimating 2-way interactions</a></li>
+<li class="chapter" data-level="27.5.4" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-3-way-interactions"><i class="fa fa-check"></i><b>27.5.4</b> Estimating 3-way interactions</a></li>
+</ul></li>
+<li class="chapter" data-level="27.6" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-interactions-in-lm"><i class="fa fa-check"></i><b>27.6</b> Estimating Interactions in <code>lm()</code></a>
+<ul>
+<li class="chapter" data-level="27.6.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#modeling-interactions"><i class="fa fa-check"></i><b>27.6.1</b> Modeling Interactions</a></li>
+<li class="chapter" data-level="27.6.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#using-predict-to-visualize-interaction-effects"><i class="fa fa-check"></i><b>27.6.2</b> Using <code>predict()</code> to visualize interaction effects</a></li>
+<li class="chapter" data-level="27.6.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#finding-the-best-model-with-anova"><i class="fa fa-check"></i><b>27.6.3</b> Finding the best model with <code>anova()</code></a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#conclusion-20"><i class="fa fa-check"></i>Conclusion</a></li>
 </ul></li>
@@ -1123,27 +1131,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#learning-check-1-23"><i class="fa fa-check"></i>Learning Check 1</a></li>
 <li class="chapter" data-level="31.6" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#conclusion-22"><i class="fa fa-check"></i><b>31.6</b> Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="32" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html"><i class="fa fa-check"></i><b>32</b> Appendix: <code>tidyfault</code> for Fault Tree Analysis</a>
+<li class="chapter" data-level="32" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html"><i class="fa fa-check"></i><b>32</b> Appendix: Statistical Tables and Common Equations</a>
 <ul>
-<li class="chapter" data-level="" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#getting-started-30"><i class="fa fa-check"></i>Getting Started</a>
-<ul>
-<li class="chapter" data-level="" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#prerequisites-2"><i class="fa fa-check"></i>Prerequisites</a></li>
-<li class="chapter" data-level="" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#load-packages-11"><i class="fa fa-check"></i>Load Packages</a></li>
-</ul></li>
-<li class="chapter" data-level="32.1" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#visualizing-fault-trees-in-r"><i class="fa fa-check"></i><b>32.1</b> Visualizing Fault Trees in R</a>
-<ul>
-<li class="chapter" data-level="32.1.1" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#making-a-nodelist"><i class="fa fa-check"></i><b>32.1.1</b> Making a Nodelist</a></li>
-<li class="chapter" data-level="32.1.2" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#making-an-edgelist"><i class="fa fa-check"></i><b>32.1.2</b> Making an Edgelist</a></li>
-</ul></li>
-<li class="chapter" data-level="32.2" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#our-data-11"><i class="fa fa-check"></i><b>32.2</b> Our Data</a></li>
-<li class="chapter" data-level="32.3" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#getting-a-fault-tree-layout"><i class="fa fa-check"></i><b>32.3</b> Getting a Fault Tree Layout</a></li>
-<li class="chapter" data-level="32.4" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#visualize-a-fault-tree"><i class="fa fa-check"></i><b>32.4</b> Visualize a Fault Tree</a></li>
-<li class="chapter" data-level="32.5" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cutsets"><i class="fa fa-check"></i><b>32.5</b> Cutsets</a></li>
-<li class="chapter" data-level="32.6" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#gates"><i class="fa fa-check"></i><b>32.6</b> Gates</a></li>
-<li class="chapter" data-level="32.7" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#equations"><i class="fa fa-check"></i><b>32.7</b> Equations</a></li>
-<li class="chapter" data-level="32.8" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#minimal-cutsets"><i class="fa fa-check"></i><b>32.8</b> Minimal Cutsets</a></li>
-<li class="chapter" data-level="32.9" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#coverage"><i class="fa fa-check"></i><b>32.9</b> Coverage</a></li>
-<li class="chapter" data-level="" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#conclusion-23"><i class="fa fa-check"></i>Conclusion</a></li>
+<li class="chapter" data-level="32.1" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#table-1-chi-squared"><i class="fa fa-check"></i><b>32.1</b> Table 1: Chi-Squared</a></li>
+<li class="chapter" data-level="32.2" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#table-2-k-factor-rules"><i class="fa fa-check"></i><b>32.2</b> Table 2: k-factor rules</a></li>
+<li class="chapter" data-level="32.3" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#table-3-k-factor-upper"><i class="fa fa-check"></i><b>32.3</b> Table 3: k-factor (upper)</a></li>
+<li class="chapter" data-level="32.4" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#table-4-k-factor-lower"><i class="fa fa-check"></i><b>32.4</b> Table 4: k-factor (lower)</a></li>
+<li class="chapter" data-level="32.5" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#table-5-control-constants-d"><i class="fa fa-check"></i><b>32.5</b> Table 5: Control Constants (d)</a></li>
+<li class="chapter" data-level="32.6" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#table-6-control-constants-b"><i class="fa fa-check"></i><b>32.6</b> Table 6: Control Constants (b)</a></li>
+<li class="chapter" data-level="32.7" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#formula"><i class="fa fa-check"></i><b>32.7</b> Formula</a></li>
 </ul></li>
 </ul>
 
@@ -1154,7 +1150,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">System Reliability and Six Sigma in R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">System Reliability and Six Sigma in R and Python</a>
           </h1>
         </div>
 
@@ -1170,10 +1166,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Please open up your project on Posit.Cloud, for our <a href="https://github.com/timothyfraser/sysen">Github class repository</a>. Start a new R script (File &gt;&gt; New &gt;&gt; R Script). Save the R script as <code>lesson_3.R</code>. And let’s get started!</p>
 <div id="load-packages" class="section level3 unnumbered hasAnchor">
 <h3>Load Packages<a href="fmea-in-r.html#load-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="fmea-in-r.html#cb217-1" tabindex="-1"></a><span class="co"># Load tidyverse, which contains dplyr and most data wrangling functions</span></span>
-<span id="cb217-2"><a href="fmea-in-r.html#cb217-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb217-3"><a href="fmea-in-r.html#cb217-3" tabindex="-1"></a><span class="co"># Load DiagrammeR, which we&#39;ll use to make diagrams today!</span></span>
-<span id="cb217-4"><a href="fmea-in-r.html#cb217-4" tabindex="-1"></a><span class="fu">library</span>(DiagrammeR) </span></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="fmea-in-r.html#cb221-1" tabindex="-1"></a><span class="co"># Load tidyverse, which contains dplyr and most data wrangling functions</span></span>
+<span id="cb221-2"><a href="fmea-in-r.html#cb221-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb221-3"><a href="fmea-in-r.html#cb221-3" tabindex="-1"></a><span class="co"># Load DiagrammeR, which we&#39;ll use to make diagrams today!</span></span>
+<span id="cb221-4"><a href="fmea-in-r.html#cb221-4" tabindex="-1"></a><span class="fu">library</span>(DiagrammeR) </span></code></pre></div>
 </div>
 </div>
 <div id="example-ben-and-jerrys-ice-cream" class="section level2 hasAnchor" number="4.1">
@@ -1214,8 +1210,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Plus, several possible failure modes are involved, as discussed below.</p>
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-a8148625eb0b7d068544" style="width:100%;height:384px;"></div>
-<script type="application/json" data-for="htmlwidget-a8148625eb0b7d068544">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-f8ae9910b8944abc1af3" style="width:100%;height:384px;"></div>
+<script type="application/json" data-for="htmlwidget-f8ae9910b8944abc1af3">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figure 4.1: Ben &amp; Jerry’s Ice Cream Block Diagram
 </p>
@@ -1226,20 +1222,20 @@ Figure 4.1: Ben &amp; Jerry’s Ice Cream Block Diagram
 <div id="failure-modes" class="section level3 hasAnchor" number="4.1.4">
 <h3><span class="header-section-number">4.1.4</span> Failure Modes<a href="fmea-in-r.html#failure-modes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We’ll make a tidy <code>data.frame()</code> of each of the ways our <code>block diagram</code> above could fail, which were contained above in <code>failures</code>. We’ll call this data.frame <code>f</code>.</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="fmea-in-r.html#cb218-1" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb218-2"><a href="fmea-in-r.html#cb218-2" tabindex="-1"></a>  <span class="co"># Make a vector of routes to failure</span></span>
-<span id="cb218-3"><a href="fmea-in-r.html#cb218-3" tabindex="-1"></a>  <span class="at">failure_mode =</span> <span class="fu">c</span>(</span>
-<span id="cb218-4"><a href="fmea-in-r.html#cb218-4" tabindex="-1"></a>    <span class="st">&quot;freezer --&gt; fail_break&quot;</span>,</span>
-<span id="cb218-5"><a href="fmea-in-r.html#cb218-5" tabindex="-1"></a>    <span class="st">&quot;loading --&gt; fail_time&quot;</span>,</span>
-<span id="cb218-6"><a href="fmea-in-r.html#cb218-6" tabindex="-1"></a>    <span class="st">&quot;loading --&gt; fail_eat&quot;</span>,</span>
-<span id="cb218-7"><a href="fmea-in-r.html#cb218-7" tabindex="-1"></a>    <span class="st">&quot;transport --&gt; fail_time&quot;</span>,</span>
-<span id="cb218-8"><a href="fmea-in-r.html#cb218-8" tabindex="-1"></a>    <span class="st">&quot;transport --&gt; fail_eat&quot;</span>)</span>
-<span id="cb218-9"><a href="fmea-in-r.html#cb218-9" tabindex="-1"></a>)</span>
-<span id="cb218-10"><a href="fmea-in-r.html#cb218-10" tabindex="-1"></a></span>
-<span id="cb218-11"><a href="fmea-in-r.html#cb218-11" tabindex="-1"></a>  <span class="co"># Worker 2 could leave ice cream out while loading</span></span>
-<span id="cb218-12"><a href="fmea-in-r.html#cb218-12" tabindex="-1"></a>  <span class="co"># Worker 2 could eat the ice cream while loading</span></span>
-<span id="cb218-13"><a href="fmea-in-r.html#cb218-13" tabindex="-1"></a>  <span class="co"># Worker 3 could leave the ice cream out in transit</span></span>
-<span id="cb218-14"><a href="fmea-in-r.html#cb218-14" tabindex="-1"></a>  <span class="co"># Worker 3 could eat the ice cream in transit</span></span></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="fmea-in-r.html#cb222-1" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb222-2"><a href="fmea-in-r.html#cb222-2" tabindex="-1"></a>  <span class="co"># Make a vector of routes to failure</span></span>
+<span id="cb222-3"><a href="fmea-in-r.html#cb222-3" tabindex="-1"></a>  <span class="at">failure_mode =</span> <span class="fu">c</span>(</span>
+<span id="cb222-4"><a href="fmea-in-r.html#cb222-4" tabindex="-1"></a>    <span class="st">&quot;freezer --&gt; fail_break&quot;</span>,</span>
+<span id="cb222-5"><a href="fmea-in-r.html#cb222-5" tabindex="-1"></a>    <span class="st">&quot;loading --&gt; fail_time&quot;</span>,</span>
+<span id="cb222-6"><a href="fmea-in-r.html#cb222-6" tabindex="-1"></a>    <span class="st">&quot;loading --&gt; fail_eat&quot;</span>,</span>
+<span id="cb222-7"><a href="fmea-in-r.html#cb222-7" tabindex="-1"></a>    <span class="st">&quot;transport --&gt; fail_time&quot;</span>,</span>
+<span id="cb222-8"><a href="fmea-in-r.html#cb222-8" tabindex="-1"></a>    <span class="st">&quot;transport --&gt; fail_eat&quot;</span>)</span>
+<span id="cb222-9"><a href="fmea-in-r.html#cb222-9" tabindex="-1"></a>)</span>
+<span id="cb222-10"><a href="fmea-in-r.html#cb222-10" tabindex="-1"></a></span>
+<span id="cb222-11"><a href="fmea-in-r.html#cb222-11" tabindex="-1"></a>  <span class="co"># Worker 2 could leave ice cream out while loading</span></span>
+<span id="cb222-12"><a href="fmea-in-r.html#cb222-12" tabindex="-1"></a>  <span class="co"># Worker 2 could eat the ice cream while loading</span></span>
+<span id="cb222-13"><a href="fmea-in-r.html#cb222-13" tabindex="-1"></a>  <span class="co"># Worker 3 could leave the ice cream out in transit</span></span>
+<span id="cb222-14"><a href="fmea-in-r.html#cb222-14" tabindex="-1"></a>  <span class="co"># Worker 3 could eat the ice cream in transit</span></span></code></pre></div>
 </div>
 </div>
 <div id="calculating-criticality" class="section level2 hasAnchor" number="4.2">
@@ -1255,10 +1251,10 @@ Figure 4.1: Ben &amp; Jerry’s Ice Cream Block Diagram
 <li><p><code>fail_time</code>: It’s not great it a single shipment gets left out and melts while waiting for pickup. But it’s just one shipment. Let’s call that a <code>5</code>.</p></li>
 <li><p><code>fail_eat</code>: How much ice cream could one worker really eat? That’s probably a <code>1</code>.</p></li>
 </ul>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="fmea-in-r.html#cb219-1" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> f <span class="sc">%&gt;%</span></span>
-<span id="cb219-2"><a href="fmea-in-r.html#cb219-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">severity =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">1</span>))</span>
-<span id="cb219-3"><a href="fmea-in-r.html#cb219-3" tabindex="-1"></a><span class="co"># Check out the contents!</span></span>
-<span id="cb219-4"><a href="fmea-in-r.html#cb219-4" tabindex="-1"></a>f1</span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="fmea-in-r.html#cb223-1" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> f <span class="sc">%&gt;%</span></span>
+<span id="cb223-2"><a href="fmea-in-r.html#cb223-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">severity =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">1</span>))</span>
+<span id="cb223-3"><a href="fmea-in-r.html#cb223-3" tabindex="-1"></a><span class="co"># Check out the contents!</span></span>
+<span id="cb223-4"><a href="fmea-in-r.html#cb223-4" tabindex="-1"></a>f1</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 2
 ##   failure_mode            severity
 ##   &lt;chr&gt;                      &lt;dbl&gt;
@@ -1278,8 +1274,8 @@ Figure 4.1: Ben &amp; Jerry’s Ice Cream Block Diagram
 <li><p><code>fail_time</code>: It’s probably somewhat rare that shipments melt (eg. <code>5</code>).</p></li>
 <li><p><code>fail_eat</code>: If I were a worker, I would eat that all the time (eg. <code>8</code>).</p></li>
 </ul>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="fmea-in-r.html#cb221-1" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> f1 <span class="sc">%&gt;%</span></span>
-<span id="cb221-2"><a href="fmea-in-r.html#cb221-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">occurrence =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">8</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="fmea-in-r.html#cb225-1" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> f1 <span class="sc">%&gt;%</span></span>
+<span id="cb225-2"><a href="fmea-in-r.html#cb225-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">occurrence =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">8</span>))</span></code></pre></div>
 <p><br>
 <br></p>
 </div>
@@ -1291,22 +1287,22 @@ Figure 4.1: Ben &amp; Jerry’s Ice Cream Block Diagram
 <li><p><code>fail_time</code>: You might not know it had melted until the product gets to the store. (eg. <code>8</code>)</p></li>
 <li><p><code>fail_eat</code>: Might get caught. Low chance. (eg. <code>3</code>).</p></li>
 </ul>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="fmea-in-r.html#cb222-1" tabindex="-1"></a>f3 <span class="ot">&lt;-</span> f2 <span class="sc">%&gt;%</span></span>
-<span id="cb222-2"><a href="fmea-in-r.html#cb222-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">detection =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="fmea-in-r.html#cb226-1" tabindex="-1"></a>f3 <span class="ot">&lt;-</span> f2 <span class="sc">%&gt;%</span></span>
+<span id="cb226-2"><a href="fmea-in-r.html#cb226-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">detection =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">3</span>))</span></code></pre></div>
 <p><br>
 <br></p>
 </div>
 <div id="estimate-criticality-rpn" class="section level3 hasAnchor" number="4.2.4">
 <h3><span class="header-section-number">4.2.4</span> Estimate Criticality (RPN)<a href="fmea-in-r.html#estimate-criticality-rpn" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Using our data in <code>f3</code>, let’s estimate <code>criticality</code> (aka RPN, the risk priority number).</p>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="fmea-in-r.html#cb223-1" tabindex="-1"></a>f4 <span class="ot">&lt;-</span> f3 <span class="sc">%&gt;%</span></span>
-<span id="cb223-2"><a href="fmea-in-r.html#cb223-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">criticality =</span> severity <span class="sc">*</span> occurrence <span class="sc">*</span> detection)</span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="fmea-in-r.html#cb227-1" tabindex="-1"></a>f4 <span class="ot">&lt;-</span> f3 <span class="sc">%&gt;%</span></span>
+<span id="cb227-2"><a href="fmea-in-r.html#cb227-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">criticality =</span> severity <span class="sc">*</span> occurrence <span class="sc">*</span> detection)</span></code></pre></div>
 <p>We can add up the <code>criticality/RPN</code> to estimate the total risk priority, out of <code>1000</code>, which is the <code>max_criticality</code> possible. We can divide these two to get the <code>probability</code> of system failure. Is that risk greater than <code>0.010</code>, aka <code>0.1%</code>? If so, bad news!</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="fmea-in-r.html#cb224-1" tabindex="-1"></a>f4 <span class="sc">%&gt;%</span></span>
-<span id="cb224-2"><a href="fmea-in-r.html#cb224-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb224-3"><a href="fmea-in-r.html#cb224-3" tabindex="-1"></a>    <span class="at">total_criticality =</span> <span class="fu">sum</span>(criticality),</span>
-<span id="cb224-4"><a href="fmea-in-r.html#cb224-4" tabindex="-1"></a>    <span class="at">max_criticality =</span> <span class="dv">10</span><span class="sc">*</span><span class="dv">10</span><span class="sc">*</span><span class="dv">10</span>,</span>
-<span id="cb224-5"><a href="fmea-in-r.html#cb224-5" tabindex="-1"></a>    <span class="at">probability =</span> total_criticality <span class="sc">/</span> max_criticality)</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="fmea-in-r.html#cb228-1" tabindex="-1"></a>f4 <span class="sc">%&gt;%</span></span>
+<span id="cb228-2"><a href="fmea-in-r.html#cb228-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb228-3"><a href="fmea-in-r.html#cb228-3" tabindex="-1"></a>    <span class="at">total_criticality =</span> <span class="fu">sum</span>(criticality),</span>
+<span id="cb228-4"><a href="fmea-in-r.html#cb228-4" tabindex="-1"></a>    <span class="at">max_criticality =</span> <span class="dv">10</span><span class="sc">*</span><span class="dv">10</span><span class="sc">*</span><span class="dv">10</span>,</span>
+<span id="cb228-5"><a href="fmea-in-r.html#cb228-5" tabindex="-1"></a>    <span class="at">probability =</span> total_criticality <span class="sc">/</span> max_criticality)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 3
 ##   total_criticality max_criticality probability
 ##               &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
@@ -1325,30 +1321,30 @@ Figure 4.1: Ben &amp; Jerry’s Ice Cream Block Diagram
 <summary>
 <strong>[View Answer!]</strong>
 </summary>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="fmea-in-r.html#cb226-1" tabindex="-1"></a>fprime <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb226-2"><a href="fmea-in-r.html#cb226-2" tabindex="-1"></a>  <span class="co"># Make a vector of routes to failure</span></span>
-<span id="cb226-3"><a href="fmea-in-r.html#cb226-3" tabindex="-1"></a>  <span class="at">failure_mode =</span> <span class="fu">c</span>(</span>
-<span id="cb226-4"><a href="fmea-in-r.html#cb226-4" tabindex="-1"></a>    <span class="st">&quot;freezer --&gt; fail_break&quot;</span>,</span>
-<span id="cb226-5"><a href="fmea-in-r.html#cb226-5" tabindex="-1"></a>    <span class="st">&quot;loading --&gt; fail_time&quot;</span>,</span>
-<span id="cb226-6"><a href="fmea-in-r.html#cb226-6" tabindex="-1"></a>    <span class="st">&quot;loading --&gt; fail_eat&quot;</span>,</span>
-<span id="cb226-7"><a href="fmea-in-r.html#cb226-7" tabindex="-1"></a>    <span class="st">&quot;transport --&gt; fail_time&quot;</span>,</span>
-<span id="cb226-8"><a href="fmea-in-r.html#cb226-8" tabindex="-1"></a>    <span class="st">&quot;transport --&gt; fail_eat&quot;</span>,</span>
-<span id="cb226-9"><a href="fmea-in-r.html#cb226-9" tabindex="-1"></a>    <span class="co"># Technically, worker 1 could eat it before taking it to freezer</span></span>
-<span id="cb226-10"><a href="fmea-in-r.html#cb226-10" tabindex="-1"></a>    <span class="st">&quot;w1 --&gt; fail_eat&quot;</span>,</span>
-<span id="cb226-11"><a href="fmea-in-r.html#cb226-11" tabindex="-1"></a>    <span class="co"># A fourth worker at the store could eat it before delivering it</span></span>
-<span id="cb226-12"><a href="fmea-in-r.html#cb226-12" tabindex="-1"></a>    <span class="st">&quot;w4 --&gt; fail_eat&quot;</span>,</span>
-<span id="cb226-13"><a href="fmea-in-r.html#cb226-13" tabindex="-1"></a>    <span class="co"># The fourth worker could also leave it out!</span></span>
-<span id="cb226-14"><a href="fmea-in-r.html#cb226-14" tabindex="-1"></a>    <span class="st">&quot;w4 --&gt; fail_time&quot;</span>)</span>
-<span id="cb226-15"><a href="fmea-in-r.html#cb226-15" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb226-16"><a href="fmea-in-r.html#cb226-16" tabindex="-1"></a>  <span class="co"># Estimate quantities of interest</span></span>
-<span id="cb226-17"><a href="fmea-in-r.html#cb226-17" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">severity =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>),</span>
-<span id="cb226-18"><a href="fmea-in-r.html#cb226-18" tabindex="-1"></a>           <span class="at">occurrence =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">5</span>),</span>
-<span id="cb226-19"><a href="fmea-in-r.html#cb226-19" tabindex="-1"></a>           <span class="at">detection =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">8</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb226-20"><a href="fmea-in-r.html#cb226-20" tabindex="-1"></a>  <span class="co"># Calculate criticality</span></span>
-<span id="cb226-21"><a href="fmea-in-r.html#cb226-21" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">criticality =</span> severity <span class="sc">*</span> occurrence <span class="sc">*</span> detection)</span>
-<span id="cb226-22"><a href="fmea-in-r.html#cb226-22" tabindex="-1"></a></span>
-<span id="cb226-23"><a href="fmea-in-r.html#cb226-23" tabindex="-1"></a><span class="co"># Let&#39;s check it out!</span></span>
-<span id="cb226-24"><a href="fmea-in-r.html#cb226-24" tabindex="-1"></a>fprime</span></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="fmea-in-r.html#cb230-1" tabindex="-1"></a>fprime <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb230-2"><a href="fmea-in-r.html#cb230-2" tabindex="-1"></a>  <span class="co"># Make a vector of routes to failure</span></span>
+<span id="cb230-3"><a href="fmea-in-r.html#cb230-3" tabindex="-1"></a>  <span class="at">failure_mode =</span> <span class="fu">c</span>(</span>
+<span id="cb230-4"><a href="fmea-in-r.html#cb230-4" tabindex="-1"></a>    <span class="st">&quot;freezer --&gt; fail_break&quot;</span>,</span>
+<span id="cb230-5"><a href="fmea-in-r.html#cb230-5" tabindex="-1"></a>    <span class="st">&quot;loading --&gt; fail_time&quot;</span>,</span>
+<span id="cb230-6"><a href="fmea-in-r.html#cb230-6" tabindex="-1"></a>    <span class="st">&quot;loading --&gt; fail_eat&quot;</span>,</span>
+<span id="cb230-7"><a href="fmea-in-r.html#cb230-7" tabindex="-1"></a>    <span class="st">&quot;transport --&gt; fail_time&quot;</span>,</span>
+<span id="cb230-8"><a href="fmea-in-r.html#cb230-8" tabindex="-1"></a>    <span class="st">&quot;transport --&gt; fail_eat&quot;</span>,</span>
+<span id="cb230-9"><a href="fmea-in-r.html#cb230-9" tabindex="-1"></a>    <span class="co"># Technically, worker 1 could eat it before taking it to freezer</span></span>
+<span id="cb230-10"><a href="fmea-in-r.html#cb230-10" tabindex="-1"></a>    <span class="st">&quot;w1 --&gt; fail_eat&quot;</span>,</span>
+<span id="cb230-11"><a href="fmea-in-r.html#cb230-11" tabindex="-1"></a>    <span class="co"># A fourth worker at the store could eat it before delivering it</span></span>
+<span id="cb230-12"><a href="fmea-in-r.html#cb230-12" tabindex="-1"></a>    <span class="st">&quot;w4 --&gt; fail_eat&quot;</span>,</span>
+<span id="cb230-13"><a href="fmea-in-r.html#cb230-13" tabindex="-1"></a>    <span class="co"># The fourth worker could also leave it out!</span></span>
+<span id="cb230-14"><a href="fmea-in-r.html#cb230-14" tabindex="-1"></a>    <span class="st">&quot;w4 --&gt; fail_time&quot;</span>)</span>
+<span id="cb230-15"><a href="fmea-in-r.html#cb230-15" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb230-16"><a href="fmea-in-r.html#cb230-16" tabindex="-1"></a>  <span class="co"># Estimate quantities of interest</span></span>
+<span id="cb230-17"><a href="fmea-in-r.html#cb230-17" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">severity =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>),</span>
+<span id="cb230-18"><a href="fmea-in-r.html#cb230-18" tabindex="-1"></a>           <span class="at">occurrence =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">5</span>),</span>
+<span id="cb230-19"><a href="fmea-in-r.html#cb230-19" tabindex="-1"></a>           <span class="at">detection =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">8</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb230-20"><a href="fmea-in-r.html#cb230-20" tabindex="-1"></a>  <span class="co"># Calculate criticality</span></span>
+<span id="cb230-21"><a href="fmea-in-r.html#cb230-21" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">criticality =</span> severity <span class="sc">*</span> occurrence <span class="sc">*</span> detection)</span>
+<span id="cb230-22"><a href="fmea-in-r.html#cb230-22" tabindex="-1"></a></span>
+<span id="cb230-23"><a href="fmea-in-r.html#cb230-23" tabindex="-1"></a><span class="co"># Let&#39;s check it out!</span></span>
+<span id="cb230-24"><a href="fmea-in-r.html#cb230-24" tabindex="-1"></a>fprime</span></code></pre></div>
 <pre><code>## # A tibble: 8 × 5
 ##   failure_mode            severity occurrence detection criticality
 ##   &lt;chr&gt;                      &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
@@ -1360,12 +1356,12 @@ Figure 4.1: Ben &amp; Jerry’s Ice Cream Block Diagram
 ## 6 w1 --&gt; fail_eat                1          8         3          24
 ## 7 w4 --&gt; fail_eat                1          8         3          24
 ## 8 w4 --&gt; fail_time               5          5         8         200</code></pre>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="fmea-in-r.html#cb228-1" tabindex="-1"></a><span class="co"># Let&#39;s calculate the total risk!</span></span>
-<span id="cb228-2"><a href="fmea-in-r.html#cb228-2" tabindex="-1"></a>fprime <span class="sc">%&gt;%</span></span>
-<span id="cb228-3"><a href="fmea-in-r.html#cb228-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb228-4"><a href="fmea-in-r.html#cb228-4" tabindex="-1"></a>    <span class="at">total_criticality =</span> <span class="fu">sum</span>(criticality),</span>
-<span id="cb228-5"><a href="fmea-in-r.html#cb228-5" tabindex="-1"></a>    <span class="at">max_criticality =</span> <span class="dv">10</span><span class="sc">*</span><span class="dv">10</span><span class="sc">*</span><span class="dv">10</span>,</span>
-<span id="cb228-6"><a href="fmea-in-r.html#cb228-6" tabindex="-1"></a>    <span class="at">probability =</span> total_criticality <span class="sc">/</span> max_criticality)</span></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="fmea-in-r.html#cb232-1" tabindex="-1"></a><span class="co"># Let&#39;s calculate the total risk!</span></span>
+<span id="cb232-2"><a href="fmea-in-r.html#cb232-2" tabindex="-1"></a>fprime <span class="sc">%&gt;%</span></span>
+<span id="cb232-3"><a href="fmea-in-r.html#cb232-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb232-4"><a href="fmea-in-r.html#cb232-4" tabindex="-1"></a>    <span class="at">total_criticality =</span> <span class="fu">sum</span>(criticality),</span>
+<span id="cb232-5"><a href="fmea-in-r.html#cb232-5" tabindex="-1"></a>    <span class="at">max_criticality =</span> <span class="dv">10</span><span class="sc">*</span><span class="dv">10</span><span class="sc">*</span><span class="dv">10</span>,</span>
+<span id="cb232-6"><a href="fmea-in-r.html#cb232-6" tabindex="-1"></a>    <span class="at">probability =</span> total_criticality <span class="sc">/</span> max_criticality)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 3
 ##   total_criticality max_criticality probability
 ##               &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
@@ -1404,45 +1400,45 @@ Figure 4.1: Ben &amp; Jerry’s Ice Cream Block Diagram
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-},
-"toolbar": {
-"position": "static"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  },
+  "toolbar": {
+    "position": "static"
+  }
 });
 });
 </script>

@@ -4,26 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>9 Functions in R | System Reliability and Six Sigma in R</title>
-  <meta name="description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <title>9 Functions in R | System Reliability and Six Sigma in R and Python</title>
+  <meta name="description" content="Your online textbook for learning reliability and six sigma techniques in R and Python! Made for Cornell University Course SYSEN 5300." />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="9 Functions in R | System Reliability and Six Sigma in R" />
+  <meta property="og:title" content="9 Functions in R | System Reliability and Six Sigma in R and Python" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  <meta property="og:description" content="Your online textbook for learning reliability and six sigma techniques in R and Python! Made for Cornell University Course SYSEN 5300." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="9 Functions in R | System Reliability and Six Sigma in R" />
+  <meta name="twitter:title" content="9 Functions in R | System Reliability and Six Sigma in R and Python" />
   
-  <meta name="twitter:description" content="Your online textbook for learning reliability and six sigma techniques in R! Made for Cornell University Course SYSEN 5300." />
+  <meta name="twitter:description" content="Your online textbook for learning reliability and six sigma techniques in R and Python! Made for Cornell University Course SYSEN 5300." />
   
 
 <meta name="author" content="Timothy Fraser, PhD" />
 
 
-<meta name="date" content="2025-09-15" />
+<meta name="date" content="2025-11-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -62,7 +62,11 @@
 <script src="assets/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
 <link href="assets/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
 <script src="assets/chromatography-0.1/chromatography.js"></script>
-<script src="assets/DiagrammeR-binding-1.0.9/DiagrammeR.js"></script>
+<script src="assets/DiagrammeR-binding-1.0.11/DiagrammeR.js"></script>
+<script src="assets/bslib-component-js-0.9.0/components.min.js"></script>
+<script src="assets/bslib-component-js-0.9.0/web-components.min.js" type="module"></script>
+<link href="assets/bslib-component-css-0.9.0/components.css" rel="stylesheet" />
+<script src="assets/bslib-tag-require-0.9.0/tag-require.js"></script>
 
 
 <style type="text/css">
@@ -709,7 +713,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="indices-and-confidence-intervals-for-statistical-process-control-in-python.html"><a href="indices-and-confidence-intervals-for-statistical-process-control-in-python.html#conclusion-14"><i class="fa fa-check"></i>Conclusion</a></li>
 </ul></li>
-<li class="part"><span><b>IV Life Distributions</b></span></li>
 <li class="chapter" data-level="19" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html"><i class="fa fa-check"></i><b>19</b> Useful Life Distributions (Exponential)</a>
 <ul>
 <li class="chapter" data-level="19.1" data-path="useful-life-distributions-exponential.html"><a href="useful-life-distributions-exponential.html#getting-started-17"><i class="fa fa-check"></i><b>19.1</b> Getting Started</a>
@@ -820,7 +823,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#learning-check-6-1"><i class="fa fa-check"></i>Learning Check 6</a></li>
 <li class="chapter" data-level="21.5" data-path="useful-life-distributions-weibull-gamma-lognormal.html"><a href="useful-life-distributions-weibull-gamma-lognormal.html#conclusion-17"><i class="fa fa-check"></i><b>21.5</b> Conclusion</a></li>
 </ul></li>
-<li class="part"><span><b>V Physical Acceleration Models</b></span></li>
 <li class="chapter" data-level="22" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html"><i class="fa fa-check"></i><b>22</b> Fault Tree Analysis in R</a>
 <ul>
 <li class="chapter" data-level="" data-path="fault-tree-analysis-in-r.html"><a href="fault-tree-analysis-in-r.html#getting-started-20"><i class="fa fa-check"></i>Getting Started</a>
@@ -873,6 +875,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="23.7" data-path="physical-acceleration-models.html"><a href="physical-acceleration-models.html#conclusion-18"><i class="fa fa-check"></i><b>23.7</b> Conclusion</a></li>
 </ul></li>
+<li class="part"><span><b>IV Life Distributions</b></span></li>
+<li class="part"><span><b>V Physical Acceleration Models</b></span></li>
 <li class="part"><span><b>VI Regression</b></span></li>
 <li class="chapter" data-level="24" data-path="bivariate-regression-modeling-diamond-pricing.html"><a href="bivariate-regression-modeling-diamond-pricing.html"><i class="fa fa-check"></i><b>24</b> Bivariate Regression: Modeling Diamond Pricing</a>
 <ul>
@@ -1009,14 +1013,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="27.4.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#visualization-strategies"><i class="fa fa-check"></i><b>27.4.2</b> Visualization Strategies</a></li>
 <li class="chapter" data-level="27.4.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#an-excellent-visual"><i class="fa fa-check"></i><b>27.4.3</b> An Excellent Visual</a></li>
 </ul></li>
-<li class="chapter" data-level="27.5" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#interaction-effects"><i class="fa fa-check"></i><b>27.5</b> Interaction Effects</a></li>
-<li class="chapter" data-level="27.6" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-2-way-interactions"><i class="fa fa-check"></i><b>27.6</b> Estimating 2-way interactions</a></li>
-<li class="chapter" data-level="27.7" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-3-way-interactions"><i class="fa fa-check"></i><b>27.7</b> Estimating 3-way interactions</a></li>
-<li class="chapter" data-level="27.8" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-interactions-in-lm"><i class="fa fa-check"></i><b>27.8</b> Estimating Interactions in <code>lm()</code></a>
+<li class="chapter" data-level="27.5" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#interaction-effects"><i class="fa fa-check"></i><b>27.5</b> Interaction Effects</a>
 <ul>
-<li class="chapter" data-level="27.8.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#modeling-interactions"><i class="fa fa-check"></i><b>27.8.1</b> Modeling Interactions</a></li>
-<li class="chapter" data-level="27.8.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#using-predict-to-visualize-interaction-effects"><i class="fa fa-check"></i><b>27.8.2</b> Using <code>predict()</code> to visualize interaction effects</a></li>
-<li class="chapter" data-level="27.8.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#finding-the-best-model-with-anova"><i class="fa fa-check"></i><b>27.8.3</b> Finding the best model with <code>anova()</code></a></li>
+<li class="chapter" data-level="27.5.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-a-pooled-standard-error"><i class="fa fa-check"></i><b>27.5.1</b> Estimating a Pooled Standard Error</a></li>
+<li class="chapter" data-level="27.5.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-1-way-interations"><i class="fa fa-check"></i><b>27.5.2</b> Estimating 1-way interations</a></li>
+<li class="chapter" data-level="27.5.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-2-way-interactions"><i class="fa fa-check"></i><b>27.5.3</b> Estimating 2-way interactions</a></li>
+<li class="chapter" data-level="27.5.4" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-3-way-interactions"><i class="fa fa-check"></i><b>27.5.4</b> Estimating 3-way interactions</a></li>
+</ul></li>
+<li class="chapter" data-level="27.6" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-interactions-in-lm"><i class="fa fa-check"></i><b>27.6</b> Estimating Interactions in <code>lm()</code></a>
+<ul>
+<li class="chapter" data-level="27.6.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#modeling-interactions"><i class="fa fa-check"></i><b>27.6.1</b> Modeling Interactions</a></li>
+<li class="chapter" data-level="27.6.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#using-predict-to-visualize-interaction-effects"><i class="fa fa-check"></i><b>27.6.2</b> Using <code>predict()</code> to visualize interaction effects</a></li>
+<li class="chapter" data-level="27.6.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#finding-the-best-model-with-anova"><i class="fa fa-check"></i><b>27.6.3</b> Finding the best model with <code>anova()</code></a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#conclusion-20"><i class="fa fa-check"></i>Conclusion</a></li>
 </ul></li>
@@ -1123,27 +1131,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#learning-check-1-23"><i class="fa fa-check"></i>Learning Check 1</a></li>
 <li class="chapter" data-level="31.6" data-path="appendix-using-fitdistr-to-fitting-distribution-parameters.html"><a href="appendix-using-fitdistr-to-fitting-distribution-parameters.html#conclusion-22"><i class="fa fa-check"></i><b>31.6</b> Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="32" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html"><i class="fa fa-check"></i><b>32</b> Appendix: <code>tidyfault</code> for Fault Tree Analysis</a>
+<li class="chapter" data-level="32" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html"><i class="fa fa-check"></i><b>32</b> Appendix: Statistical Tables and Common Equations</a>
 <ul>
-<li class="chapter" data-level="" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#getting-started-30"><i class="fa fa-check"></i>Getting Started</a>
-<ul>
-<li class="chapter" data-level="" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#prerequisites-2"><i class="fa fa-check"></i>Prerequisites</a></li>
-<li class="chapter" data-level="" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#load-packages-11"><i class="fa fa-check"></i>Load Packages</a></li>
-</ul></li>
-<li class="chapter" data-level="32.1" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#visualizing-fault-trees-in-r"><i class="fa fa-check"></i><b>32.1</b> Visualizing Fault Trees in R</a>
-<ul>
-<li class="chapter" data-level="32.1.1" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#making-a-nodelist"><i class="fa fa-check"></i><b>32.1.1</b> Making a Nodelist</a></li>
-<li class="chapter" data-level="32.1.2" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#making-an-edgelist"><i class="fa fa-check"></i><b>32.1.2</b> Making an Edgelist</a></li>
-</ul></li>
-<li class="chapter" data-level="32.2" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#our-data-11"><i class="fa fa-check"></i><b>32.2</b> Our Data</a></li>
-<li class="chapter" data-level="32.3" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#getting-a-fault-tree-layout"><i class="fa fa-check"></i><b>32.3</b> Getting a Fault Tree Layout</a></li>
-<li class="chapter" data-level="32.4" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#visualize-a-fault-tree"><i class="fa fa-check"></i><b>32.4</b> Visualize a Fault Tree</a></li>
-<li class="chapter" data-level="32.5" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#cutsets"><i class="fa fa-check"></i><b>32.5</b> Cutsets</a></li>
-<li class="chapter" data-level="32.6" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#gates"><i class="fa fa-check"></i><b>32.6</b> Gates</a></li>
-<li class="chapter" data-level="32.7" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#equations"><i class="fa fa-check"></i><b>32.7</b> Equations</a></li>
-<li class="chapter" data-level="32.8" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#minimal-cutsets"><i class="fa fa-check"></i><b>32.8</b> Minimal Cutsets</a></li>
-<li class="chapter" data-level="32.9" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#coverage"><i class="fa fa-check"></i><b>32.9</b> Coverage</a></li>
-<li class="chapter" data-level="" data-path="appendix-tidyfault-for-fault-tree-analysis.html"><a href="appendix-tidyfault-for-fault-tree-analysis.html#conclusion-23"><i class="fa fa-check"></i>Conclusion</a></li>
+<li class="chapter" data-level="32.1" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#table-1-chi-squared"><i class="fa fa-check"></i><b>32.1</b> Table 1: Chi-Squared</a></li>
+<li class="chapter" data-level="32.2" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#table-2-k-factor-rules"><i class="fa fa-check"></i><b>32.2</b> Table 2: k-factor rules</a></li>
+<li class="chapter" data-level="32.3" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#table-3-k-factor-upper"><i class="fa fa-check"></i><b>32.3</b> Table 3: k-factor (upper)</a></li>
+<li class="chapter" data-level="32.4" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#table-4-k-factor-lower"><i class="fa fa-check"></i><b>32.4</b> Table 4: k-factor (lower)</a></li>
+<li class="chapter" data-level="32.5" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#table-5-control-constants-d"><i class="fa fa-check"></i><b>32.5</b> Table 5: Control Constants (d)</a></li>
+<li class="chapter" data-level="32.6" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#table-6-control-constants-b"><i class="fa fa-check"></i><b>32.6</b> Table 6: Control Constants (b)</a></li>
+<li class="chapter" data-level="32.7" data-path="appendix-statistical-tables-and-common-equations.html"><a href="appendix-statistical-tables-and-common-equations.html#formula"><i class="fa fa-check"></i><b>32.7</b> Formula</a></li>
 </ul></li>
 </ul>
 
@@ -1154,7 +1150,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">System Reliability and Six Sigma in R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">System Reliability and Six Sigma in R and Python</a>
           </h1>
         </div>
 
@@ -1172,15 +1168,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="packages-2" class="section level3 unnumbered hasAnchor">
 <h3>Packages<a href="functions-in-r.html#packages-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We’ll be using the <code>tidyverse</code> package, a super-package that auto-loads <code>dplyr</code>, <code>ggplot2</code>, and other common functions.</p>
-<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="functions-in-r.html#cb456-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="functions-in-r.html#cb460-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p><br></p>
 </div>
 </div>
 <div id="coding-your-own-function" class="section level2 hasAnchor" number="9.1">
 <h2><span class="header-section-number">9.1</span> Coding your own function!<a href="functions-in-r.html#coding-your-own-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><code>Functions</code> are machines that do a specific <strong>calculation</strong> using an <strong>input</strong> to produce a specific <strong>output</strong>.</p>
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-ed35335e51fccf9bc851" style="width:100%;height:144px;"></div>
-<script type="application/json" data-for="htmlwidget-ed35335e51fccf9bc851">{"x":{"diagram":"graph LR\n subgraph before\n i[input data <i>x<\/i>]\n end\n subgraph function\n c[calculation]\n end\n subgraph after\n o[output data <i>y<\/i>]\n end\n i --> c\n c --> o"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-419b98d7fa80c23d5044" style="width:100%;height:144px;"></div>
+<script type="application/json" data-for="htmlwidget-419b98d7fa80c23d5044">{"x":{"diagram":"graph LR\n subgraph before\n i[input data <i>x<\/i>]\n end\n subgraph function\n c[calculation]\n end\n subgraph after\n o[output data <i>y<\/i>]\n end\n i --> c\n c --> o"},"evals":[],"jsHooks":[]}</script>
 <p>Below, we’ll write an example function, called <code>add(a, b)</code>.</p>
 <ul>
 <li><p>This function takes two <code>numeric</code> values, <code>a</code> and <code>b</code>, as <code>inputs</code>, and adds them together.</p></li>
@@ -1188,22 +1184,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Then, using <code>{ ... }</code>, we’ll put the action we want <code>R</code> to do in there.</p></li>
 <li><p>The function can involve multiple operations inside it. But at the end, you need to print <em>one</em> final output, or put <code>return()</code> around your output.</p></li>
 </ul>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="functions-in-r.html#cb457-1" tabindex="-1"></a><span class="co"># Make function</span></span>
-<span id="cb457-2"><a href="functions-in-r.html#cb457-2" tabindex="-1"></a>add <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b){</span>
-<span id="cb457-3"><a href="functions-in-r.html#cb457-3" tabindex="-1"></a>  <span class="co"># Compute and directly output</span></span>
-<span id="cb457-4"><a href="functions-in-r.html#cb457-4" tabindex="-1"></a>  a <span class="sc">+</span> b </span>
-<span id="cb457-5"><a href="functions-in-r.html#cb457-5" tabindex="-1"></a>}</span>
-<span id="cb457-6"><a href="functions-in-r.html#cb457-6" tabindex="-1"></a><span class="fu">add</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="functions-in-r.html#cb461-1" tabindex="-1"></a><span class="co"># Make function</span></span>
+<span id="cb461-2"><a href="functions-in-r.html#cb461-2" tabindex="-1"></a>add <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b){</span>
+<span id="cb461-3"><a href="functions-in-r.html#cb461-3" tabindex="-1"></a>  <span class="co"># Compute and directly output</span></span>
+<span id="cb461-4"><a href="functions-in-r.html#cb461-4" tabindex="-1"></a>  a <span class="sc">+</span> b </span>
+<span id="cb461-5"><a href="functions-in-r.html#cb461-5" tabindex="-1"></a>}</span>
+<span id="cb461-6"><a href="functions-in-r.html#cb461-6" tabindex="-1"></a><span class="fu">add</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="functions-in-r.html#cb459-1" tabindex="-1"></a><span class="co"># This also works</span></span>
-<span id="cb459-2"><a href="functions-in-r.html#cb459-2" tabindex="-1"></a>add <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b){</span>
-<span id="cb459-3"><a href="functions-in-r.html#cb459-3" tabindex="-1"></a>  <span class="co"># Assign output to a temporary object</span></span>
-<span id="cb459-4"><a href="functions-in-r.html#cb459-4" tabindex="-1"></a>  output <span class="ot">&lt;-</span> a <span class="sc">+</span> b</span>
-<span id="cb459-5"><a href="functions-in-r.html#cb459-5" tabindex="-1"></a>  <span class="co"># Return the temporary object &#39;output&#39;</span></span>
-<span id="cb459-6"><a href="functions-in-r.html#cb459-6" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
-<span id="cb459-7"><a href="functions-in-r.html#cb459-7" tabindex="-1"></a>}</span>
-<span id="cb459-8"><a href="functions-in-r.html#cb459-8" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb459-9"><a href="functions-in-r.html#cb459-9" tabindex="-1"></a><span class="fu">add</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="functions-in-r.html#cb463-1" tabindex="-1"></a><span class="co"># This also works</span></span>
+<span id="cb463-2"><a href="functions-in-r.html#cb463-2" tabindex="-1"></a>add <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b){</span>
+<span id="cb463-3"><a href="functions-in-r.html#cb463-3" tabindex="-1"></a>  <span class="co"># Assign output to a temporary object</span></span>
+<span id="cb463-4"><a href="functions-in-r.html#cb463-4" tabindex="-1"></a>  output <span class="ot">&lt;-</span> a <span class="sc">+</span> b</span>
+<span id="cb463-5"><a href="functions-in-r.html#cb463-5" tabindex="-1"></a>  <span class="co"># Return the temporary object &#39;output&#39;</span></span>
+<span id="cb463-6"><a href="functions-in-r.html#cb463-6" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb463-7"><a href="functions-in-r.html#cb463-7" tabindex="-1"></a>}</span>
+<span id="cb463-8"><a href="functions-in-r.html#cb463-8" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb463-9"><a href="functions-in-r.html#cb463-9" tabindex="-1"></a><span class="fu">add</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p><br>
 <br></p>
@@ -1213,22 +1209,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>You can also assign default <code>input</code> values to your <code>function</code>. Below, we write that by default, <code>b = 2</code>. If we supply a different <code>b</code>, the default will get overwritten, but otherwise, we won’t need to supply <code>b</code>.</li>
 </ul>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="functions-in-r.html#cb461-1" tabindex="-1"></a>add <span class="ot">=</span> <span class="cf">function</span>(a, <span class="at">b =</span> <span class="dv">2</span>){</span>
-<span id="cb461-2"><a href="functions-in-r.html#cb461-2" tabindex="-1"></a>  a <span class="sc">+</span> b</span>
-<span id="cb461-3"><a href="functions-in-r.html#cb461-3" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="functions-in-r.html#cb465-1" tabindex="-1"></a>add <span class="ot">=</span> <span class="cf">function</span>(a, <span class="at">b =</span> <span class="dv">2</span>){</span>
+<span id="cb465-2"><a href="functions-in-r.html#cb465-2" tabindex="-1"></a>  a <span class="sc">+</span> b</span>
+<span id="cb465-3"><a href="functions-in-r.html#cb465-3" tabindex="-1"></a>}</span></code></pre></div>
 <p>Let’s try it!</p>
-<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="functions-in-r.html#cb462-1" tabindex="-1"></a><span class="co"># See? I only need to write &#39;a&#39; now </span></span>
-<span id="cb462-2"><a href="functions-in-r.html#cb462-2" tabindex="-1"></a><span class="fu">add</span>(<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="functions-in-r.html#cb466-1" tabindex="-1"></a><span class="co"># See? I only need to write &#39;a&#39; now </span></span>
+<span id="cb466-2"><a href="functions-in-r.html#cb466-2" tabindex="-1"></a><span class="fu">add</span>(<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="functions-in-r.html#cb464-1" tabindex="-1"></a><span class="co"># But if I write &#39;b&#39; too....</span></span>
-<span id="cb464-2"><a href="functions-in-r.html#cb464-2" tabindex="-1"></a><span class="fu">add</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="functions-in-r.html#cb468-1" tabindex="-1"></a><span class="co"># But if I write &#39;b&#39; too....</span></span>
+<span id="cb468-2"><a href="functions-in-r.html#cb468-2" tabindex="-1"></a><span class="fu">add</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="functions-in-r.html#cb466-1" tabindex="-1"></a><span class="co"># And if I change &#39;b&#39;...</span></span>
-<span id="cb466-2"><a href="functions-in-r.html#cb466-2" tabindex="-1"></a><span class="fu">add</span>(<span class="dv">1</span>, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="functions-in-r.html#cb470-1" tabindex="-1"></a><span class="co"># And if I change &#39;b&#39;...</span></span>
+<span id="cb470-2"><a href="functions-in-r.html#cb470-2" tabindex="-1"></a><span class="fu">add</span>(<span class="dv">1</span>, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="functions-in-r.html#cb468-1" tabindex="-1"></a><span class="co"># It will adjust accordingly</span></span></code></pre></div>
-<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="functions-in-r.html#cb469-1" tabindex="-1"></a><span class="co"># clear data</span></span>
-<span id="cb469-2"><a href="functions-in-r.html#cb469-2" tabindex="-1"></a><span class="fu">remove</span>(add)</span></code></pre></div>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="functions-in-r.html#cb472-1" tabindex="-1"></a><span class="co"># It will adjust accordingly</span></span></code></pre></div>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="functions-in-r.html#cb473-1" tabindex="-1"></a><span class="co"># clear data</span></span>
+<span id="cb473-2"><a href="functions-in-r.html#cb473-2" tabindex="-1"></a><span class="fu">remove</span>(add)</span></code></pre></div>
 </div>
 <div id="conclusion-7" class="section level2 unnumbered hasAnchor">
 <h2>Conclusion<a href="functions-in-r.html#conclusion-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -1256,45 +1252,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-},
-"toolbar": {
-"position": "static"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  },
+  "toolbar": {
+    "position": "static"
+  }
 });
 });
 </script>

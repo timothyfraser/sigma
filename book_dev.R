@@ -20,7 +20,34 @@ library(credentials)
 library(gert)
 
 # Tell R where to find Pandoc
-Sys.setenv(RSTUDIO_PANDOC = "C:/Users/tmf77/AppData/Local/Pandoc")
+# Try common Pandoc locations
+pandoc_paths <- c(
+  "/opt/homebrew/bin/pandoc",  # Homebrew on Apple Silicon
+  "/usr/local/bin/pandoc",     # Homebrew on Intel Mac
+  "/usr/bin/pandoc",           # System default
+  "C:/Users/tmf77/AppData/Local/Pandoc"  # Windows
+)
+
+pandoc_found <- FALSE
+for (path in pandoc_paths) {
+  if (file.exists(path)) {
+    Sys.setenv(RSTUDIO_PANDOC = path)
+    cat("Using Pandoc at:", path, "\n")
+    pandoc_found <- TRUE
+    break
+  }
+}
+
+# If not found in common paths, check if it's in system PATH
+if (!pandoc_found) {
+  system_pandoc <- Sys.which("pandoc")
+  if (system_pandoc != "") {
+    cat("Using system Pandoc from PATH:", system_pandoc, "\n")
+    pandoc_found <- TRUE
+  } else {
+    cat("Warning: Pandoc not found. Rendering may fail.\n")
+  }
+}
 
 # Set optimized chunk options for faster rendering
 knitr::opts_chunk$set(
@@ -39,18 +66,43 @@ knitr::opts_chunk$set(
 library(reticulate)
 
 # Use your specific Python installation
-python_path <- "C:/Python312/python.exe"
-if (file.exists(python_path)) {
-  use_python(python_path, required = FALSE)
-  cat("Using Python at:", python_path, "\n")
-} else {
-  # Fallback to system Python
-  system_python <- Sys.which("python")
-  if (system_python != "") {
-    use_python(system_python, required = FALSE)
-    cat("Using system Python at:", system_python, "\n")
-  } else {
-    cat("Warning: No Python installation found\n")
+# python_path <- "C:/Python312/python.exe"
+# if (file.exists(python_path)) {
+#   use_python(python_path, required = FALSE)
+#   cat("Using Python at:", python_path, "\n")
+# } else {
+#   # Fallback to system Python
+#   system_python <- Sys.which("python")
+#   if (system_python != "") {
+#     use_python(system_python, required = FALSE)
+#     cat("Using system Python at:", system_python, "\n")
+#   } else {
+#     cat("Warning: No Python installation found\n")
+#   }
+# }
+
+# Try common Python paths (uncomment/modify for your system)
+python_path <- NULL
+
+# Try macOS common paths first
+mac_paths <- c(
+  "/opt/anaconda3/bin/python3",
+  "/usr/local/bin/python3",
+  "/opt/homebrew/bin/python3"
+)
+
+for (path in mac_paths) {
+  if (file.exists(path)) {
+    python_path <- path
+    break
+  }
+}
+
+# If no common path found, try system Python
+if (is.null(python_path)) {
+  system_python <- Sys.which("python3")
+  if (system_python != "" && file.exists(system_python)) {
+    python_path <- system_python
   }
 }
 
@@ -60,12 +112,46 @@ Sys.unsetenv("RETICULATE_PYTHON")
 Sys.unsetenv("RETICULATE_AUTOCONFIGURE")
 Sys.unsetenv("RETICULATE_PYTHON_FALLBACK")
 
-# Set the Python path explicitly
-Sys.setenv(RETICULATE_PYTHON = python_path)
+# Set the Python path explicitly only if found
+if (!is.null(python_path) && file.exists(python_path)) {
+  Sys.setenv(RETICULATE_PYTHON = python_path)
+  use_python(python_path, required = FALSE)
+  cat("Using Python at:", python_path, "\n")
+} else {
+  cat("No specific Python path found, letting reticulate auto-discover\n")
+}
 
 # Prevent reticulate from downloading Python
 options(reticulate.conda_binary = NULL)
 
+# Automatically install required Python packages if missing (only if Python is available)
+if (!is.null(python_path) && file.exists(python_path)) {
+  tryCatch({
+    # Check if Python is actually working
+    py_config_check <- py_config()
+    if (!is.null(py_config_check$python)) {
+      required_py_packages <- c("pandas", "numpy", "matplotlib", "plotnine")
+      
+      for (pkg in required_py_packages) {
+        tryCatch({
+          py_run_string(paste0("import ", pkg))
+        }, error = function(e) {
+          cat("Installing missing Python package:", pkg, "\n")
+          tryCatch({
+            py_install(pkg, pip = TRUE)
+          }, error = function(e2) {
+            cat("Warning: Could not install", pkg, "-", as.character(e2), "\n")
+          })
+        })
+      }
+    }
+  }, error = function(e) {
+    cat("Warning: Python packages check skipped -", as.character(e), "\n")
+  })
+} else {
+  cat("Skipping Python package installation - Python not configured\n")
+}
+ 
 # Set global random seed for reproducible results
 set.seed(123)  # Use a consistent seed across all chapters
 
@@ -90,7 +176,7 @@ setup_hybrid_caching <- function() {
 }
 
 # Login to Github with Personal Access Token (PAT)
-library(credentials)
+# library(credentials)
 #set_github_pat(force_new = TRUE)
 
 # your working directory MUST be the one containing the file 'index.Rmd'
@@ -114,7 +200,10 @@ if (file.exists("_main.rds")) {
 }
 
 # Also clean up any other potential lock files
-lock_files <- c("_main.rds", "_bookdown_files", "docs")
+lock_files <- c("_main.rds", "_bookdown_files")
+if (is_clean) {
+  lock_files <- c(lock_files, "docs")
+}
 for (file in lock_files) {
   if (file.exists(file)) {
     cat("Cleaning up", file, "...\n")
@@ -129,16 +218,19 @@ setup_hybrid_caching()
 start_time <- Sys.time()
 cat("Starting bookdown render...\n")
 
-# Render the book with optimizations
-tryCatch({
-  bookdown::render_book(
-    input = "index.Rmd", 
-    new_session = TRUE, 
-    output_format = "bookdown::gitbook",
-    encoding = "UTF-8",
-    clean = is_clean 
-    # Don't clean intermediate files for faster subsequent renders
-  )
+# Suppress RStudio version verification warnings (harmless when rendering outside RStudio)
+options(warn = -1)  # Temporarily suppress warnings
+suppressWarnings({
+  # Render the book with optimizations
+  tryCatch({
+    bookdown::render_book(
+      input = "index.Rmd", 
+      new_session = TRUE, 
+      output_format = "bookdown::gitbook",
+      encoding = "UTF-8",
+      clean = is_clean 
+      # Don't clean intermediate files for faster subsequent renders
+    )
   
   end_time <- Sys.time()
   render_time <- end_time - start_time
@@ -174,7 +266,9 @@ tryCatch({
   }
   
   stop("Render failed")
-})
+  })
+})  # End suppressWarnings
+options(warn = 0)  # Restore warnings
 
 # Optional: commit and push (uncomment if desired)
 # gert::git_add(files = dir(all.files = TRUE, recursive = TRUE))

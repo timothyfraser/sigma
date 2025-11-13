@@ -19,7 +19,7 @@ Looking for extra information on making the perfect visualization? Consider thes
 Be sure to load these packages before proceeding!
 
 
-```r
+``` r
 library(dplyr) # for data wrangling
 library(ggplot2) # for data visualization
 ```
@@ -29,7 +29,7 @@ library(ggplot2) # for data visualization
 These exercises use the `diamonds` dataset from the `ggplot2` package.
 
 
-```r
+``` r
 # Import the diamonds dataset from the ggplot2 package!
 diamonds = ggplot2::diamonds
 # Let's glimpse it!
@@ -64,7 +64,7 @@ diamonds %>% glimpse()
 Sometimes, the names of categories won't fit well. We can try the following. Compare these two plots. What did we do?
 
 
-```r
+``` r
 library(ggplot2)
 diamonds = ggplot2::diamonds
 # Plot 1
@@ -103,7 +103,7 @@ Sometimes, the legend doesn't fit well. We can try this:
 What happens when you change `legend.position` from `"right"` to `"bottom"` to `"left"` to `"top"`?
 
 
-```r
+``` r
 library(ggplot2)
 diamonds = ggplot2::diamonds
 ggplot(data = diamonds, mapping = aes(x = cut, y = price,
@@ -147,7 +147,7 @@ Finally, we might want to break up our visual into multiple parts. We can use `f
 What changed in the code below, and what did it result in?
 
 
-```r
+``` r
 library(ggplot2)
 diamonds = ggplot2::diamonds
 ggplot(data = diamonds, mapping = aes(x = price, fill = cut)) +

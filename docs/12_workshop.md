@@ -20,7 +20,7 @@ This workshop examines 151 Japanese municipalities over 7 years, from 2011 to 20
 In this dataset, each row is a city-year!
 
 
-```r
+``` r
 # Load Packages
 library(tidyverse) # for data manipulation
 library(broom) # for each model summaries
@@ -36,7 +36,7 @@ cities <- read_csv("workshops/jp_matching_experiment.csv") %>%
 ### View Data {-}
 
 
-```r
+``` r
 # View first 3 rows of dataset
 cities %>% head(3)
 ```
@@ -96,7 +96,7 @@ In this dataset, our variables mean:
 We can use a regression model to test the association between our **outcome variable** `social_capital` and our **explanatory variable** `by_tsunami`. Using the `lm()` function, we can get a **beta** coefficient estimating how much higher a social capital index score they received for every additional building damaged per million residents.
 
 
-```r
+``` r
 cities %>%
   lm(formula = social_capital ~ damage_rate)
 ```
@@ -121,7 +121,7 @@ But... many other things might affect social capital in a community, not just ge
 We can add extra control variables using `+` in the `lm()` function. For example, we test the effect of `damage_rate` below, controlling for `income_per_capita`.
 
 
-```r
+``` r
 cities %>%
   lm(formula = social_capital ~ damage_rate + income_per_capita)
 ```
@@ -173,7 +173,7 @@ Instead of a line of best fit, for 2 variables, this regression model now essent
 <details><summary>**[View Answer!]**</summary>
 
 
-```r
+``` r
 cities %>%
   lm(formula = social_capital ~ damage_rate + pop_density)
 ```
@@ -208,7 +208,7 @@ One big challenge with multiple regression is that it's not really clear how to 
 Remember that a Z-score is a measure of *how many standard deviations from the mean a specific value is for a given variable.* We can ```mutate()``` variables into Z-scores using the ```scale()``` function.
 
 
-```r
+``` r
 rescaled <- cities %>%
   # For each numeric variable, rescale its values
   mutate(social_capital = scale(social_capital),
@@ -224,7 +224,7 @@ rescaled <- cities %>%
 Check out our new rescaled variables.
 
 
-```r
+``` r
 rescaled %>% head(3)
 ```
 
@@ -238,7 +238,7 @@ rescaled %>% head(3)
 Okay, let's repeat our model, this time using our new data.frame `rescaled`, and save the model as `m0`.
 
 
-```r
+``` r
 m0 <- rescaled %>%
   lm(formula = social_capital ~ damage_rate + pop_density)
 # View model
@@ -252,7 +252,7 @@ m0
 ## 
 ## Coefficients:
 ## (Intercept)  damage_rate  pop_density  
-##  -3.667e-16    1.412e-01   -3.829e-01
+##   2.387e-15    1.412e-01   -3.829e-01
 ```
 
 
@@ -272,7 +272,7 @@ We can now interpret our results as: As the damage rate increases by 1 standard 
 <details><summary>**[View Answer!]**</summary>
 
 
-```r
+``` r
 m1 <- cities %>%
   lm(formula = social_capital ~ damage_rate + pop_density + year)
 # View model
@@ -314,7 +314,7 @@ To find the best model, it helps to make several, in a logical, systematic way.
 - Choose your explanatory variable whose effect you really want to test. For us, that's disaster damage (`damage_rate`). Add choose your absolutely most essential control variables, without which the model isn't very valid. For us, that's `pop_density` and `year`.  (Already done and saved as `m1`!)
 
 
-```r
+``` r
 # For your reference
 m1 <- rescaled %>%
   lm(formula = social_capital ~ damage_rate + pop_density + year)
@@ -323,7 +323,7 @@ m1 <- rescaled %>%
 - Add more controls, to wean out effects of other phenomena and get a more accurate beta coefficient for `damage_rate`. Let's add `exp_dis_relief_per_capita`, to control for city government spending on disaster relief. Save that as `m2`.
 
 
-```r
+``` r
 m2 <- rescaled %>%
   lm(formula = social_capital ~ damage_rate + pop_density + year +
        exp_dis_relief_per_capita)
@@ -332,7 +332,7 @@ m2 <- rescaled %>%
 - Examine our two tables, using the `texreg` package's `htmlreg()` function. We're going to `list()` our models `m1` and `m2`, and ask R to save a nice table in our files as `"table_1.html"`. Try it out, then go to your files in the right-hand corner and click `'View in Web Browser'`! 
 
 
-```r
+``` r
 htmlreg(list(m1,m2), 
         bold = 0.05, include.fstat = TRUE, 
         file = "workshops/workshop_11_table_1.html")
@@ -505,7 +505,7 @@ Pretty nice, right? The ```bold = 0.05``` says, if your p-value is below p < 0.0
 Adding controls `income_per_capita`,  `unemployment`,  `pop_women`, and `pop_over_age_65`...
 
 
-```r
+``` r
 m3 <- rescaled %>%
   lm(formula = social_capital ~ damage_rate + pop_density + year +
        exp_dis_relief_per_capita +
@@ -515,7 +515,7 @@ m3 <- rescaled %>%
 Adding prefectural controls...
 
 
-```r
+``` r
 m4 <- rescaled %>%
   lm(formula = social_capital ~ damage_rate + year + pop_density + 
        exp_dis_relief_per_capita +
@@ -526,7 +526,7 @@ m4 <- rescaled %>%
 Making a nice table!
 
 
-```r
+``` r
 htmlreg(list(m1,m2,m3,m4), 
         bold = 0.05, include.fstat = TRUE, 
         file = "workshops/workshop_11_table_2.html")
@@ -897,7 +897,7 @@ Finally, let's add a few bells and whistles to our model table, to make it look 
 </details>
 
 
-```r
+``` r
 htmlreg(
   list(m1,m2,m3,m4),
   bold = 0.05, 
@@ -1182,7 +1182,7 @@ htmlreg(
 <details><summary>**[View Answer!]**</summary>
 
 
-```r
+``` r
 htmlreg(
   list(m1,m2,m3,m4),
   bold = 0.05, 

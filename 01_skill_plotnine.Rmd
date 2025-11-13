@@ -12,19 +12,54 @@ library(kableExtra)
 library(reticulate)
 
 # Use your specific Python installation
-python_path <- "C:/Python312/python.exe"
-if (file.exists(python_path)) {
+# python_path <- "C:/Python312/python.exe"
+# if (file.exists(python_path)) {
+#   use_python(python_path, required = FALSE)
+#   cat("Using Python at:", python_path, "\n")
+# } else {
+#   # Fallback to system Python
+#   system_python <- Sys.which("python")
+#   if (system_python != "") {
+#     use_python(system_python, required = FALSE)
+#     cat("Using system Python at:", system_python, "\n")
+#   } else {
+#     cat("Warning: No Python installation found\n")
+#   }
+# }
+
+# Try common Python paths (uncomment/modify for your system)
+python_path <- NULL
+
+# Try macOS common paths first
+mac_paths <- c(
+  "/opt/anaconda3/bin/python3",
+  "/usr/local/bin/python3",
+  "/opt/homebrew/bin/python3"
+)
+
+for (path in mac_paths) {
+  if (file.exists(path)) {
+    python_path <- path
+    break
+  }
+}
+
+# If no common path found, try system Python
+if (is.null(python_path)) {
+  system_python <- Sys.which("python3")
+  if (system_python != "" && file.exists(system_python)) {
+    python_path <- system_python
+  }
+}
+
+# Configure Python if found, otherwise let reticulate auto-discover
+if (!is.null(python_path) && file.exists(python_path)) {
   use_python(python_path, required = FALSE)
+  Sys.setenv(RETICULATE_PYTHON = python_path)
   cat("Using Python at:", python_path, "\n")
 } else {
-  # Fallback to system Python
-  system_python <- Sys.which("python")
-  if (system_python != "") {
-    use_python(system_python, required = FALSE)
-    cat("Using system Python at:", system_python, "\n")
-  } else {
-    cat("Warning: No Python installation found\n")
-  }
+  cat("No specific Python path found, letting reticulate auto-discover\n")
+  # Don't set invalid paths - let reticulate handle it
 }
 
 # Disable automatic environment creation and downloads
@@ -44,8 +79,7 @@ Visualization is a key part of statistical analyses, especially in systems engin
 
 **Please follow along using the code below!**
 
-<br>
-<br>
+<br> <br>
 
 ## Getting Started {.unnumbered}
 
@@ -61,7 +95,7 @@ from seaborn import load_dataset
 diamonds = load_dataset('diamonds')
 ```
 
-### Gapminder data {-}
+### Gapminder data {.unnumbered}
 
 ```{python}
 # View it in the console
@@ -85,7 +119,7 @@ Add points with `+ geom_point()`.
 (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point())
 ```
 
----
+------------------------------------------------------------------------
 
 ## Learning Check 1 {.unnumbered .LC}
 
@@ -93,13 +127,15 @@ Add points with `+ geom_point()`.
 
 What kind of relationship does this graph show? Why might it matter to policymakers?
 
-<details><summary>**[View Answer!]**</summary>
+<details>
+
+<summary>**[View Answer!]**</summary>
 
 As wealth per person (GDP per capita) increases, life expectancy rises quickly then tapers off. This shows a strong relationship between wealth and health.
 
 </details>
 
----
+------------------------------------------------------------------------
 
 ## Transparency (alpha)
 
@@ -109,7 +145,7 @@ As wealth per person (GDP per capita) increases, life expectancy rises quickly t
 (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point(alpha=1))
 ```
 
----
+------------------------------------------------------------------------
 
 ## Learning Check 2 {.unnumbered .LC}
 
@@ -117,13 +153,15 @@ As wealth per person (GDP per capita) increases, life expectancy rises quickly t
 
 What happens when you change `alpha` across the three visuals above?
 
-<details><summary>**[View Answer!]**</summary>
+<details>
+
+<summary>**[View Answer!]**</summary>
 
 `alpha` controls transparency from 0 to 1. Higher values are more opaque; lower values are more transparent.
 
 </details>
 
----
+------------------------------------------------------------------------
 
 ## Color: constant vs mapped
 
@@ -137,7 +175,7 @@ What happens when you change `alpha` across the three visuals above?
   geom_point(alpha=0.5))
 ```
 
----
+------------------------------------------------------------------------
 
 ## Learning Check 3 {.unnumbered .LC}
 
@@ -145,13 +183,15 @@ What happens when you change `alpha` across the three visuals above?
 
 Where do you place `color` for a single color vs. multiple colors based on a variable?
 
-<details><summary>**[View Answer!]**</summary>
+<details>
+
+<summary>**[View Answer!]**</summary>
 
 Single color: set `color` inside `geom_point(color='...')` (outside `aes`). Mapped colors: set `color` inside `aes(color='variable')`.
 
 </details>
 
----
+------------------------------------------------------------------------
 
 ## Improving our visualizations
 
@@ -181,8 +221,7 @@ myviz + theme_dark()
 myviz + theme_classic()
 ```
 
-<br>
-<br>
+<br> <br>
 
 ## Visualizing `diamonds` data
 
@@ -210,7 +249,7 @@ diamonds.dtypes, diamonds.shape
   geom_boxplot())
 ```
 
----
+------------------------------------------------------------------------
 
 ## Learning Check 4 {.unnumbered .LC}
 
@@ -218,13 +257,15 @@ diamonds.dtypes, diamonds.shape
 
 Why do the two boxplot versions look different? What changed in the code to create those effects?
 
-<details><summary>**[View Answer!]**</summary>
+<details>
+
+<summary>**[View Answer!]**</summary>
 
 Constant fill uses `geom_boxplot(fill='steelblue')`. Mapped fill uses `aes(fill='cut')` to color by variable.
 
 </details>
 
----
+------------------------------------------------------------------------
 
 ## Visualizing Distributions
 
@@ -243,7 +284,7 @@ Constant fill uses `geom_boxplot(fill='steelblue')`. Mapped fill uses `aes(fill=
   labs(x='Price (USD)', y='Frequency', title='US Diamond Sales (binwidth=500)'))
 ```
 
----
+------------------------------------------------------------------------
 
 ## Learning Check 5 {.unnumbered .LC}
 
@@ -251,7 +292,9 @@ Constant fill uses `geom_boxplot(fill='steelblue')`. Mapped fill uses `aes(fill=
 
 Make a histogram of `price` with a narrower binwidth and apply a different theme. Which choices improve readability?
 
-<details><summary>**[View Answer!]**</summary>
+<details>
+
+<summary>**[View Answer!]**</summary>
 
 ```{python}
 (ggplot(diamonds, aes(x='price', fill='cut')) +
@@ -262,7 +305,7 @@ Make a histogram of `price` with a narrower binwidth and apply a different theme
 
 </details>
 
----
+------------------------------------------------------------------------
 
 ## Conclusion {.unnumbered}
 
@@ -271,4 +314,3 @@ You learned how to build scatterplots, boxplots, and histograms with `plotnine` 
 ```{python, include=FALSE}
 globals().clear()
 ```
-

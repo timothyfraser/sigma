@@ -32,7 +32,7 @@ Finally, they measure the `tastiness` on a scale from 0 to 100.
 
 <div class="figure">
 <img src="images/12_shop.jpg" alt="Coffee Shop Experiments?
-Photo by Photo by &lt;a href=&quot;https://unsplash.com/@nputra?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText&quot;&gt;Nafinia Putra&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com/s/photos/coffee-shop?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText&quot;&gt;Unsplash&lt;/a&gt;" width="960" />
+Photo by Photo by &lt;a href="https://unsplash.com/@nputra?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"&gt;Nafinia Putra&lt;/a&gt; on &lt;a href="https://unsplash.com/s/photos/coffee-shop?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"&gt;Unsplash&lt;/a&gt;" width="960" />
 <p class="caption">(\#fig:unnamed-chunk-2)Coffee Shop Experiments?
 Photo by Photo by <a href="https://unsplash.com/@nputra?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Nafinia Putra</a> on <a href="https://unsplash.com/s/photos/coffee-shop?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
 </div>
@@ -42,7 +42,7 @@ They produce the following data, saved in `lattes.csv`, and available on Github 
 
 
 
-```r
+``` r
 # Load packages
 library(tidyverse)
 library(broom)
@@ -84,7 +84,7 @@ To start, we have our raw data, where each row is a `latte` (1 observation), and
 We need to compute for each unique set of treatment conditions, what was the ***within-group*** mean (`xbar`), standard deviation `sd`, and sample size `n`? To get all unique combinations of `machine`, `milk`, `syrup`, and `art` that were tested, we can `group_by()` these variables, and then `summarize()` the `mean()`, `sd()`, and `n()` to get back a single row of statistics for each 'set' of unique treatments. We'll call this data.frame of summary statistics per set `groups`.
 
 
-```r
+``` r
 # Let's make a data.frame 'groups'
 groups = lattes %>% 
   # For each unique pairing of treatments tested,
@@ -119,7 +119,7 @@ Next, we can compute the direct effect of a single variable's treatment effect (
 ### Slower-but-Clearer Method of Getting the Difference of Grand Means $\bar{\bar{d}}$
 
 
-```r
+``` r
 # Suppose you've got a series of means `xbar` across multiple treatment groups. We can....
 step1 = groups %>%
   summarize(
@@ -142,7 +142,7 @@ step1 %>% head(3)
 Then...
 
 
-```r
+``` r
 step2 = step1 %>%
   summarize(
     # Take the grand mean of each vector of means
@@ -169,7 +169,7 @@ step2
 The method discussed above is slower but clean and clear. On the other hand, if we need to make a lot of `dbbar` statistics for different groups, it could be helpful to speed this process up. Here's a way to do that. We'll use this below a bunch, so be sure to try both methods out yourself so you fully understand how they work.
 
 
-```r
+``` r
 # Taking our group means xbar,
 groups %>%
   # Take the grand mean of means from machine b and subtract the grand mean of means from machine a.
@@ -183,7 +183,7 @@ groups %>%
 ## 1            -30.4
 ```
 
-```r
+``` r
 # Boom! All in one line - Shazam!
 ```
 <br>
@@ -200,7 +200,7 @@ Notice also that when the number of treatments in a variable is 3 or greater (eg
 Let's do it!
 
 
-```r
+``` r
 dbbar = groups %>%
   # Calculate a single line of summary statistics dbbar (d-double-bar, the difference of grand means)
   summarize(
@@ -253,7 +253,7 @@ $$ standard \ error \ \sigma  = \sqrt{ \sum_{i=1}^{n}{ \frac{ s^{2}_i }{n_{i} } 
 We can code this extremely quickly as:
 
 
-```r
+``` r
 error = groups %>%
   # calculate a single row of statistics overall
   summarize(
@@ -286,7 +286,7 @@ With `R`, the calculations are so quick for unequal variances that it is no long
 We could code it like this:
 
 
-```r
+``` r
 error = groups %>%
   # Get degrees of freedom for each group...
   mutate(df = n - 1) %>%
@@ -323,7 +323,7 @@ Let's be honest - that was a lot of typing, and though it was fast, it got a lit
 `select(contains("string"))` in `dplyr` lets you grab all variables in a data.frame that `contain` the following `"string"`. For example:
 
 
-```r
+``` r
 dbbar %>% 
   select(contains("milk"))
 ```
@@ -342,7 +342,7 @@ dbbar %>%
 - `pivot_longer()` takes a set of column vectors `cols = c(column1, column2, etc.)`, then stacks them on top of each other, sending the names of these columns to a `names` vector and the values of these columns to a `values` vector. It pairs well with `contains("string")`.
 
 
-```r
+``` r
 dbbar %>%
   select(contains("milk")) %>%
   # We can pivot these columns...
@@ -359,7 +359,7 @@ dbbar %>%
 ```
 
 
-```r
+``` r
 dbbar %>%
   select(contains("milk")) %>%
   # We can also just use contains to write a short hand
@@ -378,7 +378,7 @@ dbbar %>%
 Generally, I like to specify a set of column vectors **NOT** to pivot, which sends **all other vectors** to the names and values columns. This is much faster! We can write `cols = -c(whatever)`, which says send all variables except `whatever`. You could even write `cols = -c()`, which just sends all the columns.
 
 
-```r
+``` r
 # For example...
 dbbar %>%
   select(contains("milk")) %>%
@@ -395,7 +395,7 @@ dbbar %>%
 ```
 
 
-```r
+``` r
 # My favorite:
 dbbar %>%
   select(contains("milk")) %>%
@@ -413,7 +413,7 @@ dbbar %>%
 Finally, if you don't `select()` anything, you can pivot **all** the variables at once! (as long as they are **all** `numeric` or **all** character vectors).
 
 
-```r
+``` r
 # If you don't select, you can get **all** the variables too!
 dbbar %>%
   pivot_longer(cols = -c())
@@ -447,7 +447,7 @@ For example, if we want to pivot the `machine` and `xbar` columns into an `xbar_
 We then can tell `pivot_wider()`, grab the vector `names_from` the `machine` vector and the `values_from` the `xbar` vector.
 
 
-```r
+``` r
 # Check it out!
 groups %>% 
   pivot_wider(id_cols = c(milk, syrup, art), names_from = machine, values_from = xbar) %>% 
@@ -476,7 +476,7 @@ Using the `dbbar` data.frame from section `1` and `error` data.frame from sectio
 ### Building a Table of Direct Effects
 
 
-```r
+``` r
 # Compile our direct effects of treatments
 direct = dbbar %>%
   # let's pivot our data, 
@@ -515,7 +515,7 @@ direct
 We can visualize these using `geom_linerange()`, `geom_errorbar()`, or `geom_crossbar()`. Let's take a peek.
 
 
-```r
+``` r
 # You could use geom_crossbar, which uses ymin, ymax, and y
 direct %>%
   ggplot(mapping = aes(x = term, y = dbbar, ymin = lower, ymax = upper)) +
@@ -525,7 +525,7 @@ direct %>%
 
 <img src="14_workshop_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
-```r
+``` r
 # Or with geom_linerange(), which also uses ymin and ymax
 direct %>%
   ggplot(mapping = aes(x = term, y = dbbar, ymin = lower, ymax = upper)) +
@@ -537,7 +537,7 @@ direct %>%
 Or....
 
 
-```r
+``` r
 # You could use geom_errorbar, which uses ymin, ymax, plus an optional width
 direct %>%
   ggplot(mapping = aes(x = term, y = dbbar, ymin = lower, ymax = upper)) +
@@ -552,7 +552,7 @@ direct %>%
 But it we wanted to make a prettier chart, we could add color and labels, like so!
 
 
-```r
+``` r
 direct %>%
   ggplot(mapping = aes(x = term, y = dbbar, ymin = lower, ymax = upper,
                        # specify a label and fill variable
@@ -587,56 +587,184 @@ direct %>%
 <br>
 <br>
 
+
 ##  Interaction Effects
 
-Alternatively, we might want to estimate treatment effects for **combinations** of treatments.
+### Estimating a Pooled Standard Error
 
-## Estimating 2-way interactions
+In a factorial experiment, each combination of factors can vary a little due to random noise. This makes it hard to compare effects, so we want to use a **pooled standard error** that represents the average amount of noise across all groups before estimating treatment effects. 
 
-For example, do these lattes tend to taste better specifically when **both** conditions are true? Eg. let's test the effect of having a latte from Machine B with Torani syrup, by comparing it against lattes made from Machine A with Monin syrup. This demonstrates the value added of **both** conditions.
+Let's create a function to calculate this **Pooled SE** for the tastiness.
 
+``` r
+# Rename tastiness by y for easier handling
+lattes = lattes %>% rename(y = tastiness)
+se_factorial = function(formula = y ~ machine + syrup + art, data){
+  # formula = y ~  machine + syrup + art
+  # data = lattes
+  
 
-```r
-groups %>%
-  summarize(
-    xbbar_b_torani = xbar[machine == "b" & syrup == "torani"] %>% mean(),
-    xbbar_a_monin = xbar[machine == "a" & syrup == "monin"] %>% mean(),
-    dbbar = xbbar_b_torani - xbbar_a_monin,
-    # Finally, we would use the same shared standard error that we calculated before
-    se = error$se)
+  # Get frame of data
+  frame = model.frame(formula, data) %>%
+    rename(y = 1)
+  # Get names of x variables
+  xvars = names(frame)[-1]
+  
+  
+  # Calculate a standard error the tastiness metric in this factorial experiment
+  output = frame %>%
+    group_by(across(any_of(xvars))) %>%
+    summarize(s = sd(y), n = n()) %>%
+    ungroup() %>%
+    summarize(se = sqrt( sum(s^2 / n))) %>%
+    # A trick - with() is like the dollar sign - it will let you access se
+    with(se)
+  return(output)
+}
+se_factorial(formula = y ~ machine + syrup + art, lattes)
 ```
 
 ```
-## # A tibble: 1 × 4
-##   xbbar_b_torani xbbar_a_monin dbbar    se
-##            <dbl>         <dbl> <dbl> <dbl>
-## 1           38.4          50.0 -11.6  8.39
+## [1] 2.796643
 ```
 
-## Estimating 3-way interactions
+### Estimating 1-way interations
 
-We could even calculate a three-way interaction between `machine` type, `syrup` brand, and latte `art`, like so:
+In factorial design, one-way effect shows how changing one factor affects the outcome. For example, we want to know whether Machine B makes better-tasting lattes than Machine A, regardless of the other factors like syrup or art.
 
+The function below measures how much the tastiness changes when moving from the low level to the high level of one factor.
 
-```r
-groups %>%
-  summarize(
-    # This time, we just add `art == "heart"` as an extra condition, and vice versa below
-    xbbar_b_torani_heart = xbar[machine == "b" & syrup == "torani" & art == "heart"] %>% mean(),
-    xbbar_a_monin_foamy = xbar[machine == "a" & syrup == "monin" & art == "foamy"] %>% mean(),
-    dbbar = xbbar_b_torani_heart - xbbar_a_monin_foamy,
-    # Finally, we would use the same shared standard error that we calculated before
-    se = error$se)
+``` r
+dbar_oneway = function(formula, data){
+  # formula = y ~ machine
+  # data = lattes
+  
+  frame = model.frame(formula, data) %>%
+    select(y = 1, a = 2) %>%
+    mutate(a = factor(a)) %>%
+    mutate(a = as.integer(a) - 1)
+  
+  # Compute the one-way effect
+  frame %>%
+    reframe(
+      # The mean difference between the "High" group (a == 1) and the "Low" group (a == 0)
+      dbar = mean(y[a == 1] - y[a == 0]),
+    ) %>%
+    with(dbar)
+}
+
+dbar_oneway(formula = y ~ machine, lattes)
 ```
 
 ```
-## # A tibble: 1 × 4
-##   xbbar_b_torani_heart xbbar_a_monin_foamy  dbbar    se
-##                  <dbl>               <dbl>  <dbl> <dbl>
-## 1                 43.1                43.2 -0.123  8.39
+## [1] -30.37756
+```
+This result shows that Machine B makes much worse-tasting lattes than Machine A on average!
+
+<br>
+<br>
+
+### Estimating 2-way interactions
+
+Alternatively, we might want to estimate treatment effects for **combinations** of treatments. For example, do these lattes tend to taste better specifically when both conditions are true? Eg. let's test the effect of having a latte from Machine B with Torani syrup, by comparing it against lattes made from Machine A with Monin syrup. This demonstrates the value added of both conditions.
+
+The `dbar_twoway()` function tests whether two factors (e.g., **Machine** and **Syrup**) together affect tastiness differently than they do individually. It compares “same-direction” pairs (HH + LL) against “opposite-direction” pairs (HL + LH) to find the combined effect.
+
+``` r
+dbar_twoway = function(formula, data){
+  # formula = y ~ machine * syrup
+  # data = lattes
+  
+  # Extract model frame
+  frame = model.frame(formula, data) %>%
+    # Rename columns as y, a, b
+    select(y = 1, a = 2, b = 3) %>%
+    mutate(a = factor(a), b = factor(b))
+  
+  levels_a = levels(frame$a)
+  levels_b = levels(frame$b)
+  
+  # Convert factors to integer codes
+  frame = frame %>%
+    mutate(a = as.integer(a),
+           b = as.integer(b))
+  
+  # Now pick the combinations for comparison
+  output = frame %>%
+    reframe(
+      # Same factors: HH or LL
+      x1 = y[(a == 2 & b == 2) | (a == 1 & b == 1)],
+      # Opposite factors: HL or LH
+      x0 = y[(a == 1 & b == 2) | (a == 2 & b == 1)]
+    ) %>%
+    reframe(
+      # Calculate dbar
+      dbar = mean(x1) - mean(x0)
+    ) %>%
+    with(dbar)
+  return(output)
+}
+
+value = dbar_twoway(y ~ machine * syrup, lattes)
+value
 ```
 
-But we can see that these threeway effects tend can often be quite small relative to the standard error. It is difficult to find statistically significant three-way effects.
+```
+## [1] -6.433374
+```
+We can see that lattes made with Machine B and Torani syrup taste -6.43 worse, on average, than lattes made with machine A and Monin syrup.
+
+<br>
+<br>
+
+### Estimating 3-way interactions
+
+We could even calculate a three-way interaction between `machine` type, `syrup` brand, and latte `art`.
+
+Let's create a function to check if the effect of **Machine × Art** depends on which **Syrup** is used. A positive result means the interaction strengthens with the syrup change, and a negative result means it weakens.
+
+``` r
+dbar_threeway = function(formula, data){
+  # formula = y ~  machine * syrup * art
+  # data = lattes
+  
+  frame = model.frame(formula, data) %>%
+    select(y = 1, a = 2, b = 3, c = 4) %>%
+    mutate(a = factor(a), b = factor(b), c= factor(c)) %>%
+    mutate(a = as.integer(a) - 1, b = as.integer(b) - 1, c = as.integer(c) - 1)
+  
+  differences = frame %>%
+    reframe(
+      # Get the AC interaction when B = 0
+      d1a = y[a == 1 & b == 0 & c == 1] - y[a == 0 & b == 0 & c == 1],
+      d0a = y[a == 1 & b == 0 & c == 0] - y[a == 0 & b == 0 & c == 0],
+      # Get the AC interaction when B = 1
+      d1b = y[a == 1 & b == 1 & c == 1] - y[a == 0 & b == 1 & c == 1],
+      d0b = y[a == 1 & b == 1 & c == 0] - y[a == 0 & b == 1 & c == 0]
+    )
+  
+  output = differences %>%
+    reframe(
+      # Get AC interaction effect when B = 0
+      dbar_a = (mean(d1a) - mean(d0a)) / 2,
+      # Get AC interaction effect when B = 1
+      dbar_b = (mean(d1b) - mean(d0b) ) / 2,
+      # Get the average of the two effects 
+      dbar = (dbar_b - dbar_a) / 2
+    ) %>%
+    select(dbar) %>%
+    with(dbar)
+  return(output)
+}
+
+value = dbar_threeway(formula = y ~ machine * syrup * art, lattes)
+value
+```
+
+```
+## [1] -0.3024043
+```
+This negative result indicates the combination of Machine type and Latte art dosen't improve tastiness when the syrup brand changes.
 
 <br>
 <br>
@@ -650,11 +778,11 @@ A quick strategy for estimating interaction effects in `R` can be using the `lm(
 While it uses a regression model, rather than the difference of means, to estimate these effects, it tends to be pretty brief and doesn't require making our `groups`, `dbbar`, or `error` data.frames.
 
 
-```r
+``` r
 # Using our raw data of observed lattes
 m = lattes %>% 
   # Make a linear model, showing interactions with the '*' sign
-  lm(formula = tastiness ~ machine * milk * syrup * art)   
+  lm(formula = y ~ machine * milk * syrup * art)   
 
 # View our model!
 m %>% tidy()
@@ -678,12 +806,14 @@ m %>% tidy()
 ```
 We see potentially significant interaction effects for the joint impact of machine b and torani syrup, as well as several strong direct effects. Three way effects though, are minimal at best.
 
+While `lm()` returns a regression-based approximation, the `dbar` functions are more helpful when you want to directly calculate the interaction effects using one single standard error.
+
 ### Using `predict()` to visualize interaction effects
 
 The big power of `lm()` in factorial experiments is getting to visualize these effects.
 
 
-```r
+``` r
 # We can generate a set of all observed combinations of our treatments as 'newdata
 newdata = lattes %>%
   group_by(machine, milk, syrup, art) %>%
@@ -710,7 +840,7 @@ Then, we can generate either `"confidence"` or `"prediction"` intervals - confid
 I like to save this as an object `pred`, then extract the results in a second step.
 
 
-```r
+``` r
 # For confidence intervals
 pred = predict(m, newdata = newdata, 
           se.fit = TRUE, interval = "confidence", level = 0.95) %>%
@@ -740,7 +870,7 @@ pred %>% head()
 Now, we can bind the two sets of values together, either using `tibble()` or `bind_col()`, because they share the same rows.
 
 
-```r
+``` r
 cis = tibble(
   newdata,
   yhat = pred$fit,
@@ -752,7 +882,7 @@ cis = tibble(
 To visual an interaction effect, we can now narrow into 4 predictions, showing all possible combinations of `machine` and `syrup`, while zooming into just one type of `milk` and `art`, to hold these other concepts constant.
 
 
-```r
+``` r
 viz = cis %>%
   filter(machine %in% c("a", "b"),
          syrup %in% c("torani", "monin"),
@@ -777,7 +907,7 @@ viz
 And last, we can visualize the effect with `geom_ribbon()` or any other technique that accepts `ymin` and `ymax`. We just have to remember to put one variable on the x axis (eg. `machine`) and one variable as the `group` and `fill`, to distinguish our two lines.
 
 
-```r
+``` r
 viz %>%
   ggplot(mapping = aes(x = machine, group = syrup, fill = syrup, 
                        y = yhat, ymin = lower, ymax = upper, label = label)) +
@@ -791,7 +921,7 @@ viz %>%
   theme_classic(base_size = 14)
 ```
 
-<img src="14_workshop_files/figure-html/unnamed-chunk-31-1.png" width="672" />
+<img src="14_workshop_files/figure-html/unnamed-chunk-33-1.png" width="672" />
 How should we interpret this visual? Well, let's just describe what we see! More descriptive language is always better than less, when it comes to explaining results for new viewers. Here's an example descriptive!
 
 - The figure above visualizes our model `m`'s predicted values for latte `tastiness` with 95% confidence intervals, assuming those lattes were made with `whole milk` and had `heart` foam art, but their only differences were the `machine` that made them and the brand of `syrup` they used.
@@ -810,11 +940,11 @@ We can even use the `anova()` function (not to be confused with `aov()`) to find
 Then, we calculate the residual sum of squares in both, calculate the extra explained sum of squares in the second model, and estimate an F statistic. If the F statistic is statistically significant *and* the RSS has decreased, we would say that our second model fits better.
 
 
-```r
+``` r
 # Let's make a second model for comparison against the first.
 m2 = lattes %>% 
   # Make a linear model, showing interactions with the '*' sign
-  lm(formula = tastiness ~ machine * milk * syrup)
+  lm(formula = y ~ machine * milk * syrup)
 
 # Here, for instance, there is a significant difference, but the RSS increased,
 # so we know that model 1 is better than model 2
@@ -824,8 +954,8 @@ anova(m, m2)
 ```
 ## Analysis of Variance Table
 ## 
-## Model 1: tastiness ~ machine * milk * syrup * art
-## Model 2: tastiness ~ machine * milk * syrup
+## Model 1: y ~ machine * milk * syrup * art
+## Model 2: y ~ machine * milk * syrup
 ##   Res.Df   RSS  Df Sum of Sq      F    Pr(>F)    
 ## 1    216  6330                                   
 ## 2    228 16182 -12     -9852 28.015 < 2.2e-16 ***

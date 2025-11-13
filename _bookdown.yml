@@ -10,8 +10,8 @@ rmd_files:
     "01_skill_ggplot.Rmd", # ggplot
     "01_skill_plotnine.Rmd", # plotnine (Python)
 
-    # ##################################
-    # # # Statistics & Reliability
+    ##################################
+    # Statistics & Reliability
     "00_part2.Rmd",
     "02_workshop.Rmd", # Descriptives
     "02_workshop_python.Rmd", # Descriptives (Python)
@@ -19,69 +19,67 @@ rmd_files:
     "02_skill_function_python.Rmd", # Functions (Python)
     "03a_workshop.Rmd", # Probability
     "03b_workshop.Rmd", # Probability
-    # # "03_workshop_python.Rmd", # Probability (Python) [moved earlier]
+    # "03_workshop_python.Rmd", # Probability (Python) [moved earlier]
     "04_workshop.Rmd", # Reliability
     "04_workshop_python.Rmd", # Reliability (Python)
-
-    # # Statistical Process Control
+    
+    # Statistical Process Control
     "00_part3.Rmd",
     "05_workshop.Rmd", # Statistical Process Control
     "05_workshop_python.Rmd", # Statistical Process Control (Python)
     "06_workshop.Rmd", # Process Indices & Confidence Intervals
     "06_workshop_python.Rmd", # Process Indices & Confidence Intervals (Python)
-    # "07_workshop.Rmd", # Life Distributions I
-    # "07b_workshop.Rmd", # Statistical Techniques for Exponential Distributions
-    # "08_workshop.Rmd", # Life Distributions (Weibull, Gamma, & Lognormal)
-    # "09_workshop.Rmd", # Fault Tree Analysis in R
-    # "10_workshop.Rmd", # Physical Acceleration Models
-
-    # ##################################
-    # "05_workshop.Rmd", # Statistical Process Control
-    # "05_workshop_python.Rmd", # Statistical Process Control (Python)
-    # "06_workshop.Rmd", # Process Indices & Confidence Intervals
-    # "06_workshop_python.Rmd", # Process Indices & Confidence Intervals (Python)
-
-    # ##################################
-    # # Life Distributions
+    "07_workshop.Rmd", # Life Distributions I
+    "07b_workshop.Rmd", # Statistical Techniques for Exponential Distributions
+    "08_workshop.Rmd", # Life Distributions (Weibull, Gamma, & Lognormal)
+    "09_workshop.Rmd", # Fault Tree Analysis in R
+    "10_workshop.Rmd", # Physical Acceleration Models
+    
+    ##################################
+    "05_workshop.Rmd", # Statistical Process Control
+    "05_workshop_python.Rmd", # Statistical Process Control (Python)
+    "06_workshop.Rmd", # Process Indices & Confidence Intervals
+    "06_workshop_python.Rmd", # Process Indices & Confidence Intervals (Python)
+    
+    ##################################
+    # Life Distributions
     "00_part4.Rmd",
     "07_workshop.Rmd", # Life Distributions I
     "07b_workshop.Rmd", # Life Distributions I
     "08_workshop.Rmd", # Life Distributions II
     
-    # ##################################
-    # # Physical Acceleration Models
+    ##################################
+    # Physical Acceleration Models
     "00_part5.Rmd",
     "09_workshop.Rmd", # Fault Trees (eg. application of life distributions, etc.)
     "10_workshop.Rmd", # Acceleration Factors
     
-    # ####################################
-    # # Regression
+    ####################################
+    # Regression
     "00_part6.Rmd",
     "11_workshop.Rmd", # Regression I
     "12_workshop.Rmd", # Regression II
     
-    # ####################################
-    # # Comparing Groups & ANOVA
+    ####################################
+    # Comparing Groups & ANOVA
     "00_part7.Rmd",
     "13_workshop.Rmd", # T-tests / Anova (Null Distributions)
     
-    # ####################################
-    # # Factorial Design & RSM
+    ####################################
+    # Factorial Design & RSM
     "00_part8.Rmd",
     "14_workshop.Rmd", # factorial / interactions
     "15_workshop.Rmd", # rsm
-
-    # ###################################
-    # # Appendix 
+    
+    ###################################
+    # Appendix 
     "00_partappendix.Rmd",
     "99_skill_viz.Rmd", # Appendix Exercises
     "99_skill_flowcharts.Rmd", # Appendix Exercises
     "99_skill_fitdistr.Rmd", # Appendix Exercises
-    "99_skill_tidyfault.Rmd"
+    # "99_skill_tidyfault.Rmd"
+    "99_stats_tables_eqns.Rmd", # Appendix Tables & Equations
     # "99_test.Rmd" # test section
-    # 
-    # ##################################
-    # #"99_references.Rmd"
   ]
 output_dir: "docs"
 new_session: yes

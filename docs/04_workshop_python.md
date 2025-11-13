@@ -9,13 +9,13 @@ In this tutorial, we learn core Reliability/Survival Analysis concepts in Python
 ### Packages {-}
 
 
-```python
+``` python
 # Remember to install these packages using a terminal, if you haven't already!
 !pip install pandas plotnine sympy scipy
 ```
 
 
-```python
+``` python
 import pandas as pd
 from plotnine import *
 import sympy as sp
@@ -39,7 +39,7 @@ curl -O https://raw.githubusercontent.com/timothyfraser/sigma/main/functions/fun
 
 **Option 3: Add the functions directory to your Python path**
 
-```python
+``` python
 import sys
 import os
 # Add the functions directory to Python path
@@ -49,7 +49,7 @@ sys.path.append('functions')  # or path to wherever you placed the functions fol
 Once you have the functions available, you can import them:
 
 
-```python
+``` python
 from functions_distributions import rnorm, density, tidy_density, approxfun
 ```
 
@@ -65,7 +65,7 @@ In Reliability/Survival Analysis, our quantity of interest is the amount of time
 All technologies, operations, etc. have a 'lifetime distribution'. If you took a sample of, say, cars in New York, you could measure *how long each car functioned properly* (its life-span), and build a *Lifetime Distribution* from that vector.
 
 
-```python
+``` python
 # Add functions directory to path if not already there
 import sys
 if 'functions' not in sys.path:
@@ -80,7 +80,7 @@ lifespan = rnorm(100, mean=5, sd=1)
 The *lifetime distribution* is the probability density function telling us how *frequently* each potential lifespan is expected to occur.
 
 
-```python
+``` python
 # We can build ourself the PDF of our lifetime distribution here
 dlife = density(lifespan)
 dlife = tidy_density(dlife)
@@ -90,7 +90,7 @@ dlife_fn = approxfun(dlife)
 In contrast, the Cumulative Distribution Function (CDF) for a lifetime distribution tells us, for any time $t$, the *probability that a car will fail by time* $t$.
 
 
-```python
+``` python
 # And we can build the CDF here
 plife_df = tidy_density(density(lifespan))
 plife_df = plife_df.sort_values('x')
@@ -103,7 +103,7 @@ Having built these functions for our cars, we can generate the probability (PDF)
 Reliability or Survival Analysis is concerned with *the probability* that a unit (our car) will still be operating by a specific time $t$, representing the percentage of all cars that will survive to that point in time. So let's also calculate `1 - cumulative probability of failure`.
 
 
-```python
+``` python
 import numpy as np
 time = np.arange(lifespan.min(), lifespan.max(), 0.1)
 mycars = pd.DataFrame({
@@ -117,7 +117,7 @@ mycars['prob_survival'] = 1 - mycars['prob_cumulative']
 Let's plot our three curves!
 
 
-```python
+``` python
 (ggplot(mycars, aes(x='time')) +
   geom_area(aes(y='prob_cumulative', fill='"Cumulative Probability"'), alpha=0.5) +
   geom_area(aes(y='prob_survival', fill='"Reliability (Survival)"'), alpha=0.5) +
@@ -127,7 +127,7 @@ Let's plot our three curves!
 ```
 
 ```
-## <plotnine.ggplot.ggplot object at 0x000001C383D921B0>
+## <plotnine.ggplot.ggplot object at 0x31445a3f0>
 ```
 
 This new reliability function allows us to calculate 2 quantities of interest:
@@ -150,7 +150,7 @@ $$ CDF(t) = F(t) = 1 - e^{-(2t/1500)} = 1 - e^{-t/750} $$
 What's pretty cool is, we can tell Python to make a matching function `fplane()`, using the `def` command.
 
 
-```python
+``` python
 import math
 # For any value `t` we supply, do the following to that `t` value.
 def fplane(t):
@@ -164,7 +164,7 @@ Let's use our function `fplane()` to answer our Lockheed engineers' questions.
 1.  What's the probability a propeller will fail by `t = 600` days? By `t = 5000` days?
 
 
-```python
+``` python
 print("fplane(600):", fplane(600))
 ```
 
@@ -172,7 +172,7 @@ print("fplane(600):", fplane(600))
 ## fplane(600): 0.5506710358827784
 ```
 
-```python
+``` python
 print("fplane(5000):", fplane(5000))
 ```
 
@@ -187,7 +187,7 @@ Looks like 55% will fail by `600` days, and 99% fail by `5000` days.
 2.  What's the probability a propeller will fail between `600` and `5000` days?
 
 
-```python
+``` python
 print("Probability of failure between 600 and 5000 days:", fplane(5000) - fplane(600))
 ```
 
@@ -202,7 +202,7 @@ print("Probability of failure between 600 and 5000 days:", fplane(5000) - fplane
 3.  What percentage of new propellers will work more than `6000` days?
 
 
-```python
+``` python
 print("Percentage surviving past 6000 days:", 1 - fplane(6000))
 ```
 
@@ -217,7 +217,7 @@ print("Percentage surviving past 6000 days:", 1 - fplane(6000))
 4.  If Lockheed uses 300 propellers, how many will fail in 1 year? In 3 years?
 
 
-```python
+``` python
 # Given a sample of 300 propellers,
 n = 300
 # We project n * fplane(t = 365.25) will fail in 1 year (365.25 days)
@@ -229,7 +229,7 @@ print("Failures in 1 year:", n * fplane(365.25))
 ## Failures in 1 year: 115.65989011661077
 ```
 
-```python
+``` python
 # We also project that n * fplane(t = 3 * 365.25) will fail in 3 years
 # that's ~230 propellers!
 print("Failures in 3 years:", n * fplane(3*365.25))
@@ -256,7 +256,7 @@ Two extra rules of probability can help us understand system reliability.
 For example, there's a 50% chance that 1 coffee cup breaks at local coffeeshop *Coffee Please!* every 6 months (180 days). Thus, the mean number of days to cup failure is $m = \frac{180 \ days}{ 1 \ cup \times 0.50 \ chance} = 360 \ days$, while the relative frequency (probability) that a cup will break is $\lambda = \frac{1 \ cup}{360 \ days}$.
 
 
-```python
+``` python
 def fcup(days):
   return 1 - math.exp(-(days/360))
 
@@ -271,7 +271,7 @@ print("Probability 1 cup breaks in 100 days:", fcup(100))
 And let's write out a reliability function too, based on our function for the failure function.
 
 
-```python
+``` python
 # Notice how we can reference an earlier function fcup in our later function? Always have to define functions in order.
 def rcup(days):
   return 1 - fcup(days)
@@ -287,7 +287,7 @@ print("Probability 1 cup survives 100 days:", rcup(100))
 But the probability that *two* break within 100 days is...
 
 
-```python
+``` python
 print("Probability 2 cups break in 100 days:", fcup(100) * fcup(100))
 ```
 
@@ -298,7 +298,7 @@ print("Probability 2 cups break in 100 days:", fcup(100) * fcup(100))
 And the probability that 5 break within 100 days is... very small!
 
 
-```python
+``` python
 print("Probability 5 cups break in 100 days:", fcup(100)**5)
 ```
 
@@ -313,7 +313,7 @@ print("Probability 5 cups break in 100 days:", fcup(100)**5)
 So, if *Coffee Please!* buys 2 new cups for their store, the probability that at least 1 unit breaks within a year is...
 
 
-```python
+``` python
 print("Probability at least 1 of 2 cups breaks in a year:", 1 - rcup(365.25)**2)
 ```
 
@@ -324,7 +324,7 @@ print("Probability at least 1 of 2 cups breaks in a year:", 1 - rcup(365.25)**2)
 While if they buy 5 new cups for their store, the chance at least 1 cup breaks within a year is...
 
 
-```python
+``` python
 print("Probability at least 1 of 5 cups breaks in a year:", 1 - rcup(365.25)**5)
 ```
 
@@ -341,7 +341,7 @@ $$ P(Fail \ Tomorrow | Survive \ until \ Today) = \frac{ F(days + \Delta days) -
 Local coffeeshop *Coffee Please!* also has a lucky mug, which has stayed intact for 5 years, despite being dropped numerous times by patrons. *Coffee Please!*'s failure rate suggests they had a 99.3% chance of it breaking to date.
 
 
-```python
+``` python
 # we call this the Hazard Rate Z
 def zcup(days, plus=1):
   return (fcup(days + plus) - fcup(days)) / (plus * rcup(days))
@@ -353,7 +353,7 @@ def zcup(days, plus=1):
 -   the (instantaneous) hazard rate $h(t)$ can grow or shrink over time, but the cumulative hazard rate only increases or stays constant.
 
 
-```python
+``` python
 def hcup(days):
   return -1*math.log(rcup(days))
 
@@ -370,7 +370,7 @@ print("Accumulative hazard at 100 days:", hcup(100))
 The hazard rate $z(t)$ varies over time, so let's generate a single statistic to summarize the distribution of hazard rates that $z(t)$ can provide us between times $t_{a} \to t_{z}$. We'll call this the Average Failure Rate $AFR(T)$.
 
 
-```python
+``` python
 def afrcup(t1, t2):
   return (hcup(t2) - hcup(t1)) / (t2 - t1)
 
@@ -384,7 +384,7 @@ print("Average failure rate from 0 to 5 days:", afrcup(0, 5))
 When the probability for a time $t$ is less than `0.10`, $AFR = F(t) / T$. This means that $F(t) = 1 - e^{-T \times AFR(T)} \approx T \times AFR(T) \ \ when \  F(T) < 0.10$.
 
 
-```python
+``` python
 def afrcup_approx(days):
   return fcup(days) / days
 
@@ -409,7 +409,7 @@ For this lifetime function $F(t) = 1 - e^{-(t/2000)^{0.5}}$, what's the failure 
 First, let's write the failure function `f(t)`.
 
 
-```python
+``` python
 # Write failure rate
 def f(t):
   return 1 - math.exp(-(t/2000)**0.5)
@@ -418,7 +418,7 @@ def f(t):
 Second, let's write the hazard rate `z(t)`, for a 1 unit change in `t`.
 
 
-```python
+``` python
 # Write hazard rate
 def z(t, change=1):
   # Often I like to break up my functions into multiple lines;
@@ -437,7 +437,7 @@ def z(t, change=1):
 Third, let's write the average hazard rate `afr(t1,t2)`.
 
 
-```python
+``` python
 def afr(t1, t2):
   # Let's get the survival rate r(t)
   r1 = 1 - f(t1)
@@ -456,7 +456,7 @@ def afr(t1, t2):
 Fourth, let's write some functions to convert our results into %/K and PPM/K, so we can be lazy! We'll call our functions `pk()` and `ppmk()`.
 
 
-```python
+``` python
 # % per 1000 hours
 def pk(rate):
   return rate * 100 * 10**3
@@ -471,7 +471,7 @@ def ppmk(rate):
 Let's compare our hazard rates when `t = 10`, per hour, in % per 1000 hours, and in PPM per 1000 hours.
 
 
-```python
+``` python
 # Per hour... Ew. Not very readable.
 print("Hazard rate per hour at t=10:", z(10))
 ```
@@ -480,7 +480,7 @@ print("Hazard rate per hour at t=10:", z(10))
 ## Hazard rate per hour at t=10: 0.0034453578389621797
 ```
 
-```python
+``` python
 # % per 1000 hours.... Wheee! Much more legible
 print("Hazard rate %/K at t=10:", pk(z(10)))
 ```
@@ -489,7 +489,7 @@ print("Hazard rate %/K at t=10:", pk(z(10)))
 ## Hazard rate %/K at t=10: 344.535783896218
 ```
 
-```python
+``` python
 # PPM per 1000 hours.... Whoa! Big numbers!
 print("Hazard rate PPM/K at t=10:", ppmk(z(10)))
 ```
@@ -501,7 +501,7 @@ print("Hazard rate PPM/K at t=10:", ppmk(z(10)))
 Finally, let's calculate the Average Failure Rate between 1000 and 10000 hours, in %/K.
 
 
-```python
+``` python
 # Tada! Average Failure Rate from 1000 to 10000 hours, in % of units per 1000 hours
 print("AFR %/K from 1000 to 10000 hours:", pk(afr(1000, 10000)))
 ```
@@ -510,7 +510,7 @@ print("AFR %/K from 1000 to 10000 hours:", pk(afr(1000, 10000)))
 ## AFR %/K from 1000 to 10000 hours: 16.9884577368138
 ```
 
-```python
+``` python
 # And in ppmk!
 print("AFR PPM/K from 1000 to 10000 hours:", ppmk(afr(1000, 10000)))
 ```
@@ -536,7 +536,7 @@ Hypothetical: Samsung is releasing a new Galaxy phone. But after the [2016 debac
 Using the information above, we can calculate the mean time to fail `m`, the rate of how many days it takes for an average unit to fail.
 
 
-```python
+``` python
 days = 500
 units = 5
 m = days / units
@@ -553,7 +553,7 @@ We can use `m` to make our explosion function `fexplode()`, which in this case, 
 $$ CDF(days) = Explode(days) = 1 - e^{-(days \times \frac{1 \ unit}{100 \ days})} = 1 - e^{-0.01 \times days} $$
 
 
-```python
+``` python
 import math
 def fexplode(days):
   return 1 - math.exp(-0.01*days)
@@ -566,7 +566,7 @@ Let's answer our questions!
 What percentage of phones are expected to survive 6 months?
 
 
-```python
+``` python
 # What percent
 print("6 months survival:", 1 - fexplode(365.25 / 2))
 ```
@@ -578,7 +578,7 @@ print("6 months survival:", 1 - fexplode(365.25 / 2))
 What percentage of phones are expected to survive 1 year?
 
 
-```python
+``` python
 print("1 year survival:", 1 - fexplode(365.25))
 ```
 
@@ -591,7 +591,7 @@ print("1 year survival:", 1 - fexplode(365.25))
 ## Units and Conversions
 
 
-```python
+``` python
 def pk(rate):
   return rate * 100 * 10**3
 
@@ -600,7 +600,7 @@ def ppmk(rate):
 ```
 
 
-```python
+``` python
 def f(t):
   return 1 - math.exp(-((t/2000)**0.5))
 
@@ -618,7 +618,7 @@ def afr(t1, t2):
 ```
 
 
-```python
+``` python
 # Hazard rate at t=10
 z(10)
 ```
@@ -628,7 +628,7 @@ z(10)
 ```
 
 
-```python
+``` python
 # Hazard rate per 1000 hours
 pk(z(10))
 ```
@@ -638,7 +638,7 @@ pk(z(10))
 ```
 
 
-```python
+``` python
 # PPM per 1000 hours
 ppmk(z(10))
 ```
@@ -648,7 +648,7 @@ ppmk(z(10))
 ```
 
 
-```python
+``` python
 # Average failure rate from 1000 to 10000 hours
 afr(1000, 10000)
 ```
@@ -658,7 +658,7 @@ afr(1000, 10000)
 ```
 
 
-```python
+``` python
 # Average failure rate in % per 1000 hours
 pk(afr(1000, 10000))
 ```
@@ -668,7 +668,7 @@ pk(afr(1000, 10000))
 ```
 
 
-```python
+``` python
 # Average failure rate in PPM per 1000 hours
 ppmk(afr(1000, 10000))
 ```
@@ -689,7 +689,7 @@ ppmk(afr(1000, 10000))
 A food safety inspector is investigating the average shelf life of instant ramen noodles. A company estimates the average shelf life of a package of ramen noodles at ~240 days per package. In a moment of poor judgement, she hires a team of hungry college students to taste-test old packages of that company's ramen noodles, randomly sampled from a warehouse. When a student comes down with food poisoning, she records that product as having gone bad after XX days. She treats the record of ramen food poisonings as a sample of the lifespan of ramen products.
 
 
-```python
+``` python
 ramen = [163, 309, 215, 211, 246, 198, 281, 180, 317, 291, 
          238, 281, 215, 208, 212, 300, 231, 240, 285, 232, 
          252, 261, 310, 226, 282, 140, 208, 280, 237, 270, 
@@ -712,7 +712,7 @@ Using this data, please calculate...
 First, we take her ramen lifespan data, estimate the PDF with `density()`, and make the failure function (CDF), which I've called `framen()` below.
 
 
-```python
+``` python
 import numpy as np
 import pandas as pd
 from scipy.stats import gaussian_kde
@@ -734,7 +734,7 @@ framen = interp1d(x_range, cdf_values, kind='linear', bounds_error=False, fill_v
 Second, we calculate the reliability function `rramen()`.
 
 
-```python
+``` python
 # Get survival function r(t) = 1 - f(t)
 def rramen(days):
   return 1 - framen(days)
@@ -743,7 +743,7 @@ def rramen(days):
 Third, we can shortcut to the average failure rate, called `afrramen()` below, by using the reliability function `rramen()` to make our hazard rates at time 1 (`h1`) and time 2 (`h2`).
 
 
-```python
+``` python
 # Get average failure rate from time 1 to time 2
 def afrramen(days1, days2):
   h1 = -1*np.log(rramen(days1))
@@ -754,7 +754,7 @@ def afrramen(days1, days2):
 1.  What's the cumulative probability of a pack of ramen going bad within 8 months (240 days)? Are the company's predictions accurate?
 
 
-```python
+``` python
 print("Cumulative probability of going bad within 240 days:", framen(240))
 ```
 
@@ -769,7 +769,7 @@ Yes! ~50% of packages will go bad within 8 months. Pretty accurate!
 2.  What's the average failure rate ($\lambda$) for the period between 8 months (240 days) to 1 year?
 
 
-```python
+``` python
 lambda_val = afrramen(240, 365)
 # Check it!
 print("Average failure rate (lambda):", lambda_val)
@@ -786,7 +786,7 @@ On average, between 8 months to 1 year, ramen packages go bad at a rate of ~`0.0
 3.  What's the mean time to fail ($m$) for the period between 8 months to 1 year?
 
 
-```python
+``` python
 # Calculate the inverse of lambda!
 m = 1 / lambda_val
 # check it!
@@ -834,7 +834,7 @@ When combining configurations, we calculate the probabilities of each subsystem,
 For systems in series, multiply component reliabilities. For parallel, use complements.
 
 
-```python
+``` python
 def r_exp(t, mean_time):
   import math
   return math.exp(-t/mean_time)
@@ -859,7 +859,7 @@ print("Series reliability:", series_reliability(1000, [750, 900, 1200]))
 ## Series reliability: 0.0377119681337726
 ```
 
-```python
+``` python
 print("Parallel reliability:", parallel_reliability(1000, [750, 900, 1200]))
 ```
 

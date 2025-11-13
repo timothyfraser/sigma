@@ -16,29 +16,40 @@ library(ggplot2)
 library(reticulate)
 
 # Use your specific Python installation
-python_path <- "C:/Python312/python.exe"
-if (file.exists(python_path)) {
-  use_python(python_path, required = FALSE)
-  cat("Using Python at:", python_path, "\n")
-} else {
-  # Fallback to system Python
-  system_python <- Sys.which("python")
-  if (system_python != "") {
-    use_python(system_python, required = FALSE)
-    cat("Using system Python at:", system_python, "\n")
-  } else {
-    cat("Warning: No Python installation found\n")
+# Try common Python paths (uncomment/modify for your system)
+python_path <- NULL
+
+# Try macOS common paths first
+mac_paths <- c(
+  "/opt/anaconda3/bin/python3",
+  "/usr/local/bin/python3",
+  "/opt/homebrew/bin/python3"
+)
+
+for (path in mac_paths) {
+  if (file.exists(path)) {
+    python_path <- path
+    break
   }
 }
 
-# Disable automatic environment creation and downloads
-Sys.unsetenv("RETICULATE_PYTHON_ENV")
-Sys.unsetenv("RETICULATE_PYTHON") 
-Sys.unsetenv("RETICULATE_AUTOCONFIGURE")
-Sys.unsetenv("RETICULATE_PYTHON_FALLBACK")
+# If no common path found, try system Python
+if (is.null(python_path)) {
+  system_python <- Sys.which("python3")
+  if (system_python != "" && file.exists(system_python)) {
+    python_path <- system_python
+  }
+}
 
-# Set the Python path explicitly
-Sys.setenv(RETICULATE_PYTHON = python_path)
+# Configure Python if found, otherwise let reticulate auto-discover
+if (!is.null(python_path) && file.exists(python_path)) {
+  use_python(python_path, required = FALSE)
+  Sys.setenv(RETICULATE_PYTHON = python_path)
+  cat("Using Python at:", python_path, "\n")
+} else {
+  cat("No specific Python path found, letting reticulate auto-discover\n")
+  # Don't set invalid paths - let reticulate handle it
+}
 
 # Prevent reticulate from downloading Python
 options(reticulate.conda_binary = NULL)

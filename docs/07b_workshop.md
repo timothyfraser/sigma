@@ -11,7 +11,7 @@ In this workshop, we're going to examine several key tools that will help you (1
 Let's start by loading the `dplyr` package, which will let us `mutate()`, `filter()`, and `summarize()` data quickly. We'll also load `mosaicCalc`, for taking derivatives and integrals (eg. `D()` and `antiD()`).
 
 
-```r
+``` r
 # Load packages
 library(dplyr)
 library(readr)
@@ -28,7 +28,7 @@ Please import the `masks.csv` data.frame below. Each row is a mask, with its own
 
 
 
-```r
+``` r
 masks <- read_csv("workshops/masks.csv")
 
 # Let's glimpse() its contents!
@@ -59,7 +59,7 @@ For the next section, you'll need to understand `factors`.
 - You can make your own vector into a `factor` using `factor(vector, levels = c("first", "second", "etc"))`.
 
 
-```r
+``` r
 # Make character vector
 myvector <- c("surgical", "KN-95", "KN-95", "N-95", "surgical")
 # Turn it into a factor
@@ -76,7 +76,7 @@ myfactor
 `factor`s can be reduced to `numeric` vectors using `as.numeric()`. This returns the level for each value in the factor.
 
 
-```r
+``` r
 # Turn the factor numeric
 mynum <- myfactor %>% as.numeric()
 # Compare
@@ -92,7 +92,7 @@ data.frame(myfactor, mynum)
 ## 5 surgical     3
 ```
 
-```r
+``` r
 # for example, N-95, which was ranked first in the factor, receives a 1 anytime the value N-95 appears
 ```
 
@@ -104,7 +104,7 @@ data.frame(myfactor, mynum)
 Sometimes, we might want to tabulate failures in terms of meaningful units of time, counting the total failures every 5 hours, every 24 hours, etc. Let's learn how!
 
 
-```r
+``` r
 d1 <- data.frame(t = masks$left_earloop) %>%
   # classify each value into 5-point width bins (0 to 5, 6-10, 11-15, etc.)
   # then convert it to a numeric ranking of categories from 1  to n bins
@@ -124,7 +124,7 @@ d1 %>% glimpse()
 **Step 2**: Tabulate Observations per Bin.
 
 
-```r
+``` r
 d2 <- d1 %>%
   # For each bin label
   group_by(label, .drop = FALSE) %>%
@@ -147,7 +147,7 @@ d2 %>% glimpse()
 Last, we might need the bounds (upper and lower value), or the midpoint. Here's how!
 
 
-```r
+``` r
 d3 <- d2 %>%
   # Get bin ranking, lower and upper bounds, and midpoint
   mutate(
@@ -189,7 +189,7 @@ d3
 A small start-up is product testing a new super-effective mask. They product tested 25 masks over 60 days. They contract you to analyze the masks' lifespan data, recorded below as the number of days to failure. 
 
 
-```r
+``` r
 # Lifespan in days
 supermasks <- c(1, 2, 2, 2, 3, 3, 4, 4, 5, 9, 13, 15, 17, 19, 
             20, 21, 23, 24, 24, 24, 32, 33, 33, 34, 54)
@@ -225,7 +225,7 @@ supermasks <- c(1, 2, 2, 2, 3, 3, 4, 4, 5, 9, 13, 15, 17, 19,
 2. What's the last 7-day interval?
 
 
-```r
+``` r
 # Find the bin with the highest bin id...
 a %>% filter(bin == max(bin))
 ```
@@ -237,7 +237,7 @@ a %>% filter(bin == max(bin))
 ## 1 (49,56]     1     8    49    56     52.5
 ```
 
-```r
+``` r
 # or
 a %>% tail(1)
 ```
@@ -249,7 +249,7 @@ a %>% tail(1)
 ## 1 (49,56]     1     8    49    56     52.5
 ```
 
-```r
+``` r
 # or 
 # Find the bin with the highest midpoint
 a %>% filter(midpoint == max(midpoint))
@@ -264,7 +264,7 @@ a %>% filter(midpoint == max(midpoint))
 3. How many masks are expected to fail within that interval?
 
 
-```r
+``` r
 # Find the count of masks to fail `r_obs` within that interval
 a %>% filter(bin == max(bin)) %>% select(label, r_obs)
 ```
@@ -279,7 +279,7 @@ a %>% filter(bin == max(bin)) %>% select(label, r_obs)
 4. What percentage of masks are expected to fail *within 28 days*?
 
 
-```r
+``` r
 a %>% 
   # Calculate cumulative failures...
   mutate(r_cumulative = cumsum(r_obs)) %>%
@@ -314,7 +314,7 @@ Sometimes, we don't have access to the full raw data of times to failure for a p
 If we have a complete sample of data (eg. not censored), then we can just calculate: $\hat{\lambda} = \frac{no. \ of \ failures}{total \ unit \ test \ hours} $.
 
 
-```r
+``` r
 # Eg. 
 1 / mean(masks$left_earloop)
 ```
@@ -350,7 +350,7 @@ We will need:
 $$ \hat{\lambda} = \frac{ r  }{ \sum_{i=1}^{r}{t_i}  +  (n - r)t_z} $$
 
 
-```r
+``` r
 # Let's calculate it!
 
 d4 <- d3 %>%
@@ -364,7 +364,7 @@ d4 <- d3 %>%
 ```
 
 
-```r
+``` r
 # Let's compare
 1 / mean(masks$left_earloop)
 ```
@@ -388,7 +388,7 @@ The same startup testing that super-effective mask needs to estimate their failu
 Estimate $\hat{\lambda}$ from the cross-tabulated data, knowing that they tested 25 masks over 60 days.
 
 
-```r
+``` r
 a = tribble(
   ~bin, ~label,     ~r_obs, ~lower, ~upper,
   1,    '[0,7]',    9,      0,     7,
@@ -452,14 +452,14 @@ We can build confidence intervals around our point estimate $\hat{\lambda}$ usin
 - We want to find the upper and lower bounds around the 90%, 95%, or perhaps 99% *most common* (middle-most) values in that sampling distribution. So, if $alpha = 0.10$, we're going to get a 90% confidence interval (dubbed $interval$) spanning from the 5%~95% of that sampling distribution.
 
 
-```r
+``` r
 # To calculate a 'one-tailed' 90% CI (eg. we only care if above 90%)
 alpha = 0.10
 ci = 1 - alpha
 ```
 
 
-```r
+``` r
 # To adjust this to be 'two-tailed' 90% CI (eg. we care if below 5% or above 95%)...
 0.5 + (ci / 2)
 ```
@@ -468,7 +468,7 @@ ci = 1 - alpha
 ## [1] 0.95
 ```
 
-```r
+``` r
 0.5 - ci / 2
 ```
 
@@ -481,7 +481,7 @@ ci = 1 - alpha
 - **No Censoring**: If we have complete data (all observations failed!), using this formula to calculate factor $k$:
 
 
-```r
+``` r
 # For example, let's say r = 50
 r = 50
 k = qchisq(ci, df = 2*r) / (2*r)
@@ -490,14 +490,14 @@ k = qchisq(ci, df = 2*r) / (2*r)
 - **Time-Censoring**: If we only record up to a specific time (eg. planning an experiment), use **this** formula to calculate factor $k$, setting as the degrees of freedom $df = 2(r+1)$. 
 
 
-```r
+``` r
 # For example, let's say r = 50
 r = 50
 k = qchisq(ci, df = 2*(r+1)) / (2*r)
 ```
 
 
-```r
+``` r
 # Clear these
 remove(r, k)
 ```
@@ -505,7 +505,7 @@ remove(r, k)
 So, since we do not have time censoring in our `d4` dataset, we can go ahead an calculate the `df = 2*r` and compute the 90% `lower` and `upper` confidence intervals.
 
 
-```r
+``` r
 d4 %>%
   summarize(
     lambda_hat = lambda_hat,
@@ -523,6 +523,218 @@ d4 %>%
 ## 1     0.0769    50    1.24   0.779 0.0599 0.0956
 ```
 
+#### $k$ factor functions
+
+🧮 Here are some helper functions that make it easy to calculate and visualize k-factors used in confidence intervals for failure rates!
+
+This `qk` function is useful when you need the upper and lower k-factor for a given probability *p* and number of failures *r*.
+
+
+``` r
+#' @name qk
+#' @title k-factor Quantiles
+#' @description 
+#' Function to return quantiles for k-factors.
+#' Intended for estimating confidence intervals for failure rates.
+#' @param p:[dbl] vector of probabilities / percentile(s)
+#' @param r:int number of failures (non-negative integers; can include zero)
+#' @param .time:logical logical; is case time-censored data?
+#' @param .failure:logical logical; is case failure-censored data?
+#' 
+#' @importFrom dplyr `case_when`
+qk = function(p, r, .time = FALSE, .failure = FALSE){
+  # Testing values
+  # p = 0.95; r = 20; .time = FALSE; .failure = FALSE
+  
+  # Input error handling
+  stopifnot(is.numeric(p) & p >= 0 & p <= 1)
+  stopifnot(is.numeric(as.integer(r)))
+  stopifnot(is.logical(.time))
+  stopifnot(is.logical(.failure))
+  stopifnot(
+    (.time == TRUE & .failure == FALSE) | 
+      (.time == FALSE & .failure == FALSE) | 
+      (.time == FALSE & .failure == TRUE) )
+  stopifnot(
+    # R should either be greater than 0
+    (r > 0) |
+      # OR 
+      # zero and the data should be time censored
+    (r == 0 & .time == TRUE)
+  )
+  
+  # Evaluate if p is in the upper or lower tail
+  .upper = p > 0.5
+  
+  # Does r == 0?
+  .zerofailures = r == 0
+  
+  
+  k = case_when(
+    # 1+ failures AND complete data AND UPPER tail  --> Get k-factor for r as normal
+    .zerofailures == FALSE & .time == FALSE & .failure == FALSE & .upper == TRUE ~ qchisq(p, df = 2*r) / (2*r),
+    # 1+ failures AND complete data AND LOWER tail  --> Get k-factor for r as normal
+    .zerofailures == FALSE & .time == FALSE & .failure == FALSE & .upper == FALSE ~ qchisq(p, df = 2*r) / (2*r),
+    # 1+ failures AND time-censored data AND UPPER tail --> Get k-factor for r+1
+    .zerofailures == FALSE & .time == TRUE & .failure == FALSE & .upper == TRUE ~ qchisq(p, df = 2*(r + 1) ) / (2*r),
+    # 1+ failures AND time-censored data AND LOWER tail --> Get k-factor for r as normal
+    .zerofailures == FALSE & .time == TRUE & .failure == FALSE & .upper == FALSE ~ qchisq(p, df = 2*(r) ) / (2*r),
+    
+    # 1+ failures AND time-censored data AND LOWER tail --> Get k-factor with adjustment
+    .zerofailures == FALSE & .time == FALSE & .failure == TRUE & .upper == TRUE ~ qchisq(p, df = 2*( (r-1) + 1)) / (2 * (r-1))  *  (r-1)/r,
+    # 1+ failures AND time-censored data AND LOWER tail --> Get k-factor with r as normal
+    .zerofailures == FALSE & .time == FALSE & .failure == TRUE & .upper == FALSE ~ qchisq(p, df = 2*r) / (2*r),
+    
+    # If zero failures --> then time-censored --> time = TRUE, and upper/lower distinction doesn't matter.
+    .zerofailures == TRUE & .time == TRUE & .failure == FALSE ~ -log(1-p),
+    # Otherwise, return NA.
+    TRUE ~ NA_real_
+  )
+  
+  if(any(is.na(k))){ message("At least 1 k-factor could not be calculated, due to improper inputs. Review the rules for time-censored, failure-censored, and zero-failure data.")}
+    
+  return(k) 
+}
+
+# Let's try an example of 95th percentile k-factor for a sample with 20 failures
+qk(p = 0.95, r = 20)
+```
+
+```
+## [1] 1.393962
+```
+
+This function below estimates the probability densities for a given ser of k-factor values. It is useful to visualize and compare distributions under different conditions.
+
+
+``` r
+#' @name dk
+#' @title k-factor Probability Density Function
+#' @description 
+#' Function to return probability densities given a supplied k-factor quantile `q`.
+#' Intended for visualizing sampling distributions of failure rates.
+#' @param x:[dbl] vector of quantiles (k-factors)
+#' @param r:int number of failures (non-negative integers; can include zero)
+#' @param .time:logical logical; is case time-censored data?
+#' @param .failure:logical logical; is case failure-censored data?
+dk = function(x, r, .time = FALSE, .failure = FALSE){
+  # Testing values  
+  # x = 2; r = 20; .time = FALSE; .failure = FALSE
+  
+  # Construct a range of quantiles corresponding to a range of cumulative probabilities
+  by = 0.001
+  p_range = c(by/10000, by/1000, by/100, by/10, 
+              seq(from = 0, to = 1, by = 0.001),
+              1 - by/10, 1 - by/100, 1 - by/1000, 1 - by/10000)
+  p_range = sort(p_range)
+  # Get the quantiles for that range
+  q_range = qk(p = p_range, r = r, .time = .time, .failure = .failure)
+  # Fit a density curve to that quantile data, truncated at 0.
+  curve = density(q_range, cut = c(0))
+  
+  # Approximate a function using the density curve's x and y values
+  f = approxfun(x = curve$x, y = curve$y, method = "linear", rule = 2, na.rm = TRUE)
+  # Estimate density
+  d = f(x)
+  return(d)
+}
+
+# Example
+dk(x = c(0, 1, 2, 3), r = 21, .time = TRUE, .failure = FALSE)
+```
+
+```
+## [1] 0.006787618 1.218508013 0.002907306 0.006853889
+```
+
+If you already have the k-factor value and want to know what percentile it is, use this `pk` function to find out!
+ 
+
+``` r
+#' @name pk
+#' @title k-factor Cumulative Distribution Function
+#' @description 
+#' Function to return cumulative probabilities / percentiles given a supplied k-factor quantile `q`.
+#' Intended for confidence intervals for failure rates.
+#' @param q:[dbl] vector of quantiles (k-factors)
+#' @param r:int number of failures (non-negative integers; can include zero)
+#' @param .time:logical logical; is case time-censored data?
+#' @param .failure:logical logical; is case failure-censored data?
+pk = function(q, r, .time = FALSE, .failure = FALSE){
+  # Testing values
+  # q = 2; r = 20; .time = FALSE; .failure = FALSE
+  # We just need to map the function...
+
+  # Construct an approximation function f, which gives the inverse of the Quantile Function,
+  # such that you use linear interpolation to return a Probability for any Quantile supplied.
+  by = 0.001
+  p_range = c(by/10000, by/1000, by/100, by/10, 
+              seq(from = 0, to = 1, by = 0.001),
+              1 - by/10, 1 - by/100, 1 - by/1000, 1 - by/10000)
+  p_range = sort(p_range)
+  # Get the quantiles for that range
+  q_range = qk(p = p_range, r = r, .time = .time, .failure = .failure)
+  # Get the inverse quantile function
+  f = approxfun(x = q_range, y = p_range, method = "linear", rule = 2, na.rm = TRUE)
+  # Return the expected CDF for that quantile  
+  p = f(q)
+  return(p)
+}
+
+# Probability that k-factor value <= 2 with 20 failures
+pk(q = 2, r = 20)
+```
+
+```
+## [1] 0.9996857
+```
+
+
+This `rk` function generates random samples of k-factor values. It's useful when you want to run simulations and make plots to visualize the spread.
+
+
+``` r
+#' @name rk
+#' @title k-factor Random Deviates
+#' @description 
+#' Get a random sample of k-factor values for simulating sampling distributions of failure rates.
+#' @param n:int number of observations.
+#' @param r:int number of failures (non-negative integers; can include zero)
+#' @param .time:logical logical; is case time-censored data?
+#' @param .failure:logical logical; is case failure-censored data?
+rk = function(n, r, .time = FALSE, .failure = FALSE){
+  
+  # Testing values
+  # n = 100; r = 20; .time = FALSE; .failure = FALSE
+  
+  # Input error handling
+  stopifnot(is.integer(as.integer(n)) & as.integer(n) > 0)
+  stopifnot(is.logical(.time))
+  stopifnot(is.logical(.failure))
+  stopifnot(
+    (.time == TRUE & .failure == FALSE) | 
+      (.time == FALSE & .failure == FALSE) | 
+      (.time == FALSE & .failure == TRUE) )
+  
+  # Does r == 0?
+  .zerofailures = r == 0
+  
+  # Generate a uniform distribution of percentiles p
+  p_uniform = runif(n = n, min = 0, max = 1)
+  
+  # Return quantiles for the random percentiles
+  k = qk(p = p_uniform, r = r, .time = .time, .failure = .failure)
+  return(k)
+}
+
+# Visualize 1000 random k-factors
+rk(n = 1000, r = 20) %>% hist()
+```
+
+<img src="07b_workshop_files/figure-html/unnamed-chunk-28-1.png" width="672" />
+
+
+
 ---
 
 <br>
@@ -536,7 +748,7 @@ d4 %>%
 A small start-up is product testing a new super-effective mask. They product tested 25 masks over 60 days. They contracted you to analyze the cross-tabulated data, tabulated in intervals of 7 days. You have an estimate for $\hat{\lambda}$, provided below.
 
 
-```r
+``` r
 # Your estimate
 b = tibble(r = 25, days = 416.5, n = 25, tz = 52.5,  lambda_hat = 0.06002401 )
 ```
@@ -549,7 +761,7 @@ Estimate a 95% confidence interval for $\hat{\lambda}$.
 Estimate a 95% confidence interval for $\hat{\lambda}$.
 
 
-```r
+``` r
 # Get data...
 b = tibble(r = 25, days = 416.5, n = 25, tz = 52.5,  lambda_hat = 0.06002401 )
 
@@ -598,7 +810,7 @@ Let's try an example. Imagine a company wants to test a new line of masks. Your 
 If we aim to fit within these constraints, how many masks need to be tested in this product trial?
 
 
-```r
+``` r
 # Max failures
 r = 10
 # Number of hours
@@ -647,7 +859,7 @@ Back in Workshop 2, we *visually* compared several distributions to an observed 
 **Step 1** Crosstabulate Observed Values into Bins.
 
 
-```r
+``` r
 # Let's repeat our process from before!
 c1 <- data.frame(t = masks$left_earloop) %>%
   # Part 1.1: Split into bins
@@ -668,7 +880,7 @@ c1 <- data.frame(t = masks$left_earloop) %>%
 Sometimes you might only receive **tabulated data**, meaning a table of bins, not the original vector. In that case, start from **Step 2**!
 
 
-```r
+``` r
 # Get any parameters you need (might need to be provided if only tabulated data)
 mystat = masks %>% summarize(
   # failure rate
@@ -716,7 +928,7 @@ c2
 ```
 
 
-```r
+``` r
 # We only need a few of these columns; let's look at them:
 c2 %>%
   # interval: get time interval in that bin
@@ -753,7 +965,7 @@ c2 %>%
 - **Chi-squared Distribution** is a distribution of squared deviations from a normal distribution centered at 0. This means it only has positive values.
 
 
-```r
+``` r
 c3 <- c2 %>%
   summarize(
       # Calculate Chi-squared statistic
@@ -784,7 +996,7 @@ Last, let's use the `pchisq()` function to evaluate the CDF of the Chi-squared d
 - **"statistically significant"**: if our observed statistic is more extreme than most possible chi-squared statistics (eg. >95% of the distribution), it's probably not due to chance! We call it 'statistically significant.'
 
 
-```r
+``` r
 # Calculate area remaining under the curve
 c4 <- c3 %>%
   mutate(p_value = 1 - pchisq(q = chisq, df = df))
@@ -801,7 +1013,7 @@ c4
 
 For a visual representation:
 
-<img src="07b_workshop_files/figure-html/unnamed-chunk-33-1.png" width="672" />
+<img src="07b_workshop_files/figure-html/unnamed-chunk-37-1.png" width="672" />
 
 <br>
 <br>
@@ -820,7 +1032,7 @@ That was a lot of work! It might be more helpful for us to build our own `functi
 For example, these inputs might look like this:
 
 
-```r
+``` r
 # Get your 'model' function
 f = function(t, lambda){ 1 - exp(-1*lambda*t) }
 # Parameters
@@ -843,7 +1055,7 @@ f = function(t, lambda){ 1 - exp(-1*lambda*t) }
 Then, we could write out the function like this! I've added some fancy `@` tags below just for notation, but you can ditch them if you prefer. This is a fairly complex function! I've shared it with you as an example to help you build your own for your projects.
 
 
-```r
+``` r
 #' @name get_chisq
 #' @title Function to Get Chi-Squared!
 #' @name Tim Fraser
@@ -910,7 +1122,7 @@ Finally, let's try using our function!
 Using a raw observed vector `t`:
 
 
-```r
+``` r
 get_chisq(
   t = masks$left_earloop, binwidth = 5, 
   n_total = 50, f = f, np = 1, lambda = mystat$lambda)
@@ -925,7 +1137,7 @@ get_chisq(
 Or using crosstabulated `data`:
 
 
-```r
+``` r
 get_chisq(
   data = c1,
   n_total = 50, f = f, np = 1, lambda = mystat$lambda)
@@ -940,7 +1152,7 @@ get_chisq(
 Using our `pexp` function instead of our homemade `f` function:
 
 
-```r
+``` r
 get_chisq(
   data = c1,
   n_total = 50, f = pexp, np = 1, rate = mystat$lambda)
@@ -956,7 +1168,7 @@ get_chisq(
 Or using a different function that is not exponential!
 
 
-```r
+``` r
 get_chisq(
   data = c1,
   n_total = 50, f = pweibull, np = 2, shape = 0.2, scale = 0.5)
@@ -983,7 +1195,7 @@ get_chisq(
 A small start-up is product testing a new super-effective mask. They product tested 25 masks over 60 days. They contracted you to analyze the masks' lifespan data, recorded below as the number of days to failure. If you were to make projections from this data, you'd want to be sure that you know the lifespan distribution of this data with confidence. Do these masks' lifespan distribution fit an exponential distribution? Follow the steps below to find out.
 
 
-```r
+``` r
 # Lifespan in days
 supermasks <- c(1, 2, 2, 2, 3, 3, 4, 4, 5, 9, 13, 15, 17, 19, 
             20, 21, 23, 24, 24, 24, 32, 33, 33, 34, 54)
@@ -1000,7 +1212,7 @@ supermasks <- c(1, 2, 2, 2, 3, 3, 4, 4, 5, 9, 13, 15, 17, 19,
 1. Cross-tabulate the lifespan distribution in intervals of `7 days`.
 
 
-```r
+``` r
 # Days to failure
 a <- data.frame(t = supermasks) %>%
   # Step 1: Split into bins
@@ -1033,7 +1245,7 @@ a
 2. Estimate $\hat{\lambda}$ from the cross-tabulated data, knowing that they tested 25 masks over 60 days.
 
 
-```r
+``` r
 # Let's estimate lambda-hat!
 b <- a %>%
   # Get the midpoint...
@@ -1061,7 +1273,7 @@ b
 3. *Using the cross-tabulated data*, do these masks' lifespan distribution fit an exponential distribution, or does their distribution differ to a statistically significant degree from the exponential? How much? (eg. statistic and p-value).
 
 
-```r
+``` r
 # Get your 'model' function
 f = function(t, lambda){ 1 - exp(-1*lambda*t) }
 # Get lambda-hat from b$lambda_hat
@@ -1078,7 +1290,7 @@ get_chisq(data = a, n_total = 25, np = 1, f = f, lambda = b$lambda_hat)
 ```
 
 
-```r
+``` r
 # Step 3b: Calculate Chi-squared if we had received the vector supermasks all along, assuming that were the whole population
 # Get lambda from directly from the data
 f = function(t, lambda){ 1 - exp(-1*lambda*t) }
