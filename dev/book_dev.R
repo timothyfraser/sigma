@@ -12,6 +12,37 @@ if(is_clean) { unlink("docs", recursive = TRUE) }
 # Set locale to handle multibyte characters properly
 Sys.setlocale("LC_ALL", "en_US.UTF-8")
 
+options(repos = c(CRAN = "https://packagemanager.posit.co/cran/latest"))
+
+if(isFALSE(require(bookdown))){ install.packages("bookdown") }
+if(isFALSE(require(tidyverse))){ install.packages("tidyverse") }
+if(isFALSE(require(usethis))){ install.packages("usethis") }
+if(isFALSE(require(credentials))){ install.packages("credentials") }
+if(isFALSE(require(gert))){ install.packages("gert") }
+if(isFALSE(require(knitr))){ install.packages("knitr") }
+if(isFALSE(require(kableExtra))){ install.packages("kableExtra") }
+if(isFALSE(require(magick))){ install.packages("magick") }
+if(isFALSE(require(dplyr))){ install.packages("dplyr") }
+if(isFALSE(require(ggplot2))){ install.packages("ggplot2") }
+if(isFALSE(require(ggtext))){ install.packages("ggtext") }
+if(isFALSE(require(shadowtext))){ install.packages("shadowtext") }
+if(isFALSE(require(DiagrammeR))){ install.packages("DiagrammeR") }
+if(isFALSE(require(moderndive))){ install.packages("moderndive") }
+if(isFALSE(require(mosaicCalc))){ install.packages("mosaicCalc") }
+if(isFALSE(require(PearsonDS))){ install.packages("PearsonDS") }
+if(isFALSE(require(moments))){ install.packages("moments") }
+if(isFALSE(require(texreg))){ install.packages("texreg") }
+if(isFALSE(require(gapminder))){ install.packages("gapminder") }
+if(isFALSE(require(nycflights))){ install.packages("nycflights") }
+if(isFALSE(require(fivethirtyeight))){ install.packages("fivethirtyeight") }
+if(isFALSE(require(viridis))){ install.packages("viridis") }
+if(isFALSE(require(reticulate))){ install.packages("reticulate") }
+if(isFALSE(require(htmltools))){ install.packages("htmltools") }
+if(isFALSE(require(broom))){ install.packages("broom") }
+if(isFALSE(require(ggpubr))){ install.packages("ggpubr") }
+if(isFALSE(require(viridis))){ install.packages("viridis") }
+
+
 # Load packages.
 library(bookdown)
 library(tidyverse)
