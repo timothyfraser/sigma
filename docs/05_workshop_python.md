@@ -15,7 +15,7 @@ In this workshop, we will learn how to perform statistical process control in Py
 ### Packages {-}
 
 
-```python
+``` python
 # Remember to install these packages using a terminal, if you haven't already!
 !pip install pandas plotnine scipy
 ```
@@ -23,7 +23,7 @@ In this workshop, we will learn how to perform statistical process control in Py
 We'll be using `pandas` for data manipulation, `plotnine` for visualization, and `scipy` for statistical functions.
 
 
-```python
+``` python
 import pandas as pd
 from plotnine import *
 ```
@@ -38,7 +38,7 @@ To use these functions, you need to acquire them from the repository at [github.
 
 **Add the functions directory to your Python path**
 
-```python
+``` python
 import sys
 import os
 # Add the functions directory to Python path
@@ -48,7 +48,7 @@ sys.path.append('functions')  # or path to wherever you placed the functions fol
 Once you have the functions available, you can import them:
 
 
-```python
+``` python
 from functions_distributions import density, tidy_density, approxfun
 # from functions_process_control import ggprocess, ggsubgroup, ggmoving, ggcapability  # if needed
 ```
@@ -84,7 +84,7 @@ You've been hired to evaluate quality control at a local *onsen* in sunny Kagosh
 Let's read in our data from `workshops/onsen.csv`!
 
 
-```python
+``` python
 # Add functions directory to path if not already there
 import sys
 if 'functions' not in sys.path:
@@ -108,7 +108,7 @@ water.head(3)
 First, let's get a sense of our process by calculating some basic descriptive statistics. We'll create a simple function to calculate the mean and standard deviation, which are fundamental to evaluating process variation.
 
 
-```python
+``` python
 from pandas import Series
 def describe(x: Series):
   x = Series(x)
@@ -136,7 +136,7 @@ Now let's apply this to our temperature data to see the overall process mean and
 The process overview chart is one of the most important tools in SPC. It shows us how our process behaves over time, helping us identify patterns, trends, and potential issues. We'll create a visualization that shows individual measurements, subgroup means, and the overall process average.
 
 
-```python
+``` python
 g1 = (ggplot(water, aes(x='time', y='temp', group='time')) +
   geom_hline(aes(yintercept=water['temp'].mean()), color='lightgrey', size=3) +
   geom_jitter(height=0, width=0.25) +
@@ -150,7 +150,7 @@ g1.save('images/05_process_overview.png', width=8, height=6, dpi=100)
 <img src="images/05_process_overview.png" width="100%" />
 
 
-```python
+``` python
 g2 = (ggplot(water, aes(x='temp')) + geom_histogram(bins=15, color='white', fill='grey') + theme_void() + coord_flip())
 
 # Save the plot
@@ -166,7 +166,7 @@ The histogram shows us the distribution of all temperature measurements, giving 
 In SPC, we often work with *subgroups* - small samples taken at regular intervals. This allows us to distinguish between common cause variation (inherent to the process) and special cause variation (due to specific events). Let's calculate statistics for each subgroup to see how the process behaves over time.
 
 
-```python
+``` python
 stat_s = (water.groupby('time').apply(lambda d: pd.Series({
   'xbar': d['temp'].mean(),
   'r': d['temp'].max() - d['temp'].min(),
@@ -201,7 +201,7 @@ Here we've calculated key statistics for each subgroup:
 Now let's calculate the overall process statistics that summarize the behavior across all subgroups:
 
 
-```python
+``` python
 stat_t = pd.DataFrame({
   'xbbar': [stat_s['xbar'].mean()],
   'rbar': [stat_s['r'].mean()],
@@ -230,7 +230,7 @@ These statistics give us:
 Control charts are the heart of SPC. They help us monitor process stability over time and detect when the process is out of control. We'll create charts for both the subgroup means (X-bar chart) and standard deviations (S chart).
 
 
-```python
+``` python
 labels = pd.DataFrame({
   'time': [stat_s['time'].max()]*3,
   'type': ['xbbar','upper','lower'],
@@ -271,7 +271,7 @@ Produce the same process overview chart for `pH`.
 <details><summary>**[View Answer!]**</summary>
 
 
-```python
+``` python
 def ggprocess(x, y, xlab='Subgroup', ylab='Metric'):
   import pandas as pd
   from plotnine import ggplot, aes, geom_hline, geom_jitter, geom_boxplot, labs
@@ -300,7 +300,7 @@ ph_chart.save('images/05_ph_chart.png', width=8, height=6, dpi=100)
 When we have individual measurements rather than subgroups, we use moving range charts. The moving range is the absolute difference between consecutive measurements, which helps us estimate process variation when we can't calculate within-subgroup statistics.
 
 
-```python
+``` python
 indiv = water.iloc[[0,20,40,60,80,100,120,140]]
 mr = (indiv['temp'].diff().abs().dropna())
 mrbar = mr.mean()
@@ -313,7 +313,7 @@ lower = 0
 ```
 
 
-```python
+``` python
 istat = pd.DataFrame({'time': indiv['time'].iloc[1:], 'mr': mr, 'mrbar': mrbar, 'upper': upper, 'lower': lower})
 mr_chart = (ggplot(istat, aes(x='time', y='mr')) +
   geom_ribbon(aes(ymin='lower', ymax='upper'), fill='steelblue', alpha=0.25) +

@@ -15,13 +15,13 @@ This workshop extends our toolkit developed earlier, discussing Process Capabili
 We'll be using `pandas` for data manipulation, `plotnine` for visualization, `scipy` for statistical functions, and custom functions from the `functions_distributions` module.
 
 
-```python
+``` python
 # Remember to install these packages using a terminal, if you haven't already!
 !pip install pandas plotnine scipy
 ```
 
 
-```python
+``` python
 # Load our packages
 import pandas as pd
 from plotnine import *
@@ -35,7 +35,7 @@ This workshop uses custom functions from the `functions_distributions.py` module
 
 **Add the functions directory to your Python path**
 
-```python
+``` python
 import sys
 import os
 # Add the functions directory to Python path
@@ -45,7 +45,7 @@ sys.path.append('functions')  # or path to wherever you placed the functions fol
 Once you have the functions available, you can import them:
 
 
-```python
+``` python
 from functions_distributions import *
 ```
 
@@ -56,7 +56,7 @@ We'll be continuing to analyze our quality control data from a local hot springs
 Let's read in our data from `workshops/onsen.csv`!
 
 
-```python
+``` python
 # Let's import our samples of bathwater over time!
 water = pd.read_csv('workshops/onsen.csv')
 # Take a peek!
@@ -70,7 +70,7 @@ print(water.head(3))
 ## 2   3     1  45.5  6.2     0.9
 ```
 
-```python
+``` python
 print(f"Dataset shape: {water.shape}")
 ```
 
@@ -78,7 +78,7 @@ print(f"Dataset shape: {water.shape}")
 ## Dataset shape: (160, 5)
 ```
 
-```python
+``` python
 print(f"Columns: {list(water.columns)}")
 ```
 
@@ -99,7 +99,7 @@ Our dataset contains:
 Let's get a visual overview of our temperature data across time to understand the process:
 
 
-```python
+``` python
 # Create a process overview plot
 g = (ggplot(water, aes(x='time', y='temp')) +
      geom_point(alpha=0.6, size=2) +
@@ -150,7 +150,7 @@ These statistics rely on some combination of (1) the mean $\mu$, (2) the standar
 Let's do ourselves a favor and write up some simple functions for these.
 
 
-```python
+``` python
 def cp(sigma_s, upper, lower):
   """Capability index for centered, stable processes"""
   return abs(upper - lower) / (6*sigma_s)
@@ -187,7 +187,7 @@ def ppk(mu, sigma_t, lower=None, upper=None):
 Now we need to calculate the key statistics that feed into our capability indices. We'll calculate both within-subgroup statistics (for capability indices) and total statistics (for performance indices).
 
 
-```python
+``` python
 stat_s = (water.groupby('time').apply(lambda d: pd.Series({
   'xbar': d['temp'].mean(),
   's': d['temp'].std(),
@@ -224,7 +224,7 @@ These statistics give us:
 Now let's calculate the capability and performance indices. We'll use specification limits for "Extra Hot Springs" (42-50°C) as our target range.
 
 
-```python
+``` python
 limit_lower = 42; limit_upper = 50
 estimate_cp = cp(stat['sigma_s'][0], upper=limit_upper, lower=limit_lower)
 estimate_pp = pp(stat['sigma_t'][0], upper=limit_upper, lower=limit_lower)
@@ -235,7 +235,7 @@ print(f"Cp (capability): {estimate_cp:.3f}")
 ## Cp (capability): 0.671
 ```
 
-```python
+``` python
 print(f"Pp (performance): {estimate_pp:.3f}")
 ```
 
@@ -248,7 +248,7 @@ print(f"Pp (performance): {estimate_pp:.3f}")
 Now let's calculate the uncentered indices that account for process centering:
 
 
-```python
+``` python
 estimate_cpk = cpk(mu=stat['xbbar'][0], sigma_s=stat['sigma_s'][0], lower=limit_lower, upper=limit_upper)
 estimate_ppk = ppk(mu=stat['xbbar'][0], sigma_t=stat['sigma_t'][0], lower=limit_lower, upper=limit_upper)
 print(f"Cpk (capability, uncentered): {estimate_cpk:.3f}")
@@ -258,7 +258,7 @@ print(f"Cpk (capability, uncentered): {estimate_cpk:.3f}")
 ## Cpk (capability, uncentered): 0.478
 ```
 
-```python
+``` python
 print(f"Ppk (performance, uncentered): {estimate_ppk:.3f}")
 ```
 
@@ -271,7 +271,7 @@ print(f"Ppk (performance, uncentered): {estimate_ppk:.3f}")
 There's an interesting mathematical relationship between these indices:
 
 
-```python
+``` python
 equality_check = (estimate_pp * estimate_cpk) == (estimate_ppk * estimate_cp)
 print(f"Pp × Cpk = Ppk × Cp: {equality_check}")
 ```
@@ -280,7 +280,7 @@ print(f"Pp × Cpk = Ppk × Cp: {equality_check}")
 ## Pp × Cpk = Ppk × Cp: True
 ```
 
-```python
+``` python
 print(f"Pp × Cpk = {estimate_pp * estimate_cpk:.6f}")
 ```
 
@@ -288,7 +288,7 @@ print(f"Pp × Cpk = {estimate_pp * estimate_cpk:.6f}")
 ## Pp × Cpk = 0.320554
 ```
 
-```python
+``` python
 print(f"Ppk × Cp = {estimate_ppk * estimate_cp:.6f}")
 ```
 
@@ -303,7 +303,7 @@ Now let's construct confidence intervals for our capability indices using the no
 ### Cp Confidence Interval
 
 
-```python
+``` python
 import math
 v_short = stat['k'][0]*(stat['n_w'][0] - 1)
 se_cp = estimate_cp * math.sqrt(1 / (2*v_short))
@@ -316,7 +316,7 @@ print(f"Cp estimate: {estimate_cp:.3f}")
 ## Cp estimate: 0.671
 ```
 
-```python
+``` python
 print(f"Standard error: {se_cp:.3f}")
 ```
 
@@ -324,7 +324,7 @@ print(f"Standard error: {se_cp:.3f}")
 ## Standard error: 0.039
 ```
 
-```python
+``` python
 print(f"95% Confidence interval: ({ci_cp[0]:.3f}, {ci_cp[1]:.3f})")
 ```
 
@@ -335,7 +335,7 @@ print(f"95% Confidence interval: ({ci_cp[0]:.3f}, {ci_cp[1]:.3f})")
 ### Cpk Confidence Interval
 
 
-```python
+``` python
 se_cpk = estimate_cpk * math.sqrt(1 / (2*v_short) + 1 / (9*stat['n'][0]*(estimate_cpk**2)))
 ci_cpk = (estimate_cpk - z*se_cpk, estimate_cpk + z*se_cpk)
 print(f"Cpk estimate: {estimate_cpk:.3f}")
@@ -345,7 +345,7 @@ print(f"Cpk estimate: {estimate_cpk:.3f}")
 ## Cpk estimate: 0.478
 ```
 
-```python
+``` python
 print(f"Standard error: {se_cpk:.3f}")
 ```
 
@@ -353,7 +353,7 @@ print(f"Standard error: {se_cpk:.3f}")
 ## Standard error: 0.038
 ```
 
-```python
+``` python
 print(f"95% Confidence interval: ({ci_cpk[0]:.3f}, {ci_cpk[1]:.3f})")
 ```
 
@@ -364,7 +364,7 @@ print(f"95% Confidence interval: ({ci_cpk[0]:.3f}, {ci_cpk[1]:.3f})")
 ### Pp and Ppk Confidence Intervals
 
 
-```python
+``` python
 v_total = stat['n_w'][0]*stat['k'][0] - 1
 se_pp = estimate_pp * math.sqrt(1 / (2*v_total))
 ci_pp = (estimate_pp - z*se_pp, estimate_pp + z*se_pp)
@@ -375,7 +375,7 @@ print(f"Pp estimate: {estimate_pp:.3f}")
 ## Pp estimate: 0.670
 ```
 
-```python
+``` python
 print(f"Standard error: {se_pp:.3f}")
 ```
 
@@ -383,7 +383,7 @@ print(f"Standard error: {se_pp:.3f}")
 ## Standard error: 0.038
 ```
 
-```python
+``` python
 print(f"95% Confidence interval: ({ci_pp[0]:.3f}, {ci_pp[1]:.3f})")
 ```
 
@@ -391,7 +391,7 @@ print(f"95% Confidence interval: ({ci_pp[0]:.3f}, {ci_pp[1]:.3f})")
 ## 95% Confidence interval: (0.597, 0.744)
 ```
 
-```python
+``` python
 se_ppk = estimate_ppk * math.sqrt(1 / (2*v_total) + 1 / (9*stat['n'][0]*(estimate_ppk**2)))
 ci_ppk = (estimate_ppk - z*se_ppk, estimate_ppk + z*se_ppk)
 print(f"\nPpk estimate: {estimate_ppk:.3f}")
@@ -402,7 +402,7 @@ print(f"\nPpk estimate: {estimate_ppk:.3f}")
 ## Ppk estimate: 0.478
 ```
 
-```python
+``` python
 print(f"Standard error: {se_ppk:.3f}")
 ```
 
@@ -410,7 +410,7 @@ print(f"Standard error: {se_ppk:.3f}")
 ## Standard error: 0.038
 ```
 
-```python
+``` python
 print(f"95% Confidence interval: ({ci_ppk[0]:.3f}, {ci_ppk[1]:.3f})")
 ```
 
@@ -423,7 +423,7 @@ print(f"95% Confidence interval: ({ci_ppk[0]:.3f}, {ci_ppk[1]:.3f})")
 Let's create a visualization to show our Cp estimate with its confidence interval and important benchmark lines:
 
 
-```python
+``` python
 # Create a DataFrame for plotting
 bands_data = pd.DataFrame({
     'index': ['Cp Index'],
@@ -455,7 +455,7 @@ It's not the most exciting plot, but it does show very clearly that the value of
 The normal approximation method assumes certain distributional properties. As an alternative, we can use bootstrapping to estimate confidence intervals by resampling our data. This method is more robust to distributional assumptions.
 
 
-```python
+``` python
 import numpy as np
 reps = 500
 def boot_cp(seed=1):
@@ -484,7 +484,7 @@ boot_cp()
 So cool! We've now generated the sampling distributions for our bootstrap statistics! Let's visualize the raw distributions to see those wicked cool bootstrapped sampling distributions:
 
 
-```python
+``` python
 # Create a more comprehensive bootstrap function that returns all statistics
 def boot_comprehensive(seed=1):
     np.random.seed(seed)
@@ -543,7 +543,7 @@ g.save('images/06_bootstrap_distributions.png', width=10, height=6, dpi=100)
 Now let's take our bootstrapped $C_{p}$ statistics and estimate a confidence interval and standard error for this sampling distribution. Because we have the *entire distribution*, we can extract values at specific percentiles in the distribution using `quantile()`, rather than theoretical distributions.
 
 
-```python
+``` python
 print("Bootstrap Results for Cp:")
 ```
 
@@ -551,7 +551,7 @@ print("Bootstrap Results for Cp:")
 ## Bootstrap Results for Cp:
 ```
 
-```python
+``` python
 print(f"Original estimate: {bootstrap_results['cp'][0]:.3f}")
 ```
 
@@ -559,7 +559,7 @@ print(f"Original estimate: {bootstrap_results['cp'][0]:.3f}")
 ## Original estimate: 0.671
 ```
 
-```python
+``` python
 print(f"Bootstrap 95% CI: ({bootstrap_results['lower'][0]:.3f}, {bootstrap_results['upper'][0]:.3f})")
 ```
 
@@ -567,7 +567,7 @@ print(f"Bootstrap 95% CI: ({bootstrap_results['lower'][0]:.3f}, {bootstrap_resul
 ## Bootstrap 95% CI: (0.620, 0.786)
 ```
 
-```python
+``` python
 print(f"Bootstrap standard error: {bootstrap_results['se'][0]:.3f}")
 ```
 

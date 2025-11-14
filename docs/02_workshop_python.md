@@ -9,12 +9,12 @@ This tutorial introduces distributions and descriptive statistics in Python usin
 ### Install and Import Packages {-}
 
 
-```python
+``` python
 %pip install pandas plotnine scipy
 ```
 
 
-```python
+``` python
 import os, sys
 import pandas as p
 from plotnine import *
@@ -25,7 +25,7 @@ from functions_distributions import *
 ## Our Data
 
 
-```python
+``` python
 sw = p.Series([4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4])
 sw
 ```
@@ -49,7 +49,7 @@ sw
 ### Length
 
 
-```python
+``` python
 len(sw)
 ```
 
@@ -62,27 +62,27 @@ len(sw)
 ### Mean and Median
 
 
-```python
+``` python
 sw.mean()
 ```
 
 ```
-## np.float64(5.35)
+## 5.35
 ```
 
 
-```python
+``` python
 sw.median()
 ```
 
 ```
-## np.float64(5.25)
+## 5.25
 ```
 
 ### Mode
 
 
-```python
+``` python
 sw.mode()
 ```
 
@@ -96,28 +96,28 @@ sw.mode()
 ### Percentiles
 
 
-```python
+``` python
 sw.quantile(q=0)  # min
 ```
 
 ```
-## np.float64(4.0)
+## 4.0
 ```
 
-```python
+``` python
 sw.quantile(q=1)  # max
 ```
 
 ```
-## np.float64(6.5)
+## 6.5
 ```
 
-```python
+``` python
 sw.quantile(q=.75)
 ```
 
 ```
-## np.float64(5.875)
+## 5.875
 ```
 
 ## Spread (2)
@@ -125,7 +125,7 @@ sw.quantile(q=.75)
 ### Standard Deviation, Variance, CV, SE
 
 
-```python
+``` python
 # Manual SD (sample)
 x = ((sw - sw.mean())**2).sum()
 x = x / (len(sw) - 1)
@@ -133,50 +133,50 @@ x**0.5
 ```
 
 ```
-## np.float64(0.8181958472422385)
+## 0.8181958472422385
 ```
 
 
-```python
+``` python
 sw.std()
 ```
 
 ```
-## np.float64(0.8181958472422385)
+## 0.8181958472422385
 ```
 
-```python
+``` python
 sw.var()
 ```
 
 ```
-## np.float64(0.6694444444444445)
+## 0.6694444444444444
 ```
 
-```python
+``` python
 sw.std()**2
 ```
 
 ```
-## np.float64(0.6694444444444444)
+## 0.6694444444444444
 ```
 
-```python
+``` python
 sw.std() / sw.mean()  # CV
 ```
 
 ```
-## np.float64(0.15293380322284833)
+## 0.15293380322284833
 ```
 
 
-```python
+``` python
 se = sw.std() / (len(sw)**0.5)
 se
 ```
 
 ```
-## np.float64(0.25873624493766706)
+## 0.25873624493766706
 ```
 
 ## Shape
@@ -184,7 +184,7 @@ se
 ### Skewness and Kurtosis
 
 
-```python
+``` python
 diff = sw - sw.mean()
 n = len(sw) - 1
 sigma = sw.std()
@@ -192,39 +192,39 @@ sum(diff**3) / (n * sigma**3)
 ```
 
 ```
-## np.float64(0.024342597820882206)
+## 0.024342597820882206
 ```
 
-```python
+``` python
 sum(diff**4) / (n * sigma**4)
 ```
 
 ```
-## np.float64(1.8758509667533272)
+## 1.8758509667533272
 ```
 
 
-```python
+``` python
 # Using helper functions mirroring R
 skewness(sw)
 ```
 
 ```
-## np.float64(0.024342597820882206)
+## 0.024342597820882206
 ```
 
-```python
+``` python
 kurtosis(sw)
 ```
 
 ```
-## np.float64(1.8758509667533272)
+## 1.8758509667533272
 ```
 
 ## Finding Parameters for Your Distributions
 
 
-```python
+``` python
 sw = p.Series([4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4])
 mymean = sw.mean()
 mysd = sw.std()
@@ -235,44 +235,44 @@ mysd = sw.std()
 ### Normal
 
 
-```python
+``` python
 mynorm = rnorm(n=1000, mean=mymean, sd=mysd)
 hist(mynorm)
 ```
 
 ```
-## <plotnine.ggplot.ggplot object at 0x000002382A6B1EB0>
+## <plotnine.ggplot.ggplot object at 0x16ed3d580>
 ```
 
 ### Poisson
 
 
-```python
+``` python
 mypois = rpois(n=1000, mu=mymean)
 hist(mypois)
 ```
 
 ```
-## <plotnine.ggplot.ggplot object at 0x000002382AB1ECF0>
+## <plotnine.ggplot.ggplot object at 0x308f8d8e0>
 ```
 
 ### Exponential
 
 
-```python
+``` python
 myrate_e = 1 / sw.mean()
 myexp = rexp(n=1000, rate=myrate_e)
 hist(myexp)
 ```
 
 ```
-## <plotnine.ggplot.ggplot object at 0x000002382A6B1EB0>
+## <plotnine.ggplot.ggplot object at 0x30b79a420>
 ```
 
 ### Gamma
 
 
-```python
+``` python
 myshape = sw.mean()**2 / sw.var()
 myrate = 1 / (sw.var() / sw.mean())
 mygamma = rgamma(n=1000, shape=myshape, rate=myrate)
@@ -280,13 +280,13 @@ hist(mygamma)
 ```
 
 ```
-## <plotnine.ggplot.ggplot object at 0x000002382AB30CE0>
+## <plotnine.ggplot.ggplot object at 0x30b7b0d70>
 ```
 
 ### Weibull
 
 
-```python
+``` python
 from scipy import stats as fitdistr
 myshape_w, loc, myscale_w = fitdistr.weibull_min.fit(sw, floc=0)
 myweibull = rweibull(n=1000, shape=myshape_w, scale=myscale_w)
@@ -294,13 +294,13 @@ hist(myweibull)
 ```
 
 ```
-## <plotnine.ggplot.ggplot object at 0x000002382A5E32C0>
+## <plotnine.ggplot.ggplot object at 0x30abb1040>
 ```
 
 ## Comparing Distributions
 
 
-```python
+``` python
 mysim = p.concat([
   p.DataFrame({'x': sw, 'type': "Observed"}),
   p.DataFrame({'x': mynorm, 'type': "Normal"}),
@@ -317,16 +317,16 @@ g1
 ```
 
 ```
-## <plotnine.ggplot.ggplot object at 0x000002382AB1F680>
+## <plotnine.ggplot.ggplot object at 0x30676d8b0>
 ```
 
 
-```python
+``` python
 g1 + xlim(0,10)
 ```
 
 ```
-## <plotnine.ggplot.ggplot object at 0x000002382AB0B2C0>
+## <plotnine.ggplot.ggplot object at 0x30b74bc20>
 ```
 
 ---
@@ -340,14 +340,14 @@ Simulate 1000 draws from a normal distribution using your `sw` mean and standard
 <details><summary>**[View Answer!]**</summary>
 
 
-```python
+``` python
 mymean = sw.mean(); mysd = sw.std()
 m = rnorm(1000, mean=mymean, sd=mysd)
 [m.mean(), m.std()]
 ```
 
 ```
-## [np.float64(5.3334619491997195), np.float64(0.828318086068825)]
+## [5.31369576645973, 0.8235176440088696]
 ```
 
 </details>

@@ -5,38 +5,54 @@ knitr::opts_chunk$set(cache = FALSE, message = FALSE, warning = FALSE)
 
 # Fix graphics API version mismatch issues by avoiding ragg
 knitr::opts_chunk$set(dev = "png")
+dir.create("figs", showWarnings = FALSE)
 library(knitr)
 library(kableExtra)
 ## Configure reticulate to use existing Python
 library(reticulate)
 
 # Use your specific Python installation
-python_path <- "C:/Python312/python.exe"
-if (file.exists(python_path)) {
-  use_python(python_path, required = FALSE)
-  cat("Using Python at:", python_path, "\n")
-} else {
-  # Fallback to system Python
-  system_python <- Sys.which("python")
-  if (system_python != "") {
-    use_python(system_python, required = FALSE)
-    cat("Using system Python at:", system_python, "\n")
-  } else {
-    cat("Warning: No Python installation found\n")
+# Try common Python paths (uncomment/modify for your system)
+python_path <- NULL
+
+# Try macOS common paths first
+mac_paths <- c(
+  "/opt/anaconda3/bin/python3",
+  "/usr/local/bin/python3",
+  "/opt/homebrew/bin/python3"
+)
+
+for (path in mac_paths) {
+  if (file.exists(path)) {
+    python_path <- path
+    break
   }
 }
 
-# Disable automatic environment creation and downloads
-Sys.unsetenv("RETICULATE_PYTHON_ENV")
-Sys.unsetenv("RETICULATE_PYTHON") 
-Sys.unsetenv("RETICULATE_AUTOCONFIGURE")
-Sys.unsetenv("RETICULATE_PYTHON_FALLBACK")
+# If no common path found, try system Python
+if (is.null(python_path)) {
+  system_python <- Sys.which("python3")
+  if (system_python != "" && file.exists(system_python)) {
+    python_path <- system_python
+  }
+}
 
-# Set the Python path explicitly
-Sys.setenv(RETICULATE_PYTHON = python_path)
+# Configure Python if found, otherwise let reticulate auto-discover
+if (!is.null(python_path) && file.exists(python_path)) {
+  use_python(python_path, required = FALSE)
+  Sys.setenv(RETICULATE_PYTHON = python_path)
+  cat("Using Python at:", python_path, "\n")
+} else {
+  cat("No specific Python path found, letting reticulate auto-discover\n")
+  # Don't set invalid paths - let reticulate handle it
+}
 
 # Prevent reticulate from downloading Python
 options(reticulate.conda_binary = NULL)
+
+# Create folder to store the figures created by plotnine and matplotlib
+dir.create("plotnine_figures", showWarnings = FALSE)
+dir.create("matplotlib_figures", showWarnings = FALSE)
 ```
 
 Welcome to Posit Cloud! You made it! This document will introduce you to how to start coding in Python using Posit Cloud. We will use the Python language frequently to conduct analyses and visualization.
@@ -314,7 +330,7 @@ How would you make your own DataFrame? Make a DataFrame with 3 columns and 4 row
 
 <details><summary>**[View Answer!]**</summary>
 
-```{python chunk_mayhem_py, eval=FALSE}
+```{python chunk_mayhem_py, eval=FALSE, echo=TRUE}
 import pandas as p
 mayhem = p.DataFrame({
   'dogs': ["Mocha", "Domino", "Latte", "Dot"],
@@ -410,7 +426,7 @@ knitr::kable(data.frame(
 
 <details><summary>**[View Answer!]**</summary>
 
-```{python chunk_lc_jp_1_py, eval=FALSE}
+```{python chunk_lc_jp_1_py, eval=FALSE, echo=TRUE}
 import pandas as p
 jp = p.DataFrame({
   'town': ["Kuji South", "Fudai", "Taro", "Miyako", "Yamada", "Ohtsuchi", "Tohni", 
@@ -447,15 +463,18 @@ jp.wave_m.std() - jp.seawall_m.std()
 Use `pip` to install packages. Do this once per environment.
 
 ```{python chunk_packages_install_py, eval=FALSE}
+import ensurepip
+ensurepip.bootstrap()
 %pip install pandas plotnine dfply
 ```
 
 ### Importing packages
 
-```{python chunk_packages_import_py, eval=FALSE}
+```{python chunk_packages_import_py, eval}
 import pandas as p
 from plotnine import *
 from dfply import *
+import matplotlib.pyplot as plt
 ```
 
 <br>
@@ -477,38 +496,76 @@ sw >> summarize(mean_value = mean(X.height))
 
 ## Visualizing Data with Histograms
 
-We can visualize with `matplotlib`/`pandas`, or use `plotnine` (a Python port of `R`'s `ggplot2`) to develope detailed, customized visuals.
+We can visualize with `matplotlib`/`pandas`, or use `plotnine` (a Python port of `R`'s `ggplot2`) to develop detailed, customized visuals.
 
 ### pandas/matplotlib
 
-```{python chunk_allsw_py, eval=FALSE}
+```{python chunk_allsw_py, echo=TRUE}
 import pandas as p
+import matplotlib.pyplot as pltI 
 allsw = p.DataFrame({
   'height': [4, 4.5, 5, 5, 5.5, 5.5, 5.5, 6, 6, 6.5,
              4, 4, 4, 4, 4.5, 4.5, 4.5, 5, 5, 6,
              5.5, 6, 6.5, 6.5, 7, 7, 7, 7.5, 7.5, 8],
   'states': ["MA"]*10 + ["RI"]*10 + ["ME"]*10
 })
-allsw.height.hist()
+allsw.hist()
 ```
+```{python include=FALSE}
+# Save the plot
+plt.gcf().savefig("matplotlib_figures/allsw.png")
+```
+
+```{r echo=FALSE, out.width = "100%"}
+# Display
+knitr::include_graphics("matplotlib_figures/allsw.png")
+```
+
+<br>
+<br>
 
 ### `geom_histogram()` in `plotnine`
 
-```{python plot1_py, eval=FALSE}
+```{python plot1_py, echo=TRUE}
 from plotnine import *
-(ggplot(allsw, aes(x='height')) +
- geom_histogram(color="white", fill="steelblue", binwidth=0.5) +
- labs(x="Seawall Height", y="Frequency (# of cities)"))
+g = (ggplot(allsw, aes(x='height')) +
+  geom_histogram(color="white", fill="steelblue", binwidth=0.5) +
+  labs(x="Seawall Height", y="Frequency (# of cities)")
+)
+g
+```
+
+```{python include=FALSE}
+# Save the plot
+g.save(filename = "plotnine_figures/plot1_py.png")
+```
+
+
+```{r echo=FALSE, out.width = "100%"}
+# Display
+knitr::include_graphics("plotnine_figures/plot1_py.png")
 ```
 
 Facet by state:
 
-```{python plot2_py, eval=FALSE}
-(ggplot(allsw, aes(x='height')) +
+```{python plot2_py, echo=TRUE}
+g = (ggplot(allsw, aes(x='height')) +
  geom_histogram(color="white", fill="steelblue", binwidth=0.5) +
  labs(x="Seawall Height", y="Frequency (# of cities)") +
  facet_wrap('~states'))
+g
 ```
+
+```{python include=FALSE}
+# Save the plot
+g.save(filename = "plotnine_figures/plot2_py.png")
+```
+
+```{r echo=FALSE, out.width = "100%"}
+# Display
+knitr::include_graphics("plotnine_figures/plot2_py.png")
+```
+
 
 <br>
 <br>
@@ -523,11 +580,26 @@ Using a list named `sw`, draw a histogram of the seawall heights: 4.5, 5, 5.5, 5
 
 <details><summary>**[View Answer!]**</summary>
 
-```{python}
+```{python sw_hist_py, echo=TRUE}
 import pandas as p
 sw = [4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4]
-p.Series(sw).hist()
+g = p.Series(sw).hist()
+g
+
+# or you could do it like this!
+# hist(sw)
 ```
+
+```{python include=FALSE}
+# Save the plot
+plt.gcf().savefig("matplotlib_figures/sw_hist_py.png")
+```
+
+```{r echo=FALSE, out.width = "100%"}
+# Display
+knitr::include_graphics("matplotlib_figures/sw_hist_py.png")
+```
+
 
 </details>
 
@@ -541,13 +613,48 @@ Make a histogram of `jp['seawall_m']` from Learning Check 3 using (1) pandas and
 
 <details><summary>**[View Answer!]**</summary>
 
-```{python, eval=FALSE}
-jp.seawall_m.hist()
+```{python include=FALSE}
+import pandas as p
+jp = p.DataFrame({
+  'town': ["Kuji South", "Fudai", "Taro", "Miyako", "Yamada", "Ohtsuchi", "Tohni", 
+           "Yoshihama", "Hirota", "Karakuwa East", "Onagawa", "Souma", "Nakoso"],
+  'seawall_m': [12.0, 15.5, 13.7, 8.5, 6.6, 6.4, 11.8, 14.3, 6.5, 6.1, 5.8, 6.2, 6.2],
+  'wave_m': [14.5, 18.4, 16.3, 11.8, 10.9, 15.1, 21.0, 17.2, 18.3, 14.4, 18.0, 14.5, 7.7]
+})
 ```
 
-```{python, eval=FALSE}
-(ggplot(jp, aes(x='seawall_m')) + geom_histogram())
+```{python seawall_m_py, echo=TRUE}
+g = jp.seawall_m.hist()
+g
 ```
+
+```{python include=FALSE}
+# Save the plot
+plt.gcf().savefig("matplotlib_figures/seawall_m_py.png")
+```
+
+```{r echo=FALSE, out.width = "100%"}
+# Display
+knitr::include_graphics("matplotlib_figures/seawall_m_py.png")
+```
+
+```{python plot3_py, echo=TRUE}
+g = (ggplot(jp, aes(x='seawall_m')) + 
+# adjust binwidth for clearer visualization
+geom_histogram(binwidth=0.5))
+g
+```
+
+```{python include=FALSE}
+# Save the plot
+g.save("plotnine_figures/plot3_py.png")
+```
+
+```{r echo=FALSE, out.width = "100%"}
+# Display
+knitr::include_graphics("plotnine_figures/plot3_py.png")
+```
+
 
 </details>
 

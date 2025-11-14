@@ -15,7 +15,7 @@ Analysis (also known as Survival Analysis) in `R`.
 ### Packages {-}
 
 
-```r
+``` r
 library(tidyverse)
 library(broom)
 library(DiagrammeR)
@@ -33,7 +33,7 @@ In Reliability/Survival Analysis, our quantity of interest is the amount of time
 All technologies, operations, etc. have a 'lifetime distribution'. If you took a sample of, say, cars in New York, you could measure *how long each car functioned properly* (its life-span), and build a *Lifetime Distribution* from that vector.
 
 
-```r
+``` r
 # Let's imagine a normally distributed lifespan for these cars...
 lifespan <- rnorm(100, mean = 5, sd = 1)
 ```
@@ -42,7 +42,7 @@ The *lifetime distribution* is the probability density function telling
 us how *frequently* each potential lifespan is expected to occur.
 
 
-```r
+``` r
 # We can build ourself the PDF of our lifetime distribution here
 dlife <- lifespan %>% density() %>% tidy() %>% approxfun()
 ```
@@ -52,7 +52,7 @@ distribution tells us, for any time $t$, the *probability that a car
 will fail by time* $t$.
 
 
-```r
+``` r
 # And we can build the CDF here
 plife <- lifespan %>% density() %>% tidy() %>% 
   mutate(y = cumsum(y) / sum(y)) %>% approxfun()
@@ -60,8 +60,8 @@ plife <- lifespan %>% density() %>% tidy() %>%
 
 Having built these functions for our cars, we can generate the
 probability (PDF) and cumulative probability (CDF) of failure across our
-observed vector of car lifespans, from \~1.98
-to \~8.02.
+observed vector of car lifespans, from \~2.82
+to \~8.17.
 
 Reliability or Survival Analysis is concerned with *the probability*
 that a unit (our car) will still be operating by a specific time $t$,
@@ -70,7 +70,7 @@ in time. So let's also calculate
 `1 - cumulative probability of failure`.
 
 
-```r
+``` r
 mycars <- tibble(
   time = seq(min(lifespan), max(lifespan), by = 0.1),
   # Get probability of failing at time time
@@ -85,7 +85,7 @@ mycars <- tibble(
 Let's plot our three curves!
 
 
-```r
+``` r
 ggplot() +
   # Make one area plot for Cumulative Probability (CDF)
   geom_area(data = mycars, 
@@ -135,7 +135,7 @@ cool is, we can tell R to make a matching function `fplane()`, using the
 `function()` command.
 
 
-```r
+``` r
 # For any value `t` we supply, do the following to that `t` value.
 fplane = function(t){ 1 - exp( -1*(t / 750)) }
 ```
@@ -149,7 +149,7 @@ questions.
     `t = 5000` days?
 
 
-```r
+``` r
 fplane(t = c(600, 5000))
 ```
 
@@ -165,7 +165,7 @@ Looks like 55% will fail by `600` days, and 99% fail by `5000` days.
     `5000` days?
 
 
-```r
+``` r
 fplane(t = 5000) - fplane(t = 600)
 ```
 
@@ -180,7 +180,7 @@ fplane(t = 5000) - fplane(t = 600)
 3.  What percentage of new propellers will work more than `6000` days?
 
 
-```r
+``` r
 1 - fplane(t = 6000)
 ```
 
@@ -196,7 +196,7 @@ fplane(t = 5000) - fplane(t = 600)
     years?
 
 
-```r
+``` r
 # Given a sample of 300 propellers,
 n <- 300
 # We project n * fplane(t = 362.25) will fail in 1 year (365.25 days)
@@ -208,7 +208,7 @@ n*fplane(t = 365.25)
 ## [1] 115.6599
 ```
 
-```r
+``` r
 # We also prject that n * fplane(t = 3 * 362.25) will fail in 3 years
 # that's ~230 propellers!
 n*fplane(t = 3*365.25)
@@ -243,7 +243,7 @@ Using the information above, we can calculate the mean time to fail `m`,
 the rate of how many days it takes for an average unit to fail.
 
 
-```r
+``` r
 days <- 500
 units <- 5
 m <- days / units
@@ -261,7 +261,7 @@ this case, is our (catastrophic) failure function $f(t)$!
 $$ CDF(days) = Explode(days) = 1 - e^{-(days \times \frac{1 \ unit}{100 \ days})} = 1 - e^{-0.01 \times days} $$
 
 
-```r
+``` r
 fexplode = function(days){ 1 - exp(-1*days*0.01) }
 ```
 
@@ -273,7 +273,7 @@ Let's answer our questions!
 What percentage of phone are expected to survive 6 months?
 
 
-```r
+``` r
 # What percent
 1 - fexplode(365.25 / 2)
 ```
@@ -285,7 +285,7 @@ What percentage of phone are expected to survive 6 months?
 What percentage of phone are expected to survive 1 year?
 
 
-```r
+``` r
 1 - fexplode(365.25)
 ```
 
@@ -318,7 +318,7 @@ For example, there's a 50% chance that 1 coffee cup breaks at local coffeeshop *
 while the relative frequency (probability) that a cup will break is \$ \lambda = \frac{1 \ cup}{360 \ days}\$.
 
 
-```r
+``` r
 fcup = function(days){ 1 - exp( -1*(days/360))}
 # So the probability that 1 breaks within 100 days is XX percent
 fcup(100)
@@ -332,7 +332,7 @@ And let's write out a reliability function too, based on our function
 for the failure function.
 
 
-```r
+``` r
 # Notice how we can reference an earlier function fcup in our later function? Always have to define functions in order.
 rcup = function(days){ 1 - fcup(days) }
 # So the probability that 1 *doesn't* break within 100 days is XX perecent
@@ -346,7 +346,7 @@ rcup(100)
 But the probability that *two* break within 100 days is...
 
 
-```r
+``` r
 fcup(100) * fcup(100)
 ```
 
@@ -357,7 +357,7 @@ fcup(100) * fcup(100)
 And the probability that 5 break within 100 days is... very small!
 
 
-```r
+``` r
 fcup(100)^5
 ```
 
@@ -374,7 +374,7 @@ So, if *Coffee Please!* buys 2 new cups for their store, the probability
 that at least 1 unit breaks within a year is...
 
 
-```r
+``` r
 1 - rcup(days = 365.25)^2
 ```
 
@@ -386,7 +386,7 @@ While if they buy 5 new cups for their store, the chance at least 1 cup
 breaks within a year is...
 
 
-```r
+``` r
 1 - rcup(days = 365.25)^5
 ```
 
@@ -465,7 +465,7 @@ intact for 5 years, despite being dropped numerous times by patrons.
 breaking to date.
 
 
-```r
+``` r
 # we call this the Hazard Rate Z
 zcup = function(days, plus = 1){ 
   ( fcup(days + plus) - fcup(days)  )  / (plus * rcup(days) )
@@ -481,7 +481,7 @@ zcup = function(days, plus = 1){
     but the cumulative hazard rate only increases or stays constant.
 
 
-```r
+``` r
 hcup = function(days){ -1*log( rcup(days) ) }
 # This captures the accumulative probability of a hazard (failure) occurring given the number of days past.
 hcup(100)
@@ -499,7 +499,7 @@ provide us between times $t_{a} \to t_{z}$. We'll call this the Average
 Failure Rate $AFR(T)$.
 
 
-```r
+``` r
 afrcup = function(t1,t2){ (hcup(t2) - hcup(t1) ) / (t2 - t1)}
 afrcup(0, 5)
 ```
@@ -508,7 +508,7 @@ afrcup(0, 5)
 ## [1] 0.002777778
 ```
 
-```r
+``` r
 # Or write it as....
 afrcup = function(t1,t2){ (log(rcup(t1)) - log(rcup(t2)) ) / (t2 - t1)}
 afrcup(0, 5)
@@ -518,7 +518,7 @@ afrcup(0, 5)
 ## [1] 0.002777778
 ```
 
-```r
+``` r
 # And if we're going from 0 to time t,
 # it simplifies to...
 afrcup = function(days){ hcup(days) / days }
@@ -529,7 +529,7 @@ afrcup(5)
 ## [1] 0.002777778
 ```
 
-```r
+``` r
 # or to this
 afrcup = function(days){ -1*log(rcup(days)) / days }
 afrcup(5)
@@ -544,7 +544,7 @@ $AFR = F(t) / T$. This means that
 $F(t) = 1 - e^{-T \times AFR(T)} \approx T \times AFR(T) \ \ when \  F(T) < 0.10$.
 
 
-```r
+``` r
 afrcup = function(days){ fcup(days) / days }
 afrcup(5)
 ```
@@ -553,7 +553,7 @@ afrcup(5)
 ## [1] 0.002758577
 ```
 
-```r
+``` r
 # and this is approximately....
 ```
 
@@ -578,7 +578,7 @@ them into $\%/K$ and $PPM/K$.
 First, let's write the failure function `f(t)`.
 
 
-```r
+``` r
 # Write failure rate
 f = function(t){ 1 - exp(-(t/2000)^0.5) }
 ```
@@ -586,7 +586,7 @@ f = function(t){ 1 - exp(-(t/2000)^0.5) }
 Second, let's write the hazard rate `z(t)`, for a 1 unit change in `t`.
 
 
-```r
+``` r
 # Write hazard rate
 z = function(t, change = 1){ 
   # Often I like to break up my functions into multiple lines;
@@ -606,7 +606,7 @@ z = function(t, change = 1){
 Third, let's write the average hazard rate `afr(t1,t2)`.
 
 
-```r
+``` r
 afr = function(t1,t2){
   
   # Let's get the survival rate r(t)
@@ -631,7 +631,7 @@ Fourth, let's write some functions to convert our results into %/K and
 PPM/K, so we can be lazy! We'll call our functions `pk()` and `ppmk()`.
 
 
-```r
+``` r
 # % per 1000 hours
 pk = function(rate){ rate * 100 * 10^3 }
 
@@ -645,7 +645,7 @@ Let's compare our hazard rates when `t = 10`, per hour, in % per 1000
 hours, and in PPM per 1000 hours.
 
 
-```r
+``` r
 # Per hour... Ew. Not very readable.
 z(t = 10)
 ```
@@ -654,7 +654,7 @@ z(t = 10)
 ## [1] 0.003445358
 ```
 
-```r
+``` r
 # % per 1000 hours.... Wheee! Much more legible
 z(t = 10) %>% pk()
 ```
@@ -663,7 +663,7 @@ z(t = 10) %>% pk()
 ## [1] 344.5358
 ```
 
-```r
+``` r
 # PPM per 1000 hours.... Who! Big numbers!
 z(t = 10) %>% ppmk()
 ```
@@ -676,7 +676,7 @@ Finally, let's calculate the Average Failure Rate between 1000 and 10000
 hours, in %/K.
 
 
-```r
+``` r
 # Tada! Average Failure Rate from 1000 to 10000 hours, in % of units per 1000 hours
 afr(1000, 10000) %>% pk()
 ```
@@ -685,7 +685,7 @@ afr(1000, 10000) %>% pk()
 ## [1] 16.98846
 ```
 
-```r
+``` r
 # And in ppmk!
 afr(1000, 10000) %>% ppmk()
 ```
@@ -717,7 +717,7 @@ that product as having gone bad after XX days. She treats the record of
 ramen food poisonings as a sample of the lifespan of ramen products.
 
 
-```r
+``` r
 ramen <- c(163, 309, 215, 211, 246, 198, 281, 180, 317, 291, 
            238, 281, 215, 208, 212, 300, 231, 240, 285, 232, 
            252, 261, 310, 226, 282, 140, 208, 280, 237, 270, 
@@ -745,7 +745,7 @@ First, we take her ramen lifespan data, estimate the PDF with
 `framen()` below.
 
 
-```r
+``` r
 # Get failure function f(t) = CDF of ramen failure
 framen <- ramen %>% density() %>% tidy() %>%
   # Now compute CDF
@@ -756,7 +756,7 @@ framen <- ramen %>% density() %>% tidy() %>%
 Second, we calculate the reliability function `rramen()`.
 
 
-```r
+``` r
 # Get survival function r(t) = 1 - f(t)
 rramen <- function(days){ 1 - framen(days) }
 ```
@@ -766,7 +766,7 @@ below, by using the reliability function `rramen()` to make our hazard
 rates at time 1 (`h1`) and time 2 (`h2`).
 
 
-```r
+``` r
 # Get average failure rate from time 1 to time 2
 afrramen <- function(days1, days2){
   h1 <- -1*log(rramen(days1))
@@ -779,7 +779,7 @@ afrramen <- function(days1, days2){
     within 8 months (240 days)? Are the company's predictions accurate?
 
 
-```r
+``` r
 framen(240)
 ```
 
@@ -795,7 +795,7 @@ Yes! \~50% of packages will go bad within 8 months. Pretty accurate!
     months (240 days) to 1 year?
 
 
-```r
+``` r
 lambda <- afrramen(240, 365)
 # Check it!
 lambda
@@ -814,7 +814,7 @@ of \~`0.026` units per day.
     to 1 year?
 
 
-```r
+``` r
 # Calculate the inverse of lambda!
 m <- 1 / lambda
 # check it!
@@ -868,8 +868,8 @@ We can also visualize it below, where each labelled node is a component.
 <div class="figure">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-7c481e3aa4e87504e105" style="width:672px;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-7c481e3aa4e87504e105">{"x":{"diagram":"graph LR\n sstart(( ))\n send(( ))\n subgraph Series System\n 1\n 2\n 3\n end\n 1---2\n 2---3\n sstart---1\n 3---send"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-b8d9d95f566eda6a6a65" style="width:672px;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-b8d9d95f566eda6a6a65">{"x":{"diagram":"graph LR\n sstart(( ))\n send(( ))\n subgraph Series System\n 1\n 2\n 3\n end\n 1---2\n 2---3\n sstart---1\n 3---send"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:mermaid_series)Figure 6. Example Series System</p>
@@ -903,8 +903,8 @@ need them in `mermaid`.)
 <div class="figure">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-51589a8466f18418b844" style="width:100%;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-51589a8466f18418b844">{"x":{"diagram":"graph LR\n ostart(( ))\n oend(( ))\n subgraph Parallel System\n pstart(( ))\n 1\n 2\n 3\n pend(( ))\n pstart---1\n pstart---2\n pstart---3\n 1---pend\n 2---pend\n 3---pend\n end\n ostart---pstart\n pend---oend"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-ccb6a6f950c692a6062c" style="width:100%;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-ccb6a6f950c692a6062c">{"x":{"diagram":"graph LR\n ostart(( ))\n oend(( ))\n subgraph Parallel System\n pstart(( ))\n 1\n 2\n 3\n pend(( ))\n pstart---1\n pstart---2\n pstart---3\n 1---pend\n 2---pend\n 3---pend\n end\n ostart---pstart\n pend---oend"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:mermaid_parallel)Figure 7. Example Parallel System</p>
@@ -924,8 +924,8 @@ system.
 <div class="figure">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-cb53b92bc85735b49a3c" style="width:672px;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-cb53b92bc85735b49a3c">{"x":{"diagram":"graph LR\n subgraph Series System\n 1[1<br>R=0.80]\n 5[5<br>R=0.95]\n subgraph Parallel System\n pstart(( ))\n 2[2<br>R=0.98]\n 3[3<br>R=0.99]\n 4[4<br>R=0.90]\n pend(( ))\n pstart---2\n pstart---3\n pstart---4\n 2---pend\n 3---pend\n 4---pend\n end\n 1---pstart\n pend---5\n end"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-a379d69d1ad533254260" style="width:672px;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-a379d69d1ad533254260">{"x":{"diagram":"graph LR\n subgraph Series System\n 1[1<br>R=0.80]\n 5[5<br>R=0.95]\n subgraph Parallel System\n pstart(( ))\n 2[2<br>R=0.98]\n 3[3<br>R=0.99]\n 4[4<br>R=0.90]\n pend(( ))\n pstart---2\n pstart---3\n pstart---4\n 2---pend\n 3---pend\n 4---pend\n end\n 1---pstart\n pend---5\n end"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:nested1)Figure 8. Series System with Nested Parallel System</p>
@@ -944,8 +944,8 @@ In the Figure above, we calculate the reliability rate for the parallel system, 
 <div class="figure">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-22c842f19d0e93acb5e2" style="width:672px;height:75%;"></div>
-<script type="application/json" data-for="htmlwidget-22c842f19d0e93acb5e2">{"x":{"diagram":"graph LR\n subgraph Parallel System\n pbstart(( ))\n pbend(( ))\n subgraph Series System A\n 6[6<br>R=0.80]\n 7[7<br>R=0.90]\n end\n subgraph Series System B\n 8[8<br>R=0.95]\n 9[9<br>R=0.99]\n end\n pbstart---6\n 6---7\n 7---pbend\n pbstart---8\n 8---9\n 9---pbend\n end"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-091c7957035db497226b" style="width:672px;height:75%;"></div>
+<script type="application/json" data-for="htmlwidget-091c7957035db497226b">{"x":{"diagram":"graph LR\n subgraph Parallel System\n pbstart(( ))\n pbend(( ))\n subgraph Series System A\n 6[6<br>R=0.80]\n 7[7<br>R=0.90]\n end\n subgraph Series System B\n 8[8<br>R=0.95]\n 9[9<br>R=0.99]\n end\n pbstart---6\n 6---7\n 7---pbend\n pbstart---8\n 8---9\n 9---pbend\n end"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:nestedb)Figure 9. Parallel System with Nested Series Systems</p>
@@ -989,8 +989,8 @@ We can represent this in a system diagram below.
 <div class="figure">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-3a5f94de43d06cffd8a3" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-3a5f94de43d06cffd8a3">{"x":{"diagram":"graph LR\n subgraph Coffee Shop Series System\n a[Water]\n b[Coffee Grounds]\n c[Refrigerator]\n d[Dishwasher]\n e[Register]\n end\n a---b\n b---c\n c---d\n d---e"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-11f6b43ce6be7ffbbafa" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-11f6b43ce6be7ffbbafa">{"x":{"diagram":"graph LR\n subgraph Coffee Shop Series System\n a[Water]\n b[Coffee Grounds]\n c[Refrigerator]\n d[Dishwasher]\n e[Register]\n end\n a---b\n b---c\n c---d\n d---e"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:coffee_series)Figure 10. Example Series System in a Coffeeshop</p>
@@ -1000,7 +1000,7 @@ We can extract the average daily failure rate $lambda$ for each of these
 components.
 
 
-```r
+``` r
 # Water outage occrred 3 days in last 365 days
 lambda_water <- 3 / 365
 # Ran out of stock 5 days in last 365 days
@@ -1018,7 +1018,7 @@ failure function `f` and reliability function `r` for an exponential
 distribution.
 
 
-```r
+``` r
 # Write a reliability function
 r = function(t, lambda){ exp(-1*t*lambda)  }
 ```
@@ -1027,7 +1027,7 @@ And we can calculate the overall reliability of this coffeeshop's series
 system in 1 day by multiplying these reliability rates together.
 
 
-```r
+``` r
 r(1, lambda_water) * r(1, lambda_grounds) * r(1, lambda_refrigerator) * 
   r(1, lambda_dishwasher) * r(1, lambda_cash)
 ```
@@ -1058,7 +1058,7 @@ Let's say that...
 For 10 units, we calculated how many days post production they lasted till failure (`failure`) as well as how many days post production till they were replaced (`replace`). Using this, we can calculate the lag-time, or the time taken for `renewal`.
 
 
-```r
+``` r
 units <- tibble(
   id = 1:15,
   failure = c(10, 200, 250, 300, 350, 
@@ -1094,7 +1094,7 @@ unit to get replaced at time $b$, given that it failed at time $a$? Fortunately,
 First, let's make a function `f_fr()`, meaning the cumulative probability of *failure* given *replacement*. This should (probably) be the same probability of failure as usual, but we need to restart the clock after replacement, so we'll set the time as $time_{failure} - time_{replacement}$.
 
 
-```r
+``` r
 # Probability of failure given replacement
 f_fr = function(time, time_replacement){
   f(time - time_replacement)
@@ -1105,7 +1105,7 @@ Next, we'll use Bayes Rule to get the cumulative probability of
 *replacement given failure*, estimated in a function `fr_f()`.
 
 
-```r
+``` r
 # Probability of replacement given failure
 fr_f = function(time, time_replacement){
   # Estimate conditional probability of Failure given Replacement times Replacement
@@ -1121,7 +1121,7 @@ Finally, what do these functions actually look like? Let's simulate
 failure and replacement over time, in a dataset of `fakeunits`.
 
 
-```r
+``` r
 fakeunits <- tibble(
   # As time increases from 0 to 1100,
   time = seq(0, 1100, by = 1),

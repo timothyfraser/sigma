@@ -16,7 +16,7 @@ This workshop extends our toolkit developed in Workshop 9, discussing Process Ca
 We'll be using the `tidyverse` package for visualization, `viridis` for color palletes, `moments` for descriptive statistics, plus `ggpubr` for some add-on functions in `ggplot`.
 
 
-```r
+``` r
 library(tidyverse)
 library(viridis)
 # you'll probably need to install these packages!
@@ -30,7 +30,7 @@ We'll be continuing to analyze our quality control data from a local hot springs
 Let's read in our data from `workshops/onsen.csv`!
 
 
-```r
+``` r
 # Let's import our samples of bathwater over time!
 water = read_csv("workshops/onsen.csv")
 # Take a peek!
@@ -137,7 +137,7 @@ These statistics rely on some combination of (1) the mean $\mu$, (2) the standar
 Let's do ourselves a favor and write up some simple functions for these.
 
 
-```r
+``` r
 # Capability Index (for centered, normal data)
 cp = function(sigma_s, upper, lower){  abs(upper - lower) / (6*sigma_s)   }
 
@@ -194,7 +194,7 @@ How might we use these indices to describe our process data? For example, recall
 Let's start by calculating our quantities of interest.
 
 
-```r
+``` r
 stat = water %>%
   group_by(time) %>%
   summarize(
@@ -225,7 +225,7 @@ stat
 Our $C_{p}$ Capacity index says, assuming that the distribution is centered and stable, how many times wider are our limits than our approximate observed distribution ($6 \sigma_{short}$)?
 
 
-```r
+``` r
 mycp = cp(sigma_s = stat$sigma_s, lower = 42, upper = 80)
 
 # Check it!
@@ -244,7 +244,7 @@ Great! This says, our observed variation is many times (3.1887098 times) narrowe
 Our $P_{p}$ Process Performance Index asks, even if the distribution is not stable (meaning it varies not just due to common causes), how many times wider are our specification limits than our approximate observed distribution ($6 \sigma_{total}$)?
 
 
-```r
+``` r
 mypp = pp(sigma_t = stat$sigma_t, lower = 42, upper = 80)
 mypp
 ```
@@ -261,7 +261,7 @@ Much like before, the specification limit range remains quite bigger than the ob
 Our $C_{pk}$ Capacity index says, assuming the distribution is pretty stable across subgroups, how many times wider is (a) the distance from the tail of interest to the mean than (b) our approximate observed tail (3 sigma)? This always looks at the *shorter tail*.
 
 
-```r
+``` r
 mycpk = cpk(sigma_s = stat$sigma_s, mu = stat$xbbar, lower = 42, upper = 80)
 mycpk
 ```
@@ -273,7 +273,7 @@ mycpk
 If we only care about one of the tails, eg. the lower specification limit of 42, which is much closer than the upper limit of 80, we can just write the lower limit only.
 
 
-```r
+``` r
 cpk(sigma_s = stat$sigma_s, mu = stat$xbbar, lower = 42)
 ```
 
@@ -291,7 +291,7 @@ This says, our observed variation is much wider than the lower specification lim
 Our $P_{pk}$ process performance index says, even if the distribution is neither stable nor centered, how much wider is the observed variation $3 \sigma_{total}$ than the distance from the tail of interest to the mean? We use $\sigma_{total}$ here to account for instability (considerable variation between subgroups) and one-tailed testing to account for the uncentered distribution.
 
 
-```r
+``` r
 myppk = ppk(sigma_t = stat$sigma_t, mu = stat$xbbar, lower = 42, upper = 80)
 myppk
 ```
@@ -307,7 +307,7 @@ A final reason why these quantities are neat is that these 4 indices are related
 $$P_{p} \times C_{pk} = P_{pk} \times C_{p}$$
 
 
-```r
+``` r
 # whaaaaaat? They're equal!!!! 
 mypp * mycpk == myppk * mycp
 ```
@@ -332,7 +332,7 @@ What's the process capability index? (I.e. How many times greater is the expecte
 <details><summary>**[View Answer!]**</summary>
 
 
-```r
+``` r
 lower = 2 + 0.05
 upper = 2 - 0.05
 sigma = 0.02
@@ -346,7 +346,7 @@ cp(sigma = 0.02, upper = 2.05, lower = 1.95)
 ## [1] 0.8333333
 ```
 
-```r
+``` r
 cpk(mu = 2.01, sigma = 0.02, lower = 1.95, upper = 2.05)
 ```
 
@@ -377,7 +377,7 @@ Let's quickly go over what confidence intervals are trying to show us!
 Suppose we take a statistic like the mean $\mu$ to describe our vector `temp`.
 
 
-```r
+``` r
 water %>%
   summarize(mean = mean(temp))
 ```
@@ -392,7 +392,7 @@ water %>%
 We might have gotten a *slightly* different statistic had we had a *slightly* different sample. We can approximate what *slightly* different sample might look like by using *bootstrapped resamples*. This means, randomly sampling a bunch of observations from our dataframe `water`,  sometimes taking the same observation multiple times, sometimes leaving out some observations by chance. We can use the `sample(x, size = ..., replace = TRUE)` function to take a **bootstrapped sample**.
 
 
-```r
+``` r
 water %>%
   # Grab n() randomly sampled temperatures, with replacement,
   # we'll call those 'boot', since they were 'bootstrapped'
@@ -411,7 +411,7 @@ water %>%
 Our bootstrapped `mean` is *very*, *very* close to the original mean - just slightly off due to sampling error! Bootstrapping is a very powerful tool, as it lets us circumvent many long formulas, as long as you take enough samples. Let's take 1000 resamples below:
 
 
-```r
+``` r
 # Get a vector of ids from 1 to 1000
 myboot = tibble(rep = 1:1000) %>%
   # For each repetition,
@@ -455,7 +455,7 @@ For any index, you'll need to get the ingredients needed to calculate the index 
 So, let's first get our ingredients...
 
 
-```r
+``` r
 stat = water %>%
   group_by(time) %>%
   summarize(xbar = mean(temp),
@@ -483,7 +483,7 @@ stat
 Now, let's calculate our Capability Index $C_{p}$, which assumes a process *centered* between the upper and lower specification limits and a *stable* process.
 
 
-```r
+``` r
 # Capability Index (for centered, normal data)
 cp = function(sigma_s, upper, lower){  abs(upper - lower) / (6*sigma_s)   }
 
@@ -511,7 +511,7 @@ Now, let's estimate the two-sided, 95% confidence interval of our sampling distr
 We're getting the interval that spans 95%, so it's got to start at 2.5% and end at 97.5%, covering the 95% *most frequently occurring statistics* in the sampling distribution.
 
 
-```r
+``` r
 bands = stat %>% 
   summarize(
     limit_lower = 42,
@@ -552,7 +552,7 @@ bands
 Were we to visualize this, it might look like...
 
 
-```r
+``` r
 bands %>%
   ggplot(mapping = aes(x = "Cp Index", y = estimate, 
                        ymin = lower, ymax = upper)) +
@@ -581,7 +581,7 @@ How might we estimate this using the bootstrap?
 Well, we could...
 
 
-```r
+``` r
 myboot = tibble(rep = 1:1000) %>%
   # For each rep,
   group_by(rep) %>%
@@ -598,18 +598,18 @@ myboot %>% glimpse()
 ## Columns: 6
 ## Groups: rep [1,000]
 ## $ rep    <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-## $ id     <dbl> 144, 109, 65, 160, 142, 68, 39, 131, 54, 15, 35, 84, 150, 50, 2…
-## $ time   <dbl> 15, 11, 7, 15, 15, 7, 3, 13, 5, 1, 3, 9, 15, 5, 3, 11, 13, 13, …
-## $ temp   <dbl> 46.2, 45.9, 47.8, 44.3, 44.6, 44.1, 46.8, 46.5, 43.1, 46.0, 44.…
-## $ ph     <dbl> 5.6, 4.2, 5.8, 5.4, 5.6, 6.8, 5.7, 6.0, 5.7, 5.3, 6.0, 5.6, 4.6…
-## $ sulfur <dbl> 2.2, 0.4, 0.4, 2.0, 0.6, 0.1, 0.3, -0.2, 1.0, 0.2, 0.4, 0.5, 1.…
+## $ id     <dbl> 60, 83, 122, 150, 147, 135, 104, 36, 43, 97, 77, 131, 110, 128,…
+## $ time   <dbl> 5, 9, 13, 15, 15, 13, 11, 3, 5, 9, 7, 13, 11, 13, 1, 5, 3, 11, …
+## $ temp   <dbl> 44.1, 45.7, 45.3, 41.5, 47.4, 44.0, 43.1, 43.2, 44.6, 44.4, 44.…
+## $ ph     <dbl> 4.9, 4.4, 4.9, 4.6, 5.6, 5.0, 5.8, 5.2, 5.3, 5.9, 5.1, 6.0, 5.6…
+## $ sulfur <dbl> 0.4, 0.0, 0.8, 1.2, 0.9, 0.7, 0.9, 0.2, 0.0, 0.3, 0.1, -0.2, 4.…
 ```
 This produces a very, very big data.frame!
 
 Let's now, for each rep, calculate our statistics from before!
 
 
-```r
+``` r
 mybootstat = myboot %>%
   # For each rep, and each subgroup...
  group_by(rep, time) %>%
@@ -638,7 +638,7 @@ So cool! We've now generated the sampling distributions for `xbbar`, `sigma_s`, 
 We can even visualize the raw distributions now! Look at those wicked cool bootstrapped sampling distributions!!!
 
 
-```r
+``` r
 g = mybootstat %>%
   # For each rep,
   group_by(rep) %>%
@@ -661,7 +661,7 @@ So last, let's take our boostrapped $C_{p}$ statistics in `mybootstat$cp` and es
 Because we have the *entire distribution*, we can extract values at specific percentiles in the distribution using `quantiles()`, rather than `qnorm()` or such theoretical distributions.
 
 
-```r
+``` r
 # We'll save it as 'myqi', for quantities of interest
 myqi = mybootstat %>% 
   summarize(
@@ -682,7 +682,7 @@ myqi
 ## # A tibble: 1 × 4
 ##      cp lower upper     se
 ##   <dbl> <dbl> <dbl>  <dbl>
-## 1 0.671 0.611 0.780 0.0438
+## 1 0.671 0.617 0.779 0.0434
 ```
 
 This suggests a wider confidence interval that our normal distribution assumes by default - interesting!
@@ -693,7 +693,7 @@ We can perform bootstrapping to estimate confidence intervals for *any* statisti
 *Note*: Whenever you bootstrap, it's important that you clear out your `R` environment to keep things running quickly, because you tend to accumulate a lot of really big data.frames. You can use `remove()` to do this.
 
 
-```r
+``` r
 remove(myboot, mybootstat)
 ```
 
@@ -712,7 +712,7 @@ Let's practice calculating confidence intervals (CIs) for each of these indices.
 Now that we have our ingredients, let's get our index and its confidence intervals!
 
 
-```r
+``` r
 # Capability Index (for centered, normal data)
 cp = function(sigma_s, upper, lower){  abs(upper - lower) / (6*sigma_s)   }
 
@@ -744,7 +744,7 @@ stat %>%
 Write the function and generate the confidence interval for $P_{pk}$!
 
 
-```r
+``` r
 # Capability Index (for skewed, uncentered data)
 cpk = function(mu, sigma_s, lower = NULL, upper = NULL){
   if(!is.null(lower)){
@@ -794,7 +794,7 @@ stat %>%
 Now that we have our ingredients, let's get our index and its confidence intervals!
 
 
-```r
+``` r
 # Suppose we're looking at the entire process!
 
 # Process Performance Index (for centered, normal data)
@@ -831,7 +831,7 @@ stat %>%
 Write the function and generate the confidence interval for $P_{pk}$!
 
 
-```r
+``` r
 # Process Performance Index (for skewed, uncentered data)
 ppk = function(mu, sigma_t, lower = NULL, upper = NULL){
   if(!is.null(lower)){

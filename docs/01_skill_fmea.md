@@ -11,7 +11,7 @@ Please open up your project on Posit.Cloud, for our [Github class repository](ht
 ### Load Packages  {-}
 
 
-```r
+``` r
 # Load tidyverse, which contains dplyr and most data wrangling functions
 library(tidyverse)
 # Load DiagrammeR, which we'll use to make diagrams today!
@@ -73,8 +73,8 @@ Plus, several possible failure modes are involved, as discussed below.
 <div class="figure">
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-a8148625eb0b7d068544" style="width:100%;height:384px;"></div>
-<script type="application/json" data-for="htmlwidget-a8148625eb0b7d068544">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-f8ae9910b8944abc1af3" style="width:100%;height:384px;"></div>
+<script type="application/json" data-for="htmlwidget-f8ae9910b8944abc1af3">{"x":{"diagram":"graph LR\n subgraph People\nw1(Worker 1)\nw2(Worker 2)\nw3(Worker 3)\nend\n subgraph Events\n freezer[Freeze<br>Ice Cream]\n loading[Load<br>onto Truck]\n transport[Transport<br>to Store]\n end\n w1 --> freezer\n w2 --> loading\n w3 --> transport\n freezer --> w2\n loading --> w3\n subgraph Failures\n fail_break[freezer breaks]\n fail_time[left out too long]\n fail_eat[worker eats it]\n end\n freezer --> fail_break\n loading --> fail_time\n loading --> fail_eat\n transport --> fail_time\n transport --> fail_eat"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:unnamed-chunk-3)Ben & Jerry's Ice Cream Block Diagram</p>
@@ -88,7 +88,7 @@ Plus, several possible failure modes are involved, as discussed below.
 We'll make a tidy `data.frame()` of each of the ways our `block diagram` above could fail, which were contained above in `failures`. We'll call this data.frame `f`.
 
 
-```r
+``` r
 f <- tibble(
   # Make a vector of routes to failure
   failure_mode = c(
@@ -123,7 +123,7 @@ What's the `severity` of the effects of these failures, on a scale from 1 (low) 
 -   `fail_eat`: How much ice cream could one worker really eat? That's probably a `1`.
 
 
-```r
+``` r
 f1 <- f %>%
   mutate(severity = c(8, 5, 1, 5, 1))
 # Check out the contents!
@@ -155,7 +155,7 @@ How often does this occur, from 1 (almost never) to 10 (almost always)? Let's ra
 -   `fail_eat`: If I were a worker, I would eat that all the time (eg. `8`).
 
 
-```r
+``` r
 f2 <- f1 %>%
   mutate(occurrence = c(2, 5, 8, 5, 8))
 ```
@@ -174,7 +174,7 @@ Finally, how likely is it that we would detect the occurrence? If very likely, t
 -   `fail_eat`: Might get caught. Low chance. (eg. `3`).
 
 
-```r
+``` r
 f3 <- f2 %>%
   mutate(detection = c(1, 8, 3, 8, 3))
 ```
@@ -187,7 +187,7 @@ f3 <- f2 %>%
 Using our data in `f3`, let's estimate `criticality` (aka RPN, the risk priority number).
 
 
-```r
+``` r
 f4 <- f3 %>%
   mutate(criticality = severity * occurrence * detection)
 ```
@@ -195,7 +195,7 @@ f4 <- f3 %>%
 We can add up the `criticality/RPN` to estimate the total risk priority, out of `1000`, which is the `max_criticality` possible. We can divide these two to get the `probability` of system failure. Is that risk greater than `0.010`, aka `0.1%`? If so, bad news!
 
 
-```r
+``` r
 f4 %>%
   summarize(
     total_criticality = sum(criticality),
@@ -227,7 +227,7 @@ What *other* ways could failure occur here? Add three more kinds of failure to y
 <details><summary>**[View Answer!]**</summary>
   
 
-```r
+``` r
 fprime <- tibble(
   # Make a vector of routes to failure
   failure_mode = c(
@@ -269,7 +269,7 @@ fprime
 ```
 
 
-```r
+``` r
 # Let's calculate the total risk!
 fprime %>%
   summarize(

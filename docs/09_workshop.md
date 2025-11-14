@@ -13,7 +13,7 @@ As a prerequisite for this workshop, be sure to have read our class reading on F
 ### Load Packages {-}
 
 
-```r
+``` r
 library(dplyr)
 library(readr)
 library(ggplot2)
@@ -35,7 +35,7 @@ A favorite simple fault tree example of mine is the 'Superman Turns Evil' fault 
 - `D`: Lois Lane Dumps Superman
 - `K`: Steps on Kryptonite Lego in the middle of the night
 
-<img src="09_workshop_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+
 
 In this fault tree, it looks like Superman could turn evil if (A) Superman Movies do poorly at the box office OR (B) if all 3 other conditions happen (boring childhood, dumped by Lois Lane, steps on Kryptonite Lego). 
 
@@ -45,7 +45,7 @@ In this fault tree, it looks like Superman could turn evil if (A) Superman Movie
 We could represent that using boolean logic. So if we know the probability of events `m`, `c`, `d`, and `k`, we can calculate the probability of the top event `top`.
 
 
-```r
+``` r
 f1 = function(m, c, d, k){
   top = m + c * d * k 
   return(top)
@@ -96,7 +96,7 @@ Causes and Probabilities:
 Use these events' probabilities to construct a boolean equation and its function in R!
 
 
-```r
+``` r
 f = function(a = 0.2, b = 0.15, c = 0.3, d = 0.1, e = 0.15, f = 0.2, g = 0.05, h = 0.1){
   # G2. Probability of Insufficient Vaccination Coverage:
   # All of the sub-events must occur for this intermediate event to happen:
@@ -127,7 +127,7 @@ f = function(a = 0.2, b = 0.15, c = 0.3, d = 0.1, e = 0.15, f = 0.2, g = 0.05, h
 Let's see what the probability of widespread outbreak, in this hypothetical scenario, turns out to be:
 
 
-```r
+``` r
 f(a = 0.2, b = 0.15, c = 0.3, d = 0.1, e = 0.15, f = 0.2, g = 0.05, h = 0.1)
 ```
 
@@ -147,7 +147,7 @@ f(a = 0.2, b = 0.15, c = 0.3, d = 0.1, e = 0.15, f = 0.2, g = 0.05, h = 0.1)
 But if we knew the failure rate of each event, we could calculate the probability of the top event at any time `t`!
 
 
-```r
+``` r
 f2 = function(t, lambda_m, lambda_c, lambda_d, lambda_k){
   # Get probability at time t...
   prob_m = pexp(t, rate = lambda_m)
@@ -177,7 +177,7 @@ probs2 %>% head(3)
 ```
 
 
-```r
+``` r
 # Let's visualize it!
 ggplot() + 
   geom_area(data = probs2, mapping = aes(x = t, y = prob))
@@ -201,7 +201,7 @@ Suppose we have a small fault tree, where the top event T depends on either [A a
 <details><summary>**[View Answer!]**</summary>
 
 
-```r
+``` r
 # Let's create a function calculate probability of the top event using failure rates and time period
 f = function(
     t = 1, # Time period we want to analyze the events for    
@@ -223,7 +223,7 @@ f = function(
 ```
 
 
-```r
+``` r
 # Probability of failure after 1 hour
 f(t = 1, lambda_a = 0.05, lambda_b = 0.03, lambda_c = 0.02)
 ```
@@ -233,7 +233,7 @@ f(t = 1, lambda_a = 0.05, lambda_b = 0.03, lambda_c = 0.02)
 ```
 
 
-```r
+``` r
 # Probability of failure after 10 hours
 f(t = 10, lambda_a = 0.05, lambda_b = 0.03, lambda_c = 0.02)
 ```
@@ -254,7 +254,7 @@ We can use simulation to answer several important questions about variation. For
 When simulating variation in probabilities, you can use random draws from the binomial distribution, randomly sampling 1s or 0s at a given probability `prob` a total of `n` times.
 
 
-```r
+``` r
 probs3 = tibble(
   n = 1000,
   prob_m = rbinom(n = n, size = 1, prob = 0.50),
@@ -275,7 +275,7 @@ probs3 %>%
 ## # A tibble: 1 × 2
 ##   mu_top sigma_top
 ##    <dbl>     <dbl>
-## 1  0.501     0.502
+## 1  0.499     0.500
 ```
 
 ## Simulating Uncertainty in Failure Rates
@@ -285,7 +285,7 @@ Usually, we go a few steps further, saying, **suppose the probability of each fa
 Suppose each failure rate has a specific standard error: for `m`, `0.0001`; for `c`, `0.00001`, for `d` and `k`, `0.000002`.
 
 
-```r
+``` r
 f4 = function(t, lambda_m, lambda_c, lambda_d, lambda_k){
   sim_lambda_m = rnorm(n = 1, mean = lambda_m, sd = 0.0001)
   sim_lambda_c = rnorm(n = 1, mean = lambda_c, sd = 0.00001)
@@ -310,7 +310,7 @@ probs4 = tibble(t = 1:100) %>%
 ```
 
 
-```r
+``` r
 # But we really probably want MANY random simulations per time period.
 probs5 = tibble(reps = 1:1000) %>%
   group_by(reps) %>%
@@ -326,15 +326,15 @@ probs5 %>% head(3)
 
 ```
 ## # A tibble: 3 × 3
-##    reps     t   prob
-##   <int> <int>  <dbl>
-## 1     1     1 0.0100
-## 2     1     2 0.0199
-## 3     1     3 0.0297
+##    reps     t    prob
+##   <int> <int>   <dbl>
+## 1     1     1 0.00997
+## 2     1     2 0.0198 
+## 3     1     3 0.0296
 ```
 
 
-```r
+``` r
 # And then we could get quantities of interest for each time period!
 probs6 = probs5 %>%
   group_by(t) %>%
@@ -355,15 +355,15 @@ probs6 %>% head(3)
 ## # A tibble: 3 × 7
 ##       t      mu     sigma   lower  upper lower_approx upper_approx
 ##   <int>   <dbl>     <dbl>   <dbl>  <dbl>        <dbl>        <dbl>
-## 1     1 0.00996 0.0000984 0.00977 0.0102       0.0101       0.0101
-## 2     2 0.0198  0.000195  0.0194  0.0202       0.0202       0.0202
-## 3     3 0.0296  0.000289  0.0290  0.0301       0.0301       0.0301
+## 1     1 0.00995 0.0000954 0.00976 0.0101       0.0101       0.0101
+## 2     2 0.0198  0.000189  0.0194  0.0202       0.0202       0.0202
+## 3     3 0.0296  0.000281  0.0290  0.0301       0.0301       0.0301
 ```
 
 Let's visualize that confidence interval over time!
 
 
-```r
+``` r
 ggplot() +
   geom_ribbon(data = probs6, mapping = aes(x = t, ymin = lower, ymax = upper))
 ```
@@ -416,7 +416,7 @@ You are tasked with assessing the risk of a widespread outbreak of a contagious 
 - Inadequate monitoring of the pathogen mutations: P(Inadequate monitoring) = 0.1 (10%)
 
 
-```r
+``` r
 # Calculating probabilities of intermediate events using probabilities based on available data:
 # Probability of Insufficient Vaccination Coverage:
 # All of the sub-events must occur for this intermediate event to happen:
@@ -429,7 +429,7 @@ p_insufficient_vaccine_coverage
 ## [1] 0.009
 ```
 
-```r
+``` r
 # Probability of Ineffective Quarantine Measures:
 # Any of the sub-event event can lead to this intermediate event:
 p_event2 <- c(0.1, 0.15, 0.2)  # Probabilities for OR logic
@@ -441,7 +441,7 @@ p_quarantine_measures
 ## [1] 0.45
 ```
 
-```r
+``` r
 # Probability of Mutation of the Pathogen:
 # Both conditions need to be present in order for pathogen to mutate:
 p_event3 <- c(0.05, 0.1)  # Probabilities for AND logic
@@ -454,7 +454,7 @@ p_pathogen_mutation
 ## [1] 0.005
 ```
 
-```r
+``` r
 # Calculating the probability of widespread outbreak (top event) using the probabilities of intermediate events
 # Let's create a function that can calculate the probability of the top event using any number of intermediate events and any logic gate
 top_event <- function(intermediate_probability, logic) {
@@ -497,7 +497,7 @@ Simulate the 95% confidence interval for the probability of each event, for each
 <details><summary>**[View Answer!]**</summary>
 
 
-```r
+``` r
 # Firstly, let's load necessary libraries for plotting
 library(ggplot2)
 library(dplyr)
@@ -540,13 +540,13 @@ stat %>% head(3)
 ## # A tibble: 3 × 7
 ##       t lower_a upper_a lower_b upper_b lower_c upper_c
 ##   <int>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-## 1     1  0.0469  0.0507  0.0278  0.0314  0.0179  0.0218
-## 2     2  0.0917  0.0988  0.0548  0.0618  0.0354  0.0432
-## 3     3  0.134   0.144   0.0810  0.0913  0.0527  0.0641
+## 1     1  0.0469  0.0507  0.0276  0.0314  0.0178  0.0218
+## 2     2  0.0917  0.0988  0.0545  0.0619  0.0353  0.0431
+## 3     3  0.134   0.144   0.0807  0.0914  0.0525  0.0640
 ```
 
 
-```r
+``` r
 # Let's make the plot!
 ggplot() +
   # Plot bands for event a

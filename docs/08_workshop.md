@@ -11,7 +11,7 @@ In this workshop, we're going to continue learning some `R` functions for workin
 Let's start by loading the `tidyverse` package. We'll also load `mosaicCalc`, for taking derivatives and integrals (eg. `D()` and `antiD()`).
 
 
-```r
+``` r
 # Load packages
 library(tidyverse)
 library(mosaicCalc)
@@ -25,7 +25,7 @@ In this workshop, we're going to use a dataset of crop lifetimes! (Agriculture n
 
 
 
-```r
+``` r
 # Import crop lifespan data!
 crops <- read_csv("workshops/crops.csv")
 ```
@@ -58,7 +58,7 @@ We can get the **"probability"** of any sample by multiplying the density functi
 $$ LIK = \prod_{i = 1}^{r}{ f(t_i) } = f(t_1) \times f(t_2) \times ... f(t_n) $$
 
 
-```r
+``` r
 # Let's write a basic pdf function
 d = function(t, lambda){lambda * exp(-t*lambda) }
 
@@ -99,7 +99,7 @@ In practice though, the likelihood is teeny-tiny, and multiplying tiny numbers i
 $$ log ( \ L(t) \ ) = \log\prod_{i=1}^{n}{ f(t_i) = \sum_{i=1}^{n}\log( \ f(t_i) \ ) } $$ 
 
 
-```r
+``` r
 ll = function(data, lambda){
   # Calculate Log-Likelihood,
   # by summing the log
@@ -125,7 +125,7 @@ We can use the `optim()` function from base `R` to:
 - `optim()` will output a `$par` (our parameter estimate(s)) and `$value` (the maximum log-likelihood).
 
 
-```r
+``` r
 # Maximize the log-likelihood!
 optim(par = c(0.01), data = crops$days, fn = ll, control = list(fnscale = -1))
 ```
@@ -158,7 +158,7 @@ Wondering what's happening inside `optim()`? Good news: it's not too tough. We c
 First, let's *get* all the log-likelihoods in that interval.
 
 
-```r
+``` r
 # Let's 
 manyll <- data.frame(parameter = seq(from = 0.00001, to = 1, by = 0.001)) %>%
   # For each parameter, get the loglikelihood
@@ -181,7 +181,7 @@ manyll %>% head(3)
 Let's maximize the log-likelihood manually...
 
 
-```r
+``` r
 # Now find the parameter that has the greatest log-likelihood
 output <- manyll %>%
   filter(loglik == max(loglik))
@@ -199,7 +199,7 @@ output
 Now, let's visualize it!
 
 
-```r
+``` r
 ggplot() +
   geom_line(data = manyll, mapping = aes(x = parameter, y = loglik), color = "steelblue") +
   geom_vline(xintercept = output$parameter, linetype = "dashed")  +
@@ -223,7 +223,7 @@ Multi-parameter optimization works pretty similarly. We can use `optim()` for th
 - So if we have multiple parameters, like the `mean` and `sd` for the normal distribution, we need to put both parameters into one vector in our input `par`, like so:
 
 
-```r
+``` r
 # Let's write a new function
 ll = function(data, par){
   # Our parameters input is now going to be vector of 2 values
@@ -237,7 +237,7 @@ ll = function(data, par){
 Now, let's maximize!
 
 
-```r
+``` r
 # Let's optimize it!
 # put in some reasonable starting values for 'par' and it optim() will do the rest. 
 optim(par = c(90, 15), data = crops$days, fn = ll, control = list(fnscale = -1))
@@ -264,7 +264,7 @@ optim(par = c(90, 15), data = crops$days, fn = ll, control = list(fnscale = -1))
 That was ridiculously easy! Let's compare to their known values:
 
 
-```r
+``` r
 crops %>%
   summarize(mu = mean(days), 
             sigma = sd(days))
@@ -305,7 +305,7 @@ Suppose we actually had $n = 75$ crops, but we only ever saw $r = 50$ of them fa
 First, let's write our functions.
 
 
-```r
+``` r
 # Let's write a basic pdf function 'd' and cdf function 'f'
 d = function(t, lambda){ lambda * exp(-t*lambda) }
 f = function(t, lambda){ 1 - exp(-t*lambda)}
@@ -314,7 +314,7 @@ f = function(t, lambda){ 1 - exp(-t*lambda)}
 Now, using our observed (but incomplete data in `crops`), let's calculate the log-likelihood if $\lambda = 0.01$.
 
 
-```r
+``` r
 crops %>%
   summarize(
     # Get total failures observed
@@ -344,7 +344,7 @@ crops %>%
 Great! Let's formalize that in a function, for any value of $\lambda$.
 
 
-```r
+``` r
 # We'll write a log-likelihood function 'll'
 # that takes a data input and a single numeric parameter par
 ll = function(data, par){
@@ -390,7 +390,7 @@ optim(par = c(0.01), data = crops, fn = ll, control = list(fnscale = -1))
 Alternatively, what if our data were not only time-censored, but had been cross-tabulated!? The `crosstab` data.frame below encodes days to failure for our `crops`, tallied up in 40 day intervals, supposing a total sample of `75` sampled crops evaluated for `200 days`. We can still estimate parameters with MLE using the formula above!
 
 
-```r
+``` r
 crosstab <- data.frame(
   label = c("[0,40]", "(40,80]", "(80,120]", "(120,160]", "(160,200]"),
   t = c(20, 60, 100, 140, 180),
@@ -400,7 +400,7 @@ crosstab <- data.frame(
 We can write our log-likelihood function *very* similarly to above. The main change is that we add up the `count`s  to get `r`, the total observed failures. To estimate our probabilities, we just use the interval midpoints as our days to failure `t`.
 
 
-```r
+``` r
 ll = function(data, par){
   output <- data %>%
     summarize(
@@ -461,7 +461,7 @@ We've learned several probability density functions for different distributions,
 For the exponential distribution...
 
 
-```r
+``` r
 ll = function(data, par){
   dexp(data, rate = par) %>% log() %>% sum()
 }
@@ -489,7 +489,7 @@ optim(par = c(0.01), data = crops$days, fn = ll, control = list(fnscale = -1))
 For the gamma distribution...
 
 
-```r
+``` r
 ll = function(data, par){
   dgamma(data, shape = par[1], scale = par[2]) %>% log() %>% sum()
 }
@@ -517,7 +517,7 @@ optim(par = c(1, 1), data = crops$days, fn = ll, control = list(fnscale = -1))
 For the Poisson distribution...
 
 
-```r
+``` r
 ll = function(data, lambda){
   dpois(data, lambda) %>% log() %>% sum()
 }
@@ -547,7 +547,7 @@ optim(par = 90, data = crops$days, fn = ll, control = list(fnscale = -1))
 For the Weibull distribution...
 
 
-```r
+``` r
 ll = function(data, par){
   dweibull(data, shape = par[1], scale = par[2]) %>% log() %>% sum()
 }
@@ -577,7 +577,7 @@ optim(par = c(1,1), data = crops$days, fn = ll, control = list(fnscale = -1))
 <br>
 
 
-```r
+``` r
 remove(ll, d, output, mylambda, manyll)
 ```
 
@@ -609,7 +609,7 @@ In the gamma distribution, events are exposed to $k$ shocks. We often will use s
 
 
 
-```r
+``` r
 # Let's try out the gamma function.
 gamma(4)
 ```
@@ -618,7 +618,7 @@ gamma(4)
 ## [1] 6
 ```
 
-```r
+``` r
 # Produces same output as factorial(k - 1)
 factorial(4 - 1)
 ```
@@ -640,7 +640,7 @@ $$f(t) = \frac{\lambda}{(k - 1)!}(\lambda t)^{k-1}e^{-\lambda t}$$
 We can also write $(k - 1)!$ above as $\Gamma(k)$. As mentioned above, this is called a `"Gamma function of k"`, which is where the distribution's name comes from. $k$ effectively controls the `shape` of the function.
 
 
-```r
+``` r
 # Let's write our new PDF function, d(t); written as f(t) above
 d = function(t, k, lambda){
   lambda / factorial(k - 1) * (lambda*t)^(k-1) * exp(-t*lambda)
@@ -654,7 +654,7 @@ d(t = 1, k = 1, lambda = 1)
 ## [1] 0.3678794
 ```
 
-```r
+``` r
 # Compare with our dgamma() function!
 dgamma(x = 1, shape = 1, rate = 1)
 ```
@@ -663,7 +663,7 @@ dgamma(x = 1, shape = 1, rate = 1)
 ## [1] 0.3678794
 ```
 
-```r
+``` r
 # They're the same!
 ```
 
@@ -681,7 +681,7 @@ Therefore, we can also write the reliability function $R(t)$ as:
 
 $$ R(t) = \sum_{n = 0}^{k - 1}{\frac{(\lambda t)^n }{n!}e^{-\lambda t}}$$
 
-```r
+``` r
 # Write the failure function for Gamma distribution
 f = function(t, k, lambda){
   # Make a vector of values from 0 to k-1
@@ -702,7 +702,7 @@ pgamma(q = 10,shape = 3,rate = 1)
 ## [1] 0.9972306
 ```
 
-```r
+``` r
 # Using our calculate-based fc()
 fc(t = 10, k = 3, lambda = 1)
 ```
@@ -711,7 +711,7 @@ fc(t = 10, k = 3, lambda = 1)
 ## [1] 0.9972306
 ```
 
-```r
+``` r
 # Using our direct function f()
 f(t = 10, k = 3, lambda = 1)
 ```
@@ -720,14 +720,14 @@ f(t = 10, k = 3, lambda = 1)
 ## [1] 0.9972306
 ```
 
-```r
+``` r
 # All the same!
 ```
 
 Correspondingly, the reliability function $R(t)$ would be...
 
 
-```r
+``` r
 # Write the reliability function
 r = function(t, k, lambda){
   # Make a vector of values from 0 to k-1
@@ -754,7 +754,7 @@ rc = function(t,k,lambda){
 ## [1] 0.002769396
 ```
 
-```r
+``` r
 # with rc()
 rc(t = 10, k = 3, lambda = 1)
 ```
@@ -763,7 +763,7 @@ rc(t = 10, k = 3, lambda = 1)
 ## [1] 0.002769396
 ```
 
-```r
+``` r
 # with r()
 r(t = 10, k = 3, lambda = 1)
 ```
@@ -772,7 +772,7 @@ r(t = 10, k = 3, lambda = 1)
 ## [1] 0.002769396
 ```
 
-```r
+``` r
 # They're the same!
 ```
 
@@ -784,7 +784,7 @@ $z(t)$ Failure Rate function
 The failure rate remains $z(t) = \frac{f(t)}{R(t)}$. Further, in the gamma distribution, the rate remains constant, although the size parameter causes a result quite different from the exponential!
 
 
-```r
+``` r
 # Let's write the failure rate function
 z = function(t,k,lambda){
   # We'll break it up into parts to help readability
@@ -822,7 +822,7 @@ dgamma(1,shape = 1, rate = 0.1) /
 ## [1] 0.1
 ```
 
-```r
+``` r
 # Using our calculus based function
 zc(t = 1, k = 1, lambda = 0.1)
 ```
@@ -831,7 +831,7 @@ zc(t = 1, k = 1, lambda = 0.1)
 ## [1] 0.1
 ```
 
-```r
+``` r
 # Using our home cooked function
 z(t = 1, k = 1, lambda = 0.1)
 ```
@@ -852,7 +852,7 @@ $$ Var(t) = \frac{k}{ \lambda^2} $$
 We can encode these as functions as follows.
 
 
-```r
+``` r
 # Mean (aka mean time to fail)
 mttf = function(k, lambda){   k / lambda  }
 # Check it!
@@ -864,7 +864,7 @@ mttf(k = 1, lambda = 0.1)
 ```
 
 
-```r
+``` r
 # Variance
 variance = function(k, lambda){ k / lambda^2 }
 # Try it!
@@ -889,7 +889,7 @@ A car bumper has demonstrated a gamma distribution with a failure rate of $\lamb
 <details><summary>**[View Answer!]**</summary>
 
 
-```r
+``` r
 # Compute a reliability function using pgamma()
 r = function(t,k,lambda){ 1 - pgamma(t,shape = k, rate = lambda) }
 
@@ -929,7 +929,7 @@ $$ F(t) = 1 - e^{-H(t)} = 1 - e^{-(\lambda t)^m} = 1 - e^{-(t/c)^m}$$
 We can code it like so:
 
 
-```r
+``` r
 f = function(t, m, c){ 1 - exp(-1*(t/c)^m) }
 # Compare!
 # Using pweibull()
@@ -940,7 +940,7 @@ pweibull(1, shape = 1, scale = 1)
 ## [1] 0.6321206
 ```
 
-```r
+``` r
 # Using our home-made function!
 f(t = 1, m = 1, c = 1)
 ```
@@ -951,7 +951,7 @@ f(t = 1, m = 1, c = 1)
 Similarly, we can write the reliability function as...
 
 
-```r
+``` r
 r = function(t, m, c){ exp(-1*(t/c)^m) }
 
 # Try it with pweibull()
@@ -962,7 +962,7 @@ r = function(t, m, c){ exp(-1*(t/c)^m) }
 ## [1] 0.3678794
 ```
 
-```r
+``` r
 # Using our home-made function!
 r(t = 1, m = 1, c = 1)
 ```
@@ -977,7 +977,7 @@ While not nearly as straightforward to derive, we can literally take the derivat
 
 $$ f(t) = \frac{m}{t} \times (\frac{t}{c})^m \times e^{-(t/c)^m}$$
 
-```r
+``` r
 d = function(t, m, c){
   (m / t) * (t / c)^m * exp(-1*(t/c)^m)
   # alternatively written using calculus:
@@ -992,7 +992,7 @@ dweibull(1, shape = 1, scale = 1)
 ## [1] 0.3678794
 ```
 
-```r
+``` r
 d(t = 1, m = 1, c = 1)
 ```
 
@@ -1006,7 +1006,7 @@ We can similarly *derive* the failure rate $z(t)$ by taking the derivative of th
 $$z(t) = m \lambda (\lambda t)^{m-1} = (m/c) \times (t/c)^{m-1} $$/'
 
 
-```r
+``` r
 z = function(t, m, c){
   (m/c) * (t/c)^(m-1)
 }
@@ -1019,7 +1019,7 @@ z(1, m = 1, c = 0.1)
 ## [1] 10
 ```
 
-```r
+``` r
 # using dweibull() and pweibull()
 dweibull(1, shape = 1, scale = 0.1) /
   (1 - pweibull(1, shape = 1, scale = 0.1)) 
@@ -1064,7 +1064,7 @@ $$ MTTF = c \Gamma(1 + \frac{1}{m})  = c \times (k - 1)! \times (1 + \frac{1}{m}
 $$ Variance = c^2 \Gamma(1 + \frac{2}{m} ) - [ c \Gamma(1 + \frac{1}{m})]^{2} $$
 
 
-```r
+``` r
 # We could code these up simply like so
 mttf = function(c, m){  c * gamma( 1 + 1/m)  }
 # Though we know that mttf = integral of R(t), so we could also write it like this
@@ -1089,7 +1089,7 @@ You've done this a bunch now - for this learning check, write your own function 
 <details><summary>**[View Answer!]**</summary>
 
 
-```r
+``` r
 # Write a function to get t
 get_t = function(f,m,c){
   log(-log(1 - f)  )/log(t/c)
@@ -1097,7 +1097,7 @@ get_t = function(f,m,c){
 ```
 
 
-```r
+``` r
 # Write a function to get m
 get_m = function(t,f,c){
   log(-log(1 - f)  )/log(t/c)
@@ -1105,7 +1105,7 @@ get_m = function(t,f,c){
 ```
 
 
-```r
+``` r
 # Write a function to get c
 get_c = function(t,f,m){
   t / ( (-log(1 - f))^(1/m) )
@@ -1133,7 +1133,7 @@ get_c = function(t,f,m){
 <details><summary>**[View Answer!]**</summary>
 
 
-```r
+``` r
 # Write our function to find c
 get_c = function(t, f, m){
   t / ( (-log(1 - f))^(1/m) )
@@ -1146,14 +1146,14 @@ get_c(t = 168, f = 0.10, m = 2)
 ## [1] 517.5715
 ```
 
-```r
+``` r
 # Looks like we expect a characteristic life of >500 hours. 
 ```
 
 <br>
 
 
-```r
+``` r
 # Write the failure function
 f = function(t, c, m){ 1 - exp(-1*(t/c)^m) }
 
@@ -1213,7 +1213,7 @@ We can write the *normal distribution's* CDF, $\Phi$, as the cumulative probabil
 We can feed that value to `pnorm()` to find out the cumulative probability of reaching that point on a normal distribution, with a mean of 0 and a standard deviation of 1.
 
 
-```r
+``` r
 # Suppose...
 t = 50
 t50 = 100
@@ -1231,7 +1231,7 @@ p
 Similarly, if we have a cumulative probability like `p`, we can solve for the z-score that made it using `qnorm()`. `qnorm()` is sometimes referred to as inverse-phi ($\Phi^{-1}$).
 
 
-```r
+``` r
 # Get the z-score for F(t) = 0.36!
 z <- qnorm(p)
 # Check it!
@@ -1247,7 +1247,7 @@ Now that we know the z-score, we can easily solve for `t`, `t50`, or `sigma` wit
 To get `t`...
 
 
-```r
+``` r
 # t = exp(z * sigma) * t50
 exp(z * sigma) * t50 
 ```
@@ -1259,7 +1259,7 @@ exp(z * sigma) * t50
 To get `t50`...
 
 
-```r
+``` r
 # t50 = t / exp(z * sigma)
 t / exp(z * sigma)
 ```
@@ -1272,7 +1272,7 @@ t / exp(z * sigma)
 To get `sigma`...
 
 
-```r
+``` r
 # sigma = log(t/t50) / z
 log(t/t50) / z
 ```
@@ -1293,7 +1293,7 @@ Pretty quick, right?
 This one's pretty messy. (One can use the `dlnorm()` function, but it contains 2 parameters, `meanlog` and `sdlog`, which are *NOT* $T_{50}$ (median) and $\sigma$ (shape). For six-sigma, it tends to be more helpful for us to write the log-normal functions in terms of $T_{50}$ and $\sigma$ instead.)
 
 
-```r
+``` r
 # Write the pdf of the log-normal, f(t) or d(t)!
 d = function(t, t50, sigma){ 1 / (sigma * t * sqrt(2*pi)) * exp( -(1/ 2 * sigma^2 )*(log(t) - log(t50))^2) } 
 
@@ -1328,7 +1328,7 @@ $$ MTTF = T_{50} \times e^{\sigma^2 / 2} $$
 
 $$ Variance = (T_{50})^{2} \times e^{\sigma^2} \times (e^{\sigma^2} - 1)$$
 
-```r
+``` r
 # We could code these up simply like so
 mttf = function(median, sigma){  median * exp(sigma^2  / 2)  }
 
@@ -1347,7 +1347,7 @@ It's important to note that there are *other* ways to specify the log-normal dis
 For example, these ways of writing the mean time to failure (MTTF) are all equivalent.
 
 
-```r
+``` r
 # Using the median...
 mttf = function(median, sigma){ median * exp(sigma^2 / 2) }
 mttf(median = 1, sigma = 3)
@@ -1357,7 +1357,7 @@ mttf(median = 1, sigma = 3)
 ## [1] 90.01713
 ```
 
-```r
+``` r
 # Using the meanlog, which is equal to the log of the median
 mttf = function(meanlog, sigma){ exp(meanlog) *  exp(sigma^2 / 2) }
 mttf(meanlog = log(1), sigma = 3)
@@ -1367,7 +1367,7 @@ mttf(meanlog = log(1), sigma = 3)
 ## [1] 90.01713
 ```
 
-```r
+``` r
 # Using the meanlog, written a different way
 mttf = function(meanlog, sigma){ exp(meanlog + sigma^2 / 2) }
 mttf(meanlog = log(1), sigma = 3)
@@ -1381,7 +1381,7 @@ mttf(meanlog = log(1), sigma = 3)
 There are also multiple ways to calculate the `variance()`.
 
 
-```r
+``` r
 # Requires the median, as well as sigma
 variance1 = function(median, sigma){ median^2 * exp( sigma^2 )  * (exp(sigma^2) - 1) }
 variance1(median = 2, sigma = 3)
@@ -1391,7 +1391,7 @@ variance1(median = 2, sigma = 3)
 ## [1] 262607464
 ```
 
-```r
+``` r
 # Requires a statistic called the meanlog, as well as sigma
 variance2 = function(meanlog, sigma){ (exp(sigma^2) - 1) * exp(2*meanlog + sigma^2) }
 variance2(meanlog = log(2), sigma = 3)
@@ -1404,7 +1404,7 @@ variance2(meanlog = log(2), sigma = 3)
 You could also calculate your own `sigma()` function if you chose.
 
 
-```r
+``` r
 # Let's write our own sigma function...
 sigma = function(t, t50, prob){
   # Let's derive it...
@@ -1433,7 +1433,7 @@ A crop tends to grow to a median height of 2 feet tall. We know from past data t
 <details><summary>**[View Answer!]**</summary>
   
 
-```r
+``` r
 # Get percent under 1.5 feet
 below <- f(1.5, t50 = 2, sigma = 0.2)
 
@@ -1468,7 +1468,7 @@ A log normal distribution has a median time to failure equal to `50,000` hours a
 <details><summary>**[View Answer!]**</summary>
 
 
-```r
+``` r
 # Let's write a mean time to failure function
 mttf = function(median, sigma){  median * exp(sigma^2 / 2)  }
 
@@ -1479,12 +1479,12 @@ mttf(median = 50000, sigma = 0.8)
 ## [1] 68856.39
 ```
 
-```r
+``` r
 # Looks like the MTTF is ~69,000 hours
 ```
 
 
-```r
+``` r
 # Let's write the variance function
 variance = function(median, sigma){
   median^2 * exp(sigma^2 / 2)  * (exp(sigma^2) - 1)
@@ -1498,7 +1498,7 @@ variance(median = 50000, sigma = 0.8) %>% sqrt()
 ## [1] 55555.57
 ```
 
-```r
+``` r
 # with a very wide standard deviation
 ```
 

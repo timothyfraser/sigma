@@ -11,7 +11,7 @@ In this workshop, we're going to learn some `R` functions for working with commo
 Let's start by loading the `tidyverse` package, which will let us `mutate()`, `filter()`, and `summarize()` data quickly. We'll also load `mosaicCalc`, for taking derivatives and integrals (eg. `D()` and `antiD()`).
 
 
-```r
+``` r
 # Load packages
 library(tidyverse)
 library(mosaicCalc)
@@ -44,7 +44,7 @@ Please import the `masks.csv` data.frame below. Each row is a mask, with its own
 
 
 
-```r
+``` r
 masks <- read_csv("workshops/masks.csv")
 
 # Let's glimpse() its contents!
@@ -77,7 +77,7 @@ When we work with life distributions, we often want to find several useful quant
 The Mean Time to Fail describes the **mean** of a lifespan distribution. For example, let's calculate the mean time to fail (in hours) for a mask's `left_earloop` in our sample.
 
 
-```r
+``` r
 stat <- masks %>%
   summarize(
     # We can take the mean of this vector of time to fail in hours
@@ -99,7 +99,7 @@ stat
 In an exponential distribution, the MTTF *always* has a cumulative probability of `1 - 1 / e = 0.632`. (This can be coded in R like so:)
 
 
-```r
+``` r
 1 - 1 / exp(1)
 ```
 
@@ -110,7 +110,7 @@ In an exponential distribution, the MTTF *always* has a cumulative probability o
 Let's assume our sample's left earloops have an exponential lifespan distribution, and use `pexp()` to calculate the cumulative probability of getting an MTTF of 13.36. We'll need to supply `pexp()` the benchmark in the distribution in question (`mttf`), plus the the `rate` parameter $\lambda$, which we always need when simulating an exponential distribution.
 
 
-```r
+``` r
 prob <- pexp(stat$mttf, rate = stat$lambda)
 prob
 ```
@@ -139,7 +139,7 @@ So, let's make ourselves a nice reliability function to help us calculate the MT
 - We know $\lambda = \frac{1}{MTTF}$, and above, we found that lambda = 0.0748502994011976 for a left-earloop.
 
 
-```r
+``` r
 # Reliability Function for exponential distribution
 r = function(t, lambda){ exp(-1*t*lambda)}
 ```
@@ -147,7 +147,7 @@ r = function(t, lambda){ exp(-1*t*lambda)}
 We can calculate it below...
 
 
-```r
+``` r
 # Use mosaicCalc's antiD function
 # To get integral of r(t, lambda) as x goes from 0 to infinity
 mttf = antiD(tilde = r(t, lambda) ~ t)
@@ -156,7 +156,7 @@ mttf = antiD(tilde = r(t, lambda) ~ t)
 Great! We have developed our own `mttf` function for an exponential distribution! If we feed `t` a suitably large value, like 1000 (approaching infinity), we will reach the original observed/estimated `mttf`.
 
 
-```r
+``` r
 mttf(t = 1000, lambda = stat$lambda)
 ```
 
@@ -164,7 +164,7 @@ mttf(t = 1000, lambda = stat$lambda)
 ## [1] 13.36
 ```
 
-```r
+``` r
 mttf(t = Inf, lambda = stat$lambda)
 ```
 
@@ -187,7 +187,7 @@ where:
 $T_{50} = \frac{log(2)}{ \lambda } = \frac{0.693}{\lambda}$
 
 
-```r
+``` r
 # Let's update stat to include the observed 'median' 
 # and 't50', the median assuming an exponential distribution 
 
@@ -221,7 +221,7 @@ stat
 Finally, the modal time to fail is pretty easy to calculate. Its the most common time to fail, also known as the **max** probability in a PDF.
 
 
-```r
+``` r
 masks %>%
   summarize(
     # Let's get lambda, the reciprocal of the MTTF
@@ -244,7 +244,7 @@ masks %>%
 ## 3 0.0749     3 0.0598
 ```
 
-```r
+``` r
 # This reveals that t = 1 is our mode
 ```
 
@@ -270,7 +270,7 @@ A competing mask manufacturer made a mask whose earloops fail at a constant fail
 1. What is the probability that 1 fails *before* 20 hours of use?
 
 
-```r
+``` r
 # Let's generate an expondential failure function,
 # because **constant** rate of failure
 f = function(t, lambda){1 - exp(-1*t*lambda)}
@@ -283,14 +283,14 @@ f(t = 20, lambda = 0.08)
 ## [1] 0.7981035
 ```
 
-```r
+``` r
 # There's a 79% chance 1 fails within 20 hours
 ```
 
 2. What is the probability that 2 fail *before* 20 hours of use?
 
 
-```r
+``` r
 # For n failures, take F(t) to the nth power
 f(t = 20, lambda = 0.08)^2
 ```
@@ -299,14 +299,14 @@ f(t = 20, lambda = 0.08)^2
 ## [1] 0.6369692
 ```
 
-```r
+``` r
 # There's a 63% chance 2 fail within 20 hours.
 ```
 
 3. After how long should we expect 1% failures?
 
 
-```r
+``` r
 # We can solve this using the failure function
 # f(t) = 1 - e^{-t*lambda}
 
@@ -326,7 +326,7 @@ f(t = 20, lambda = 0.08)^2
 ## [1] 0.1256292
 ```
 
-```r
+``` r
 # Looks like that time of interest is t = 0.1256 hours.
 ```
 
@@ -348,7 +348,7 @@ Calculate the mean time to fail for the right earloop, and $\lamba$, the mean fa
 1. MTTF and Lambda
 
 
-```r
+``` r
 compare <- masks %>%
   summarize(mttf_right = mean(right_earloop),
             mttf_left = mean(left_earloop),
@@ -365,7 +365,7 @@ compare
 ## 1       10.6      13.4       0.0943      0.0749
 ```
 
-```r
+``` r
 # Looks like the left earloop fails less often.
 ```
 
@@ -390,7 +390,7 @@ $$ R(x | t) = \frac{ R(x + t) }{ R(t) } = \frac{ P(T_{Fail} > x + t) }{P(T_{Fail
 So, let's use our nice reliability function from before to help us calculate the conditional reliability function. 
 
 
-```r
+``` r
 # Reliability Function for exponential distribution
 r = function(t, lambda){ exp(-1*t*lambda)}
 ```
@@ -398,7 +398,7 @@ r = function(t, lambda){ exp(-1*t*lambda)}
 So, what's the probability that a left-earloop that has lasted 10 hours will last another 5 hours?
 
 
-```r
+``` r
 r(t = 10 + 5, lambda = stat$lambda) / 
   r(t = 10, lambda = stat$lambda)
 ```
@@ -412,7 +412,7 @@ Looks like there's a 69% chance it will last another 5 hours, given that it has 
 Let's finish up by building ourselves a nice Conditional Reliability function `cr`, which which calculates the conditional probability of any item surviving `x` more hours given that it survived `t` hours and a mean failure rate of `lambda`.
 
 
-```r
+``` r
 cr = function(t, x, lambda){
   # We can actually nest functions inside each other, 
   # to make them easier to write
@@ -427,7 +427,7 @@ cr = function(t, x, lambda){
 ```
 
 
-```r
+``` r
 # Let's compare our result to above! It's the same!
 cr(t = 10, x = 5, lambda = stat$lambda)
 ```
@@ -454,7 +454,7 @@ It shows the mean expected remaining life years after $t$.
 We can formalize this as function `mu(t, lambda)`. (Since the Greek letter $\mu$ is pronounced `mu`.)
 
 
-```r
+``` r
 # Conditional Reliability
 library(mosaicCalc)
 library(dplyr)
@@ -481,7 +481,7 @@ mu = function(t = 5, lambda = 0.001){
 Let's test it out!
 
 
-```r
+``` r
 # Mean residual life given it's lasted 500 hours
 mu(t = 500, lambda = 0.001)
 ```
@@ -490,7 +490,7 @@ mu(t = 500, lambda = 0.001)
 ## [1] 1648.721
 ```
 
-```r
+``` r
 # Mean residual life given it's lasted 2000 hours
 mu(t = 2000, lambda = 0.001)
 ```
@@ -499,7 +499,7 @@ mu(t = 2000, lambda = 0.001)
 ## [1] 7389.056
 ```
 
-```r
+``` r
 # Mean residual life given it's lasted 5000 hours
 mu(t = 5000, lambda = 0.001)
 ```
@@ -508,14 +508,14 @@ mu(t = 5000, lambda = 0.001)
 ## [1] 148413.2
 ```
 
-```r
+``` r
 # [Note: mu is NOT vectorized]
 ```
 
 Notice also that when t = 0, we have a mu(0) which equals the MTTF.
 
 
-```r
+``` r
 # Mean residual life given it's lasted 0 hours...
 mu(t = 0, lambda = 0.001) # same as MTTF!
 ```
@@ -524,7 +524,7 @@ mu(t = 0, lambda = 0.001) # same as MTTF!
 ## [1] 1000
 ```
 
-```r
+``` r
 # Get mean time to failure function...
 mttf = antiD(tilde = r(t, lambda) ~ t)
 mttf(t = Inf, lambda = 0.001)
@@ -539,7 +539,7 @@ Works perfectly!
 This can also be applied to other life distributions, which we explore in later chapters. For example, here's a exmaple using the Weibull's reliability function `r(t, m, c)`.
 
 
-```r
+``` r
 muw = function(t = 5, m = 2, c = 20000){
   #t = 5; m = 2; c = 20000
   # Get the Reliability Function for exponential distribution
@@ -562,7 +562,7 @@ muw(t = 500, m = 2, c = 20000)
 ## [1] 17735.62
 ```
 
-```r
+``` r
 muw(t = 501, m = 2, c = 20000)
 ```
 
@@ -570,7 +570,7 @@ muw(t = 501, m = 2, c = 20000)
 ## [1] 17735.66
 ```
 
-```r
+``` r
 muw(t = 502, m = 2, c = 20000)
 ```
 
@@ -598,7 +598,7 @@ A competing firm produced a mask with a wire that fails at a constant rate of 1 
 1. The probability that the wire survives 1 week (`t = 168` hours) in continuous use is... (
 
 
-```r
+``` r
 # Write the reliability function
 r = function(t, lambda){ exp(-1*t*lambda)}
 
@@ -610,14 +610,14 @@ r(t = 168, lambda = 1 / 240)
 ## [1] 0.4965853
 ```
 
-```r
+``` r
 # ~ 50%
 ```
 
 2. You buy the mask, and it works without failure for 2 weeks (`t = 336` hours) The probability the wire will snap during the next week (`t = 504` hours) is...
 
 
-```r
+``` r
 # We can calculate it 2 ways.
 
 # First, we can take
@@ -630,7 +630,7 @@ r(t = 504, lambda = 1 / 240) /
 ## [1] 0.4965853
 ```
 
-```r
+``` r
 # Or, we can calculate the failure function
 f = function(t, lambda){1 - exp(-1*t*lambda)}
 # And just calculate the rate of F(t = x)
@@ -662,7 +662,7 @@ In other words, the probability that component $j$ fails first reflects how **bi
 Let's test this out with our `masks` dataset.
 
 
-```r
+``` r
 masks %>%
   summarize(
     # Calculate failure rates of left and right loops
@@ -681,7 +681,7 @@ masks %>%
 ## 1      0.0749       0.0943      0.169           0.442
 ```
 
-```r
+``` r
 # Looks like a probability of about 44% that left loop fails first.
 ```
 
@@ -707,7 +707,7 @@ Suppose we order 75% of our stock from a manufacturer with a failure rate of 1 f
 We can tally this up in a `stock` data.frame.
 
 
-```r
+``` r
 stock <- data.frame(
   prob = c(0.75, 0.25),
   lambda = c(1 / 50, 1 / 100))
@@ -716,7 +716,7 @@ stock <- data.frame(
 To calculate the MTTF, we just take the sum of the fraction of each proportion and each failure rate lambda.
 
 
-```r
+``` r
 stock %>%
   summarize(mttf = sum(prob / lambda))
 ```
@@ -729,7 +729,7 @@ stock %>%
 To calculate the overall failure rate, we will generate the reliability function, take its derivative to get the PDF.
 
 
-```r
+``` r
 # Let's write an exponential reliability function
 r = function(t, lambda){ exp(-1*t*lambda) }
 
@@ -740,7 +740,7 @@ f = D(-1*r(t, lambda) ~ t)
 Then, we use the PDFs $f_i(t)$ and the Reliability functions $R_i(t)$ to get calculate the overall failure rate $z(t)$.
 
 
-```r
+``` r
 stock %>%
   summarize(
     total_f = sum(prob * f(t = 100, lambda = lambda)),
@@ -756,7 +756,7 @@ stock %>%
 We could even write it as a function, where `p` and `lambda` are equal length vectors for plant 1, plant 2, plant 3, ... plant $n$.
 
 
-```r
+``` r
 z = function(t){
   # Set the input percentages of products from plants 1 and 2
   p = c(0.75, 0.25)
@@ -787,7 +787,7 @@ z(t = 1)
 ## [1] 0.0174812
 ```
 
-```r
+``` r
 z(t = 10)
 ```
 
@@ -795,7 +795,7 @@ z(t = 10)
 ## [1] 0.01730786
 ```
 
-```r
+``` r
 z(t = 100)
 ```
 
@@ -814,8 +814,8 @@ We can write the time $T$ to critical failure (via either overstress OR degraded
 
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-aafbdf6fef061b919525" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-aafbdf6fef061b919525">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-d905ca0ab63a123ebd7f" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-d905ca0ab63a123ebd7f">{"x":{"diagram":"graph LR\n O((\"Overstress\"))\n C((\"Critical<br>Failure\"))\n D((\"Degraded<br>Failure\"))\n DC((\"Critical<br>Degraded\"))\n O-->|&lambda;<sub>C<\/sub>|C\n O-->|&lambda;<sub>D<\/sub>|D\n D-->|&lambda;<sub>C<\/sub>|C\n D-->|&lambda;<sub>DC<\/sub>|DC"},"evals":[],"jsHooks":[]}</script>
 ```
 
 The total probability of a product being in any phase $a_{i \to n}$ equals 1.
@@ -829,7 +829,7 @@ The total probability of a product being in any phase $a_{i \to n}$ equals 1.
 We can represent it in a dataframe, like so:
 
 
-```r
+``` r
 myphase <- data.frame(
   id = 1:4,
   phase = c("c", "d", "c", "dc"),
@@ -841,7 +841,7 @@ myphase <- data.frame(
 And, using the same tricks from the preceding section, we can calculate `z(t)`, the overall hazard rate of a phase-type exponential distribution, by taking the sum of the weighted probabilities.
 
 
-```r
+``` r
 r = function(t, lambda){ exp(-1*t*lambda) }
 # Let's derive an exponential PDF f(t),
 f = D(-1*r(t, lambda) ~ t)
@@ -863,7 +863,7 @@ z(t = 1, data = myphase)
 ## [1] 0.6888965
 ```
 
-```r
+``` r
 z(t = 2, data = myphase)
 ```
 
@@ -871,7 +871,7 @@ z(t = 2, data = myphase)
 ## [1] 0.6161738
 ```
 
-```r
+``` r
 z(t = 5, data = myphase)
 ```
 
@@ -879,7 +879,7 @@ z(t = 5, data = myphase)
 ## [1] 0.5308124
 ```
 
-```r
+``` r
 z(t = 10, data = myphase)
 ```
 

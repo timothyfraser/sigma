@@ -19,7 +19,7 @@ In this workshop, we will learn how to perform statistical process control in `R
 We'll be using the `tidyverse` package for visualization, `viridis` for color palletes, `moments` for descriptive statistics, plus `ggpubr` for some add-on functions in `ggplot`.
 
 
-```r
+``` r
 library(tidyverse)
 library(viridis)
 # you'll probably need to install these packages!
@@ -68,7 +68,7 @@ You've been hired to evaluate quality control at a local *onsen* in sunny Kagosh
 Let's read in our data from `workshops/onsen.csv`!
 
 
-```r
+``` r
 # Let's import our samples of bathwater over time!
 water = read_csv("workshops/onsen.csv")
 # Take a peek!
@@ -111,7 +111,7 @@ Let's learn some key techniques for visualizing quality control!
 First, when you're about to make a bunch of `ggplot` visuals, it can help to set a common theme across them all with `theme_set()`.
 
 
-```r
+``` r
 # By running theme_set()
 theme_set(
   # we tell ggplot to give EVERY plot this theme
@@ -147,7 +147,7 @@ First, let's describe our process, using favorite description statistics. We're 
 (*I encourage you to write your own functions like this to help expedite your coding! Start simple!*)
 
 
-```r
+``` r
 describe = function(x){
   # Put our vector x in a tibble
   tibble(x) %>%
@@ -202,7 +202,7 @@ Your first step should always be to look at the data overall! `geom_jitter()`, `
 - `ggarrange()` from the `ggpubr` package binds two plots together into one, giving each a specific proportional `width` (eg. `c(0.25, 0.75)` percent, or `c(5, 1)` would be 5/6 and 1/6.)
 
 
-```r
+``` r
 # Make the initial boxplot...
 g1 = water %>%
   ggplot(mapping = aes(x = time, y = temp, group = time)) +
@@ -224,7 +224,7 @@ g1
 <br>
 
 
-```r
+``` r
 # Make the histogram, but tilt it on its side
 g2 = water %>%
   ggplot(mapping = aes(x = temp)) +
@@ -240,7 +240,7 @@ g2
 <br>
 
 
-```r
+``` r
 # Then bind them together into 1 plot, 'h'orizontally aligned.
 p1 = ggarrange(g1,g2, widths = c(5,1), align = "h")
 # Check it out!
@@ -273,7 +273,7 @@ We analyzed temperature variation above, but our hot springs owner wants to know
 <details><summary>**[View Answer!]**</summary>
 
 
-```r
+``` r
 ggprocess = function(x, y, xlab = "Subgroup", ylab = "Metric"){
   
   # Get descriptive statistics
@@ -340,7 +340,7 @@ Next, to analyze these processes more in depth, we need to assemble statistics a
 Let's apply these to our *onsen* data to get statistics describing each subgroup's distribution, a.k.a. short-term or within-group statistics.
 
 
-```r
+``` r
 # Calculate short-term statistics within each group
 stat_s = water %>% 
   # For each timestpe
@@ -391,7 +391,7 @@ stat_s %>% head(3)
 ### Total Statistics (Between Groups)
 
 
-```r
+``` r
 # To get between-group estimates....
 stat_t = stat_s %>%
   summarize(
@@ -417,7 +417,7 @@ So, now that we have estimated within-group, common cause variation via $\sigma_
 The preferred method for measuring within-group variability is the standard deviation, rather than the range, so we generally recommend (a) Average ($\bar{X}$) and Standard Deviation ($S$) charts over (b) Average ($\bar{X}$) and Range ($R$) charts.
 
 
-```r
+``` r
 # Let's extract some labels
 labels = stat_s %>%
   summarize(
@@ -458,7 +458,7 @@ Well, that was nifty, but can we do it all over again for `pH`? Make some rad up
 <details><summary>**[View Answer!]**</summary>
 
 
-```r
+``` r
 # Get the within-group stats for ph!
 ph_s = water %>%
   group_by(time) %>%
@@ -514,7 +514,7 @@ ph_s %>%
 Suppose we only had 1 observation per subgroup! There's no way to calculate standard deviation for that - after all, there's no variation within each subgroup! Instead, we can generate an individual and moving range chart.
 
 
-```r
+``` r
 # Suppose we sample just the first out of each our months.
 indiv = water %>%
   filter(id %in% c(1, 21, 41, 61, 81, 101, 121, 141))
@@ -523,7 +523,7 @@ indiv = water %>%
 The *average moving range* $m\bar{R}$ aptly refers to the average of the *moving Range* $mR$, the *difference* in values over time. We can calculate the moving range using the `diff()` function on a vector like `temp`, shown below. `abs()` converts each value to be positive, since ranges are always 0 to infinity.
 
 
-```r
+``` r
 # Let's see our original values
 indiv$temp
 ```
@@ -532,7 +532,7 @@ indiv$temp
 ## [1] 43.2 46.0 46.6 42.1 44.4 46.8 43.7 45.9
 ```
 
-```r
+``` r
 # diff() gets range between second and first, third and second, and so on
 indiv$temp %>% diff() %>% abs()
 ```
@@ -564,7 +564,7 @@ As discussed above, *any statistics* has a latent distribution of other values y
 - We find a beautiful distribution of moving range statistics for `n=1` size subgroups.
 
 
-```r
+``` r
 mrsim = rnorm(n = 10000, mean = 0, sd = 1) %>% diff() %>% abs()
 mrsim %>% hist()
 ```
@@ -582,30 +582,30 @@ For example, we can calculate:
 - Technically, $d_{2}$ is a ratio, which says that *in a distribution with a standard deviation of 1, the mean mR is $d_{2}$.* In other words, $d_{2} = \frac{m\bar{R}_{normal, n = 1} }{\sigma_{normal,n=1} }$. So, if we have observed a real life average moving range $m\bar{R}_{observed,n=1}$, we can use this $d_{2}$ factor to convert out of units of $1 \sigma_{normal,n=1}$ into units the $\sigma_{short}$ of our observed data! 
 
 
-```r
+``` r
 # For example, the mean of our vector mrsim, for subgroup size n = 1, 
 # says that d2 (mean of these mR stats) is...
 mrsim %>% mean()
 ```
 
 ```
-## [1] 1.116826
+## [1] 1.116105
 ```
 
 
-```r
+``` r
 # While d3 (standard deviation is...)
 mrsim %>% sd()
 ```
 
 ```
-## [1] 0.8421688
+## [1] 0.8297099
 ```
 
 But why stop there? We can calculate loads of other interesting statistics!
 
 
-```r
+``` r
 # For example, these statistics 
 # estimate the median, upper 90, and upper 95% of the distribution! 
 mrsim %>%
@@ -614,7 +614,7 @@ mrsim %>%
 
 ```
 ##   50%   90%   95% 
-## 0.947 2.302 2.738
+## 0.954 2.294 2.707
 ```
 
 <br>
@@ -625,7 +625,7 @@ mrsim %>%
 Let's apply our new knowledge about $d_{2}$ to calculate some upper bounds ($+3 \sigma$) for our average moving range estimates!
 
 
-```r
+``` r
 istat_s = indiv %>%
   summarize(
     time = time[-1],
@@ -651,7 +651,7 @@ istat_s = indiv %>%
 Why stop there? Let's visualize it!
 
 
-```r
+``` r
 # Let's get our labels!
 labels = istat_s %>%
   summarize(
@@ -695,7 +695,7 @@ But let's say you *did* need a $d_x$ factor for a subgroup range of a given samp
 Funny you should ask! I've written a little helper function you can use.
 
 
-```r
+``` r
 # Let's calculate our own d function
 dn = function(n, reps = 1e4){
   # For 10,0000 reps
@@ -726,11 +726,11 @@ dn(n = 2)
 ## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   <dbl> <dbl> <dbl> <dbl>
-## 1  1.13 0.855     0  3.28
+## 1  1.12 0.850     0  3.28
 ```
 
 
-```r
+``` r
 # Let's get the constants we need too.
 # Each of our samples has a sample size of 20
 d = dn(n = 20)
@@ -743,7 +743,7 @@ d
 ## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   <dbl> <dbl> <dbl> <dbl>
-## 1  3.72 0.718 0.421  1.58
+## 1  3.74 0.734 0.412  1.59
 ```
 
 <br>
@@ -754,7 +754,7 @@ d
 Using `d_n()`, we can make a quick approximation for the upper and lower control limits for the *range* $\bar{R}$ as well (as opposed to $m\bar{R}$)!
 
 
-```r
+``` r
 # Let's get within group range for temperature...
 stat_w = water %>%
   group_by(time) %>%
@@ -776,7 +776,7 @@ stat
 ```
 
 
-```r
+``` r
 # We find that dn() gives us constants D3 and D4... 
 mydstat = dn(n = stat$n_w)
 mydstat
@@ -786,13 +786,13 @@ mydstat
 ## # A tibble: 1 × 4
 ##      d2    d3    D3    D4
 ##   <dbl> <dbl> <dbl> <dbl>
-## 1  3.72 0.730 0.412  1.59
+## 1  3.72 0.724 0.417  1.58
 ```
 
 And use these constants to estimate the upper and lower CI for $\bar{r}$!
 
 
-```r
+``` r
 stat %>%
   mutate(rbar_lower = rbar * mydstat$D3,
          rbar_upper = rbar * mydstat$D4) %>%
@@ -803,13 +803,13 @@ stat %>%
 ## # A tibble: 1 × 3
 ##    rbar rbar_lower rbar_upper
 ##   <dbl>      <dbl>      <dbl>
-## 1  7.26       2.99       11.5
+## 1  7.26       3.02       11.5
 ```
 
 So quick! You could use these values to make a *range* chart now.
 
 
-```r
+``` r
 remove(stat, stat_w)
 ```
 
@@ -823,7 +823,7 @@ We might also want to know how much the standard deviation could possible vary d
 Then, we can calculate some quantities of interest like $C_{4}$ (the mean standard deviation from an archetypal normal distribution), $B_{3}$ (a multiplier for getting the lower control limit for 3 sigmas), and $B_{4}$ (a multiplier for getting the upper control limit for 3 sigmas.)
 
 
-```r
+``` r
 # Let's write a function bn() to calculate our B3 and B4 statistics for any subgroup size n
 bn = function(n, reps = 1e4){
   tibble(rep = 1:reps) %>%
@@ -846,7 +846,7 @@ Let's apply this to our `temp` vector.
 First, we'll calculate the standard deviation within each subgroup, saved in `stat_w` under `s`.
 
 
-```r
+``` r
 # Let's get within group standard deviation for temperature...
 stat_w = water %>%
   group_by(time) %>%
@@ -873,7 +873,7 @@ stat_w
 Second, we'll calculate the average standard deviation across subgroups, saved in `stat` under `sbar`.
 
 
-```r
+``` r
 # Let's get average within group range for temperature...
 stat = stat_w %>%
   summarize(sbar = mean(s), # get Rbar
@@ -892,7 +892,7 @@ stat
 Third, we'll get our constants $B_{3}$ and $B_{4}$!
 
 
-```r
+``` r
 # For a subgroup size of 20...
 stat$n_w
 ```
@@ -901,7 +901,7 @@ stat$n_w
 ## [1] 20
 ```
 
-```r
+``` r
 # Let's get our B constants!
 mybstat = bn(n = stat$n_w)
 
@@ -913,13 +913,13 @@ mybstat
 ## # A tibble: 1 × 6
 ##      b2    b3    C4    A3    B3    B4
 ##   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-## 1 0.988 0.163 0.988 0.679 0.505  1.49
+## 1 0.985 0.161 0.985 0.681 0.509  1.49
 ```
 
 Finally, let's calculate our control limits!
 
 
-```r
+``` r
 stat = stat %>%
   # Add our constants to the data.frame...
   mutate(mybstat) %>%
@@ -936,7 +936,7 @@ stat %>%
 ## # A tibble: 1 × 3
 ##    sbar sbar_lower sbar_upper
 ##   <dbl>      <dbl>      <dbl>
-## 1  1.94      0.978       2.89
+## 1  1.94      0.985       2.89
 ```
 
 Now you're all ready to make a control chart showing variation in the standard deviation!
@@ -955,7 +955,7 @@ Using our `dn()` function above, compile for yourself a short table of the $d_{2
 <details><summary>**[View Answer!]**</summary>
 
 
-```r
+``` r
 # Let's bind them together!
 dx = bind_rows(
   dn(2), dn(3), dn(4), dn(5),
@@ -971,15 +971,15 @@ dx
 ## # A tibble: 9 × 3
 ##       n    d2    d3
 ##   <int> <dbl> <dbl>
-## 1     2  1.13 0.859
-## 2     3  1.69 0.886
-## 3     4  2.04 0.878
-## 4     5  2.32 0.871
-## 5     6  2.53 0.849
-## 6     7  2.72 0.831
-## 7     8  2.85 0.825
-## 8     9  2.98 0.805
-## 9    10  3.08 0.797
+## 1     2  1.13 0.850
+## 2     3  1.70 0.885
+## 3     4  2.04 0.870
+## 4     5  2.33 0.867
+## 5     6  2.54 0.840
+## 6     7  2.69 0.843
+## 7     8  2.84 0.821
+## 8     9  2.97 0.813
+## 9    10  3.07 0.797
 ```
 
 </details>

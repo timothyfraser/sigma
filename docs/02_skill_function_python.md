@@ -21,8 +21,8 @@ We'll use base Python here. No extra packages needed.
 
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-4916cdcfc644eeb6be9e" style="width:100%;height:144px;"></div>
-<script type="application/json" data-for="htmlwidget-4916cdcfc644eeb6be9e">{"x":{"diagram":"graph LR\n subgraph before\n i[input data <i>x<\/i>]\n end\n subgraph function\n c[calculation]\n end\n subgraph after\n o[output data <i>y<\/i>]\n end\n i --> c\n c --> o"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-b184c5b23e45f755618b" style="width:100%;height:144px;"></div>
+<script type="application/json" data-for="htmlwidget-b184c5b23e45f755618b">{"x":{"diagram":"graph LR\n subgraph before\n i[input data <i>x<\/i>]\n end\n subgraph function\n c[calculation]\n end\n subgraph after\n o[output data <i>y<\/i>]\n end\n i --> c\n c --> o"},"evals":[],"jsHooks":[]}</script>
 ```
 
 Below, we'll write an example function, called `add(a, b)`. 
@@ -34,7 +34,7 @@ Below, we'll write an example function, called `add(a, b)`.
 - The function can involve multiple operations inside it. But at the end, you need to print *one* final output, or put `return` before your output.
 
 
-```python
+``` python
 # Make function
 def add(a, b):
   # Compute and directly output
@@ -48,7 +48,7 @@ add(1, 2)
 ```
 
 
-```python
+``` python
 # This also works
 def add(a, b):
   # Assign output to a temporary object
@@ -71,7 +71,7 @@ add(1, 2)
 You can assign default input values. Below, by default, `b = 2`. If we supply a different `b`, the default gets overwritten.
 
 
-```python
+``` python
 def add(a, b = 2):
   return a + b
 ```
@@ -79,7 +79,7 @@ def add(a, b = 2):
 Let's try it!
 
 
-```python
+``` python
 # Only provide 'a'
 add(1)
 ```
@@ -88,7 +88,7 @@ add(1)
 ## 3
 ```
 
-```python
+``` python
 # Provide both
 add(1, 2)
 ```
@@ -97,7 +97,7 @@ add(1, 2)
 ## 3
 ```
 
-```python
+``` python
 # Change 'b'
 add(1, 3)
 ```
@@ -107,7 +107,7 @@ add(1, 3)
 ```
 
 
-```python
+``` python
 # clear data
 del add
 ```

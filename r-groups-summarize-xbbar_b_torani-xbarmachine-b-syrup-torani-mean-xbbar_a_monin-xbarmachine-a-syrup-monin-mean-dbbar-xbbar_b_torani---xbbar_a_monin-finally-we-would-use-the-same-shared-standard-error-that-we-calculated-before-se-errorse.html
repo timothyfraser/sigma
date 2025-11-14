@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 {r} # groups %&gt;% # summarize( # xbbar_b_torani = xbar[machine == "b" &amp; syrup == "torani"] %&gt;% mean(), # xbbar_a_monin = xbar[machine == "a" &amp; syrup == "monin"] %&gt;% mean(), # dbbar = xbbar_b_torani - xbbar_a_monin, # # Finally, we would use the same shared standard error that we calculated before # se = error$se) # | 14_workshop.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 {r} # groups %&gt;% # summarize( # xbbar_b_torani = xbar[machine == "b" &amp; syrup == "torani"] %&gt;% mean(), # xbbar_a_monin = xbar[machine == "a" &amp; syrup == "monin"] %&gt;% mean(), # dbbar = xbbar_b_torani - xbbar_a_monin, # # Finally, we would use the same shared standard error that we calculated before # se = error$se) # | 14_workshop.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 {r} # groups %&gt;% # summarize( # xbbar_b_torani = xbar[machine == "b" &amp; syrup == "torani"] %&gt;% mean(), # xbbar_a_monin = xbar[machine == "a" &amp; syrup == "monin"] %&gt;% mean(), # dbbar = xbbar_b_torani - xbbar_a_monin, # # Finally, we would use the same shared standard error that we calculated before # se = error$se) # | 14_workshop.knit" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="factorial-design-and-interaction-effects-in-r.html"/>
+
+<script src="assets/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html"><i class="fa fa-check"></i><b>1</b> Factorial Design and Interaction Effects in <code>R</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#getting-started"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#factorial-design"><i class="fa fa-check"></i>Factorial Design</a></li>
+<li class="chapter" data-level="" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#data-packages"><i class="fa fa-check"></i>Data &amp; Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-direct-effects"><i class="fa fa-check"></i><b>1.1</b> Estimating Direct Effects</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#difference-of-grand-means-barbard"><i class="fa fa-check"></i><b>1.1.1</b> Difference of Grand Means <span class="math inline">\(\bar{\bar{d}}\)</span></a></li>
+<li class="chapter" data-level="1.1.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#slower-but-clearer-method-of-getting-the-difference-of-grand-means-barbard"><i class="fa fa-check"></i><b>1.1.2</b> Slower-but-Clearer Method of Getting the Difference of Grand Means <span class="math inline">\(\bar{\bar{d}}\)</span></a></li>
+<li class="chapter" data-level="1.1.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#faster-but-messier-method-of-getting-the-difference-of-grand-means-barbard"><i class="fa fa-check"></i><b>1.1.3</b> Faster-but-Messier Method of Getting the Difference of Grand Means <span class="math inline">\(\bar{\bar{d}}\)</span></a></li>
+<li class="chapter" data-level="1.1.4" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-many-difference-of-grand-means-barbard"><i class="fa fa-check"></i><b>1.1.4</b> Estimating <em>Many</em> Difference of Grand Means <span class="math inline">\(\bar{\bar{d}}\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#standard-errors-for-barbard"><i class="fa fa-check"></i><b>1.2</b> Standard Errors for <span class="math inline">\(\bar{\bar{d}}\)</span></a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-standard-error-when-s2_i-is-known"><i class="fa fa-check"></i><b>1.2.1</b> Estimating Standard Error when <span class="math inline">\(s^2_i\)</span> is known</a></li>
+<li class="chapter" data-level="1.2.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#using-pooled-variance-to-estimate-standard-errors"><i class="fa fa-check"></i><b>1.2.2</b> Using Pooled Variance to Estimate Standard Errors</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#pivoting-data-with-pivot_longer-pivot_wider"><i class="fa fa-check"></i><b>1.3</b> Pivoting Data with <code>pivot_longer()</code> &amp; <code>pivot_wider()</code></a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#contains"><i class="fa fa-check"></i><b>1.3.1</b> <code>contains()</code></a></li>
+<li class="chapter" data-level="1.3.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#pivot_longer"><i class="fa fa-check"></i><b>1.3.2</b> <code>pivot_longer()</code></a></li>
+<li class="chapter" data-level="1.3.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#pivot_wider"><i class="fa fa-check"></i><b>1.3.3</b> <code>pivot_wider()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#visualizing-reporting-treatment-effects"><i class="fa fa-check"></i><b>1.4</b> Visualizing &amp; Reporting Treatment Effects</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#building-a-table-of-direct-effects"><i class="fa fa-check"></i><b>1.4.1</b> Building a Table of Direct Effects</a></li>
+<li class="chapter" data-level="1.4.2" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#visualization-strategies"><i class="fa fa-check"></i><b>1.4.2</b> Visualization Strategies</a></li>
+<li class="chapter" data-level="1.4.3" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#an-excellent-visual"><i class="fa fa-check"></i><b>1.4.3</b> An Excellent Visual</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#interaction-effects"><i class="fa fa-check"></i><b>1.5</b> Interaction Effects</a></li>
+<li class="chapter" data-level="1.6" data-path="factorial-design-and-interaction-effects-in-r.html"><a href="factorial-design-and-interaction-effects-in-r.html#estimating-2-way-interactions"><i class="fa fa-check"></i><b>1.6</b> Estimating 2-way interactions</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html"><i class="fa fa-check"></i><b>2</b> <code>{r} # groups %&gt;% #   summarize( #     xbbar_b_torani = xbar[machine == "b" &amp; syrup == "torani"] %&gt;% mean(), #     xbbar_a_monin = xbar[machine == "a" &amp; syrup == "monin"] %&gt;% mean(), #     dbbar = xbbar_b_torani - xbbar_a_monin, #     # Finally, we would use the same shared standard error that we calculated before #     se = error$se) #</code></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#estimating-3-way-interactions"><i class="fa fa-check"></i><b>2.1</b> Estimating 3-way interactions</a></li>
+<li class="chapter" data-level="2.2" data-path="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#estimating-interactions-in-lm"><i class="fa fa-check"></i><b>2.2</b> Estimating Interactions in <code>lm()</code></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#modeling-interactions"><i class="fa fa-check"></i><b>2.2.1</b> Modeling Interactions</a></li>
+<li class="chapter" data-level="2.2.2" data-path="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#using-predict-to-visualize-interaction-effects"><i class="fa fa-check"></i><b>2.2.2</b> Using <code>predict()</code> to visualize interaction effects</a></li>
+<li class="chapter" data-level="2.2.3" data-path="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#finding-the-best-model-with-anova"><i class="fa fa-check"></i><b>2.2.3</b> Finding the best model with <code>anova()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#conclusion"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> <code>{r} # groups %&gt;% #   summarize( #     xbbar_b_torani = xbar[machine == "b" &amp; syrup == "torani"] %&gt;% mean(), #     xbbar_a_monin = xbar[machine == "a" &amp; syrup == "monin"] %&gt;% mean(), #     dbbar = xbbar_b_torani - xbbar_a_monin, #     # Finally, we would use the same shared standard error that we calculated before #     se = error$se) #</code><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-1" tabindex="-1"></a><span class="co"># Rename main metric tastiness by y for easier handling</span></span>
+<span id="cb38-2"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-2" tabindex="-1"></a><span class="co"># lattes = read_csv(&quot;https://raw.githubusercontent.com/timothyfraser/sysen/main/workshops/lattes.csv&quot;)</span></span>
+<span id="cb38-3"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-3" tabindex="-1"></a>lattes <span class="ot">=</span> lattes <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">y =</span> tastiness)</span>
+<span id="cb38-4"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-4" tabindex="-1"></a>dbar_twoway <span class="ot">=</span> <span class="cf">function</span>(formula, data){</span>
+<span id="cb38-5"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-5" tabindex="-1"></a>  <span class="co"># Let&#39;s use formula = y ~ machine * syrup as an example</span></span>
+<span id="cb38-6"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-6" tabindex="-1"></a>  <span class="co"># data = lattes</span></span>
+<span id="cb38-7"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-7" tabindex="-1"></a>  </span>
+<span id="cb38-8"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-8" tabindex="-1"></a>  <span class="co"># Extract model frame</span></span>
+<span id="cb38-9"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-9" tabindex="-1"></a>  frame <span class="ot">=</span> <span class="fu">model.frame</span>(formula, data) <span class="sc">%&gt;%</span></span>
+<span id="cb38-10"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-10" tabindex="-1"></a>    <span class="co"># rename columns as y, a, b</span></span>
+<span id="cb38-11"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-11" tabindex="-1"></a>    <span class="fu">select</span>(<span class="at">y =</span> <span class="dv">1</span>, <span class="at">a =</span> <span class="dv">2</span>, <span class="at">b =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb38-12"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-12" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">a =</span> <span class="fu">factor</span>(a), <span class="at">b =</span> <span class="fu">factor</span>(b))</span>
+<span id="cb38-13"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-13" tabindex="-1"></a>  </span>
+<span id="cb38-14"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-14" tabindex="-1"></a>  levels_a <span class="ot">=</span> <span class="fu">levels</span>(frame<span class="sc">$</span>a)</span>
+<span id="cb38-15"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-15" tabindex="-1"></a>  levels_b <span class="ot">=</span> <span class="fu">levels</span>(frame<span class="sc">$</span>b)</span>
+<span id="cb38-16"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-16" tabindex="-1"></a>  </span>
+<span id="cb38-17"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-17" tabindex="-1"></a>  <span class="co"># Convert factors to integer codes</span></span>
+<span id="cb38-18"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-18" tabindex="-1"></a>  frame <span class="ot">=</span> frame <span class="sc">%&gt;%</span></span>
+<span id="cb38-19"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-19" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">a =</span> <span class="fu">as.integer</span>(a),</span>
+<span id="cb38-20"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-20" tabindex="-1"></a>           <span class="at">b =</span> <span class="fu">as.integer</span>(b))</span>
+<span id="cb38-21"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-21" tabindex="-1"></a>  </span>
+<span id="cb38-22"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-22" tabindex="-1"></a>  <span class="co"># Now pick the combinations for comparison</span></span>
+<span id="cb38-23"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-23" tabindex="-1"></a>  output <span class="ot">=</span> frame <span class="sc">%&gt;%</span></span>
+<span id="cb38-24"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-24" tabindex="-1"></a>    <span class="fu">reframe</span>(</span>
+<span id="cb38-25"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-25" tabindex="-1"></a>      <span class="co"># Same factors: HH or LL</span></span>
+<span id="cb38-26"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-26" tabindex="-1"></a>      <span class="at">x1 =</span> y[(a<span class="sc">==</span><span class="dv">2</span> <span class="sc">&amp;</span> b<span class="sc">==</span><span class="dv">2</span>) <span class="sc">|</span> (a<span class="sc">==</span><span class="dv">1</span> <span class="sc">&amp;</span> b<span class="sc">==</span><span class="dv">1</span>)],</span>
+<span id="cb38-27"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-27" tabindex="-1"></a>      <span class="co"># Opposite factors: HL or LH</span></span>
+<span id="cb38-28"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-28" tabindex="-1"></a>      <span class="at">x0 =</span> y[(a<span class="sc">==</span><span class="dv">1</span> <span class="sc">&amp;</span> b<span class="sc">==</span><span class="dv">2</span>) <span class="sc">|</span> (a<span class="sc">==</span><span class="dv">2</span> <span class="sc">&amp;</span> b<span class="sc">==</span><span class="dv">1</span>)]</span>
+<span id="cb38-29"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-29" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb38-30"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-30" tabindex="-1"></a>    <span class="fu">reframe</span>(</span>
+<span id="cb38-31"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-31" tabindex="-1"></a>      <span class="co"># Calculate dbar</span></span>
+<span id="cb38-32"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-32" tabindex="-1"></a>      <span class="at">dbar =</span> <span class="fu">mean</span>(x1) <span class="sc">-</span> <span class="fu">mean</span>(x0)</span>
+<span id="cb38-33"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-33" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb38-34"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-34" tabindex="-1"></a>    <span class="fu">with</span>(dbar)</span>
+<span id="cb38-35"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-35" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb38-36"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-36" tabindex="-1"></a>}</span>
+<span id="cb38-37"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-37" tabindex="-1"></a></span>
+<span id="cb38-38"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb38-38" tabindex="-1"></a><span class="fu">dbar_twoway</span>(y <span class="sc">~</span> machine <span class="sc">*</span> syrup, lattes)</span></code></pre></div>
+<pre><code>## [1] -6.433374</code></pre>
+<p>We can see that lattes made with Machine B and Torani syrup taste 6.43 <strong>worse</strong> than lattes made with machine A and Monin syrup.</p>
+<p><br>
+<br></p>
+<div id="estimating-3-way-interactions" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Estimating 3-way interactions<a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#estimating-3-way-interactions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We could even calculate a three-way interaction between <code>machine</code> type, <code>syrup</code> brand, and latte <code>art</code>, like so:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb40-1" tabindex="-1"></a>groups <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb40-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb40-3"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb40-3" tabindex="-1"></a>    <span class="co"># This time, we just add `art == &quot;heart&quot;` as an extra condition, and vice versa below</span></span>
+<span id="cb40-4"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb40-4" tabindex="-1"></a>    <span class="at">xbbar_b_torani_heart =</span> xbar[machine <span class="sc">==</span> <span class="st">&quot;b&quot;</span> <span class="sc">&amp;</span> syrup <span class="sc">==</span> <span class="st">&quot;torani&quot;</span> <span class="sc">&amp;</span> art <span class="sc">==</span> <span class="st">&quot;heart&quot;</span>] <span class="sc">%&gt;%</span> <span class="fu">mean</span>(),</span>
+<span id="cb40-5"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb40-5" tabindex="-1"></a>    <span class="at">xbbar_a_monin_foamy =</span> xbar[machine <span class="sc">==</span> <span class="st">&quot;a&quot;</span> <span class="sc">&amp;</span> syrup <span class="sc">==</span> <span class="st">&quot;monin&quot;</span> <span class="sc">&amp;</span> art <span class="sc">==</span> <span class="st">&quot;foamy&quot;</span>] <span class="sc">%&gt;%</span> <span class="fu">mean</span>(),</span>
+<span id="cb40-6"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb40-6" tabindex="-1"></a>    <span class="at">dbbar =</span> xbbar_b_torani_heart <span class="sc">-</span> xbbar_a_monin_foamy,</span>
+<span id="cb40-7"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb40-7" tabindex="-1"></a>    <span class="co"># Finally, we would use the same shared standard error that we calculated before</span></span>
+<span id="cb40-8"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb40-8" tabindex="-1"></a>    <span class="at">se =</span> error<span class="sc">$</span>se)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 4
+##   xbbar_b_torani_heart xbbar_a_monin_foamy  dbbar    se
+##                  &lt;dbl&gt;               &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+## 1                 43.1                43.2 -0.123  8.39</code></pre>
+<p>But we can see that these threeway effects tend can often be quite small relative to the standard error. It is difficult to find statistically significant three-way effects.</p>
+<p><br>
+<br></p>
+</div>
+<div id="estimating-interactions-in-lm" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Estimating Interactions in <code>lm()</code><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#estimating-interactions-in-lm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A quick strategy for estimating interaction effects in <code>R</code> can be using the <code>lm()</code> function.</p>
+<div id="modeling-interactions" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Modeling Interactions<a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#modeling-interactions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>While it uses a regression model, rather than the difference of means, to estimate these effects, it tends to be pretty brief and doesn’t require making our <code>groups</code>, <code>dbbar</code>, or <code>error</code> data.frames.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb42-1" tabindex="-1"></a><span class="co"># Using our raw data of observed lattes</span></span>
+<span id="cb42-2"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb42-2" tabindex="-1"></a>m <span class="ot">=</span> lattes <span class="sc">%&gt;%</span> </span>
+<span id="cb42-3"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb42-3" tabindex="-1"></a>  <span class="co"># Make a linear model, showing interactions with the &#39;*&#39; sign</span></span>
+<span id="cb42-4"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb42-4" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> y <span class="sc">~</span> machine <span class="sc">*</span> milk <span class="sc">*</span> syrup <span class="sc">*</span> art)   </span>
+<span id="cb42-5"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb42-5" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb42-6" tabindex="-1"></a><span class="co"># View our model!</span></span>
+<span id="cb42-7"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb42-7" tabindex="-1"></a>m <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 24 × 5
+##    term                 estimate std.error statistic  p.value
+##    &lt;chr&gt;                   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+##  1 (Intercept)            43.3        1.71    25.3   1.64e-66
+##  2 machineb              -20.9        2.42    -8.63  1.37e-15
+##  3 milkskim                1.67       2.42     0.689 4.92e- 1
+##  4 milkwhole              -1.90       2.42    -0.786 4.33e- 1
+##  5 syruptorani            22.0        2.42     9.09  6.48e-17
+##  6 artheart               14.1        2.42     5.84  1.88e- 8
+##  7 machineb:milkskim       0.734      3.42     0.214 8.30e- 1
+##  8 machineb:milkwhole      1.82       3.42     0.532 5.95e- 1
+##  9 machineb:syruptorani  -12.6        3.42    -3.69  2.80e- 4
+## 10 milkskim:syruptorani    1.20       3.42     0.350 7.27e- 1
+## # ℹ 14 more rows</code></pre>
+<p>We see potentially significant interaction effects for the joint impact of machine b and torani syrup, as well as several strong direct effects. Three way effects though, are minimal at best.</p>
+</div>
+<div id="using-predict-to-visualize-interaction-effects" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Using <code>predict()</code> to visualize interaction effects<a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#using-predict-to-visualize-interaction-effects" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The big power of <code>lm()</code> in factorial experiments is getting to visualize these effects.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb44-1" tabindex="-1"></a><span class="co"># We can generate a set of all observed combinations of our treatments as &#39;newdata</span></span>
+<span id="cb44-2"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb44-2" tabindex="-1"></a>newdata <span class="ot">=</span> lattes <span class="sc">%&gt;%</span></span>
+<span id="cb44-3"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb44-3" tabindex="-1"></a>  <span class="fu">group_by</span>(machine, milk, syrup, art) <span class="sc">%&gt;%</span></span>
+<span id="cb44-4"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb44-4" tabindex="-1"></a>  <span class="fu">summarize</span>()</span>
+<span id="cb44-5"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb44-5" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb44-6" tabindex="-1"></a>newdata <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 4
+## # Groups:   machine, milk, syrup [3]
+##   machine milk  syrup  art  
+##   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
+## 1 a       oat   monin  foamy
+## 2 a       oat   monin  heart
+## 3 a       oat   torani foamy
+## 4 a       oat   torani heart
+## 5 a       skim  monin  foamy
+## 6 a       skim  monin  heart</code></pre>
+<p>Then, we can generate either <code>"confidence"</code> or <code>"prediction"</code> intervals - confidence intervals are a little narrower, used in estimating effects you’ve already observed, while prediction intervals are a little wider, used for estimating predicted quantities that you naturally want a little more caution around.</p>
+<p>I like to save this as an object <code>pred</code>, then extract the results in a second step.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb46-1" tabindex="-1"></a><span class="co"># For confidence intervals</span></span>
+<span id="cb46-2"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb46-2" tabindex="-1"></a>pred <span class="ot">=</span> <span class="fu">predict</span>(m, <span class="at">newdata =</span> newdata, </span>
+<span id="cb46-3"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb46-3" tabindex="-1"></a>          <span class="at">se.fit =</span> <span class="cn">TRUE</span>, <span class="at">interval =</span> <span class="st">&quot;confidence&quot;</span>, <span class="at">level =</span> <span class="fl">0.95</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb46-4"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb46-4" tabindex="-1"></a>  <span class="co"># Extract just the fitted results and intervals</span></span>
+<span id="cb46-5"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb46-5" tabindex="-1"></a>  <span class="fu">with</span>(fit) <span class="sc">%&gt;%</span></span>
+<span id="cb46-6"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb46-6" tabindex="-1"></a>  <span class="co"># And convert it to a tibble</span></span>
+<span id="cb46-7"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb46-7" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span>
+<span id="cb46-8"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb46-8" tabindex="-1"></a><span class="co"># or for prediction intervals...</span></span>
+<span id="cb46-9"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb46-9" tabindex="-1"></a><span class="co">#predict(m, newdata = newdata, </span></span>
+<span id="cb46-10"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb46-10" tabindex="-1"></a><span class="co">#          se.fit = TRUE, interval = &quot;prediction&quot;, level = 0.95)</span></span>
+<span id="cb46-11"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb46-11" tabindex="-1"></a><span class="co"># See? Not very tidy</span></span>
+<span id="cb46-12"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb46-12" tabindex="-1"></a>pred <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##     fit   lwr   upr
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  43.3  39.9  46.7
+## 2  57.4  54.1  60.8
+## 3  65.3  61.9  68.7
+## 4  83.2  79.9  86.6
+## 5  45.0  41.6  48.3
+## 6  56.9  53.5  60.2</code></pre>
+<p>Now, we can bind the two sets of values together, either using <code>tibble()</code> or <code>bind_col()</code>, because they share the same rows.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb48-1" tabindex="-1"></a>cis <span class="ot">=</span> <span class="fu">tibble</span>(</span>
+<span id="cb48-2"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb48-2" tabindex="-1"></a>  newdata,</span>
+<span id="cb48-3"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb48-3" tabindex="-1"></a>  <span class="at">yhat =</span> pred<span class="sc">$</span>fit,</span>
+<span id="cb48-4"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb48-4" tabindex="-1"></a>  <span class="at">lower =</span> pred<span class="sc">$</span>lwr,</span>
+<span id="cb48-5"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb48-5" tabindex="-1"></a>  <span class="at">upper =</span> pred<span class="sc">$</span>upr</span>
+<span id="cb48-6"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb48-6" tabindex="-1"></a>)</span></code></pre></div>
+<p>To visual an interaction effect, we can now narrow into 4 predictions, showing all possible combinations of <code>machine</code> and <code>syrup</code>, while zooming into just one type of <code>milk</code> and <code>art</code>, to hold these other concepts constant.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb49-1" tabindex="-1"></a>viz <span class="ot">=</span> cis <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb49-2" tabindex="-1"></a>  <span class="fu">filter</span>(machine <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>),</span>
+<span id="cb49-3"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb49-3" tabindex="-1"></a>         syrup <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;torani&quot;</span>, <span class="st">&quot;monin&quot;</span>),</span>
+<span id="cb49-4"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb49-4" tabindex="-1"></a>         milk <span class="sc">==</span> <span class="st">&quot;whole&quot;</span>,</span>
+<span id="cb49-5"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb49-5" tabindex="-1"></a>         art <span class="sc">==</span> <span class="st">&quot;heart&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-6"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb49-6" tabindex="-1"></a>  <span class="co"># add a label!</span></span>
+<span id="cb49-7"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb49-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">round</span>(yhat, <span class="dv">2</span>) )</span>
+<span id="cb49-8"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb49-8" tabindex="-1"></a><span class="co"># view it!</span></span>
+<span id="cb49-9"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb49-9" tabindex="-1"></a>viz</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 8
+##   machine milk  syrup  art    yhat lower upper label
+##   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 a       whole monin  heart  55.9  52.5  59.2  55.9
+## 2 a       whole torani heart  86.8  83.4  90.1  86.8
+## 3 b       whole monin  heart  27.9  24.5  31.2  27.9
+## 4 b       whole torani heart  43.2  39.8  46.6  43.2</code></pre>
+<p>And last, we can visualize the effect with <code>geom_ribbon()</code> or any other technique that accepts <code>ymin</code> and <code>ymax</code>. We just have to remember to put one variable on the x axis (eg. <code>machine</code>) and one variable as the <code>group</code> and <code>fill</code>, to distinguish our two lines.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb51-1" tabindex="-1"></a>viz <span class="sc">%&gt;%</span></span>
+<span id="cb51-2"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb51-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> machine, <span class="at">group =</span> syrup, <span class="at">fill =</span> syrup, </span>
+<span id="cb51-3"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb51-3" tabindex="-1"></a>                       <span class="at">y =</span> yhat, <span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper, <span class="at">label =</span> label)) <span class="sc">+</span></span>
+<span id="cb51-4"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb51-4" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>() <span class="sc">+</span></span>
+<span id="cb51-5"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb51-5" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb51-6"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb51-6" tabindex="-1"></a>  <span class="co"># Plot the labels, bumping the text upwards!</span></span>
+<span id="cb51-7"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb51-7" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">nudge_y =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb51-8"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb51-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Espresso Machine Type&quot;</span>,</span>
+<span id="cb51-9"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb51-9" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Predicted Tastiness (0-100) with 95% CIs&quot;</span>,</span>
+<span id="cb51-10"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb51-10" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">&quot;Syrup Brand&quot;</span>) <span class="sc">+</span></span>
+<span id="cb51-11"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb51-11" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code></pre></div>
+<p><img src="14_workshop_files/figure-html/unnamed-chunk-31-1.png" width="672" />
+How should we interpret this visual? Well, let’s just describe what we see! More descriptive language is always better than less, when it comes to explaining results for new viewers. Here’s an example descriptive!</p>
+<ul>
+<li><p>The figure above visualizes our model <code>m</code>’s predicted values for latte <code>tastiness</code> with 95% confidence intervals, assuming those lattes were made with <code>whole milk</code> and had <code>heart</code> foam art, but their only differences were the <code>machine</code> that made them and the brand of <code>syrup</code> they used.</p></li>
+<li><p>We see that lattes made from espresso machine B tend to be much less tasty than lattes made from espress machine A, given either type of syrup brand. Torani syrups see a sharper decrease than Monin syrups, but lattes made from Torani syrups remain much tastier.</p></li>
+<li><p>The lines do not cross in the given treatment categories, indicating that, at least as far as these dichotomous categories are concerned, the interaction effect between machine type and syrup brand is statistically significant at a 95% level of confidence - that is, we are at least 95% certain that lattes from torani syrups and machine B are tastier than lattes from monin syrups and machine A.</p></li>
+</ul>
+<p><br>
+<br></p>
+</div>
+<div id="finding-the-best-model-with-anova" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Finding the best model with <code>anova()</code><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#finding-the-best-model-with-anova" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can even use the <code>anova()</code> function (not to be confused with <code>aov()</code>) to find the best fitting model from a set of model objects. Here, we compare the second model against the first (as opposed to the model against an intercept, as in traditional anova).</p>
+<p>Then, we calculate the residual sum of squares in both, calculate the extra explained sum of squares in the second model, and estimate an F statistic. If the F statistic is statistically significant <em>and</em> the RSS has decreased, we would say that our second model fits better.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb52-1" tabindex="-1"></a><span class="co"># Let&#39;s make a second model for comparison against the first.</span></span>
+<span id="cb52-2"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb52-2" tabindex="-1"></a>m2 <span class="ot">=</span> lattes <span class="sc">%&gt;%</span> </span>
+<span id="cb52-3"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb52-3" tabindex="-1"></a>  <span class="co"># Make a linear model, showing interactions with the &#39;*&#39; sign</span></span>
+<span id="cb52-4"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb52-4" tabindex="-1"></a>  <span class="fu">lm</span>(<span class="at">formula =</span> y <span class="sc">~</span> machine <span class="sc">*</span> milk <span class="sc">*</span> syrup)</span>
+<span id="cb52-5"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb52-5" tabindex="-1"></a></span>
+<span id="cb52-6"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb52-6" tabindex="-1"></a><span class="co"># Here, for instance, there is a significant difference, but the RSS increased,</span></span>
+<span id="cb52-7"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb52-7" tabindex="-1"></a><span class="co"># so we know that model 1 is better than model 2</span></span>
+<span id="cb52-8"><a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#cb52-8" tabindex="-1"></a><span class="fu">anova</span>(m, m2)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: y ~ machine * milk * syrup * art
+## Model 2: y ~ machine * milk * syrup
+##   Res.Df   RSS  Df Sum of Sq      F    Pr(&gt;F)    
+## 1    216  6330                                   
+## 2    228 16182 -12     -9852 28.015 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+</div>
+<div id="conclusion" class="section level2 unnumbered hasAnchor">
+<h2>Conclusion<a href="r-groups-summarize-xbbar_b_torani-xbarmachine-b-syrup-torani-mean-xbbar_a_monin-xbarmachine-a-syrup-monin-mean-dbbar-xbbar_b_torani---xbbar_a_monin-finally-we-would-use-the-same-shared-standard-error-that-we-calculated-before-se-errorse.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In summary, Kim’s Coffee can rather quickly estimate the treatment effects of specific changes in their latte brewing process, as long as they randomly assign their lattes to different treatments and estimate their treatment effects with appropriate standard errors. Happy experimenting!</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="factorial-design-and-interaction-effects-in-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="assets/gitbook-2.6.7/js/app.min.js"></script>
+<script src="assets/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="assets/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": false,
+  "toc": {
+    "collapse": "subsection"
+  },
+  "toolbar": {
+    "position": "static"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -12,7 +12,7 @@ Please open up your Posit.Cloud project. Start a new R script (File >> New >> R 
 In this tutorial, we're going to use more of the `dplyr` and `ggplot2` packages, plus the `broom` package and `mosaicCalc` package.
 
 
-```r
+``` r
 library(dplyr)
 library(ggplot2)
 library(broom)
@@ -81,7 +81,7 @@ We don't have the actual data, but we know several basic features of our distrib
 This sounds like a classic Poisson distribution! Let's simulate some poisson-distributed data to demonstrate.
 
 
-```r
+``` r
 # Randomly sample 500 visits from a poisson distribution with a mean of 5.5
 visits <- rpois(n = 500, lambda = 5.5)
 # Check out the distribution!
@@ -166,7 +166,7 @@ So, what percentage of customers stopped by 1 stall?
 Below, `dpois()` tells us the `density()` or frequency of your value, given a distribution where the `mean = 5.5`.
 
 
-```r
+``` r
 # Get the frequency for 5 visits in the distribution
 pd5 <- dpois(5, lambda = 5.5)
 # Check it!
@@ -186,7 +186,7 @@ We can validate this using our simulated `visits` from above, if we use methods 
 We can calculate the `density()` function, extract it using `approxfun()`, and then assign it to `dsim()`, our own exact probability density function for our data. It works just like `dpois()`, but you don't need to specify `lambda`, because it only works for this exact distribution!
 
 
-```r
+``` r
 # Approximate the PDF of our simulated visits
 dsim <- visits %>% density() %>% approxfun()
 # Try our density function for our simulated data!
@@ -194,15 +194,15 @@ dsim(5)
 ```
 
 ```
-## [1] 0.1471204
+## [1] 0.1526192
 ```
 
-```r
+``` r
 # Pretty close to our results from dpois()!
 ```
 
 
-```r
+``` r
 remove(dsim)
 ```
 
@@ -216,7 +216,7 @@ remove(dsim)
 What percentage of customers stopped by *at max 5 stalls?*
 
 
-```r
+``` r
 # Get the cumulative frequency for a value (5) in the distribution
 cd5 <- ppois(q = 5, lambda = 5.5)
 # Check it!
@@ -232,7 +232,7 @@ Looks like just 52.9% of customers stopped by 1 stall or fewer.
 What percentage of customers stopped by *over 5 stalls?*
 
 
-```r
+``` r
 # Get the probability they will NOT stop at 5 or fewer stalls
 1 - cd5
 ```
@@ -249,7 +249,7 @@ We can validate this using our simulated `visits` from above, if we use methods 
 We can validate our results against our simulated distribution.
 
 
-```r
+``` r
 psim <- visits %>% density() %>% tidy() %>% 
   # Get cumulative probability distribution
   arrange(x) %>% 
@@ -262,15 +262,15 @@ psim(5)
 ```
 
 ```
-## [1] 0.4614108
+## [1] 0.4243302
 ```
 
-```r
+``` r
 # Pretty close to cdf5!
 ```
 
 
-```r
+``` r
 remove(psim)
 ```
 
@@ -286,7 +286,7 @@ remove(psim)
 How many visits did people *usually* make? Estimate the interquartile range (25th-75th percentiles) of the unobserved distribution.
 
 
-```r
+``` r
 q5 <- qpois(p = c(.25, .75), lambda = 5.5)
 # Check it!
 q5
@@ -305,7 +305,7 @@ We can validate this using our simulated `visits` from above, if we use methods 
 We can compare against our simulated data using `quantile()`.
 
 
-```r
+``` r
 # Approximate the quantile function of this distribution
 qsim <- tibble(
   # Get a vector of percentiles from 0 to 1, in units of 0.001
@@ -325,7 +325,7 @@ qsim(c(.25, .75))
 ```
 
 
-```r
+``` r
 remove(qsim)
 ```
 
@@ -335,7 +335,7 @@ remove(qsim)
 <br>
 
 
-```r
+``` r
 rm(visits, pd5, cd5, q5)
 ```
 
@@ -359,7 +359,7 @@ For a Normal Distribution:
 We learned in Workshop 2 that `rnorm()` requires a `mean` and `sd` (standard deviation); we conveniently have both!
 
 
-```r
+``` r
 1 - pnorm(5, mean = 5.5, sd = 2.5)
 ```
 
@@ -372,7 +372,7 @@ For a Gamma Distribution:
 We learned in Workshop 2 that `rgamma()` requires a `shape` and `scale` (or `rate`); we can calculate these from the `mean` and `sd` (standard deviation).
  
 
-```r
+``` r
 # shape = mean^2 / variance = mean^2 / sd^2
 shape <- 5.5^2 / 2.5^2
 # scale = variance / mean
@@ -390,7 +390,7 @@ rate <- 1 / scale
 ## [1] 0.5211581
 ```
 
-```r
+``` r
 # OR (same)
 1 - pgamma(5, shape = shape, rate = rate)
 ```
@@ -404,7 +404,7 @@ For an Exponential Distribution:
 We learned in Workshop 2 that `rexp()` requires a `rate`; we can calculate this from the `mean`.
 
 
-```r
+``` r
 # For exponential distribution,
 # rate = 1 / mean
 rate <- 1 / 5.5
@@ -439,7 +439,7 @@ For example, a local hospital wants to make their health care services more affo
 - A 16th patient received a bill of `$3000` (above the national mean of ~`$2500`). We'll record this as `stat` below.
 
 
-```r
+``` r
 # Let's record our vector of 15 patients
 obs <- c(1126, 1493, 1528, 1713, 1912, 2060, 2541, 2612, 2888, 2915, 3166, 3552, 3692, 3695, 4248)
 # And let's get our new patient data point to compare against
@@ -449,7 +449,7 @@ stat <- 3000
 Here, we know the full observed distribution of values (`cost`), so we can directly compute the `p_value` from them, using the logical operator `>=`.
 
 
-```r
+``` r
 # Which values of in vector obs were greater than or equal to stat?
 obs >= stat
 ```
@@ -462,7 +462,7 @@ obs >= stat
 `R` interprets `TRUE == 1` & `FALSE == 0`, so we can take the `mean()` to get the percentage of values in `obs` greater than or equal to `stat`.
 
 
-```r
+``` r
 # Get p-value, the probability of getting a value greater than or equal to stat
 mean(obs >= stat)
 ```
@@ -471,7 +471,7 @@ mean(obs >= stat)
 ## [1] 0.3333333
 ```
 
-```r
+``` r
 # This means Total Probability, where probability of each cost is 1/n
 sum(  (obs >= stat) / length(obs)   )
 ```
@@ -502,7 +502,7 @@ Above, we calculated the probability of getting a **more** extreme hospital bill
 We can ask R to estimate the probability density function for any observed vector using `density()`. This returns the density (`y`) of a bunch of hypothetical values (`x`) matching our distribution's curve. We can access those results using the `broom` package, by `tidy()`-ing it into a data.frame.
 
 
-```r
+``` r
 obs %>% density() %>% tidy() %>% tail(3)
 ```
 
@@ -518,7 +518,7 @@ obs %>% density() %>% tidy() %>% tail(3)
 But that's *data*, not a *function*, right? Functions are *equations*, machines you can pump an input into to get a specific output. Given a data.frame of 2 vectors, `R` can actually approximate the `function` (equation) connecting vector 1 to vector 2 using `approxfun()`, *creating your own function!* So cool!
 
 
-```r
+``` r
 # Let's make dobs(), the probability density function for our observed data. 
 dobs <- obs %>% density() %>% tidy() %>% approxfun()
 # Now let's get a sequence (seq()) of costs from 1000 to 3000, in units of 1000....
@@ -529,7 +529,7 @@ seq(1000, 3000, by = 1000)
 ## [1] 1000 2000 3000
 ```
 
-```r
+``` r
 # and let's feed it a range of data to get the frequencies at those costs!
 seq(1000, 3000, by = 1000) %>% dobs()
 ```
@@ -541,7 +541,7 @@ seq(1000, 3000, by = 1000) %>% dobs()
 For now, let's get the densities for costs ranging from the min to the max observed cost.
 
 
-```r
+``` r
 mypd <- tibble(
   # Get sequence from min to max, in units of $10
   cost = seq(min(obs), max(obs), by = 10),
@@ -574,7 +574,7 @@ Our density function `dobs()` estimated `prob_cost_i` (`y`), the probability/rel
 - We can add `geom_vline()` to draw a vertical line at the location of `stat` on the `xintercept`.
 
 
-```r
+``` r
 mypd %>%
   ggplot(mapping = aes(x = cost, y = prob_cost_i, fill = prob_extreme_i)) +
   # Fill in the area from 0 to y along x
@@ -611,7 +611,7 @@ Great! We can *view* the probability density function now above. But how do we t
 $$  P_{\ Extreme} =  \sum_{i = 1}^{n}{ P (Cost | Extreme_{\ i}) \times P (Cost_{\ i}) } = \frac{ \sum_{i = 1}^{n}{ P (Cost_{i}) \times P(Extreme)_{\ i} } }{ \sum_{i = 1}^{n}{ P(Cost_{i}) }  }     $$
 
 
-```r
+``` r
 p <- mypd %>% 
   # Calculate the conditional probability of each cost occurring given that condition
   mutate(prob_cost_extreme_i = prob_cost_i * prob_extreme_i) %>%
@@ -638,7 +638,7 @@ p
 Very cool! Visually, what's happening here?
 
 
-```r
+``` r
 ggplot() +
   geom_area(data = mypd, mapping = aes(x = cost, y = prob_cost_i, fill = prob_extreme_i)) +
   geom_vline(xintercept = stat, color = "red", size = 3) +
@@ -666,7 +666,7 @@ Alternatively, we can calculate that `p`-value for `prob_extreme` a different wa
 - To add a values/probabilities in a vector together sequentially, we can use `cumsum()` (short for cumulative sum).  For example:
 
 
-```r
+``` r
 # Normally
 c(1:5)
 ```
@@ -675,7 +675,7 @@ c(1:5)
 ## [1] 1 2 3 4 5
 ```
 
-```r
+``` r
 # Cumulatively summed
 c(1:5) %>% cumsum()
 ```
@@ -684,7 +684,7 @@ c(1:5) %>% cumsum()
 ## [1]  1  3  6 10 15
 ```
 
-```r
+``` r
 # Same as
 c(1, 2+1, 3+2+1, 4+3+2+1, 5+4+3+2+1)
 ```
@@ -698,7 +698,7 @@ Every **probability density function (PDF)** can *also* be represented as a **cu
 $$  P_{\ Extreme} =  \sum_{i = 1}^{n}{ P (Cost | Extreme_{\ i} = 1) \times P (Cost_{\ i}) } = \frac{ \sum_{i = 1}^{n}{ P (Cost_{i}) \times 1 } }{ \sum_{i = 1}^{n}{ P(Cost_{i}) }  }     $$
 
 
-```r
+``` r
 mypd %>% 
   # For instance, we can do the first step here,
   # taking the cumulative probability of costs i through j....
@@ -718,7 +718,7 @@ mypd %>%
 Our `prob_cost_cumulative` in row 3 above shows the total probability of `n = 3` patients receiving a cost of 1126 OR 1136 OR 1146. But, we want an *average* estimate for 1 patient. So, like in a weighted average, we can divide by the total probability of *all* (`n`) hypothetical patients in the probability density function receiving any of these costs. This gives us our *revised* `prob_cost_cumulative`, which ranges from `0` to `1`!
 
 
-```r
+``` r
 mycd <- mypd %>% 
   # For instance, we can do the first step here,
   # taking the cumulative probability of costs i through j....
@@ -742,7 +742,7 @@ mycd %>% tail(3)
 Let's visualize `mycd`, our cumulative probabilities!
 
 
-```r
+``` r
 viz_cd <- ggplot() +
   # Show the cumulative probability of each cost, 
   # shaded by whether it is "extreme" (cost >= stat)  or not
@@ -760,7 +760,7 @@ viz_cd <- ggplot() +
 ```
 
 
-```r
+``` r
 # View it! 
 viz_cd
 # (Note: I've added some more annotation to mine 
@@ -775,7 +775,7 @@ viz_cd
 But wouldn't it be handy if we could just make a literal cumulative distribution `function`, just like we did for the probability density `function` `dobs()`?
 
 
-```r
+``` r
 pobs <- obs %>% density() %>% tidy() %>% 
   # Sort from smallest to largest
   arrange(x) %>%
@@ -792,13 +792,13 @@ pobs <- obs %>% density() %>% tidy() %>%
 ## [1] 0.3726148
 ```
 
-```r
+``` r
 # Pretty close to our probability we calculated before!
 ```
 
 
 
-```r
+``` r
 # Clear unnecessary data.
 remove(stat, mycd, p, viz_cd)
 ```
@@ -827,7 +827,7 @@ $$ f(x) = \frac{-2}{10^7} + \frac{25x}{10^8} - \frac{45x^2}{10^{12}} $$
 We can write that up in a `function`, which we will call `pdf`. For every `x` value we supply, it will compute that equation to predict that value's relative refequency/probability. 
 
 
-```r
+``` r
 # Write out our nice polynomial function
 pdf = function(x){
   -2/10^7 + 25/10^8*x + -45/10^12*x^2
@@ -843,7 +843,7 @@ c(2000, 3000) %>% pdf()
 The figure below demonstrates that it approximates the true density relatively closely.
 
 
-```r
+``` r
 # We're going to add another column to our mypd dataset,
 mypd <- mypd %>%
   # approximating the probability of each cost with our new pdf()
@@ -864,7 +864,7 @@ So how do we generate the cumulative density function? The `mosaicCalc` package 
 - `antiD()` computes its integral (Eg. PDF -> CDF)
 
 
-```r
+``` r
 # Compute the anti-derivative (integral) of the function pdf(x), solving for x.
 cdf <- antiD(tilde = pdf(x) ~ x)
 # It works just the same as our other functions
@@ -875,7 +875,7 @@ obs %>% head() %>% cdf()
 ## [1] 0.1368449 0.2284130 0.2380292 0.2910549 0.3517389 0.3989108
 ```
 
-```r
+``` r
 # (Note: Our function is not a perfect fit for the data, so probabilities exceed 1!)
 
 # Let's compare our cdf() function made with calculus with pobs(), our computationally-generated CDF function. 
@@ -886,14 +886,14 @@ obs %>% head() %>% pobs()
 ## [1] 0.07767408 0.16372910 0.17344816 0.22749238 0.28830929 0.33387438
 ```
 
-```r
+``` r
 # Pretty similar results. The differences are due the fact that our original function is just an approximation, rather than dobs(), which is a perfect fit for our densities.
 ```
 
 And we can also take the derivative of our `cdf()` function with `D()` to get back our `pdf()`, which we'll call `pdf2()`.
 
 
-```r
+``` r
 pdf2 <- D(tilde = cdf(x) ~ x)
 # Let's compare results....
 # Our original pdf...
@@ -905,23 +905,23 @@ obs %>% head() %>% pdf()
 ## [6] 0.0003238380
 ```
 
-```r
+``` r
 # Our pdf dervied from cdf...
 obs %>% head() %>% pdf2()
 ```
 
 ```
 ## [1] 0.0002242456 0.0002727428 0.0002767347 0.0002960034 0.0003132915
-## [6] 0.0003238380
+## [6] 0.0003238379
 ```
 
-```r
+``` r
 # They're the same!
 ```
 Tada! You can do calculus in `R`!
 
 
-```r
+``` r
 remove(mypd, pdf, pdf2, cdf, obs)
 ```
 
@@ -947,7 +947,7 @@ Using the vectors below, please calculate the following, using a PDF or CDF.
 - Note: Assume that the PDF matches the range of observed patients.
 
 
-```r
+``` r
 # Let's record our vector of 30 patients
 patients <- c(1126, 1493, 1528, 1713, 1912, 2060, 2541, 2612, 2888, 2915, 3166, 3552, 3692, 3695, 4248,
          3000, 3104, 3071, 2953, 2934, 2976, 2902, 2998, 3040, 3030, 3021, 3028, 2952, 3013, 3047)
@@ -959,7 +959,7 @@ greatly <- 4000
 <details><summary>**[View Answer!]**</summary>
   
 
-```r
+``` r
 # Get the probability density function for our new data
 dobs2 <- patients %>% density() %>% tidy() %>% approxfun()
 
@@ -977,7 +977,7 @@ mypd2 <- tibble(
 To calculate these probabilities straight from the probability densities, do like so:
 
 
-```r
+``` r
 mypd2 %>%
   summarize(
     # Calculate total probability of a cost somewhat deterring medical care
@@ -998,7 +998,7 @@ mypd2 %>%
 To calculate these probabilities from the cumulative distribution functions, we can do the following:
 
 
-```r
+``` r
 # Get cumulative probabilities of each
 mycd2 <- mypd2 %>%
   mutate(
@@ -1026,7 +1026,7 @@ mycd2 %>% tail(3)
 Finally, if you want to visualize them, here's how you would do it!
 
 
-```r
+``` r
 ggplot() +
   # Get cumulative probability generally
   geom_area(data = mycd2, mapping = aes(x = cost, y = cumsum(prob_cost_i) / sum(prob_cost_i),

@@ -19,7 +19,7 @@ Imagine: A team of enterprising Systems Engineering students have decided to sta
 ###  Packages {-}
 
 
-```r
+``` r
 # Load packages!
 library(tidyverse) # dplyr and ggplot!
 library(broom) # glance() and tidy()!
@@ -83,7 +83,7 @@ They compiled their data in the following dataset. Read it in to help them analy
 - `flour`: 3 cups
 
 
-```r
+``` r
 # Import our data
 cookies = read_csv("workshops/gingerbread_test1.csv")
 # Check it out!
@@ -124,7 +124,7 @@ $$ Yum = \alpha + \beta_{m} X_{m} + \beta_{g} X_{g} $$
   - $B_{g}$ is the effect of a 1 tablespoon increase of Ginger.
 
 
-```r
+``` r
 m1 = cookies %>% 
   lm(formula = yum ~ molasses + ginger)
 ```
@@ -136,7 +136,7 @@ $$ Yum = \alpha + \beta_{m} X_{m} + \beta_{g} X_{g} + \beta_{mg} X_{m} X_{g} $$
   - $B_{mg}$ is the interaction effect as `molasses` increases by 1 cup **AND** `ginger` increases by 1 tablespoon.
 
 
-```r
+``` r
 m2 = cookies %>% 
   lm(formula = yum ~ molasses * ginger)
 # Also written manually as:
@@ -151,7 +151,7 @@ $$ Yum = \alpha + \beta_{m} X_{m} + \beta_{g} X_{g} + \beta_{mg} X_{m} X_{g} + \
   - Together, $\beta_{m} X_{m}$ and $\beta_{m^2} X_{m}^{2}$ act as a polynomial term predicting `yum`.
   
 
-```r
+``` r
 # Add a polynomial by to your existing interactions by using I(variable^2)
 m3 = cookies %>% 
   lm(formula = yum ~ molasses * ginger + I(molasses^2) + I(ginger^2))
@@ -167,7 +167,7 @@ $$ \hat{yum} = \hat{Y} = 35.18 + -50.05 X_{m} + 34.15 X_{m}^{2} + -5.06 X_{g} + 
 Let's evaluate the `r.squared` of our three models below using the `glance()` function from the `broom` package, and bind together those data.frames into one using `bind_rows()` from `dplyr`. We see that the polynomial terms *dramatically* improve the predictive power of our model, jumping from $R^{2}$ = 0.03 to $R^{2}$ = 0.14.
 
 
-```r
+``` r
 bind_rows( glance(m1), glance(m2), glance(m3) )
 ```
 
@@ -185,7 +185,7 @@ Not really amazing quality model fit here - and that does happen! We can `tidy()
 The low `p.value` for many of our predictors tells us that our predictors *do* tend to have statistically significant relationships with the `yum` factor of our cookies. (Admittedly, `ginger`'s direct effect is not very significant - just ~75% confidence). But, it looks like other factors not currently in our model might *also* impact `yum` factor.
 
 
-```r
+``` r
 m3 %>% tidy()
 ```
 
@@ -212,7 +212,7 @@ Finally, we can also write this model using the `rsm()` function in the `rsm` pa
 Let's make a simple 'First-Order' polynomial model with `FO()`. That means just one term per predictor (eg. no $x^2$, just $x$). Our `r1` model will match our `m1` model.
 
 
-```r
+``` r
 r1 = cookies %>%
   rsm(formula = yum ~ FO(molasses, ginger))
 # Check it!
@@ -226,7 +226,7 @@ r1$coefficients
 ##                      0.35250
 ```
 
-```r
+``` r
 # This is the same as m1
 r1$coefficients == m1$coefficients
 ```
@@ -241,7 +241,7 @@ r1$coefficients == m1$coefficients
 Let's make a more complex 'Second-Order' polynomial model with `SO()`. That means just two terms per predictor (eg. $x$ *and* $x^2$), as well as an interaction effect (called `TWI()` for two-way interaction).
 
 
-```r
+``` r
 # Let's make a 'Second-Order' model with SO()
 r3 = cookies %>%
   rsm(formula = yum ~ SO(molasses, ginger))
@@ -258,7 +258,7 @@ r3$coefficients
 ##                       34.15000                        4.66250
 ```
 
-```r
+``` r
 # These coefficients match our m3$coefficients too.
 # FO(...)molasses = molasses
 # FO(...)ginger = ginger
@@ -290,7 +290,7 @@ By default, linear models estimate linear relationships between predictors and o
 A `logit` function can sometimes help - that is designed for when a variable ranges between 0 and 1; we could write a classic logit as `logit = function(p){ log(p / (1 - p) ) }`. 
 
 
-```r
+``` r
 # Write a custom logit function for data from 0 to 100
 logit = function(p){ log( p / (1 - p) ) }
 
@@ -307,7 +307,7 @@ Let's try a few of these strategies for our `x` and `y` variables, and see if an
 For example, we can try transforming the outcome variable, using a standard linear trend (business as usual), a log transformation, or a square root transformation.
 
 
-```r
+``` r
 # Linear (normal)
 cookies %>% 
   lm(formula = yum ~ molasses * ginger + I(molasses^2) + I(ginger^2)) %>%
@@ -322,7 +322,7 @@ cookies %>%
 ## # ℹ 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
 ```
 
-```r
+``` r
 # R2 = 0.137
 
 # Logged (add 1 since yum contains 0s)
@@ -339,7 +339,7 @@ cookies %>%
 ## # ℹ 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
 ```
 
-```r
+``` r
 # R2 = 0.11 (Worse)
 
 # Square Root
@@ -356,14 +356,14 @@ cookies %>%
 ## # ℹ 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
 ```
 
-```r
+``` r
 # R2 = 0.125 (Worse)
 ```
 
 Alternatively, we could try transforming the predictor variables, using a log-transformation.
 
 
-```r
+``` r
 cookies %>% 
   lm(formula = yum ~ log(molasses) * log(ginger) + I(log(molasses)^2) + I(log(ginger)^2)) %>%
   glance()
@@ -403,7 +403,7 @@ What happens when you (1) square $y$, (2) cube $y$, or (3) take the logit of $(y
 Looks like a linear, business-as-usual modeling strategy for our outcome variable $y$ (`yum`) is best for this data.
 
 
-```r
+``` r
 # Logit
 cookies %>% 
   lm(formula = log( (yum + 1)/100 / (1 - (yum + 1)/100) ) ~ molasses * ginger + I(molasses^2) + I(ginger^2)) %>%
@@ -418,7 +418,7 @@ cookies %>%
 ## # ℹ 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
 ```
 
-```r
+``` r
 # R2 = 0.115 (Worse)
 
 # Squared
@@ -435,7 +435,7 @@ cookies %>%
 ## # ℹ 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
 ```
 
-```r
+``` r
 # R2 = 0.118 (Worse)
 
 # Cubed
@@ -452,7 +452,7 @@ cookies %>%
 ## # ℹ 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
 ```
 
-```r
+``` r
 # R2 = 0.091 (Worse)
 ```
 
@@ -477,7 +477,7 @@ The easiest way to think of this is in 3-dimensions, meaning 3 variables (1 outc
 We can use our model object `m3` or `r3` from above to generate a contour plot, predicting the `yum` factor (shown by color and lines) while we varying `~molasses + ginger` levels. We can add a heatmap by saying `image = TRUE`. Our model predicts that middling levels of ginger and molasses produce a kind of sad coldspot where the `yum` factor is about `11` (middle), but our model projects the `yum` factor will increase when you increase `ginger` and/or `molasses` from that center amount.
 
 
-```r
+``` r
 contour(m3, ~molasses + ginger, image = TRUE)
 ```
 
@@ -494,7 +494,7 @@ However, we've learned this term that `ggplot` can give us greater flexibility w
 It's really quick! We need to (1) make a grid of predictor values with `expand_grid()` to feed to `predict()`, (2) extract the predicted `yum` values (usually called `yhat`), and (3) then pipe the result to `ggplot`!
 
 
-```r
+``` r
 # Let's check the range of our predictors... 
 cookies$molasses %>% range()
 ```
@@ -503,7 +503,7 @@ cookies$molasses %>% range()
 ## [1] 0.50 1.25
 ```
 
-```r
+``` r
 cookies$ginger %>% range()
 ```
 
@@ -511,13 +511,13 @@ cookies$ginger %>% range()
 ## [1] 0.5 2.0
 ```
 
-```r
+``` r
 # Great! So we could vary our ingredient amounts from 0 to ~5 while still being realistic.
 ```
 **Step 1**: We'll use `expand_grid()` to build a grid of molasses and ginger values, called `myx`, where `molasses` spans its observed range and `ginger` spans its own observed range.
 
 
-```r
+``` r
 # Make the grid of conditions!
 myx = expand_grid(
   molasses = seq(from = min(cookies$molasses), to = max(cookies$molasses), length.out = 50),
@@ -546,7 +546,7 @@ myx %>% glimpse()
 **Step 2**: Next, we'll `mutate()` our `myx` data.frame to add a column `yhat`. In that column, we `predict()` the `yum` factor for those conditions based on our model `m3` (or `r3` - either work). As shown in previous workshops, we must give `predict()` a data.frame containing hypothetical values of each predictor in our model, called `newdata`. We'll save the result in a data.frame called `mypred`. 
 
 
-```r
+``` r
 # Make predictions!
 mypred = myx %>%
   mutate(yhat = predict(m3, newdata = tibble(molasses, ginger)))
@@ -564,7 +564,7 @@ mypred %>% glimpse()
 **Step 3**: Finally, we'll visualize it using `geom_tile()`, which maps a `fill` (`yhat`) to every `x` (`molasses`) and `y` (`ginger`) coordinate.
 
 
-```r
+``` r
 # Voila!
 g1 = ggplot() +
   geom_tile(data = mypred, mapping = aes(x = molasses, y = ginger, fill = yhat)) +
@@ -589,7 +589,7 @@ But can we make this prettier and clearer for our reader? `ggplot` includes a `g
 - You can set the number of `bins` (eg. `bins = 10` intervals) OR the `binwidth` (eg. `binwidth = 10`, where each interval is 10 units of `yhat` wide). [Just like with `cut_interval()`!]
 
 
-```r
+``` r
 # Using bins....
 # Add contour lines, where each line is 1 unit apart on the `yum` factor scale!
 g1 +
@@ -599,7 +599,7 @@ g1 +
 
 <img src="15_workshop_files/figure-html/unnamed-chunk-24-1.png" width="672" />
 
-```r
+``` r
 # Using binwidth...
 # Add contour lines, where each line is 1 unit apart on the `yum` factor scale!
 g1 +
@@ -612,7 +612,7 @@ g1 +
 Alternatively, we could do this *all* in one fell swoop, using `geom_contour_fill()`, which combines `geom_tile()` and `geom_contour()` together. (*Note*: `geom_contour_filled()` is a *different* function. You want `_fill()`, not `_filled()`.)
 
 
-```r
+``` r
 g2 = ggplot() +
   # Make a filled contour plot, with a binwidth of 1
   geom_contour_fill(data = mypred, mapping = aes(x = molasses, y = ginger, z = yhat),
@@ -639,7 +639,7 @@ Finally, some coding wizards out there developed some `ggplot` add-on functions 
 **Note**: you *must* have loaded the `metR` package for this to work.
 
 
-```r
+``` r
 g2 +
   geom_text_contour(data = mypred, mapping = aes(x = molasses, y= ginger, z = yhat), 
                     skip = 0, stroke.color = "white", stroke = 0.2, label.placer = label_placer_n(1))
@@ -656,7 +656,7 @@ Beautiful!
 Finally, let's practice doing this all in one code chunk in `ggplot`.
 
 
-```r
+``` r
 # Make our predictors... - this time let's expand the range
 mypred2 = expand_grid(
   molasses = seq(from = 0, to = 4, length.out = 50),
@@ -693,7 +693,7 @@ Even though transformations don't improve our predictive accuracy, they might ma
 - A `log()` transformation to `molasses` and `ginger` could help with bounding these conditions to only positive values, since we know we need at least a little of each, and we can't have 'negative ginger.'
 
 
-```r
+``` r
 # Write a quick adjusted logit function
 adj_logit = function(p){ 
   p = (p + 1) / 100  # adjust p from 0 - 100 to 0 - 1
@@ -752,14 +752,14 @@ Suppose we expanded our factorial experiment based on this contour plot, adding 
 Generate a second-order polynomial model like `m3` and visualize the contour plot in `ggplot`. How do our predictions change?
 
 
-```r
+``` r
 cookies2 = read_csv("workshops/gingerbread_test2.csv")
 ```
 
 <details><summary>**[View Answer!]**</summary>
   
 
-```r
+``` r
 # Check the range
 cookies$ginger %>% range()
 ```
@@ -768,7 +768,7 @@ cookies$ginger %>% range()
 ## [1] 0.5 2.0
 ```
 
-```r
+``` r
 cookies$molasses %>% range()
 ```
 
@@ -777,7 +777,7 @@ cookies$molasses %>% range()
 ```
 
 
-```r
+``` r
 # Write a quick adjusted logit function
 adj_logit = function(p){ 
   p = (p + 1) / 100  # adjust p from 0 - 100 to 0 - 1
@@ -801,7 +801,7 @@ m_lc %>% glance()
 ```
 
 
-```r
+``` r
 # Get conditions and predictions
 mypred_lc = expand_grid(
   molasses = seq(from = 0.01, to = 4, length.out = 50),
@@ -850,7 +850,7 @@ This plot demonstrates how even though your original model `m4` predicted really
 Suppose now that we expanded our factorial experiment to vary the amount of `flour`, `butter`, and `cinnamon` too! We've saved this data in `workshops/gingerbread_test3.csv`. How would we model this data?
 
 
-```r
+``` r
 cookies3 = read_csv("workshops/gingerbread_test3.csv")
 
 cookies3 %>% glimpse()
@@ -874,7 +874,7 @@ cookies3 %>% glimpse()
 We can make a second-order polynomial for these 5 variables with `lm()` or `rsm()`, like so:
 
 
-```r
+``` r
 # model using rsm()
 r5 = cookies3 %>% 
   rsm(formula = yum ~ SO(molasses, ginger, cinnamon, butter, flour)) 
@@ -886,7 +886,7 @@ m5 = cookies3 %>%
 ```
 
 
-```r
+``` r
 # Check out our coefficients! Wow that's a long list!
 m5$coefficients %>% round(3)
 ```
@@ -933,7 +933,7 @@ m5$coefficients %>% round(3)
 ```
 
 
-```r
+``` r
 # Check predictive power (still pretty bad!)
 m5 %>% glance()
 ```
@@ -946,7 +946,7 @@ m5 %>% glance()
 ## # ℹ 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
 ```
 
-```r
+``` r
 # Check which variables are significant 
 # (if some were not, we might cut them if we wanted to make as parsimonious a model as possible)
 m5 %>% 
@@ -980,7 +980,7 @@ Now, whenever we analyze contours, since we have more than 2 predictors, we need
 For example, let's examine variation in `yum` as 3 predictions change simultaneously. These include `molasses`, `ginger`, **and** `cinnamon`. We can just write in `contour()` the formula `~molasses + ginger + cinnamon`. It will place molasses and ginger on the x and y axes, because they came first, and then report the values of `cinnamon`, `butter`, and `flour` for each panel. However, the mechanics of `contour()` can be tricky, and its tough to compare plots like these, since they are switching the x and y axis in every plot! But what if we could make our own in `ggplot`?
 
 
-```r
+``` r
 # We can split it into 1 row and 3 columns using par(mfrow = c(1, 3))
 par(mfrow = c(1,3))
 # And plot the contous like so
@@ -998,7 +998,7 @@ This is the power of `ggplot` - since you have to work with the data yourself, y
 For example, I would love to see 2 panels showing the contours of molasses x ginger when cinnamon = 0, cinnamon = 1, and cinnamon = 2 tablespoons. All other conditions would be held constant, allowing us to see how the contour changes shape. If we hold constant the other values though, we should hold them at **meaningful values**, like the **average** or perhaps a value you know to be sufficient.
 
 
-```r
+``` r
 cookies3$cinnamon %>% range()
 ```
 
@@ -1006,7 +1006,7 @@ cookies3$cinnamon %>% range()
 ## [1] 0.5 2.0
 ```
 
-```r
+``` r
 cookies3$butter %>% mean()
 ```
 
@@ -1014,7 +1014,7 @@ cookies3$butter %>% mean()
 ## [1] 1
 ```
 
-```r
+``` r
 # Get a grid...
 mygrid = expand_grid(
   molasses = seq(from = 0, to = 4, length.out = 30),
@@ -1031,7 +1031,7 @@ mygrid = expand_grid(
 Next, let's use our grid to visualize the contours in `ggplot`!
 
 
-```r
+``` r
 # Let's check it out!
 g4 = mygrid %>%
   # Map aesthetics
@@ -1050,7 +1050,7 @@ g4
 Finally, let's improve the labels, colors, and theming for this plot.
 
 
-```r
+``` r
 g5 = g4 +
   theme_classic(base_size = 14) +
   theme(axis.line = element_blank(), # clean up the lines
@@ -1086,7 +1086,7 @@ Put molasses on the x-axis from 0 to 4 cups, flour on the y-axis from 0 to 4 cup
 <details><summary>**[View Answer!]**</summary>
 
 
-```r
+``` r
 # Make the grid!s
 mygrid_lc3 = expand_grid(
   # Vary molasses and flour...
@@ -1141,7 +1141,7 @@ Finally, we might be interested in calculating (and annotating our charts) with 
 First, when comparing change across panels, we're essentially comparing change in *area*. So we can use our grid of conditions and predictions `mygrid` to calculate those percentages!
 
 
-```r
+``` r
 area = mygrid %>% 
   # Cut the outcome into bins, 5 units wide on the yum scale
   mutate(bin = cut_interval(yhat, length = 5)) %>%
@@ -1182,7 +1182,7 @@ We computed that the area predicted to score lowest on the `yum` scale (10-15) d
 We might want our reader to know what is the area that we actually had data on, versus what was the area we were generating predictions from. For this, we can just draw a `box` from our raw data, using `summarize()` and `geom_rect()`. `geom_rect()` requires an `xmin`, `xmax`, `ymin`, and `ymax`. For example, since `molasses` is our `x` variable and `ginger` has been our `y` variable in our `ggplot` analyses, we can do the following:
 
 
-```r
+``` r
 box = cookies3 %>%
   summarize(xmin = min(molasses), xmax = max(molasses),
             ymin = min(ginger), ymax = max(molasses))
@@ -1219,7 +1219,7 @@ Why would we have a system like this? It's because certain shapes of contour plo
 We can run the calculations for obtaining the canonical form using `canonical()` in `rsm`.
 
 
-```r
+``` r
 canon = canonical(r5)
 ```
 
@@ -1228,7 +1228,7 @@ Inside this object are several great quantities of interest.
 ###  Canonical Form Coefficients
 
 
-```r
+``` r
 # These coefficients can form the canonical form model equation
 canon$eigen$values
 ```
@@ -1240,7 +1240,7 @@ canon$eigen$values
 ###  Stationary Points
 
 
-```r
+``` r
 # These are your stationary points.
 canon$xs
 ```
@@ -1253,7 +1253,7 @@ canon$xs
 ###  Shift Points
 
 
-```r
+``` r
 # These values can help you convert from x_1 (normal units) to X_1 (canonical form)
 canon$eigen$vectors
 ```

@@ -45,7 +45,7 @@ It contains two kinds of text:
 2. 'comments' - any text that immediately follows a '#' sign.
 
 
-```r
+``` r
 # For example,
 # Comments are ignored by the calculator, so we can write ourselves notes.
 ```
@@ -86,7 +86,7 @@ Try highlighting the following with your cursor,  and then press **CTRL** and **
 Addition:
 
 
-```r
+``` r
 1 + 5
 ```
 
@@ -97,7 +97,7 @@ Addition:
 Subtraction:
  
 
-```r
+``` r
 5 - 2
 ```
 
@@ -108,7 +108,7 @@ Subtraction:
 Multiplication:
 
 
-```r
+``` r
 2 * 3
 ```
 
@@ -119,7 +119,7 @@ Multiplication:
 Division:
 
 
-```r
+``` r
 15 / 5
 ```
 
@@ -130,7 +130,7 @@ Division:
 Exponents:
 
 
-```r
+``` r
 2^2
 ```
 
@@ -141,7 +141,7 @@ Exponents:
 Square-Roots:
  
 
-```r
+``` r
 sqrt(4)
 ```
 
@@ -154,7 +154,7 @@ Order of Operations:
 *Still applies! Like in math normally, R calculations are evaluated from left to right, prioritizing parentheses, then multiplication and division, then addition and subtraction.*
 
 
-```r
+``` r
 2 * 2 - 5
 ```
 
@@ -164,7 +164,7 @@ Order of Operations:
 Use Parentheses!
 
 
-```r
+``` r
 2 * (2 - 5)
 ```
 
@@ -209,7 +209,7 @@ Here's how we coded it! How does yours compare? If your result is different, com
 1. \( x = \sqrt{  (\frac{2 - 5 }{5})^{4}  }   \)
 
 
-```r
+``` r
 sqrt( ((2 - 5) / 5)^4 )
 ```
 
@@ -220,7 +220,7 @@ sqrt( ((2 - 5) / 5)^4 )
 2. \( x = (1 - 7)^{2} \times 5  - \sqrt{49} \)
 
 
-```r
+``` r
 (1 - 7)^2 * 5 - sqrt(49)
 ```
 
@@ -231,7 +231,7 @@ sqrt( ((2 - 5) / 5)^4 )
 3. \( x = 2^{2} + 2^{2} \times 2^{2} - 2^{2} \div 2^{2} \)
 
 
-```r
+``` r
 2^2 + 2^2 * 2^2 - 2^2 / 2^2
 ```
 
@@ -252,7 +252,7 @@ sqrt( ((2 - 5) / 5)^4 )
 R accepts 2 type of data:
 
 
-```r
+``` r
 # Numeric Values
 15000
 ```
@@ -261,7 +261,7 @@ R accepts 2 type of data:
 ## [1] 15000
 ```
 
-```r
+``` r
 0.0005
 ```
 
@@ -269,7 +269,7 @@ R accepts 2 type of data:
 ## [1] 5e-04
 ```
 
-```r
+``` r
 -8222 # notice no commas allowed
 ```
 
@@ -280,7 +280,7 @@ R accepts 2 type of data:
 and
 
 
-```r
+``` r
 # Character Strings
 "Coding!" # Uses quotation marks
 ```
@@ -289,7 +289,7 @@ and
 ## [1] "Coding!"
 ```
 
-```r
+``` r
 "Corgis!" # Can contain anything - numbers, characters, etc.
 ```
 
@@ -297,7 +297,7 @@ and
 ## [1] "Corgis!"
 ```
 
-```r
+``` r
 "Coffee!"
 ```
 
@@ -317,7 +317,7 @@ and
 First, R uses **values** - which are single numbers or characters.
 
 
-```r
+``` r
 2 # this is a value
 ```
 
@@ -325,7 +325,7 @@ First, R uses **values** - which are single numbers or characters.
 ## [1] 2
 ```
 
-```r
+``` r
 "x" # this is also a value
 ```
 
@@ -340,14 +340,14 @@ That means, we tell R to remember that whenever you use a certain name, it means
 To name something as an `object`, use an arrow!
 
 
-```r
+``` r
 myvalue <- 2
 ```
 
 Now let's highlight and press **CTRL ENTER** on `myvalue` (or the Mac Equivalent).
 
 
-```r
+``` r
 myvalue
 ```
 
@@ -359,7 +359,7 @@ Notice how it's **listed in the R Environment** (upper right), and how it **outp
 We can do operations too!
 
 
-```r
+``` r
 secondvalue <- myvalue + 2 # add 2 to myvalue
 secondvalue # check new value - oooh, it's 4!
 ```
@@ -371,7 +371,7 @@ secondvalue # check new value - oooh, it's 4!
 We can also overwrite old objects with new objects.
 
 
-```r
+``` r
 myvalue <- "I overwrote it!"
 myvalue
 ```
@@ -383,7 +383,7 @@ myvalue
 And we can also remove objects from the Environment, with `remove()`.
 
 
-```r
+``` r
 remove(myvalue, secondvalue)
 ```
 
@@ -394,7 +394,7 @@ Second, R contains values in **vectors**, which are sets of values.
 
 
 
-```r
+``` r
 # This is a numeric vector
 c(1, 4, 8) # is the same as 1, 4, 8
 ```
@@ -406,7 +406,7 @@ c(1, 4, 8) # is the same as 1, 4, 8
 and...
 
 
-```r
+``` r
 # This is a character vector
 c("Boston", "New York", "Los Angeles")
 ```
@@ -418,7 +418,7 @@ c("Boston", "New York", "Los Angeles")
 But if you combine numeric and character values in one vector...
 
 
-```r
+``` r
 # This doesn't work - R immediately makes it into a character vector
 c(1, "Boston", 2)
 ```
@@ -429,7 +429,7 @@ c(1, "Boston", 2)
 
 Why do we use vectors? Because you can do mathematical operations on entire vectors of values, all at once!
 
-```r
+``` r
 c(1,2,3,4) * 2 # this multiplies each value by 2!
 ```
 
@@ -437,7 +437,7 @@ c(1,2,3,4) * 2 # this multiplies each value by 2!
 ## [1] 2 4 6 8
 ```
 
-```r
+``` r
 c(1,2,3,4) + 2 # this adds 2 to each value!
 ```
 
@@ -448,7 +448,7 @@ c(1,2,3,4) + 2 # this adds 2 to each value!
 We can save vectors as objects too!
 
 
-```r
+``` r
 # Here's a vector of (hypothetical) seawall heights in 10 towns.
 myheights <- c(4, 4.5, 5, 5, 5, 5.5, 5.5, 6, 6.5, 6.5)
 
@@ -464,7 +464,7 @@ myyears <- c(1990, 1980, 1970, 1930, 1975, 1975, 1980, 1920, 1995, 2000)
 Plus, we can still do operations on entire vectors!
 
 
-```r
+``` r
 myyears + 1
 ```
 
@@ -477,7 +477,7 @@ myyears + 1
 Third, R bundles vectors into data.frames.
 
 
-```r
+``` r
 # Using the data.frame command, we make a data.frame,
 data.frame(
   height = myheights, # length 10
@@ -512,7 +512,7 @@ And when it outputs in the console, it looks like a spreadsheet!
 Actually, we can make `data.frames` into objects too!
 
 
-```r
+``` r
 # Let's name our data.frame about seawalls 'sw'
 sw <- data.frame(
   height = myheights,
@@ -540,7 +540,7 @@ sw
 Although, we could do this too, and it would be equivalent:
 
 
-```r
+``` r
 sw <- data.frame(
  # It's okay to split code across multiple lines.
  # It keeps things readable.
@@ -575,7 +575,7 @@ But what if we want to work with the vectors again?
 We can use the '$' sign to say, 'grab the following vector from inside this `data.frame`.'
 
 
-```r
+``` r
 sw$height
 ```
 
@@ -586,7 +586,7 @@ sw$height
 We can also do operations on that vector from within the dataframe.
 
 
-```r
+``` r
 sw$height + 1
 ```
 
@@ -598,7 +598,7 @@ sw$height + 1
 We can also update values, like the following:
 
 
-```r
+``` r
 # sw$height <- sw$height + 1
 # I've put this in comments, since I don't actually want to do it (it'll change our data)
 # but good to know, right?
@@ -621,7 +621,7 @@ Please make up a `data.frame` of with 3 vectors and 4 values each. Make 1 vector
 Here's my example!
 
 
-```r
+``` r
 # Make a data.frame called 'mayhem'
 mayhem <- data.frame(
   # make a character vector of 4 dog by their names
@@ -666,7 +666,7 @@ These include: `mean()`, `median()`, `sum()`, `min()`, `max()`, `range()`, `quan
 ### Measures of Central Tendency
 
 
-```r
+``` r
 mean(sw$height) # the mean seawall height among these towns
 ```
 
@@ -674,7 +674,7 @@ mean(sw$height) # the mean seawall height among these towns
 ## [1] 5.35
 ```
 
-```r
+``` r
 median(sw$height) # the median seawall height
 ```
 
@@ -682,7 +682,7 @@ median(sw$height) # the median seawall height
 ## [1] 5.25
 ```
 
-```r
+``` r
 sum(sw$height) # total meters of seawall height! (weird number, but okay)
 ```
 
@@ -693,7 +693,7 @@ sum(sw$height) # total meters of seawall height! (weird number, but okay)
 ### Measures of Dispersion
 
 
-```r
+``` r
 min(sw$height) # smallest seawall height
 ```
 
@@ -701,7 +701,7 @@ min(sw$height) # smallest seawall height
 ## [1] 4
 ```
 
-```r
+``` r
 max(sw$height) # tallest seawall height
 ```
 
@@ -709,7 +709,7 @@ max(sw$height) # tallest seawall height
 ## [1] 6.5
 ```
 
-```r
+``` r
 range(sw$height) # range of seawalls (min & max)
 ```
 
@@ -717,7 +717,7 @@ range(sw$height) # range of seawalls (min & max)
 ## [1] 4.0 6.5
 ```
 
-```r
+``` r
 quantile(sw$height, probs = 0.25) # 25th percentile
 ```
 
@@ -726,7 +726,7 @@ quantile(sw$height, probs = 0.25) # 25th percentile
 ##   5
 ```
 
-```r
+``` r
 quantile(sw$height, probs = 0.75) # 75th percentile
 ```
 
@@ -735,7 +735,7 @@ quantile(sw$height, probs = 0.75) # 75th percentile
 ## 5.875
 ```
 
-```r
+``` r
 sd(sw$height) # the standard deviation of seawall heights
 ```
 
@@ -743,7 +743,7 @@ sd(sw$height) # the standard deviation of seawall heights
 ## [1] 0.8181958
 ```
 
-```r
+``` r
 var(sw$height) # the variance of seawall heights (= standard deviation squared)
 ```
 
@@ -755,7 +755,7 @@ var(sw$height) # the variance of seawall heights (= standard deviation squared)
 ### Other Good Functions
 
 
-```r
+``` r
 length(sw$height) # the number of values in this vector
 ```
 
@@ -763,7 +763,7 @@ length(sw$height) # the number of values in this vector
 ## [1] 10
 ```
 
-```r
+``` r
 length(sw) # the number of vectors in this data.frame
 ```
 
@@ -782,7 +782,7 @@ We'll learn more about these descriptive statistics in later lessons!
 Sometimes, data.frames include missing data for a case/observation. For example, let's say there is an 11th town, where the seawall height is unknown.
 
 
-```r
+``` r
 # We would write:
 mysw <- c(4, 4.5, 5, 5, 5,
           5.5, 5.5, 6, 6.5, 6.5, NA) # see the 'NA' for non-applicable
@@ -793,7 +793,7 @@ If you run `mean(mysw)` now, R doesn't know how to add `6.5 + NA`.
 The output will become `NA` instead of `5.35`.
 
 
-```r
+``` r
 mean(mysw)
 ```
 
@@ -804,7 +804,7 @@ mean(mysw)
 To fix this, we can add an 'argument' to the function, telling it to omit `NA`s from the calculation.
 
 
-```r
+``` r
 mean(mysw, na.rm = TRUE) # short for, 'remove NAs'
 ```
 
@@ -920,7 +920,7 @@ Jun Kanda ([2015](http://dx.doi.org/10.1080/15732479.2015.1020497)) measured max
 1. Reproduce this table as a data.frame in R, and save it as an object named `jp`.
 
 
-```r
+``` r
 # Make a dataframe named jp,
 jp <- data.frame(
   # containing a character vector of 13 town names,
@@ -956,7 +956,7 @@ jp
 2. How much greater was the mean height of the tsunami than the mean height of seawalls?
 
 
-```r
+``` r
 # Get mean of wave height
 mean(jp$wave_m)
 ```
@@ -967,7 +967,7 @@ mean(jp$wave_m)
 The average wave was 15.24 meters tall.
 
 
-```r
+``` r
 # Get mean of seawall height
 mean(jp$seawall_m)
 ```
@@ -978,7 +978,7 @@ mean(jp$seawall_m)
 The average seawall was 9.2 meters tall.
 
 
-```r
+``` r
 # Get difference in mean seawall height
 mean(jp$wave_m) - mean(jp$seawall_m)
 ```
@@ -991,7 +991,7 @@ The average wave was 6.04 meters taller than the average seawall.
 3. Evaluate how much these heights varied on average among towns. Did seawall height vary *more* than tsunami height? How much more/less?
 
 
-```r
+``` r
 # Get standard deviation of wave height
 sd(jp$wave_m)
 ```
@@ -1002,7 +1002,7 @@ sd(jp$wave_m)
 On average, wave height varied by 3.59 meters.
 
 
-```r
+``` r
 # Get standard deviation of seawall height
 sd(jp$seawall_m)
 ```
@@ -1014,7 +1014,7 @@ On average, seawall height varied by 3.68 meters.
 
 
 
-```r
+``` r
 # Get difference
 sd(jp$wave_m) - sd(jp$seawall_m)
 ```
@@ -1045,7 +1045,7 @@ We can use the `library()` function to load a package (like fipping an 'on' swit
 But if you try to load a package that has never been installed on your computer, you might get this error:
 
 
-```r
+``` r
 library(ggplot2)
 ```
 
@@ -1054,7 +1054,7 @@ library(ggplot2)
 In this case, we need to install those packages (only necessary once), using `install.packages()`. (If a message pops up, just accept 'Yes'.)
 
 
-```r
+``` r
 install.packages(c("ggplot2", "dplyr"))
 ```
 
@@ -1078,7 +1078,7 @@ The downloaded source packages are in
 Finally, we can load our packages with `library()`.
 
 
-```r
+``` r
 library(ggplot2)
 library(dplyr)
 ```
@@ -1105,7 +1105,7 @@ Pipelines let us connect **data** to **functions**, with fewer parentheses! It h
 For example:
 
 
-```r
+``` r
 #  let's make a vector `x` and do some operations on it.
 x <- c(1,2,3)
 
@@ -1117,7 +1117,7 @@ mean(x)
 ## [1] 2
 ```
 
-```r
+``` r
 x %>% mean()
 ```
 
@@ -1128,7 +1128,7 @@ x %>% mean()
 Using pipelines keeps our code neat and tidy. It lets us run long sequences of code without saving it bit by bit as objects. For example, we can take them `mean()` of `x` *and* then get the `length()` of the resulting vector, all in one sequence. Without a pipeline, you end up in parenthesis hell very quickly.
 
 
-```r
+``` r
 # without pipe
 length(mean(x))
 ```
@@ -1137,7 +1137,7 @@ length(mean(x))
 ## [1] 1
 ```
 
-```r
+``` r
 # with pipe
 x %>% mean() %>% length()
 ```
@@ -1163,7 +1163,7 @@ For example, let's imagine that we had seawall height data from cities in severa
 We might want to compare those states.
 
 
-```r
+``` r
 # Create 30 cities, ten per state (MA, RI, ME)
 allsw <- data.frame(
   height = c(4, 4.5, 5, 5, 5.5, 5.5, 5.5, 6, 6, 6.5,
@@ -1214,7 +1214,7 @@ allsw
 Every vector is a distribution - a range of low to high values. We can use the `hist()` function to quickly visualize a vector's distribution.
 
 
-```r
+``` r
 hist(allsw$height)
 ```
 
@@ -1236,7 +1236,7 @@ Using the `hist()` function we just learned, draw the histogram of a vector of s
 Using the `hist()` function we just learned, draw the histogram of a vector of seawalls, naming the vector `sw`!  The vector should include the following seawall heights (in meters): `4.5 m`, `5 m`, `5.5 m`, `5 m`, `5.5 m`, `6.5 m`, `6.5 m`, `6 m`, `5 m`, and `4 m`.
 
 
-```r
+``` r
 # Many options!
 
 # You could code it as a vector, save it as an object, then use your functions!
@@ -1246,7 +1246,7 @@ sw %>% hist()
 
 <img src="01_workshop_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 
-```r
+``` r
 # or you could do it like this!
 # hist(sw)
 ```
@@ -1261,7 +1261,7 @@ sw %>% hist()
 `hist()` is great for a quick check, but for anything more complex, we're going to use `ggplot2`, the most popular visualization package in R. 
 
 
-```r
+``` r
 # Load ggplot2 package
 library(ggplot2)
 
@@ -1291,7 +1291,7 @@ Looks much nicer, right? Lots more code, but lots more options for customizing. 
 The value of `ggplot2` really comes alive when we make complex visuals. For example, our data `allsw$height` essentially contains 3 vectors, one per state; one for MA, one for RI, one for ME. Can we visualize *each* of these vectors' distributions using separate histograms?
 
 
-```r
+``` r
 # Repeat code from before...
 ggplot(data = allsw, mapping = aes(x = height)) +
   geom_histogram(color = "white", fill = "steelblue", binwidth = 0.5) +
@@ -1330,7 +1330,7 @@ Challenge: Please make a histogram of Jun Kanda's sample of seawall heights (`se
 1. First, make a histogram using the `hist()` function. 
 
 
-```r
+``` r
 # Tell R to make a histogram from the 'seawall_m' vector inside 'jp'!
 hist(jp$seawall_m)
 ```
@@ -1340,7 +1340,7 @@ hist(jp$seawall_m)
 2. Then, try and use the `geom_histogram()` function from `ggplot2`!
 
 
-```r
+``` r
 # Tell ggplot to grab the 'seawall_m' vector from the 'jp' data.frame,
 # and make a histogram!
 ggplot(data = jp, mapping = aes(x = seawall_m)) +
@@ -1382,7 +1382,7 @@ Be sure to clear your environment often.
 That means, using `remove()` or the broom tool in the upper right hand corner. 
 
 
-```r
+``` r
 remove(allsw, mysw, sw, myheights, mytowns, myyears)
 ```
 

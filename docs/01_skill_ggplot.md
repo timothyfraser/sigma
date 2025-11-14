@@ -16,7 +16,7 @@ Visualization is a key part of statistical analyses, especially in systems engin
 Let's load our packages with `library()`.
 
 
-```r
+``` r
 # Data viz and data manipulation packages
 library(ggplot2)
 library(dplyr)
@@ -38,7 +38,7 @@ Notes:
 Economist Hans Rosling made a dataset that examines change in life expectancy over time for most countries in the world. It is contained in the `gapminder` package!
 
 
-```r
+``` r
 # Let's view it. (see console below)
 gapminder
 ```
@@ -65,7 +65,7 @@ Each row is a country-year, marking the life expectancy, population, and gross d
 Let's check out what vectors are in this dataframe, using the `glimpse` function from the `dplyr` package.
 
 
-```r
+``` r
 # (Remember, a vector is a column in a spreadsheet;
 # a data.frame is a spreadsheet.)
 glimpse(gapminder)
@@ -82,7 +82,7 @@ glimpse(gapminder)
 ## $ gdpPercap <dbl> 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.1134, …
 ```
 
-```r
+``` r
 # Nice, we can see things more concisely.
 ```
 
@@ -96,7 +96,7 @@ Our data has six variables. Great!
 Using the `gapminder` data, let's map a series of vectors to become aesthetic features in the visualization (point, colors, fills, etc.).
                           
 
-```r
+``` r
 ggplot(data = gapminder, mapping = aes(
   # Let's make the x-axis gross-domestic product per capita (wealth per person)
   x = gdpPercap, 
@@ -113,7 +113,7 @@ That's because ggplot needs helper functions to add aesthetic features to the gr
 For example, adding `+ geom_point()` will *overlay* a scatterplot.
 
 
-```r
+``` r
 # Make a scatterplot
 ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + # same as above, except "+"
   geom_point()
@@ -150,7 +150,7 @@ The graph above shows that as average wealth (GDP per capita) in a country incre
 What happens when you add the `alpha`, changing its values in the 3 visuals below?
 
 
-```r
+``` r
 # Run the following code:
 
 ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
@@ -159,14 +159,14 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
 
 <img src="01_skill_ggplot_files/figure-html/plot7-1.png" width="672" />
 
-```r
+``` r
 ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
   geom_point(alpha = 0.5)
 ```
 
 <img src="01_skill_ggplot_files/figure-html/plot7-2.png" width="672" />
 
-```r
+``` r
 ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
                                geom_point(alpha = 1)
 ```
@@ -199,7 +199,7 @@ a. If you want to make it **a single color**, where do you need to write `color 
 b. If you want to make it **multiple colors** according to a vector, where do you need to write `color = `?
 
 
-```r
+``` r
 # Run the following code:
 
 # Version 1
@@ -231,7 +231,7 @@ To assign multiple colors, you need to put the `color` *inside* the `aes(...)` p
 We can (and should!) make our visualizations much more readable by adding appropriate labels.
 
 
-```r
+``` r
 ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, 
 color = continent)) +
   geom_point(alpha = 0.5) +
@@ -251,7 +251,7 @@ We can actually save visualizations as objects too, which can make things faster
 Let's save our visual as `myviz`
 
 
-```r
+``` r
 myviz <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp, 
                                                 color = continent)) + 
   geom_point(alpha = 0.5) +
@@ -276,7 +276,7 @@ Next, let's try a few more learning check that will ask you to try our ways to i
   
 Now run `myviz` - what happens?
 
-```r
+``` r
 myviz
 ```
 
@@ -302,7 +302,7 @@ When you save a ggplot to an `object`, eg. naming it `myviz`, you can call up th
 We can do better, adding things onto our myviz object! Try changing themes. What happens below?
 
 
-```r
+``` r
 # Version theme_bw
 myviz +
 # How about this theme?
@@ -312,7 +312,7 @@ theme_bw()
 <img src="01_skill_ggplot_files/figure-html/plot12-1.png" width="672" />
 
 
-```r
+``` r
 # Version theme_dark
 myviz +
 # How about this theme?
@@ -322,7 +322,7 @@ theme_dark()
 <img src="01_skill_ggplot_files/figure-html/plot13-1.png" width="672" />
 
 
-```r
+``` r
 # Version theme_classic
 myviz +
 # How about this theme?
@@ -354,7 +354,7 @@ Next, let's use the `diamonds` dataset, which comes with the `ggplot2` package
 This is a dataset of over 50,000 diamond sales. 
 
 
-```r
+``` r
 # Check out first 3 rows...
 diamonds %>% head(3)
 ```
@@ -371,7 +371,7 @@ diamonds %>% head(3)
 We can use this visualization to check whether the `cut` of diamonds really has any relationship with `price`.
 
 
-```r
+``` r
 glimpse(diamonds)
 ```
 
@@ -394,7 +394,7 @@ Looks like `cut` is an ordinal variable (fair, good, ideal, etc.), while `price`
 A boxplot might be helpful!
 
 
-```r
+``` r
 ggplot(data = diamonds, mapping = aes(x = cut, y = price, group = cut)) +
   # notice how we added group = cut, to tell it to use 5 different boxes, one per cut?
   geom_boxplot()
@@ -420,14 +420,14 @@ Let's make this visualization more visually appealing.
 What changed in the code to make these two different visual effects? Why? (*Hint: fill.*)
 
 
-```r
+``` r
 ggplot(data = diamonds, mapping = aes(x = cut, y = price, group = cut)) +
   geom_boxplot(fill = "steelblue")
 ```
 
 <img src="01_skill_ggplot_files/figure-html/plot16-1.png" width="672" />
 
-```r
+``` r
 ggplot(data = diamonds, mapping = aes(x = cut, y = price, group = cut, fill = cut)) +
   geom_boxplot()
 ```
@@ -456,7 +456,7 @@ For example, below is a **histogram.**  It visualizes the approximate distributi
 We can see how frequently `diamonds` are sold for certain prices versus others.
 
 
-```r
+``` r
 ggplot(data = diamonds, mapping = aes(x = price, group = cut, fill = cut)) +
   geom_histogram(color = "white") + # notice new function here
   labs(x = "Price (USD)",

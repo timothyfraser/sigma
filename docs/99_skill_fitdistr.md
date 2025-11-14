@@ -13,7 +13,7 @@ Please open up your project on Posit.Cloud, for our [Github class repository](ht
 ### Load Packages {.unnumbered}
 
 
-```r
+``` r
 # Load dplyr, which contains most data wrangling functions
 library(dplyr)
 # Load the fitdistr() function directly from the MASS package. 
@@ -26,7 +26,7 @@ fitdistr = MASS::fitdistr
 As our raw data, let's use our vector of seawall heights `sw`. Its raw distribution can be visualized with `hist(sw)`.
 
 
-```r
+``` r
 # Let's remake again our vector of seawall heights
 sw <- c(4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4)
 hist(sw)
@@ -51,7 +51,7 @@ Let's calculate the `rate` parameter a few ways, using (1) the method of moments
 ## Method of Moments
 
 
-```r
+``` r
 # Let's use the method of moments to find the inverse mean
 1 / (sum(sw) / length(sw))
 ```
@@ -60,7 +60,7 @@ Let's calculate the `rate` parameter a few ways, using (1) the method of moments
 ## [1] 0.1869159
 ```
 
-```r
+``` r
 # Equivalent to...
 1 / mean(sw)
 ```
@@ -76,7 +76,7 @@ Let's ask `fitdistr` to run maximum likelihood estimation.
 Maximum likelihood estimation requires a benchmark distribution to compare against, so we need to specify the distribution type as `densfun = [type name]`. In this case, let's do `exponential`. (See a list of supported distributions using `?MASS::fitdistr`)
 
 
-```r
+``` r
 sw %>% MASS::fitdistr(densfun = "exponential")
 ```
 
@@ -95,7 +95,7 @@ Alternatively, we could run maximum likelihood estimation manually, using `optim
 `dexp(x = 2, rate = 0.1)` gives the probability of the value `x = 2` showing up in an exponential distribution characterized by a parameter `rate = 0.1`.
 
 
-```r
+``` r
 dexp(x = 2, rate = 0.1)
 ```
 
@@ -106,7 +106,7 @@ dexp(x = 2, rate = 0.1)
 `dexp(x = sw, rate = 0.1)` gives the probabilities for *each value of x* if they showed up in an exponential distribution characterized by a parameter `rate = 0.1`.
 
 
-```r
+``` r
 # You can also pipe the values of x into dexp() like this
 sw %>% dexp(rate = 0.1)
 ```
@@ -119,7 +119,7 @@ sw %>% dexp(rate = 0.1)
 The **joint probability** of these values of x occurring together is called the **likelihood**. We can take the product using `prod()`.
 
 
-```r
+``` r
 # Let's get the likelihood of these values...
 sw %>% dexp(rate = 0.1) %>% prod()
 ```
@@ -131,7 +131,7 @@ sw %>% dexp(rate = 0.1) %>% prod()
 Likelihood tend to be very small numbers, so a helpful trick is to calculate the `log-likelihood` instead, meaning the sum of logged probabilities.
 
 
-```r
+``` r
 # See how these two processes produce the same output?
 # Get the log of probabilities multiplied together...
 sw %>% dexp(rate = 0.1) %>% prod() %>% log()
@@ -141,7 +141,7 @@ sw %>% dexp(rate = 0.1) %>% prod() %>% log()
 ## [1] -28.37585
 ```
 
-```r
+``` r
 # Get the sum of logged probabilities...
 sw %>% dexp(rate = 0.1) %>% log() %>% sum()
 ```
@@ -150,14 +150,14 @@ sw %>% dexp(rate = 0.1) %>% log() %>% sum()
 ## [1] -28.37585
 ```
 
-```r
+``` r
 # They're equivalent
 ```
 
 Then, we write up a short `function` called `loglikelihood()`, including two inputs (1) `par` and (2) our data `x`. I added an example value `0.1` to `par` just as a reminder for what it means.
 
 
-```r
+``` r
 loglikelihood = function(par = 0.1, x){ dexp(x = x, rate = par) %>% log() %>% sum()   }
 # Try it!
 loglikelihood(par = 0.1, x = sw)
@@ -170,7 +170,7 @@ loglikelihood(par = 0.1, x = sw)
 Finally, we run an optimizer using `optim()`, supplying a starting value for search `par = 0.1`, our raw data `x`, and our function `loglikelihood`. We want to **maximize** the loglikelihood, but `optim()` minimizes by default, so we'll say, `control = list(fnscale = -1)` to flip the scale.
 
 
-```r
+``` r
 optim(par = c(0.1), x = sw, fn = loglikelihood, control = list(fnscale = -1))
 ```
 
@@ -195,7 +195,7 @@ optim(par = c(0.1), x = sw, fn = loglikelihood, control = list(fnscale = -1))
 Compare the final parameter value against `fitdistr`'s results! They're about the same.
 
 
-```r
+``` r
 fitdistr(x = sw, densfun = "exponential")
 ```
 
@@ -216,7 +216,7 @@ Let's try applying the same general approach with `fitdistr` to other distributi
 What parameter values would best describe our distribution's shape, if this data were from a normal distribution? Remember, normal distributions have a `mean` and a `sd`.
 
 
-```r
+``` r
 # Method of Moments
 sw %>% mean()
 ```
@@ -225,7 +225,7 @@ sw %>% mean()
 ## [1] 5.35
 ```
 
-```r
+``` r
 sw %>% sd()
 ```
 
@@ -233,7 +233,7 @@ sw %>% sd()
 ## [1] 0.8181958
 ```
 
-```r
+``` r
 # Maximum Likelihood Estimation
 sw %>% fitdistr(densfun = "normal")
 ```
@@ -249,7 +249,7 @@ sw %>% fitdistr(densfun = "normal")
 What parameter values would best describe our distribution's shape, if this data were from a Poisson distribution? Remember, poisson distributions have a `lambda` parameter describing the `mean`.
 
 
-```r
+``` r
 # Method of moments
 sw %>% mean()
 ```
@@ -258,7 +258,7 @@ sw %>% mean()
 ## [1] 5.35
 ```
 
-```r
+``` r
 # Maximum Likelihood Estimation
 sw %>% fitdistr(densfun = "poisson")
 ```
@@ -274,7 +274,7 @@ sw %>% fitdistr(densfun = "poisson")
 What parameter values would best describe our distribution's shape, if this data were from a Gamma distribution? Remember, gamma distributions have a `shape` parameter \` $\approx \frac{mean^{2}}{ variance}$ and a `scale` parameter $\approx \frac{variance}{ mean }$.
 
 
-```r
+``` r
 # Method of Moments
 # For shape, we want the rate of how much greater the mean-squared is than the variance.
 mean(sw)^2 / var(sw)
@@ -284,7 +284,7 @@ mean(sw)^2 / var(sw)
 ## [1] 42.7556
 ```
 
-```r
+``` r
 # For rate, we like to get the inverse of the variance divided by the mean.
 1 / (var(sw) / mean(sw) )
 ```
@@ -293,7 +293,7 @@ mean(sw)^2 / var(sw)
 ## [1] 7.991701
 ```
 
-```r
+``` r
 # Maximum Likelihood Estimation
 sw %>% fitdistr(densfun = "gamma")
 ```
@@ -301,7 +301,7 @@ sw %>% fitdistr(densfun = "gamma")
 ```
 ##      shape       rate   
 ##   46.711924    8.731202 
-##  (20.815512) ( 3.911664)
+##  (20.815522) ( 3.911666)
 ```
 
 ### Weibull Distribution
@@ -309,7 +309,7 @@ sw %>% fitdistr(densfun = "gamma")
 What parameter values would best describe our distribution's shape, if this data were from a Weibull distribution? Remember, gamma distributions have a `shape` parameter and a `scale` parameter. (But we can't easily use the method of moments here right now.)
 
 
-```r
+``` r
 # Estimate the shape and scale parameters for a weibull distribution
 sw %>% fitdistr(densfun = "weibull")
 ```
@@ -335,7 +335,7 @@ Beth saw 5, Javier saw 1, June saw 10(!), Tim saw 3, Melanie saw 4, Mohammad saw
 First, let's make the data.
 
 
-```r
+``` r
 # Make distribution of Corgis
 corgi <- c(5, 1, 10, 3, 4, 3, 6, 4, 5, 2)
 ```
@@ -343,7 +343,7 @@ corgi <- c(5, 1, 10, 3, 4, 3, 6, 4, 5, 2)
 Next, let's compute the estimated statistics using maximum likelihood estimation.
 
 
-```r
+``` r
 # Compute statistics for each distributions
 corgi %>% fitdistr(densfun = "normal")
 ```
@@ -354,7 +354,7 @@ corgi %>% fitdistr(densfun = "normal")
 ##  (0.7489993) (0.5296225)
 ```
 
-```r
+``` r
 corgi %>% fitdistr(densfun = "poisson")
 ```
 
@@ -364,7 +364,7 @@ corgi %>% fitdistr(densfun = "poisson")
 ##  (0.6557439)
 ```
 
-```r
+``` r
 corgi %>% fitdistr(densfun = "exponential")
 ```
 
@@ -374,7 +374,7 @@ corgi %>% fitdistr(densfun = "exponential")
 ##  (0.07354134)
 ```
 
-```r
+``` r
 corgi %>% fitdistr(densfun = "gamma")
 ```
 
@@ -384,7 +384,7 @@ corgi %>% fitdistr(densfun = "gamma")
 ##  (1.3910572) (0.3497135)
 ```
 
-```r
+``` r
 corgi %>% fitdistr(densfun = "weibull")
 ```
 

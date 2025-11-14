@@ -17,7 +17,7 @@ In this dataset, each row is a diamond!
 
 
 
-```r
+``` r
 library(tidyverse) # for data wrangling
 library(viridis) # for colors
 library(broom) # for regression
@@ -30,7 +30,7 @@ mydiamonds <- read_csv("workshops/mydiamonds.csv")
 ### View Data {-}
 
 
-```r
+``` r
 # View first 3 rows of dataset
 mydiamonds %>% head(3)
 ```
@@ -67,7 +67,7 @@ First, we can visualize the relationship between 2 numeric variables using a sca
 So, we can visualize just five randomly selected dots, like this:
 
 
-```r
+``` r
 mydiamonds %>% # pipe from dataframe
   sample_n(5) %>% # take a random sample
   ggplot(mapping = aes(x = carat, y = price)) +
@@ -83,7 +83,7 @@ mydiamonds %>% # pipe from dataframe
 Or we can visualize all the dots, like this:
 
 
-```r
+``` r
 mydiamonds %>% # just pipe directly from data.frame
   ggplot(mapping = aes(x = carat, y = price)) +
   # Pro-tip: if you say, shape = 21, 
@@ -131,7 +131,7 @@ To extract `cor.test()`'s output, we can use the `broom` package's `tidy()` func
 Then, the correlation is reported in the `estimate` column, a standardized t-statistic is calculated in the `statistic` column, significance is given in the `p.value` column, and the upper (97.5%) and lower (2.5%) 95% confidence intervals are reported in `conf.low` and `conf.high`.
 
 
-```r
+``` r
 library(broom)
 
 mydiamonds %>%
@@ -199,7 +199,7 @@ In other words, plus or minus a few $residuals$, the $Alpha$ ($Intercept$) plus 
 We can use the ```lm()``` function in R to estimate the model equation for our line of best fit. 
 
 
-```r
+``` r
 m <- mydiamonds %>% # save output as object 'm'
   lm(formula = price ~ carat)
 # And display its contents here!
@@ -248,7 +248,7 @@ If a diamond weighed 0 carats, the model projects that the price of that diamond
 We can even assess statistical significance for our alpha and beta coefficients. We can use `tidy()` from the `broom` package.
 
 
-```r
+``` r
 mydiamonds %>%
   lm(formula = price ~ carat) %>%
   tidy()
@@ -257,7 +257,7 @@ mydiamonds %>%
 And if you're not satisfied with that layout, we can write our own function `tidier()` to get even tidier formatting! Copy and run the `tidier()` function, and compare your output to `tidy()` above.
 
 
-```r
+``` r
 # Let's write a little tidier function..
 tidier = function(model, ci = 0.95, digits = 3){
   model %>% # for a model object
@@ -364,7 +364,7 @@ There is a less than 0.001 probability that our beta coefficient of 7559 USD per
 Finally, visualizing the line of best fit is quite easy! We make a scatterplot in using the `ggplot2` package's `ggplot()` function. Then, we add `geom_smooth(method = "lm")`. This uses the `lm()` function internally to make a line of best fit between our `x` and `y` variables in the `aes()` section of our plot.
 
 
-```r
+``` r
 mydiamonds %>%
   ggplot(mapping = aes(x = carat, y = price)) +
   geom_point(size = 3, shape = 21, 
@@ -394,7 +394,7 @@ Add `color = cut` to the `aes()` in the plot above. What happens? What does this
 `ggplot` generates 5 different lines of best fit, one for each level of `cut`. The slope of the line differs for each cut. As carats increase, price increases at a faster rate for `"Ideal"` cut diamonds than for `"Fair"` cut diamonds.
 
 
-```r
+``` r
 mydiamonds %>%
   ggplot(mapping = aes(x = carat, y = price, color = cut)) +
   geom_point(size = 3, shape = 21, 
@@ -427,7 +427,7 @@ We know that `lm()` finds the line of best fit, but ***how exactly*** does it do
 All models have a lot of information stored inside them, which you can access using the $ sign. (Note: ```select()``` can’t extract them, because model objects are not data.frames)
 
 
-```r
+``` r
 # This code gives you the original values put into your model (y ~ x...)
 # We're using head() here to show just the first few rows.
 m$model %>% head(3)
@@ -442,7 +442,7 @@ m$model %>% head(3)
 This code gives you the the predicted values for your outcome, dubbed `price_hat` ($Y_{Predicted}$), and your `residuals` ($Y_{Observed} − Y_{Predicted}$), given each row of data.
 
 
-```r
+``` r
 mdat = tibble(
   # We can also grab the data that went into our model
   m$model,
@@ -486,7 +486,7 @@ The animation below below visualizes residuals as lines stemming from the best f
 <details><summary>**Extra: code this as a static visual! (optional)**</summary>
 
 
-```r
+``` r
 # Visualize residuals, pulling from our new data.frame mdat
 mdat %>%
   ggplot(mapping = aes(
@@ -557,7 +557,7 @@ We can combine these to understand our model:
 We can manually code this in R2!
 
 
-```r
+``` r
 # Using our data.frame of model inputs and outputs,
 # let's create two summary statistics
 mdat %>%
@@ -623,7 +623,7 @@ Models are imperfect approximations of trends in data. The simplest possible mod
 - We can compare your F statistic to a null distribution of scores we'd get due to chance, and find the probability we got this statistic due to chance, our p-value. The `broom` package's `glance()` function lets us do this below, giving us a `statistic` and `p.value`.
 
 
-```r
+``` r
 m %>% 
   glance()
 ```
@@ -651,7 +651,7 @@ The F statistic requires five main ingredients:
 - Number of variables in the model (outcome + predictor = 2)
 
 
-```r
+``` r
 ingredients <- mdat %>%
   summarize(
     # Calculate residual sum of squares
@@ -684,7 +684,7 @@ ingredients %>% glimpse()
 What do we do with our ingredients to make the F-statistic then? We need to calculate on average, how much variation ***was*** explained, relative to the number of predictors, compared to on average, how much error was ***not*** explained, relative to the number of cases analyzed and variables used.
 
 
-```r
+``` r
 ingredients %>%
   mutate(
   # Mean Squares due to Regression, given the no. of predictors
@@ -734,7 +734,7 @@ We learned in this workshop that every regression model generates several statis
 Wouldn’t it be handy if there were a convenient function that let us see all of this in one place? Try the ```summary()``` function. It can be overwhelming - it outputs lots of information. However, we only need to look in 4 places for key information.
 
 
-```r
+``` r
 # Take our model object and get the summary!
 m %>% summary()
 ```
@@ -792,7 +792,7 @@ Using the `filter()` and `lm()` functions, test the effect of `carat` on diamond
 <details><summary>**[View Answer!]**</summary>
 
 
-```r
+``` r
 m_ideal <- mydiamonds %>%
   filter(cut == "Ideal") %>%
   lm(formula = price ~ carat)

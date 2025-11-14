@@ -14,7 +14,7 @@ We've learned how to use built-in `R` functions like `dnorm()` and `pnorm()` to 
 We'll be using the `tidyverse` package, a super-package that auto-loads `dplyr`, `ggplot2`, and other common functions.
 
 
-```r
+``` r
 library(tidyverse)
 ```
 
@@ -26,8 +26,8 @@ library(tidyverse)
 
 
 ```{=html}
-<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-ed35335e51fccf9bc851" style="width:100%;height:144px;"></div>
-<script type="application/json" data-for="htmlwidget-ed35335e51fccf9bc851">{"x":{"diagram":"graph LR\n subgraph before\n i[input data <i>x<\/i>]\n end\n subgraph function\n c[calculation]\n end\n subgraph after\n o[output data <i>y<\/i>]\n end\n i --> c\n c --> o"},"evals":[],"jsHooks":[]}</script>
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-419b98d7fa80c23d5044" style="width:100%;height:144px;"></div>
+<script type="application/json" data-for="htmlwidget-419b98d7fa80c23d5044">{"x":{"diagram":"graph LR\n subgraph before\n i[input data <i>x<\/i>]\n end\n subgraph function\n c[calculation]\n end\n subgraph after\n o[output data <i>y<\/i>]\n end\n i --> c\n c --> o"},"evals":[],"jsHooks":[]}</script>
 ```
 
 Below, we'll write an example function, called `add(a, b)`. 
@@ -41,7 +41,7 @@ Below, we'll write an example function, called `add(a, b)`.
 - The function can involve multiple operations inside it. But at the end, you need to print *one* final output, or put `return()` around your output.
 
 
-```r
+``` r
 # Make function
 add <- function(a, b){
   # Compute and directly output
@@ -55,7 +55,7 @@ add(1, 2)
 ```
 
 
-```r
+``` r
 # This also works
 add <- function(a, b){
   # Assign output to a temporary object
@@ -79,7 +79,7 @@ add(1, 2)
 - You can also assign default `input` values to your `function`. Below, we write that by default, `b = 2`. If we supply a different `b`, the default will get overwritten, but otherwise, we won't need to supply `b`.
 
 
-```r
+``` r
 add = function(a, b = 2){
   a + b
 }
@@ -88,7 +88,7 @@ add = function(a, b = 2){
 Let's try it!
 
 
-```r
+``` r
 # See? I only need to write 'a' now 
 add(1)
 ```
@@ -97,7 +97,7 @@ add(1)
 ## [1] 3
 ```
 
-```r
+``` r
 # But if I write 'b' too....
 add(1, 2)
 ```
@@ -106,7 +106,7 @@ add(1, 2)
 ## [1] 3
 ```
 
-```r
+``` r
 # And if I change 'b'...
 add(1, 3)
 ```
@@ -115,12 +115,12 @@ add(1, 3)
 ## [1] 4
 ```
 
-```r
+``` r
 # It will adjust accordingly
 ```
 
 
-```r
+``` r
 # clear data
 remove(add)
 ```
