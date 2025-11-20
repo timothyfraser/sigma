@@ -149,7 +149,7 @@ We may add a few functions here across the course of term to support your learni
 | [`dbar_twoway`](https://github.com/timothyfraser/sigma/tree/main/functions/functions_factorial.py) | Calculate Two-Way Interaction Effect |
 | [`dbar_threeway`](https://github.com/timothyfraser/sigma/tree/main/functions/functions_factorial.py) | Calculate Three-Way Interaction Effect |
 
-### `functions_crosstab.py`
+### `functions_crosstab.py` (Coming soon!)
 
 | Function | Description |
 |----------|-------------|
