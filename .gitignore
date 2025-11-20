@@ -2,3 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
+functions/__pycache__/
+.vscode/
+__pycache__/
