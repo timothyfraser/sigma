@@ -1,0 +1,19 @@
+{
+  "terminal.integrated.profiles.windows": {
+    "Python": {
+      "path": "C:\\Windows\\System32\\cmd.exe",
+      "args": ["/k", "C:\\Users\\tmf77\\AppData\\Local\\Programs\\Python\\Python312\\python.exe", "-i"],
+      "icon": "terminal-python"
+    },
+    "PowerShell (Python)": {
+      "path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "icon": "terminal-powershell"
+    },
+    "Git Bash": {
+      "path": "C:\\Users\\tmf77\\AppData\\Local\\Programs\\Git\\bin\\bash.exe",
+      "icon": "terminal-bash"
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "Git Bash"
+}
+

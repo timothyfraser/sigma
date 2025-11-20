@@ -1,0 +1,26 @@
+[
+  {
+    "key": "ctrl+enter",
+    "command": "runCommands",
+    "args": {
+      "commands": [
+        "cursorLineSelect",
+        "workbench.action.terminal.runSelectedText",
+        "cursorDown"
+      ]
+    },
+    "when": "editorTextFocus && editorLangId == 'python'"
+  },
+  {
+    "key": "ctrl+enter",
+    "command": "runCommands",
+    "args": {
+      "commands": [
+        "cursorLineSelect",
+        "workbench.action.terminal.runSelectedText",
+        "cursorDown"
+      ]
+    },
+    "when": "editorTextFocus && editorLangId == 'shellscript'"
+  }
+]
