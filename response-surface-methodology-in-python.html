@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 Response Surface Methodology in Python | 15_workshop_python.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 Response Surface Methodology in Python | 15_workshop_python.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 Response Surface Methodology in Python | 15_workshop_python.knit" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+
+<script src="assets/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="assets/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="assets/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="assets/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="assets/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="assets/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path=""><a href="#response-surface-methodology-in-python"><i class="fa fa-check"></i><b>1</b> Response Surface Methodology in <code>Python</code></a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#getting-started"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#packages"><i class="fa fa-check"></i>Packages</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#our-data"><i class="fa fa-check"></i>Our Data</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#import-data"><i class="fa fa-check"></i>Import Data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1" data-path=""><a href="#models-for-rsm"><i class="fa fa-check"></i><b>1.1</b> Models for RSM</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path=""><a href="#specifying-an-interaction-model-with-polynomials"><i class="fa fa-check"></i><b>1.1.1</b> Specifying an Interaction Model with Polynomials</a></li>
+<li class="chapter" data-level="1.1.2" data-path=""><a href="#modeling-with-lm"><i class="fa fa-check"></i><b>1.1.2</b> Modeling with <code>lm()</code></a></li>
+<li class="chapter" data-level="1.1.3" data-path=""><a href="#transforming-variables"><i class="fa fa-check"></i><b>1.1.3</b> Transforming Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#learning-check-1"><i class="fa fa-check"></i>Learning Check 1</a></li>
+<li class="chapter" data-level="1.2" data-path=""><a href="#contour-plots"><i class="fa fa-check"></i><b>1.2</b> Contour Plots</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path=""><a href="#simple-contour-plots"><i class="fa fa-check"></i><b>1.2.1</b> Simple <code>contour()</code> plots</a></li>
+<li class="chapter" data-level="1.2.2" data-path=""><a href="#geom_tile-plots"><i class="fa fa-check"></i><b>1.2.2</b> <code>geom_tile()</code> plots</a></li>
+<li class="chapter" data-level="1.2.3" data-path=""><a href="#pretty-contour-plots-with-matplotlib"><i class="fa fa-check"></i><b>1.2.3</b> Pretty contour plots with <code>matplotlib</code>!</a></li>
+<li class="chapter" data-level="1.2.4" data-path=""><a href="#one-step-rsm-in-plotnine"><i class="fa fa-check"></i><b>1.2.4</b> One-step RSM in <code>plotnine</code></a></li>
+<li class="chapter" data-level="1.2.5" data-path=""><a href="#more-realistic-plots"><i class="fa fa-check"></i><b>1.2.5</b> More Realistic Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#learning-check-2"><i class="fa fa-check"></i>Learning Check 2</a></li>
+<li class="chapter" data-level="1.3" data-path=""><a href="#iterate"><i class="fa fa-check"></i><b>1.3</b> Iterate!</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path=""><a href="#modeling-many-interactions"><i class="fa fa-check"></i><b>1.3.1</b> Modeling many Interactions</a></li>
+<li class="chapter" data-level="1.3.2" data-path=""><a href="#contours-with-multiple-variables"><i class="fa fa-check"></i><b>1.3.2</b> Contours with Multiple Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#learning-check-3"><i class="fa fa-check"></i>Learning Check 3</a></li>
+<li class="chapter" data-level="1.4" data-path=""><a href="#quantities-of-interest-in-rsm"><i class="fa fa-check"></i><b>1.4</b> Quantities of Interest in RSM</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path=""><a href="#percent-change-in-bins"><i class="fa fa-check"></i><b>1.4.1</b> Percent Change in Bins</a></li>
+<li class="chapter" data-level="1.4.2" data-path=""><a href="#study-range"><i class="fa fa-check"></i><b>1.4.2</b> Study Range</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path=""><a href="#extra-concepts-of-interest-canonical-form"><i class="fa fa-check"></i><b>1.5</b> Extra Concepts of Interest: Canonical Form</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<!--bookdown:title:end-->
+<!--bookdown:title:start-->
+<div id="response-surface-methodology-in-python" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Response Surface Methodology in <code>Python</code><a href="#response-surface-methodology-in-python" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><img src="images/15_plot_2.png" width="800" /></p>
+<div id="getting-started" class="section level2 unnumbered hasAnchor">
+<h2>Getting Started<a href="#getting-started" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Imagine: A team of enterprising Systems Engineering students have decided to start their own baking company, selling gingerbread cookies in the month of December in the greater Ithaca area! None of them are particularly good at baking, but they’re rad good at design of experiments, so they set out to discover the ultimate gingerbread cookie through factorial design and our new tool, <strong>response surface methodology!</strong> Follow along below to see a <strong>surprisingly accurate example</strong> of how <em>you</em> can apply <em>RSM</em> to find the optimal design of your product (in this case, <em>gingerbread</em>!)</p>
+<p><br></p>
+<div id="packages" class="section level3 unnumbered hasAnchor">
+<h3>Packages<a href="#packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s start by loading the necessary Python packages. We’ll use <code>pandas</code> for data manipulation, <code>plotnine</code> for visualization (which follows the ggplot2 framework), <code>numpy</code> for numerical operations, and <code>statsmodels</code> for statistical modeling.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="im">import</span> matplotlib.cm <span class="im">as</span> cm</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="im">import</span> os, sys</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co"># Add the functions directory to Python path</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>sys.path.append(os.path.abspath(<span class="st">&#39;functions&#39;</span>))</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="co"># Import helper functions from functions_models.py</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="im">from</span> functions_models <span class="im">import</span> lm, tidy, glance</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co"># Get plasma colormap for use in plots</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>plasma_cmap <span class="op">=</span> cm.get_cmap(<span class="st">&#39;plasma&#39;</span>)</span></code></pre></div>
+<p><br>
+<br></p>
+<div class="figure">
+<img src="images/15_cookies_1.jpg" alt="Gingerbread Cookies!
+Courtesy of [Casey Chae @ Unsplash](https://unsplash.com/photos/3DrCZblTGoQ)" width="50%" />
+<p class="caption">
+(#fig:img_intro)Gingerbread Cookies!
+Courtesy of <a href="https://unsplash.com/photos/3DrCZblTGoQ">Casey Chae @ Unsplash</a>
+</p>
+</div>
+</div>
+<div id="our-data" class="section level3 unnumbered hasAnchor">
+<h3>Our Data<a href="#our-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>They know from past research that the amount of <code>molasses</code> and <code>ginger</code> in gingerbread cookies are likely significantly related to the overall tastiness (called the <code>yum</code> factor in our dataset). But, they’re not sure <strong>how much molasses</strong> and <strong>how much ginger</strong> are needed. Molasses can be somewhat <em>expensive</em> too, compared to other ingredients; <em>so they want to optimize the amount of molasses necessary to produce the best cookies.</em></p>
+<p>So, holding all other conditions in the recipe constant, they ran a factorial experiment, making 16 batches of cookies (about 20 cookies per <code>batch</code>).</p>
+<ul>
+<li><p>In their experiment, they tested 4 different amounts of <code>molasses</code>, including <span class="math inline">\(\frac{1}{2}, \ \frac{3}{4}, \ 1,\  \&amp; \ 1 \frac{1}{4}\)</span> cups of <code>molasses</code>.</p></li>
+<li><p>They also tested 4 different amounts of <code>ginger</code>, including <span class="math inline">\(\frac{1}{2}, \ 1, \ 1 \frac{1}{2}, \ \&amp; \ 2\)</span> tablespoons of <code>ginger</code>.</p></li>
+<li><p>Each batch was randomly assigned one of the 16 unique pairings of amounts of ginger and molasses; there are <span class="math inline">\(4 \times 4 = 16\)</span> unique ways to assign these ingredients, and they included them <em>all</em> to fully account for all the possibilities.</p></li>
+<li><p>Then, they randomly handed out cookies to folks on campus in exchange for them briefly ranking the <code>yum</code> factor of that cookie on a scale from <code>0</code> (disgusting!) to <code>100</code> (delicious!).</p></li>
+</ul>
+<p><br>
+<br></p>
+</div>
+<div id="import-data" class="section level3 unnumbered hasAnchor">
+<h3>Import Data<a href="#import-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>They compiled their data in the following dataset. Read it in to help them analyze their data! This dataset includes the following variables:</p>
+<ul>
+<li><p><code>id</code>: unique ID for each cookie (320 cookies!)</p></li>
+<li><p><code>batch</code>: unique <strong>group</strong> ID for each batch of about 20 cookies.</p></li>
+</ul>
+<p><strong>Outcome</strong></p>
+<ul>
+<li><code>yum</code>: numeric scale measuring deliciousness of cookie, from <code>0</code> (disgusting) to <code>100</code> (delicious)</li>
+</ul>
+<p><strong>Predictors</strong></p>
+<ul>
+<li><p><code>molasses</code>: cups of <code>molasses</code> in batch: <code>0.75</code>, <code>1</code>, <code>1.25</code>, or <code>1.5</code> cups.</p></li>
+<li><p><code>ginger</code>: tablespoons of <code>ginger</code> in batch: <code>0.5</code>, <code>1</code>, <code>1.5</code>, or <code>2</code> tablespoons.</p></li>
+</ul>
+<p><strong>Fixed Conditions</strong></p>
+<ul>
+<li><p><code>cinnamon</code>: 1 tablespoon</p></li>
+<li><p><code>butter</code>: 1 cup</p></li>
+<li><p><code>flour</code>: 3 cups</p></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Import our data</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>cookies <span class="op">=</span> pd.read_csv(<span class="st">&quot;workshops/gingerbread_test1.csv&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co"># Check it out!</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>cookies.head()</span></code></pre></div>
+<pre><code>##    id  batch  yum  molasses  ginger  cinnamon  butter  flour
+## 0  81      5    9      0.75     1.0         1       1      3
+## 1  82      5    8      0.75     1.0         1       1      3
+## 2  83      5    4      0.75     1.0         1       1      3
+## 3  84      5   18      0.75     1.0         1       1      3
+## 4  85      5   19      0.75     1.0         1       1      3</code></pre>
+<p><br>
+<br></p>
+</div>
+</div>
+<div id="models-for-rsm" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Models for RSM<a href="#models-for-rsm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In our previous workshop, we learned to calculate the difference of means for any set of <code>group</code>s (in this case, <code>batch</code> of cookies). When we get <strong>many</strong> different levels in our <code>predictors</code> (eg. not just a treatment and control), we might prefer to use <code>lm()</code> to estimate a <strong>linear model</strong> of our outcome (<code>yum</code>), rather than computing the difference of means many times.</p>
+<div id="specifying-an-interaction-model-with-polynomials" class="section level3 hasAnchor" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> Specifying an Interaction Model with Polynomials<a href="#specifying-an-interaction-model-with-polynomials" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>However, we will see quickly that different specifications of our model may work better than others. We’re going to try three different models that predict <code>yum</code> using cups of <code>molasses</code> and tablespoons of <code>ginger</code>, and we’ll evaluate the <span class="math inline">\(R^{2}\)</span> of each (% of variation in outcome <code>yum</code> explained by model). These include:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Basic First-Order Polynomial Model</strong>, where:</li>
+</ol>
+<p><span class="math display">\[ Yum = \alpha + \beta_{m} X_{m} + \beta_{g} X_{g} \]</span></p>
+<ul>
+<li><p><span class="math inline">\(B_{m}\)</span> is the effect of a 1 cup increase of Molasses.</p></li>
+<li><p><span class="math inline">\(B_{g}\)</span> is the effect of a 1 tablespoon increase of Ginger.</p></li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>m1 <span class="op">=</span> lm(formula <span class="op">=</span> <span class="st">&#39;yum ~ molasses + ginger&#39;</span>, data <span class="op">=</span> cookies)</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Interaction Model</strong>, where:</li>
+</ol>
+<p><span class="math display">\[ Yum = \alpha + \beta_{m} X_{m} + \beta_{g} X_{g} + \beta_{mg} X_{m} X_{g} \]</span></p>
+<ul>
+<li><span class="math inline">\(B_{mg}\)</span> is the interaction effect as <code>molasses</code> increases by 1 cup <strong>AND</strong> <code>ginger</code> increases by 1 tablespoon.</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>m2 <span class="op">=</span> lm(formula <span class="op">=</span> <span class="st">&#39;yum ~ molasses * ginger&#39;</span>, data <span class="op">=</span> cookies)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co"># Also written manually as:</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co"># yum ~ molasses + ginger + molasses:ginger</span></span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Second-Order Polynomial Model with Interaction</strong>, where:</li>
+</ol>
+<p><span class="math display">\[ Yum = \alpha + \beta_{m} X_{m} + \beta_{g} X_{g} + \beta_{mg} X_{m} X_{g} + \beta_{m^{2}} X_{m}^{2} + \beta_{g^{2}} X_{g}^{2} \]</span>
+- <span class="math inline">\(\beta{m^2} X_{m}^{2}\)</span> is the effect as the square of <code>molasses</code> increases by 1.</p>
+<ul>
+<li>Together, <span class="math inline">\(\beta_{m} X_{m}\)</span> and <span class="math inline">\(\beta_{m^2} X_{m}^{2}\)</span> act as a polynomial term predicting <code>yum</code>.</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Add polynomial terms by creating squared columns first</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>cookies[<span class="st">&#39;molasses_sq&#39;</span>] <span class="op">=</span> cookies[<span class="st">&#39;molasses&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>cookies[<span class="st">&#39;ginger_sq&#39;</span>] <span class="op">=</span> cookies[<span class="st">&#39;ginger&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co"># Then fit the model with interaction and polynomial terms</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>m3 <span class="op">=</span> lm(formula <span class="op">=</span> <span class="st">&#39;yum ~ molasses * ginger + molasses_sq + ginger_sq&#39;</span>, data <span class="op">=</span> cookies)</span></code></pre></div>
+<p>To review, this model equation can be viewed by just checking the coefficients. We can also write it out below; I’ve rounded to 2 decimal places for simplicity.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Get coefficients rounded to 2 decimal places</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>m3.params.<span class="bu">round</span>(<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## Intercept          50.86
+## molasses          -78.81
+## ginger             -8.85
+## molasses:ginger    -0.22
+## molasses_sq        47.60
+## ginger_sq           2.85
+## dtype: float64</code></pre>
+<p>The model equation is:</p>
+<p><span class="math display">\[ \hat{yum} = \hat{Y} = \alpha + \beta_{m} X_{m} + \beta_{m^{2}} X_{m}^{2} + \beta_{g} X_{g} + \beta_{g^{2}} X_{g}^{2} + \beta_{mg} X_{m} X_{g} \]</span></p>
+<p>Let’s evaluate the <span class="math inline">\(R^{2}\)</span> of our three models below using the <code>glance()</code> function from our helper functions in <code>functions/functions_models.py</code>, and combine those DataFrames into one using <code>pd.concat()</code>. We see that the polynomial terms <em>dramatically</em> improve the predictive power of our model.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Get model summaries</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>g1 <span class="op">=</span> glance(m1)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>g2 <span class="op">=</span> glance(m2)</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>g3 <span class="op">=</span> glance(m3)</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co"># Combine them</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>model_comparison <span class="op">=</span> pd.concat([g1, g2, g3], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>model_comparison.insert(<span class="dv">0</span>, <span class="st">&#39;model&#39;</span>, [<span class="st">&#39;m1&#39;</span>, <span class="st">&#39;m2&#39;</span>, <span class="st">&#39;m3&#39;</span>])</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>model_comparison</span></code></pre></div>
+<pre><code>##   model       rsq   adj_rsq  ...          bic  df.residual   nobs
+## 0    m1  0.057618  0.051672  ...  2117.566667        317.0  320.0
+## 1    m2  0.057646  0.048699  ...  2123.325540        316.0  320.0
+## 2    m3  0.270207  0.258586  ...  2053.063536        314.0  320.0
+## 
+## [3 rows x 12 columns]</code></pre>
+<p>Not really amazing quality model fit here - and that does happen! We can <code>tidy()</code> our model <code>m3</code> to confirm.</p>
+<p>The low <code>p_value</code> for many of our predictors tells us that our predictors <em>do</em> tend to have statistically significant relationships with the <code>yum</code> factor of our cookies. (Admittedly, <code>ginger</code>’s direct effect is not very significant - just ~75% confidence). But, it looks like other factors not currently in our model might <em>also</em> impact <code>yum</code> factor.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>m3_tidy <span class="op">=</span> <span class="bu">round</span>(tidy(m3), <span class="dv">2</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="bu">print</span>(m3_tidy.to_string())</span></code></pre></div>
+<pre><code>##               term  estimate    se  statistic  p_value  lower  upper
+## 0        Intercept     50.86  4.64      10.95     0.00  41.73  60.00
+## 1         molasses    -78.81  9.39      -8.40     0.00 -97.28 -60.34
+## 2           ginger     -8.85  3.71      -2.38     0.02 -16.15  -1.55
+## 3  molasses:ginger     -0.22  2.05      -0.11     0.91  -4.25   3.80
+## 4      molasses_sq     47.60  5.12       9.30     0.00  37.53  57.67
+## 5        ginger_sq      2.85  1.28       2.23     0.03   0.33   5.37</code></pre>
+<p><br>
+<br></p>
+</div>
+<div id="modeling-with-lm" class="section level3 hasAnchor" number="1.1.2">
+<h3><span class="header-section-number">1.1.2</span> Modeling with <code>lm()</code><a href="#modeling-with-lm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>R’s <code>rsm()</code> package has no direct Python equivalent. However, we can achieve the same results by manually specifying polynomial terms in our <code>lm()</code> formulas, as we did above.</p>
+<p>Let’s make a simple ‘First-Order’ polynomial: <code>yum ~ molasses + ginger</code> (‘m1’ from above!)</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="bu">print</span>(m1.params)</span></code></pre></div>
+<pre><code>## Intercept    14.8225
+## molasses      4.2100
+## ginger       -1.9200
+## dtype: float64</code></pre>
+<p>Let’s make a more complex ‘Second-Order’ polynomial model: <code>yum ~ molasses * ginger + molasses_sq + ginger_sq</code> (which we did as <code>m3</code>)</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="bu">print</span>(m3.params)</span></code></pre></div>
+<pre><code>## Intercept          50.865
+## molasses          -78.810
+## ginger             -8.849
+## molasses:ginger    -0.224
+## molasses_sq        47.600
+## ginger_sq           2.850
+## dtype: float64</code></pre>
+<p><br>
+<br></p>
+</div>
+<div id="transforming-variables" class="section level3 hasAnchor" number="1.1.3">
+<h3><span class="header-section-number">1.1.3</span> Transforming Variables<a href="#transforming-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>By default, linear models estimate linear relationships between predictors and outcomes, but many relationships are indeed <em>not</em> linear! Here are 8 ways we might model associations!</p>
+<p><img src="15_workshop_python_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>A <code>logit</code> function can sometimes help - that is designed for when a variable ranges between 0 and 1; we could write a classic logit as <code>logit = lambda p: np.log(p / (1 - p))</code>.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Write a custom logit function for data from 0 to 100</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="kw">def</span> logit(p):</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>    <span class="cf">return</span> np.log(p <span class="op">/</span> (<span class="dv">1</span> <span class="op">-</span> p))</span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a><span class="co"># Notice how it ONLY accepts our positive values greater than 0 and less than 1</span></span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a>test_vals <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>]</span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a>result <span class="op">=</span> [logit(val) <span class="cf">if</span> <span class="dv">0</span> <span class="op">&lt;</span> val <span class="op">&lt;</span> <span class="dv">1</span> <span class="cf">else</span> np.nan <span class="cf">for</span> val <span class="kw">in</span> test_vals]</span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a><span class="bu">print</span>(result)</span></code></pre></div>
+<pre><code>## [nan, nan, -2.197224577336219, -1.3862943611198906, 0.0, nan, nan]</code></pre>
+<p>Let’s try a few of these strategies for our <code>x</code> and <code>y</code> variables, and see if any of them improve our predictive power (<span class="math inline">\(R^{2}\)</span>). <em>Spoiler alert</em>: In our data, they don’t but in other datasets, they very well might! Always a good thing to check.</p>
+<p>For example, we can try transforming the outcome variable, using a standard linear trend (business as usual), a log transformation, or a square root transformation.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co"># Linear (normal)</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>m_linear <span class="op">=</span> lm(formula <span class="op">=</span> <span class="st">&#39;yum ~ molasses * ginger + molasses_sq + ginger_sq&#39;</span>, data <span class="op">=</span> cookies)</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>g_linear <span class="op">=</span> glance(m_linear)</span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>R2_linear <span class="op">=</span> g_linear[<span class="st">&#39;rsq&#39;</span>].values[<span class="dv">0</span>]</span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;R2: </span><span class="sc">{</span>R2_linear<span class="sc">:.3f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<pre><code>## R2: 0.270</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># Logged (add 1 since yum contains 0s)</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>cookies_log <span class="op">=</span> cookies.copy()</span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>cookies_log[<span class="st">&#39;log_yum&#39;</span>] <span class="op">=</span> np.log(cookies_log[<span class="st">&#39;yum&#39;</span>] <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a>m_log <span class="op">=</span> lm(formula <span class="op">=</span> <span class="st">&#39;log_yum ~ molasses * ginger + molasses_sq + ginger_sq&#39;</span>, data <span class="op">=</span> cookies_log)</span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a>g_log <span class="op">=</span> glance(m_log)</span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>R2_log <span class="op">=</span> g_log[<span class="st">&#39;rsq&#39;</span>].values[<span class="dv">0</span>]</span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;R2 (logged): </span><span class="sc">{</span>R2_log<span class="sc">:.3f}</span><span class="ss"> (</span><span class="sc">{</span><span class="st">&#39;Worse&#39;</span> <span class="cf">if</span> R2_log <span class="op">&lt;</span> R2_linear <span class="cf">else</span> <span class="st">&#39;Better&#39;</span><span class="sc">}</span><span class="ss">)&quot;</span>)</span></code></pre></div>
+<pre><code>## R2 (logged): 0.227 (Worse)</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co"># Square Root</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>cookies_sqrt <span class="op">=</span> cookies.copy()</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>cookies_sqrt[<span class="st">&#39;sqrt_yum&#39;</span>] <span class="op">=</span> np.sqrt(cookies_sqrt[<span class="st">&#39;yum&#39;</span>])</span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>m_sqrt <span class="op">=</span> lm(formula <span class="op">=</span> <span class="st">&#39;sqrt_yum ~ molasses * ginger + molasses_sq + ginger_sq&#39;</span>, data <span class="op">=</span> cookies_sqrt)</span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>g_sqrt <span class="op">=</span> glance(m_sqrt)</span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a>R2_sqrt <span class="op">=</span> g_sqrt[<span class="st">&#39;rsq&#39;</span>].values[<span class="dv">0</span>]</span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;R2 (square root): </span><span class="sc">{</span>R2_sqrt<span class="sc">:.3f}</span><span class="ss"> (</span><span class="sc">{</span><span class="st">&#39;Worse&#39;</span> <span class="cf">if</span> R2_sqrt <span class="op">&lt;</span> R2_linear <span class="cf">else</span> <span class="st">&#39;Better&#39;</span><span class="sc">}</span><span class="ss">)&quot;</span>)</span></code></pre></div>
+<pre><code>## R2 (square root): 0.253 (Worse)</code></pre>
+<p>Alternatively, we could try transforming the predictor variables, using a log-transformation.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>cookies[<span class="st">&#39;log_molasses&#39;</span>] <span class="op">=</span> np.log(cookies[<span class="st">&#39;molasses&#39;</span>])</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>cookies[<span class="st">&#39;log_ginger&#39;</span>] <span class="op">=</span> np.log(cookies[<span class="st">&#39;ginger&#39;</span>])</span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>cookies[<span class="st">&#39;log_molasses_sq&#39;</span>] <span class="op">=</span> cookies[<span class="st">&#39;log_molasses&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>cookies[<span class="st">&#39;log_ginger_sq&#39;</span>] <span class="op">=</span> cookies[<span class="st">&#39;log_ginger&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a>m_log_pred <span class="op">=</span> lm(formula <span class="op">=</span> <span class="st">&#39;yum ~ log_molasses * log_ginger + log_molasses_sq + log_ginger_sq&#39;</span>, data <span class="op">=</span> cookies)</span>
+<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a>glance(m_log_pred)</span></code></pre></div>
+<pre><code>##         rsq   adj_rsq     sigma  ...          bic  df.residual   nobs
+## 0  0.321157  0.310348  5.518872  ...  2029.904703        314.0  320.0
+## 
+## [1 rows x 11 columns]</code></pre>
+<p>It turns out that few of these transformations really dramatically change the predictive power of the model, so I’ll stick with our original models <code>m3</code> for the time being.</p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-18"></span>
+<img src="images/15_cookies_3.jpg" alt="A poorly predicted Gingerbread Cookie Photo by Noelle Otto" width="320" />
+<p class="caption">
+Figure 1.1: A poorly predicted Gingerbread Cookie Photo by Noelle Otto
+</p>
+</div>
+<p><br>
+<br></p>
+<hr />
+</div>
+</div>
+<div id="learning-check-1" class="section level2 unnumbered LC hasAnchor">
+<h2>Learning Check 1<a href="#learning-check-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Question</strong></p>
+<p>What happens when you (1) square <span class="math inline">\(y\)</span>, (2) cube <span class="math inline">\(y\)</span>, or (3) take the logit of <span class="math inline">\((y + 1) / 100\)</span>? Find the <span class="math inline">\(R^{2}\)</span> for each of these models.</p>
+<details>
+<summary>
+<strong>[View Answer!]</strong>
+</summary>
+<p>Looks like a linear, business-as-usual modeling strategy for our outcome variable <span class="math inline">\(y\)</span> (<code>yum</code>) is best for this data.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="co"># Logit transformation</span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>cookies_logit <span class="op">=</span> cookies.copy()</span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>cookies_logit[<span class="st">&#39;yum_scaled&#39;</span>] <span class="op">=</span> (cookies_logit[<span class="st">&#39;yum&#39;</span>] <span class="op">+</span> <span class="dv">1</span>) <span class="op">/</span> <span class="dv">100</span></span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a>cookies_logit[<span class="st">&#39;logit_yum&#39;</span>] <span class="op">=</span> np.log(cookies_logit[<span class="st">&#39;yum_scaled&#39;</span>] <span class="op">/</span> (<span class="dv">1</span> <span class="op">-</span> cookies_logit[<span class="st">&#39;yum_scaled&#39;</span>]))</span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a>m_logit <span class="op">=</span> lm(formula <span class="op">=</span> <span class="st">&#39;logit_yum ~ molasses * ginger + molasses_sq + ginger_sq&#39;</span>, data <span class="op">=</span> cookies_logit)</span>
+<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a>g_logit <span class="op">=</span> glance(m_logit)</span>
+<span id="cb27-7"><a href="#cb27-7" tabindex="-1"></a>R2_logit <span class="op">=</span> g_logit[<span class="st">&#39;rsq&#39;</span>].values[<span class="dv">0</span>]</span>
+<span id="cb27-8"><a href="#cb27-8" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;R2 (logit): </span><span class="sc">{</span>R2_logit<span class="sc">:.3f}</span><span class="ss"> (</span><span class="sc">{</span><span class="st">&#39;Worse&#39;</span> <span class="cf">if</span> R2_logit <span class="op">&lt;</span> R2_linear <span class="cf">else</span> <span class="st">&#39;Better&#39;</span><span class="sc">}</span><span class="ss">)&quot;</span>)</span></code></pre></div>
+<pre><code>## R2 (logit): 0.236 (Worse)</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="co"># Squared</span></span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>cookies_sq <span class="op">=</span> cookies.copy()</span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>cookies_sq[<span class="st">&#39;yum_sq&#39;</span>] <span class="op">=</span> cookies_sq[<span class="st">&#39;yum&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>m_sq <span class="op">=</span> lm(formula <span class="op">=</span> <span class="st">&#39;yum_sq ~ molasses * ginger + molasses_sq + ginger_sq&#39;</span>, data <span class="op">=</span> cookies_sq)</span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a>g_sq <span class="op">=</span> glance(m_sq)</span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a>R2_sq <span class="op">=</span> g_sq[<span class="st">&#39;rsq&#39;</span>].values[<span class="dv">0</span>]</span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;R2 (squared): </span><span class="sc">{</span>R2_sq<span class="sc">:.3f}</span><span class="ss"> (</span><span class="sc">{</span><span class="st">&#39;Worse&#39;</span> <span class="cf">if</span> R2_sq <span class="op">&lt;</span> R2_linear <span class="cf">else</span> <span class="st">&#39;Better&#39;</span><span class="sc">}</span><span class="ss">)&quot;</span>)</span></code></pre></div>
+<pre><code>## R2 (squared): 0.253 (Worse)</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="co"># Cubed</span></span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>cookies_cubed <span class="op">=</span> cookies.copy()</span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>cookies_cubed[<span class="st">&#39;yum_cubed&#39;</span>] <span class="op">=</span> cookies_cubed[<span class="st">&#39;yum&#39;</span>] <span class="op">**</span> <span class="dv">3</span></span>
+<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>m_cubed <span class="op">=</span> lm(formula <span class="op">=</span> <span class="st">&#39;yum_cubed ~ molasses * ginger + molasses_sq + ginger_sq&#39;</span>, data <span class="op">=</span> cookies_cubed)</span>
+<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a>g_cubed <span class="op">=</span> glance(m_cubed)</span>
+<span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a>R2_cubed <span class="op">=</span> g_cubed[<span class="st">&#39;rsq&#39;</span>].values[<span class="dv">0</span>]</span>
+<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;R2 (cubed): </span><span class="sc">{</span>R2_cubed<span class="sc">:.3f}</span><span class="ss"> (</span><span class="sc">{</span><span class="st">&#39;Worse&#39;</span> <span class="cf">if</span> R2_cubed <span class="op">&lt;</span> R2_linear <span class="cf">else</span> <span class="st">&#39;Better&#39;</span><span class="sc">}</span><span class="ss">)&quot;</span>)</span></code></pre></div>
+<pre><code>## R2 (cubed): 0.227 (Worse)</code></pre>
+</details>
+<hr />
+<p><br>
+<br></p>
+</div>
+<div id="contour-plots" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Contour Plots<a href="#contour-plots" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>So now that we have this model, what do we do with it? <strong>Response Surface Methodology</strong> refers to using statistical models to predict an outcome (a.k.a. <strong>response</strong> variable) given a series of varying conditions. This lets us predict and visualize the <strong>full range/surface</strong> for that outcome.</p>
+<p><br></p>
+<div id="simple-contour-plots" class="section level3 hasAnchor" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Simple <code>contour()</code> plots<a href="#simple-contour-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The easiest way to think of this is in 3-dimensions, meaning 3 variables (1 outcome and 2 predictors). A regression model traditionally finds us the <em>plane</em> of best fit when looking at 3 dimensions, or the <em>hyperplane</em> of best fit when looking at +4 dimensions. However, when we use <em>polynomial terms</em> in our model equation, we can map that plane <em>almost perfectly</em> to our observed data, creating more of a <em>contour</em> or <em>topographical</em> surface than a <em>simple plane</em>.</p>
+<p>We can use our model object <code>m3</code> from above to generate a contour-like plot, predicting the <code>yum</code> factor (shown by color) while we vary <code>molasses</code> and <code>ginger</code> levels. Our model predicts that middling levels of ginger and molasses produce a kind of sad coldspot where the <code>yum</code> factor is about <code>11</code> (middle), but our model projects the <code>yum</code> factor will increase when you increase <code>ginger</code> and/or <code>molasses</code> from that center amount.</p>
+<p><img src="plotnine_figures/15_contour_demo.png" width="100%" /></p>
+<p>That’s beautiful - but a little unclear how it was produced! How could we make that plot ourselves in <code>plotnine</code>?</p>
+<p><br></p>
+</div>
+<div id="geom_tile-plots" class="section level3 hasAnchor" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> <code>geom_tile()</code> plots<a href="#geom_tile-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>However, we’ve learned that <code>plotnine</code> (which follows the ggplot2 framework) can give us greater flexibility when designing and communicating information, so how would we make this in <code>plotnine</code>?</p>
+<p>It’s really quick! We need to (1) make a grid of predictor values to feed to <code>predict()</code>, (2) extract the predicted <code>yum</code> values (usually called <code>yhat</code>), and (3) then visualize the result with <code>plotnine</code>!</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="co"># Let&#39;s check the range of our predictors... </span></span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a><span class="bu">print</span>(cookies[<span class="st">&#39;molasses&#39;</span>].<span class="bu">min</span>(), cookies[<span class="st">&#39;molasses&#39;</span>].<span class="bu">max</span>())</span></code></pre></div>
+<pre><code>## 0.5 1.25</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="bu">print</span>(cookies[<span class="st">&#39;ginger&#39;</span>].<span class="bu">min</span>(), cookies[<span class="st">&#39;ginger&#39;</span>].<span class="bu">max</span>())</span></code></pre></div>
+<pre><code>## 0.5 2.0</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="co"># Great! So we could vary our ingredient amounts from 0 to ~5 while still being realistic.</span></span></code></pre></div>
+<p><strong>Step 1</strong>: We’ll create a grid of molasses and ginger values, called <code>myx</code>, where <code>molasses</code> spans its observed range and <code>ginger</code> spans its own observed range.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="co"># Make the grid of conditions!</span></span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> product</span>
+<span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" tabindex="-1"></a>molasses_seq <span class="op">=</span> np.linspace(cookies[<span class="st">&#39;molasses&#39;</span>].<span class="bu">min</span>(), cookies[<span class="st">&#39;molasses&#39;</span>].<span class="bu">max</span>(), <span class="dv">50</span>)</span>
+<span id="cb38-5"><a href="#cb38-5" tabindex="-1"></a>ginger_seq <span class="op">=</span> np.linspace(cookies[<span class="st">&#39;ginger&#39;</span>].<span class="bu">min</span>(), cookies[<span class="st">&#39;ginger&#39;</span>].<span class="bu">max</span>(), <span class="dv">50</span>)</span>
+<span id="cb38-6"><a href="#cb38-6" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" tabindex="-1"></a><span class="co"># Create all combinations</span></span>
+<span id="cb38-8"><a href="#cb38-8" tabindex="-1"></a>myx <span class="op">=</span> pd.DataFrame(<span class="bu">list</span>(product(molasses_seq, ginger_seq)), </span>
+<span id="cb38-9"><a href="#cb38-9" tabindex="-1"></a>                    columns<span class="op">=</span>[<span class="st">&#39;molasses&#39;</span>, <span class="st">&#39;ginger&#39;</span>])</span>
+<span id="cb38-10"><a href="#cb38-10" tabindex="-1"></a></span>
+<span id="cb38-11"><a href="#cb38-11" tabindex="-1"></a><span class="co"># Optionally, you could pick some arbitrary ranges, like 0 to 5</span></span>
+<span id="cb38-12"><a href="#cb38-12" tabindex="-1"></a><span class="co"># molasses_seq = np.linspace(0, 5, 50)</span></span>
+<span id="cb38-13"><a href="#cb38-13" tabindex="-1"></a><span class="co"># ginger_seq = np.linspace(0, 3, 50)</span></span>
+<span id="cb38-14"><a href="#cb38-14" tabindex="-1"></a></span>
+<span id="cb38-15"><a href="#cb38-15" tabindex="-1"></a><span class="co"># Check it out!</span></span>
+<span id="cb38-16"><a href="#cb38-16" tabindex="-1"></a>myx.head()</span></code></pre></div>
+<pre><code>##    molasses    ginger
+## 0       0.5  0.500000
+## 1       0.5  0.530612
+## 2       0.5  0.561224
+## 3       0.5  0.591837
+## 4       0.5  0.622449</code></pre>
+<p><em>Note</em>: You have to pick these values!! (eg. 0 to 5, 0 to 3, etc.) We want to make predictions slightly <em>beyond</em> our observed data. Just remember, a grid of 20 by 20 items produces 400 cells; 100 by 100 produces 10,000 cells; etc. Once you get above a few 1000, <code>plotnine</code> may start to slow down quickly.</p>
+<p><strong>Step 2</strong>: Next, we’ll add a column <code>yhat</code> to our <code>myx</code> DataFrame. In that column, we <code>predict()</code> the <code>yum</code> factor for those conditions based on our model <code>m3</code>. We must give <code>predict()</code> a DataFrame containing hypothetical values of each predictor in our model, called <code>new_data</code>. We’ll save the result in a DataFrame called <code>mypred</code>.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="co"># Make predictions!</span></span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a><span class="co"># First, we need to add the squared terms for prediction</span></span>
+<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a>myx[<span class="st">&#39;molasses_sq&#39;</span>] <span class="op">=</span> myx[<span class="st">&#39;molasses&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb40-4"><a href="#cb40-4" tabindex="-1"></a>myx[<span class="st">&#39;ginger_sq&#39;</span>] <span class="op">=</span> myx[<span class="st">&#39;ginger&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb40-5"><a href="#cb40-5" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" tabindex="-1"></a><span class="co"># Make predictions using the model</span></span>
+<span id="cb40-7"><a href="#cb40-7" tabindex="-1"></a><span class="co"># statsmodels predict() needs all the columns used in the model</span></span>
+<span id="cb40-8"><a href="#cb40-8" tabindex="-1"></a>mypred <span class="op">=</span> myx.copy()</span>
+<span id="cb40-9"><a href="#cb40-9" tabindex="-1"></a>mypred[<span class="st">&#39;yhat&#39;</span>] <span class="op">=</span> m3.predict(mypred)</span>
+<span id="cb40-10"><a href="#cb40-10" tabindex="-1"></a></span>
+<span id="cb40-11"><a href="#cb40-11" tabindex="-1"></a><span class="co"># Check it out!</span></span>
+<span id="cb40-12"><a href="#cb40-12" tabindex="-1"></a>mypred.head()</span></code></pre></div>
+<pre><code>##    molasses    ginger  molasses_sq  ginger_sq       yhat
+## 0       0.5  0.500000         0.25   0.250000  19.592000
+## 1       0.5  0.530612         0.25   0.281549  19.407599
+## 2       0.5  0.561224         0.25   0.314973  19.228540
+## 3       0.5  0.591837         0.25   0.350271  19.054823
+## 4       0.5  0.622449         0.25   0.387443  18.886446</code></pre>
+<p><strong>Step 3</strong>: Finally, we’ll visualize it using <code>geom_tile()</code>, which maps a <code>fill</code> (<code>yhat</code>) to every <code>x</code> (<code>molasses</code>) and <code>y</code> (<code>ginger</code>) coordinate.</p>
+<p><img src="plotnine_figures/15_contour_tile1.png" width="100%" /></p>
+<p>This matches the same pattern from what a <code>contour()</code> plot would show, and was pretty painless!</p>
+<p><br></p>
+</div>
+<div id="pretty-contour-plots-with-matplotlib" class="section level3 hasAnchor" number="1.2.3">
+<h3><span class="header-section-number">1.2.3</span> Pretty contour plots with <code>matplotlib</code>!<a href="#pretty-contour-plots-with-matplotlib" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>But can we make this prettier and clearer for our reader? We can use <code>matplotlib</code> to create a visualization with contour outlines, and we can also improve our plot by adjusting the number of bins or using a different color scale. Let’s create a more polished version:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="co"># Using matplotlib to add contour outlines</span></span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a><span class="im">import</span> matplotlib</span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a><span class="co"># matplotlib.use(&#39;Agg&#39;)  # Use non-interactive backend for rendering</span></span>
+<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb42-5"><a href="#cb42-5" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb42-6"><a href="#cb42-6" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="#cb42-7" tabindex="-1"></a><span class="co"># Reshape the data for contour plotting</span></span>
+<span id="cb42-8"><a href="#cb42-8" tabindex="-1"></a>molasses_unique <span class="op">=</span> <span class="bu">sorted</span>(mypred[<span class="st">&#39;molasses&#39;</span>].unique())</span>
+<span id="cb42-9"><a href="#cb42-9" tabindex="-1"></a>ginger_unique <span class="op">=</span> <span class="bu">sorted</span>(mypred[<span class="st">&#39;ginger&#39;</span>].unique())</span>
+<span id="cb42-10"><a href="#cb42-10" tabindex="-1"></a>molasses_grid <span class="op">=</span> np.array(molasses_unique)</span>
+<span id="cb42-11"><a href="#cb42-11" tabindex="-1"></a>ginger_grid <span class="op">=</span> np.array(ginger_unique)</span>
+<span id="cb42-12"><a href="#cb42-12" tabindex="-1"></a></span>
+<span id="cb42-13"><a href="#cb42-13" tabindex="-1"></a><span class="co"># Create meshgrid (coordinate matrix from coordinate vectors)</span></span>
+<span id="cb42-14"><a href="#cb42-14" tabindex="-1"></a>M, G <span class="op">=</span> np.meshgrid(molasses_grid, ginger_grid)</span>
+<span id="cb42-15"><a href="#cb42-15" tabindex="-1"></a></span>
+<span id="cb42-16"><a href="#cb42-16" tabindex="-1"></a><span class="co"># Reshape yhat to match the grid</span></span>
+<span id="cb42-17"><a href="#cb42-17" tabindex="-1"></a>yhat_grid <span class="op">=</span> mypred.pivot_table(values<span class="op">=</span><span class="st">&#39;yhat&#39;</span>, index<span class="op">=</span><span class="st">&#39;ginger&#39;</span>, columns<span class="op">=</span><span class="st">&#39;molasses&#39;</span>, aggfunc<span class="op">=</span><span class="st">&#39;mean&#39;</span>).values</span>
+<span id="cb42-18"><a href="#cb42-18" tabindex="-1"></a></span>
+<span id="cb42-19"><a href="#cb42-19" tabindex="-1"></a><span class="co"># Create the plot with filled contours and contour lines</span></span>
+<span id="cb42-20"><a href="#cb42-20" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb42-21"><a href="#cb42-21" tabindex="-1"></a></span>
+<span id="cb42-22"><a href="#cb42-22" tabindex="-1"></a><span class="co"># Filled contours (similar to geom_tile)</span></span>
+<span id="cb42-23"><a href="#cb42-23" tabindex="-1"></a>contour_filled <span class="op">=</span> ax.contourf(M, G, yhat_grid, levels<span class="op">=</span><span class="dv">15</span>, cmap<span class="op">=</span><span class="st">&#39;plasma&#39;</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb42-24"><a href="#cb42-24" tabindex="-1"></a></span>
+<span id="cb42-25"><a href="#cb42-25" tabindex="-1"></a><span class="co"># Add contour lines (white outlines)</span></span>
+<span id="cb42-26"><a href="#cb42-26" tabindex="-1"></a>contour_lines <span class="op">=</span> ax.contour(M, G, yhat_grid, levels<span class="op">=</span><span class="dv">10</span>, colors<span class="op">=</span><span class="st">&#39;white&#39;</span>, linewidths<span class="op">=</span><span class="fl">0.8</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb42-27"><a href="#cb42-27" tabindex="-1"></a></span>
+<span id="cb42-28"><a href="#cb42-28" tabindex="-1"></a><span class="co"># Add contour labels</span></span>
+<span id="cb42-29"><a href="#cb42-29" tabindex="-1"></a>ax.clabel(contour_lines, inline<span class="op">=</span><span class="va">True</span>, fontsize<span class="op">=</span><span class="dv">8</span>, fmt<span class="op">=</span><span class="st">&#39;</span><span class="sc">%1.1f</span><span class="st">&#39;</span>)</span>
+<span id="cb42-30"><a href="#cb42-30" tabindex="-1"></a></span>
+<span id="cb42-31"><a href="#cb42-31" tabindex="-1"></a><span class="co"># Labels and title</span></span>
+<span id="cb42-32"><a href="#cb42-32" tabindex="-1"></a>ax.set_xlabel(<span class="st">&#39;Molasses (cups)&#39;</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb42-33"><a href="#cb42-33" tabindex="-1"></a>ax.set_ylabel(<span class="st">&#39;Ginger (tablespoons)&#39;</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb42-34"><a href="#cb42-34" tabindex="-1"></a>ax.set_title(<span class="st">&#39;Contour of Predicted Gingerbread Cookie Tastiness&#39;</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb42-35"><a href="#cb42-35" tabindex="-1"></a></span>
+<span id="cb42-36"><a href="#cb42-36" tabindex="-1"></a><span class="co"># Colorbar</span></span>
+<span id="cb42-37"><a href="#cb42-37" tabindex="-1"></a>cbar <span class="op">=</span> plt.colorbar(contour_filled, ax<span class="op">=</span>ax)</span>
+<span id="cb42-38"><a href="#cb42-38" tabindex="-1"></a>cbar.set_label(<span class="st">&#39;Predicted</span><span class="ch">\n</span><span class="st">Yum</span><span class="ch">\n</span><span class="st">Factor&#39;</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb42-39"><a href="#cb42-39" tabindex="-1"></a></span>
+<span id="cb42-40"><a href="#cb42-40" tabindex="-1"></a><span class="co"># Save and display!</span></span>
+<span id="cb42-41"><a href="#cb42-41" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb42-42"><a href="#cb42-42" tabindex="-1"></a>plt.savefig(<span class="st">&quot;matplotlib_figures/15_contour_with_lines.png&quot;</span>, dpi<span class="op">=</span><span class="dv">200</span>, bbox_inches<span class="op">=</span><span class="st">&#39;tight&#39;</span>)</span>
+<span id="cb42-43"><a href="#cb42-43" tabindex="-1"></a>plt.close(fig)</span></code></pre></div>
+<p><img src="matplotlib_figures/15_contour_with_lines.png" width="100%" /></p>
+<p>Beautiful!</p>
+<p><br>
+<br></p>
+</div>
+<div id="one-step-rsm-in-plotnine" class="section level3 hasAnchor" number="1.2.4">
+<h3><span class="header-section-number">1.2.4</span> One-step RSM in <code>plotnine</code><a href="#one-step-rsm-in-plotnine" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Finally, let’s practice doing this in one code chunk in <code>plotnine</code>.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="co"># Create sequences of predictor values (expanding beyond observed range)</span></span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a>molasses_seq2 <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">50</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" tabindex="-1"></a>ginger_seq2 <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">50</span>)</span>
+<span id="cb43-4"><a href="#cb43-4" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" tabindex="-1"></a><span class="co"># Create grid of all combinations (50 × 50 = 2,500 rows)</span></span>
+<span id="cb43-6"><a href="#cb43-6" tabindex="-1"></a>mypred2 <span class="op">=</span> pd.DataFrame(<span class="bu">list</span>(product(molasses_seq2, ginger_seq2)), </span>
+<span id="cb43-7"><a href="#cb43-7" tabindex="-1"></a>                       columns<span class="op">=</span>[<span class="st">&#39;molasses&#39;</span>, <span class="st">&#39;ginger&#39;</span>])</span>
+<span id="cb43-8"><a href="#cb43-8" tabindex="-1"></a><span class="co"># Add polynomial terms needed for m3</span></span>
+<span id="cb43-9"><a href="#cb43-9" tabindex="-1"></a>mypred2[<span class="st">&#39;molasses_sq&#39;</span>] <span class="op">=</span> mypred2[<span class="st">&#39;molasses&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb43-10"><a href="#cb43-10" tabindex="-1"></a>mypred2[<span class="st">&#39;ginger_sq&#39;</span>] <span class="op">=</span> mypred2[<span class="st">&#39;ginger&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb43-11"><a href="#cb43-11" tabindex="-1"></a><span class="co"># Generate predictions using our fitted model</span></span>
+<span id="cb43-12"><a href="#cb43-12" tabindex="-1"></a>mypred2[<span class="st">&#39;yhat&#39;</span>] <span class="op">=</span> m3.predict(mypred2)</span>
+<span id="cb43-13"><a href="#cb43-13" tabindex="-1"></a></span>
+<span id="cb43-14"><a href="#cb43-14" tabindex="-1"></a><span class="co"># Create the visualization with geom_tile()</span></span>
+<span id="cb43-15"><a href="#cb43-15" tabindex="-1"></a>g_onestep <span class="op">=</span> (ggplot(mypred2, aes(x<span class="op">=</span><span class="st">&#39;molasses&#39;</span>, y<span class="op">=</span><span class="st">&#39;ginger&#39;</span>, fill<span class="op">=</span><span class="st">&#39;yhat&#39;</span>)) <span class="op">+</span></span>
+<span id="cb43-16"><a href="#cb43-16" tabindex="-1"></a>             <span class="co"># Each tile colored by predicted yum value</span></span>
+<span id="cb43-17"><a href="#cb43-17" tabindex="-1"></a>             geom_tile() <span class="op">+</span></span>
+<span id="cb43-18"><a href="#cb43-18" tabindex="-1"></a>             scale_fill_cmap(cmap_name<span class="op">=</span><span class="st">&#39;plasma&#39;</span>, name<span class="op">=</span><span class="st">&#39;Predicted</span><span class="ch">\n</span><span class="st">Yum</span><span class="ch">\n</span><span class="st">Factor&#39;</span>) <span class="op">+</span></span>
+<span id="cb43-19"><a href="#cb43-19" tabindex="-1"></a>             theme_classic(base_size<span class="op">=</span><span class="dv">14</span>) <span class="op">+</span></span>
+<span id="cb43-20"><a href="#cb43-20" tabindex="-1"></a>             theme(axis_line<span class="op">=</span>element_blank()) <span class="op">+</span></span>
+<span id="cb43-21"><a href="#cb43-21" tabindex="-1"></a>             labs(x<span class="op">=</span><span class="st">&#39;Molasses (cups)&#39;</span>, y<span class="op">=</span><span class="st">&#39;Ginger (tablespoons)&#39;</span>,</span>
+<span id="cb43-22"><a href="#cb43-22" tabindex="-1"></a>                  subtitle<span class="op">=</span><span class="st">&#39;Contour of Predicted Gingerbread Cookie Tastiness&#39;</span>))</span>
+<span id="cb43-23"><a href="#cb43-23" tabindex="-1"></a></span>
+<span id="cb43-24"><a href="#cb43-24" tabindex="-1"></a><span class="bu">print</span>(g_onestep)</span></code></pre></div>
+<pre><code>## &lt;ggplot: (640 x 480)&gt;</code></pre>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-36"></span>
+<img src="plotnine_figures/15_contour_onestep.png" alt="One-step RSM contour plot" width="100%" />
+<p class="caption">
+Figure 1.2: One-step RSM contour plot
+</p>
+</div>
+<p>Excellent! Our plot can serve as a visual diagnostic. Tentatively, our model results suggest that increasing <code>molasses</code> may lead to considerable gains in our outcome, with <code>ginger</code> contributing some impact early on. Notably, we see that though our actual outcome’s measurement ranged from 0 to 100, our predictions might exceed those limits.</p>
+</div>
+<div id="more-realistic-plots" class="section level3 hasAnchor" number="1.2.5">
+<h3><span class="header-section-number">1.2.5</span> More Realistic Plots<a href="#more-realistic-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Even though transformations don’t improve our predictive accuracy, they might make our predictions more <em>realistic</em>. Let’s try a few transformations.</p>
+<ul>
+<li><p>A <code>logit()</code> transformation could help with bounding <code>yum</code> to 0 and 1, if we scale down yum from 0-100 to 0-1. We’ll have to add <code>+1</code> to the <code>yum</code> scale though, because some cookies got a score of zero, which can be logit-transformed.</p></li>
+<li><p>A <code>log()</code> transformation to <code>molasses</code> and <code>ginger</code> could help with bounding these conditions to only positive values, since we know we need at least a little of each, and we can’t have ‘negative ginger.’</p></li>
+</ul>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="co"># Write a quick adjusted logit function</span></span>
+<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a><span class="kw">def</span> adj_logit(p):</span>
+<span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a>    p <span class="op">=</span> (p <span class="op">+</span> <span class="dv">1</span>) <span class="op">/</span> <span class="dv">100</span>  <span class="co"># adjust p from 0 - 100 to 0 - 1</span></span>
+<span id="cb45-4"><a href="#cb45-4" tabindex="-1"></a>    <span class="cf">return</span> np.log(p <span class="op">/</span> (<span class="dv">1</span> <span class="op">-</span> p))  <span class="co"># logit transformation</span></span>
+<span id="cb45-5"><a href="#cb45-5" tabindex="-1"></a></span>
+<span id="cb45-6"><a href="#cb45-6" tabindex="-1"></a><span class="co"># Transform outcome and predictors</span></span>
+<span id="cb45-7"><a href="#cb45-7" tabindex="-1"></a>cookies[<span class="st">&#39;adj_logit_yum&#39;</span>] <span class="op">=</span> adj_logit(cookies[<span class="st">&#39;yum&#39;</span>])</span>
+<span id="cb45-8"><a href="#cb45-8" tabindex="-1"></a>cookies[<span class="st">&#39;log_molasses&#39;</span>] <span class="op">=</span> np.log(cookies[<span class="st">&#39;molasses&#39;</span>])</span>
+<span id="cb45-9"><a href="#cb45-9" tabindex="-1"></a>cookies[<span class="st">&#39;log_ginger&#39;</span>] <span class="op">=</span> np.log(cookies[<span class="st">&#39;ginger&#39;</span>])</span>
+<span id="cb45-10"><a href="#cb45-10" tabindex="-1"></a>cookies[<span class="st">&#39;log_molasses_sq&#39;</span>] <span class="op">=</span> cookies[<span class="st">&#39;log_molasses&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb45-11"><a href="#cb45-11" tabindex="-1"></a>cookies[<span class="st">&#39;log_ginger_sq&#39;</span>] <span class="op">=</span> cookies[<span class="st">&#39;log_ginger&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb45-12"><a href="#cb45-12" tabindex="-1"></a></span>
+<span id="cb45-13"><a href="#cb45-13" tabindex="-1"></a>m4 <span class="op">=</span> lm(formula <span class="op">=</span> <span class="st">&#39;adj_logit_yum ~ log_molasses * log_ginger + log_molasses_sq + log_ginger_sq&#39;</span>, </span>
+<span id="cb45-14"><a href="#cb45-14" tabindex="-1"></a>        data <span class="op">=</span> cookies)</span>
+<span id="cb45-15"><a href="#cb45-15" tabindex="-1"></a></span>
+<span id="cb45-16"><a href="#cb45-16" tabindex="-1"></a><span class="co"># Get conditions and predictions</span></span>
+<span id="cb45-17"><a href="#cb45-17" tabindex="-1"></a>molasses_seq3 <span class="op">=</span> np.linspace(<span class="fl">0.01</span>, <span class="dv">4</span>, <span class="dv">50</span>)</span>
+<span id="cb45-18"><a href="#cb45-18" tabindex="-1"></a>ginger_seq3 <span class="op">=</span> np.linspace(<span class="fl">0.01</span>, <span class="dv">4</span>, <span class="dv">50</span>)</span>
+<span id="cb45-19"><a href="#cb45-19" tabindex="-1"></a></span>
+<span id="cb45-20"><a href="#cb45-20" tabindex="-1"></a>mypred3 <span class="op">=</span> pd.DataFrame(<span class="bu">list</span>(product(molasses_seq3, ginger_seq3)), </span>
+<span id="cb45-21"><a href="#cb45-21" tabindex="-1"></a>                       columns<span class="op">=</span>[<span class="st">&#39;molasses&#39;</span>, <span class="st">&#39;ginger&#39;</span>])</span>
+<span id="cb45-22"><a href="#cb45-22" tabindex="-1"></a>mypred3[<span class="st">&#39;log_molasses&#39;</span>] <span class="op">=</span> np.log(mypred3[<span class="st">&#39;molasses&#39;</span>])</span>
+<span id="cb45-23"><a href="#cb45-23" tabindex="-1"></a>mypred3[<span class="st">&#39;log_ginger&#39;</span>] <span class="op">=</span> np.log(mypred3[<span class="st">&#39;ginger&#39;</span>])</span>
+<span id="cb45-24"><a href="#cb45-24" tabindex="-1"></a>mypred3[<span class="st">&#39;log_molasses_sq&#39;</span>] <span class="op">=</span> mypred3[<span class="st">&#39;log_molasses&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb45-25"><a href="#cb45-25" tabindex="-1"></a>mypred3[<span class="st">&#39;log_ginger_sq&#39;</span>] <span class="op">=</span> mypred3[<span class="st">&#39;log_ginger&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb45-26"><a href="#cb45-26" tabindex="-1"></a></span>
+<span id="cb45-27"><a href="#cb45-27" tabindex="-1"></a><span class="co"># Predict on log scale</span></span>
+<span id="cb45-28"><a href="#cb45-28" tabindex="-1"></a>mypred3[<span class="st">&#39;yhat_logit&#39;</span>] <span class="op">=</span> m4.predict(mypred3)</span>
+<span id="cb45-29"><a href="#cb45-29" tabindex="-1"></a></span>
+<span id="cb45-30"><a href="#cb45-30" tabindex="-1"></a><span class="co"># Undo the logit transformation!</span></span>
+<span id="cb45-31"><a href="#cb45-31" tabindex="-1"></a>mypred3[<span class="st">&#39;yhat&#39;</span>] <span class="op">=</span> np.exp(mypred3[<span class="st">&#39;yhat_logit&#39;</span>]) <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> np.exp(mypred3[<span class="st">&#39;yhat_logit&#39;</span>]))</span>
+<span id="cb45-32"><a href="#cb45-32" tabindex="-1"></a><span class="co"># Undo the (y + 1) / 100 transformation</span></span>
+<span id="cb45-33"><a href="#cb45-33" tabindex="-1"></a>mypred3[<span class="st">&#39;yhat&#39;</span>] <span class="op">=</span> <span class="dv">100</span> <span class="op">*</span> mypred3[<span class="st">&#39;yhat&#39;</span>] <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb45-34"><a href="#cb45-34" tabindex="-1"></a></span>
+<span id="cb45-35"><a href="#cb45-35" tabindex="-1"></a><span class="co"># Visualize it!</span></span>
+<span id="cb45-36"><a href="#cb45-36" tabindex="-1"></a>g3 <span class="op">=</span> (ggplot(mypred3, aes(x<span class="op">=</span><span class="st">&#39;molasses&#39;</span>, y<span class="op">=</span><span class="st">&#39;ginger&#39;</span>, fill<span class="op">=</span><span class="st">&#39;yhat&#39;</span>)) <span class="op">+</span></span>
+<span id="cb45-37"><a href="#cb45-37" tabindex="-1"></a>      geom_tile() <span class="op">+</span></span>
+<span id="cb45-38"><a href="#cb45-38" tabindex="-1"></a>      scale_fill_cmap(cmap_name<span class="op">=</span><span class="st">&#39;plasma&#39;</span>, name<span class="op">=</span><span class="st">&#39;Predicted</span><span class="ch">\n</span><span class="st">Yum</span><span class="ch">\n</span><span class="st">Factor&#39;</span>) <span class="op">+</span></span>
+<span id="cb45-39"><a href="#cb45-39" tabindex="-1"></a>      theme_classic(base_size<span class="op">=</span><span class="dv">14</span>) <span class="op">+</span></span>
+<span id="cb45-40"><a href="#cb45-40" tabindex="-1"></a>      theme(axis_line<span class="op">=</span>element_blank()) <span class="op">+</span></span>
+<span id="cb45-41"><a href="#cb45-41" tabindex="-1"></a>      labs(x<span class="op">=</span><span class="st">&#39;Molasses (cups)&#39;</span>, y<span class="op">=</span><span class="st">&#39;Ginger (tablespoons)&#39;</span>,</span>
+<span id="cb45-42"><a href="#cb45-42" tabindex="-1"></a>           subtitle<span class="op">=</span><span class="st">&#39;Contour of Predicted Gingerbread Cookie Tastiness&#39;</span>))</span>
+<span id="cb45-43"><a href="#cb45-43" tabindex="-1"></a></span>
+<span id="cb45-44"><a href="#cb45-44" tabindex="-1"></a><span class="bu">print</span>(g3)</span></code></pre></div>
+<pre><code>## &lt;ggplot: (640 x 480)&gt;</code></pre>
+<p><img src="plotnine_figures/15_plot_2.png" width="100%" /></p>
+<p>Ta-da! Now we have much more reasonable predictions, even though we lost 2% predictive power. It’s always a trade-off between predictive power and our ability to generate reasonable, useful quantities of interest. Ideally, let’s get a much better <span class="math inline">\(R^{2}\)</span>!</p>
+<p><br>
+<br></p>
+<hr />
+</div>
+</div>
+<div id="learning-check-2" class="section level2 unnumbered LC hasAnchor">
+<h2>Learning Check 2<a href="#learning-check-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Suppose we expanded our factorial experiment based on this contour plot, adding more permutations of <code>molasses</code> and <code>ginger</code>, such that we now have <code>1280</code> cookies under test! We’ve saved this data in <code>workshops/gingerbread_test2.csv</code>.</p>
+<p><strong>Question</strong></p>
+<p>Generate a second-order polynomial model like <code>m3</code> and visualize the contour plot in <code>plotnine</code>. How do our predictions change?</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a>cookies2 <span class="op">=</span> pd.read_csv(<span class="st">&quot;workshops/gingerbread_test2.csv&quot;</span>)</span></code></pre></div>
+<details>
+<summary>
+<strong>[View Answer!]</strong>
+</summary>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="co"># Check the range</span></span>
+<span id="cb48-2"><a href="#cb48-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Ginger range:&quot;</span>, cookies[<span class="st">&#39;ginger&#39;</span>].<span class="bu">min</span>(), <span class="st">&quot;to&quot;</span>, cookies[<span class="st">&#39;ginger&#39;</span>].<span class="bu">max</span>())</span></code></pre></div>
+<pre><code>## Ginger range: 0.5 to 2.0</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Molasses range:&quot;</span>, cookies[<span class="st">&#39;molasses&#39;</span>].<span class="bu">min</span>(), <span class="st">&quot;to&quot;</span>, cookies[<span class="st">&#39;molasses&#39;</span>].<span class="bu">max</span>())</span></code></pre></div>
+<pre><code>## Molasses range: 0.5 to 1.25</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="co"># Write a quick adjusted logit function</span></span>
+<span id="cb52-2"><a href="#cb52-2" tabindex="-1"></a><span class="kw">def</span> adj_logit(p):</span>
+<span id="cb52-3"><a href="#cb52-3" tabindex="-1"></a>    p <span class="op">=</span> (p <span class="op">+</span> <span class="dv">1</span>) <span class="op">/</span> <span class="dv">100</span>  <span class="co"># adjust p from 0 - 100 to 0 - 1</span></span>
+<span id="cb52-4"><a href="#cb52-4" tabindex="-1"></a>    <span class="cf">return</span> np.log(p <span class="op">/</span> (<span class="dv">1</span> <span class="op">-</span> p))  <span class="co"># logit transformation</span></span>
+<span id="cb52-5"><a href="#cb52-5" tabindex="-1"></a></span>
+<span id="cb52-6"><a href="#cb52-6" tabindex="-1"></a><span class="co"># Prepare the data</span></span>
+<span id="cb52-7"><a href="#cb52-7" tabindex="-1"></a>cookies2[<span class="st">&#39;molasses_sq&#39;</span>] <span class="op">=</span> cookies2[<span class="st">&#39;molasses&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb52-8"><a href="#cb52-8" tabindex="-1"></a>cookies2[<span class="st">&#39;ginger_sq&#39;</span>] <span class="op">=</span> cookies2[<span class="st">&#39;ginger&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb52-9"><a href="#cb52-9" tabindex="-1"></a>cookies2[<span class="st">&#39;adj_logit_yum&#39;</span>] <span class="op">=</span> adj_logit(cookies2[<span class="st">&#39;yum&#39;</span>])</span>
+<span id="cb52-10"><a href="#cb52-10" tabindex="-1"></a>cookies2[<span class="st">&#39;log_molasses&#39;</span>] <span class="op">=</span> np.log(cookies2[<span class="st">&#39;molasses&#39;</span>])</span>
+<span id="cb52-11"><a href="#cb52-11" tabindex="-1"></a>cookies2[<span class="st">&#39;log_ginger&#39;</span>] <span class="op">=</span> np.log(cookies2[<span class="st">&#39;ginger&#39;</span>])</span>
+<span id="cb52-12"><a href="#cb52-12" tabindex="-1"></a>cookies2[<span class="st">&#39;log_molasses_sq&#39;</span>] <span class="op">=</span> cookies2[<span class="st">&#39;log_molasses&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb52-13"><a href="#cb52-13" tabindex="-1"></a>cookies2[<span class="st">&#39;log_ginger_sq&#39;</span>] <span class="op">=</span> cookies2[<span class="st">&#39;log_ginger&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb52-14"><a href="#cb52-14" tabindex="-1"></a></span>
+<span id="cb52-15"><a href="#cb52-15" tabindex="-1"></a><span class="co"># Transform outcome and predictors</span></span>
+<span id="cb52-16"><a href="#cb52-16" tabindex="-1"></a>m_lc <span class="op">=</span> lm(formula <span class="op">=</span> <span class="st">&#39;adj_logit_yum ~ log_molasses * log_ginger + log_molasses_sq + log_ginger_sq&#39;</span>, </span>
+<span id="cb52-17"><a href="#cb52-17" tabindex="-1"></a>          data <span class="op">=</span> cookies2)</span>
+<span id="cb52-18"><a href="#cb52-18" tabindex="-1"></a></span>
+<span id="cb52-19"><a href="#cb52-19" tabindex="-1"></a><span class="co"># Check the R2 (still terrible! whoops!)</span></span>
+<span id="cb52-20"><a href="#cb52-20" tabindex="-1"></a>glance(m_lc)</span></code></pre></div>
+<pre><code>##         rsq   adj_rsq     sigma  ...          bic  df.residual    nobs
+## 0  0.268317  0.265446  0.499909  ...  1894.470967       1274.0  1280.0
+## 
+## [1 rows x 11 columns]</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="co"># Get conditions and predictions</span></span>
+<span id="cb54-2"><a href="#cb54-2" tabindex="-1"></a>molasses_seq_lc <span class="op">=</span> np.linspace(<span class="fl">0.01</span>, <span class="dv">4</span>, <span class="dv">50</span>)</span>
+<span id="cb54-3"><a href="#cb54-3" tabindex="-1"></a>ginger_seq_lc <span class="op">=</span> np.linspace(<span class="fl">0.01</span>, <span class="dv">4</span>, <span class="dv">50</span>)</span>
+<span id="cb54-4"><a href="#cb54-4" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="#cb54-5" tabindex="-1"></a>mypred_lc <span class="op">=</span> pd.DataFrame(<span class="bu">list</span>(product(molasses_seq_lc, ginger_seq_lc)), </span>
+<span id="cb54-6"><a href="#cb54-6" tabindex="-1"></a>                          columns<span class="op">=</span>[<span class="st">&#39;molasses&#39;</span>, <span class="st">&#39;ginger&#39;</span>])</span>
+<span id="cb54-7"><a href="#cb54-7" tabindex="-1"></a>mypred_lc[<span class="st">&#39;log_molasses&#39;</span>] <span class="op">=</span> np.log(mypred_lc[<span class="st">&#39;molasses&#39;</span>])</span>
+<span id="cb54-8"><a href="#cb54-8" tabindex="-1"></a>mypred_lc[<span class="st">&#39;log_ginger&#39;</span>] <span class="op">=</span> np.log(mypred_lc[<span class="st">&#39;ginger&#39;</span>])</span>
+<span id="cb54-9"><a href="#cb54-9" tabindex="-1"></a>mypred_lc[<span class="st">&#39;log_molasses_sq&#39;</span>] <span class="op">=</span> mypred_lc[<span class="st">&#39;log_molasses&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb54-10"><a href="#cb54-10" tabindex="-1"></a>mypred_lc[<span class="st">&#39;log_ginger_sq&#39;</span>] <span class="op">=</span> mypred_lc[<span class="st">&#39;log_ginger&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb54-11"><a href="#cb54-11" tabindex="-1"></a></span>
+<span id="cb54-12"><a href="#cb54-12" tabindex="-1"></a><span class="co"># Predict</span></span>
+<span id="cb54-13"><a href="#cb54-13" tabindex="-1"></a>mypred_lc[<span class="st">&#39;yhat_logit&#39;</span>] <span class="op">=</span> m_lc.predict(mypred_lc)</span>
+<span id="cb54-14"><a href="#cb54-14" tabindex="-1"></a><span class="co"># Undo the logit transformation!</span></span>
+<span id="cb54-15"><a href="#cb54-15" tabindex="-1"></a>mypred_lc[<span class="st">&#39;yhat&#39;</span>] <span class="op">=</span> np.exp(mypred_lc[<span class="st">&#39;yhat_logit&#39;</span>]) <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> np.exp(mypred_lc[<span class="st">&#39;yhat_logit&#39;</span>]))</span>
+<span id="cb54-16"><a href="#cb54-16" tabindex="-1"></a><span class="co"># Undo the (y + 1) / 100 transformation</span></span>
+<span id="cb54-17"><a href="#cb54-17" tabindex="-1"></a>mypred_lc[<span class="st">&#39;yhat&#39;</span>] <span class="op">=</span> <span class="dv">100</span> <span class="op">*</span> mypred_lc[<span class="st">&#39;yhat&#39;</span>] <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb54-18"><a href="#cb54-18" tabindex="-1"></a></span>
+<span id="cb54-19"><a href="#cb54-19" tabindex="-1"></a><span class="co"># Visualize it!</span></span>
+<span id="cb54-20"><a href="#cb54-20" tabindex="-1"></a>g_lc <span class="op">=</span> (ggplot(mypred_lc, aes(x<span class="op">=</span><span class="st">&#39;molasses&#39;</span>, y<span class="op">=</span><span class="st">&#39;ginger&#39;</span>, fill<span class="op">=</span><span class="st">&#39;yhat&#39;</span>)) <span class="op">+</span></span>
+<span id="cb54-21"><a href="#cb54-21" tabindex="-1"></a>        geom_tile() <span class="op">+</span></span>
+<span id="cb54-22"><a href="#cb54-22" tabindex="-1"></a>        scale_fill_cmap(cmap_name<span class="op">=</span><span class="st">&#39;plasma&#39;</span>, name<span class="op">=</span><span class="st">&#39;Predicted</span><span class="ch">\n</span><span class="st">Yum</span><span class="ch">\n</span><span class="st">Factor&#39;</span>) <span class="op">+</span></span>
+<span id="cb54-23"><a href="#cb54-23" tabindex="-1"></a>        theme_classic(base_size<span class="op">=</span><span class="dv">14</span>) <span class="op">+</span></span>
+<span id="cb54-24"><a href="#cb54-24" tabindex="-1"></a>        theme(axis_line<span class="op">=</span>element_blank()) <span class="op">+</span></span>
+<span id="cb54-25"><a href="#cb54-25" tabindex="-1"></a>        labs(x<span class="op">=</span><span class="st">&#39;Molasses (cups)&#39;</span>, y<span class="op">=</span><span class="st">&#39;Ginger (tablespoons)&#39;</span>,</span>
+<span id="cb54-26"><a href="#cb54-26" tabindex="-1"></a>             subtitle<span class="op">=</span><span class="st">&#39;Contour of Predicted Gingerbread Cookie Tastiness&#39;</span>))</span>
+<span id="cb54-27"><a href="#cb54-27" tabindex="-1"></a></span>
+<span id="cb54-28"><a href="#cb54-28" tabindex="-1"></a><span class="bu">print</span>(g_lc)</span></code></pre></div>
+<pre><code>## &lt;ggplot: (640 x 480)&gt;</code></pre>
+<p><img src="plotnine_figures/15_learning_check_2.png" width="100%" /></p>
+<p>Our predictive power is still not quite that good. Ironically, our model (based on fake data) suggests that the best gingerbread cookies you can make should either have <strong>very little molasses</strong> OR <strong>lots of molasses and ginger</strong>, but the payoff for using very little molasses will be higher!</p>
+<p>This plot demonstrates how even though your original model <code>m4</code> predicted really high payoff for adding more molasses, when we compare those predictions to updated model predictions based on new experiments, we might find that the new empirical data tempers our earlier predictions.</p>
+<p><strong>This is good news</strong>. This probably means that our earlier predictions were <em>not very accurate</em>, and our extra experiments paid off by helping clarify. New results can be <strong>surprising</strong>, but are never a bad thing - because they get you closer to <strong>truth</strong>.</p>
+</details>
+<hr />
+<p><br>
+<br></p>
+</div>
+<div id="iterate" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Iterate!<a href="#iterate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Suppose now that we expanded our factorial experiment to vary the amount of <code>flour</code>, <code>butter</code>, and <code>cinnamon</code> too! We’ve saved this data in <code>workshops/gingerbread_test3.csv</code>. How would we model this data?</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a>cookies3 <span class="op">=</span> pd.read_csv(<span class="st">&quot;workshops/gingerbread_test3.csv&quot;</span>)</span>
+<span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a>cookies3.head()</span></code></pre></div>
+<pre><code>##    id  batch  yum  molasses  ginger  cinnamon  butter  flour
+## 0   1      1    6      0.75     1.0       1.0    0.75   2.75
+## 1   2      1    0      0.75     1.0       1.0    0.75   2.75
+## 2   3      1    0      0.75     1.0       1.0    0.75   2.75
+## 3   4      1    3      0.75     1.0       1.0    0.75   2.75
+## 4   5      1    3      0.75     1.0       1.0    0.75   2.75</code></pre>
+<div id="modeling-many-interactions" class="section level3 hasAnchor" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> Modeling many Interactions<a href="#modeling-many-interactions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can make a second-order polynomial for these 5 variables with <code>lm()</code>, like so:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a><span class="co"># Prepare polynomial terms</span></span>
+<span id="cb58-2"><a href="#cb58-2" tabindex="-1"></a>cookies3[<span class="st">&#39;molasses_sq&#39;</span>] <span class="op">=</span> cookies3[<span class="st">&#39;molasses&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb58-3"><a href="#cb58-3" tabindex="-1"></a>cookies3[<span class="st">&#39;ginger_sq&#39;</span>] <span class="op">=</span> cookies3[<span class="st">&#39;ginger&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb58-4"><a href="#cb58-4" tabindex="-1"></a>cookies3[<span class="st">&#39;cinnamon_sq&#39;</span>] <span class="op">=</span> cookies3[<span class="st">&#39;cinnamon&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb58-5"><a href="#cb58-5" tabindex="-1"></a>cookies3[<span class="st">&#39;butter_sq&#39;</span>] <span class="op">=</span> cookies3[<span class="st">&#39;butter&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb58-6"><a href="#cb58-6" tabindex="-1"></a>cookies3[<span class="st">&#39;flour_sq&#39;</span>] <span class="op">=</span> cookies3[<span class="st">&#39;flour&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb58-7"><a href="#cb58-7" tabindex="-1"></a></span>
+<span id="cb58-8"><a href="#cb58-8" tabindex="-1"></a><span class="co"># Model using lm() - note: this creates a very complex model with many interactions</span></span>
+<span id="cb58-9"><a href="#cb58-9" tabindex="-1"></a><span class="co"># For demonstration, we&#39;ll use a simpler version focusing on main effects and key interactions</span></span>
+<span id="cb58-10"><a href="#cb58-10" tabindex="-1"></a>m5 <span class="op">=</span> lm(formula <span class="op">=</span> <span class="st">&#39;yum ~ molasses * ginger * cinnamon * butter * flour + molasses_sq + ginger_sq + cinnamon_sq + butter_sq + flour_sq&#39;</span>, </span>
+<span id="cb58-11"><a href="#cb58-11" tabindex="-1"></a>        data <span class="op">=</span> cookies3)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" tabindex="-1"></a><span class="co"># Check out our coefficients! Wow that&#39;s a long list!</span></span>
+<span id="cb59-2"><a href="#cb59-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Number of coefficients:&quot;</span>, <span class="bu">len</span>(m5.params))</span></code></pre></div>
+<pre><code>## Number of coefficients: 37</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" tabindex="-1"></a>m5.params.<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## Intercept                                85.265
+## molasses                                -87.139
+## ginger                                  -35.615
+## molasses:ginger                          45.016
+## cinnamon                                -35.371
+## molasses:cinnamon                        34.562
+## ginger:cinnamon                          17.776
+## molasses:ginger:cinnamon                -20.212
+## butter                                  -94.561
+## molasses:butter                          89.400
+## ginger:butter                            34.292
+## molasses:ginger:butter                  -43.475
+## cinnamon:butter                          34.407
+## molasses:cinnamon:butter                -33.053
+## ginger:cinnamon:butter                  -17.067
+## molasses:ginger:cinnamon:butter          19.200
+## flour                                   -19.429
+## molasses:flour                           30.617
+## ginger:flour                             12.717
+## molasses:ginger:flour                   -15.699
+## cinnamon:flour                           11.207
+## molasses:cinnamon:flour                 -11.803
+## ginger:cinnamon:flour                    -5.989
+## molasses:ginger:cinnamon:flour            7.039
+## butter:flour                             29.559
+## molasses:butter:flour                   -30.647
+## ginger:butter:flour                     -12.126
+## molasses:ginger:butter:flour             15.019
+## cinnamon:butter:flour                   -10.883
+## molasses:cinnamon:butter:flour           11.092
+## ginger:cinnamon:butter:flour              5.766
+## molasses:ginger:cinnamon:butter:flour    -6.662
+## molasses_sq                               1.728
+## ginger_sq                                 0.079
+## cinnamon_sq                               0.080
+## butter_sq                                 4.734
+## flour_sq                                 -1.509
+## dtype: float64</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" tabindex="-1"></a><span class="co"># Check predictive power (still pretty bad!)</span></span>
+<span id="cb63-2"><a href="#cb63-2" tabindex="-1"></a>glance(m5)</span></code></pre></div>
+<pre><code>##         rsq  adj_rsq     sigma  ...            bic  df.residual     nobs
+## 0  0.166282  0.16563  7.152991  ...  312457.290752      46043.0  46080.0
+## 
+## [1 rows x 11 columns]</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" tabindex="-1"></a><span class="co"># Check which variables are significant </span></span>
+<span id="cb65-2"><a href="#cb65-2" tabindex="-1"></a><span class="co"># (if some were not, we might cut them if we wanted to make as parsimonious a model as possible)</span></span>
+<span id="cb65-3"><a href="#cb65-3" tabindex="-1"></a>m5_tidy <span class="op">=</span> tidy(m5)</span>
+<span id="cb65-4"><a href="#cb65-4" tabindex="-1"></a>m5_tidy[m5_tidy[<span class="st">&#39;p_value&#39;</span>] <span class="op">&lt;</span> <span class="fl">0.05</span>].head(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##                         term   estimate  ...       lower       upper
+## 0                  Intercept  85.264957  ...   14.842393  155.687520
+## 1                   molasses -87.138980  ... -132.478694  -41.799267
+## 2                     ginger -35.615364  ...  -62.362131   -8.868597
+## 3            molasses:ginger  45.015971  ...   27.060486   62.971455
+## 5          molasses:cinnamon  34.562116  ...    1.453839   67.670394
+## 7   molasses:ginger:cinnamon -20.212249  ...  -33.325081   -7.099417
+## 8                     butter -94.560948  ... -160.874123  -28.247773
+## 9            molasses:butter  89.399575  ...   44.980159  133.818991
+## 10             ginger:butter  34.292465  ...    8.087298   60.497632
+## 11    molasses:ginger:butter -43.475472  ...  -61.068183  -25.882762
+## 
+## [10 rows x 7 columns]</code></pre>
+<p><br>
+<br></p>
+</div>
+<div id="contours-with-multiple-variables" class="section level3 hasAnchor" number="1.3.2">
+<h3><span class="header-section-number">1.3.2</span> Contours with Multiple Variables<a href="#contours-with-multiple-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now, whenever we analyze contours, since we have more than 2 predictors, we need multiple plots.</p>
+<p>For example, let’s examine variation in <code>yum</code> as 3 predictions change simultaneously. These include <code>molasses</code>, <code>ginger</code>, <strong>and</strong> <code>cinnamon</code>.</p>
+<p>In Python with <code>plotnine</code>, we’ll create our own faceted plots, which gives us more control and clarity.</p>
+<p>For example, we want to see 3 panels showing the contours of molasses x ginger when cinnamon = 0, cinnamon = 1, and cinnamon = 2 tablespoons. All other conditions would be held constant, allowing us to see how the contour changes shape. If we hold constant the other values though, we should hold them at <strong>meaningful values</strong>, like the <strong>average</strong> or perhaps a value you know to be sufficient.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Cinnamon range:&quot;</span>, cookies3[<span class="st">&#39;cinnamon&#39;</span>].<span class="bu">min</span>(), <span class="st">&quot;to&quot;</span>, cookies3[<span class="st">&#39;cinnamon&#39;</span>].<span class="bu">max</span>())</span></code></pre></div>
+<pre><code>## Cinnamon range: 0.5 to 2.0</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Butter mean:&quot;</span>, cookies3[<span class="st">&#39;butter&#39;</span>].mean())</span></code></pre></div>
+<pre><code>## Butter mean: 1.0</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" tabindex="-1"></a></span>
+<span id="cb71-2"><a href="#cb71-2" tabindex="-1"></a><span class="co"># Get a grid...</span></span>
+<span id="cb71-3"><a href="#cb71-3" tabindex="-1"></a>molasses_grid <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">30</span>)</span>
+<span id="cb71-4"><a href="#cb71-4" tabindex="-1"></a>ginger_grid <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">30</span>)</span>
+<span id="cb71-5"><a href="#cb71-5" tabindex="-1"></a>cinnamon_vals <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>]</span>
+<span id="cb71-6"><a href="#cb71-6" tabindex="-1"></a></span>
+<span id="cb71-7"><a href="#cb71-7" tabindex="-1"></a><span class="co"># Create grid for each cinnamon value</span></span>
+<span id="cb71-8"><a href="#cb71-8" tabindex="-1"></a>grid_list <span class="op">=</span> []</span>
+<span id="cb71-9"><a href="#cb71-9" tabindex="-1"></a><span class="cf">for</span> cinnamon_val <span class="kw">in</span> cinnamon_vals:</span>
+<span id="cb71-10"><a href="#cb71-10" tabindex="-1"></a>    <span class="cf">for</span> mol, gin <span class="kw">in</span> product(molasses_grid, ginger_grid):</span>
+<span id="cb71-11"><a href="#cb71-11" tabindex="-1"></a>        grid_list.append({</span>
+<span id="cb71-12"><a href="#cb71-12" tabindex="-1"></a>            <span class="st">&#39;molasses&#39;</span>: mol,</span>
+<span id="cb71-13"><a href="#cb71-13" tabindex="-1"></a>            <span class="st">&#39;ginger&#39;</span>: gin,</span>
+<span id="cb71-14"><a href="#cb71-14" tabindex="-1"></a>            <span class="st">&#39;cinnamon&#39;</span>: cinnamon_val,</span>
+<span id="cb71-15"><a href="#cb71-15" tabindex="-1"></a>            <span class="st">&#39;flour&#39;</span>: cookies3[<span class="st">&#39;flour&#39;</span>].mean(),</span>
+<span id="cb71-16"><a href="#cb71-16" tabindex="-1"></a>            <span class="st">&#39;butter&#39;</span>: cookies3[<span class="st">&#39;butter&#39;</span>].mean()</span>
+<span id="cb71-17"><a href="#cb71-17" tabindex="-1"></a>        })</span>
+<span id="cb71-18"><a href="#cb71-18" tabindex="-1"></a></span>
+<span id="cb71-19"><a href="#cb71-19" tabindex="-1"></a>mygrid <span class="op">=</span> pd.DataFrame(grid_list)</span>
+<span id="cb71-20"><a href="#cb71-20" tabindex="-1"></a></span>
+<span id="cb71-21"><a href="#cb71-21" tabindex="-1"></a><span class="co"># Add polynomial terms</span></span>
+<span id="cb71-22"><a href="#cb71-22" tabindex="-1"></a>mygrid[<span class="st">&#39;molasses_sq&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;molasses&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb71-23"><a href="#cb71-23" tabindex="-1"></a>mygrid[<span class="st">&#39;ginger_sq&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;ginger&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb71-24"><a href="#cb71-24" tabindex="-1"></a>mygrid[<span class="st">&#39;cinnamon_sq&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;cinnamon&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb71-25"><a href="#cb71-25" tabindex="-1"></a>mygrid[<span class="st">&#39;butter_sq&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;butter&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb71-26"><a href="#cb71-26" tabindex="-1"></a>mygrid[<span class="st">&#39;flour_sq&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;flour&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb71-27"><a href="#cb71-27" tabindex="-1"></a></span>
+<span id="cb71-28"><a href="#cb71-28" tabindex="-1"></a><span class="co"># Then predict your outcome!</span></span>
+<span id="cb71-29"><a href="#cb71-29" tabindex="-1"></a><span class="co"># Note: We need all interaction terms for prediction</span></span>
+<span id="cb71-30"><a href="#cb71-30" tabindex="-1"></a><span class="co"># For simplicity, let&#39;s create the key interaction terms</span></span>
+<span id="cb71-31"><a href="#cb71-31" tabindex="-1"></a>mygrid[<span class="st">&#39;mol_gin&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;ginger&#39;</span>]</span>
+<span id="cb71-32"><a href="#cb71-32" tabindex="-1"></a>mygrid[<span class="st">&#39;mol_cin&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;cinnamon&#39;</span>]</span>
+<span id="cb71-33"><a href="#cb71-33" tabindex="-1"></a>mygrid[<span class="st">&#39;gin_cin&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;ginger&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;cinnamon&#39;</span>]</span>
+<span id="cb71-34"><a href="#cb71-34" tabindex="-1"></a>mygrid[<span class="st">&#39;mol_but&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;butter&#39;</span>]</span>
+<span id="cb71-35"><a href="#cb71-35" tabindex="-1"></a>mygrid[<span class="st">&#39;gin_but&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;ginger&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;butter&#39;</span>]</span>
+<span id="cb71-36"><a href="#cb71-36" tabindex="-1"></a>mygrid[<span class="st">&#39;cin_but&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;cinnamon&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;butter&#39;</span>]</span>
+<span id="cb71-37"><a href="#cb71-37" tabindex="-1"></a>mygrid[<span class="st">&#39;mol_flour&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;flour&#39;</span>]</span>
+<span id="cb71-38"><a href="#cb71-38" tabindex="-1"></a>mygrid[<span class="st">&#39;gin_flour&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;ginger&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;flour&#39;</span>]</span>
+<span id="cb71-39"><a href="#cb71-39" tabindex="-1"></a>mygrid[<span class="st">&#39;cin_flour&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;cinnamon&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;flour&#39;</span>]</span>
+<span id="cb71-40"><a href="#cb71-40" tabindex="-1"></a>mygrid[<span class="st">&#39;but_flour&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;butter&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;flour&#39;</span>]</span>
+<span id="cb71-41"><a href="#cb71-41" tabindex="-1"></a></span>
+<span id="cb71-42"><a href="#cb71-42" tabindex="-1"></a><span class="co"># Higher order interactions (simplified - full model would have many more)</span></span>
+<span id="cb71-43"><a href="#cb71-43" tabindex="-1"></a>mygrid[<span class="st">&#39;mol_gin_cin&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;ginger&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;cinnamon&#39;</span>]</span>
+<span id="cb71-44"><a href="#cb71-44" tabindex="-1"></a>mygrid[<span class="st">&#39;mol_gin_but&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;ginger&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;butter&#39;</span>]</span>
+<span id="cb71-45"><a href="#cb71-45" tabindex="-1"></a>mygrid[<span class="st">&#39;mol_gin_flour&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;ginger&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;flour&#39;</span>]</span>
+<span id="cb71-46"><a href="#cb71-46" tabindex="-1"></a>mygrid[<span class="st">&#39;mol_cin_but&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;cinnamon&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;butter&#39;</span>]</span>
+<span id="cb71-47"><a href="#cb71-47" tabindex="-1"></a>mygrid[<span class="st">&#39;mol_cin_flour&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;cinnamon&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;flour&#39;</span>]</span>
+<span id="cb71-48"><a href="#cb71-48" tabindex="-1"></a>mygrid[<span class="st">&#39;gin_cin_but&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;ginger&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;cinnamon&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;butter&#39;</span>]</span>
+<span id="cb71-49"><a href="#cb71-49" tabindex="-1"></a>mygrid[<span class="st">&#39;gin_cin_flour&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;ginger&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;cinnamon&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;flour&#39;</span>]</span>
+<span id="cb71-50"><a href="#cb71-50" tabindex="-1"></a>mygrid[<span class="st">&#39;mol_but_flour&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;butter&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;flour&#39;</span>]</span>
+<span id="cb71-51"><a href="#cb71-51" tabindex="-1"></a>mygrid[<span class="st">&#39;gin_but_flour&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;ginger&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;butter&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;flour&#39;</span>]</span>
+<span id="cb71-52"><a href="#cb71-52" tabindex="-1"></a>mygrid[<span class="st">&#39;cin_but_flour&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;cinnamon&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;butter&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;flour&#39;</span>]</span>
+<span id="cb71-53"><a href="#cb71-53" tabindex="-1"></a></span>
+<span id="cb71-54"><a href="#cb71-54" tabindex="-1"></a><span class="co"># 4-way interactions</span></span>
+<span id="cb71-55"><a href="#cb71-55" tabindex="-1"></a>mygrid[<span class="st">&#39;mol_gin_cin_but&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;ginger&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;cinnamon&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;butter&#39;</span>]</span>
+<span id="cb71-56"><a href="#cb71-56" tabindex="-1"></a>mygrid[<span class="st">&#39;mol_gin_cin_flour&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;ginger&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;cinnamon&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;flour&#39;</span>]</span>
+<span id="cb71-57"><a href="#cb71-57" tabindex="-1"></a>mygrid[<span class="st">&#39;mol_gin_but_flour&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;ginger&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;butter&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;flour&#39;</span>]</span>
+<span id="cb71-58"><a href="#cb71-58" tabindex="-1"></a>mygrid[<span class="st">&#39;mol_cin_but_flour&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;cinnamon&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;butter&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;flour&#39;</span>]</span>
+<span id="cb71-59"><a href="#cb71-59" tabindex="-1"></a>mygrid[<span class="st">&#39;gin_cin_but_flour&#39;</span>] <span class="op">=</span> mygrid[<span class="st">&#39;ginger&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;cinnamon&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;butter&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;flour&#39;</span>]</span>
+<span id="cb71-60"><a href="#cb71-60" tabindex="-1"></a></span>
+<span id="cb71-61"><a href="#cb71-61" tabindex="-1"></a><span class="co"># 5-way interaction</span></span>
+<span id="cb71-62"><a href="#cb71-62" tabindex="-1"></a>mygrid[<span class="st">&#39;mol_gin_cin_but_flour&#39;</span>] <span class="op">=</span> (mygrid[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;ginger&#39;</span>] <span class="op">*</span> </span>
+<span id="cb71-63"><a href="#cb71-63" tabindex="-1"></a>                                    mygrid[<span class="st">&#39;cinnamon&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;butter&#39;</span>] <span class="op">*</span> mygrid[<span class="st">&#39;flour&#39;</span>])</span>
+<span id="cb71-64"><a href="#cb71-64" tabindex="-1"></a></span>
+<span id="cb71-65"><a href="#cb71-65" tabindex="-1"></a><span class="co"># Predict (this is complex - in practice you might want to use a simpler model)</span></span>
+<span id="cb71-66"><a href="#cb71-66" tabindex="-1"></a><span class="co"># statsmodels will automatically use the columns it needs from the DataFrame</span></span>
+<span id="cb71-67"><a href="#cb71-67" tabindex="-1"></a>mygrid[<span class="st">&#39;yhat&#39;</span>] <span class="op">=</span> m5.predict(mygrid)</span></code></pre></div>
+<p>Next, let’s use our grid to visualize the contours in <code>plotnine</code>!</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" tabindex="-1"></a><span class="co"># Let&#39;s check it out!</span></span>
+<span id="cb72-2"><a href="#cb72-2" tabindex="-1"></a>g4 <span class="op">=</span> (ggplot(mygrid, aes(x<span class="op">=</span><span class="st">&#39;molasses&#39;</span>, y<span class="op">=</span><span class="st">&#39;ginger&#39;</span>, fill<span class="op">=</span><span class="st">&#39;yhat&#39;</span>)) <span class="op">+</span></span>
+<span id="cb72-3"><a href="#cb72-3" tabindex="-1"></a>      facet_wrap(<span class="st">&#39;~cinnamon&#39;</span>, ncol<span class="op">=</span><span class="dv">3</span>) <span class="op">+</span></span>
+<span id="cb72-4"><a href="#cb72-4" tabindex="-1"></a>      geom_tile() <span class="op">+</span></span>
+<span id="cb72-5"><a href="#cb72-5" tabindex="-1"></a>      scale_fill_cmap(cmap_name<span class="op">=</span><span class="st">&#39;plasma&#39;</span>, name<span class="op">=</span><span class="st">&#39;Predicted</span><span class="ch">\n</span><span class="st">Yum</span><span class="ch">\n</span><span class="st">Factor&#39;</span>))</span>
+<span id="cb72-6"><a href="#cb72-6" tabindex="-1"></a></span>
+<span id="cb72-7"><a href="#cb72-7" tabindex="-1"></a><span class="co"># View it!</span></span>
+<span id="cb72-8"><a href="#cb72-8" tabindex="-1"></a><span class="bu">print</span>(g4)</span></code></pre></div>
+<pre><code>## &lt;ggplot: (640 x 480)&gt;</code></pre>
+<p>Finally, let’s improve the labels, colors, and theming for this plot.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" tabindex="-1"></a>g5 <span class="op">=</span> (g4 <span class="op">+</span></span>
+<span id="cb74-2"><a href="#cb74-2" tabindex="-1"></a>      theme_classic(base_size<span class="op">=</span><span class="dv">14</span>) <span class="op">+</span></span>
+<span id="cb74-3"><a href="#cb74-3" tabindex="-1"></a>      theme(axis_line<span class="op">=</span>element_blank(),</span>
+<span id="cb74-4"><a href="#cb74-4" tabindex="-1"></a>            axis_ticks<span class="op">=</span>element_blank(),</span>
+<span id="cb74-5"><a href="#cb74-5" tabindex="-1"></a>            strip_background<span class="op">=</span>element_blank()) <span class="op">+</span></span>
+<span id="cb74-6"><a href="#cb74-6" tabindex="-1"></a>      labs(x<span class="op">=</span><span class="st">&#39;Molasses (cups)&#39;</span>, y<span class="op">=</span><span class="st">&#39;Ginger (tablespoons)&#39;</span>,</span>
+<span id="cb74-7"><a href="#cb74-7" tabindex="-1"></a>           subtitle<span class="op">=</span><span class="st">&#39;Predicted Gingerbread Cookie Tastiness</span><span class="ch">\n</span><span class="st">by Tablespoons of Cinnamon&#39;</span>))</span>
+<span id="cb74-8"><a href="#cb74-8" tabindex="-1"></a></span>
+<span id="cb74-9"><a href="#cb74-9" tabindex="-1"></a><span class="co"># view it!</span></span>
+<span id="cb74-10"><a href="#cb74-10" tabindex="-1"></a><span class="bu">print</span>(g5)</span></code></pre></div>
+<pre><code>## &lt;ggplot: (640 x 480)&gt;</code></pre>
+<p><img src="plotnine_figures/15_plot.png" width="100%" /></p>
+<p>What can we learn from this plot?</p>
+<ul>
+<li><p>When we add more <code>cinnamon</code> (<code>2</code> tbsp; right), the zone in which cookies are truly bad (&lt;15 points of <code>yum</code>) shrinks greatly (compared to <code>left</code> and <code>center</code> panels).</p></li>
+<li><p>Otherwise, <code>cinnamon</code> has fairly minimal interaction effects with <code>ginger</code> and <code>molasses</code> on <code>yum</code> scores.</p></li>
+</ul>
+<p><br></p>
+</div>
+</div>
+<div id="learning-check-3" class="section level2 unnumbered LC hasAnchor">
+<h2>Learning Check 3<a href="#learning-check-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Suppose we want to examine <em>other</em> interactions! Design your own <code>plotnine</code> plot to test how <code>butter</code> shapes the <code>yum</code> factor as <code>molasses</code> and <code>flour</code> vary.</p>
+<p><strong>Question</strong></p>
+<p>Put molasses on the x-axis from 0 to 4 cups, flour on the y-axis from 0 to 4 cups, and vary the level of butter across panels from 0.75 to 1 to 1.25 cups. Hold other conditions at their mean values.</p>
+<details>
+<summary>
+<strong>[View Answer!]</strong>
+</summary>
+<div class="sourceCode" id="cb76"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" tabindex="-1"></a><span class="co"># Make the grid!</span></span>
+<span id="cb76-2"><a href="#cb76-2" tabindex="-1"></a>molasses_lc <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">30</span>)</span>
+<span id="cb76-3"><a href="#cb76-3" tabindex="-1"></a>flour_lc <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">30</span>)</span>
+<span id="cb76-4"><a href="#cb76-4" tabindex="-1"></a>butter_vals <span class="op">=</span> [<span class="fl">0.75</span>, <span class="dv">1</span>, <span class="fl">1.25</span>]</span>
+<span id="cb76-5"><a href="#cb76-5" tabindex="-1"></a></span>
+<span id="cb76-6"><a href="#cb76-6" tabindex="-1"></a>grid_list_lc <span class="op">=</span> []</span>
+<span id="cb76-7"><a href="#cb76-7" tabindex="-1"></a><span class="cf">for</span> butter_val <span class="kw">in</span> butter_vals:</span>
+<span id="cb76-8"><a href="#cb76-8" tabindex="-1"></a>    <span class="cf">for</span> mol, fl <span class="kw">in</span> product(molasses_lc, flour_lc):</span>
+<span id="cb76-9"><a href="#cb76-9" tabindex="-1"></a>        grid_list_lc.append({</span>
+<span id="cb76-10"><a href="#cb76-10" tabindex="-1"></a>            <span class="st">&#39;molasses&#39;</span>: mol,</span>
+<span id="cb76-11"><a href="#cb76-11" tabindex="-1"></a>            <span class="st">&#39;flour&#39;</span>: fl,</span>
+<span id="cb76-12"><a href="#cb76-12" tabindex="-1"></a>            <span class="st">&#39;butter&#39;</span>: butter_val,</span>
+<span id="cb76-13"><a href="#cb76-13" tabindex="-1"></a>            <span class="st">&#39;ginger&#39;</span>: cookies3[<span class="st">&#39;ginger&#39;</span>].mean(),</span>
+<span id="cb76-14"><a href="#cb76-14" tabindex="-1"></a>            <span class="st">&#39;cinnamon&#39;</span>: cookies3[<span class="st">&#39;cinnamon&#39;</span>].mean()</span>
+<span id="cb76-15"><a href="#cb76-15" tabindex="-1"></a>        })</span>
+<span id="cb76-16"><a href="#cb76-16" tabindex="-1"></a></span>
+<span id="cb76-17"><a href="#cb76-17" tabindex="-1"></a>mygrid_lc3 <span class="op">=</span> pd.DataFrame(grid_list_lc)</span>
+<span id="cb76-18"><a href="#cb76-18" tabindex="-1"></a></span>
+<span id="cb76-19"><a href="#cb76-19" tabindex="-1"></a><span class="co"># Add all necessary polynomial and interaction terms (simplified version)</span></span>
+<span id="cb76-20"><a href="#cb76-20" tabindex="-1"></a>mygrid_lc3[<span class="st">&#39;molasses_sq&#39;</span>] <span class="op">=</span> mygrid_lc3[<span class="st">&#39;molasses&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb76-21"><a href="#cb76-21" tabindex="-1"></a>mygrid_lc3[<span class="st">&#39;ginger_sq&#39;</span>] <span class="op">=</span> mygrid_lc3[<span class="st">&#39;ginger&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb76-22"><a href="#cb76-22" tabindex="-1"></a>mygrid_lc3[<span class="st">&#39;cinnamon_sq&#39;</span>] <span class="op">=</span> mygrid_lc3[<span class="st">&#39;cinnamon&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb76-23"><a href="#cb76-23" tabindex="-1"></a>mygrid_lc3[<span class="st">&#39;butter_sq&#39;</span>] <span class="op">=</span> mygrid_lc3[<span class="st">&#39;butter&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb76-24"><a href="#cb76-24" tabindex="-1"></a>mygrid_lc3[<span class="st">&#39;flour_sq&#39;</span>] <span class="op">=</span> mygrid_lc3[<span class="st">&#39;flour&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb76-25"><a href="#cb76-25" tabindex="-1"></a></span>
+<span id="cb76-26"><a href="#cb76-26" tabindex="-1"></a><span class="co"># Add interaction terms (simplified - would need all for full model)</span></span>
+<span id="cb76-27"><a href="#cb76-27" tabindex="-1"></a>mygrid_lc3[<span class="st">&#39;mol_gin&#39;</span>] <span class="op">=</span> mygrid_lc3[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid_lc3[<span class="st">&#39;ginger&#39;</span>]</span>
+<span id="cb76-28"><a href="#cb76-28" tabindex="-1"></a>mygrid_lc3[<span class="st">&#39;mol_cin&#39;</span>] <span class="op">=</span> mygrid_lc3[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid_lc3[<span class="st">&#39;cinnamon&#39;</span>]</span>
+<span id="cb76-29"><a href="#cb76-29" tabindex="-1"></a>mygrid_lc3[<span class="st">&#39;mol_but&#39;</span>] <span class="op">=</span> mygrid_lc3[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid_lc3[<span class="st">&#39;butter&#39;</span>]</span>
+<span id="cb76-30"><a href="#cb76-30" tabindex="-1"></a>mygrid_lc3[<span class="st">&#39;mol_flour&#39;</span>] <span class="op">=</span> mygrid_lc3[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid_lc3[<span class="st">&#39;flour&#39;</span>]</span>
+<span id="cb76-31"><a href="#cb76-31" tabindex="-1"></a><span class="co"># ... (would need all interactions for full prediction)</span></span>
+<span id="cb76-32"><a href="#cb76-32" tabindex="-1"></a></span>
+<span id="cb76-33"><a href="#cb76-33" tabindex="-1"></a><span class="co"># For demonstration, let&#39;s use a simpler approach: create a model just for this visualization</span></span>
+<span id="cb76-34"><a href="#cb76-34" tabindex="-1"></a><span class="co"># with the key terms</span></span>
+<span id="cb76-35"><a href="#cb76-35" tabindex="-1"></a>cookies3_simple <span class="op">=</span> cookies3.copy()</span>
+<span id="cb76-36"><a href="#cb76-36" tabindex="-1"></a>cookies3_simple[<span class="st">&#39;molasses_sq&#39;</span>] <span class="op">=</span> cookies3_simple[<span class="st">&#39;molasses&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb76-37"><a href="#cb76-37" tabindex="-1"></a>cookies3_simple[<span class="st">&#39;flour_sq&#39;</span>] <span class="op">=</span> cookies3_simple[<span class="st">&#39;flour&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb76-38"><a href="#cb76-38" tabindex="-1"></a>cookies3_simple[<span class="st">&#39;butter_sq&#39;</span>] <span class="op">=</span> cookies3_simple[<span class="st">&#39;butter&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb76-39"><a href="#cb76-39" tabindex="-1"></a></span>
+<span id="cb76-40"><a href="#cb76-40" tabindex="-1"></a>m_lc3 <span class="op">=</span> lm(formula <span class="op">=</span> <span class="st">&#39;yum ~ molasses * flour * butter + molasses_sq + flour_sq + butter_sq&#39;</span>, </span>
+<span id="cb76-41"><a href="#cb76-41" tabindex="-1"></a>           data <span class="op">=</span> cookies3_simple)</span>
+<span id="cb76-42"><a href="#cb76-42" tabindex="-1"></a></span>
+<span id="cb76-43"><a href="#cb76-43" tabindex="-1"></a><span class="co"># Prepare prediction grid with necessary terms</span></span>
+<span id="cb76-44"><a href="#cb76-44" tabindex="-1"></a>mygrid_lc3[<span class="st">&#39;molasses_sq&#39;</span>] <span class="op">=</span> mygrid_lc3[<span class="st">&#39;molasses&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb76-45"><a href="#cb76-45" tabindex="-1"></a>mygrid_lc3[<span class="st">&#39;flour_sq&#39;</span>] <span class="op">=</span> mygrid_lc3[<span class="st">&#39;flour&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb76-46"><a href="#cb76-46" tabindex="-1"></a>mygrid_lc3[<span class="st">&#39;butter_sq&#39;</span>] <span class="op">=</span> mygrid_lc3[<span class="st">&#39;butter&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb76-47"><a href="#cb76-47" tabindex="-1"></a>mygrid_lc3[<span class="st">&#39;mol_flour&#39;</span>] <span class="op">=</span> mygrid_lc3[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid_lc3[<span class="st">&#39;flour&#39;</span>]</span>
+<span id="cb76-48"><a href="#cb76-48" tabindex="-1"></a>mygrid_lc3[<span class="st">&#39;mol_but&#39;</span>] <span class="op">=</span> mygrid_lc3[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid_lc3[<span class="st">&#39;butter&#39;</span>]</span>
+<span id="cb76-49"><a href="#cb76-49" tabindex="-1"></a>mygrid_lc3[<span class="st">&#39;flour_but&#39;</span>] <span class="op">=</span> mygrid_lc3[<span class="st">&#39;flour&#39;</span>] <span class="op">*</span> mygrid_lc3[<span class="st">&#39;butter&#39;</span>]</span>
+<span id="cb76-50"><a href="#cb76-50" tabindex="-1"></a>mygrid_lc3[<span class="st">&#39;mol_flour_but&#39;</span>] <span class="op">=</span> mygrid_lc3[<span class="st">&#39;molasses&#39;</span>] <span class="op">*</span> mygrid_lc3[<span class="st">&#39;flour&#39;</span>] <span class="op">*</span> mygrid_lc3[<span class="st">&#39;butter&#39;</span>]</span>
+<span id="cb76-51"><a href="#cb76-51" tabindex="-1"></a></span>
+<span id="cb76-52"><a href="#cb76-52" tabindex="-1"></a><span class="co"># Predict</span></span>
+<span id="cb76-53"><a href="#cb76-53" tabindex="-1"></a>mygrid_lc3[<span class="st">&#39;yhat&#39;</span>] <span class="op">=</span> m_lc3.predict(mygrid_lc3)</span>
+<span id="cb76-54"><a href="#cb76-54" tabindex="-1"></a></span>
+<span id="cb76-55"><a href="#cb76-55" tabindex="-1"></a><span class="co"># Visualize!</span></span>
+<span id="cb76-56"><a href="#cb76-56" tabindex="-1"></a>g_lc3 <span class="op">=</span> (ggplot(mygrid_lc3, aes(x<span class="op">=</span><span class="st">&#39;molasses&#39;</span>, y<span class="op">=</span><span class="st">&#39;flour&#39;</span>, fill<span class="op">=</span><span class="st">&#39;yhat&#39;</span>)) <span class="op">+</span></span>
+<span id="cb76-57"><a href="#cb76-57" tabindex="-1"></a>         facet_wrap(<span class="st">&#39;~butter&#39;</span>, ncol<span class="op">=</span><span class="dv">3</span>) <span class="op">+</span></span>
+<span id="cb76-58"><a href="#cb76-58" tabindex="-1"></a>         geom_tile() <span class="op">+</span></span>
+<span id="cb76-59"><a href="#cb76-59" tabindex="-1"></a>         scale_fill_cmap(cmap_name<span class="op">=</span><span class="st">&#39;plasma&#39;</span>, name<span class="op">=</span><span class="st">&#39;Predicted</span><span class="ch">\n</span><span class="st">Yum</span><span class="ch">\n</span><span class="st">Factor&#39;</span>) <span class="op">+</span></span>
+<span id="cb76-60"><a href="#cb76-60" tabindex="-1"></a>         theme_classic(base_size<span class="op">=</span><span class="dv">14</span>) <span class="op">+</span></span>
+<span id="cb76-61"><a href="#cb76-61" tabindex="-1"></a>         theme(axis_line<span class="op">=</span>element_blank(),</span>
+<span id="cb76-62"><a href="#cb76-62" tabindex="-1"></a>               axis_ticks<span class="op">=</span>element_blank(),</span>
+<span id="cb76-63"><a href="#cb76-63" tabindex="-1"></a>               strip_background<span class="op">=</span>element_blank()) <span class="op">+</span></span>
+<span id="cb76-64"><a href="#cb76-64" tabindex="-1"></a>         labs(x<span class="op">=</span><span class="st">&#39;Molasses (cups)&#39;</span>, y<span class="op">=</span><span class="st">&#39;Flour (cups)&#39;</span>,</span>
+<span id="cb76-65"><a href="#cb76-65" tabindex="-1"></a>              subtitle<span class="op">=</span><span class="st">&#39;Predicted Gingerbread Cookie Tastiness</span><span class="ch">\n</span><span class="st">by Cups of Butter&#39;</span>))</span>
+<span id="cb76-66"><a href="#cb76-66" tabindex="-1"></a></span>
+<span id="cb76-67"><a href="#cb76-67" tabindex="-1"></a><span class="bu">print</span>(g_lc3)</span></code></pre></div>
+<pre><code>## &lt;ggplot: (640 x 480)&gt;</code></pre>
+<p><img src="plotnine_figures/15_learning_check_3.png" width="100%" /></p>
+<p>This plot tells us that adding more butter to the cookies tends to reduce the amount of the contour with low <code>yum</code> scores, and increases the relative share of the response surface with scores of 15 or 20.</p>
+</details>
+<hr />
+<p><br>
+<br></p>
+</div>
+<div id="quantities-of-interest-in-rsm" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Quantities of Interest in RSM<a href="#quantities-of-interest-in-rsm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Finally, we might be interested in calculating (and annotating our charts) with some key quantities of interest! Let’s use our model <code>m5</code> from earlier.</p>
+<p><br></p>
+<div id="percent-change-in-bins" class="section level3 hasAnchor" number="1.4.1">
+<h3><span class="header-section-number">1.4.1</span> Percent Change in Bins<a href="#percent-change-in-bins" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>First, when comparing change across panels, we’re essentially comparing change in <em>area</em>. So we can use our grid of conditions and predictions <code>mygrid</code> to calculate those percentages!</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" tabindex="-1"></a><span class="co"># Cut the outcome into bins, 5 units wide on the yum scale (matching R&#39;s cut_interval with length=5)</span></span>
+<span id="cb78-2"><a href="#cb78-2" tabindex="-1"></a>yhat_min <span class="op">=</span> mygrid[<span class="st">&#39;yhat&#39;</span>].<span class="bu">min</span>()</span>
+<span id="cb78-3"><a href="#cb78-3" tabindex="-1"></a>yhat_max <span class="op">=</span> mygrid[<span class="st">&#39;yhat&#39;</span>].<span class="bu">max</span>()</span>
+<span id="cb78-4"><a href="#cb78-4" tabindex="-1"></a><span class="co"># Create bin edges every 5 units, starting from a multiple of 5</span></span>
+<span id="cb78-5"><a href="#cb78-5" tabindex="-1"></a>bin_start <span class="op">=</span> <span class="bu">int</span>(np.floor(yhat_min <span class="op">/</span> <span class="dv">5</span>)) <span class="op">*</span> <span class="dv">5</span></span>
+<span id="cb78-6"><a href="#cb78-6" tabindex="-1"></a>bin_end <span class="op">=</span> <span class="bu">int</span>(np.ceil(yhat_max <span class="op">/</span> <span class="dv">5</span>)) <span class="op">*</span> <span class="dv">5</span> <span class="op">+</span> <span class="dv">5</span></span>
+<span id="cb78-7"><a href="#cb78-7" tabindex="-1"></a>bins <span class="op">=</span> np.arange(bin_start, bin_end <span class="op">+</span> <span class="dv">1</span>, <span class="dv">5</span>)</span>
+<span id="cb78-8"><a href="#cb78-8" tabindex="-1"></a></span>
+<span id="cb78-9"><a href="#cb78-9" tabindex="-1"></a><span class="co"># Cut into bins of width 5 (right=True means intervals are (left, right])</span></span>
+<span id="cb78-10"><a href="#cb78-10" tabindex="-1"></a>mygrid[<span class="st">&#39;bin&#39;</span>] <span class="op">=</span> pd.cut(mygrid[<span class="st">&#39;yhat&#39;</span>], bins<span class="op">=</span>bins, include_lowest<span class="op">=</span><span class="va">True</span>, right<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb78-11"><a href="#cb78-11" tabindex="-1"></a></span>
+<span id="cb78-12"><a href="#cb78-12" tabindex="-1"></a><span class="co"># For each panel and bin, count up the predictions in that interval</span></span>
+<span id="cb78-13"><a href="#cb78-13" tabindex="-1"></a>area <span class="op">=</span> (mygrid.groupby([<span class="st">&#39;cinnamon&#39;</span>, <span class="st">&#39;bin&#39;</span>])</span>
+<span id="cb78-14"><a href="#cb78-14" tabindex="-1"></a>        .size()</span>
+<span id="cb78-15"><a href="#cb78-15" tabindex="-1"></a>        .reset_index(name<span class="op">=</span><span class="st">&#39;count&#39;</span>))</span>
+<span id="cb78-16"><a href="#cb78-16" tabindex="-1"></a></span>
+<span id="cb78-17"><a href="#cb78-17" tabindex="-1"></a><span class="co"># Now, for each panel, calculate the percentage of predictions in that panel located in each bin</span></span>
+<span id="cb78-18"><a href="#cb78-18" tabindex="-1"></a>area[<span class="st">&#39;percent&#39;</span>] <span class="op">=</span> (area.groupby(<span class="st">&#39;cinnamon&#39;</span>)[<span class="st">&#39;count&#39;</span>]</span>
+<span id="cb78-19"><a href="#cb78-19" tabindex="-1"></a>                   .transform(<span class="kw">lambda</span> x: x <span class="op">/</span> x.<span class="bu">sum</span>() <span class="op">*</span> <span class="dv">100</span>))</span>
+<span id="cb78-20"><a href="#cb78-20" tabindex="-1"></a></span>
+<span id="cb78-21"><a href="#cb78-21" tabindex="-1"></a><span class="bu">print</span>(qi1)</span></code></pre></div>
+<pre><code>##    cinnamon      bin  count  percent
+## 0         0  [10,15]     92    10.22
+## 1         1  [10,15]     66     7.33
+## 2         2  [10,15]     36     4.00</code></pre>
+<p>We computed that the area predicted to score lowest on the <code>yum</code> scale decreased as we added more cinnamon.</p>
+<p><br>
+<br></p>
+</div>
+<div id="study-range" class="section level3 hasAnchor" number="1.4.2">
+<h3><span class="header-section-number">1.4.2</span> Study Range<a href="#study-range" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We might want our reader to know what is the area that we actually had data on, versus what was the area we were generating predictions from. For this, we can just draw a <code>box</code> from our raw data, using <code>geom_rect()</code>. <code>geom_rect()</code> requires an <code>xmin</code>, <code>xmax</code>, <code>ymin</code>, and <code>ymax</code>. For example, since <code>molasses</code> is our <code>x</code> variable and <code>ginger</code> has been our <code>y</code> variable in our <code>plotnine</code> analyses, we can do the following:</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" tabindex="-1"></a>box <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb80-2"><a href="#cb80-2" tabindex="-1"></a>    <span class="st">&#39;xmin&#39;</span>: [cookies3[<span class="st">&#39;molasses&#39;</span>].<span class="bu">min</span>()],</span>
+<span id="cb80-3"><a href="#cb80-3" tabindex="-1"></a>    <span class="st">&#39;xmax&#39;</span>: [cookies3[<span class="st">&#39;molasses&#39;</span>].<span class="bu">max</span>()],</span>
+<span id="cb80-4"><a href="#cb80-4" tabindex="-1"></a>    <span class="st">&#39;ymin&#39;</span>: [cookies3[<span class="st">&#39;ginger&#39;</span>].<span class="bu">min</span>()],</span>
+<span id="cb80-5"><a href="#cb80-5" tabindex="-1"></a>    <span class="st">&#39;ymax&#39;</span>: [cookies3[<span class="st">&#39;ginger&#39;</span>].<span class="bu">max</span>()]</span>
+<span id="cb80-6"><a href="#cb80-6" tabindex="-1"></a>})</span>
+<span id="cb80-7"><a href="#cb80-7" tabindex="-1"></a></span>
+<span id="cb80-8"><a href="#cb80-8" tabindex="-1"></a><span class="co"># For example, we can start a new plotnine plot</span></span>
+<span id="cb80-9"><a href="#cb80-9" tabindex="-1"></a>g_study_range <span class="op">=</span> (ggplot() <span class="op">+</span></span>
+<span id="cb80-10"><a href="#cb80-10" tabindex="-1"></a>  <span class="co"># mapping the contour fill</span></span>
+<span id="cb80-11"><a href="#cb80-11" tabindex="-1"></a>  geom_tile(data<span class="op">=</span>mygrid, mapping<span class="op">=</span>aes(x<span class="op">=</span><span class="st">&#39;molasses&#39;</span>, y<span class="op">=</span><span class="st">&#39;ginger&#39;</span>, fill<span class="op">=</span><span class="st">&#39;yhat&#39;</span>)) <span class="op">+</span></span>
+<span id="cb80-12"><a href="#cb80-12" tabindex="-1"></a>  facet_wrap(<span class="st">&#39;~cinnamon&#39;</span>) <span class="op">+</span></span>
+<span id="cb80-13"><a href="#cb80-13" tabindex="-1"></a>  <span class="co"># plotting a box overtop, with no fill</span></span>
+<span id="cb80-14"><a href="#cb80-14" tabindex="-1"></a>  geom_rect(data<span class="op">=</span>box, mapping<span class="op">=</span>aes(xmin<span class="op">=</span><span class="st">&#39;xmin&#39;</span>, xmax<span class="op">=</span><span class="st">&#39;xmax&#39;</span>, ymin<span class="op">=</span><span class="st">&#39;ymin&#39;</span>, ymax<span class="op">=</span><span class="st">&#39;ymax&#39;</span>),</span>
+<span id="cb80-15"><a href="#cb80-15" tabindex="-1"></a>          color<span class="op">=</span><span class="st">&#39;white&#39;</span>, linetype<span class="op">=</span><span class="st">&#39;dashed&#39;</span>, fill<span class="op">=</span><span class="va">None</span>, size<span class="op">=</span><span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb80-16"><a href="#cb80-16" tabindex="-1"></a>  scale_fill_cmap(cmap_name<span class="op">=</span><span class="st">&#39;plasma&#39;</span>, name<span class="op">=</span><span class="st">&#39;Predicted</span><span class="ch">\n</span><span class="st">Yum</span><span class="ch">\n</span><span class="st">Factor&#39;</span>) <span class="op">+</span></span>
+<span id="cb80-17"><a href="#cb80-17" tabindex="-1"></a>  theme_classic(base_size<span class="op">=</span><span class="dv">14</span>))</span>
+<span id="cb80-18"><a href="#cb80-18" tabindex="-1"></a></span>
+<span id="cb80-19"><a href="#cb80-19" tabindex="-1"></a><span class="bu">print</span>(g_study_range)</span></code></pre></div>
+<pre><code>## &lt;ggplot: (640 x 480)&gt;</code></pre>
+<p><img src="plotnine_figures/15_study_range.png" width="100%" /></p>
+<p><br>
+<br></p>
+</div>
+</div>
+<div id="extra-concepts-of-interest-canonical-form" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Extra Concepts of Interest: Canonical Form<a href="#extra-concepts-of-interest-canonical-form" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The canonical form is an abbreviation of your long model equation into a much more understandable, short form. For example, if you have 2 predictors <span class="math inline">\(X_{1}\)</span> and <span class="math inline">\(X_{2}\)</span>, the canonical form would look like:</p>
+<p><span class="math display">\[ \hat{Y} = Y_{s} +  X_{1}^{2} + X_{2}^{2}\]</span></p>
+<ul>
+<li>where <span class="math inline">\(Y_{s}\)</span> is the value of <span class="math inline">\(\hat{Y}\)</span> at the <strong>‘stationary point’</strong>, when <span class="math inline">\(X_{1}\)</span> and <span class="math inline">\(X_{2}\)</span> equal 0.</li>
+</ul>
+<p>The tricky thing is that the <strong>canonical form</strong> is not actually in units of our original predictors, say, cups of <code>molasses</code> and tablespoons of <code>ginger</code>. Instead, the <strong>canonical form</strong> is like a standardized format that maps every value of cups of <code>molasses</code> (written <span class="math inline">\(x_{1}\)</span>) to a new value <span class="math inline">\(X_{1}\)</span>, which is a certain distance away from the <strong>stationary point.</strong></p>
+<p>Why would we have a system like this? It’s because certain shapes of contour plots can be recognized from their canonical form alone, with no other detail, so the canonical form can be useful for us. It’s a little more than we can go into at this moment, but suffice it to say that the <strong>canonical form of a model is like a shortcut for interpreting the shape of a contour plot</strong>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+<script src="assets/gitbook-2.6.7/js/app.min.js"></script>
+<script src="assets/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="assets/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="assets/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": false,
+  "toc": {
+    "collapse": "subsection"
+  },
+  "toolbar": {
+    "position": "static"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

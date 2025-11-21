@@ -511,6 +511,7 @@ allsw = p.DataFrame({
 })
 allsw.hist()
 ```
+
 ```{python include=FALSE}
 # Save the plot
 plt.gcf().savefig("matplotlib_figures/allsw.png")
