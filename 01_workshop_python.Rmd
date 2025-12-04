@@ -502,23 +502,28 @@ We can visualize with `matplotlib`/`pandas`, or use `plotnine` (a Python port of
 
 ```{python chunk_allsw_py, echo=TRUE}
 import pandas as p
-import matplotlib.pyplot as pltI 
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend
+import matplotlib.pyplot as plt
 allsw = p.DataFrame({
   'height': [4, 4.5, 5, 5, 5.5, 5.5, 5.5, 6, 6, 6.5,
              4, 4, 4, 4, 4.5, 4.5, 4.5, 5, 5, 6,
              5.5, 6, 6.5, 6.5, 7, 7, 7, 7.5, 7.5, 8],
   'states': ["MA"]*10 + ["RI"]*10 + ["ME"]*10
 })
-allsw.hist()
-```
-
-```{python include=FALSE}
+axes = allsw.hist()
+# Get the figure from the axes (DataFrame.hist() returns an array of axes)
+import numpy as np
+if isinstance(axes, np.ndarray):
+    fig = axes.flatten()[0].figure
+else:
+    fig = axes.figure
 # Save the plot
-plt.gcf().savefig("matplotlib_figures/allsw.png")
+plt.savefig("matplotlib_figures/allsw.png", dpi=100, bbox_inches='tight')
+plt.close(fig)
 ```
 
-```{r echo=FALSE, out.width = "100%"}
-# Display
+```{r, echo=FALSE, out.width="100%"}
 knitr::include_graphics("matplotlib_figures/allsw.png")
 ```
 
@@ -533,17 +538,11 @@ g = (ggplot(allsw, aes(x='height')) +
   geom_histogram(color="white", fill="steelblue", binwidth=0.5) +
   labs(x="Seawall Height", y="Frequency (# of cities)")
 )
-g
-```
-
-```{python include=FALSE}
 # Save the plot
-g.save(filename = "plotnine_figures/plot1_py.png")
+ggsave(g, filename="plotnine_figures/plot1_py.png", dpi=100, width=8, height=6)
 ```
 
-
-```{r echo=FALSE, out.width = "100%"}
-# Display
+```{r, echo=FALSE, out.width="100%"}
 knitr::include_graphics("plotnine_figures/plot1_py.png")
 ```
 
@@ -554,16 +553,11 @@ g = (ggplot(allsw, aes(x='height')) +
  geom_histogram(color="white", fill="steelblue", binwidth=0.5) +
  labs(x="Seawall Height", y="Frequency (# of cities)") +
  facet_wrap('~states'))
-g
-```
-
-```{python include=FALSE}
 # Save the plot
-g.save(filename = "plotnine_figures/plot2_py.png")
+ggsave(g, filename="plotnine_figures/plot2_py.png", dpi=100, width=8, height=6)
 ```
 
-```{r echo=FALSE, out.width = "100%"}
-# Display
+```{r, echo=FALSE, out.width="100%"}
 knitr::include_graphics("plotnine_figures/plot2_py.png")
 ```
 
@@ -583,21 +577,21 @@ Using a list named `sw`, draw a histogram of the seawall heights: 4.5, 5, 5.5, 5
 
 ```{python sw_hist_py, echo=TRUE}
 import pandas as p
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend
+import matplotlib.pyplot as plt
 sw = [4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4]
-g = p.Series(sw).hist()
-g
+ax = p.Series(sw).hist()
+fig = ax.figure
 
 # or you could do it like this!
 # hist(sw)
-```
-
-```{python include=FALSE}
 # Save the plot
-plt.gcf().savefig("matplotlib_figures/sw_hist_py.png")
+plt.savefig("matplotlib_figures/sw_hist_py.png", dpi=100, bbox_inches='tight')
+plt.close(fig)
 ```
 
-```{r echo=FALSE, out.width = "100%"}
-# Display
+```{r, echo=FALSE, out.width="100%"}
 knitr::include_graphics("matplotlib_figures/sw_hist_py.png")
 ```
 
@@ -625,17 +619,17 @@ jp = p.DataFrame({
 ```
 
 ```{python seawall_m_py, echo=TRUE}
-g = jp.seawall_m.hist()
-g
-```
-
-```{python include=FALSE}
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend
+import matplotlib.pyplot as plt
+ax = jp.seawall_m.hist()
+fig = ax.figure
 # Save the plot
-plt.gcf().savefig("matplotlib_figures/seawall_m_py.png")
+plt.savefig("matplotlib_figures/seawall_m_py.png", dpi=100, bbox_inches='tight')
+plt.close(fig)
 ```
 
-```{r echo=FALSE, out.width = "100%"}
-# Display
+```{r, echo=FALSE, out.width="100%"}
 knitr::include_graphics("matplotlib_figures/seawall_m_py.png")
 ```
 
@@ -643,16 +637,11 @@ knitr::include_graphics("matplotlib_figures/seawall_m_py.png")
 g = (ggplot(jp, aes(x='seawall_m')) + 
 # adjust binwidth for clearer visualization
 geom_histogram(binwidth=0.5))
-g
-```
-
-```{python include=FALSE}
 # Save the plot
-g.save("plotnine_figures/plot3_py.png")
+ggsave(g, filename="plotnine_figures/plot3_py.png", dpi=100, width=8, height=6)
 ```
 
-```{r echo=FALSE, out.width = "100%"}
-# Display
+```{r, echo=FALSE, out.width="100%"}
 knitr::include_graphics("plotnine_figures/plot3_py.png")
 ```
 

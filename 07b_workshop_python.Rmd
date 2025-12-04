@@ -541,17 +541,15 @@ import matplotlib
 matplotlib.use('Agg')  # Use non-interactive backend for rendering
 import matplotlib.pyplot as plt
 
+fig = plt.figure(figsize=(8, 6))
 plt.hist(k_samples)
-```
-
-```{python echo=FALSE}
 plt.tight_layout()
-plt.savefig("matplotlib_figures/k_samples.png", dpi=200, bbox_inches='tight')
-plt.close(fig)  # Close the figure to free memory
+# Save the plot
+plt.savefig("matplotlib_figures/k_samples.png", dpi=100, bbox_inches='tight')
+plt.close(fig)
 ```
 
 ```{r, echo=FALSE, out.width="100%"}
-# Display
 knitr::include_graphics("matplotlib_figures/k_samples.png")
 ```
 
@@ -875,16 +873,11 @@ p1 = (ggplot(plot_df, aes(x='null', y='dnull', fill='type'))
       + theme(panel_border=element_rect(fill='none', color='#373737'),
               axis_line=element_blank())
 )
-print(p1)
-```
-
-```{python, include=FALSE}
 # Save the plot
-p1.save(filename="plotnine_figures/chi-squared.png", dpi=200, width=8, height=6)
+ggsave(p1, filename="plotnine_figures/chi-squared.png", dpi=100, width=8, height=6)
 ```
 
-```{r, echo=FALSE, out.width = "100%"}
-# Display
+```{r, echo=FALSE, out.width="100%"}
 knitr::include_graphics("plotnine_figures/chi-squared.png")
 ```
 

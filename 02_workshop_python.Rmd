@@ -1,4 +1,4 @@
-# Distributions and Descriptive Statistics in Python
+en di# Distributions and Descriptive Statistics in Python
 
 ```{r setup_workshop_2_python, include=FALSE}
 ## Global options
@@ -124,14 +124,24 @@ mysd = sw.std()
 
 ```{python}
 mynorm = rnorm(n=1000, mean=mymean, sd=mysd)
-hist(mynorm)
+h1 = hist(mynorm)
+h1.save("plotnine_figures/02_hist_normal.png", dpi=100, width=6, height=4)
+```
+
+```{r, echo=FALSE, out.width="100%", fig.cap="Normal distribution histogram"}
+knitr::include_graphics("plotnine_figures/02_hist_normal.png")
 ```
 
 ### Poisson
 
 ```{python}
 mypois = rpois(n=1000, mu=mymean)
-hist(mypois)
+h2 = hist(mypois)
+h2.save("plotnine_figures/02_hist_poisson.png", dpi=100, width=6, height=4)
+```
+
+```{r, echo=FALSE, out.width="100%", fig.cap="Poisson distribution histogram"}
+knitr::include_graphics("plotnine_figures/02_hist_poisson.png")
 ```
 
 ### Exponential
@@ -139,7 +149,12 @@ hist(mypois)
 ```{python}
 myrate_e = 1 / sw.mean()
 myexp = rexp(n=1000, rate=myrate_e)
-hist(myexp)
+h3 = hist(myexp)
+h3.save("plotnine_figures/02_hist_exponential.png", dpi=100, width=6, height=4)
+```
+
+```{r, echo=FALSE, out.width="100%", fig.cap="Exponential distribution histogram"}
+knitr::include_graphics("plotnine_figures/02_hist_exponential.png")
 ```
 
 ### Gamma
@@ -148,7 +163,12 @@ hist(myexp)
 myshape = sw.mean()**2 / sw.var()
 myrate = 1 / (sw.var() / sw.mean())
 mygamma = rgamma(n=1000, shape=myshape, rate=myrate)
-hist(mygamma)
+h4 = hist(mygamma)
+h4.save("plotnine_figures/02_hist_gamma.png", dpi=100, width=6, height=4)
+```
+
+```{r, echo=FALSE, out.width="100%", fig.cap="Gamma distribution histogram"}
+knitr::include_graphics("plotnine_figures/02_hist_gamma.png")
 ```
 
 ### Weibull
@@ -157,7 +177,12 @@ hist(mygamma)
 from scipy import stats as fitdistr
 myshape_w, loc, myscale_w = fitdistr.weibull_min.fit(sw, floc=0)
 myweibull = rweibull(n=1000, shape=myshape_w, scale=myscale_w)
-hist(myweibull)
+h5 = hist(myweibull)
+h5.save("plotnine_figures/02_hist_weibull.png", dpi=100, width=6, height=4)
+```
+
+```{r, echo=FALSE, out.width="100%", fig.cap="Weibull distribution histogram"}
+knitr::include_graphics("plotnine_figures/02_hist_weibull.png")
 ```
 
 ## Comparing Distributions
@@ -175,11 +200,20 @@ mysim = p.concat([
 g1 = (ggplot(mysim, aes(x='x', fill='type')) +
   geom_density(alpha=0.5) +
   labs(x='Seawall Height (m)', y='Density (Frequency)', subtitle='Which distribution fits best?', fill='Type'))
-g1
+g1.save("plotnine_figures/02_density_comparison.png", dpi=100, width=8, height=6)
+```
+
+```{r, echo=FALSE, out.width="100%", fig.cap="Distribution comparison"}
+knitr::include_graphics("plotnine_figures/02_density_comparison.png")
 ```
 
 ```{python}
-g1 + xlim(0,10)
+g2 = g1 + xlim(0,10)
+g2.save("plotnine_figures/02_density_comparison_xlim.png", dpi=100, width=8, height=6)
+```
+
+```{r, echo=FALSE, out.width="100%", fig.cap="Distribution comparison with x-axis limits"}
+knitr::include_graphics("plotnine_figures/02_density_comparison_xlim.png")
 ```
 
 ---

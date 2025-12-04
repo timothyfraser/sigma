@@ -188,12 +188,8 @@ $$ Yum = \alpha + \beta_{m} X_{m} + \beta_{g} X_{g} + \beta_{mg} X_{m} X_{g} + \
   - Together, $\beta_{m} X_{m}$ and $\beta_{m^2} X_{m}^{2}$ act as a polynomial term predicting `yum`.
   
 ```{python}
-# Add polynomial terms by creating squared columns first
-cookies['molasses_sq'] = cookies['molasses'] ** 2
-cookies['ginger_sq'] = cookies['ginger'] ** 2
-
-# Then fit the model with interaction and polynomial terms
-m3 = lm(formula = 'yum ~ molasses * ginger + molasses_sq + ginger_sq', data = cookies)
+# Add polynomial terms using I() in the formula (matching R syntax)
+m3 = lm(formula = 'yum ~ molasses * ginger + I(molasses**2) + I(ginger**2)', data = cookies)
 ```
 
 To review, this model equation can be viewed by just checking the coefficients. We can also write it out below; I've rounded to 2 decimal places for simplicity.
@@ -240,12 +236,18 @@ R's `rsm()` package has no direct Python equivalent. However, we can achieve the
 Let's make a simple 'First-Order' polynomial: `yum ~ molasses + ginger` ('m1' from above!)
 
 ```{python}
-print(m1.params)
+l1 = lm(formula = 'yum ~ molasses + ginger', data = cookies)
+print(l1.params)
+# See if it's the same as m1
+print(l1.params == m1.params)
 ```
 
-Let's make a more complex 'Second-Order' polynomial model: `yum ~ molasses * ginger + molasses_sq + ginger_sq` (which we did as `m3`)
+Let's make a more complex 'Second-Order' polynomial model: `yum ~ molasses * ginger + I(molasses**2) + I(ginger**2)` (which we did as `m3`)
 ```{python}
-print(m3.params)
+l3 = lm(formula = 'yum ~ molasses * ginger + I(molasses**2) + I(ginger**2)', data = cookies)
+print(l3.params)
+# See if it's the same as m1
+print(l3.params == m3.params)
 ```
 
 <br>
@@ -316,7 +318,7 @@ For example, we can try transforming the outcome variable, using a standard line
 
 ```{python}
 # Linear (normal)
-m_linear = lm(formula = 'yum ~ molasses * ginger + molasses_sq + ginger_sq', data = cookies)
+m_linear = lm(formula = 'yum ~ molasses * ginger + I(molasses**2) + I(ginger**2)', data = cookies)
 g_linear = glance(m_linear)
 R2_linear = g_linear['rsq'].values[0]
 print(f"R2: {R2_linear:.3f}")
@@ -326,7 +328,7 @@ print(f"R2: {R2_linear:.3f}")
 # Logged (add 1 since yum contains 0s)
 cookies_log = cookies.copy()
 cookies_log['log_yum'] = np.log(cookies_log['yum'] + 1)
-m_log = lm(formula = 'log_yum ~ molasses * ginger + molasses_sq + ginger_sq', data = cookies_log)
+m_log = lm(formula = 'log_yum ~ molasses * ginger + I(molasses**2) + I(ginger**2)', data = cookies_log)
 g_log = glance(m_log)
 R2_log = g_log['rsq'].values[0]
 print(f"R2 (logged): {R2_log:.3f} ({'Worse' if R2_log < R2_linear else 'Better'})")
@@ -336,7 +338,7 @@ print(f"R2 (logged): {R2_log:.3f} ({'Worse' if R2_log < R2_linear else 'Better'}
 # Square Root
 cookies_sqrt = cookies.copy()
 cookies_sqrt['sqrt_yum'] = np.sqrt(cookies_sqrt['yum'])
-m_sqrt = lm(formula = 'sqrt_yum ~ molasses * ginger + molasses_sq + ginger_sq', data = cookies_sqrt)
+m_sqrt = lm(formula = 'sqrt_yum ~ molasses * ginger + I(molasses**2) + I(ginger**2)', data = cookies_sqrt)
 g_sqrt = glance(m_sqrt)
 R2_sqrt = g_sqrt['rsq'].values[0]
 print(f"R2 (square root): {R2_sqrt:.3f} ({'Worse' if R2_sqrt < R2_linear else 'Better'})")
@@ -380,7 +382,7 @@ Looks like a linear, business-as-usual modeling strategy for our outcome variabl
 cookies_logit = cookies.copy()
 cookies_logit['yum_scaled'] = (cookies_logit['yum'] + 1) / 100
 cookies_logit['logit_yum'] = np.log(cookies_logit['yum_scaled'] / (1 - cookies_logit['yum_scaled']))
-m_logit = lm(formula = 'logit_yum ~ molasses * ginger + molasses_sq + ginger_sq', data = cookies_logit)
+m_logit = lm(formula = 'logit_yum ~ molasses * ginger + I(molasses**2) + I(ginger**2)', data = cookies_logit)
 g_logit = glance(m_logit)
 R2_logit = g_logit['rsq'].values[0]
 print(f"R2 (logit): {R2_logit:.3f} ({'Worse' if R2_logit < R2_linear else 'Better'})")
@@ -390,7 +392,7 @@ print(f"R2 (logit): {R2_logit:.3f} ({'Worse' if R2_logit < R2_linear else 'Bette
 # Squared
 cookies_sq = cookies.copy()
 cookies_sq['yum_sq'] = cookies_sq['yum'] ** 2
-m_sq = lm(formula = 'yum_sq ~ molasses * ginger + molasses_sq + ginger_sq', data = cookies_sq)
+m_sq = lm(formula = 'yum_sq ~ molasses * ginger + I(molasses**2) + I(ginger**2)', data = cookies_sq)
 g_sq = glance(m_sq)
 R2_sq = g_sq['rsq'].values[0]
 print(f"R2 (squared): {R2_sq:.3f} ({'Worse' if R2_sq < R2_linear else 'Better'})")
@@ -400,7 +402,7 @@ print(f"R2 (squared): {R2_sq:.3f} ({'Worse' if R2_sq < R2_linear else 'Better'})
 # Cubed
 cookies_cubed = cookies.copy()
 cookies_cubed['yum_cubed'] = cookies_cubed['yum'] ** 3
-m_cubed = lm(formula = 'yum_cubed ~ molasses * ginger + molasses_sq + ginger_sq', data = cookies_cubed)
+m_cubed = lm(formula = 'yum_cubed ~ molasses * ginger + I(molasses**2) + I(ginger**2)', data = cookies_cubed)
 g_cubed = glance(m_cubed)
 R2_cubed = g_cubed['rsq'].values[0]
 print(f"R2 (cubed): {R2_cubed:.3f} ({'Worse' if R2_cubed < R2_linear else 'Better'})")
@@ -436,36 +438,40 @@ ginger_demo = np.linspace(cookies['ginger'].min(), cookies['ginger'].max(), 50)
 myx_demo = pd.DataFrame(list(product(molasses_demo, ginger_demo)), 
                          columns=['molasses', 'ginger'])
 
-# Add squared terms for prediction
-myx_demo['molasses_sq'] = myx_demo['molasses'] ** 2
-myx_demo['ginger_sq'] = myx_demo['ginger'] ** 2
-
-# Make predictions
+# Make predictions (patsy will automatically evaluate I(molasses**2) and I(ginger**2) from the formula)
 mypred_demo = myx_demo.copy()
 mypred_demo['yhat'] = m3.predict(mypred_demo)
 
-# Create the contour-like plot using geom_tile()
-g = (ggplot(mypred_demo, aes(x='molasses', y='ginger', fill='yhat')) +
-          geom_tile() +
-          scale_fill_cmap(cmap_name='plasma', name='Predicted\nYum\nFactor'))
+# Reshape data for matplotlib contour plotting
+molasses_unique = sorted(mypred_demo['molasses'].unique())
+ginger_unique = sorted(mypred_demo['ginger'].unique())
+M_demo, G_demo = np.meshgrid(molasses_unique, ginger_unique)
+yhat_grid_demo = mypred_demo.pivot_table(values='yhat', index='ginger', columns='molasses', aggfunc='mean').values
 
-# Save and display
-g.save(filename = "plotnine_figures/15_contour_demo.png", dpi=200, width=8, height=6)
+# Create the contour plot with matplotlib
+fig_demo, ax_demo = plt.subplots(figsize=(8, 6))
+contour_filled_demo = ax_demo.contourf(M_demo, G_demo, yhat_grid_demo, levels=15, cmap='plasma', alpha=0.8)
+contour_lines_demo = ax_demo.contour(M_demo, G_demo, yhat_grid_demo, levels=10, colors='white', linewidths=0.8, alpha=0.6)
+ax_demo.set_xlabel('Molasses (cups)', fontsize=12)
+ax_demo.set_ylabel('Ginger (tablespoons)', fontsize=12)
+cbar_demo = plt.colorbar(contour_filled_demo, ax=ax_demo)
+cbar_demo.set_label('Predicted\nYum\nFactor', fontsize=10)
+plt.tight_layout()
+plt.savefig("matplotlib_figures/15_contour_demo.png", dpi=100, bbox_inches='tight')
+plt.close(fig_demo)
 ```
 
 ```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics("plotnine_figures/15_contour_demo.png")
+knitr::include_graphics("matplotlib_figures/15_contour_demo.png")
 ```
 
-That's beautiful - but a little unclear how it was produced! How could we make that plot ourselves in `plotnine`?
+That's beautiful - but a little unclear how it was produced! How could we make that plot ourselves?
 
 <br>
 
-###  `geom_tile()` plots
+###  Simple contour plots with `plotnine`
 
-However, we've learned that `plotnine` (which follows the ggplot2 framework) can give us greater flexibility when designing and communicating information, so how would we make this in `plotnine`?
-
-It's really quick! We need to (1) make a grid of predictor values to feed to `predict()`, (2) extract the predicted `yum` values (usually called `yhat`), and (3) then visualize the result with `plotnine`!
+We can create contour plots using `plotnine` (which follows the `ggplot2` framework). It's really quick! We need to (1) make a grid of predictor values to feed to `predict()`, (2) extract the predicted `yum` values (usually called `yhat`), and (3) then visualize the result with `plotnine`!
 
 ```{python}
 # Let's check the range of our predictors... 
@@ -501,18 +507,13 @@ myx = pd.DataFrame(list(product(molasses_seq, ginger_seq)),
 myx.head()
 ```
 
-*Note*: You have to pick these values!! (eg. 0 to 5, 0 to 3, etc.) We want to make predictions slightly *beyond* our observed data. Just remember, a grid of 20 by 20 items produces 400 cells; 100 by 100 produces 10,000 cells; etc. Once you get above a few 1000, `plotnine` may start to slow down quickly.
+*Note*: You have to pick these values!! (eg. 0 to 5, 0 to 3, etc.) We want to make predictions slightly *beyond* our observed data. Just remember, a grid of 20 by 20 items produces 400 cells; 100 by 100 produces 10,000 cells; etc. Once you get above a few 1000, plotting may start to slow down quickly.
 
 **Step 2**: Next, we'll add a column `yhat` to our `myx` DataFrame. In that column, we `predict()` the `yum` factor for those conditions based on our model `m3`. We must give `predict()` a DataFrame containing hypothetical values of each predictor in our model, called `new_data`. We'll save the result in a DataFrame called `mypred`. 
 
 ```{python}
 # Make predictions!
-# First, we need to add the squared terms for prediction
-myx['molasses_sq'] = myx['molasses'] ** 2
-myx['ginger_sq'] = myx['ginger'] ** 2
-
-# Make predictions using the model
-# statsmodels predict() needs all the columns used in the model
+# patsy will automatically evaluate I(molasses**2) and I(ginger**2) from the model formula
 mypred = myx.copy()
 mypred['yhat'] = m3.predict(mypred)
 
@@ -520,78 +521,75 @@ mypred['yhat'] = m3.predict(mypred)
 mypred.head()
 ```
 
-**Step 3**: Finally, we'll visualize it using `geom_tile()`, which maps a `fill` (`yhat`) to every `x` (`molasses`) and `y` (`ginger`) coordinate.
+**Step 3**: Finally, we'll visualize it using `plotnine`'s `geom_tile()` to create a simple heatmap-style contour plot.
 
-```{python include=FALSE}
-# Voila!
+```{python}
+# Create a simple tile plot with plotnine
 g = (ggplot(mypred, aes(x='molasses', y='ginger', fill='yhat')) +
       geom_tile() +
-      scale_fill_cmap(cmap_name='plasma', name='Predicted\nYum\nFactor'))
-
-# View it!
-print(g)
-```
-
-```{python, include=FALSE}
-# Save the plot
-g.save(filename = "plotnine_figures/15_contour_tile1.png", dpi=200, width=8, height=6)
+      scale_fill_cmap(cmap_name='plasma') +
+      theme_classic(base_size=14) +
+      labs(x='Molasses (cups)', y='Ginger (tablespoons)', 
+           fill='Predicted\nYum\nFactor',
+           subtitle='Contour of Predicted Gingerbread Cookie Tastiness'))
+# Save the plot for display
+ggsave(g, filename="plotnine_figures/15_contour_tile.png", dpi=100, width=8, height=6)
 ```
 
 ```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics("plotnine_figures/15_contour_tile1.png")
+knitr::include_graphics("plotnine_figures/15_contour_tile.png")
 ```
 
-This matches the same pattern from what a `contour()` plot would show, and was pretty painless!
+This creates a simple heatmap-style visualization that's easy to understand!
 
 <br>
+<br>
 
-###  Pretty contour plots with `matplotlib`!
+###  More detailed contour plots with `matplotlib`
 
-But can we make this prettier and clearer for our reader? We can use `matplotlib` to create a visualization with contour outlines, and we can also improve our plot by adjusting the number of bins or using a different color scale. Let's create a more polished version:
+But can we make this prettier and clearer for our reader? `matplotlib` can give us greater flexibility when designing and communicating information. We can create more detailed contour plots with filled contours, contour lines, and labels that make it easier to read specific values. Let's see how to do this with `matplotlib`:
+
+**Step 1**: We'll use the same grid `myx` and predictions `mypred` from above.
+
+**Step 2**: We need to reshape the data for matplotlib's contour plotting functions, which require data in a specific grid format.
 
 ```{python}
-# Using matplotlib to add contour outlines
-import matplotlib
-# matplotlib.use('Agg')  # Use non-interactive backend for rendering
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Reshape the data for contour plotting
+# Reshape data for matplotlib contour plotting
+# Get unique molasses values and sort them for consistent ordering
 molasses_unique = sorted(mypred['molasses'].unique())
+# Get unique ginger values and sort them for consistent ordering
 ginger_unique = sorted(mypred['ginger'].unique())
-molasses_grid = np.array(molasses_unique)
-ginger_grid = np.array(ginger_unique)
-
-# Create meshgrid (coordinate matrix from coordinate vectors)
-M, G = np.meshgrid(molasses_grid, ginger_grid)
-
-# Reshape yhat to match the grid
+# Create coordinate grids from the unique values (needed for contour plotting)
+M, G = np.meshgrid(molasses_unique, ginger_unique)
+# Reshape predictions into a 2D grid matching the coordinate grids
 yhat_grid = mypred.pivot_table(values='yhat', index='ginger', columns='molasses', aggfunc='mean').values
+```
 
-# Create the plot with filled contours and contour lines
+**Step 3**: Now we'll create a more detailed contour plot with filled contours, contour lines, and labels.
+
+```{python}
+# Create the contour plot with matplotlib
+# Initialize a figure and axes with specified size (8 inches wide, 6 inches tall)
 fig, ax = plt.subplots(figsize=(8, 6))
-
-# Filled contours (similar to geom_tile)
+# Create filled contour plot with 15 levels using the 'plasma' colormap, 80% opacity
 contour_filled = ax.contourf(M, G, yhat_grid, levels=15, cmap='plasma', alpha=0.8)
-
-# Add contour lines (white outlines)
+# Add contour line overlays with 10 levels in white, 60% opacity
 contour_lines = ax.contour(M, G, yhat_grid, levels=10, colors='white', linewidths=0.8, alpha=0.6)
-
-# Add contour labels
+# Add labels to the contour lines, formatted to 1 decimal place
 ax.clabel(contour_lines, inline=True, fontsize=8, fmt='%1.1f')
-
-# Labels and title
+# Set the x-axis label
 ax.set_xlabel('Molasses (cups)', fontsize=12)
+# Set the y-axis label
 ax.set_ylabel('Ginger (tablespoons)', fontsize=12)
-ax.set_title('Contour of Predicted Gingerbread Cookie Tastiness', fontsize=14)
-
-# Colorbar
+# Add a colorbar to show the scale of predicted values
 cbar = plt.colorbar(contour_filled, ax=ax)
+# Set the colorbar label with line breaks
 cbar.set_label('Predicted\nYum\nFactor', fontsize=10)
-
-# Save and display!
+# Adjust layout to prevent label cutoff
 plt.tight_layout()
-plt.savefig("matplotlib_figures/15_contour_with_lines.png", dpi=200, bbox_inches='tight')
+
+# Save the figure
+plt.savefig("matplotlib_figures/15_contour_with_lines.png", dpi=100, bbox_inches='tight')
 plt.close(fig)
 ```
 
@@ -599,14 +597,16 @@ plt.close(fig)
 knitr::include_graphics("matplotlib_figures/15_contour_with_lines.png")
 ```
 
+This creates a more detailed visualization with contour lines and labels that make it easier to read specific values!
+
 Beautiful!
 
 <br>
 <br>
 
-###  One-step RSM in `plotnine`
+###  One-step RSM in `matplotlib`
 
-Finally, let's practice doing this in one code chunk in `plotnine`.
+Finally, let's practice doing this in one code chunk in `matplotlib`.
 
 ```{python}
 # Create sequences of predictor values (expanding beyond observed range)
@@ -616,32 +616,33 @@ ginger_seq2 = np.linspace(0, 4, 50)
 # Create grid of all combinations (50 × 50 = 2,500 rows)
 mypred2 = pd.DataFrame(list(product(molasses_seq2, ginger_seq2)), 
                        columns=['molasses', 'ginger'])
-# Add polynomial terms needed for m3
-mypred2['molasses_sq'] = mypred2['molasses'] ** 2
-mypred2['ginger_sq'] = mypred2['ginger'] ** 2
-# Generate predictions using our fitted model
+# Generate predictions using our fitted model (patsy will automatically evaluate I() terms)
 mypred2['yhat'] = m3.predict(mypred2)
 
-# Create the visualization with geom_tile()
-g_onestep = (ggplot(mypred2, aes(x='molasses', y='ginger', fill='yhat')) +
-             # Each tile colored by predicted yum value
-             geom_tile() +
-             scale_fill_cmap(cmap_name='plasma', name='Predicted\nYum\nFactor') +
-             theme_classic(base_size=14) +
-             theme(axis_line=element_blank()) +
-             labs(x='Molasses (cups)', y='Ginger (tablespoons)',
-                  subtitle='Contour of Predicted Gingerbread Cookie Tastiness'))
+# Reshape data for matplotlib contour plotting
+molasses_unique2 = sorted(mypred2['molasses'].unique())
+ginger_unique2 = sorted(mypred2['ginger'].unique())
+M2, G2 = np.meshgrid(molasses_unique2, ginger_unique2)
+yhat_grid2 = mypred2.pivot_table(values='yhat', index='ginger', columns='molasses', aggfunc='mean').values
 
-print(g_onestep)
-```
-
-```{python, include=FALSE}
+# Create the visualization with matplotlib
+fig2, ax2 = plt.subplots(figsize=(8, 6))
+contour_filled2 = ax2.contourf(M2, G2, yhat_grid2, levels=15, cmap='plasma', alpha=0.8)
+contour_lines2 = ax2.contour(M2, G2, yhat_grid2, levels=10, colors='white', linewidths=0.8, alpha=0.6)
+ax2.clabel(contour_lines2, inline=True, fontsize=8, fmt='%1.1f')
+ax2.set_xlabel('Molasses (cups)', fontsize=12)
+ax2.set_ylabel('Ginger (tablespoons)', fontsize=12)
+ax2.set_title('Contour of Predicted Gingerbread Cookie Tastiness', fontsize=14)
+cbar2 = plt.colorbar(contour_filled2, ax=ax2)
+cbar2.set_label('Predicted\nYum\nFactor', fontsize=10)
+plt.tight_layout()
 # Save the plot
-g_onestep.save(filename = "plotnine_figures/15_contour_onestep.png", dpi=200, width=8, height=6)
+plt.savefig("matplotlib_figures/15_contour_onestep.png", dpi=100, bbox_inches='tight')
+plt.close(fig2)
 ```
 
 ```{r, echo=FALSE, out.width="100%", fig.cap="One-step RSM contour plot"}
-knitr::include_graphics("plotnine_figures/15_contour_onestep.png")
+knitr::include_graphics("matplotlib_figures/15_contour_onestep.png")
 ```
 
 Excellent! Our plot can serve as a visual diagnostic. Tentatively, our model results suggest that increasing `molasses` may lead to considerable gains in our outcome, with `ginger` contributing some impact early on. Notably, we see that though our actual outcome's measurement ranged from 0 to 100, our predictions might exceed those limits.
@@ -690,25 +691,31 @@ mypred3['yhat'] = np.exp(mypred3['yhat_logit']) / (1 + np.exp(mypred3['yhat_logi
 # Undo the (y + 1) / 100 transformation
 mypred3['yhat'] = 100 * mypred3['yhat'] - 1
 
-# Visualize it!
-g3 = (ggplot(mypred3, aes(x='molasses', y='ginger', fill='yhat')) +
-      geom_tile() +
-      scale_fill_cmap(cmap_name='plasma', name='Predicted\nYum\nFactor') +
-      theme_classic(base_size=14) +
-      theme(axis_line=element_blank()) +
-      labs(x='Molasses (cups)', y='Ginger (tablespoons)',
-           subtitle='Contour of Predicted Gingerbread Cookie Tastiness'))
+# Reshape data for matplotlib contour plotting
+molasses_unique3 = sorted(mypred3['molasses'].unique())
+ginger_unique3 = sorted(mypred3['ginger'].unique())
+M3, G3 = np.meshgrid(molasses_unique3, ginger_unique3)
+yhat_grid3 = mypred3.pivot_table(values='yhat', index='ginger', columns='molasses', aggfunc='mean').values
 
-print(g3)
-```
+# Visualize it with matplotlib!
+fig3, ax3 = plt.subplots(figsize=(8, 5))
+contour_filled3 = ax3.contourf(M3, G3, yhat_grid3, levels=15, cmap='plasma', alpha=0.8)
+contour_lines3 = ax3.contour(M3, G3, yhat_grid3, levels=10, colors='white', linewidths=0.8, alpha=0.6)
+ax3.clabel(contour_lines3, inline=True, fontsize=8, fmt='%1.1f')
+ax3.set_xlabel('Molasses (cups)', fontsize=12)
+ax3.set_ylabel('Ginger (tablespoons)', fontsize=12)
+ax3.set_title('Contour of Predicted Gingerbread Cookie Tastiness', fontsize=14)
+cbar3 = plt.colorbar(contour_filled3, ax=ax3)
+cbar3.set_label('Predicted\nYum\nFactor', fontsize=10)
+plt.tight_layout()
 
-```{python, include=FALSE}
 # Save the plot
-g3.save(filename = "plotnine_figures/15_plot_2.png", dpi=200, width=8, height=5)
+plt.savefig("matplotlib_figures/15_plot_2.png", dpi=100, bbox_inches='tight')
+plt.close(fig3)
 ```
 
 ```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics("plotnine_figures/15_plot_2.png")
+knitr::include_graphics("matplotlib_figures/15_plot_2.png")
 ```
 
 Ta-da! Now we have much more reasonable predictions, even though we lost 2% predictive power. It's always a trade-off between predictive power and our ability to generate reasonable, useful quantities of interest. Ideally, let's get a much better $R^{2}$!
@@ -725,7 +732,7 @@ Suppose we expanded our factorial experiment based on this contour plot, adding 
 
 **Question**
 
-Generate a second-order polynomial model like `m3` and visualize the contour plot in `plotnine`. How do our predictions change?
+Generate a second-order polynomial model like `m3` and visualize the contour plot in `matplotlib`. How do our predictions change?
 
 ```{python}
 cookies2 = pd.read_csv("workshops/gingerbread_test2.csv")
@@ -781,25 +788,31 @@ mypred_lc['yhat'] = np.exp(mypred_lc['yhat_logit']) / (1 + np.exp(mypred_lc['yha
 # Undo the (y + 1) / 100 transformation
 mypred_lc['yhat'] = 100 * mypred_lc['yhat'] - 1
 
-# Visualize it!
-g_lc = (ggplot(mypred_lc, aes(x='molasses', y='ginger', fill='yhat')) +
-        geom_tile() +
-        scale_fill_cmap(cmap_name='plasma', name='Predicted\nYum\nFactor') +
-        theme_classic(base_size=14) +
-        theme(axis_line=element_blank()) +
-        labs(x='Molasses (cups)', y='Ginger (tablespoons)',
-             subtitle='Contour of Predicted Gingerbread Cookie Tastiness'))
+# Reshape data for matplotlib contour plotting
+molasses_unique_lc = sorted(mypred_lc['molasses'].unique())
+ginger_unique_lc = sorted(mypred_lc['ginger'].unique())
+M_lc, G_lc = np.meshgrid(molasses_unique_lc, ginger_unique_lc)
+yhat_grid_lc = mypred_lc.pivot_table(values='yhat', index='ginger', columns='molasses', aggfunc='mean').values
 
-print(g_lc)
-```
+# Visualize it with matplotlib!
+fig_lc, ax_lc = plt.subplots(figsize=(8, 6))
+contour_filled_lc = ax_lc.contourf(M_lc, G_lc, yhat_grid_lc, levels=15, cmap='plasma', alpha=0.8)
+contour_lines_lc = ax_lc.contour(M_lc, G_lc, yhat_grid_lc, levels=10, colors='white', linewidths=0.8, alpha=0.6)
+ax_lc.clabel(contour_lines_lc, inline=True, fontsize=8, fmt='%1.1f')
+ax_lc.set_xlabel('Molasses (cups)', fontsize=12)
+ax_lc.set_ylabel('Ginger (tablespoons)', fontsize=12)
+ax_lc.set_title('Contour of Predicted Gingerbread Cookie Tastiness', fontsize=14)
+cbar_lc = plt.colorbar(contour_filled_lc, ax=ax_lc)
+cbar_lc.set_label('Predicted\nYum\nFactor', fontsize=10)
+plt.tight_layout()
 
-```{python, include=FALSE}
 # Save the plot
-g_lc.save(filename = "plotnine_figures/15_learning_check_2.png", dpi=200, width=8, height=6)
+plt.savefig("matplotlib_figures/15_learning_check_2.png", dpi=100, bbox_inches='tight')
+plt.close(fig_lc)
 ```
 
 ```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics("plotnine_figures/15_learning_check_2.png")
+knitr::include_graphics("matplotlib_figures/15_learning_check_2.png")
 ```
 
 Our predictive power is still not quite that good. Ironically, our model (based on fake data) suggests that the best gingerbread cookies you can make should either have **very little molasses** OR **lots of molasses and ginger**, but the payoff for using very little molasses will be higher!
@@ -867,7 +880,7 @@ Now, whenever we analyze contours, since we have more than 2 predictors, we need
 
 For example, let's examine variation in `yum` as 3 predictions change simultaneously. These include `molasses`, `ginger`, **and** `cinnamon`. 
 
-In Python with `plotnine`, we'll create our own faceted plots, which gives us more control and clarity.
+In Python with `matplotlib`, we'll create our own faceted plots using subplots, which gives us more control and clarity.
 
 For example, we want to see 3 panels showing the contours of molasses x ginger when cinnamon = 0, cinnamon = 1, and cinnamon = 2 tablespoons. All other conditions would be held constant, allowing us to see how the contour changes shape. If we hold constant the other values though, we should hold them at **meaningful values**, like the **average** or perhaps a value you know to be sufficient.
 
@@ -943,46 +956,58 @@ mygrid['mol_gin_cin_but_flour'] = (mygrid['molasses'] * mygrid['ginger'] *
 mygrid['yhat'] = m5.predict(mygrid)
 ```
 
-Next, let's use our grid to visualize the contours in `plotnine`!
+Next, let's use our grid to visualize the contours in `matplotlib` with subplots!
 
 ```{python}
-# Let's check it out!
-g4 = (ggplot(mygrid, aes(x='molasses', y='ginger', fill='yhat')) +
-      facet_wrap('~cinnamon', ncol=3) +
-      geom_tile() +
-      scale_fill_cmap(cmap_name='plasma', name='Predicted\nYum\nFactor'))
+# Create subplots for each cinnamon value
+cinnamon_vals_plot = sorted(mygrid['cinnamon'].unique())
+fig4, axes4 = plt.subplots(1, 3, figsize=(12, 5), constrained_layout=True)
 
-# View it!
-print(g4)
-```
+# Get common min/max for consistent colorbar
+vmin = mygrid['yhat'].min()
+vmax = mygrid['yhat'].max()
 
-Finally, let's improve the labels, colors, and theming for this plot.
+# Create subplots for each cinnamon value
+for idx, cinnamon_val in enumerate(cinnamon_vals_plot):
+    # Filter data for this cinnamon value
+    grid_subset = mygrid[mygrid['cinnamon'] == cinnamon_val].copy()
+    
+    # Reshape for contour plotting
+    molasses_unique_grid = sorted(grid_subset['molasses'].unique())
+    ginger_unique_grid = sorted(grid_subset['ginger'].unique())
+    M_grid, G_grid = np.meshgrid(molasses_unique_grid, ginger_unique_grid)
+    yhat_grid_subset = grid_subset.pivot_table(values='yhat', index='ginger', columns='molasses', aggfunc='mean').values
+    
+    # Create contour plot
+    ax = axes4[idx]
+    contour_filled = ax.contourf(M_grid, G_grid, yhat_grid_subset, levels=15, cmap='plasma', alpha=0.8, vmin=vmin, vmax=vmax)
+    contour_lines = ax.contour(M_grid, G_grid, yhat_grid_subset, levels=10, colors='white', linewidths=0.8, alpha=0.6)
+    ax.clabel(contour_lines, inline=True, fontsize=7, fmt='%1.0f')
+    ax.set_xlabel('Molasses (cups)', fontsize=11)
+    if idx == 0:
+        ax.set_ylabel('Ginger (tablespoons)', fontsize=11)
+    ax.set_title(f'Cinnamon = {cinnamon_val}', fontsize=12)
 
-```{python}
-g5 = (g4 +
-      theme_classic(base_size=14) +
-      theme(axis_line=element_blank(),
-            axis_ticks=element_blank(),
-            strip_background=element_blank()) +
-      labs(x='Molasses (cups)', y='Ginger (tablespoons)',
-           subtitle='Predicted Gingerbread Cookie Tastiness\nby Tablespoons of Cinnamon'))
+# Add overall title
+fig4.suptitle('Predicted Gingerbread Cookie Tastiness\nby Tablespoons of Cinnamon', fontsize=14, y=1.1)
 
-# view it!
-print(g5)
-```
+# Add colorbar
+cbar4 = plt.colorbar(contour_filled, ax=axes4, orientation='vertical')
+cbar4.set_label('Predicted Yum Factor', fontsize=10)
 
-```{python, include=FALSE}
 # Save the plot
-g5.save(filename = "plotnine_figures/15_plot.png", dpi=500, width=10, height=4)
+# plt.tight_layout(rect=[0, 0, 0.92, 0.95])
+plt.savefig("matplotlib_figures/15_plot.png", dpi=500, bbox_inches='tight')
+plt.close(fig4)
 ```
 
 ```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics("plotnine_figures/15_plot.png")
+knitr::include_graphics("matplotlib_figures/15_plot.png")
 ```
 
 What can we learn from this plot? 
 
-- When we add more `cinnamon` (`2` tbsp; right), the zone in which cookies are truly bad (<15 points of `yum`) shrinks greatly (compared to `left` and `center` panels).
+- When we add more `cinnamon` (`2` tbsp; right), the zone in which cookies are truly bad (the smallest yum scores) shrinks greatly (compared to `left` and `center` panels).
 
 - Otherwise, `cinnamon` has fairly minimal interaction effects with `ginger` and `molasses` on `yum` scores.
 
@@ -990,7 +1015,7 @@ What can we learn from this plot?
 
 ## Learning Check 3 {.unnumbered .LC}
 
-Suppose we want to examine *other* interactions! Design your own `plotnine` plot to test how `butter` shapes the `yum` factor as `molasses` and `flour` vary. 
+Suppose we want to examine *other* interactions! Design your own `matplotlib` plot to test how `butter` shapes the `yum` factor as `molasses` and `flour` vary. 
 
 **Question**
 
@@ -1053,31 +1078,51 @@ mygrid_lc3['mol_flour_but'] = mygrid_lc3['molasses'] * mygrid_lc3['flour'] * myg
 # Predict
 mygrid_lc3['yhat'] = m_lc3.predict(mygrid_lc3)
 
-# Visualize!
-g_lc3 = (ggplot(mygrid_lc3, aes(x='molasses', y='flour', fill='yhat')) +
-         facet_wrap('~butter', ncol=3) +
-         geom_tile() +
-         scale_fill_cmap(cmap_name='plasma', name='Predicted\nYum\nFactor') +
-         theme_classic(base_size=14) +
-         theme(axis_line=element_blank(),
-               axis_ticks=element_blank(),
-               strip_background=element_blank()) +
-         labs(x='Molasses (cups)', y='Flour (cups)',
-              subtitle='Predicted Gingerbread Cookie Tastiness\nby Cups of Butter'))
+# Create subplots for each butter value
+butter_vals_plot = sorted(mygrid_lc3['butter'].unique())
+fig_lc3, axes_lc3 = plt.subplots(1, 3, figsize=(12, 5), constrained_layout=True)
 
-print(g_lc3)
-```
+# Get common min/max for consistent colorbar
+vmin_lc3 = mygrid_lc3['yhat'].min()
+vmax_lc3 = mygrid_lc3['yhat'].max()
 
-```{python, include=FALSE}
+for idx, butter_val in enumerate(butter_vals_plot):
+    # Filter data for this butter value
+    grid_subset_lc3 = mygrid_lc3[mygrid_lc3['butter'] == butter_val].copy()
+    
+    # Reshape for contour plotting
+    molasses_unique_lc3 = sorted(grid_subset_lc3['molasses'].unique())
+    flour_unique_lc3 = sorted(grid_subset_lc3['flour'].unique())
+    M_lc3, F_lc3 = np.meshgrid(molasses_unique_lc3, flour_unique_lc3)
+    yhat_grid_lc3 = grid_subset_lc3.pivot_table(values='yhat', index='flour', columns='molasses', aggfunc='mean').values
+    
+    # Create contour plot
+    ax = axes_lc3[idx]
+    contour_filled_lc3 = ax.contourf(M_lc3, F_lc3, yhat_grid_lc3, levels=15, cmap='plasma', alpha=0.8, vmin=vmin_lc3, vmax=vmax_lc3)
+    contour_lines_lc3 = ax.contour(M_lc3, F_lc3, yhat_grid_lc3, levels=10, colors='white', linewidths=0.8, alpha=0.6)
+    ax.clabel(contour_lines_lc3, inline=True, fontsize=7, fmt='%1.0f')
+    ax.set_xlabel('Molasses (cups)', fontsize=11)
+    if idx == 0:
+        ax.set_ylabel('Flour (cups)', fontsize=11)
+    ax.set_title(f'Butter = {butter_val}', fontsize=12)
+
+# Add overall title
+fig_lc3.suptitle('Predicted Gingerbread Cookie Tastiness\nby Cups of Butter', fontsize=14, y=1.1)
+
+# Add colorbar
+cbar_lc3 = plt.colorbar(contour_filled_lc3, ax=axes_lc3, orientation='vertical')
+cbar_lc3.set_label('Predicted Yum Factor', fontsize=10)
+
 # Save the plot
-g_lc3.save(filename = "plotnine_figures/15_learning_check_3.png", dpi=200, width=10, height=4)
+plt.savefig("matplotlib_figures/15_learning_check_3.png", dpi=100, bbox_inches='tight')
+plt.close(fig_lc3)
 ```
 
 ```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics("plotnine_figures/15_learning_check_3.png")
+knitr::include_graphics("matplotlib_figures/15_learning_check_3.png")
 ```
 
-This plot tells us that adding more butter to the cookies tends to reduce the amount of the contour with low `yum` scores, and increases the relative share of the response surface with scores of 15 or 20.
+This plot tells us that adding more butter to the cookies tends to reduce the amount of the contour with low `yum` scores, and increases the relative share of the response surface with mid-range `yum` scores.
 
 </details>
   
@@ -1097,13 +1142,15 @@ Finally, we might be interested in calculating (and annotating our charts) with 
 First, when comparing change across panels, we're essentially comparing change in *area*. So we can use our grid of conditions and predictions `mygrid` to calculate those percentages!
 
 ```{python}
-# Cut the outcome into bins, 5 units wide on the yum scale (matching R's cut_interval with length=5)
+# Cut the outcome into bins, 5 units wide on the yum scale
+# cut_interval creates bins starting from the minimum value, not from a round number
 yhat_min = mygrid['yhat'].min()
 yhat_max = mygrid['yhat'].max()
-# Create bin edges every 5 units, starting from a multiple of 5
-bin_start = int(np.floor(yhat_min / 5)) * 5
-bin_end = int(np.ceil(yhat_max / 5)) * 5 + 5
-bins = np.arange(bin_start, bin_end + 1, 5)
+# Create bin edges every 5 units, starting from the actual minimum value
+bin_start = np.floor(yhat_min / 5) * 5
+bin_end = np.ceil(yhat_max / 5) * 5
+# Generate bins: start, start+5, start+10, ... up to at least the max
+bins = np.arange(bin_start, bin_end + 5, 5)
 
 # Cut into bins of width 5 (right=True means intervals are (left, right])
 mygrid['bin'] = pd.cut(mygrid['yhat'], bins=bins, include_lowest=True, right=True)
@@ -1117,6 +1164,14 @@ area = (mygrid.groupby(['cinnamon', 'bin'])
 area['percent'] = (area.groupby('cinnamon')['count']
                    .transform(lambda x: x / x.sum() * 100))
 
+# Round to 2 decimal places
+area['percent'] = area['percent'].round(2)
+
+# Zoom into the lowest bin.
+# What percentage of the area was in that bin given each level of cinnamon?
+# Filter for the bin [10,15]
+qi1 = area[area['bin'].apply(lambda x: abs(x.left - 10) < 0.1 and abs(x.right - 15) < 0.1 if hasattr(x, 'left') and hasattr(x, 'right') else False)]
+
 print(qi1)
 ```
 
@@ -1127,37 +1182,62 @@ We computed that the area predicted to score lowest on the `yum` scale decreased
 
 ###  Study Range
 
-We might want our reader to know what is the area that we actually had data on, versus what was the area we were generating predictions from. For this, we can just draw a `box` from our raw data, using `geom_rect()`. `geom_rect()` requires an `xmin`, `xmax`, `ymin`, and `ymax`. For example, since `molasses` is our `x` variable and `ginger` has been our `y` variable in our `plotnine` analyses, we can do the following:
+We might want our reader to know what is the area that we actually had data on, versus what was the area we were generating predictions from. For this, we can just draw a `box` from our raw data using matplotlib's `Rectangle` patch. For example, since `molasses` is our `x` variable and `ginger` has been our `y` variable in our `matplotlib` analyses, we can do the following:
 
 ```{python}
-box = pd.DataFrame({
-    'xmin': [cookies3['molasses'].min()],
-    'xmax': [cookies3['molasses'].max()],
-    'ymin': [cookies3['ginger'].min()],
-    'ymax': [cookies3['ginger'].max()]
-})
+from matplotlib.patches import Rectangle
 
-# For example, we can start a new plotnine plot
-g_study_range = (ggplot() +
-  # mapping the contour fill
-  geom_tile(data=mygrid, mapping=aes(x='molasses', y='ginger', fill='yhat')) +
-  facet_wrap('~cinnamon') +
-  # plotting a box overtop, with no fill
-  geom_rect(data=box, mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax'),
-          color='white', linetype='dashed', fill=None, size=1) +
-  scale_fill_cmap(cmap_name='plasma', name='Predicted\nYum\nFactor') +
-  theme_classic(base_size=14))
+# Define the study range box
+xmin = cookies3['molasses'].min()
+xmax = cookies3['molasses'].max()
+ymin = cookies3['ginger'].min()
+ymax = cookies3['ginger'].max()
 
-print(g_study_range)
-```
+# Create subplots for each cinnamon value
+cinnamon_vals_study = sorted(mygrid['cinnamon'].unique())
+fig_study, axes_study = plt.subplots(1, 3, figsize=(12, 5), constrained_layout=True)
 
-```{python, include=FALSE}
+# Get common min/max for consistent colorbar
+vmin_study = mygrid['yhat'].min()
+vmax_study = mygrid['yhat'].max()
+
+for idx, cinnamon_val in enumerate(cinnamon_vals_study):
+    # Filter data for this cinnamon value
+    grid_subset_study = mygrid[mygrid['cinnamon'] == cinnamon_val].copy()
+    
+    # Reshape for contour plotting
+    molasses_unique_study = sorted(grid_subset_study['molasses'].unique())
+    ginger_unique_study = sorted(grid_subset_study['ginger'].unique())
+    M_study, G_study = np.meshgrid(molasses_unique_study, ginger_unique_study)
+    yhat_grid_study = grid_subset_study.pivot_table(values='yhat', index='ginger', columns='molasses', aggfunc='mean').values
+    
+    # Create contour plot
+    ax = axes_study[idx]
+    contour_filled_study = ax.contourf(M_study, G_study, yhat_grid_study, levels=15, cmap='plasma', alpha=0.8, vmin=vmin_study, vmax=vmax_study)
+    contour_lines_study = ax.contour(M_study, G_study, yhat_grid_study, levels=10, colors='white', linewidths=0.8, alpha=0.6)
+    ax.clabel(contour_lines_study, inline=True, fontsize=7, fmt='%1.0f')
+    
+    # Add study range box
+    rect = Rectangle((xmin, ymin), xmax - xmin, ymax - ymin, 
+                     linewidth=1, edgecolor='white', linestyle='--', facecolor='none')
+    ax.add_patch(rect)
+    
+    ax.set_xlabel('Molasses (cups)', fontsize=11)
+    if idx == 0:
+        ax.set_ylabel('Ginger (tablespoons)', fontsize=11)
+    ax.set_title(f'Cinnamon = {cinnamon_val}', fontsize=12)
+
+# Add colorbar
+cbar_study = plt.colorbar(contour_filled_study, ax=axes_study, orientation='vertical')
+cbar_study.set_label('Predicted Yum Factor', fontsize=10)
+
 # Save the plot
-g_study_range.save(filename = "plotnine_figures/15_study_range.png", dpi=200, width=10, height=4)
+plt.savefig("matplotlib_figures/15_study_range.png", dpi=100, bbox_inches='tight')
+plt.close(fig_study)
 ```
 
 ```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics("plotnine_figures/15_study_range.png")
+knitr::include_graphics("matplotlib_figures/15_study_range.png")
 ```
 
 <br>
