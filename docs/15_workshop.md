@@ -95,7 +95,7 @@ cookies %>% glimpse()
 ## Columns: 8
 ## $ id       <dbl> 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 9…
 ## $ batch    <dbl> 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4…
-## $ yum      <dbl> 5, 0, 13, 8, 9, 4, 1, 15, 10, 2, 3, 0, 5, 5, 8, 2, 0, 0, 8, 0…
+## $ yum      <dbl> 4, 5, 3, 5, 3, 7, 7, 6, 9, 0, 8, 8, 9, 8, 10, 3, 6, 11, 2, 1,…
 ## $ molasses <dbl> 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0…
 ## $ ginger   <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2…
 ## $ cinnamon <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
@@ -161,10 +161,10 @@ To review, this model equation can be viewed by just checking `m3$coefficients`.
 
 
 
-$$ \hat{yum} = \hat{Y} = 35.18 + -50.05 X_{m} + 34.15 X_{m}^{2} + -5.06 X_{g} + 4.66 X_{g}^{2} + -7.13 X_{m} X_{g} $$
+$$ \hat{yum} = \hat{Y} = 46.64 + -94.93 X_{m} + 62.15 X_{m}^{2} + 7.21 X_{g} + 0.54 X_{g}^{2} + -9.79 X_{m} X_{g} $$
 
 
-Let's evaluate the `r.squared` of our three models below using the `glance()` function from the `broom` package, and bind together those data.frames into one using `bind_rows()` from `dplyr`. We see that the polynomial terms *dramatically* improve the predictive power of our model, jumping from $R^{2}$ = 0.03 to $R^{2}$ = 0.14.
+Let's evaluate the `r.squared` of our three models below using the `glance()` function from the `broom` package, and bind together those data.frames into one using `bind_rows()` from `dplyr`. We see that the polynomial terms *dramatically* improve the predictive power of our model, jumping from $R^{2}$ = 0.05 to $R^{2}$ = 0.33.
 
 
 ``` r
@@ -173,11 +173,11 @@ bind_rows( glance(m1), glance(m2), glance(m3) )
 
 ```
 ## # A tibble: 3 × 12
-##   r.squared adj.r.squared sigma statistic       p.value    df logLik   AIC   BIC
-##       <dbl>         <dbl> <dbl>     <dbl>         <dbl> <dbl>  <dbl> <dbl> <dbl>
-## 1   0.00167      -0.00463  7.30     0.265 0.767             2 -1089. 2185. 2200.
-## 2   0.0252        0.0159   7.22     2.72  0.0447            3 -1085. 2180. 2198.
-## 3   0.137         0.123    6.82     9.97  0.00000000719     5 -1065. 2145. 2171.
+##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+##       <dbl>         <dbl> <dbl>     <dbl>    <dbl> <dbl>  <dbl> <dbl> <dbl>
+## 1   0.00377      -0.00251  7.28     0.600 5.49e- 1     2 -1088. 2184. 2199.
+## 2   0.0482        0.0391   7.13     5.33  1.36e- 3     3 -1080. 2171. 2190.
+## 3   0.335         0.324    5.98    31.6   4.69e-26     5 -1023. 2060. 2087.
 ## # ℹ 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
 ```
 Not really amazing quality model fit here - and that does happen! We can `tidy()` our model `m3` to confirm. 
@@ -193,12 +193,12 @@ m3 %>% tidy()
 ## # A tibble: 6 × 5
 ##   term            estimate std.error statistic  p.value
 ##   <chr>              <dbl>     <dbl>     <dbl>    <dbl>
-## 1 (Intercept)        35.2       5.53      6.36 7.24e-10
-## 2 molasses          -50.1      11.2      -4.48 1.07e- 5
-## 3 ginger             -5.06      4.42     -1.15 2.53e- 1
-## 4 I(molasses^2)      34.1       6.10      5.60 4.69e- 8
-## 5 I(ginger^2)         4.66      1.52      3.06 2.42e- 3
-## 6 molasses:ginger    -7.13      2.44     -2.92 3.71e- 3
+## 1 (Intercept)       46.6        4.85     9.62  2.36e-19
+## 2 molasses         -94.9        9.80    -9.68  1.40e-19
+## 3 ginger             7.21       3.88     1.86  6.38e- 2
+## 4 I(molasses^2)     62.2        5.35    11.6   3.17e-26
+## 5 I(ginger^2)        0.538      1.34     0.402 6.88e- 1
+## 6 molasses:ginger   -9.79       2.14    -4.58  6.79e- 6
 ```
 
 
@@ -221,9 +221,9 @@ r1$coefficients
 
 ```
 ##                  (Intercept) FO(molasses, ginger)molasses 
-##                     13.67312                      0.79500 
+##                     13.94812                      1.59500 
 ##   FO(molasses, ginger)ginger 
-##                      0.35250
+##                     -0.01250
 ```
 
 ``` r
@@ -251,11 +251,11 @@ r3$coefficients
 
 ```
 ##                    (Intercept)   FO(molasses, ginger)molasses 
-##                       35.17875                      -50.05250 
+##                       46.64250                      -94.93250 
 ##     FO(molasses, ginger)ginger          TWI(molasses, ginger) 
-##                       -5.06325                       -7.13200 
+##                        7.20825                       -9.78800 
 ## PQ(molasses, ginger)molasses^2   PQ(molasses, ginger)ginger^2 
-##                       34.15000                        4.66250
+##                       62.15000                        0.53750
 ```
 
 ``` r
@@ -270,9 +270,9 @@ m3$coefficients
 
 ```
 ##     (Intercept)        molasses          ginger   I(molasses^2)     I(ginger^2) 
-##        35.17875       -50.05250        -5.06325        34.15000         4.66250 
+##        46.64250       -94.93250         7.20825        62.15000         0.53750 
 ## molasses:ginger 
-##        -7.13200
+##        -9.78800
 ```
 
 <br>
@@ -316,9 +316,9 @@ cookies %>%
 
 ```
 ## # A tibble: 1 × 12
-##   r.squared adj.r.squared sigma statistic       p.value    df logLik   AIC   BIC
-##       <dbl>         <dbl> <dbl>     <dbl>         <dbl> <dbl>  <dbl> <dbl> <dbl>
-## 1     0.137         0.123  6.82      9.97 0.00000000719     5 -1065. 2145. 2171.
+##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+##       <dbl>         <dbl> <dbl>     <dbl>    <dbl> <dbl>  <dbl> <dbl> <dbl>
+## 1     0.335         0.324  5.98      31.6 4.69e-26     5 -1023. 2060. 2087.
 ## # ℹ 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
 ```
 
@@ -333,9 +333,9 @@ cookies %>%
 
 ```
 ## # A tibble: 1 × 12
-##   r.squared adj.r.squared sigma statistic     p.value    df logLik   AIC   BIC
-##       <dbl>         <dbl> <dbl>     <dbl>       <dbl> <dbl>  <dbl> <dbl> <dbl>
-## 1     0.110        0.0963 0.707      7.80 0.000000616     5  -340.  694.  721.
+##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+##       <dbl>         <dbl> <dbl>     <dbl>    <dbl> <dbl>  <dbl> <dbl> <dbl>
+## 1     0.241         0.229 0.541      19.9 2.96e-17     5  -254.  522.  549.
 ## # ℹ 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
 ```
 
@@ -350,9 +350,9 @@ cookies %>%
 
 ```
 ## # A tibble: 1 × 12
-##   r.squared adj.r.squared sigma statistic      p.value    df logLik   AIC   BIC
-##       <dbl>         <dbl> <dbl>     <dbl>        <dbl> <dbl>  <dbl> <dbl> <dbl>
-## 1     0.125         0.111  1.13      9.00 0.0000000522     5  -489.  992. 1018.
+##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+##       <dbl>         <dbl> <dbl>     <dbl>    <dbl> <dbl>  <dbl> <dbl> <dbl>
+## 1     0.290         0.279 0.903      25.6 1.07e-21     5  -418.  851.  877.
 ## # ℹ 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
 ```
 
@@ -373,7 +373,7 @@ cookies %>%
 ## # A tibble: 1 × 12
 ##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
 ##       <dbl>         <dbl> <dbl>     <dbl>    <dbl> <dbl>  <dbl> <dbl> <dbl>
-## 1     0.173         0.160  6.67      13.2 1.17e-11     5 -1058. 2131. 2157.
+## 1     0.335         0.325  5.98      31.7 4.40e-26     5 -1023. 2060. 2087.
 ## # ℹ 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
 ```
 
@@ -412,9 +412,9 @@ cookies %>%
 
 ```
 ## # A tibble: 1 × 12
-##   r.squared adj.r.squared sigma statistic     p.value    df logLik   AIC   BIC
-##       <dbl>         <dbl> <dbl>     <dbl>       <dbl> <dbl>  <dbl> <dbl> <dbl>
-## 1     0.115         0.101 0.779      8.19 0.000000274     5  -371.  756.  782.
+##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+##       <dbl>         <dbl> <dbl>     <dbl>    <dbl> <dbl>  <dbl> <dbl> <dbl>
+## 1     0.258         0.246 0.604      21.8 9.31e-19     5  -289.  593.  619.
 ## # ℹ 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
 ```
 
@@ -429,9 +429,9 @@ cookies %>%
 
 ```
 ## # A tibble: 1 × 12
-##   r.squared adj.r.squared sigma statistic     p.value    df logLik   AIC   BIC
-##       <dbl>         <dbl> <dbl>     <dbl>       <dbl> <dbl>  <dbl> <dbl> <dbl>
-## 1     0.119         0.105  208.      8.46 0.000000158     5 -2160. 4333. 4360.
+##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+##       <dbl>         <dbl> <dbl>     <dbl>    <dbl> <dbl>  <dbl> <dbl> <dbl>
+## 1     0.326         0.316  199.      30.4 3.29e-25     5 -2145. 4303. 4330.
 ## # ℹ 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
 ```
 
@@ -446,9 +446,9 @@ cookies %>%
 
 ```
 ## # A tibble: 1 × 12
-##   r.squared adj.r.squared sigma statistic   p.value    df logLik   AIC   BIC
-##       <dbl>         <dbl> <dbl>     <dbl>     <dbl> <dbl>  <dbl> <dbl> <dbl>
-## 1    0.0913        0.0769 6147.      6.31 0.0000134     5 -3243. 6499. 6526.
+##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+##       <dbl>         <dbl> <dbl>     <dbl>    <dbl> <dbl>  <dbl> <dbl> <dbl>
+## 1     0.287         0.275 6166.      25.2 2.17e-21     5 -3244. 6501. 6528.
 ## # ℹ 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
 ```
 
@@ -559,7 +559,7 @@ mypred %>% glimpse()
 ## Columns: 3
 ## $ molasses <dbl> 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0…
 ## $ ginger   <dbl> 0.5000000, 0.5306122, 0.5612245, 0.5918367, 0.6224490, 0.6530…
-## $ yhat     <dbl> 15.54100, 15.42394, 15.31561, 15.21603, 15.12518, 15.04308, 1…
+## $ yhat     <dbl> 16.00525, 16.09305, 16.18186, 16.27168, 16.36250, 16.45433, 1…
 ```
 **Step 3**: Finally, we'll visualize it using `geom_tile()`, which maps a `fill` (`yhat`) to every `x` (`molasses`) and `y` (`ginger`) coordinate.
 
@@ -796,7 +796,7 @@ m_lc %>% glance()
 ## # A tibble: 1 × 12
 ##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
 ##       <dbl>         <dbl> <dbl>     <dbl>    <dbl> <dbl>  <dbl> <dbl> <dbl>
-## 1     0.140         0.136 0.619      41.3 1.75e-39     5 -1199. 2411. 2447.
+## 1     0.157         0.154 0.558      47.6 3.14e-45     5 -1066. 2146. 2182.
 ## # ℹ 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
 ```
 
@@ -861,7 +861,7 @@ cookies3 %>% glimpse()
 ## Columns: 8
 ## $ id       <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18…
 ## $ batch    <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2…
-## $ yum      <dbl> 0, 4, 9, 10, 4, 8, 7, 3, 1, 12, 0, 4, 6, 10, 0, 0, 10, 5, 1, …
+## $ yum      <dbl> 6, 0, 3, 4, 10, 6, 1, 4, 6, 7, 8, 0, 2, 2, 3, 0, 5, 15, 9, 9,…
 ## $ molasses <dbl> 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0…
 ## $ ginger   <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
 ## $ cinnamon <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
@@ -893,43 +893,43 @@ m5$coefficients %>% round(3)
 
 ```
 ##                           (Intercept)                              molasses 
-##                                 6.628                                11.816 
+##                               -44.202                                21.149 
 ##                                ginger                              cinnamon 
-##                                10.739                               -60.324 
+##                                11.681                               -12.672 
 ##                                butter                                 flour 
-##                                -1.272                                 0.078 
+##                                55.345                                22.688 
 ##                         I(molasses^2)                           I(ginger^2) 
-##                                 2.585                                 0.302 
+##                                 2.917                                 0.121 
 ##                         I(cinnamon^2)                           I(butter^2) 
-##                                -0.034                                -4.601 
+##                                 0.301                                 2.598 
 ##                            I(flour^2)                       molasses:ginger 
-##                                -0.868                               -11.493 
+##                                -0.411                                -2.255 
 ##                     molasses:cinnamon                       ginger:cinnamon 
-##                                32.053                                 5.694 
+##                                14.729                                 9.096 
 ##                       molasses:butter                         ginger:butter 
-##                                -9.758                                -5.691 
+##                               -18.536                               -10.683 
 ##                       cinnamon:butter                        molasses:flour 
-##                                65.636                                -1.146 
+##                                12.802                                -8.049 
 ##                          ginger:flour                        cinnamon:flour 
-##                                -2.347                                21.764 
+##                                -3.940                                 2.461 
 ##                          butter:flour              molasses:ginger:cinnamon 
-##                                 7.047                                -2.030 
+##                               -20.872                               -10.827 
 ##                molasses:ginger:butter              molasses:cinnamon:butter 
-##                                 6.798                               -36.209 
+##                                -0.083                               -18.825 
 ##                ginger:cinnamon:butter                 molasses:ginger:flour 
-##                               -11.122                                 2.366 
+##                               -10.923                                 0.728 
 ##               molasses:cinnamon:flour                 ginger:cinnamon:flour 
-##                               -12.649                                -2.576 
+##                                -4.439                                -2.525 
 ##                 molasses:butter:flour                   ginger:butter:flour 
-##                                 0.025                                 0.667 
+##                                 6.189                                 3.440 
 ##                 cinnamon:butter:flour       molasses:ginger:cinnamon:butter 
-##                               -23.226                                 5.925 
+##                                -2.737                                12.816 
 ##        molasses:ginger:cinnamon:flour          molasses:ginger:butter:flour 
-##                                 1.566                                -0.987 
+##                                 3.394                                 0.195 
 ##        molasses:cinnamon:butter:flour          ginger:cinnamon:butter:flour 
-##                                13.912                                 4.207 
+##                                 5.893                                 3.226 
 ## molasses:ginger:cinnamon:butter:flour 
-##                                -2.742
+##                                -4.162
 ```
 
 
@@ -942,7 +942,7 @@ m5 %>% glance()
 ## # A tibble: 1 × 12
 ##   r.squared adj.r.squared sigma statistic p.value    df   logLik     AIC     BIC
 ##       <dbl>         <dbl> <dbl>     <dbl>   <dbl> <dbl>    <dbl>   <dbl>   <dbl>
-## 1     0.168         0.167  7.06      258.       0    36 -155424. 310924. 311256.
+## 1     0.179         0.178  7.12      278.       0    36 -155804. 311683. 312015.
 ## # ℹ 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
 ```
 
@@ -955,19 +955,14 @@ m5 %>%
 ```
 
 ```
-## # A tibble: 10 × 5
-##    term                           estimate std.error statistic   p.value
-##    <chr>                             <dbl>     <dbl>     <dbl>     <dbl>
-##  1 cinnamon                        -60.3     24.8        -2.43 1.51e-  2
-##  2 I(molasses^2)                     2.58     0.115      22.5  1.35e-111
-##  3 I(ginger^2)                       0.302    0.0287     10.5  6.74e- 26
-##  4 I(butter^2)                      -4.60     1.12       -4.12 3.77e-  5
-##  5 cinnamon:butter                  65.6     24.3         2.70 6.99e-  3
-##  6 cinnamon:flour                   21.8      8.26        2.64 8.41e-  3
-##  7 molasses:cinnamon:butter        -36.2     16.3        -2.22 2.66e-  2
-##  8 molasses:cinnamon:flour         -12.6      5.54       -2.28 2.25e-  2
-##  9 cinnamon:butter:flour           -23.2      8.09       -2.87 4.10e-  3
-## 10 molasses:cinnamon:butter:flour   13.9      5.43        2.56 1.04e-  2
+## # A tibble: 5 × 5
+##   term                            estimate std.error statistic   p.value
+##   <chr>                              <dbl>     <dbl>     <dbl>     <dbl>
+## 1 I(molasses^2)                      2.92     0.116      25.2  4.16e-139
+## 2 I(ginger^2)                        0.121    0.0289      4.17 3.12e-  5
+## 3 I(cinnamon^2)                      0.301    0.133       2.27 2.32e-  2
+## 4 I(butter^2)                        2.60     1.13        2.31 2.10e-  2
+## 5 molasses:ginger:cinnamon:butter   12.8      6.52        1.96 4.94e-  2
 ```
 
 <br>
@@ -1167,12 +1162,12 @@ qi1
 ## # Groups:   cinnamon [3]
 ##   cinnamon bin     count percent
 ##      <dbl> <fct>   <int>   <dbl>
-## 1        0 [10,15]    92   10.2 
-## 2        1 [10,15]    66    7.33
-## 3        2 [10,15]    36    4
+## 1        0 [10,15]   121   13.4 
+## 2        1 [10,15]   119   13.2 
+## 3        2 [10,15]    35    3.89
 ```
 
-We computed that the area predicted to score lowest on the `yum` scale (10-15) decreased from 10.22 given 0 tablespoons of `cinnamon` to 7.33 given 1 tablespoon and then to 4 given 2 tablespoons of `cinnamon`.
+We computed that the area predicted to score lowest on the `yum` scale (10-15) decreased from 13.44 given 0 tablespoons of `cinnamon` to 13.22 given 1 tablespoon and then to 3.89 given 2 tablespoons of `cinnamon`.
 
 <br>
 <br>
@@ -1234,7 +1229,7 @@ canon$eigen$values
 ```
 
 ```
-## [1]  2.622365  0.000000  0.000000 -0.725773 -4.803057
+## [1]  3.8930676  2.8509237  0.4891416  0.0000000 -1.7856893
 ```
 
 ###  Stationary Points
@@ -1246,8 +1241,8 @@ canon$xs
 ```
 
 ```
-##   molasses     ginger   cinnamon     butter      flour 
-##  0.5267221 -0.1922253 -0.5966090  1.3474297  3.2895704
+##    molasses      ginger    cinnamon      butter       flour 
+##  0.44341279 -0.09957212  0.76298419  0.71230959  2.78873891
 ```
 
 ###  Shift Points
@@ -1259,12 +1254,12 @@ canon$eigen$vectors
 ```
 
 ```
-##                 [,1]        [,2]        [,3]         [,4]        [,5]
-## molasses  0.99458167 -0.01095125  0.09352416 -0.004894275 -0.04377947
-## ginger   -0.01596009 -0.99629842  0.02526971 -0.061114741 -0.05254671
-## cinnamon  0.08987515 -0.01363529 -0.97819754 -0.185204008 -0.02378214
-## butter   -0.03957109  0.03864526 -0.02037369  0.210855287 -0.97573851
-## flour     0.03015222 -0.07476727 -0.18256277  0.957852054  0.20661795
+##                 [,1]        [,2]        [,3]        [,4]         [,5]
+## molasses -0.29439831  0.95091070 -0.08756319 -0.01111644 -0.036160566
+## ginger    0.09251898  0.04793854  0.08567319  0.99084836 -0.004665132
+## cinnamon -0.07496565 -0.12017082 -0.93113867  0.09180231 -0.323252587
+## butter   -0.84713195 -0.24824439 -0.04880365  0.09748155  0.457009554
+## flour     0.42604868  0.13192587 -0.33998789 -0.01286987  0.827840976
 ```
 
 

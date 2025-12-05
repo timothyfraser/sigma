@@ -1,4 +1,4 @@
-# Statistical Techniques for Exponential Distributions
+# Statistical Techniques for Exponential Distributions in `R`
 
 ```{r setup_workshop_7b, include = FALSE}
 library(tidyverse)
@@ -316,7 +316,7 @@ a = tribble(
   1,    '[0,7]',    9,      0,     7,
   2,    '(7,14]',   2,      7,     14,
   3,    '(14,21]',  5,      14,    21,
-  4,    '(21,28]',  4,      28,    35,
+  4,    '(21,28]',  4,      21,    28,
   5,    '(28,35]',  4,      28,    35,
   6,    '(35,42]',  0,      35,    42,
   7,    '(42,49]',  0,      42,    49,
@@ -483,82 +483,6 @@ qk = function(p, r, .time = FALSE, .failure = FALSE){
 qk(p = 0.95, r = 20)
 ```
 
-This function below estimates the probability densities for a given ser of k-factor values. It is useful to visualize and compare distributions under different conditions.
-
-```{r}
-#' @name dk
-#' @title k-factor Probability Density Function
-#' @description 
-#' Function to return probability densities given a supplied k-factor quantile `q`.
-#' Intended for visualizing sampling distributions of failure rates.
-#' @param x:[dbl] vector of quantiles (k-factors)
-#' @param r:int number of failures (non-negative integers; can include zero)
-#' @param .time:logical logical; is case time-censored data?
-#' @param .failure:logical logical; is case failure-censored data?
-dk = function(x, r, .time = FALSE, .failure = FALSE){
-  # Testing values  
-  # x = 2; r = 20; .time = FALSE; .failure = FALSE
-  
-  # Construct a range of quantiles corresponding to a range of cumulative probabilities
-  by = 0.001
-  p_range = c(by/10000, by/1000, by/100, by/10, 
-              seq(from = 0, to = 1, by = 0.001),
-              1 - by/10, 1 - by/100, 1 - by/1000, 1 - by/10000)
-  p_range = sort(p_range)
-  # Get the quantiles for that range
-  q_range = qk(p = p_range, r = r, .time = .time, .failure = .failure)
-  # Fit a density curve to that quantile data, truncated at 0.
-  curve = density(q_range, cut = c(0))
-  
-  # Approximate a function using the density curve's x and y values
-  f = approxfun(x = curve$x, y = curve$y, method = "linear", rule = 2, na.rm = TRUE)
-  # Estimate density
-  d = f(x)
-  return(d)
-}
-
-# Example
-dk(x = c(0, 1, 2, 3), r = 21, .time = TRUE, .failure = FALSE)
-```
-
-If you already have the k-factor value and want to know what percentile it is, use this `pk` function to find out!
- 
-```{r}
-#' @name pk
-#' @title k-factor Cumulative Distribution Function
-#' @description 
-#' Function to return cumulative probabilities / percentiles given a supplied k-factor quantile `q`.
-#' Intended for confidence intervals for failure rates.
-#' @param q:[dbl] vector of quantiles (k-factors)
-#' @param r:int number of failures (non-negative integers; can include zero)
-#' @param .time:logical logical; is case time-censored data?
-#' @param .failure:logical logical; is case failure-censored data?
-pk = function(q, r, .time = FALSE, .failure = FALSE){
-  # Testing values
-  # q = 2; r = 20; .time = FALSE; .failure = FALSE
-  # We just need to map the function...
-
-  # Construct an approximation function f, which gives the inverse of the Quantile Function,
-  # such that you use linear interpolation to return a Probability for any Quantile supplied.
-  by = 0.001
-  p_range = c(by/10000, by/1000, by/100, by/10, 
-              seq(from = 0, to = 1, by = 0.001),
-              1 - by/10, 1 - by/100, 1 - by/1000, 1 - by/10000)
-  p_range = sort(p_range)
-  # Get the quantiles for that range
-  q_range = qk(p = p_range, r = r, .time = .time, .failure = .failure)
-  # Get the inverse quantile function
-  f = approxfun(x = q_range, y = p_range, method = "linear", rule = 2, na.rm = TRUE)
-  # Return the expected CDF for that quantile  
-  p = f(q)
-  return(p)
-}
-
-# Probability that k-factor value <= 2 with 20 failures
-pk(q = 2, r = 20)
-```
-
-
 This `rk` function generates random samples of k-factor values. It's useful when you want to run simulations and make plots to visualize the spread.
 
 ```{r}
@@ -600,6 +524,80 @@ rk(n = 1000, r = 20) %>% hist()
 
 ```
 
+If you already have the k-factor value and want to know what percentile it is, use this `pk` function to find out!
+ 
+```{r}
+#' @name pk
+#' @title k-factor Cumulative Distribution Function
+#' @description 
+#' Function to return cumulative probabilities / percentiles given a supplied k-factor quantile `q`.
+#' Intended for confidence intervals for failure rates.
+#' @param q:[dbl] vector of quantiles (k-factors)
+#' @param r:int number of failures (non-negative integers; can include zero)
+#' @param .time:logical logical; is case time-censored data?
+#' @param .failure:logical logical; is case failure-censored data?
+pk = function(q, r, .time = FALSE, .failure = FALSE){
+  # Testing values
+  # q = 2; r = 20; .time = FALSE; .failure = FALSE
+  # We just need to map the function...
+
+  # Construct an approximation function f, which gives the inverse of the Quantile Function,
+  # such that you use linear interpolation to return a Probability for any Quantile supplied.
+  by = 0.001
+  p_range = c(by/10000, by/1000, by/100, by/10, 
+              seq(from = 0, to = 1, by = 0.001),
+              1 - by/10, 1 - by/100, 1 - by/1000, 1 - by/10000)
+  p_range = sort(p_range)
+  # Get the quantiles for that range
+  q_range = qk(p = p_range, r = r, .time = .time, .failure = .failure)
+  # Get the inverse quantile function
+  f = approxfun(x = q_range, y = p_range, method = "linear", rule = 2, na.rm = TRUE)
+  # Return the expected CDF for that quantile  
+  p = f(q)
+  return(p)
+}
+
+# Probability that k-factor value <= 2 with 20 failures
+pk(q = 2, r = 20)
+```
+
+This function below estimates the probability densities for a given ser of k-factor values. It is useful to visualize and compare distributions under different conditions.
+
+```{r}
+#' @name dk
+#' @title k-factor Probability Density Function
+#' @description 
+#' Function to return probability densities given a supplied k-factor quantile `q`.
+#' Intended for visualizing sampling distributions of failure rates.
+#' @param x:[dbl] vector of quantiles (k-factors)
+#' @param r:int number of failures (non-negative integers; can include zero)
+#' @param .time:logical logical; is case time-censored data?
+#' @param .failure:logical logical; is case failure-censored data?
+dk = function(x, r, .time = FALSE, .failure = FALSE){
+  # Testing values  
+  # x = 2; r = 20; .time = FALSE; .failure = FALSE
+  
+  # Construct a range of quantiles corresponding to a range of cumulative probabilities
+  by = 0.001
+  p_range = c(by/10000, by/1000, by/100, by/10, 
+              seq(from = 0, to = 1, by = 0.001),
+              1 - by/10, 1 - by/100, 1 - by/1000, 1 - by/10000)
+  p_range = sort(p_range)
+  # Get the quantiles for that range
+  q_range = qk(p = p_range, r = r, .time = .time, .failure = .failure)
+  # Fit a density curve to that quantile data, truncated at 0.
+  curve = density(q_range, cut = c(0))
+  
+  # Approximate a function using the density curve's x and y values
+  f = approxfun(x = curve$x, y = curve$y, method = "linear", rule = 2, na.rm = TRUE)
+  # Estimate density
+  d = f(x)
+  return(d)
+}
+
+# Example
+dk(x = c(0, 1, 2, 3), r = 21, .time = TRUE, .failure = FALSE)
+```
 
 
 ---

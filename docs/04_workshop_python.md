@@ -118,17 +118,17 @@ Let's plot our three curves!
 
 
 ``` python
-(ggplot(mycars, aes(x='time')) +
+g = (ggplot(mycars, aes(x='time')) +
   geom_area(aes(y='prob_cumulative', fill='"Cumulative Probability"'), alpha=0.5) +
   geom_area(aes(y='prob_survival', fill='"Reliability (Survival)"'), alpha=0.5) +
   geom_area(aes(y='prob', fill='"Probability"'), alpha=0.5) +
   theme_classic() + theme(legend_position='bottom') +
   labs(x='Lifespan of Car', y='Probability', subtitle='Example Life Distributions'))
+# Save the plot
+ggsave(g, filename="plotnine_figures/04_life_distributions.png", dpi=100, width=8, height=6)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x31445a3f0>
-```
+<img src="plotnine_figures/04_life_distributions.png" width="100%" />
 
 This new reliability function allows us to calculate 2 quantities of interest:
 

@@ -619,22 +619,26 @@ We can visualize with `matplotlib`/`pandas`, or use `plotnine` (a Python port of
 
 ``` python
 import pandas as p
-import matplotlib.pyplot as pltI 
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend
+import matplotlib.pyplot as plt
 allsw = p.DataFrame({
   'height': [4, 4.5, 5, 5, 5.5, 5.5, 5.5, 6, 6, 6.5,
              4, 4, 4, 4, 4.5, 4.5, 4.5, 5, 5, 6,
              5.5, 6, 6.5, 6.5, 7, 7, 7, 7.5, 7.5, 8],
   'states': ["MA"]*10 + ["RI"]*10 + ["ME"]*10
 })
-allsw.hist()
+axes = allsw.hist()
+# Get the figure from the axes (DataFrame.hist() returns an array of axes)
+import numpy as np
+if isinstance(axes, np.ndarray):
+    fig = axes.flatten()[0].figure
+else:
+    fig = axes.figure
+# Save the plot
+plt.savefig("matplotlib_figures/allsw.png", dpi=100, bbox_inches='tight')
+plt.close(fig)
 ```
-
-```
-## array([[<Axes: title={'center': 'height'}>]], dtype=object)
-```
-
-<img src="01_workshop_python_files/figure-html/chunk_allsw_py-1.png" width="672" />
-
 
 <img src="matplotlib_figures/allsw.png" width="100%" />
 
@@ -650,15 +654,9 @@ g = (ggplot(allsw, aes(x='height')) +
   geom_histogram(color="white", fill="steelblue", binwidth=0.5) +
   labs(x="Seawall Height", y="Frequency (# of cities)")
 )
-g
+# Save the plot
+ggsave(g, filename="plotnine_figures/plot1_py.png", dpi=100, width=8, height=6)
 ```
-
-```
-## <plotnine.ggplot.ggplot object at 0x312406e40>
-```
-
-
-
 
 <img src="plotnine_figures/plot1_py.png" width="100%" />
 
@@ -670,14 +668,9 @@ g = (ggplot(allsw, aes(x='height')) +
  geom_histogram(color="white", fill="steelblue", binwidth=0.5) +
  labs(x="Seawall Height", y="Frequency (# of cities)") +
  facet_wrap('~states'))
-g
+# Save the plot
+ggsave(g, filename="plotnine_figures/plot2_py.png", dpi=100, width=8, height=6)
 ```
-
-```
-## <plotnine.ggplot.ggplot object at 0x313d57f50>
-```
-
-
 
 <img src="plotnine_figures/plot2_py.png" width="100%" />
 
@@ -698,17 +691,19 @@ Using a list named `sw`, draw a histogram of the seawall heights: 4.5, 5, 5.5, 5
 
 ``` python
 import pandas as p
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend
+import matplotlib.pyplot as plt
 sw = [4.5, 5, 5.5, 5, 5.5, 6.5, 6.5, 6, 5, 4]
-g = p.Series(sw).hist()
-g
+ax = p.Series(sw).hist()
+fig = ax.figure
 
 # or you could do it like this!
 # hist(sw)
+# Save the plot
+plt.savefig("matplotlib_figures/sw_hist_py.png", dpi=100, bbox_inches='tight')
+plt.close(fig)
 ```
-
-<img src="01_workshop_python_files/figure-html/sw_hist_py-1.png" width="672" />
-
-
 
 <img src="matplotlib_figures/sw_hist_py.png" width="100%" />
 
@@ -729,13 +724,15 @@ Make a histogram of `jp['seawall_m']` from Learning Check 3 using (1) pandas and
 
 
 ``` python
-g = jp.seawall_m.hist()
-g
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend
+import matplotlib.pyplot as plt
+ax = jp.seawall_m.hist()
+fig = ax.figure
+# Save the plot
+plt.savefig("matplotlib_figures/seawall_m_py.png", dpi=100, bbox_inches='tight')
+plt.close(fig)
 ```
-
-<img src="01_workshop_python_files/figure-html/seawall_m_py-1.png" width="672" />
-
-
 
 <img src="matplotlib_figures/seawall_m_py.png" width="100%" />
 
@@ -744,14 +741,9 @@ g
 g = (ggplot(jp, aes(x='seawall_m')) + 
 # adjust binwidth for clearer visualization
 geom_histogram(binwidth=0.5))
-g
+# Save the plot
+ggsave(g, filename="plotnine_figures/plot3_py.png", dpi=100, width=8, height=6)
 ```
-
-```
-## <plotnine.ggplot.ggplot object at 0x313fe9cd0>
-```
-
-
 
 <img src="plotnine_figures/plot3_py.png" width="100%" />
 

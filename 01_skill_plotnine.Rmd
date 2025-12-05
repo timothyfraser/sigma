@@ -110,13 +110,23 @@ gapminder.dtypes, gapminder.shape
 ## Your first scatterplot
 
 ```{python}
-ggplot(data=gapminder, mapping=aes(x='gdpPercap', y='lifeExp'))
+p1 = ggplot(data=gapminder, mapping=aes(x='gdpPercap', y='lifeExp'))
+p1.save("plotnine_figures/01_scatter_base.png", dpi=200, width=6, height=4)
+```
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("plotnine_figures/01_scatter_base.png")
 ```
 
 Add points with `+ geom_point()`.
 
 ```{python}
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point())
+p2 = (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point())
+p2.save("plotnine_figures/01_scatter_points.png", dpi=200, width=6, height=4)
+```
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("plotnine_figures/01_scatter_points.png")
 ```
 
 ------------------------------------------------------------------------
@@ -140,9 +150,24 @@ As wealth per person (GDP per capita) increases, life expectancy rises quickly t
 ## Transparency (alpha)
 
 ```{python}
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point(alpha=0.2))
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point(alpha=0.5))
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point(alpha=1))
+p3 = (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point(alpha=0.2))
+p3.save("plotnine_figures/01_scatter_alpha02.png", dpi=200, width=6, height=4)
+p4 = (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point(alpha=0.5))
+p4.save("plotnine_figures/01_scatter_alpha05.png", dpi=200, width=6, height=4)
+p5 = (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point(alpha=1))
+p5.save("plotnine_figures/01_scatter_alpha1.png", dpi=200, width=6, height=4)
+```
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("plotnine_figures/01_scatter_alpha02.png")
+```
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("plotnine_figures/01_scatter_alpha05.png")
+```
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("plotnine_figures/01_scatter_alpha1.png")
 ```
 
 ------------------------------------------------------------------------
@@ -167,12 +192,22 @@ What happens when you change `alpha` across the three visuals above?
 
 ```{python}
 # Single color
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) +
+p6 = (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) +
   geom_point(alpha=0.5, color='steelblue'))
+p6.save("plotnine_figures/01_scatter_single_color.png", dpi=200, width=6, height=4)
 
 # Color mapped by continent
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp', color='continent')) +
+p7 = (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp', color='continent')) +
   geom_point(alpha=0.5))
+p7.save("plotnine_figures/01_scatter_mapped_color.png", dpi=200, width=6, height=4)
+```
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("plotnine_figures/01_scatter_single_color.png")
+```
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("plotnine_figures/01_scatter_mapped_color.png")
 ```
 
 ------------------------------------------------------------------------
@@ -196,7 +231,7 @@ Single color: set `color` inside `geom_point(color='...')` (outside `aes`). Mapp
 ## Improving our visualizations
 
 ```{python}
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp', color='continent')) +
+p8 = (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp', color='continent')) +
   geom_point(alpha=0.5) +
   labs(x='GDP per capita (USD)',
        y='Life Expectancy (years)',
@@ -204,6 +239,11 @@ Single color: set `color` inside `geom_point(color='...')` (outside `aes`). Mapp
        title='Does Wealth affect Health?',
        subtitle='Global Health Trends by Continent',
        caption='Points display individual country-year observations.'))
+p8.save("plotnine_figures/01_scatter_improved.png", dpi=200, width=8, height=6)
+```
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("plotnine_figures/01_scatter_improved.png")
 ```
 
 You can save visuals as objects to reuse them.
@@ -215,10 +255,26 @@ myviz = (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp', color='continent')) +
        title='Does Wealth affect Health?', subtitle='Global Health Trends by Continent',
        caption='Points display individual country-year observations.'))
 
-myviz
-myviz + theme_bw()
-myviz + theme_dark()
-myviz + theme_classic()
+myviz.save("plotnine_figures/01_myviz_default.png", dpi=200, width=8, height=6)
+(myviz + theme_bw()).save("plotnine_figures/01_myviz_bw.png", dpi=200, width=8, height=6)
+(myviz + theme_dark()).save("plotnine_figures/01_myviz_dark.png", dpi=200, width=8, height=6)
+(myviz + theme_classic()).save("plotnine_figures/01_myviz_classic.png", dpi=200, width=8, height=6)
+```
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("plotnine_figures/01_myviz_default.png")
+```
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("plotnine_figures/01_myviz_bw.png")
+```
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("plotnine_figures/01_myviz_dark.png")
+```
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("plotnine_figures/01_myviz_classic.png")
 ```
 
 <br> <br>
@@ -236,17 +292,32 @@ diamonds.dtypes, diamonds.shape
 ### Boxplots by cut
 
 ```{python}
-(ggplot(diamonds, aes(x='cut', y='price', group='cut')) + geom_boxplot())
+p9 = (ggplot(diamonds, aes(x='cut', y='price', group='cut')) + geom_boxplot())
+p9.save("plotnine_figures/01_boxplot_default.png", dpi=200, width=6, height=4)
+```
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("plotnine_figures/01_boxplot_default.png")
 ```
 
 ```{python}
-(ggplot(diamonds, aes(x='cut', y='price', group='cut')) +
+p10 = (ggplot(diamonds, aes(x='cut', y='price', group='cut')) +
   geom_boxplot(fill='steelblue'))
+p10.save("plotnine_figures/01_boxplot_fill.png", dpi=200, width=6, height=4)
+```
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("plotnine_figures/01_boxplot_fill.png")
 ```
 
 ```{python}
-(ggplot(diamonds, aes(x='cut', y='price', group='cut', fill='cut')) +
+p11 = (ggplot(diamonds, aes(x='cut', y='price', group='cut', fill='cut')) +
   geom_boxplot())
+p11.save("plotnine_figures/01_boxplot_mapped_fill.png", dpi=200, width=6, height=4)
+```
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("plotnine_figures/01_boxplot_mapped_fill.png")
 ```
 
 ------------------------------------------------------------------------
@@ -270,18 +341,28 @@ Constant fill uses `geom_boxplot(fill='steelblue')`. Mapped fill uses `aes(fill=
 ## Visualizing Distributions
 
 ```{python}
-(ggplot(diamonds, aes(x='price', fill='cut')) +
+p12 = (ggplot(diamonds, aes(x='price', fill='cut')) +
   geom_histogram(color='white') +
   labs(x='Price (USD)', y='Frequency', title='US Diamond Sales'))
+p12.save("plotnine_figures/01_histogram_default.png", dpi=200, width=8, height=6)
+```
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("plotnine_figures/01_histogram_default.png")
 ```
 
 ### Try adjusting binwidth and theme
 
 ```{python}
-(ggplot(diamonds, aes(x='price', fill='cut')) +
+p13 = (ggplot(diamonds, aes(x='price', fill='cut')) +
   geom_histogram(color='white', binwidth=500) +
   theme_classic() +
   labs(x='Price (USD)', y='Frequency', title='US Diamond Sales (binwidth=500)'))
+p13.save("plotnine_figures/01_histogram_binwidth.png", dpi=200, width=8, height=6)
+```
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("plotnine_figures/01_histogram_binwidth.png")
 ```
 
 ------------------------------------------------------------------------
@@ -297,10 +378,15 @@ Make a histogram of `price` with a narrower binwidth and apply a different theme
 <summary>**[View Answer!]**</summary>
 
 ```{python}
-(ggplot(diamonds, aes(x='price', fill='cut')) +
+p14 = (ggplot(diamonds, aes(x='price', fill='cut')) +
   geom_histogram(color='white', binwidth=250) +
   theme_bw() +
   labs(x='Price (USD)', y='Frequency'))
+p14.save("plotnine_figures/01_histogram_answer.png", dpi=200, width=8, height=6)
+```
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("plotnine_figures/01_histogram_answer.png")
 ```
 
 </details>

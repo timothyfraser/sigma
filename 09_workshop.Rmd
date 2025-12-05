@@ -72,25 +72,25 @@ nodes = tribble(
   # Classify 'type' as a factor, with specific levels
   mutate(type = factor(type, levels = c("top", "and", "or", "not")))
 
-gg = illustrate(nodes = nodes, edges = edges, type = "both", node_key = "id")
+# gg = illustrate(nodes = nodes, edges = edges, type = "both", node_key = "id")
 
-ggplot() +
-  # Plot each line corresponding to the unique edge id, used to group them
-  geom_line(data = gg$edges, mapping = aes(x = x, y = y, group = edge_id)) +
-  # Plot each point
-  geom_point(data = gg$nodes, 
-             mapping = aes(x = x, y = y, shape = type, fill = type),
-             size = 10) +
-  # Plot labels!
-  geom_text(data = gg$nodes, mapping = aes(x = x, y = y, label = event)) +
-  # We can also assign shapes!
-  # (shapes 21, 22, 23, 24, and 25 have fill and color)
-  scale_shape_manual(values = c(22, 24, 25, 21)) +
-  # And assign some poppy colors here
-  scale_fill_manual(values = c("darkgrey", "cyan", "coral", "lightgrey")) +
-  # Finally, we can make a clean void theme, with the legend below.
-  theme_void(base_size = 14) +
-  theme(legend.position = "bottom")
+# ggplot() +
+#   # Plot each line corresponding to the unique edge id, used to group them
+#   geom_line(data = gg$edges, mapping = aes(x = x, y = y, group = edge_id)) +
+#   # Plot each point
+#   geom_point(data = gg$nodes, 
+#              mapping = aes(x = x, y = y, shape = type, fill = type),
+#              size = 10) +
+#   # Plot labels!
+#   geom_text(data = gg$nodes, mapping = aes(x = x, y = y, label = event)) +
+#   # We can also assign shapes!
+#   # (shapes 21, 22, 23, 24, and 25 have fill and color)
+#   scale_shape_manual(values = c(22, 24, 25, 21)) +
+#   # And assign some poppy colors here
+#   scale_fill_manual(values = c("darkgrey", "cyan", "coral", "lightgrey")) +
+#   # Finally, we can make a clean void theme, with the legend below.
+#   theme_void(base_size = 14) +
+#   theme(legend.position = "bottom")
 
 ```
 

@@ -23,7 +23,7 @@ def lm(formula, data):
     m = sm.formula.ols(formula = formula, data = data).fit()
     return m
 
-sm.api.formula.ols
+# sm.api.formula.ols
 # Let's replicate tidy() and glance() from the broom package.
 
 ## tidy() #########################################
@@ -42,9 +42,7 @@ def tidy(x, ci = 0.95):
     # Dependencies
     from pandas import DataFrame, Series
     from statsmodels.api import OLS
-    # Testing values
-    x = m
-    ci = 0.95
+    
     output = DataFrame({
       'term' : x.params.index.values,
       'estimate' : x.params.values,

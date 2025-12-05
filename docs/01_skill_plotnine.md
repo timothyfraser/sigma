@@ -68,23 +68,21 @@ gapminder.dtypes, gapminder.shape
 
 
 ``` python
-ggplot(data=gapminder, mapping=aes(x='gdpPercap', y='lifeExp'))
+p1 = ggplot(data=gapminder, mapping=aes(x='gdpPercap', y='lifeExp'))
+p1.save("plotnine_figures/01_scatter_base.png", dpi=200, width=6, height=4)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x31651ac90>
-```
+<img src="plotnine_figures/01_scatter_base.png" width="100%" />
 
 Add points with `+ geom_point()`.
 
 
 ``` python
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point())
+p2 = (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point())
+p2.save("plotnine_figures/01_scatter_points.png", dpi=200, width=6, height=4)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x3165188c0>
-```
+<img src="plotnine_figures/01_scatter_points.png" width="100%" />
 
 ------------------------------------------------------------------------
 
@@ -108,28 +106,19 @@ As wealth per person (GDP per capita) increases, life expectancy rises quickly t
 
 
 ``` python
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point(alpha=0.2))
+p3 = (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point(alpha=0.2))
+p3.save("plotnine_figures/01_scatter_alpha02.png", dpi=200, width=6, height=4)
+p4 = (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point(alpha=0.5))
+p4.save("plotnine_figures/01_scatter_alpha05.png", dpi=200, width=6, height=4)
+p5 = (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point(alpha=1))
+p5.save("plotnine_figures/01_scatter_alpha1.png", dpi=200, width=6, height=4)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x31655b0e0>
-```
+<img src="plotnine_figures/01_scatter_alpha02.png" width="100%" />
 
-``` python
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point(alpha=0.5))
-```
+<img src="plotnine_figures/01_scatter_alpha05.png" width="100%" />
 
-```
-## <plotnine.ggplot.ggplot object at 0x31655af00>
-```
-
-``` python
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) + geom_point(alpha=1))
-```
-
-```
-## <plotnine.ggplot.ggplot object at 0x3165a02c0>
-```
+<img src="plotnine_figures/01_scatter_alpha1.png" width="100%" />
 
 ------------------------------------------------------------------------
 
@@ -154,23 +143,19 @@ What happens when you change `alpha` across the three visuals above?
 
 ``` python
 # Single color
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) +
+p6 = (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp')) +
   geom_point(alpha=0.5, color='steelblue'))
-```
+p6.save("plotnine_figures/01_scatter_single_color.png", dpi=200, width=6, height=4)
 
-```
-## <plotnine.ggplot.ggplot object at 0x3165a0110>
-```
-
-``` python
 # Color mapped by continent
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp', color='continent')) +
+p7 = (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp', color='continent')) +
   geom_point(alpha=0.5))
+p7.save("plotnine_figures/01_scatter_mapped_color.png", dpi=200, width=6, height=4)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x3165886e0>
-```
+<img src="plotnine_figures/01_scatter_single_color.png" width="100%" />
+
+<img src="plotnine_figures/01_scatter_mapped_color.png" width="100%" />
 
 ------------------------------------------------------------------------
 
@@ -194,7 +179,7 @@ Single color: set `color` inside `geom_point(color='...')` (outside `aes`). Mapp
 
 
 ``` python
-(ggplot(gapminder, aes(x='gdpPercap', y='lifeExp', color='continent')) +
+p8 = (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp', color='continent')) +
   geom_point(alpha=0.5) +
   labs(x='GDP per capita (USD)',
        y='Life Expectancy (years)',
@@ -202,11 +187,10 @@ Single color: set `color` inside `geom_point(color='...')` (outside `aes`). Mapp
        title='Does Wealth affect Health?',
        subtitle='Global Health Trends by Continent',
        caption='Points display individual country-year observations.'))
+p8.save("plotnine_figures/01_scatter_improved.png", dpi=200, width=8, height=6)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x31658ed50>
-```
+<img src="plotnine_figures/01_scatter_improved.png" width="100%" />
 
 You can save visuals as objects to reuse them.
 
@@ -218,36 +202,19 @@ myviz = (ggplot(gapminder, aes(x='gdpPercap', y='lifeExp', color='continent')) +
        title='Does Wealth affect Health?', subtitle='Global Health Trends by Continent',
        caption='Points display individual country-year observations.'))
 
-myviz
+myviz.save("plotnine_figures/01_myviz_default.png", dpi=200, width=8, height=6)
+(myviz + theme_bw()).save("plotnine_figures/01_myviz_bw.png", dpi=200, width=8, height=6)
+(myviz + theme_dark()).save("plotnine_figures/01_myviz_dark.png", dpi=200, width=8, height=6)
+(myviz + theme_classic()).save("plotnine_figures/01_myviz_classic.png", dpi=200, width=8, height=6)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x31658a8d0>
-```
+<img src="plotnine_figures/01_myviz_default.png" width="100%" />
 
-``` python
-myviz + theme_bw()
-```
+<img src="plotnine_figures/01_myviz_bw.png" width="100%" />
 
-```
-## <plotnine.ggplot.ggplot object at 0x31655a900>
-```
+<img src="plotnine_figures/01_myviz_dark.png" width="100%" />
 
-``` python
-myviz + theme_dark()
-```
-
-```
-## <plotnine.ggplot.ggplot object at 0x316518f80>
-```
-
-``` python
-myviz + theme_classic()
-```
-
-```
-## <plotnine.ggplot.ggplot object at 0x31658bf50>
-```
+<img src="plotnine_figures/01_myviz_classic.png" width="100%" />
 
 <br> <br>
 
@@ -288,32 +255,29 @@ diamonds.dtypes, diamonds.shape
 
 
 ``` python
-(ggplot(diamonds, aes(x='cut', y='price', group='cut')) + geom_boxplot())
+p9 = (ggplot(diamonds, aes(x='cut', y='price', group='cut')) + geom_boxplot())
+p9.save("plotnine_figures/01_boxplot_default.png", dpi=200, width=6, height=4)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x3165a0770>
-```
+<img src="plotnine_figures/01_boxplot_default.png" width="100%" />
 
 
 ``` python
-(ggplot(diamonds, aes(x='cut', y='price', group='cut')) +
+p10 = (ggplot(diamonds, aes(x='cut', y='price', group='cut')) +
   geom_boxplot(fill='steelblue'))
+p10.save("plotnine_figures/01_boxplot_fill.png", dpi=200, width=6, height=4)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x3165da510>
-```
+<img src="plotnine_figures/01_boxplot_fill.png" width="100%" />
 
 
 ``` python
-(ggplot(diamonds, aes(x='cut', y='price', group='cut', fill='cut')) +
+p11 = (ggplot(diamonds, aes(x='cut', y='price', group='cut', fill='cut')) +
   geom_boxplot())
+p11.save("plotnine_figures/01_boxplot_mapped_fill.png", dpi=200, width=6, height=4)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x3165ece90>
-```
+<img src="plotnine_figures/01_boxplot_mapped_fill.png" width="100%" />
 
 ------------------------------------------------------------------------
 
@@ -337,28 +301,26 @@ Constant fill uses `geom_boxplot(fill='steelblue')`. Mapped fill uses `aes(fill=
 
 
 ``` python
-(ggplot(diamonds, aes(x='price', fill='cut')) +
+p12 = (ggplot(diamonds, aes(x='price', fill='cut')) +
   geom_histogram(color='white') +
   labs(x='Price (USD)', y='Frequency', title='US Diamond Sales'))
+p12.save("plotnine_figures/01_histogram_default.png", dpi=200, width=8, height=6)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x3164ebce0>
-```
+<img src="plotnine_figures/01_histogram_default.png" width="100%" />
 
 ### Try adjusting binwidth and theme
 
 
 ``` python
-(ggplot(diamonds, aes(x='price', fill='cut')) +
+p13 = (ggplot(diamonds, aes(x='price', fill='cut')) +
   geom_histogram(color='white', binwidth=500) +
   theme_classic() +
   labs(x='Price (USD)', y='Frequency', title='US Diamond Sales (binwidth=500)'))
+p13.save("plotnine_figures/01_histogram_binwidth.png", dpi=200, width=8, height=6)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x31658f680>
-```
+<img src="plotnine_figures/01_histogram_binwidth.png" width="100%" />
 
 ------------------------------------------------------------------------
 
@@ -374,15 +336,14 @@ Make a histogram of `price` with a narrower binwidth and apply a different theme
 
 
 ``` python
-(ggplot(diamonds, aes(x='price', fill='cut')) +
+p14 = (ggplot(diamonds, aes(x='price', fill='cut')) +
   geom_histogram(color='white', binwidth=250) +
   theme_bw() +
   labs(x='Price (USD)', y='Frequency'))
+p14.save("plotnine_figures/01_histogram_answer.png", dpi=200, width=8, height=6)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x3164eb650>
-```
+<img src="plotnine_figures/01_histogram_answer.png" width="100%" />
 
 </details>
 
