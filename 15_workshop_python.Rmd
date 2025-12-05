@@ -258,8 +258,10 @@ print(l3.params == m3.params)
 By default, linear models estimate linear relationships between predictors and outcomes, but many relationships are indeed *not* linear! Here are 8 ways we might model associations!
 
 ```{r, echo = FALSE}
+library(tidyverse)
 library(ggtext)
 library(ggplot2)
+library(viridis)
 
 logit = function(x){ log(x / (1 - x)) }
 
