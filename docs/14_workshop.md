@@ -590,6 +590,10 @@ direct %>%
 
 ##  Interaction Effects
 
+To support your analysis, we have created several functions to estimate interaction effects in factorial experiments.
+They can be found in the [`functions/functions_factorial.R` file of this repository.](https://github.com/timothyfraser/sigma/blob/main/functions/functions_factorial.R).
+If you are working with a copy or clone of this repository, you can source this file into your `R` session by typing `source("functions/functions_factorial.R")`.
+
 ### Estimating a Pooled Standard Error
 
 In a factorial experiment, each combination of factors can vary a little due to random noise. This makes it hard to compare effects, so we want to use a **pooled standard error** that represents the average amount of noise across all groups before estimating treatment effects. 
@@ -628,7 +632,7 @@ se_factorial(formula = y ~ machine + syrup + art, lattes)
 ## [1] 2.796643
 ```
 
-### Estimating 1-way interations
+### Estimating 1-way (direct) effects with `dbar_oneway()`
 
 In factorial design, one-way effect shows how changing one factor affects the outcome. For example, we want to know whether Machine B makes better-tasting lattes than Machine A, regardless of the other factors like syrup or art.
 

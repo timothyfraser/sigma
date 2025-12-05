@@ -1,4 +1,4 @@
-# Distributions and Descriptive Statistics in Python
+en di# Distributions and Descriptive Statistics in Python
 
 
 
@@ -237,24 +237,28 @@ mysd = sw.std()
 
 ``` python
 mynorm = rnorm(n=1000, mean=mymean, sd=mysd)
-hist(mynorm)
+h1 = hist(mynorm)
+h1.save("plotnine_figures/02_hist_normal.png", dpi=100, width=6, height=4)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x16ed3d580>
-```
+<div class="figure">
+<img src="plotnine_figures/02_hist_normal.png" alt="Normal distribution histogram" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-16)Normal distribution histogram</p>
+</div>
 
 ### Poisson
 
 
 ``` python
 mypois = rpois(n=1000, mu=mymean)
-hist(mypois)
+h2 = hist(mypois)
+h2.save("plotnine_figures/02_hist_poisson.png", dpi=100, width=6, height=4)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x308f8d8e0>
-```
+<div class="figure">
+<img src="plotnine_figures/02_hist_poisson.png" alt="Poisson distribution histogram" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-18)Poisson distribution histogram</p>
+</div>
 
 ### Exponential
 
@@ -262,12 +266,14 @@ hist(mypois)
 ``` python
 myrate_e = 1 / sw.mean()
 myexp = rexp(n=1000, rate=myrate_e)
-hist(myexp)
+h3 = hist(myexp)
+h3.save("plotnine_figures/02_hist_exponential.png", dpi=100, width=6, height=4)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x30b79a420>
-```
+<div class="figure">
+<img src="plotnine_figures/02_hist_exponential.png" alt="Exponential distribution histogram" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-20)Exponential distribution histogram</p>
+</div>
 
 ### Gamma
 
@@ -276,12 +282,14 @@ hist(myexp)
 myshape = sw.mean()**2 / sw.var()
 myrate = 1 / (sw.var() / sw.mean())
 mygamma = rgamma(n=1000, shape=myshape, rate=myrate)
-hist(mygamma)
+h4 = hist(mygamma)
+h4.save("plotnine_figures/02_hist_gamma.png", dpi=100, width=6, height=4)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x30b7b0d70>
-```
+<div class="figure">
+<img src="plotnine_figures/02_hist_gamma.png" alt="Gamma distribution histogram" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-22)Gamma distribution histogram</p>
+</div>
 
 ### Weibull
 
@@ -290,12 +298,14 @@ hist(mygamma)
 from scipy import stats as fitdistr
 myshape_w, loc, myscale_w = fitdistr.weibull_min.fit(sw, floc=0)
 myweibull = rweibull(n=1000, shape=myshape_w, scale=myscale_w)
-hist(myweibull)
+h5 = hist(myweibull)
+h5.save("plotnine_figures/02_hist_weibull.png", dpi=100, width=6, height=4)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x30abb1040>
-```
+<div class="figure">
+<img src="plotnine_figures/02_hist_weibull.png" alt="Weibull distribution histogram" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-24)Weibull distribution histogram</p>
+</div>
 
 ## Comparing Distributions
 
@@ -313,21 +323,24 @@ mysim = p.concat([
 g1 = (ggplot(mysim, aes(x='x', fill='type')) +
   geom_density(alpha=0.5) +
   labs(x='Seawall Height (m)', y='Density (Frequency)', subtitle='Which distribution fits best?', fill='Type'))
-g1
+g1.save("plotnine_figures/02_density_comparison.png", dpi=100, width=8, height=6)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x30676d8b0>
-```
+<div class="figure">
+<img src="plotnine_figures/02_density_comparison.png" alt="Distribution comparison" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-26)Distribution comparison</p>
+</div>
 
 
 ``` python
-g1 + xlim(0,10)
+g2 = g1 + xlim(0,10)
+g2.save("plotnine_figures/02_density_comparison_xlim.png", dpi=100, width=8, height=6)
 ```
 
-```
-## <plotnine.ggplot.ggplot object at 0x30b74bc20>
-```
+<div class="figure">
+<img src="plotnine_figures/02_density_comparison_xlim.png" alt="Distribution comparison with x-axis limits" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-28)Distribution comparison with x-axis limits</p>
+</div>
 
 ---
 
@@ -347,7 +360,7 @@ m = rnorm(1000, mean=mymean, sd=mysd)
 ```
 
 ```
-## [5.31369576645973, 0.8235176440088696]
+## [5.321696687180736, 0.8217958033483576]
 ```
 
 </details>

@@ -1,4 +1,4 @@
-# Statistical Techniques for Exponential Distributions
+# Statistical Techniques for Exponential Distributions in `R`
 
 
 
@@ -429,7 +429,7 @@ Estimate $\hat{\lambda}$ from the cross-tabulated data, knowing that they tested
 ## # A tibble: 1 × 5
 ##       r  days     n    tz lambda_hat
 ##   <dbl> <dbl> <dbl> <dbl>      <dbl>
-## 1    25  444.    25  52.5     0.0562
+## 1    25  416.    25  52.5     0.0600
 ```
 
 </details>
@@ -604,48 +604,48 @@ qk(p = 0.95, r = 20)
 ## [1] 1.393962
 ```
 
-This function below estimates the probability densities for a given ser of k-factor values. It is useful to visualize and compare distributions under different conditions.
+This `rk` function generates random samples of k-factor values. It's useful when you want to run simulations and make plots to visualize the spread.
 
 
 ``` r
-#' @name dk
-#' @title k-factor Probability Density Function
+#' @name rk
+#' @title k-factor Random Deviates
 #' @description 
-#' Function to return probability densities given a supplied k-factor quantile `q`.
-#' Intended for visualizing sampling distributions of failure rates.
-#' @param x:[dbl] vector of quantiles (k-factors)
+#' Get a random sample of k-factor values for simulating sampling distributions of failure rates.
+#' @param n:int number of observations.
 #' @param r:int number of failures (non-negative integers; can include zero)
 #' @param .time:logical logical; is case time-censored data?
 #' @param .failure:logical logical; is case failure-censored data?
-dk = function(x, r, .time = FALSE, .failure = FALSE){
-  # Testing values  
-  # x = 2; r = 20; .time = FALSE; .failure = FALSE
+rk = function(n, r, .time = FALSE, .failure = FALSE){
   
-  # Construct a range of quantiles corresponding to a range of cumulative probabilities
-  by = 0.001
-  p_range = c(by/10000, by/1000, by/100, by/10, 
-              seq(from = 0, to = 1, by = 0.001),
-              1 - by/10, 1 - by/100, 1 - by/1000, 1 - by/10000)
-  p_range = sort(p_range)
-  # Get the quantiles for that range
-  q_range = qk(p = p_range, r = r, .time = .time, .failure = .failure)
-  # Fit a density curve to that quantile data, truncated at 0.
-  curve = density(q_range, cut = c(0))
+  # Testing values
+  # n = 100; r = 20; .time = FALSE; .failure = FALSE
   
-  # Approximate a function using the density curve's x and y values
-  f = approxfun(x = curve$x, y = curve$y, method = "linear", rule = 2, na.rm = TRUE)
-  # Estimate density
-  d = f(x)
-  return(d)
+  # Input error handling
+  stopifnot(is.integer(as.integer(n)) & as.integer(n) > 0)
+  stopifnot(is.logical(.time))
+  stopifnot(is.logical(.failure))
+  stopifnot(
+    (.time == TRUE & .failure == FALSE) | 
+      (.time == FALSE & .failure == FALSE) | 
+      (.time == FALSE & .failure == TRUE) )
+  
+  # Does r == 0?
+  .zerofailures = r == 0
+  
+  # Generate a uniform distribution of percentiles p
+  p_uniform = runif(n = n, min = 0, max = 1)
+  
+  # Return quantiles for the random percentiles
+  k = qk(p = p_uniform, r = r, .time = .time, .failure = .failure)
+  return(k)
 }
 
-# Example
-dk(x = c(0, 1, 2, 3), r = 21, .time = TRUE, .failure = FALSE)
+# Visualize 1000 random k-factors
+rk(n = 1000, r = 20) %>% hist()
 ```
 
-```
-## [1] 0.006787618 1.218508013 0.002907306 0.006853889
-```
+<img src="07b_workshop_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
 If you already have the k-factor value and want to know what percentile it is, use this `pk` function to find out!
  
@@ -689,50 +689,48 @@ pk(q = 2, r = 20)
 ## [1] 0.9996857
 ```
 
-
-This `rk` function generates random samples of k-factor values. It's useful when you want to run simulations and make plots to visualize the spread.
+This function below estimates the probability densities for a given ser of k-factor values. It is useful to visualize and compare distributions under different conditions.
 
 
 ``` r
-#' @name rk
-#' @title k-factor Random Deviates
+#' @name dk
+#' @title k-factor Probability Density Function
 #' @description 
-#' Get a random sample of k-factor values for simulating sampling distributions of failure rates.
-#' @param n:int number of observations.
+#' Function to return probability densities given a supplied k-factor quantile `q`.
+#' Intended for visualizing sampling distributions of failure rates.
+#' @param x:[dbl] vector of quantiles (k-factors)
 #' @param r:int number of failures (non-negative integers; can include zero)
 #' @param .time:logical logical; is case time-censored data?
 #' @param .failure:logical logical; is case failure-censored data?
-rk = function(n, r, .time = FALSE, .failure = FALSE){
+dk = function(x, r, .time = FALSE, .failure = FALSE){
+  # Testing values  
+  # x = 2; r = 20; .time = FALSE; .failure = FALSE
   
-  # Testing values
-  # n = 100; r = 20; .time = FALSE; .failure = FALSE
+  # Construct a range of quantiles corresponding to a range of cumulative probabilities
+  by = 0.001
+  p_range = c(by/10000, by/1000, by/100, by/10, 
+              seq(from = 0, to = 1, by = 0.001),
+              1 - by/10, 1 - by/100, 1 - by/1000, 1 - by/10000)
+  p_range = sort(p_range)
+  # Get the quantiles for that range
+  q_range = qk(p = p_range, r = r, .time = .time, .failure = .failure)
+  # Fit a density curve to that quantile data, truncated at 0.
+  curve = density(q_range, cut = c(0))
   
-  # Input error handling
-  stopifnot(is.integer(as.integer(n)) & as.integer(n) > 0)
-  stopifnot(is.logical(.time))
-  stopifnot(is.logical(.failure))
-  stopifnot(
-    (.time == TRUE & .failure == FALSE) | 
-      (.time == FALSE & .failure == FALSE) | 
-      (.time == FALSE & .failure == TRUE) )
-  
-  # Does r == 0?
-  .zerofailures = r == 0
-  
-  # Generate a uniform distribution of percentiles p
-  p_uniform = runif(n = n, min = 0, max = 1)
-  
-  # Return quantiles for the random percentiles
-  k = qk(p = p_uniform, r = r, .time = .time, .failure = .failure)
-  return(k)
+  # Approximate a function using the density curve's x and y values
+  f = approxfun(x = curve$x, y = curve$y, method = "linear", rule = 2, na.rm = TRUE)
+  # Estimate density
+  d = f(x)
+  return(d)
 }
 
-# Visualize 1000 random k-factors
-rk(n = 1000, r = 20) %>% hist()
+# Example
+dk(x = c(0, 1, 2, 3), r = 21, .time = TRUE, .failure = FALSE)
 ```
 
-<img src="07b_workshop_files/figure-html/unnamed-chunk-28-1.png" width="672" />
-
+```
+## [1] 0.006787618 1.218508013 0.002907306 0.006853889
+```
 
 
 ---
